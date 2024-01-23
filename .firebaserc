@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "roc-web-app"
+  },
+  "targets": {
+    "roc-web-app": {
+      "hosting": {
+        "staging": [
+          "staging-roc"
+        ],
+        "development": [
+          "development-roc"
+        ]
+      }
+    }
+  }
+}
