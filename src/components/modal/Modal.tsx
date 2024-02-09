@@ -1,25 +1,26 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import CloseModal from '../../../assets/images/CloseModal.png'
+import CloseModal from "../../../assets/images/CloseModal.png";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
+  title:string;
 }
 
 const StyledModal = styled.div<{
-  isOpen: boolean;
-  screenWidthPercentage: number;
-  screenWidth: number;
+   $isopen: boolean;
+  $screenwidthpercentage: number;
+  $screenwidth: number;
 }>`
   position: fixed;
   top: 0;
-  left: ${({ isOpen, screenWidthPercentage }) =>
-    isOpen ? `${190 - screenWidthPercentage}%` : "0%"};
+  left: ${({  $isopen, $screenwidthpercentage }) =>
+     $isopen ? `${190 - $screenwidthpercentage}%` : "0%"};
   transform: translateX(
-    -${({ screenWidthPercentage }) => 230 - screenWidthPercentage}%
+    -${({ $screenwidthpercentage }) => 230 - $screenwidthpercentage}%
   );
   bottom: 0%;
   width: 352px; /* Adjust this value as needed */
@@ -36,23 +37,28 @@ const StyledModal = styled.div<{
   backdrop-filter: blur(22px);
   display: flex;
   justify-content: space-between;
-  align-items:flex-start;
-  margin: 16px auto; 
+  align-items: flex-start;
+  margin: 16px auto;
   transition: left 0.8s ease-in-out;
   z-index: 0;
-  padding:40px;
+  padding:24px 0px;
+  overflow:auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .modal-content {
     background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 100%
-    ),
-    #ff0;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    width:100%
+        0deg,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.8) 100%
+      ),
+      #ff0;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    width: 100%;
   }
 
   .close-button {
@@ -62,17 +68,16 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (min-width: 1500px) {
-    left: ${({ isOpen, screenWidthPercentage }) =>
-    isOpen ? "40%" : "0%"};
-  transform: none
+    left: ${({  $isopen }) => ( $isopen ? "40%" : "0%")};
+    transform: none;
   }
 
   @media screen and (max-width: 800px) {
     left: 0;
     top: auto;
     height: 100%;
-    bottom: ${({ isOpen }) =>
-      isOpen
+    bottom: ${({  $isopen }) =>
+       $isopen
         ? "0%"
         : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
@@ -80,10 +85,10 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (max-width: 1130px) {
-    width: ${({ screenWidth }) => (screenWidth < 800 ? "none" : "585px")};
+    width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
     max-width: 100%;
-    left: ${({ isOpen, screenWidth }) =>
-      isOpen ? "0%" : screenWidth < 800 ? "0" : "-100%"};
+    left: ${({  $isopen, $screenwidth }) =>
+       $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
     transform: none;
     z-index: 1;
     margin: 0px; /* Center the modal horizontally */
@@ -91,7 +96,14 @@ const StyledModal = styled.div<{
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px;
+`;
+
+const Modal: React.FC<ModalProps> = ({  isOpen, onClose, children,title }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(100);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -115,18 +127,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return (
     <StyledModal
-      isOpen={isOpen}
-      screenWidthPercentage={screenWidthPercentage}
-      screenWidth={screenWidth}
+      $isopen={isOpen}
+      $screenwidthpercentage={screenWidthPercentage}
+      $screenwidth={screenWidth}
     >
       <div className="modal-content">
-        {children}
+      <HeaderContainer>
+        <h4>{title}</h4>
         <Image
-            style={{ width:40, height:40,cursor: "pointer"  }}
-            src={CloseModal}
-            alt="Logo Outline"
-            onClick={onClose}
-          />
+          style={{ width: 40, height: 40, cursor: "pointer" }}
+          src={CloseModal}
+          alt="Logo Outline"
+          onClick={onClose}
+        />
+      </HeaderContainer>
+        {children}
       </div>
     </StyledModal>
   );
