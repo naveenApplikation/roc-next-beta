@@ -101,6 +101,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
+  margin-bottom:4px;
 `;
 
 const Modal: React.FC<ModalProps> = ({  isOpen, onClose, children,title }) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashBoardModal from "../../components/modal/Modal";
 import styled from "styled-components";
 import Image from "next/image";
@@ -17,6 +17,7 @@ import {
   DirectoryMenu,
   rightSideMenuMobile,
   community,
+  RestroListData,
 } from "./data";
 import chevronRight from "../../../assets/images/chevron-right.png";
 import mapIcon from "../../../assets/images/mapIcon.png";
@@ -27,6 +28,15 @@ import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
 import ModalContent from "./ModalContent";
+import CalenderModal from "./calenderModal";
+import PlacesFormModal from "./placesFormModal";
+import PlacesConfirmModal from "./placeConfirmNodal";
+import OrderOnlineModal from "./orderOnlineModal";
+import { Segmented } from "antd";
+import TabPanel from "@/components/tabPanel";
+import { blank, filterSearch, thumbsup, utensils } from "../utils/ImagePath";
+import FilterSection from "@/components/filterSection";
+import Ratings from "@/components/ratings";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +59,7 @@ const MainContainer = styled.div`
     border-radius: 24px 24px 0px 0px;
     height: auto;
     overflow: hidden;
+    margin-top:500px;
   }
 `;
 
@@ -344,6 +355,9 @@ const RightMenu = styled.div`
     flex-direction: column;
     height: 500px;
     padding: 16px;
+    position:fixed;
+    top:0;
+    width:100%;
   }
 `;
 
@@ -378,8 +392,96 @@ const AllCategories = styled.div`
   }
 `;
 
+const SearchedContainer = styled.div`
+    background-color : #F2F3F3;
+    padding: 0px 40px;
+    border-radius: 24px 24px 0px 0px;
+    box-shadow: 0px -8px 40px 0px #00000040;
+    transition:5s;
+    @media screen and (max-width: 800px) {
+      box-shadow:none;
+      background-color:transparent;
+    }
+
+    .ant-segmented{ 
+      width:100%;
+      min-height:32px;
+      padding:3px;
+      background-color:#7676801F;
+    }
+    .filterInput{
+      padding:0px;
+      box-shadow: 0px 0px 0px 0px #5229001A;
+      box-shadow: 0px 9px 21px 0px #5229001A;
+      margin:15px 0px;
+    }
+    .ant-segmented-item{
+      flex-grow:1;
+    }
+    :where(.css-dev-only-do-not-override-1rqnfsa).ant-segmented .ant-segmented-item-selected{
+      border-radius:7px;
+      box-shadow: 0px 3px 8px 0px #0000001F;
+    }
+    .ant-segmented-item-label{
+      font-size: 13px;
+      font-weight:500;
+    }
+    .ant-segmented-item-selected .ant-segmented-item-label{
+      font-weight :600;
+    }
+`
+const FilterContainer = styled.div`
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-top:20px;
+    margin-bottom:30px;
+    div{
+      padding:0px;
+    }
+`
+const SearchedListContainer = styled.div`
+padding-bottom: 40px;
+`
+const SearchedData = styled.div`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    border-bottom:1px solid #D9D9D9;
+    padding:10px 0px;
+    p{
+      font-size:13px;
+      font-weight:400;
+      
+    }
+    .likes{
+      background-color:#00000014;
+      padding: 8px 16px;
+      border-radius:16px;
+      text-align:center;
+    }
+    .shopName{
+      font-size:16px;
+      font-weight:600;
+    } 
+    p span{
+      color : #2B902B;
+    }
+   
+    `
+
+const options = ["Lists", "Places"]
+
+type tabs = "Lists" | "Places";
+
 const DashBoard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalName, setModalName] = useState<string>("")
+  const [tabValue, setTabValue] = useState("Lists")
+  const [focused, setFocused] = useState(false)
+  const specificSectionRef = useRef<HTMLDivElement>(null);
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -388,175 +490,234 @@ const DashBoard: React.FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const openModalClick = (name: string) => {
+    console.log("name", name);
+
+    setModalName(name)
+  }
+  const tabChange = (value: tabs) => {
+    setTabValue(value)
+    console.log(value)
+  }
+  const searchFocus=(e:any)=>{
+    setFocused(true)
+  }
+
+
+  const handleClick = (event: MouseEvent) => {
+    console.log("specificSectionRef" , specificSectionRef)
+    if (specificSectionRef.current && !specificSectionRef.current.contains(event.target as Node)) {
+      setFocused(false)
+    }
+  };
+  useEffect(() => {
+    document.body.addEventListener('click', handleClick);
+    return () => {
+      document.body.removeEventListener('click', handleClick);
+    };
+  }, []);
 
   return (
     <>
       <Container>
         <MainContainer>
-          <DashboardMenu>
-            <HeadMenu>
-              <Image
-                style={{ width: "116.615px", height: "48px" }}
-                src={logoOutline}
-                alt="Logo Outline"
-              />
-              <HeaderMapProfileContainer>
-                <Image
-                  style={{ width: "48px", height: "48px" }}
-                  src={mapIcon}
-                  alt="Logo Outline"
-                />
-                <Image
-                  style={{ width: "48px", height: "48px" }}
-                  src={profileIcon}
-                  alt="Logo Outline"
-                />
-              </HeaderMapProfileContainer>
-            </HeadMenu>
-            <InputWrapper>
-              <SearchInput />
-              <FilterInput>
-                <Image
-                  style={{ width: "16px", height: "16px" }}
-                  src={filter}
-                  alt="Filter icon"
-                />
-                Filter
-              </FilterInput>
-            </InputWrapper>
-            <ScrollingMenu>
-              {topSideMenu.map((item, index) => {
-                return (
-                  <TopsideMenuContainer key={index}>
+          <DashboardMenu style={{paddingBottom : `${focused ? '0px' : "40px"}`}}>
+            {!focused ?
+              <>
+                <HeadMenu>
+                  <Image
+                    style={{ width: "116.615px", height: "48px" }}
+                    src={logoOutline}
+                    alt="Logo Outline"
+                  />
+                  <HeaderMapProfileContainer>
+                    <Image
+                      style={{ width: "48px", height: "48px" }}
+                      src={mapIcon}
+                      alt="Logo Outline"
+                    />
+                    <Image
+                      style={{ width: "48px", height: "48px" }}
+                      src={profileIcon}
+                      alt="Logo Outline"
+                    />
+                  </HeaderMapProfileContainer>
+                </HeadMenu>
+                <InputWrapper>
+                  <SearchInput onFocus={searchFocus}/>
+                  <FilterInput>
                     <Image
                       style={{ width: "16px", height: "16px" }}
-                      src={item.image}
-                      alt="icon"
+                      src={filter}
+                      alt="Filter icon"
                     />
-                    <p>{item.name}</p>
-                  </TopsideMenuContainer>
-                );
-              })}
-            </ScrollingMenu>
-            <MenuDetails isOpen={openModal} title="Local cuisine" />
-            <ScrollingMenu>
-              {LocalCuisineMenuItem.map((item) => {
-                return (
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                );
-              })}
-            </ScrollingMenu>
-            <MenuDetails isOpen={openModal} title="Family Events" />
-            <ScrollingMenu>
-              {familyEventMenuItem.map((item, index) => {
-                return (
-                  <FamilEventContainer key={index}>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <p className="date">{item.date}</p>
-                      <span className="month">{item.month}</span>
-                    </div>
-                    <FamilEventText>{item.resturantName}</FamilEventText>
-                  </FamilEventContainer>
-                );
-              })}
-            </ScrollingMenu>
-            <MenuDetails isOpen={openModal} title="Enjoy the sunshine" />
-            <ScrollingMenu>
-              {EnjoyShineMenuItem.map((item) => {
-                return (
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                );
-              })}
-            </ScrollingMenu>
-            <MenuDetails isOpen={openModal} title="Top Attractions" />
-            <ScrollingMenu>
-              {topAttractionItem.map((item, index) => {
-                return (
-                  <TopAttractionContainer key={index}>
-                    <TopAttractionprofile></TopAttractionprofile>
-                    <p>{item.menuName}</p>
-                  </TopAttractionContainer>
-                );
-              })}
-            </ScrollingMenu>
-            <DirectoryContainer>
-              <DirectoryTitle>Directory</DirectoryTitle>
-              <Image
-                style={{ width: "10px", height: "16px" }}
-                src={chevronRight}
-                alt="right icon"
-              />{" "}
-            </DirectoryContainer>
-            <Directory />
-            <MenuDetails isOpen={openModal} title="Bars" />
-            <ScrollingMenu>
-              {LocalCuisineMenuItem.map((item) => {
-                return (
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                );
-              })}
-            </ScrollingMenu>
-            {/* <MenuDetails isOpen={openModal} title="Shopping" /> */}
-            <MenuDetails isOpen={openModal} title="Community" />
-            <ScrollingMenu>
-              {community.map((item, index) => {
-                return (
-                  <CommunityContainer
-                    key={index}
-                    style={{ background: item.color }}
-                  >
-                    <Image
-                      style={{ width: "18px", height: "16px" }}
-                      src={item.image}
-                      alt="right icon"
-                    />{" "}
-                    <p>{item.name}</p>
-                  </CommunityContainer>
-                );
-              })}
-            </ScrollingMenu>
-            <MenuDetails isOpen={openModal} title="Heritage" />
-            <ScrollingMenu>
-              {LocalCuisineMenuItem.map((item,index)=>{
-                return(
-                  <div style={{ width: 120,gap:16,display:"flex",flexDirection:"column" }} key={index}>
-                  <div style={{height:64,width:"100%",background:"linear-gradient(45deg, black, transparent)"}}></div>
-                  <div>
-                    <div
-                      style={{ display: "flex", gap: 4, alignItems: "center" }}
-                    >
-                      <Image
-                        style={{ width: "68px", height: "12px" }}
-                        src={CommentRatingImage}
-                        alt="right icon"
-                      />{" "}
-                      <p>4.7</p>
-                    </div>
-                    <p style={{fontSize:14}}>{item.resturantName}</p>
-                  </div>
-                </div>
-                )
-              })}
-           
-            </ScrollingMenu>
+                    Filter
+                  </FilterInput>
+                </InputWrapper>
+
+                <ScrollingMenu>
+                  {topSideMenu.map((item, index) => {
+                    return (
+                      <TopsideMenuContainer onClick={() => openModalClick(item.name)} key={index}>
+                        <Image
+                          style={{ width: "16px", height: "16px" }}
+                          src={item.image}
+                          alt="icon"
+                        />
+                        <p>{item.name}</p>
+                      </TopsideMenuContainer>
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Local cuisine" />
+                <ScrollingMenu>
+                  {LocalCuisineMenuItem.map((item) => {
+                    return (
+                      <RatingMenu
+                        title={item.menuName}
+                        menuImageUrl={item.image}
+                        containerImageUrl={true}
+                        MenutitleDetail={item.resturantName}
+                      />
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Family Events" />
+                <ScrollingMenu>
+                  {familyEventMenuItem.map((item, index) => {
+                    return (
+                      <FamilEventContainer key={index}>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <p className="date">{item.date}</p>
+                          <span className="month">{item.month}</span>
+                        </div>
+                        <FamilEventText>{item.resturantName}</FamilEventText>
+                      </FamilEventContainer>
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Enjoy the sunshine" />
+                <ScrollingMenu>
+                  {EnjoyShineMenuItem.map((item) => {
+                    return (
+                      <RatingMenu
+                        title={item.menuName}
+                        menuImageUrl={item.image}
+                        containerImageUrl={true}
+                        MenutitleDetail={item.resturantName}
+                      />
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Top Attractions" />
+                <ScrollingMenu>
+                  {topAttractionItem.map((item, index) => {
+                    return (
+                      <TopAttractionContainer key={index}>
+                        <TopAttractionprofile></TopAttractionprofile>
+                        <p>{item.menuName}</p>
+                      </TopAttractionContainer>
+                    );
+                  })}
+                </ScrollingMenu>
+                <DirectoryContainer>
+                  <DirectoryTitle>Directory</DirectoryTitle>
+                  <Image
+                    style={{ width: "10px", height: "16px" }}
+                    src={chevronRight}
+                    alt="right icon"
+                  />{" "}
+                </DirectoryContainer>
+                <Directory />
+                <MenuDetails isOpen={openModal} title="Bars" />
+                <ScrollingMenu>
+                  {LocalCuisineMenuItem.map((item) => {
+                    return (
+                      <RatingMenu
+                        title={item.menuName}
+                        menuImageUrl={item.image}
+                        containerImageUrl={true}
+                        MenutitleDetail={item.resturantName}
+                      />
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Community" />
+                <ScrollingMenu>
+                  {community.map((item, index) => {
+                    return (
+                      <CommunityContainer
+                        key={index}
+                        style={{ background: item.color }}
+                      >
+                        <Image
+                          style={{ width: "18px", height: "16px" }}
+                          src={item.image}
+                          alt="right icon"
+                        />{" "}
+                        <p>{item.name}</p>
+                      </CommunityContainer>
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Heritage" />
+                <ScrollingMenu>
+                  {LocalCuisineMenuItem.map((item, index) => {
+                    return (
+                      <div style={{ width: 120, gap: 16, display: "flex", flexDirection: "column" }} key={index}>
+                        <div style={{ height: 64, width: "100%", background: "linear-gradient(45deg, black, transparent)" }}></div>
+                        <div>
+                          <div
+                            style={{ display: "flex", gap: 4, alignItems: "center" }}
+                          >
+                            <Image
+                              style={{ width: "68px", height: "12px" }}
+                              src={CommentRatingImage}
+                              alt="right icon"
+                            />{" "}
+                            <p>4.7</p>
+                          </div>
+                          <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+                        </div>
+                      </div>
+                    )
+                  })}
+
+                </ScrollingMenu>
+              </> :
+              <SearchedContainer ref={specificSectionRef}>
+                <InputWrapper className="filterInput">
+                  <SearchInput />
+                </InputWrapper>
+                <TabPanel defaultValue="Lists" tabChange={tabChange} options={options} />
+                <FilterContainer>
+                  <FilterSection />
+                </FilterContainer>
+                <SearchedListContainer>
+                  {RestroListData.map((item: any) => {
+                    return (
+                      <SearchedData>
+                        <Image style={{ background: "white" }} src={blank} alt="" />
+                        <div className="restroRating">
+                          <p className="shopName">{item.name}</p>
+                          <Image src={utensils} style={{ width: "13px", height: "13px", marginRight: 8 }} alt="utensils" />
+                          <Ratings defaultValue={item.rating} />
+                          <p><span>Open - Closes</span></p>
+                          <p>Indoors</p>
+                        </div>
+                        <div className="likes">
+                          <Image src={thumbsup} alt="like" style={{ width: "16px", height: "16px" }} />
+                          <p>{item.likeCount}</p>
+                        </div>
+                      </SearchedData>
+                    )
+                  })}
+                </SearchedListContainer>
+              </SearchedContainer>
+            }
           </DashboardMenu>
         </MainContainer>
-        <RightMenu>
+        <RightMenu className="lllllll">
           <RightSideHeadMenu>
             <Image
               style={{ width: "116.615px", height: "48px" }}
@@ -605,8 +766,14 @@ const DashBoard: React.FC = () => {
           </AllCategories>
         </RightMenu>
       </Container>
+
+
       <DashBoardModal isOpen={isModalOpen} onClose={closeModal} title="Brasserie Colmar" >
-        <ModalContent onClose={closeModal} />
+        {/* <ModalContent onClose={closeModal} /> */}
+        <CalenderModal onClose={closeModal} />
+        {/* <PlacesFormModal /> */}
+        {/* <PlacesConfirmModal /> */}
+        {/* <OrderOnlineModal /> */}
       </DashBoardModal>
     </>
   );

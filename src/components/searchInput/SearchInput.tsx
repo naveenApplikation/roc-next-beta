@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import search from '../../../assets/images/search.png';
 import Image from "next/image";
 
+
+interface SearchComponentProps {
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+}
+
+
 const InputContainer = styled.div`
   position: relative;
   border: 1px solid #ccc;
@@ -26,14 +32,14 @@ const SearchIcon = styled(Image)`
   cursor: pointer;
 `;
 
-const SearchComponent = () => {
+const SearchComponent: React.FC<SearchComponentProps> = ({onFocus}) => {
   const handleSearch = () => {
     console.log('Searching...');
   };
 
   return (
     <InputContainer>
-      <SearchInput type="text" placeholder="Search..." />
+      <SearchInput onFocus={onFocus}  type="text" placeholder="Search..." />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>
   );

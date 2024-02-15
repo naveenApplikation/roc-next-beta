@@ -8,13 +8,14 @@ interface InputProps {
 
 const InputContainer = styled.div`
   position: relative;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
-  padding: 19px 24px;
+  
   width: 100%;
   display: flex;
   background-color: #fff;
 `;
+// padding: 19px 24px;
 
 const SearchInput = styled.input`
   outline: none;
@@ -26,6 +27,8 @@ const SearchInput = styled.input`
   font-weight: 400;
   line-height: 24px;
   color: black;
+  padding:8px 16px;
+  border-radius:8px;
 
   &::placeholder {
     color: black; /* Change the color to your desired color */

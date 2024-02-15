@@ -399,3 +399,47 @@ export const ResturantDetailData = [
     image: location,
   },
 ];
+export const SoryByItem = [
+  {
+    key: 1,
+    label:"Assending" 
+  },
+  {
+    key: 2,
+    label:"Descending" 
+  },
+]
+export const RestroListData = [
+  {
+    id: 1,
+    name:"Jersey War Tunnels",
+    rating : 2.5,
+    likeCount : 128
+  },
+  {
+    id: 2,
+    name:"Mont Orgueil Castle",
+    rating : 3.5,
+    likeCount : 128
+  },
+  {
+    id: 3,
+    name:"Jersey Zoo",
+    rating : 4.5,
+    likeCount : 128
+  },
+  {
+    id: 4,
+    name:"La Houge Bie",
+    rating : 3.5,
+    likeCount : 128
+  },
+  {
+    id: 5,
+    name:"La Mare Wine Estate",
+    rating : 2.5,
+    likeCount : 128
+  },
+ 
+ 
+]

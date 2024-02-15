@@ -6,7 +6,7 @@ interface ButtonProps {
   text: string;
   image?: any;
   bcColor?: string;
-  imageStyle: number;
+  imageStyle?: number;
 }
 
 const Container = styled.div`
