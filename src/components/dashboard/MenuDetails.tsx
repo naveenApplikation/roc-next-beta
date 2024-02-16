@@ -18,7 +18,7 @@ const HeadMenu = styled.div`
 `;
 
 const MenuTitle = styled.p`
-  font-family: "Proxima Nova";
+  /* font-family: "ProximaNova"; */
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -26,7 +26,7 @@ const MenuTitle = styled.p`
 `;
 
 const ViewAllText = styled.p`
-  font-size: 14px;
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;

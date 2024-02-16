@@ -7,18 +7,18 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
-  title:string;
+  title: string;
 }
 
 const StyledModal = styled.div<{
-   $isopen: boolean;
+  $isopen: boolean;
   $screenwidthpercentage: number;
   $screenwidth: number;
 }>`
   position: fixed;
   top: 0;
-  left: ${({  $isopen, $screenwidthpercentage }) =>
-     $isopen ? `${190 - $screenwidthpercentage}%` : "0%"};
+  left: ${({ $isopen, $screenwidthpercentage }) =>
+    $isopen ? `${190 - $screenwidthpercentage}%` : "0%"};
   transform: translateX(
     -${({ $screenwidthpercentage }) => 230 - $screenwidthpercentage}%
   );
@@ -41,8 +41,8 @@ const StyledModal = styled.div<{
   margin: 16px auto;
   transition: left 0.8s ease-in-out;
   z-index: 0;
-  padding:24px 0px;
-  overflow:auto;
+  padding: 24px 0px;
+  overflow: auto;
 
   &::-webkit-scrollbar {
     display: none;
@@ -68,7 +68,7 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (min-width: 1500px) {
-    left: ${({  $isopen }) => ( $isopen ? "40%" : "0%")};
+    left: ${({ $isopen }) => ($isopen ? "40%" : "0%")};
     transform: none;
   }
 
@@ -76,8 +76,8 @@ const StyledModal = styled.div<{
     left: 0;
     top: auto;
     height: 100%;
-    bottom: ${({  $isopen }) =>
-       $isopen
+    bottom: ${({ $isopen }) =>
+      $isopen
         ? "0%"
         : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
@@ -87,8 +87,8 @@ const StyledModal = styled.div<{
   @media screen and (max-width: 1130px) {
     width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
     max-width: 100%;
-    left: ${({  $isopen, $screenwidth }) =>
-       $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
+    left: ${({ $isopen, $screenwidth }) =>
+      $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
     transform: none;
     z-index: 1;
     margin: 0px; /* Center the modal horizontally */
@@ -101,10 +101,17 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
-  margin-bottom:4px;
+  margin-bottom: 24px;
+
+  h4 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
 `;
 
-const Modal: React.FC<ModalProps> = ({  isOpen, onClose, children,title }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(100);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -133,15 +140,15 @@ const Modal: React.FC<ModalProps> = ({  isOpen, onClose, children,title }) => {
       $screenwidth={screenWidth}
     >
       <div className="modal-content">
-      <HeaderContainer>
-        <h4>{title}</h4>
-        <Image
-          style={{ width: 40, height: 40, cursor: "pointer" }}
-          src={CloseModal}
-          alt="Logo Outline"
-          onClick={onClose}
-        />
-      </HeaderContainer>
+        <HeaderContainer>
+          <h4>{title}</h4>
+          <Image
+            style={{ width: 40, height: 40, cursor: "pointer" }}
+            src={CloseModal}
+            alt="Logo Outline"
+            onClick={onClose}
+          />
+        </HeaderContainer>
         {children}
       </div>
     </StyledModal>

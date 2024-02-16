@@ -6,6 +6,8 @@ import type { CollapseProps } from 'antd';
 import React, { useState, useEffect } from 'react';
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import CommonButton from "@/components/button/CommonButton";
+
 
 interface ModalProps {
     onClose: () => void;
@@ -43,6 +45,11 @@ const CalenderModalContainer = styled.div`
 }
 `
 const CalenderContainer = styled.div`
+
+.react-calendar, .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+    box-sizing: border-box;
+    text-decoration: none;
+}
 
 .react-calendar button {
     height: 39px;
@@ -83,9 +90,6 @@ const CalenderContainer = styled.div`
 
 `
 
-
-
-
 const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
     const [value , onChange] = useState(new Date());
 
@@ -103,7 +107,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
     const CalenderData = () => {
         return (
             <CalenderContainer>
-            <Calendar onChange={onChange} value={value} calendarType="US" tileClassName={tileClassName} />
+            <Calendar onChange={onChange} value={value} calendarType="gregory" tileClassName={tileClassName} />
             </CalenderContainer>
         )
     }

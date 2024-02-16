@@ -41,7 +41,7 @@ const PlacesFormModal: React.FC<ModalProps> = () => {
             <CheckBoxContainer>
                 <Checkbox label="Email" />
             </CheckBoxContainer>
-            <CommonButton text="Next" />
+            {/* <CommonButton text="Next" /> */}
         </Container>
     )
 }
