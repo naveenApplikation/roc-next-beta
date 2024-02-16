@@ -18,7 +18,7 @@ const PlacesConfirmModal: React.FC<PlacesConfirmProps> = () => {
     return (
         <Container>
                 <p>[CONFIRMATION SCREEN]</p>
-                <CommonButton text="Done" />
+                {/* <CommonButton text="Done" /> */}
         </Container>
     )
 }

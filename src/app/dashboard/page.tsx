@@ -2,6 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import DashBoardModal from "../../components/modal/Modal";
+import CalenderModalLayout from "../../components/modal/Modal";
+import CalenderPlaceModalLayout from "../../components/modal/Modal";
+import CalenderConfirmModalLayout from "../../components/modal/Modal";
+import CreateAccountModalLayout from "../../components/modal/Modal";
 import styled from "styled-components";
 import Image from "next/image";
 import logoOutline from "../../../assets/images/logo-outline.png";
@@ -37,6 +41,14 @@ import TabPanel from "@/components/tabPanel";
 import { blank, boxOverlay, filterSearch, thumbsup, utensils } from "../utils/ImagePath";
 import FilterSection from "@/components/filterSection";
 import Ratings from "@/components/ratings";
+import Lists from "../../components/search/Lists";
+import CommonButton from "@/components/button/CommonButton";
+import CreateAccount from './Menu Modal Contents/CreateAccount'
+import Login from './Menu Modal Contents/Login'
+import UpdateMyDetails from './Menu Modal Contents/UpdateMyDetails'
+import UpdateMyEmail from './Menu Modal Contents/UpdateMyEmail'
+import UpdateMyPreferences from './Menu Modal Contents/UpdateMyPreferences'
+import Welcomeback from './Menu Modal Contents/Welcomeback'
 
 const Container = styled.div`
   display: flex;
@@ -59,7 +71,7 @@ const MainContainer = styled.div`
     border-radius: 24px 24px 0px 0px;
     height: auto;
     overflow: hidden;
-    margin-top:500px;
+    margin-top: 500px;
   }
 `;
 
@@ -355,9 +367,9 @@ const RightMenu = styled.div`
     flex-direction: column;
     height: 500px;
     padding: 16px;
-    position:fixed;
-    top:0;
-    width:100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 `;
 
@@ -393,99 +405,151 @@ const AllCategories = styled.div`
 `;
 
 const SearchedContainer = styled.div`
-    background-color : #F2F3F3;
-    padding: 0px 40px;
-    border-radius: 24px 24px 0px 0px;
-    box-shadow: 0px -8px 40px 0px #00000040;
-    transition:5s;
-    @media screen and (max-width: 800px) {
-      box-shadow:none;
-      background-color:transparent;
-    }
+  background-color: #f2f3f3;
+  padding: 0px 40px;
+  border-radius: 24px 24px 0px 0px;
+  box-shadow: 0px -8px 40px 0px #00000040;
+  transition: 5s;
+  min-height: 100vh;
+  @media screen and (max-width: 800px) {
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0px 15px;
+  }
 
-    .ant-segmented{ 
-      width:100%;
-      min-height:32px;
-      padding:3px;
-      background-color:#7676801F;
-    }
-    .filterInput{
-      padding:0px;
-      box-shadow: 0px 0px 0px 0px #5229001A;
-      box-shadow: 0px 9px 21px 0px #5229001A;
-      margin:15px 0px;
-    }
-    .ant-segmented-item{
-      flex-grow:1;
-    }
-    :where(.css-dev-only-do-not-override-1rqnfsa).ant-segmented .ant-segmented-item-selected{
-      border-radius:7px;
-      box-shadow: 0px 3px 8px 0px #0000001F;
-    }
-    .ant-segmented-item-label{
-      font-size: 13px;
-      font-weight:500;
-    }
-    .ant-segmented-item-selected .ant-segmented-item-label{
-      font-weight :600;
-    }
-`
+  .ant-segmented {
+    width: 100%;
+    min-height: 32px;
+    padding: 3px;
+    background-color: #7676801f;
+  }
+  .filterInput {
+    padding: 0px;
+    box-shadow: 0px 0px 0px 0px #5229001a;
+    box-shadow: 0px 9px 21px 0px #5229001a;
+    margin: 15px 0px;
+  }
+  .ant-segmented-item {
+    flex-grow: 1;
+  }
+  :where(.css-dev-only-do-not-override-1rqnfsa).ant-segmented
+    .ant-segmented-item-selected {
+    border-radius: 7px;
+    box-shadow: 0px 3px 8px 0px #0000001f;
+  }
+  .ant-segmented-item-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .ant-segmented-item-selected .ant-segmented-item-label {
+    font-weight: 600;
+  }
+`;
 const FilterContainer = styled.div`
-    display:flex;
-    gap:20px;
-    align-items:center;
-    margin-top:20px;
-    margin-bottom:30px;
-    div{
-      padding:0px;
-    }
-`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  div {
+    padding: 0px;
+  }
+`;
 const SearchedListContainer = styled.div`
+<<<<<<< HEAD
     padding-bottom: 40px;
 `
 const WalkContainer = styled.div`
     height:120px;
     width:120px;
 `
+=======
+  padding-bottom: 40px;
+`;
+>>>>>>> develop
 const SearchedData = styled.div`
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    border-bottom:1px solid #D9D9D9;
-    padding:10px 0px;
-    p{
-      font-size:13px;
-      font-weight:400;
-      
-    }
-    .likes{
-      background-color:#00000014;
-      padding: 8px 16px;
-      border-radius:16px;
-      text-align:center;
-    }
-    .shopName{
-      font-size:16px;
-      font-weight:600;
-    } 
-    p span{
-      color : #2B902B;
-    }
-   
-    `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
 
-const options = ["Lists", "Places"]
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
+
+const options = ["Lists", "Places"];
 
 type tabs = "Lists" | "Places";
 
 const DashBoard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalName, setModalName] = useState<string>("")
-  const [tabValue, setTabValue] = useState("Lists")
-  const [focused, setFocused] = useState(false)
+  const [placesProfileModal, setPlacesProfileModal] = useState(false);
+  const [calenderModal, setCalenderModal] = useState(false);
+  const [calenderPlaceModal, setCalenderPlaceModal] = useState(false);
+  const [calenderConfirmModal, setCalenderConfirmModal] = useState(false);
+  const [createAccountModal, setCreateAccountModal] = useState(false);
+  const [modalName, setModalName] = useState<string>("");
+  const [tabValue, setTabValue] = useState("Lists");
+  const [focused, setFocused] = useState(false);
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
+  console.log(tabValue, "tabValue");
+
+  const opencalenderModalHandle = () => {
+    setCalenderModal(true);
+  };
+
+  const closecalenderModalHandle = () => {
+    setCalenderModal(false);
+  };
+
+  
+  const opencreateAccountHandle = () => {
+    setCreateAccountModal(true);
+  };
+
+  const closecreateAccountHandle = () => {
+    setCreateAccountModal(false);
+  };
+
+
+  const openNextcalenderModalHandle = () => {
+    setCalenderModal(false);
+    setCalenderPlaceModal(true);
+  };
+
+  const closecalenderPlaceModalHandle = () => {
+    setCalenderPlaceModal(false);
+  };
+
+  const openNextConfirmcalenderModalHandle = () => {
+    setCalenderPlaceModal(false);
+    setCalenderConfirmModal(true);
+  };
+
+  const closecalenderConfirmModalHandle = () => {
+    setCalenderConfirmModal(false);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -497,27 +561,29 @@ const DashBoard: React.FC = () => {
   const openModalClick = (name: string) => {
     console.log("name", name);
 
-    setModalName(name)
-  }
+    setModalName(name);
+  };
   const tabChange = (value: tabs) => {
-    setTabValue(value)
-    console.log(value)
-  }
-  const searchFocus=(e:any)=>{
-    setFocused(true)
-  }
-
+    setTabValue(value);
+    console.log(value);
+  };
+  const searchFocus = (e: any) => {
+    setFocused(true);
+  };
 
   const handleClick = (event: MouseEvent) => {
-    console.log("specificSectionRef" , specificSectionRef)
-    if (specificSectionRef.current && !specificSectionRef.current.contains(event.target as Node)) {
-      setFocused(false)
+    console.log("specificSectionRef", specificSectionRef);
+    if (
+      specificSectionRef.current &&
+      !specificSectionRef.current.contains(event.target as Node)
+    ) {
+      setFocused(false);
     }
   };
   useEffect(() => {
-    document.body.addEventListener('click', handleClick);
+    document.body.addEventListener("click", handleClick);
     return () => {
-      document.body.removeEventListener('click', handleClick);
+      document.body.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -525,8 +591,10 @@ const DashBoard: React.FC = () => {
     <>
       <Container>
         <MainContainer>
-          <DashboardMenu style={{paddingBottom : `${focused ? '0px' : "40px"}`}}>
-            {!focused ?
+          <DashboardMenu
+            style={{ paddingBottom: `${focused ? "0px" : "40px"}` }}
+          >
+            {!focused ? (
               <>
                 <HeadMenu>
                   <Image
@@ -541,14 +609,15 @@ const DashBoard: React.FC = () => {
                       alt="Logo Outline"
                     />
                     <Image
-                      style={{ width: "48px", height: "48px" }}
+                      style={{ width: "48px", height: "48px",cursor:"pointer" }}
                       src={profileIcon}
                       alt="Logo Outline"
+                      onClick={opencreateAccountHandle}
                     />
                   </HeaderMapProfileContainer>
                 </HeadMenu>
                 <InputWrapper>
-                  <SearchInput onFocus={searchFocus}/>
+                  <SearchInput onFocus={searchFocus} />
                   <FilterInput>
                     <Image
                       style={{ width: "16px", height: "16px" }}
@@ -562,7 +631,10 @@ const DashBoard: React.FC = () => {
                 <ScrollingMenu>
                   {topSideMenu.map((item, index) => {
                     return (
-                      <TopsideMenuContainer onClick={() => openModalClick(item.name)} key={index}>
+                      <TopsideMenuContainer
+                        onClick={() => openModalClick(item.name)}
+                        key={index}
+                      >
                         <Image
                           style={{ width: "16px", height: "16px" }}
                           src={item.image}
@@ -586,12 +658,17 @@ const DashBoard: React.FC = () => {
                     );
                   })}
                 </ScrollingMenu>
-                <MenuDetails isOpen={openModal} title="Family Events" />
+                <MenuDetails
+                  isOpen={opencalenderModalHandle}
+                  title="Family Events"
+                />
                 <ScrollingMenu>
                   {familyEventMenuItem.map((item, index) => {
                     return (
                       <FamilEventContainer key={index}>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
                           <p className="date">{item.date}</p>
                           <span className="month">{item.month}</span>
                         </div>
@@ -687,11 +764,30 @@ const DashBoard: React.FC = () => {
                 <ScrollingMenu>
                   {LocalCuisineMenuItem.map((item, index) => {
                     return (
-                      <div style={{ width: 120, gap: 16, display: "flex", flexDirection: "column" }} key={index}>
-                        <div style={{ height: 64, width: "100%", background: "linear-gradient(45deg, black, transparent)" }}></div>
+                      <div
+                        style={{
+                          width: 120,
+                          gap: 16,
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        key={index}
+                      >
+                        <div
+                          style={{
+                            height: 64,
+                            width: "100%",
+                            background:
+                              "linear-gradient(45deg, black, transparent)",
+                          }}
+                        ></div>
                         <div>
                           <div
-                            style={{ display: "flex", gap: 4, alignItems: "center" }}
+                            style={{
+                              display: "flex",
+                              gap: 4,
+                              alignItems: "center",
+                            }}
                           >
                             <Image
                               style={{ width: "68px", height: "12px" }}
@@ -703,41 +799,79 @@ const DashBoard: React.FC = () => {
                           <p style={{ fontSize: 14 }}>{item.resturantName}</p>
                         </div>
                       </div>
-                    )
+                    );
                   })}
-
                 </ScrollingMenu>
-              </> :
+              </>
+            ) : (
               <SearchedContainer ref={specificSectionRef}>
                 <InputWrapper className="filterInput">
                   <SearchInput />
                 </InputWrapper>
-                <TabPanel defaultValue="Lists" tabChange={tabChange} options={options} />
-                <FilterContainer>
-                  <FilterSection />
-                </FilterContainer>
-                <SearchedListContainer>
-                  {RestroListData.map((item: any) => {
-                    return (
-                      <SearchedData>
-                        <Image style={{ background: "white" }} src={blank} alt="" />
-                        <div className="restroRating">
-                          <p className="shopName">{item.name}</p>
-                          <Image src={utensils} style={{ width: "13px", height: "13px", marginRight: 8 }} alt="utensils" />
-                          <Ratings defaultValue={item.rating} />
-                          <p><span>Open - Closes</span></p>
-                          <p>Indoors</p>
-                        </div>
-                        <div className="likes">
-                          <Image src={thumbsup} alt="like" style={{ width: "16px", height: "16px" }} />
-                          <p>{item.likeCount}</p>
-                        </div>
-                      </SearchedData>
-                    )
-                  })}
-                </SearchedListContainer>
+                <TabPanel
+                  defaultValue="Lists"
+                  tabChange={tabChange}
+                  options={options}
+                />
+                {tabValue == "Lists" ? (
+                  <>
+                    <Lists />
+                  </>
+                ) : (
+                  <>
+                    <FilterContainer>
+                      <FilterSection />
+                    </FilterContainer>
+                    <SearchedListContainer>
+                      {RestroListData.map((item: any) => {
+                        return (
+                          <SearchedData>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 16,
+                              }}
+                            >
+                              <Image
+                                style={{ background: "white" }}
+                                src={blank}
+                                alt=""
+                              />
+                              <div className="restroRating">
+                                <p className="shopName">{item.name}</p>
+                                <Image
+                                  src={utensils}
+                                  style={{
+                                    width: "13px",
+                                    height: "13px",
+                                    marginRight: 8,
+                                  }}
+                                  alt="utensils"
+                                />
+                                <Ratings defaultValue={item.rating} />
+                                <p>
+                                  <span>Open - Closes</span>
+                                </p>
+                                <p>Indoors</p>
+                              </div>
+                            </div>
+                            <div className="likes">
+                              <Image
+                                src={thumbsup}
+                                alt="like"
+                                style={{ width: "16px", height: "16px" }}
+                              />
+                              <p>{item.likeCount}</p>
+                            </div>
+                          </SearchedData>
+                        );
+                      })}
+                    </SearchedListContainer>
+                  </>
+                )}
               </SearchedContainer>
-            }
+            )}
           </DashboardMenu>
         </MainContainer>
         <RightMenu className="lllllll">
@@ -790,14 +924,51 @@ const DashBoard: React.FC = () => {
         </RightMenu>
       </Container>
 
-
-      <DashBoardModal isOpen={isModalOpen} onClose={closeModal} title="Brasserie Colmar" >
-        {/* <ModalContent onClose={closeModal} /> */}
-        <CalenderModal onClose={closeModal} />
-        {/* <PlacesFormModal /> */}
-        {/* <PlacesConfirmModal /> */}
+      <DashBoardModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title="Brasserie Colmar"
+      >
+        <ModalContent onClose={closeModal} />
         {/* <OrderOnlineModal /> */}
       </DashBoardModal>
+      <CalenderModalLayout
+        isOpen={calenderModal}
+        onClose={closecalenderModalHandle}
+        title="Brasserie Colmar"
+      >
+        <CalenderModal onClose={closecalenderModalHandle} />
+        <div style={{ marginTop: 16,padding:"0px 24px" }} onClick={openNextcalenderModalHandle}>
+          <CommonButton text="Next" />
+        </div>
+      </CalenderModalLayout>
+      <CalenderPlaceModalLayout
+        isOpen={calenderPlaceModal}
+        onClose={closecalenderPlaceModalHandle}
+        title="Brasserie Colmar"
+      >
+        <PlacesFormModal  />
+        <div style={{ marginTop: 16,padding:"0px 24px" }} onClick={openNextConfirmcalenderModalHandle}>
+          <CommonButton text="Next" />
+        </div>
+      </CalenderPlaceModalLayout>
+      <CalenderConfirmModalLayout
+        isOpen={calenderConfirmModal}
+        onClose={closecalenderConfirmModalHandle}
+        title="Brasserie Colmar"
+      >
+        <PlacesConfirmModal  />
+        <div style={{ marginTop: 16,padding:"0px 24px" }} onClick={closecalenderConfirmModalHandle}>
+          <CommonButton text="Done" />
+        </div>
+      </CalenderConfirmModalLayout>
+      <CreateAccountModalLayout
+        isOpen={createAccountModal}
+        onClose={closecreateAccountHandle}
+        title="Create an account"
+      >
+        <CreateAccount  />
+      </CreateAccountModalLayout>
     </>
   );
 };

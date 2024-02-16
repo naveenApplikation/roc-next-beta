@@ -30,12 +30,12 @@ const ResturatContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0px 24px;
-  margin-top: 16px;
 `;
 
 const ResturatWrapper = styled.div`
   display: flex;
   gap: 8px;
+  align-items: center;
 `;
 
 const OpenRestText = styled.p`
@@ -66,6 +66,14 @@ const ResturantDetailsWrapper = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+`;
+
+const RestDetailTitle = styled.p`
+color: var(--BODY, #000);
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
 `;
 
 const ReviewContainer = styled.div`
@@ -150,7 +158,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
                 src={item.image}
                 alt="Logo Outline"
               />{" "}
-              <p>{item.name}</p>
+              <RestDetailTitle>{item.name}</RestDetailTitle>
             </ResturantDetailsWrapper>
           );
         })}

@@ -14,11 +14,12 @@ font-size:13px;
 font-weight:500;
 display:flex;
 min-width:90px;
-padding:12px;
+/* padding:12px; */
 gap:8px;
 background:white;
 border-radius:8px;
 justify-content:center;
+align-items: center;
 
 `
 
