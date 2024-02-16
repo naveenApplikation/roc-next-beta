@@ -443,3 +443,23 @@ export const RestroListData = [
  
  
 ]
+
+export const WalksData =[
+{
+  id:1,
+  name : "North"
+},
+{
+  id:2,
+  name : "East"
+},
+{
+  id:3,
+  name : "South"
+},
+{
+  id:4,
+  name : "West"
+},
+
+]

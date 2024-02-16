@@ -22,6 +22,7 @@ import {
   rightSideMenuMobile,
   community,
   RestroListData,
+  WalksData,
 } from "./data";
 import chevronRight from "../../../assets/images/chevron-right.png";
 import mapIcon from "../../../assets/images/mapIcon.png";
@@ -456,17 +457,23 @@ const FilterContainer = styled.div`
   }
 `;
 const SearchedListContainer = styled.div`
-<<<<<<< HEAD
     padding-bottom: 40px;
 `
 const WalkContainer = styled.div`
     height:120px;
-    width:120px;
+    min-width:120px;
+    background-position:bottom;
+    background-repeat:no-repeat;
+    background-color:#FFFFFFCC;
+    display:flex;
+    align-items:end;
+    p{
+      color:white;
+      font-size:14px;
+      font-weight:400;
+      padding:10px 10px;
+    }
 `
-=======
-  padding-bottom: 40px;
-`;
->>>>>>> develop
 const SearchedData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -743,18 +750,14 @@ const DashBoard: React.FC = () => {
                 </ScrollingMenu>
                 <MenuDetails isOpen={openModal} title="Walks" />
                 <ScrollingMenu>
-                  {community.map((item, index) => {
+                  
+                  {WalksData.map((item, index) => {
                     return (
                       <WalkContainer
                         key={index}
-                        style={{ backgroundImage: `url(${boxOverlay}) !important` }}
+                        style={{ backgroundImage: `url(${boxOverlay.src}) !important` }}
 
                       >
-                        <Image
-                          style={{ width: "18px", height: "16px" }}
-                          src={boxOverlay}
-                          alt="right icon"
-                        />{" "}
                         <p>{item.name}</p>
                       </WalkContainer>
                     );
