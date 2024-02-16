@@ -5,6 +5,7 @@ import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
 import CalenderPlaceModalLayout from "../../components/modal/Modal";
 import CalenderConfirmModalLayout from "../../components/modal/Modal";
+import CreateAccountModalLayout from "../../components/modal/Modal";
 import styled from "styled-components";
 import Image from "next/image";
 import logoOutline from "../../../assets/images/logo-outline.png";
@@ -42,6 +43,12 @@ import FilterSection from "@/components/filterSection";
 import Ratings from "@/components/ratings";
 import Lists from "../../components/search/Lists";
 import CommonButton from "@/components/button/CommonButton";
+import CreateAccount from './Menu Modal Contents/CreateAccount'
+import Login from './Menu Modal Contents/Login'
+import UpdateMyDetails from './Menu Modal Contents/UpdateMyDetails'
+import UpdateMyEmail from './Menu Modal Contents/UpdateMyEmail'
+import UpdateMyPreferences from './Menu Modal Contents/UpdateMyPreferences'
+import Welcomeback from './Menu Modal Contents/Welcomeback'
 
 const Container = styled.div`
   display: flex;
@@ -491,6 +498,7 @@ const DashBoard: React.FC = () => {
   const [calenderModal, setCalenderModal] = useState(false);
   const [calenderPlaceModal, setCalenderPlaceModal] = useState(false);
   const [calenderConfirmModal, setCalenderConfirmModal] = useState(false);
+  const [createAccountModal, setCreateAccountModal] = useState(false);
   const [modalName, setModalName] = useState<string>("");
   const [tabValue, setTabValue] = useState("Lists");
   const [focused, setFocused] = useState(false);
@@ -505,6 +513,16 @@ const DashBoard: React.FC = () => {
   const closecalenderModalHandle = () => {
     setCalenderModal(false);
   };
+
+  
+  const opencreateAccountHandle = () => {
+    setCreateAccountModal(true);
+  };
+
+  const closecreateAccountHandle = () => {
+    setCreateAccountModal(false);
+  };
+
 
   const openNextcalenderModalHandle = () => {
     setCalenderModal(false);
@@ -582,9 +600,10 @@ const DashBoard: React.FC = () => {
                       alt="Logo Outline"
                     />
                     <Image
-                      style={{ width: "48px", height: "48px" }}
+                      style={{ width: "48px", height: "48px",cursor:"pointer" }}
                       src={profileIcon}
                       alt="Logo Outline"
+                      onClick={opencreateAccountHandle}
                     />
                   </HeaderMapProfileContainer>
                 </HeadMenu>
@@ -911,10 +930,17 @@ const DashBoard: React.FC = () => {
         title="Brasserie Colmar"
       >
         <PlacesConfirmModal  />
-        <div style={{ marginTop: 16,padding:"0px 24px" }}>
+        <div style={{ marginTop: 16,padding:"0px 24px" }} onClick={closecalenderConfirmModalHandle}>
           <CommonButton text="Done" />
         </div>
       </CalenderConfirmModalLayout>
+      <CreateAccountModalLayout
+        isOpen={createAccountModal}
+        onClose={closecreateAccountHandle}
+        title="Create an account"
+      >
+        <CreateAccount  />
+      </CreateAccountModalLayout>
     </>
   );
 };
