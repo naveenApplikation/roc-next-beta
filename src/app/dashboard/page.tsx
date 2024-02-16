@@ -34,7 +34,7 @@ import PlacesConfirmModal from "./placeConfirmNodal";
 import OrderOnlineModal from "./orderOnlineModal";
 import { Segmented } from "antd";
 import TabPanel from "@/components/tabPanel";
-import { blank, filterSearch, thumbsup, utensils } from "../utils/ImagePath";
+import { blank, boxOverlay, filterSearch, thumbsup, utensils } from "../utils/ImagePath";
 import FilterSection from "@/components/filterSection";
 import Ratings from "@/components/ratings";
 
@@ -441,7 +441,11 @@ const FilterContainer = styled.div`
     }
 `
 const SearchedListContainer = styled.div`
-padding-bottom: 40px;
+    padding-bottom: 40px;
+`
+const WalkContainer = styled.div`
+    height:120px;
+    width:120px;
 `
 const SearchedData = styled.div`
     display:flex;
@@ -657,6 +661,25 @@ const DashBoard: React.FC = () => {
                         />{" "}
                         <p>{item.name}</p>
                       </CommunityContainer>
+                    );
+                  })}
+                </ScrollingMenu>
+                <MenuDetails isOpen={openModal} title="Walks" />
+                <ScrollingMenu>
+                  {community.map((item, index) => {
+                    return (
+                      <WalkContainer
+                        key={index}
+                        style={{ backgroundImage: `url(${boxOverlay}) !important` }}
+
+                      >
+                        <Image
+                          style={{ width: "18px", height: "16px" }}
+                          src={boxOverlay}
+                          alt="right icon"
+                        />{" "}
+                        <p>{item.name}</p>
+                      </WalkContainer>
                     );
                   })}
                 </ScrollingMenu>

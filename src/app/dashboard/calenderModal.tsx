@@ -47,6 +47,8 @@ const CalenderContainer = styled.div`
 .react-calendar button {
     height: 39px;
     padding: 0;
+    display:flex;
+    justify-content:center;
 }
 
 .react-calendar__tile--active {
@@ -64,6 +66,7 @@ const CalenderContainer = styled.div`
 }
 .react-calendar{
     border:none;
+    width:100%;
 }
 .react-calendar__tile abbr {
     display: flex;
@@ -79,6 +82,15 @@ const CalenderContainer = styled.div`
     color: black;
     background-color: #0000000A;
     text-decoration: line-through;
+}
+@media(max-width:360px){
+    .react-calendar__tile abbr{
+        height:30px;
+        width:30px;
+    }
+    .react-calendar button{
+        height:33px;
+    }
 }
 
 `
