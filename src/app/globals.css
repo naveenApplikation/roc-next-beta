@@ -127,3 +127,13 @@ a {
     color-scheme: dark;
   }
 }
+
+.communityName{
+  font-size : 24px;
+  font-weight:700;
+}
+.restroRating{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

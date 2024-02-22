@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface MenuProps {
     title:string;
-    isOpen: () => void;
+    isOpen?: () => void;
   }
 
 const HeadMenu = styled.div`

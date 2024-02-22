@@ -23,6 +23,7 @@ const StyledModal = styled.div<{
     -${({ $screenwidthpercentage }) => 230 - $screenwidthpercentage}%
   );
   bottom: 0%;
+  max-height: 95vh;
   width: 352px; /* Adjust this value as needed */
   border-radius: 40px;
   background: linear-gradient(
@@ -76,10 +77,11 @@ const StyledModal = styled.div<{
     left: 0;
     top: auto;
     height: 100%;
+    
     bottom: ${({ $isopen }) =>
-      $isopen
-        ? "0%"
-        : "-100%"}; // Position at bottom if open, otherwise off-screen
+    $isopen
+      ? "0%"
+      : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
     transition: bottom 0.8s ease-in-out;
   }
@@ -88,9 +90,10 @@ const StyledModal = styled.div<{
     width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
     max-width: 100%;
     left: ${({ $isopen, $screenwidth }) =>
-      $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
+    $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
     transform: none;
     z-index: 1;
+    max-height:100vh;
     margin: 0px; /* Center the modal horizontally */
     border-radius: 0px;
   }
@@ -112,7 +115,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
-  const [screenWidthPercentage, setScreenWidthPercentage] = useState(100);
+  const [screenWidthPercentage, setScreenWidthPercentage] = useState(116);
   const [screenWidth, setScreenWidth] = useState(100);
 
   useEffect(() => {
@@ -120,7 +123,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
       const referenceWidth = 1200; // You can set your own reference width here
       const newScreenWidth = window.innerWidth;
       setScreenWidth(newScreenWidth);
-      console.log(newScreenWidth, "newScreenWidth");
       const newScreenWidthPercentage = (newScreenWidth / referenceWidth) * 100;
       setScreenWidthPercentage(newScreenWidthPercentage);
     };

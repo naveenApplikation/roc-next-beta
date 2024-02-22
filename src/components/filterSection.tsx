@@ -44,12 +44,21 @@ const FilterButton = styled.button`
     padding:12px;
     min-width:90px;
     `
-
+    const FilterContainer = styled.div`
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    div {
+      padding: 0px;
+    }
+  `;
 
 
 const FilterSection: React.FC<FilterSectionProps> = (props) => {
     return (
-        <>
+        <FilterContainer>
             <Image src={filterSearch} alt="" />
             <ScrollingMenu>
                 <DropDwons items={SoryByItem} name="Sort by" />
@@ -57,7 +66,7 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
                 <DropDwons items={SoryByItem} name="Price" />
                 <FilterButton>Top Rated</FilterButton>
             </ScrollingMenu>
-        </>
+        </FilterContainer>
     )
 };
 
