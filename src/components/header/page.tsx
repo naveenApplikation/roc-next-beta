@@ -27,7 +27,7 @@ const HeadMenu = styled.div`
 const HeaderMapProfileContainer = styled.div`
   display: flex;
   align-items:center;
-  gap: 16px;
+  gap: 32px;
 `;
 
 
@@ -92,13 +92,13 @@ const Header: React.FC<HeaderProps> = ({modalClick}) => {
                     }
                 </HeaderMapProfileContainer>
             </HeadMenu>
-            <CreateAccountModalLayout
+            {/* <CreateAccountModalLayout
                 isOpen={createAccountModal}
                 onClose={closecreateAccountHandle}
                 title="Create an account"
             >
                 <CreateAccountContent />
-            </CreateAccountModalLayout>
+            </CreateAccountModalLayout> */}
         </>
 
     );

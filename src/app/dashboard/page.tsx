@@ -589,6 +589,7 @@ const DashBoard: React.FC<DashboardProps> = ({modalClick}) => {
                           />
                           <div className="restroRating">
                             <p className="shopName">{item.name}</p>
+                            <div style={{display:"flex",alignItems:"center"}}>
                             <Image
                               src={utensils}
                               style={{
@@ -597,8 +598,9 @@ const DashBoard: React.FC<DashboardProps> = ({modalClick}) => {
                                 marginRight: 8,
                               }}
                               alt="utensils"
-                            />
+                              />
                             <Ratings defaultValue={item.rating} />
+                              </div>
                             <p>
                               <span>Open - Closes</span>
                             </p>

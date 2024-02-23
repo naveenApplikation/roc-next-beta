@@ -94,6 +94,7 @@ const CommunityPage: React.FC<CommunityPageProps> = (props) => {
                   />
                   <div className="restroRating">
                     <p className="shopName">{item.name}</p>
+                    <div style={{display:"flex",alignItems:"center"}}>
                     <Image
                       src={utensils}
                       style={{
@@ -102,8 +103,9 @@ const CommunityPage: React.FC<CommunityPageProps> = (props) => {
                         marginRight: 8,
                       }}
                       alt="utensils"
-                    />
+                      />
                     <Ratings defaultValue={item.rating} />
+                      </div>
                     <p>
                       <span>Open - Closes</span>
                     </p>

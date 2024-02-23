@@ -1,17 +1,17 @@
-import { RestroListData } from '@/app/dashboard/data';
-import { blank, thumbsup, utensils } from '@/app/utils/ImagePath';
-import Image from 'next/image';
-import React from 'react';
-import styled from 'styled-components';
-import Ratings from '../ratings';
+import { RestroListData } from "@/app/dashboard/data";
+import { blank, thumbsup, utensils } from "@/app/utils/ImagePath";
+import Image from "next/image";
+import React from "react";
+import styled from "styled-components";
+import Ratings from "../ratings";
 
 interface AttractionBoxProps {
-    // Define your props here
+  // Define your props here
 }
 
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;
-`
+`;
 
 const SearchedData = styled.div`
   display: flex;
@@ -44,46 +44,43 @@ const SearchedData = styled.div`
 `;
 
 const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
-    return (
-        <SearchedListContainer>
-            {RestroListData.map((item: any) => {
-                return (
-                    <SearchedData>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 16,
-                            }}
-                        >
-                            <Image
-                                style={{ background: "white" }}
-                                src={blank}
-                                alt=""
-                            />
-                            <div className="restroRating">
-                                <p className="shopName">item.name</p>
-                                <Image
-                                    src={utensils}
-                                    style={{
-                                        width: "13px",
-                                        height: "13px",
-                                        marginRight: 8,
-                                    }}
-                                    alt="utensils"
-                                />
-                                <Ratings defaultValue={3} />
-                                <p>
-                                    <span>Open - Closes</span>
-                                </p>
-                            </div>
-                        </div>
-                       
-                    </SearchedData>
-                );
-            })}
-        </SearchedListContainer>
-    );
+  return (
+    <SearchedListContainer>
+      {RestroListData.map((item: any) => {
+        return (
+          <SearchedData>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+              }}
+            >
+              <Image style={{ background: "white" }} src={blank} alt="" />
+              <div className="restroRating">
+                <p className="shopName">item.name</p>
+                <div style={{alignItems:"center",display:"flex"}}>
+                  <Image
+                    src={utensils}
+                    style={{
+                      width: "13px",
+                      height: "13px",
+                      marginRight: 8,
+                    }}
+                    alt="utensils"
+                  />
+                  <Ratings defaultValue={3} />
+                </div>
+                <p>
+                  <span>Open - Closes</span>
+                </p>
+              </div>
+            </div>
+          </SearchedData>
+        );
+      })}
+    </SearchedListContainer>
+  );
 };
 
 export default AttractionBox;
