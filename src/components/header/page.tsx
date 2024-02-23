@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({modalClick}) => {
         <>
             <HeadMenu>
                 <Image
-                    style={{ width: "92px", height: "37.77px" }}
+                    style={{ width: "92px", height: "37.77px",cursor:"pointer" }}
                     src={logoOutline}
                     alt="Logo Outline"
                     onClick={navigateClick}
