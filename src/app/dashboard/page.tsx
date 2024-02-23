@@ -50,6 +50,7 @@ const InputWrapper = styled.div`
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
+    padding-top: 16px;
   }
 `;
 
