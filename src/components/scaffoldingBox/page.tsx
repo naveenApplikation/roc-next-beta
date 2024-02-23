@@ -42,6 +42,7 @@ font-weight: 600;
 const DetailContainer = styled.div`
 display:flex;
 align-items:center;
+gap: 5px;
 `
 const FooterContainer = styled.div`
 display:flex;
