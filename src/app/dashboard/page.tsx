@@ -510,7 +510,7 @@ const DashBoard: React.FC<DashboardProps> = ({modalClick}) => {
               })}
             </ScrollingMenu>
             <MenuDetails isOpen={()=>modalClick("ModalContent")} title="Heritage" />
-            <ScrollingMenu>
+            <ScrollingMenu style={{paddingBottom:"40px"}}>
               {LocalCuisineMenuItem.map((item, index) => {
                 return (
                   <div

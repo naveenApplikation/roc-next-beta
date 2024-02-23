@@ -10,17 +10,23 @@ interface HeaderProps {
     // Define your props here
     setCreateAccountModal?: Function,
     createAccountModal?: boolean,
-    modalClick : Function;
+    modalClick: Function;
 }
 
-const HeadMenu = styled.div`
+const HeadMenu = styled.div<{
+    $pathname: string;
+}>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 40px;
+  padding-top:40px;
+  padding-bottom:15px;
+  background-color: ${({ $pathname }) => ($pathname === "/" ? "transparent" : "#FDFDFD")};
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
+    padding-top:40px;
     display: none;
   }
 `;
@@ -32,7 +38,7 @@ const HeaderMapProfileContainer = styled.div`
 
 
 
-const Header: React.FC<HeaderProps> = ({modalClick}) => {
+const Header: React.FC<HeaderProps> = ({ modalClick }) => {
     const [createAccountModal, setCreateAccountModal] = useState<boolean>(false)
     const pathname = usePathname()
     const router = useRouter()
@@ -43,16 +49,18 @@ const Header: React.FC<HeaderProps> = ({modalClick}) => {
     const closecreateAccountHandle = () => {
         setCreateAccountModal(false);
     };
-    const navigateClick =()=>{
+    const navigateClick = () => {
         router.push("/")
     }
 
 
     return (
         <>
-            <HeadMenu>
+            <HeadMenu
+                $pathname={pathname}
+            >
                 <Image
-                    style={{ width: "92px", height: "37.77px",cursor:"pointer" }}
+                    style={{ width: "92px", height: "37.77px", cursor: "pointer" }}
                     src={logoOutline}
                     alt="Logo Outline"
                     onClick={navigateClick}
@@ -70,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({modalClick}) => {
                                     style={{ width: "48px", height: "48px", cursor: "pointer" }}
                                     src={profileIcon}
                                     alt="Logo Outline"
-                                    onClick={()=>modalClick("createAccountModal")}
+                                    onClick={() => modalClick("createAccountModal")}
                                 />
                             </> :
                             <>

@@ -106,7 +106,6 @@ const DashboardMenu = styled.div`
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-  padding: 40px 0px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -280,7 +279,7 @@ const Layout = (WrappedComponent: any) => {
         <Container>
           <MainContainer>
             <DashboardMenu
-              style={{ paddingBottom: `${focused ? "0px" : "40px"}`, minHeight: "100vh" }}
+              style={{ paddingBottom: `${focused ? "0px" : "0px"}`, minHeight: "100vh" }}
             >
               <Header modalClick={modalClick}/>
               <WrappedComponent {...{ modalClick }} />

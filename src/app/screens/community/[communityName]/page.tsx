@@ -17,6 +17,7 @@ interface CommunityPageProps {
 const CommunityBody = styled.div`
   padding:0px 40px;
   min-height:calc(100vh - 113px);
+  padding-bottom:40px;
   .communityName{
     font-size : 24px;
     font-weight:700;
