@@ -27,12 +27,29 @@ import StoreMobile from "../../../assets/images/rightSideMenuImage/StoreMobile.p
 import calendarMobile from "../../../assets/images/rightSideMenuImage/calendarMobile.png";
 import castleMobile from "../../../assets/images/rightSideMenuImage/castleMobile.png";
 import utensilsMobile from "../../../assets/images/rightSideMenuImage/utensilsMobile.png";
-import toy from '../../../assets/images/community/toy.png'
-import kids from '../../../assets/images/community/kids.png'
-import home from '../../../assets/images/community/home.png'
-import frog from '../../../assets/images/community/frog.png'
-import fort from '../../../assets/images/community/fort.png'
-import breakfastUtensils from '../../../assets/images/community/breakfastUtensils.png'
+import toy from "../../../assets/images/community/toy.png";
+import kids from "../../../assets/images/community/kids.png";
+import home from "../../../assets/images/community/home.png";
+import frog from "../../../assets/images/community/frog.png";
+import fort from "../../../assets/images/community/fort.png";
+import breakfastUtensils from "../../../assets/images/community/breakfastUtensils.png";
+import cartShopping from "../../../assets/images/createListImages/chooseIcons/cart-shopping.png";
+import child from "../../../assets/images/createListImages/chooseIcons/child.png";
+import wheelChair from "../../../assets/images/createListImages/chooseIcons/wheelchair.png";
+import dog from "../../../assets/images/createListImages/chooseIcons/dog.png";
+import burgerSoda from "../../../assets/images/createListImages/chooseIcons/burger-soda.png";
+import taxi from "../../../assets/images/createListImages/chooseIcons/taxi.png";
+import pipeValve from "../../../assets/images/createListImages/chooseIcons/pipe-valve.png";
+import leaf from "../../../assets/images/createListImages/chooseIcons/leaf.png";
+import siren from "../../../assets/images/createListImages/chooseIcons/siren.png";
+import speaker from "../../../assets/images/createListImages/chooseIcons/speaker.png";
+import music from "../../../assets/images/createListImages/chooseIcons/music.png";
+import star from "../../../assets/images/createListImages/chooseIcons/star.png";
+import infoCircle from "../../../assets/images/createListImages/chooseIcons/info-circle.png";
+import bin from "../../../assets/images/createListImages/chooseIcons/bin.png";
+import locate from "../../../assets/images/createListImages/chooseIcons/map-placeholder.png";
+import HotelLogo from "../../../assets/images/utensils.png";
+import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 
 
 export const topSideMenu = [
@@ -337,47 +354,47 @@ export const community = [
   {
     name: "Kids Activities...",
     image: kids,
-    color:"#BB6BD9"
+    color: "#BB6BD9",
   },
   {
     name: "Shops in St Brelade",
     image: home,
-    color:"#56CCF2"
+    color: "#56CCF2",
   },
   {
     name: "Best Breakfasts...",
     image: toy,
-    color:"#EB5757"
+    color: "#EB5757",
   },
   {
     name: "Outdoor Dining",
     image: breakfastUtensils,
-    color:"#27AE60"
+    color: "#27AE60",
   },
   {
     name: "History",
     image: fort,
-    color:"#F2994A"
+    color: "#F2994A",
   },
   {
     name: "Beans & Crapauds",
     image: frog,
-    color:"#56CCF2"
+    color: "#56CCF2",
   },
   {
     name: "Kids Activities...",
     image: kids,
-    color:"#BB6BD9"
+    color: "#BB6BD9",
   },
   {
     name: "Shops in St Brelade",
     image: home,
-    color:"#56CCF2"
+    color: "#56CCF2",
   },
   {
     name: "Best Breakfasts...",
     image: toy,
-    color:"#EB5757"
+    color: "#EB5757",
   },
 ];
 
@@ -402,44 +419,216 @@ export const ResturantDetailData = [
 export const SoryByItem = [
   {
     key: 1,
-    label:"Assending" 
+    label: "Assending",
   },
   {
     key: 2,
-    label:"Descending" 
+    label: "Descending",
   },
-]
+];
 export const RestroListData = [
   {
     id: 1,
-    name:"Jersey War Tunnels",
-    rating : 2.5,
-    likeCount : 128
+    name: "Jersey War Tunnels",
+    rating: 2.5,
+    likeCount: 128,
   },
   {
     id: 2,
-    name:"Mont Orgueil Castle",
-    rating : 3.5,
-    likeCount : 128
+    name: "Mont Orgueil Castle",
+    rating: 3.5,
+    likeCount: 128,
   },
   {
     id: 3,
-    name:"Jersey Zoo",
-    rating : 4.5,
-    likeCount : 128
+    name: "Jersey Zoo",
+    rating: 4.5,
+    likeCount: 128,
   },
   {
     id: 4,
-    name:"La Houge Bie",
-    rating : 3.5,
-    likeCount : 128
+    name: "La Houge Bie",
+    rating: 3.5,
+    likeCount: 128,
   },
   {
     id: 5,
-    name:"La Mare Wine Estate",
-    rating : 2.5,
-    likeCount : 128
+    name: "La Mare Wine Estate",
+    rating: 2.5,
+    likeCount: 128,
   },
- 
- 
-]
+];
+
+export const icons = [
+  { 
+    id: 1, 
+    image: cartShopping, 
+    width: 32,
+    height: 32
+  },
+  { 
+    id: 2, 
+    image: child
+  },
+  { 
+    id: 3, 
+    image: wheelChair 
+  },
+  { 
+    id: 4, 
+    image: dog 
+  },
+  { 
+    id: 5, 
+    image: burgerSoda 
+  },
+  { 
+    id: 6, 
+    image: taxi 
+  },
+  { 
+    id: 7, 
+    image: pipeValve 
+  },
+  { 
+    id: 8, 
+    image: leaf
+  },
+  { 
+    id: 9, 
+    image: siren 
+  },
+  { 
+    id: 10, 
+    image: speaker 
+  },
+  { 
+    id: 11, 
+    image: music 
+  },
+  { 
+    id: 12, 
+    image: star 
+  },
+  { 
+    id: 13, 
+    image: infoCircle 
+  },
+  { 
+    id: 14, 
+    image: bin
+  },
+  { 
+    id: 15, 
+    image: locate 
+  },
+  { 
+    id: 16, 
+    image: infoCircle 
+  },
+  { 
+    id: 17, 
+    image: HotelLogo 
+  },
+  { 
+    id: 18, 
+    image: StHelierLogo 
+  },
+  { 
+    id: 19, 
+    image: infoCircle 
+  },
+  { 
+    id: 20, 
+    image: infoCircle 
+  },
+  { 
+    id: 21, 
+    image: infoCircle 
+  },
+  { 
+    id: 22, 
+    image: infoCircle 
+  },
+  { 
+    id: 23, 
+    image: infoCircle 
+  },
+  { 
+    id: 24, 
+    image: infoCircle 
+  },
+  { 
+    id: 25, 
+    image: infoCircle 
+  },
+  { 
+    id: 26, 
+    image: infoCircle 
+  },
+  { 
+    id: 27, 
+    image: infoCircle 
+  },
+  { 
+    id: 28, 
+    image: infoCircle 
+  },
+  { 
+    id: 29, 
+    image: infoCircle 
+  },
+  { 
+    id: 30, 
+    image: infoCircle 
+  },
+  { 
+    id: 31, 
+    image: infoCircle 
+  },
+  { 
+    id: 32, 
+    image: infoCircle 
+  },
+  { 
+    id: 33, 
+    image: infoCircle 
+  },
+  { 
+    id: 34, 
+    image: infoCircle 
+  },
+  { 
+    id: 35, 
+    image: infoCircle 
+  },
+  { 
+    id: 36, 
+    image: infoCircle 
+  },
+  { 
+    id: 37, 
+    image: infoCircle 
+  },
+  { 
+    id: 38, 
+    image: infoCircle 
+  },
+  { 
+    id: 39, 
+    image: infoCircle 
+  },
+  { 
+    id: 40, 
+    image: infoCircle 
+  },
+  { 
+    id: 41, 
+    image: infoCircle 
+  },
+  { 
+    id: 42, 
+    image: infoCircle 
+  },
+];
+
