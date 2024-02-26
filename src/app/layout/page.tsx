@@ -34,6 +34,7 @@ import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import LeafletMaps from "@/components/map/page";
+import dynamic from "next/dynamic";
 
 interface LayoutProps {
   children: any;
@@ -115,7 +116,7 @@ const DashboardMenu = styled.div<{
   $focused: boolean;
 }>`
   width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
-  paddingbottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
+  padding-bottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
   background: #f2f3f3;
   transition: 0.8s;
   background-blend-mode: normal, luminosity;
@@ -307,6 +308,8 @@ const Layout = (WrappedComponent: any) => {
     const [modalName, setModalname] = useState("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
 
+    const DynamicMap = dynamic(() => import("../../components/map/page"), { ssr: false });
+
     const router = useRouter();
     const handleClick = (event: MouseEvent) => {
       if (
@@ -348,6 +351,7 @@ const Layout = (WrappedComponent: any) => {
       setCalenderModal(false);
       setModalname("");
     };
+    
     const modalClick = (name: string) => {
       setModalname(name);
     };
@@ -419,7 +423,7 @@ const Layout = (WrappedComponent: any) => {
                   />
                 </HeaderMapProfileContainer>
               </RightSideHeadMenu>
-              <LeafletMaps {...{ showMap }} />
+              <DynamicMap {...{ showMap }} />
               <SearchFilterSection>
                 <MapNavigator />
               </SearchFilterSection>
