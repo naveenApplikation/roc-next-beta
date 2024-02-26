@@ -3,7 +3,11 @@ import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
 
-interface ModalProps { }
+interface ModalProps { 
+    previousModal?:any,
+    nextModal?:any,
+
+}
 
 const MenuModalContent = styled.div`
     display: flex;
@@ -27,16 +31,19 @@ const CreateAccountText = styled.div`
     font-weight: 600;
     line-height: normal;
     text-align: center;
+    cursor: pointer;
 `;
 
-const LoginContent: React.FC<ModalProps> = () => {
+const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
     return (
         <MenuModalContent>
             <MenuAccountInput title="Email" />
             <MenuAccountInput title="Password" />
             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
+            <div onClick={nextModal}>
             <CommonButton bcColor="#2F80ED" text="Login" imageStyle={0} />
-            <CreateAccountText>Create an account</CreateAccountText>
+            </div>
+            <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
         </MenuModalContent>
     );
 };

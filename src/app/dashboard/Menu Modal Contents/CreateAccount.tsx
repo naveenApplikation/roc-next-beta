@@ -3,7 +3,10 @@ import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
 
-interface ModalProps { }
+interface ModalProps { 
+    isOpen?:any;
+    nextModal?:any
+}
 
 const MenuModalContent = styled.div`
     display: flex;
@@ -68,7 +71,8 @@ const UserLoginText = styled.div`
     font-size: 14px;
     font-style: normal;
     font-weight: 600;   
-    line-height: normal; 
+    line-height: normal;
+    cursor: pointer; 
 `;
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
@@ -94,7 +98,7 @@ const OfferCheckbox = styled.div`
     justify-content: center;
 `;
 
-const CreateAccountContent: React.FC<ModalProps> = () => {
+const CreateAccountContent: React.FC<ModalProps> = ({isOpen,nextModal}) => {
     return (
         <MenuModalContent>
             <MenuAccountInput title="Email" />
@@ -107,9 +111,11 @@ const CreateAccountContent: React.FC<ModalProps> = () => {
                     I would like to receive offers and news from ROC.
                 </ReceiveOffersText>
             </SelectReceiveOffers>
+            <div onClick={nextModal}>
             <CommonButton bcColor="#2F80ED" text="Create Acccount" />
+            </div>
             <UserTermsText1>By continuing, I agree to the <UserTermsText2>User Terms</UserTermsText2></UserTermsText1>
-            <UserLoginText>Already a user? Login</UserLoginText>
+            <UserLoginText onClick={isOpen}>Already a user? Login</UserLoginText>
         </MenuModalContent>
     );
 };

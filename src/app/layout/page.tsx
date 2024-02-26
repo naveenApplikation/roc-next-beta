@@ -14,6 +14,11 @@ import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
 import CalenderPlaceModalLayout from "../../components/modal/Modal";
 import CreateAccountModalLayout from "../../components/modal/Modal";
+import LoginAccountModalLayout from "../../components/modal/Modal";
+import UpdateMyDetailsModalLayout from "../../components/modal/Modal";
+import UpdateMyEmailModalLayout from "../../components/modal/Modal";
+import UpdateMyPreferencesModalLayout from "../../components/modal/Modal";
+import WelcomeBackModalLayout from "../../components/modal/Modal";
 import CalenderConfirmModalLayout from "../../components/modal/Modal";
 import ModalContent from "../dashboard/ModalContent";
 import CalenderModal from "../dashboard/calenderModal";
@@ -21,6 +26,11 @@ import CommonButton from "@/components/button/CommonButton";
 import PlacesFormModal from "../dashboard/placesFormModal";
 import PlacesConfirmModal from "../dashboard/placeConfirmNodal";
 import CreateAccountContent from "../dashboard/Menu Modal Contents/CreateAccount";
+import LoginAccountContent from "../dashboard/Menu Modal Contents/Login";
+import UpdateMyDetails from "../dashboard/Menu Modal Contents/UpdateMyDetails";
+import UpdateMyEmail from "../dashboard/Menu Modal Contents/UpdateMyEmail";
+import UpdateMyPreferences from "../dashboard/Menu Modal Contents/UpdateMyPreferences";
+import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
 import LeafletMap from "@/components/map/page";
 import FilterSection from "@/components/filterSection";
 import MapNavigator from "@/components/mapNavigator/page";
@@ -60,7 +70,7 @@ const MainContainer = styled.div`
     height: auto;
     overflow: hidden;
     margin-top: 500px;
-    z-index:3;
+    z-index: 3;
   }
 `;
 
@@ -106,10 +116,9 @@ const HeaderMapProfileContainer = styled.div`
 const DashboardMenu = styled.div<{
   $showMap: boolean;
   $focused: boolean;
-
 }>`
-  width: ${({ $showMap }) => ($showMap ? "480px" : "580px")} ;
-  paddingBottom: ${({ $showMap }) => ($showMap ? "0" : "0")} ;
+  width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
+  paddingbottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
   background: #f2f3f3;
   transition: 0.8s;
   background-blend-mode: normal, luminosity;
@@ -120,17 +129,18 @@ const DashboardMenu = styled.div<{
   display: flex;
   flex-direction: column;
   gap: 24px;
-  min-height:100vh;
+  min-height: 100vh;
 
   @media screen and (max-width: 800px) {
     /* height: 100vh; */
-    display : ${({ $showMap }) => ($showMap ? "none" : "flex")};
+    display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
-    min-height : ${({ $showMap }) => ($showMap ? "calc(100vh - 500px)" : "100vh")}
+    min-height: ${({ $showMap }) =>
+      $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 const RightSideMenu = styled.div`
-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -177,8 +187,8 @@ const RightSideInsideMenuBox = styled.div`
 `;
 
 const RightMenu = styled.div`
-  position:fixed;
-  right:24px;
+  position: fixed;
+  right: 24px;
   @media screen and (max-width: 800px) {
     display: flex;
     flex-direction: column;
@@ -187,7 +197,7 @@ const RightMenu = styled.div`
     position: fixed;
     top: 0;
     width: 100%;
-    right:0;
+    right: 0;
   }
 `;
 
@@ -198,51 +208,59 @@ const MobileViewRightSideMenu = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    z-index:23;
+    z-index: 23;
   }
 `;
 const MapSection = styled.div`
-    position:relative;
-    .leaflet-container{
-      height:100vh;
-      width: calc(100vw - 480px);
-      transition:0.5s;
-      z-index:0;
-      @media screen and (max-width: 800px) {
-        width: 100vw;
-        height:525px;
-      }
-    }
-    .mapHeader{
-      position:absolute;
-      top:0;
-      z-index:3;
-      width:100%;
-      padding: 40px 34px;
-    }
-
+  position: relative;
+  .leaflet-container {
+    height: 100vh;
+    width: calc(100vw - 480px);
+    transition: 0.5s;
+    z-index: 0;
     @media screen and (max-width: 800px) {
-      position:fixed;
-      top:0;
-      z-index:2;
+      width: 100vw;
+      height: 525px;
     }
+  }
+  .mapHeader {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    padding: 40px 34px;
+  }
+
+  @media screen and (max-width: 800px) {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+  }
 `;
 
 const SearchFilterSection = styled.div`
-  position:absolute;
-  bottom:40px;
-  left:30px;
-  display:none;
-  @media screen and (max-width: 800px) {
-   display:block;
+  position: absolute;
+  bottom: 40px;
+  /* left:30px; */
+  padding: 0px 15px;
+  width: 100%;
+  overflow: auto;
+  display: none;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
-`
+
+  @media screen and (max-width: 800px) {
+    display: block;
+  }
+`;
 
 const InputWrapper = styled.div`
   display: flex;
   padding: 0px 40px;
   gap: 6px;
-  box-shadow: 0px 0px 0px 0px #5229001A;
+  box-shadow: 0px 0px 0px 0px #5229001a;
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
     padding-top: 16px;
@@ -250,18 +268,18 @@ const InputWrapper = styled.div`
 `;
 
 const MapSearch = styled.div`
-
-background-color: white !important;
-width: 100%;
-position: absolute;
-bottom: -126px;
-min-height: 22vh;
-border-radius: 24px 24px 0px 0px;
-box-shadow: 0px -8px 40px 0px #00000040;
-display:none;
-@media screen and (max-width: 800px) {
-  display:block;
-}`
+  background-color: white !important;
+  width: 100%;
+  position: absolute;
+  bottom: -126px;
+  min-height: 22vh;
+  border-radius: 24px 24px 0px 0px;
+  box-shadow: 0px -8px 40px 0px #00000040;
+  display: none;
+  @media screen and (max-width: 800px) {
+    display: block;
+  }
+`;
 
 const AllCategories = styled.div`
   display: flex;
@@ -288,7 +306,7 @@ const Layout = (WrappedComponent: any) => {
   const Hoc = () => {
     const [focused, setFocused] = useState(false);
     const [calenderModal, setCalenderModal] = useState<boolean>(false);
-    const [showMap, setShowMap] = useState<boolean>(false)
+    const [showMap, setShowMap] = useState<boolean>(false);
     const [modalName, setModalname] = useState("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
 
@@ -321,6 +339,12 @@ const Layout = (WrappedComponent: any) => {
         router.push("/categories/Stays");
       } else if (item.name === "Hotels") {
         router.push("/categories/Scaffolding");
+      } else if (item.name === "Activities") {
+        router.push("/categories/Experiences");
+      } else if (item.name === "Travel") {
+        router.push("/categories/Attractions");
+      } else if (item.name === "Nightlife") {
+        router.push("/categories/Financial Services");
       }
     };
     const closeModal = () => {
@@ -332,7 +356,7 @@ const Layout = (WrappedComponent: any) => {
     };
     const iconClick = (name: string) => {
       if (name === "mapClick") {
-        setShowMap(!showMap)
+        setShowMap(!showMap);
       }
     };
 
@@ -366,17 +390,17 @@ const Layout = (WrappedComponent: any) => {
             <DashboardMenu
               $showMap={showMap}
               $focused={focused}
-            // style={{
-            //   paddingBottom: `${focused ? "0px" : "0px"}`,
-            //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
-            // }}
+              // style={{
+              //   paddingBottom: `${focused ? "0px" : "0px"}`,
+              //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
+              // }}
             >
               <Header {...{ modalClick, iconClick, showMap }} />
               {/* <CreateListings /> */}
               <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
           </MainContainer>
-          {showMap &&
+          {showMap && (
             <MapSection>
               <RightSideHeadMenu className="mapHeader">
                 <Image
@@ -408,7 +432,7 @@ const Layout = (WrappedComponent: any) => {
                 </InputWrapper>
               </MapSearch>
             </MapSection>
-          }
+          )}
           <RightMenu>
             <RightSideHeadMenu>
               <Image
@@ -515,8 +539,57 @@ const Layout = (WrappedComponent: any) => {
           {...{ showMap }}
           title="Create an account"
         >
-          <CreateAccountContent />
+          <CreateAccountContent
+            isOpen={() => modalClick("LoginAccountModal")}
+            nextModal={() => modalClick("WelcomeBackModal")}
+          />
         </CreateAccountModalLayout>
+        <LoginAccountModalLayout
+          isOpen={modalName === "LoginAccountModal"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Login"
+        >
+          <LoginAccountContent
+            previousModal={() => modalClick("createAccountModal")}
+            nextModal={() => modalClick("WelcomeBackModal")}
+          />
+        </LoginAccountModalLayout>
+        <WelcomeBackModalLayout
+          isOpen={modalName === "WelcomeBackModal"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Welcome back!"
+        >
+          <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} />
+        </WelcomeBackModalLayout>
+        <UpdateMyDetailsModalLayout
+          isOpen={modalName === "UpdateMyDetailsModal"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Update my details"
+        >
+          <UpdateMyDetails isOpen={() => modalClick("UpdateMyEmailModal")} previousModal={() => modalClick("WelcomeBackModal")} />
+        </UpdateMyDetailsModalLayout>
+        <UpdateMyEmailModalLayout
+          isOpen={modalName === "UpdateMyEmailModal"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Update my email"
+        >
+          <UpdateMyEmail
+            isOpen={() => modalClick("UpdateMyPreferencesModal")}
+            previousModal={() => modalClick("UpdateMyDetailsModal")}
+          />
+        </UpdateMyEmailModalLayout>
+        <UpdateMyPreferencesModalLayout
+          isOpen={modalName === "UpdateMyPreferencesModal"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Update my preferences"
+        >
+          <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} />
+        </UpdateMyPreferencesModalLayout>
       </>
 
       // <LeafletMap />
