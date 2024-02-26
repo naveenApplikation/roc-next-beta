@@ -8,7 +8,7 @@ import { rightSideMenu, rightSideMenuMobile } from "../dashboard/data";
 import mapIcon from "../../../assets/images/mapIcon.png";
 import profileIcon from "../../../assets/images/profileIcon.png";
 import { useRouter } from "next/navigation";
-import { user } from "../utils/ImagePath";
+import { headerHome, user } from "../utils/ImagePath";
 import Header from "@/components/header/page";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
@@ -21,6 +21,10 @@ import CommonButton from "@/components/button/CommonButton";
 import PlacesFormModal from "../dashboard/placesFormModal";
 import PlacesConfirmModal from "../dashboard/placeConfirmNodal";
 import CreateAccountContent from "../dashboard/Menu Modal Contents/CreateAccount";
+import LeafletMap from "@/components/map/page";
+import FilterSection from "@/components/filterSection";
+import MapNavigator from "@/components/mapNavigator/page";
+import SearchInput from "../../components/searchInput/SearchInput";
 
 interface LayoutProps {
   children: any;
@@ -54,6 +58,7 @@ const MainContainer = styled.div`
     height: auto;
     overflow: hidden;
     margin-top: 500px;
+    z-index:3;
   }
 `;
 
@@ -96,9 +101,15 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const DashboardMenu = styled.div`
-  width: 580px;
+const DashboardMenu = styled.div<{
+  $showMap: boolean;
+  $focused: boolean;
+
+}>`
+  width: ${({ $showMap }) => ($showMap ? "480px" : "580px")} ;
+  paddingBottom: ${({ $showMap }) => ($showMap ? "0" : "0")} ;
   background: #f2f3f3;
+  transition: 0.8s;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
@@ -107,13 +118,17 @@ const DashboardMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height:100vh;
 
   @media screen and (max-width: 800px) {
     /* height: 100vh; */
+    display : ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
+    min-height : ${({ $showMap }) => ($showMap ? "calc(100vh - 500px)" : "100vh")}
   }
 `;
 const RightSideMenu = styled.div`
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -160,6 +175,8 @@ const RightSideInsideMenuBox = styled.div`
 `;
 
 const RightMenu = styled.div`
+  position:fixed;
+  right:24px;
   @media screen and (max-width: 800px) {
     display: flex;
     flex-direction: column;
@@ -168,6 +185,7 @@ const RightMenu = styled.div`
     position: fixed;
     top: 0;
     width: 100%;
+    right:0;
   }
 `;
 
@@ -178,8 +196,70 @@ const MobileViewRightSideMenu = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 8px;
+    z-index:23;
   }
 `;
+const MapSection = styled.div`
+    position:relative;
+    .leaflet-container{
+      height:100vh;
+      width: calc(100vw - 480px);
+      transition:0.5s;
+      z-index:0;
+      @media screen and (max-width: 800px) {
+        width: 100vw;
+        height:525px;
+      }
+    }
+    .mapHeader{
+      position:absolute;
+      top:0;
+      z-index:3;
+      width:100%;
+      padding: 40px 34px;
+    }
+
+    @media screen and (max-width: 800px) {
+      position:fixed;
+      top:0;
+      z-index:2;
+    }
+`;
+
+const SearchFilterSection = styled.div`
+  position:absolute;
+  bottom:40px;
+  left:30px;
+  display:none;
+  @media screen and (max-width: 800px) {
+   display:block;
+  }
+`
+
+const InputWrapper = styled.div`
+  display: flex;
+  padding: 0px 40px;
+  gap: 6px;
+  box-shadow: 0px 0px 0px 0px #5229001A;
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+    padding-top: 16px;
+  }
+`;
+
+const MapSearch = styled.div`
+
+background-color: white !important;
+width: 100%;
+position: absolute;
+bottom: -126px;
+min-height: 22vh;
+border-radius: 24px 24px 0px 0px;
+box-shadow: 0px -8px 40px 0px #00000040;
+display:none;
+@media screen and (max-width: 800px) {
+  display:block;
+}`
 
 const AllCategories = styled.div`
   display: flex;
@@ -206,6 +286,7 @@ const Layout = (WrappedComponent: any) => {
   const Hoc = () => {
     const [focused, setFocused] = useState(false);
     const [calenderModal, setCalenderModal] = useState<boolean>(false);
+    const [showMap, setShowMap] = useState<boolean>(false)
     const [modalName, setModalname] = useState("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
 
@@ -247,6 +328,11 @@ const Layout = (WrappedComponent: any) => {
     const modalClick = (name: string) => {
       setModalname(name);
     };
+    const iconClick = (name: string) => {
+      if (name === "mapClick") {
+        setShowMap(!showMap)
+      }
+    };
 
     // const DynamicComponent: React.FC<DynamicComponentProps> = ({ componentName, onClose }) => {
     //   if (modalName) {
@@ -271,21 +357,55 @@ const Layout = (WrappedComponent: any) => {
     //     </>)
     //   }
     // }
-
     return (
       <>
         <Container>
           <MainContainer>
             <DashboardMenu
-              style={{
-                paddingBottom: `${focused ? "0px" : "0px"}`,
-                minHeight: "100vh",
-              }}
+              $showMap={showMap}
+              $focused={focused}
+            // style={{
+            //   paddingBottom: `${focused ? "0px" : "0px"}`,
+            //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
+            // }}
             >
-              <Header modalClick={modalClick} />
-              <WrappedComponent {...{ modalClick }} />
+              <Header {...{ modalClick, iconClick , showMap }} />
+              <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
           </MainContainer>
+          {showMap &&
+            <MapSection>
+              <RightSideHeadMenu className="mapHeader">
+                <Image
+                  style={{ width: "116.615px", height: "48px" }}
+                  src={RightSideLogo}
+                  alt="Logo Outline"
+                />
+                <HeaderMapProfileContainer>
+                  <Image
+                    style={{ width: "48px", height: "48px" }}
+                    src={showMap ?  headerHome :mapIcon}
+                    alt="Logo Outline"
+                    onClick={() => iconClick("mapClick")}
+                  />
+                  <Image
+                    style={{ width: "48px", height: "48px" }}
+                    src={profileIcon}
+                    alt="Logo Outline"
+                  />
+                </HeaderMapProfileContainer>
+              </RightSideHeadMenu>
+              <LeafletMap {...{ showMap }} />
+              <SearchFilterSection>
+                <MapNavigator />
+              </SearchFilterSection>
+              <MapSearch>
+                <InputWrapper className="filterInput">
+                  <SearchInput />
+                </InputWrapper>
+              </MapSearch>
+            </MapSection>
+          }
           <RightMenu>
             <RightSideHeadMenu>
               <Image
@@ -296,8 +416,9 @@ const Layout = (WrappedComponent: any) => {
               <HeaderMapProfileContainer>
                 <Image
                   style={{ width: "48px", height: "48px" }}
-                  src={mapIcon}
+                  src={showMap ?  headerHome :mapIcon}
                   alt="Logo Outline"
+                  onClick={() => iconClick("mapClick")}
                 />
                 <Image
                   style={{ width: "48px", height: "48px" }}
@@ -338,14 +459,15 @@ const Layout = (WrappedComponent: any) => {
         <DashBoardModal
           isOpen={modalName === "ModalContent"}
           onClose={closeModal}
+          {...{ showMap }}
           title="Brasserie Colmar"
         >
           <ModalContent onClose={closeModal} />
-          {/* <OrderOnlineModal /> */}
         </DashBoardModal>
         <CalenderModalLayout
           isOpen={modalName === "calenderModal"}
           onClose={closeModal}
+          {...{ showMap }}
           title="Brasserie Colmar"
         >
           <CalenderModal onClose={closeModal} />
@@ -359,6 +481,7 @@ const Layout = (WrappedComponent: any) => {
         <CalenderPlaceModalLayout
           isOpen={modalName === "calenderPlaceModal"}
           onClose={closeModal}
+          {...{ showMap }}
           title="Brasserie Colmar"
         >
           <PlacesFormModal />
@@ -372,6 +495,7 @@ const Layout = (WrappedComponent: any) => {
         <CalenderConfirmModalLayout
           isOpen={modalName === "PlacesConfirmModal"}
           onClose={closeModal}
+          {...{ showMap }}
           title="Brasserie Colmar"
         >
           <PlacesConfirmModal />
@@ -385,11 +509,14 @@ const Layout = (WrappedComponent: any) => {
         <CreateAccountModalLayout
           isOpen={modalName === "createAccountModal"}
           onClose={closeModal}
+          {...{ showMap }}
           title="Create an account"
         >
           <CreateAccountContent />
         </CreateAccountModalLayout>
       </>
+
+      // <LeafletMap />
     );
   };
   return Hoc;

@@ -1,4 +1,4 @@
-import { home, logoOutline, mapIcon, profileIcon, search, user } from '@/app/utils/ImagePath';
+import { headerHome, home, logoOutline, mapIcon, profileIcon, search, user } from '@/app/utils/ImagePath';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -10,7 +10,9 @@ interface HeaderProps {
     // Define your props here
     setCreateAccountModal?: Function,
     createAccountModal?: boolean,
+    showMap?: boolean,
     modalClick: Function;
+    iconClick: Function;
 }
 
 const HeadMenu = styled.div<{
@@ -38,17 +40,10 @@ const HeaderMapProfileContainer = styled.div`
 
 
 
-const Header: React.FC<HeaderProps> = ({ modalClick }) => {
-    const [createAccountModal, setCreateAccountModal] = useState<boolean>(false)
+const Header: React.FC<HeaderProps> = ({ modalClick , iconClick ,showMap }) => {
     const pathname = usePathname()
     const router = useRouter()
 
-    const opencreateAccountHandle = () => {
-        setCreateAccountModal(true);
-    };
-    const closecreateAccountHandle = () => {
-        setCreateAccountModal(false);
-    };
     const navigateClick = () => {
         router.push("/")
     }
@@ -71,8 +66,9 @@ const Header: React.FC<HeaderProps> = ({ modalClick }) => {
                             <>
                                 <Image
                                     style={{ width: "48px", height: "48px" }}
-                                    src={mapIcon}
+                                    src={showMap ?  headerHome :  mapIcon}
                                     alt="Logo Outline"
+                                    onClick={() => iconClick("mapClick")}
                                 />
                                 <Image
                                     style={{ width: "48px", height: "48px", cursor: "pointer" }}

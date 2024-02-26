@@ -15,6 +15,11 @@ import searchImg from  "../../../assets/images/search.png"
 import locationMarkImg from  "../../../assets/images/locationMark.png"
 import currencyImg from  "../../../assets/images/currency.png"
 import associateImg from  "../../../assets/images/associate.png"
+import castleImg from  "../../../assets/images/castle.png"
+import locationImg from  "../../../assets/images/location.png"
+import StoreImg from  "../../../assets/images/Store.png"
+import calenderImg from  "../../../assets/images/Store.png"
+import headerHomeImg from  "../../../assets/images/headerHome.png"
 
 export const globe = gloveImg 
 export const phone = phoneImg 
@@ -33,3 +38,8 @@ export const profileIcon = profileIconImg
 export const locationMark = locationMarkImg 
 export const currency = currencyImg 
 export const associate = associateImg 
+export const castle = castleImg 
+export const location = locationImg 
+export const Store = StoreImg 
+export const calender = calenderImg 
+export const headerHome = headerHomeImg 

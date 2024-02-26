@@ -8,19 +8,21 @@ interface ModalProps {
   onClose: () => void;
   children?: ReactNode;
   title: string;
+  showMap: boolean;
 }
 
 const StyledModal = styled.div<{
   $isopen: boolean;
+  $showMap: boolean;
   $screenwidthpercentage: number;
   $screenwidth: number;
 }>`
   position: fixed;
   top: 0;
-  left: ${({ $isopen, $screenwidthpercentage }) =>
-    $isopen ? `${190 - $screenwidthpercentage}%` : "0%"};
+  left: ${({ $isopen, $screenwidthpercentage , $showMap }) =>
+    $isopen ? `${190 - ($showMap ?  ($screenwidthpercentage + 10) : $screenwidthpercentage )}%` : "0%"};
   transform: translateX(
-    -${({ $screenwidthpercentage }) => 230 - $screenwidthpercentage}%
+    -${({ $screenwidthpercentage ,$showMap }) => 230 - ($showMap ?  ($screenwidthpercentage + 10) : $screenwidthpercentage )}%
   );
   bottom: 0%;
   max-height: 95vh;
@@ -104,8 +106,8 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
-  const [screenWidthPercentage, setScreenWidthPercentage] = useState(116);
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap }) => {
+  const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
 
   useEffect(() => {
@@ -128,6 +130,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
   return (
     <StyledModal
       $isopen={isOpen}
+      $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
       $screenwidth={screenWidth}
     >

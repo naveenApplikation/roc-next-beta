@@ -137,3 +137,6 @@ a {
   flex-direction: column;
   gap: 6px;
 }
+.leaflet-control-zoom{
+  display: none;
+}

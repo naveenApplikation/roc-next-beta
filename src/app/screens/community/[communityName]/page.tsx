@@ -19,6 +19,7 @@ const CommunityBody = styled.div`
   min-height:calc(100vh - 113px);
   padding-bottom:40px;
   .communityName{
+    font-family: "ProximaNova";
     font-size : 24px;
     font-weight:700;
   }
