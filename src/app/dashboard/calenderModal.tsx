@@ -119,7 +119,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
     const CalenderData = () => {
         return (
             <CalenderContainer>
-            <Calendar onChange={onChange} value={value} calendarType="gregory" tileClassName={tileClassName} />
+            <Calendar  value={value} calendarType="gregory" tileClassName={tileClassName} />
             </CalenderContainer>
         )
     }
