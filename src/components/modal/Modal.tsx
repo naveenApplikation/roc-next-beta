@@ -26,12 +26,7 @@ const StyledModal = styled.div<{
   max-height: 95vh;
   width: 352px; /* Adjust this value as needed */
   border-radius: 40px;
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 100%
-    ),
-    #ff0;
+  background: #f2f3f3;
 
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
@@ -50,12 +45,7 @@ const StyledModal = styled.div<{
   }
 
   .modal-content {
-    background: linear-gradient(
-        0deg,
-        rgba(255, 255, 255, 0.8) 0%,
-        rgba(255, 255, 255, 0.8) 100%
-      ),
-      #ff0;
+    background: #f2f3f3;
     /* display: flex;
     justify-content: space-between;
     align-items: center; */

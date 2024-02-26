@@ -4,13 +4,10 @@ import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import RightSideLogo from "../../../assets/images/RightSideLogo.png";
-import {
-  rightSideMenu,
-  rightSideMenuMobile,
-} from "../dashboard/data";
+import { rightSideMenu, rightSideMenuMobile } from "../dashboard/data";
 import mapIcon from "../../../assets/images/mapIcon.png";
 import profileIcon from "../../../assets/images/profileIcon.png";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { user } from "../utils/ImagePath";
 import Header from "@/components/header/page";
 import DashBoardModal from "../../components/modal/Modal";
@@ -26,15 +23,14 @@ import PlacesConfirmModal from "../dashboard/placeConfirmNodal";
 import CreateAccountContent from "../dashboard/Menu Modal Contents/CreateAccount";
 
 interface LayoutProps {
-  children: any,
-  createAccountModal?: boolean,
-  setCreateAccountModal?: Function
+  children: any;
+  createAccountModal?: boolean;
+  setCreateAccountModal?: Function;
 }
 interface DynamicComponentProps {
   componentName: string;
   onClose: Function;
 }
-
 
 const Container = styled.div`
   display: flex;
@@ -96,22 +92,16 @@ const RightSideHeadMenu = styled.div`
 
 const HeaderMapProfileContainer = styled.div`
   display: flex;
-  align-items:center;
+  /* align-items:center; */
   gap: 16px;
 `;
 
 const DashboardMenu = styled.div`
   width: 580px;
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.8) 100%
-    ),
-    #ff0;
+  background: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-  padding: 40px 0px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -139,7 +129,7 @@ const RightSideInsideMenuBox = styled.div`
   padding: 16px 24px;
   gap: 8px;
   border-radius: 8px;
-  cursor:pointer;
+  cursor: pointer;
   .iconSize {
     width: 22px;
     height: auto;
@@ -168,7 +158,6 @@ const RightSideInsideMenuBox = styled.div`
     padding: 8px;
   }
 `;
-
 
 const RightMenu = styled.div`
   @media screen and (max-width: 800px) {
@@ -214,14 +203,13 @@ const AllCategories = styled.div`
 `;
 
 const Layout = (WrappedComponent: any) => {
-
   const Hoc = () => {
     const [focused, setFocused] = useState(false);
-    const [calenderModal, setCalenderModal] = useState<boolean>(false)
-    const [modalName, setModalname] = useState("")
+    const [calenderModal, setCalenderModal] = useState<boolean>(false);
+    const [modalName, setModalname] = useState("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
 
-    const router = useRouter()
+    const router = useRouter();
     const handleClick = (event: MouseEvent) => {
       if (
         specificSectionRef.current &&
@@ -239,22 +227,26 @@ const Layout = (WrappedComponent: any) => {
 
     const menuClick = (item: any) => {
       if (item.name === "To do") {
-        router.push('/screens/community/Top Rated Restaurants')
+        router.push("/screens/community/Top Rated Restaurants");
       } else if (item.name === "Dine") {
-        router.push('/screens/community/Eco Dining')
+        router.push("/screens/community/Eco Dining");
       } else if (item.name === "Shop") {
-        router.push('/screens/community/Wellbeing')
+        router.push("/screens/community/Wellbeing");
       } else if (item.name === "Events") {
-        router.push("/screens/categories/Events")
+        router.push("/screens/categories/Events");
+      } else if (item.name === "Tours") {
+        router.push("/screens/categories/Stays");
+      } else if (item.name === "Hotels") {
+        router.push("/screens/categories/Scaffolding");
       }
-    }
+    };
     const closeModal = () => {
-      setCalenderModal(false)
-      setModalname("")
-    }
+      setCalenderModal(false);
+      setModalname("");
+    };
     const modalClick = (name: string) => {
-      setModalname(name)
-    }
+      setModalname(name);
+    };
 
     // const DynamicComponent: React.FC<DynamicComponentProps> = ({ componentName, onClose }) => {
     //   if (modalName) {
@@ -285,9 +277,12 @@ const Layout = (WrappedComponent: any) => {
         <Container>
           <MainContainer>
             <DashboardMenu
-              style={{ paddingBottom: `${focused ? "0px" : "40px"}`, minHeight: "100vh" }}
+              style={{
+                paddingBottom: `${focused ? "0px" : "0px"}`,
+                minHeight: "100vh",
+              }}
             >
-              <Header modalClick={modalClick}/>
+              <Header modalClick={modalClick} />
               <WrappedComponent {...{ modalClick }} />
             </DashboardMenu>
           </MainContainer>
@@ -327,7 +322,7 @@ const Layout = (WrappedComponent: any) => {
               {rightSideMenuMobile.map((item, index) => {
                 return (
                   <RightSideMenu key={index}>
-                    <RightSideInsideMenuBox>
+                    <RightSideInsideMenuBox onClick={() => menuClick(item)}>
                       <Image className="iconSize" src={item.image} alt="icon" />
                       <p>{item.name}</p>
                     </RightSideInsideMenuBox>
@@ -354,7 +349,10 @@ const Layout = (WrappedComponent: any) => {
           title="Brasserie Colmar"
         >
           <CalenderModal onClose={closeModal} />
-          <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={() => modalClick("calenderPlaceModal")}>
+          <div
+            style={{ marginTop: 16, padding: "0px 24px" }}
+            onClick={() => modalClick("calenderPlaceModal")}
+          >
             <CommonButton text="Next" />
           </div>
         </CalenderModalLayout>
@@ -364,7 +362,10 @@ const Layout = (WrappedComponent: any) => {
           title="Brasserie Colmar"
         >
           <PlacesFormModal />
-          <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={() => modalClick("PlacesConfirmModal")}>
+          <div
+            style={{ marginTop: 16, padding: "0px 24px" }}
+            onClick={() => modalClick("PlacesConfirmModal")}
+          >
             <CommonButton text="Next" />
           </div>
         </CalenderPlaceModalLayout>
@@ -374,7 +375,10 @@ const Layout = (WrappedComponent: any) => {
           title="Brasserie Colmar"
         >
           <PlacesConfirmModal />
-          <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={closeModal}>
+          <div
+            style={{ marginTop: 16, padding: "0px 24px" }}
+            onClick={closeModal}
+          >
             <CommonButton text="Done" />
           </div>
         </CalenderConfirmModalLayout>
@@ -387,9 +391,8 @@ const Layout = (WrappedComponent: any) => {
         </CreateAccountModalLayout>
       </>
     );
-  }
-  return Hoc
-
+  };
+  return Hoc;
 };
 
 export default Layout;
