@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import RightSideLogo from "../../../assets/images/RightSideLogo.png";
@@ -31,12 +31,9 @@ import UpdateMyDetails from "../dashboard/Menu Modal Contents/UpdateMyDetails";
 import UpdateMyEmail from "../dashboard/Menu Modal Contents/UpdateMyEmail";
 import UpdateMyPreferences from "../dashboard/Menu Modal Contents/UpdateMyPreferences";
 import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
-import LeafletMap from "@/components/map/page";
-import FilterSection from "@/components/filterSection";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
-import Greetings from "../createList/Greetings";
-import CreateListings from "../createList/CreateListings";
+import LeafletMaps from "@/components/map/page";
 
 interface LayoutProps {
   children: any;
@@ -422,7 +419,7 @@ const Layout = (WrappedComponent: any) => {
                   />
                 </HeaderMapProfileContainer>
               </RightSideHeadMenu>
-              <LeafletMap {...{ showMap }} />
+              <LeafletMaps {...{ showMap }} />
               <SearchFilterSection>
                 <MapNavigator />
               </SearchFilterSection>
