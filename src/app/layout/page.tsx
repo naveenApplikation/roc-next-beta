@@ -25,6 +25,8 @@ import LeafletMap from "@/components/map/page";
 import FilterSection from "@/components/filterSection";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
+import Greetings from "../createList/Greetings";
+import CreateListings from "../createList/CreateListings";
 
 interface LayoutProps {
   children: any;
@@ -308,17 +310,17 @@ const Layout = (WrappedComponent: any) => {
 
     const menuClick = (item: any) => {
       if (item.name === "To do") {
-        router.push("/screens/community/Top Rated Restaurants");
+        router.push("/community/Top Rated Restaurants");
       } else if (item.name === "Dine") {
-        router.push("/screens/community/Eco Dining");
+        router.push("/community/Eco Dining");
       } else if (item.name === "Shop") {
-        router.push("/screens/community/Wellbeing");
+        router.push("/community/Wellbeing");
       } else if (item.name === "Events") {
-        router.push("/screens/categories/Events");
+        router.push("/categories/Events");
       } else if (item.name === "Tours") {
-        router.push("/screens/categories/Stays");
+        router.push("/categories/Stays");
       } else if (item.name === "Hotels") {
-        router.push("/screens/categories/Scaffolding");
+        router.push("/categories/Scaffolding");
       }
     };
     const closeModal = () => {
@@ -369,7 +371,8 @@ const Layout = (WrappedComponent: any) => {
             //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
             // }}
             >
-              <Header {...{ modalClick, iconClick , showMap }} />
+              <Header {...{ modalClick, iconClick, showMap }} />
+              {/* <CreateListings /> */}
               <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
           </MainContainer>
@@ -384,7 +387,7 @@ const Layout = (WrappedComponent: any) => {
                 <HeaderMapProfileContainer>
                   <Image
                     style={{ width: "48px", height: "48px" }}
-                    src={showMap ?  headerHome :mapIcon}
+                    src={showMap ? headerHome : mapIcon}
                     alt="Logo Outline"
                     onClick={() => iconClick("mapClick")}
                   />
@@ -416,7 +419,7 @@ const Layout = (WrappedComponent: any) => {
               <HeaderMapProfileContainer>
                 <Image
                   style={{ width: "48px", height: "48px" }}
-                  src={showMap ?  headerHome :mapIcon}
+                  src={showMap ? headerHome : mapIcon}
                   alt="Logo Outline"
                   onClick={() => iconClick("mapClick")}
                 />
