@@ -56,9 +56,9 @@ const mapNavigatorData = [
 const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
     return (
         <MapNavigatorComponent>
-            {mapNavigatorData.map((item: any) => {
+            {mapNavigatorData.map((item: any,index:any) => {
                 return (
-                    <MapNavigatorBox>
+                    <MapNavigatorBox key={index}>
                         <Image src={item.img} alt='' />
                         <MapNavigatorText>
                             {item.name}

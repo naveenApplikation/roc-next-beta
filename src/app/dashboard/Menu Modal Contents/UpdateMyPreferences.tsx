@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 
-interface ModalProps { }
+interface ModalProps {previousModal:any }
 
 const MenuModalContent = styled.div`
     display: flex;
@@ -53,7 +53,17 @@ const ReceiveOffersText = styled.div`
     line-height: 19px; 
 `;
 
-const UpdateMyPreferencesContent: React.FC<ModalProps> = () => {
+const BackAccount = styled.p`
+  color: var(--MAIN, #2f80ed);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+`;
+
+const UpdateMyPreferencesContent: React.FC<ModalProps> = ({previousModal}) => {
     return (
         <MenuModalContent>
             <SelectReceiveOffers>
@@ -65,6 +75,7 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = () => {
                 </ReceiveOffersText>
             </SelectReceiveOffers>
             <CommonButton bcColor="#2F80ED" text="Save new email address" imageStyle={0} />
+            <BackAccount onClick={previousModal}>Back to my account</BackAccount>
         </MenuModalContent>
     );
 };

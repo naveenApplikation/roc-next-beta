@@ -49,9 +49,9 @@ align-items:center;
 const ExperienceBox: React.FC<ExperienceBoxProps> = (props) => {
     return (
         <SearchedListContainer>
-            {RestroListData.map((item: any) => {
+            {RestroListData.map((item: any,index:any) => {
                 return (
-                    <SearchedData>
+                    <SearchedData key={index}>
                         <div
                             style={{
                                 display: "flex",
