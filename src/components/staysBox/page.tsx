@@ -54,9 +54,9 @@ align-items:center;
 const StaysBox: React.FC<StaysBoxProps> = (props) => {
     return (
         <SearchedListContainer>
-            {RestroListData.map((item: any) => {
+            {RestroListData.map((item: any,index:any) => {
                 return (
-                    <SearchedData>
+                    <SearchedData key={index}>
                         <div
                             style={{
                                 display: "flex",

@@ -46,9 +46,9 @@ const SearchedData = styled.div`
 const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
   return (
     <SearchedListContainer>
-      {RestroListData.map((item: any) => {
+      {RestroListData.map((item: any,index:any) => {
         return (
-          <SearchedData>
+          <SearchedData key={index}>
             <div
               style={{
                 display: "flex",

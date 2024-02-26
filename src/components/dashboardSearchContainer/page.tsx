@@ -82,9 +82,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({tabC
                 <>
                     <FilterSection />
                     <SearchedListContainer>
-                        {RestroListData.map((item: any) => {
+                        {RestroListData.map((item: any,index:any) => {
                             return (
-                                <SearchedData>
+                                <SearchedData key={index}>
                                     <div
                                         style={{
                                             display: "flex",

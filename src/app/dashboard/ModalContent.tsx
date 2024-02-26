@@ -217,14 +217,16 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
       </ReviewContainer>
       <AlsoSeeText>Also see</AlsoSeeText>
       <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item) => {
+        {LocalCuisineMenuItem.map((item,index) => {
           return (
+            <div key={index}> 
             <RatingMenu
               title={item.menuName}
               menuImageUrl={item.image}
               containerImageUrl={true}
               MenutitleDetail={item.resturantName}
-            />
+              />
+              </div>
           );
         })}
       </ScrollingMenu>

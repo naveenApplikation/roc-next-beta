@@ -45,9 +45,9 @@ align-items:center;
 const FinancialBox: React.FC<FinancialBoxProps> = (props) => {
   return (
     <SearchedListContainer>
-            {RestroListData.map((item: any) => {
+            {RestroListData.map((item: any,index:any) => {
                 return (
-                    <SearchedData>
+                    <SearchedData key={index}>
                         <div
                             style={{
                                 display: "flex",

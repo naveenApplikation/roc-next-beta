@@ -51,9 +51,9 @@ const EventBox: React.FC<EventBoxProps> = (props) => {
 
     return (
         <SearchedListContainer>
-            {RestroListData.map((item: any) => {
+            {RestroListData.map((item: any,index:any) => {
                 return (
-                    <SearchedData>
+                    <SearchedData key={index}>
                         <div
                             style={{
                                 display: "flex",

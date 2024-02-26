@@ -79,9 +79,9 @@ const CommunityPage: React.FC<CommunityPageProps> = (props) => {
         <p className='likesCount'>5281 Likes</p>
         <FilterSection />
         <SearchedListContainer>
-          {RestroListData.map((item: any) => {
+          {RestroListData.map((item: any,index:any) => {
             return (
-              <SearchedData>
+              <SearchedData key={index}>
                 <div
                   style={{
                     display: "flex",

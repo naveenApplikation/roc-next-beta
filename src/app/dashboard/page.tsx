@@ -25,14 +25,13 @@ import { blank, boxOverlay, thumbsup, utensils } from "../utils/ImagePath";
 import FilterSection from "@/components/filterSection";
 import Ratings from "@/components/ratings";
 import Lists from "../../components/search/Lists";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import Layout from "../layout/page";
 import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
 
-
 interface DashboardProps {
-  modalClick: Function,
-  showMap: boolean
+  modalClick: Function;
+  showMap: boolean;
 }
 
 const InputWrapper = styled.div`
@@ -58,7 +57,6 @@ const FilterInput = styled.div`
   align-items: center;
   background-color: #fff;
 `;
-
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -168,7 +166,6 @@ const DirectoryContainer = styled.div`
   }
 `;
 
-
 const DirectoryTitle = styled.p`
   font-family: "Proxima Nova";
   font-size: 24px;
@@ -176,8 +173,6 @@ const DirectoryTitle = styled.p`
   font-weight: 700;
   line-height: normal;
 `;
-
-
 
 const SearchedContainer = styled.div`
   background-color: #f2f3f3;
@@ -221,20 +216,20 @@ const SearchedContainer = styled.div`
   }
 `;
 const WalkContainer = styled.div`
-    height:120px;
-    min-width:120px;
-    background-position:bottom;
-    background-repeat:no-repeat;
-    background-color:#FFFFFFCC;
-    display:flex;
-    align-items:end;
-    p{
-      color:white;
-      font-size:14px;
-      font-weight:400;
-      padding:10px 10px;
-    }
-`
+  height: 120px;
+  min-width: 120px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-color: #ffffffcc;
+  display: flex;
+  align-items: end;
+  p {
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 10px 10px;
+  }
+`;
 
 const options = ["Lists", "Places"];
 
@@ -244,10 +239,10 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
   const [tabValue, setTabValue] = useState("Lists");
   const [focused, setFocused] = useState(false);
   const specificSectionRef = useRef<HTMLDivElement>(null);
-  const [mapShow , setMapShow] = useState(showMap)
-  useEffect(()=>{
-    setMapShow(showMap)
-  },[showMap])
+  const [mapShow, setMapShow] = useState(showMap);
+  useEffect(() => {
+    setMapShow(showMap);
+  }, [showMap]);
 
   const tabChange = (value: tabs) => {
     setTabValue(value);
@@ -286,16 +281,21 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
               Filter
             </FilterInput>
           </InputWrapper>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Local cuisine" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Local cuisine"
+          />
           <ScrollingMenu>
-            {LocalCuisineMenuItem.map((item) => {
+            {LocalCuisineMenuItem.map((item, index) => {
               return (
-                <RatingMenu
-                  title={item.menuName}
-                  menuImageUrl={item.image}
-                  containerImageUrl={true}
-                  MenutitleDetail={item.resturantName}
-                />
+                <div key={index}>
+                  <RatingMenu
+                    title={item.menuName}
+                    menuImageUrl={item.image}
+                    containerImageUrl={true}
+                    MenutitleDetail={item.resturantName}
+                  />
+                </div>
               );
             })}
           </ScrollingMenu>
@@ -307,9 +307,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
             {familyEventMenuItem.map((item, index) => {
               return (
                 <FamilEventContainer key={index}>
-                  <div
-                    style={{ display: "flex", flexDirection: "column" }}
-                  >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
                     <p className="date">{item.date}</p>
                     <span className="month">{item.month}</span>
                   </div>
@@ -318,20 +316,28 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
               );
             })}
           </ScrollingMenu>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Enjoy the sunshine" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Enjoy the sunshine"
+          />
           <ScrollingMenu>
-            {EnjoyShineMenuItem.map((item) => {
+            {EnjoyShineMenuItem.map((item, index) => {
               return (
-                <RatingMenu
-                  title={item.menuName}
-                  menuImageUrl={item.image}
-                  containerImageUrl={true}
-                  MenutitleDetail={item.resturantName}
-                />
+                <div key={index}>
+                  <RatingMenu
+                    title={item.menuName}
+                    menuImageUrl={item.image}
+                    containerImageUrl={true}
+                    MenutitleDetail={item.resturantName}
+                  />
+                </div>
               );
             })}
           </ScrollingMenu>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Top Attractions" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Top Attractions"
+          />
           <ScrollingMenu>
             {topAttractionItem.map((item, index) => {
               return (
@@ -353,18 +359,23 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
           <Directory />
           <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
           <ScrollingMenu>
-            {LocalCuisineMenuItem.map((item) => {
+            {LocalCuisineMenuItem.map((item, index) => {
               return (
-                <RatingMenu
-                  title={item.menuName}
-                  menuImageUrl={item.image}
-                  containerImageUrl={true}
-                  MenutitleDetail={item.resturantName}
-                />
+                <div key={index}>
+                  <RatingMenu
+                    title={item.menuName}
+                    menuImageUrl={item.image}
+                    containerImageUrl={true}
+                    MenutitleDetail={item.resturantName}
+                  />
+                </div>
               );
             })}
           </ScrollingMenu>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Community" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Community"
+          />
           <ScrollingMenu>
             {community.map((item, index) => {
               return (
@@ -382,22 +393,28 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
               );
             })}
           </ScrollingMenu>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Walks" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Walks"
+          />
           <ScrollingMenu>
-
             {WalksData.map((item, index) => {
               return (
                 <WalkContainer
                   key={index}
-                  style={{ backgroundImage: `url(${boxOverlay.src}) !important` }}
-
+                  style={{
+                    backgroundImage: `url(${boxOverlay.src}) !important`,
+                  }}
                 >
                   <p>{item.name}</p>
                 </WalkContainer>
               );
             })}
           </ScrollingMenu>
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Heritage" />
+          <MenuDetails
+            isOpen={() => modalClick("ModalContent")}
+            title="Heritage"
+          />
           <ScrollingMenu style={{ paddingBottom: "40px" }}>
             {LocalCuisineMenuItem.map((item, index) => {
               return (
@@ -414,8 +431,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
                     style={{
                       height: 64,
                       width: "100%",
-                      background:
-                        "linear-gradient(45deg, black, transparent)",
+                      background: "linear-gradient(45deg, black, transparent)",
                     }}
                   ></div>
                   <div>
@@ -443,12 +459,14 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
       ) : (
         <>
           <SearchedContainer ref={specificSectionRef}>
-            <DashboardSearchContainer {...{ tabChange, options, tabValue, showMap }} />
+            <DashboardSearchContainer
+              {...{ tabChange, options, tabValue, showMap }}
+            />
           </SearchedContainer>
         </>
       )}
     </>
   );
 };
-export default Layout(DashBoard)
+export default Layout(DashBoard);
 // export default DashBoard;
