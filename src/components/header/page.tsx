@@ -1,9 +1,7 @@
 import { headerHome, home, logoOutline, mapIcon, profileIcon, search, user } from '@/app/utils/ImagePath';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import CreateAccountModalLayout from "../modal/Modal";
-import CreateAccountContent from '@/app/dashboard/Menu Modal Contents/CreateAccount';
 import { usePathname, useRouter } from 'next/navigation';
 
 interface HeaderProps {
@@ -40,19 +38,17 @@ const HeaderMapProfileContainer = styled.div`
 
 
 
-const Header: React.FC<HeaderProps> = ({ modalClick , iconClick ,showMap }) => {
+const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap }) => {
     const pathname = usePathname()
     const router = useRouter()
 
     const navigateClick = () => {
         router.push("/")
     }
-
-
     return (
         <>
             <HeadMenu
-                $pathname={pathname}
+                $pathname={pathname ? pathname : "/"}
             >
                 <Image
                     style={{ width: "92px", height: "37.77px", cursor: "pointer" }}
@@ -66,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ modalClick , iconClick ,showMap }) => {
                             <>
                                 <Image
                                     style={{ width: "48px", height: "48px" }}
-                                    src={showMap ?  headerHome :  mapIcon}
+                                    src={showMap ? headerHome : mapIcon}
                                     alt="Logo Outline"
                                     onClick={() => iconClick("mapClick")}
                                 />

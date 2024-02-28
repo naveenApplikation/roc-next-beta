@@ -328,23 +328,23 @@ const Layout = (WrappedComponent: any) => {
 
     const menuClick = (item: any) => {
       if (item.name === "To do") {
-        router.push("/community/Top Rated Restaurants");
+        router.push("/screens/resturants");
       } else if (item.name === "Dine") {
-        router.push("/community/Eco Dining");
+        router.push("/screens/ecoDining");
       } else if (item.name === "Shop") {
-        router.push("/community/Wellbeing");
+        router.push("/screens/wellbeing");
       } else if (item.name === "Events") {
-        router.push("/categories/Events");
+        router.push("/screens/events");
       } else if (item.name === "Tours") {
-        router.push("/categories/Stays");
+        router.push("/screens/stays");
       } else if (item.name === "Hotels") {
-        router.push("/categories/Scaffolding");
+        router.push("/screens/scaffolding");
       } else if (item.name === "Activities") {
-        router.push("/categories/Experiences");
+        router.push("/screens/experiences");
       } else if (item.name === "Travel") {
-        router.push("/categories/Attractions");
+        router.push("/screens/attractions");
       } else if (item.name === "Nightlife") {
-        router.push("/categories/Financial Services");
+        router.push("/screens/financial");
       }
     };
     const closeModal = () => {
