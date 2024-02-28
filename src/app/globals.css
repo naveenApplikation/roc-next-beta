@@ -140,3 +140,6 @@ a {
 .leaflet-control-zoom{
   display: none;
 }
+p{
+  color: black;
+}

@@ -68,7 +68,7 @@ const MainContainer = styled.div`
     height: auto;
     overflow: hidden;
     margin-top: 500px;
-    z-index: 3;
+    z-index: 1;
   }
 `;
 
