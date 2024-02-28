@@ -416,7 +416,6 @@ const Layout = (WrappedComponent: any) => {
       }
     };
 
-    console.log("modalType" , modalType)
 
     // const DynamicComponent: React.FC<DynamicComponentProps> = ({ componentName, onClose }) => {
     //   if (modalName) {
