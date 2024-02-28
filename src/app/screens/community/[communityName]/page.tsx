@@ -70,7 +70,11 @@ const SearchedData = styled.div`
 const CommunityPage: React.FC<CommunityPageProps> = (props) => {
   const params = useParams()
 
-  const urlData = (params.communityName).toString().replaceAll("%20", " ")
+  let urlData : any
+  if(params){
+
+    urlData = (params.communityName).toString().replaceAll("%20", " ")
+  }
 
 
   return (

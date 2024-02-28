@@ -13,16 +13,16 @@ const rewrites = () => {
   ];
 };
 
-const nextConfig = {
-  output: "export",
-  reactStrictMode: false,
-  compiler: {
-    styledComponents: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-  rewrites: rewrites,
-};
+// const nextConfig = {
+//   output: "export",
+//   reactStrictMode: false,
+//   compiler: {
+//     styledComponents: true,
+//   },
+//   images: {
+//     unoptimized: true,
+//   },
+//   rewrites: rewrites,
+// };
 
-export default nextConfig;
+// export default nextConfig;

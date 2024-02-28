@@ -26,6 +26,7 @@ const MapNavigatorBox = styled.div`
 const MapNavigatorText = styled.div`
     font-size:14px;
     font-weight:400;
+    white-space:nowrap;
 `
 
 const mapNavigatorData = [
@@ -49,13 +50,28 @@ const mapNavigatorData = [
         img: calender,
         name: "Events"
     },
-
-
 ]
+
+
+const ScrollingMenu = styled.div`
+  display: flex;
+  overflow: auto;
+  gap: 8px;
+  padding: 0px 40px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+  }
+`;
+
 
 const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
     return (
-        <MapNavigatorComponent>
+        <ScrollingMenu>
             {mapNavigatorData.map((item: any,index:any) => {
                 return (
                     <MapNavigatorBox key={index}>
@@ -66,7 +82,7 @@ const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
                     </MapNavigatorBox>
                 )
             })}
-        </MapNavigatorComponent>
+        </ScrollingMenu>
     );
 };
 

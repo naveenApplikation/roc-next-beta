@@ -31,7 +31,11 @@ const CategoryBody = styled.div`
 
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   const params = useParams()
-  const urlData = (params.eventName).toString().replaceAll("%20", " ")
+  let urlData : any
+  if(params){
+
+    urlData = (params.eventName).toString().replaceAll("%20", " ")
+  }
 
   const categories = () => {
     if (urlData === "Events") {

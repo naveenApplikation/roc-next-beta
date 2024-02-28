@@ -79,7 +79,7 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (max-width: 1130px) {
-    width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
+    width: ${({ $screenwidth , $showMap }) => ($screenwidth < 800 ? "none" :  ( $showMap ? "480px" : "580px"))};
     max-width: 100%;
     left: ${({ $isopen, $screenwidth }) =>
     $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};

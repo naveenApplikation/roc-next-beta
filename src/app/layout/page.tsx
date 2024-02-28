@@ -391,13 +391,8 @@ const Layout = (WrappedComponent: any) => {
             <DashboardMenu
               $showMap={showMap}
               $focused={focused}
-              // style={{
-              //   paddingBottom: `${focused ? "0px" : "0px"}`,
-              //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
-              // }}
             >
               <Header {...{ modalClick, iconClick, showMap }} />
-              {/* <CreateListings /> */}
               <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
           </MainContainer>
@@ -425,6 +420,7 @@ const Layout = (WrappedComponent: any) => {
               </RightSideHeadMenu>
               <DynamicMap {...{ showMap }} />
               <SearchFilterSection>
+                
                 <MapNavigator />
               </SearchFilterSection>
               <MapSearch>
