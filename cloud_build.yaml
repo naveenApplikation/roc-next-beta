@@ -3,6 +3,8 @@ steps:
     args: ["install"]
   - name: "gcr.io/cloud-builders/npm"
     args: ["run", "build"]
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "start"]
   - name: "gcr.io/roc-web-app/firebase"
     args: ["deploy", "--project=roc-web-app", "--only=hosting:development"]
 
