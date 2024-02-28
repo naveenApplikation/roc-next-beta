@@ -5,6 +5,7 @@ steps:
     args: ["run", "build"]
   - name: "gcr.io/roc-web-app/firebase"
     args: ["deploy", "--project=roc-web-app", "--only=hosting:development"]
-
+  - name: "gcr.io/cloud-builders/npm"
+    args: ["run", "start"]
 options:
   logging: CLOUD_LOGGING_ONLY
