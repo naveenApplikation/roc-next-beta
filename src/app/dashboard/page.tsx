@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import filter from "../../../assets/images/filter.png";
@@ -20,18 +20,11 @@ import SearchInput from "../../components/searchInput/SearchInput";
 import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
-import TabPanel from "@/components/tabPanel";
-import { blank, boxOverlay, thumbsup, utensils } from "../utils/ImagePath";
-import FilterSection from "@/components/filterSection";
-import Ratings from "@/components/ratings";
-import Lists from "../../components/search/Lists";
-import { useRouter } from "next/navigation";
+import {  boxOverlay} from "../utils/ImagePath";
 import Layout from "../layout/page";
-import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
 
 interface DashboardProps {
   modalClick: Function;
-  showMap: boolean;
 }
 
 const InputWrapper = styled.div`
@@ -235,28 +228,15 @@ const options = ["Lists", "Places"];
 
 type tabs = "Lists" | "Places";
 
-const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
-  const [tabValue, setTabValue] = useState("Lists");
-  const [focused, setFocused] = useState(false);
+const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
-  const [mapShow, setMapShow] = useState(showMap);
-  useEffect(() => {
-    setMapShow(showMap);
-  }, [showMap]);
 
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
-  const searchFocus = (e: any) => {
-    setFocused(true);
-  };
 
   const handleClick = (event: MouseEvent) => {
     if (
       specificSectionRef.current &&
       !specificSectionRef.current.contains(event.target as Node)
     ) {
-      setFocused(false);
     }
   };
   useEffect(() => {
@@ -268,10 +248,9 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
 
   return (
     <>
-      {!focused ? (
-        <>
+     
           <InputWrapper>
-            <SearchInput onFocus={searchFocus} />
+            <SearchInput onFocus={()=>modalClick("search")} />
             <FilterInput>
               <Image
                 style={{ width: "16px", height: "16px" }}
@@ -456,16 +435,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick, showMap }) => {
             })}
           </ScrollingMenu>
         </>
-      ) : (
-        <>
-          <SearchedContainer ref={specificSectionRef}>
-            <DashboardSearchContainer
-              {...{ tabChange, options, tabValue, showMap }}
-            />
-          </SearchedContainer>
-        </>
-      )}
-    </>
+      
   );
 };
 export default Layout(DashBoard);
