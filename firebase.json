@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "public": "out",
+      "public": ".next",
       "target": "staging",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -12,7 +12,7 @@
       ]
     },
     {
-      "public": "out",
+      "public": ".next",
       "target": "production",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -23,19 +23,13 @@
       ]
     },
     {
-      "public": "out",
+      "public": ".next",
       "target": "development",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
 
     {
-      "public": "out",
+      "public": ".next",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

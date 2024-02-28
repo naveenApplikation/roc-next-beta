@@ -73,7 +73,7 @@ const ScaffoldingBox: React.FC<ScaffoldingBoxProps> = (props) => {
                                 alt=""
                             />
                             <div className="restroRating">
-                                <p className="shopName">item.name</p>
+                                <p className="shopName">Scaffolding</p>
                                 <DetailContainer>
                                     <Ratings defaultValue={3} />
                                     <p>3</p>

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "type": "module",
   "dependencies": {
     "antd": "^5.14.1",
     "babel-plugin-styled-components": "^2.1.4",

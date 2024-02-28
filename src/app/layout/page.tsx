@@ -35,6 +35,8 @@ import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import LeafletMaps from "@/components/map/page";
+import dynamic from "next/dynamic";
+import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
 
 interface LayoutProps {
   children: any;
@@ -68,7 +70,7 @@ const MainContainer = styled.div`
     height: auto;
     overflow: hidden;
     margin-top: 500px;
-    z-index: 3;
+    z-index: 1;
   }
 `;
 
@@ -113,10 +115,9 @@ const HeaderMapProfileContainer = styled.div`
 
 const DashboardMenu = styled.div<{
   $showMap: boolean;
-  $focused: boolean;
 }>`
   width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
-  paddingbottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
+  padding-bottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
   background: #f2f3f3;
   transition: 0.8s;
   background-blend-mode: normal, luminosity;
@@ -134,7 +135,7 @@ const DashboardMenu = styled.div<{
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-      $showMap ? "calc(100vh - 500px)" : "100vh"};
+    $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 const RightSideMenu = styled.div`
@@ -300,63 +301,122 @@ const AllCategories = styled.div`
   }
 `;
 
+
+
+const SearchedContainer = styled.div`
+  background-color: #f2f3f3;
+  padding: 0px 40px;
+  border-radius: 24px 24px 0px 0px;
+  transition: 5s;
+  min-height: 100vh;
+  @media screen and (max-width: 800px) {
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0px 15px;
+  }
+
+  .ant-segmented {
+    width: 100%;
+    min-height: 32px;
+    padding: 3px;
+    background-color: #7676801f;
+  }
+  .filterInput {
+    padding: 0px;
+    box-shadow: 0px 0px 0px 0px #5229001a;
+    box-shadow: 0px 9px 21px 0px #5229001a;
+    margin: 15px 0px;
+  }
+  .ant-segmented-item {
+    flex-grow: 1;
+  }
+  :where(.css-dev-only-do-not-override-1rqnfsa).ant-segmented
+    .ant-segmented-item-selected {
+    border-radius: 7px;
+    box-shadow: 0px 3px 8px 0px #0000001f;
+  }
+  .ant-segmented-item-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .ant-segmented-item-selected .ant-segmented-item-label {
+    font-weight: 600;
+  }
+`;
+
+const options = ["Lists", "Places"];
+type tabs = "Lists" | "Places";
+
 const Layout = (WrappedComponent: any) => {
   const Hoc = () => {
-    const [focused, setFocused] = useState(false);
-    const [calenderModal, setCalenderModal] = useState<boolean>(false);
     const [showMap, setShowMap] = useState<boolean>(false);
-    const [modalName, setModalname] = useState("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
+    const [tabValue, setTabValue] = useState("Lists")
+    const [modalType , setModalType] = useState({
+      ModalContent : false,
+      calenderModal : false,
+      calenderPlaceModal : false,
+      PlacesConfirmModal : false,
+      createAccountModal : false,
+      LoginAccountModal : false,
+      WelcomeBackModal : false,
+      UpdateMyDetailsModal : false,
+      UpdateMyEmailModal : false,
+      UpdateMyPreferencesModal : false,
+    })
+
+    const DynamicMap = dynamic(() => import("../../components/map/page"), { ssr: false });
 
     const router = useRouter();
-    const handleClick = (event: MouseEvent) => {
-      if (
-        specificSectionRef.current &&
-        !specificSectionRef.current.contains(event.target as Node)
-      ) {
-        setFocused(false);
-      }
-    };
-    useEffect(() => {
-      document.body.addEventListener("click", handleClick);
-      return () => {
-        document.body.removeEventListener("click", handleClick);
-      };
-    }, []);
+    // const handleClick = (event: MouseEvent) => {
+    //   if (
+    //     specificSectionRef.current &&
+    //     !specificSectionRef.current.contains(event.target as Node)
+    //   ) {
+    //   }
+    // };
+    // useEffect(() => {
+    //   document.body.addEventListener("click", handleClick);
+    //   return () => {
+    //     document.body.removeEventListener("click", handleClick);
+    //   };
+    // }, []);
 
     const menuClick = (item: any) => {
       if (item.name === "To do") {
-        router.push("/community/Top Rated Restaurants");
+        router.push("/screens/resturants");
       } else if (item.name === "Dine") {
-        router.push("/community/Eco Dining");
+        router.push("/screens/ecoDining");
       } else if (item.name === "Shop") {
-        router.push("/community/Wellbeing");
+        router.push("/screens/wellbeing");
       } else if (item.name === "Events") {
-        router.push("/categories/Events");
+        router.push("/screens/events");
       } else if (item.name === "Tours") {
-        router.push("/categories/Stays");
+        router.push("/screens/stays");
       } else if (item.name === "Hotels") {
-        router.push("/categories/Scaffolding");
+        router.push("/screens/scaffolding");
       } else if (item.name === "Activities") {
-        router.push("/categories/Experiences");
+        router.push("/screens/experiences");
       } else if (item.name === "Travel") {
-        router.push("/categories/Attractions");
+        router.push("/screens/attractions");
       } else if (item.name === "Nightlife") {
-        router.push("/categories/Financial Services");
+        router.push("/screens/financial");
       }
     };
-    const closeModal = () => {
-      setCalenderModal(false);
-      setModalname("");
+    const closeModal = (name : string) => {
+      setModalType((prev:any)=> ({...prev , [name] : !prev[name] as boolean}))
     };
+
     const modalClick = (name: string) => {
-      setModalname(name);
+      setModalType((prev:any)=> ({...prev , [name] : !prev[name] as boolean}))
     };
     const iconClick = (name: string) => {
       if (name === "mapClick") {
         setShowMap(!showMap);
       }
     };
+
+    console.log("modalType" , modalType)
 
     // const DynamicComponent: React.FC<DynamicComponentProps> = ({ componentName, onClose }) => {
     //   if (modalName) {
@@ -382,18 +442,17 @@ const Layout = (WrappedComponent: any) => {
     //   }
     // }
 
-    console.log("lllllllllll" , modalName)
+    const tabChange = (value: tabs) => {
+      setTabValue(value);
+    };
     return (
       <>
         <Container>
           <MainContainer>
             <DashboardMenu
               $showMap={showMap}
-              $focused={focused}
             >
               <Header {...{ modalClick, iconClick, showMap }} />
-             <button onClick={()=>modalClick("search")}> Open </button>
-              {/* <CreateListings /> */}
               <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
           </MainContainer>
@@ -419,8 +478,9 @@ const Layout = (WrappedComponent: any) => {
                   />
                 </HeaderMapProfileContainer>
               </RightSideHeadMenu>
-              <LeafletMaps {...{ showMap }} />
+              <DynamicMap {...{ showMap }} />
               <SearchFilterSection>
+
                 <MapNavigator />
               </SearchFilterSection>
               <MapSearch>
@@ -481,17 +541,19 @@ const Layout = (WrappedComponent: any) => {
           </RightMenu>
         </Container>
         <DashBoardModal
-          isOpen={modalName === "ModalContent"}
+          isOpen={modalType.ModalContent}
           onClose={closeModal}
+          name ="ModalContent"
           {...{ showMap }}
           title="Brasserie Colmar"
         >
           <ModalContent onClose={closeModal} />
         </DashBoardModal>
         <CalenderModalLayout
-          isOpen={modalName === "calenderModal"}
+          isOpen={modalType.calenderModal}
           onClose={closeModal}
           {...{ showMap }}
+          name ="calenderModal"
           title="Brasserie Colmar"
         >
           <CalenderModal onClose={closeModal} />
@@ -503,9 +565,10 @@ const Layout = (WrappedComponent: any) => {
           </div>
         </CalenderModalLayout>
         <CalenderPlaceModalLayout
-          isOpen={modalName === "calenderPlaceModal"}
+          isOpen={modalType.calenderPlaceModal}
           onClose={closeModal}
           {...{ showMap }}
+          name ="calenderPlaceModal"
           title="Brasserie Colmar"
         >
           <PlacesFormModal />
@@ -517,9 +580,10 @@ const Layout = (WrappedComponent: any) => {
           </div>
         </CalenderPlaceModalLayout>
         <CalenderConfirmModalLayout
-          isOpen={modalName === "PlacesConfirmModal"}
+          isOpen={modalType.PlacesConfirmModal}
           onClose={closeModal}
           {...{ showMap }}
+          name ="PlacesConfirmModal"
           title="Brasserie Colmar"
         >
           <PlacesConfirmModal />
@@ -531,9 +595,10 @@ const Layout = (WrappedComponent: any) => {
           </div>
         </CalenderConfirmModalLayout>
         <CreateAccountModalLayout
-          isOpen={modalName === "createAccountModal"}
+          isOpen={modalType.createAccountModal}
           onClose={closeModal}
           {...{ showMap }}
+          name ="createAccountModal"
           title="Create an account"
         >
           <CreateAccountContent
@@ -542,10 +607,11 @@ const Layout = (WrappedComponent: any) => {
           />
         </CreateAccountModalLayout>
         <LoginAccountModalLayout
-          isOpen={modalName === "LoginAccountModal"}
+          isOpen={modalType.LoginAccountModal}
           onClose={closeModal}
           {...{ showMap }}
           title="Login"
+          name ="LoginAccountModal"
         >
           <LoginAccountContent
             previousModal={() => modalClick("createAccountModal")}
@@ -553,26 +619,29 @@ const Layout = (WrappedComponent: any) => {
           />
         </LoginAccountModalLayout>
         <WelcomeBackModalLayout
-          isOpen={modalName === "WelcomeBackModal"}
+          isOpen={modalType.WelcomeBackModal}
           onClose={closeModal}
           {...{ showMap }}
           title="Welcome back!"
+          name ="WelcomeBackModal"
         >
           <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} />
         </WelcomeBackModalLayout>
         <UpdateMyDetailsModalLayout
-          isOpen={modalName === "UpdateMyDetailsModal"}
+          isOpen={modalType.UpdateMyDetailsModal}
           onClose={closeModal}
           {...{ showMap }}
           title="Update my details"
+          name ="UpdateMyDetailsModal"
         >
           <UpdateMyDetails isOpen={() => modalClick("UpdateMyEmailModal")} previousModal={() => modalClick("WelcomeBackModal")} />
         </UpdateMyDetailsModalLayout>
         <UpdateMyEmailModalLayout
-          isOpen={modalName === "UpdateMyEmailModal"}
+          isOpen={modalType.UpdateMyEmailModal}
           onClose={closeModal}
           {...{ showMap }}
           title="Update my email"
+          name ="UpdateMyEmailModal"
         >
           <UpdateMyEmail
             isOpen={() => modalClick("UpdateMyPreferencesModal")}
@@ -580,21 +649,25 @@ const Layout = (WrappedComponent: any) => {
           />
         </UpdateMyEmailModalLayout>
         <UpdateMyPreferencesModalLayout
-          isOpen={modalName === "UpdateMyPreferencesModal"}
+          isOpen={modalType.UpdateMyPreferencesModal}
           onClose={closeModal}
           {...{ showMap }}
           title="Update my preferences"
+          name ="UpdateMyPreferencesModal"
         >
           <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} />
         </UpdateMyPreferencesModalLayout>
         <SearchModalLayout
-          isOpen={modalName === "search"}
+          isOpen={modalType.search}
           onClose={closeModal}
           {...{ showMap }}
           title="Search"
+          name ="search"
         >
           {/* <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} /> */}
-          <p>Hello</p>
+          <SearchedContainer>
+            <DashboardSearchContainer {...{ tabChange, options, tabValue, showMap }} />
+          </SearchedContainer>
         </SearchModalLayout>
       </>
 

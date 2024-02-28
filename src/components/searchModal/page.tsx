@@ -8,6 +8,7 @@ interface SearchModalProps {
   onClose: () => void;
   children?: ReactNode;
   title: string;
+  name: string;
   showMap: boolean;
 }
 
@@ -19,31 +20,26 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: auto;
-  left: 0;
-  transform: translateX(
-    -${({ $screenwidthpercentage ,$showMap }) => 230 - ($showMap ?  ($screenwidthpercentage + 10) : $screenwidthpercentage )}%
-  );
+  left: ${({ $isopen, $screenwidth }) =>
+  $isopen ? "0%" : "-100%"};
   bottom: ${({ $isopen }) =>
-  $isopen
-    ? "0%"
-    : "-100%"};
-  height: 100%;
-  width: 100%; /* Adjust this value as needed */
-  border-radius: 40px;
+    $isopen
+      ? "0%"
+      : "-100%"};
+  height:100vh;
+  width: 580px; /* Adjust this value as needed */
   background: #f2f3f3;
-
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 16px auto;
   transition: bottom 0.8s ease-in-out;
-  z-index: 0;
+  z-index: 1;
   padding: 24px 0px;
   overflow: auto;
-
+  transform: none;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -67,19 +63,31 @@ const StyledModal = styled.div<{
 //     transform: none;
 //   }
 
-  
-`
-// ;@media screen and (max-width: 1130px) {
-//     width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
-//     max-width: 100%;
-//     left: ${({ $isopen, $screenwidth }) =>
-//     $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
-//     transform: none;
-//     z-index: 1;
-//     max-height:100vh;
-//     margin: 0px; /* Center the modal horizontally */
-//     border-radius: 0px;
-//   }
+  @media screen and (max-width: 800px) {
+    left: 0;
+    top: auto;
+    height: 100%;
+    
+    bottom: ${({ $isopen }) =>
+    $isopen
+      ? "0%"
+      : "-100%"};
+    width: 100%;
+    transition: bottom 0.8s ease-in-out;
+  }
+
+  @media screen and (max-width: 1130px) {
+    width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
+    max-width: 100%;
+    left: ${({ $isopen, $screenwidth }) =>
+    $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
+    transform: none;
+    z-index: 1;
+    max-height:100vh;
+    margin: 0px; /* Center the modal horizontally */
+    border-radius: 0px;
+  }
+`;
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -96,7 +104,7 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, title, showMap }) => {
+const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, title, showMap, name }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -131,7 +139,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
-            onClick={onClose}
+            onClick={()=>onClose(name)}
           />
         </HeaderContainer>
         {children}

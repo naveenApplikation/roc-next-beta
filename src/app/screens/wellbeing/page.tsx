@@ -6,11 +6,10 @@ import CommonButton from '@/components/button/CommonButton';
 import FilterSection from '@/components/filterSection';
 import Ratings from '@/components/ratings';
 import Image from 'next/image';
-import { useParams, useSearchParams } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
-interface CommunityPageProps {
+interface WellbeingProps {
   // Define your props here
 }
 
@@ -67,15 +66,10 @@ const SearchedData = styled.div`
 
 
 
-const CommunityPage: React.FC<CommunityPageProps> = (props) => {
-  const params = useParams()
-
-  const urlData = (params.communityName).toString().replaceAll("%20", " ")
-
-
+const Wellbeing: React.FC<WellbeingProps> = (props) => {
   return (
       <CommunityBody>
-        <p className='communityName'>{urlData}</p>
+        <p className='communityName'>Wellbeing</p>
         <p className='likesCount'>5281 Likes</p>
         <FilterSection />
         <SearchedListContainer>
@@ -131,4 +125,4 @@ const CommunityPage: React.FC<CommunityPageProps> = (props) => {
       </CommunityBody>
   );
 };
-export default Layout(CommunityPage)
+export default Layout(Wellbeing)

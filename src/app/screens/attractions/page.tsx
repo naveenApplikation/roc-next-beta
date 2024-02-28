@@ -12,7 +12,7 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
-interface CategoriesPageProps {
+interface AttractionProps {
   // Define your props here
 }
 const CategoryBody = styled.div`
@@ -29,32 +29,14 @@ const CategoryBody = styled.div`
   }
 `
 
-const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const params = useParams()
-  const urlData = (params.eventName).toString().replaceAll("%20", " ")
-
-  const categories = () => {
-    if (urlData === "Events") {
-      return <EventBox />
-    }else if(urlData === "Experiences"){
-      return <ExperienceBox />
-    }else if(urlData === "Attractions"){
-      return <AttractionBox />
-    }else if(urlData === "Stays"){
-      return <StaysBox />
-    }else if(urlData === "Financial Services"){
-      return <FinancialBox />
-    }else if(urlData === "Scaffolding"){
-      return <ScaffoldingBox />
-    }
-  }
+const Attraction: React.FC<AttractionProps> = (props) => {
 
   return (
       <CategoryBody>
-        <p className='communityName'>{urlData}</p>
+        <p className='communityName'>Attraction</p>
         <FilterSection />
-        {categories()}
+        <AttractionBox />
       </CategoryBody>
   );
 };
-export default Layout(CategoriesPage)
+export default Layout(Attraction)

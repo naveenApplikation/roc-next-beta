@@ -8,6 +8,7 @@ interface ModalProps {
   onClose: () => void;
   children?: ReactNode;
   title: string;
+  name: string;
   showMap: boolean;
 }
 
@@ -79,7 +80,7 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (max-width: 1130px) {
-    width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
+    width: ${({ $screenwidth , $showMap }) => ($screenwidth < 800 ? "none" :  ( $showMap ? "480px" : "580px"))};
     max-width: 100%;
     left: ${({ $isopen, $screenwidth }) =>
     $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
@@ -106,7 +107,7 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap , name}) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -141,7 +142,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
-            onClick={onClose}
+            onClick={()=>onClose(name)}
           />
         </HeaderContainer>
         {children}
