@@ -20,6 +20,7 @@ import UpdateMyEmailModalLayout from "../../components/modal/Modal";
 import UpdateMyPreferencesModalLayout from "../../components/modal/Modal";
 import WelcomeBackModalLayout from "../../components/modal/Modal";
 import CalenderConfirmModalLayout from "../../components/modal/Modal";
+import SearchModalLayout from "../../components/searchModal/page";
 import ModalContent from "../dashboard/ModalContent";
 import CalenderModal from "../dashboard/calenderModal";
 import CommonButton from "@/components/button/CommonButton";
@@ -380,6 +381,8 @@ const Layout = (WrappedComponent: any) => {
     //     </>)
     //   }
     // }
+
+    console.log("lllllllllll" , modalName)
     return (
       <>
         <Container>
@@ -387,12 +390,9 @@ const Layout = (WrappedComponent: any) => {
             <DashboardMenu
               $showMap={showMap}
               $focused={focused}
-              // style={{
-              //   paddingBottom: `${focused ? "0px" : "0px"}`,
-              //   minHeight: showMap ? "calc(100vh - 500px)" : "100vh",
-              // }}
             >
               <Header {...{ modalClick, iconClick, showMap }} />
+             <button onClick={()=>modalClick("search")}> Open </button>
               {/* <CreateListings /> */}
               <WrappedComponent {...{ modalClick, showMap }} />
             </DashboardMenu>
@@ -587,6 +587,15 @@ const Layout = (WrappedComponent: any) => {
         >
           <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} />
         </UpdateMyPreferencesModalLayout>
+        <SearchModalLayout
+          isOpen={modalName === "search"}
+          onClose={closeModal}
+          {...{ showMap }}
+          title="Search"
+        >
+          {/* <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} /> */}
+          <p>Hello</p>
+        </SearchModalLayout>
       </>
 
       // <LeafletMap />
