@@ -1,4 +1,4 @@
-import { headerHome, home, logoOutline, mapIcon, profileIcon, search, user } from '@/app/utils/ImagePath';
+import { headerHome, home, logoOutline, mapIcon, mapIconDark, profileIcon, profileIconDark, search, user } from '@/app/utils/ImagePath';
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
@@ -62,13 +62,13 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap }) => {
                             <>
                                 <Image
                                     style={{ width: "48px", height: "48px" }}
-                                    src={showMap ? headerHome : mapIcon}
+                                    src={showMap ? headerHome : mapIconDark}
                                     alt="Logo Outline"
                                     onClick={() => iconClick("mapClick")}
                                 />
                                 <Image
                                     style={{ width: "48px", height: "48px", cursor: "pointer" }}
-                                    src={profileIcon}
+                                    src={profileIconDark}
                                     alt="Logo Outline"
                                     onClick={() => modalClick("createAccountModal")}
                                 />

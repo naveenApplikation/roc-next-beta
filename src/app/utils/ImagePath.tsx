@@ -20,6 +20,8 @@ import locationImg from  "../../../assets/images/location.svg"
 import StoreImg from  "../../../assets/images/Store.svg"
 import calenderImg from  "../../../assets/images/Store.svg"
 import headerHomeImg from  "../../../assets/images/headerHome.svg"
+import mapIconDarkImg from  "../../../assets/images/mapIconDark.svg"
+import profileIconDarkImg from  "../../../assets/images/profileIconDark.svg"
 
 export const globe = gloveImg 
 export const phone = phoneImg 
@@ -43,3 +45,5 @@ export const location = locationImg
 export const Store = StoreImg 
 export const calender = calenderImg 
 export const headerHome = headerHomeImg 
+export const mapIconDark = mapIconDarkImg 
+export const profileIconDark = profileIconDarkImg 
