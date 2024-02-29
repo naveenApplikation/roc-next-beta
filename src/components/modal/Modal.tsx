@@ -5,7 +5,7 @@ import CloseModal from "../../../assets/images/CloseModal.png";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (name:string) => void;
   children?: ReactNode;
   title: string;
   name: string;
