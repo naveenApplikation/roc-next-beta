@@ -10,7 +10,7 @@ import CommonButton from "@/components/button/CommonButton";
 
 
 interface ModalProps {
-    onClose: () => void;
+    onClose: (name:string) => void;
 }
 
 

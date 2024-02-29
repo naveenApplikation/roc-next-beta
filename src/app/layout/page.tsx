@@ -362,6 +362,7 @@ const Layout = (WrappedComponent: any) => {
       UpdateMyDetailsModal: false,
       UpdateMyEmailModal: false,
       UpdateMyPreferencesModal: false,
+      search :false,
     })
 
     const DynamicMap = dynamic(() => import("../../components/map/page"), { ssr: false });
@@ -455,7 +456,7 @@ const Layout = (WrappedComponent: any) => {
             <PlacesConfirmModal />
             <div
               style={{ marginTop: 16, padding: "0px 24px" }}
-              onClick={closeModal}
+              onClick={()=>closeModal("PlacesConfirmModal")}
             >
               <CommonButton text="Done" />
             </div>
@@ -564,16 +565,16 @@ const Layout = (WrappedComponent: any) => {
         </Container>
         <DashBoardModal
           isOpen={modalType.ModalContent}
-          onClose={closeModal}
+          onClose={()=>closeModal("ModalContent")}
           name="ModalContent"
           {...{ showMap }}
           title="Brasserie Colmar"
         >
-          <ModalContent onClose={closeModal} />
+          <ModalContent onClose={()=>closeModal("ModalContent")} />
         </DashBoardModal>
         <CalenderModalLayout
           isOpen={modalName === "calenderModal" || modalName === "calenderPlaceModal"  || modalName === "PlacesConfirmModal"}
-          onClose={closeModal}
+          onClose={()=>closeModal("calenderModal")}
           {...{ showMap }}
           name="calenderModal"
           title="Brasserie Colmar"
@@ -619,7 +620,7 @@ const Layout = (WrappedComponent: any) => {
         </CalenderConfirmModalLayout> */}
         <CreateAccountModalLayout
           isOpen={modalType.createAccountModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("createAccountModal")}
           {...{ showMap }}
           name="createAccountModal"
           title="Create an account"
@@ -631,7 +632,7 @@ const Layout = (WrappedComponent: any) => {
         </CreateAccountModalLayout>
         <LoginAccountModalLayout
           isOpen={modalType.LoginAccountModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("LoginAccountModal")}
           {...{ showMap }}
           title="Login"
           name="LoginAccountModal"
@@ -643,7 +644,7 @@ const Layout = (WrappedComponent: any) => {
         </LoginAccountModalLayout>
         <WelcomeBackModalLayout
           isOpen={modalType.WelcomeBackModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("WelcomeBackModal")}
           {...{ showMap }}
           title="Welcome back!"
           name="WelcomeBackModal"
@@ -652,7 +653,7 @@ const Layout = (WrappedComponent: any) => {
         </WelcomeBackModalLayout>
         <UpdateMyDetailsModalLayout
           isOpen={modalType.UpdateMyDetailsModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("UpdateMyDetailsModal")}
           {...{ showMap }}
           title="Update my details"
           name="UpdateMyDetailsModal"
@@ -661,7 +662,7 @@ const Layout = (WrappedComponent: any) => {
         </UpdateMyDetailsModalLayout>
         <UpdateMyEmailModalLayout
           isOpen={modalType.UpdateMyEmailModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("UpdateMyEmailModal")}
           {...{ showMap }}
           title="Update my email"
           name="UpdateMyEmailModal"
@@ -673,7 +674,7 @@ const Layout = (WrappedComponent: any) => {
         </UpdateMyEmailModalLayout>
         <UpdateMyPreferencesModalLayout
           isOpen={modalType.UpdateMyPreferencesModal}
-          onClose={closeModal}
+          onClose={()=>closeModal("UpdateMyPreferencesModal")}
           {...{ showMap }}
           title="Update my preferences"
           name="UpdateMyPreferencesModal"
@@ -682,7 +683,7 @@ const Layout = (WrappedComponent: any) => {
         </UpdateMyPreferencesModalLayout>
         <SearchModalLayout
           isOpen={modalType.search}
-          onClose={closeModal}
+          onClose={()=>closeModal("search")}
           {...{ showMap }}
           title="Search"
           name="search"

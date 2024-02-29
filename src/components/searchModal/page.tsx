@@ -5,7 +5,7 @@ import CloseModal from "../../../assets/images/CloseModal.png";
 
 interface SearchModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (name:string) => void;
   children?: ReactNode;
   title: string;
   name: string;
