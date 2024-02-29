@@ -350,19 +350,20 @@ type tabs = "Lists" | "Places";
 const Layout = (WrappedComponent: any) => {
   const Hoc = () => {
     const [showMap, setShowMap] = useState<boolean>(false);
+    const [modalName, setModalName] = useState<string>("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
     const [tabValue, setTabValue] = useState("Lists")
-    const [modalType , setModalType] = useState({
-      ModalContent : false,
-      calenderModal : false,
-      calenderPlaceModal : false,
-      PlacesConfirmModal : false,
-      createAccountModal : false,
-      LoginAccountModal : false,
-      WelcomeBackModal : false,
-      UpdateMyDetailsModal : false,
-      UpdateMyEmailModal : false,
-      UpdateMyPreferencesModal : false,
+    const [modalType, setModalType] = useState({
+      ModalContent: false,
+      calenderModal: false,
+      calenderPlaceModal: false,
+      PlacesConfirmModal: false,
+      createAccountModal: false,
+      LoginAccountModal: false,
+      WelcomeBackModal: false,
+      UpdateMyDetailsModal: false,
+      UpdateMyEmailModal: false,
+      UpdateMyPreferencesModal: false,
     })
 
     const DynamicMap = dynamic(() => import("../../components/map/page"), { ssr: false });
@@ -403,12 +404,14 @@ const Layout = (WrappedComponent: any) => {
         router.push("/screens/financial");
       }
     };
-    const closeModal = (name : string) => {
-      setModalType((prev:any)=> ({...prev , [name] : !prev[name] as boolean}))
+    const closeModal = (name: string) => {
+      setModalType((prev: any) => ({ ...prev, [name]: !prev[name] as boolean }))
+      setModalName("")
     };
 
     const modalClick = (name: string) => {
-      setModalType((prev:any)=> ({...prev , [name] : !prev[name] as boolean}))
+      setModalType((prev: any) => ({ ...prev, [name]: !prev[name] as boolean }))
+      setModalName(name)
     };
     const iconClick = (name: string) => {
       if (name === "mapClick") {
@@ -428,18 +431,40 @@ const Layout = (WrappedComponent: any) => {
     //   }
     // };
 
-    // const showModalContent = () => {
-    //   if (modalName === "ModalContent") {
-    //     return <ModalContent onClose={closeModal} />
-    //   } else if (modalName === "calenderModal") {
-    //     return (<>
-    //       <CalenderModal onClose={closeModal} />
-    //       <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={() => modalClick("PlacesFormModal")}>
-    //         <CommonButton text="Next" />
-    //       </div>
-    //     </>)
-    //   }
-    // }
+    const showModalContent = () => {
+      if (modalName === "calenderModal") {
+        return (<>
+          <CalenderModal onClose={closeModal} />
+          <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={() => modalClick("calenderPlaceModal")}>
+            <CommonButton text="Next" />
+          </div>
+        </>)
+      } else if (modalName === "calenderPlaceModal") {
+        return (
+          <>
+            <PlacesFormModal />
+            <div
+              style={{ marginTop: 16, padding: "0px 24px" }}
+              onClick={() => modalClick("PlacesConfirmModal")}
+            >
+              <CommonButton text="Next" />
+            </div>
+          </>
+        )
+      } else if (modalName === "PlacesConfirmModal") {
+        return (
+          <>
+            <PlacesConfirmModal />
+            <div
+              style={{ marginTop: 16, padding: "0px 24px" }}
+              onClick={closeModal}
+            >
+              <CommonButton text="Done" />
+            </div>
+          </>
+        )
+      }
+    }
 
     const tabChange = (value: tabs) => {
       setTabValue(value);
@@ -542,32 +567,33 @@ const Layout = (WrappedComponent: any) => {
         <DashBoardModal
           isOpen={modalType.ModalContent}
           onClose={closeModal}
-          name ="ModalContent"
+          name="ModalContent"
           {...{ showMap }}
           title="Brasserie Colmar"
         >
           <ModalContent onClose={closeModal} />
         </DashBoardModal>
         <CalenderModalLayout
-          isOpen={modalType.calenderModal}
+          isOpen={modalName === "calenderModal" || modalName === "calenderPlaceModal"  || modalName === "PlacesConfirmModal"}
           onClose={closeModal}
           {...{ showMap }}
-          name ="calenderModal"
+          name="calenderModal"
           title="Brasserie Colmar"
         >
-          <CalenderModal onClose={closeModal} />
+          {showModalContent()}
+          {/* <CalenderModal onClose={closeModal} />
           <div
             style={{ marginTop: 16, padding: "0px 24px" }}
             onClick={() => modalClick("calenderPlaceModal")}
           >
             <CommonButton text="Next" />
-          </div>
+          </div> */}
         </CalenderModalLayout>
-        <CalenderPlaceModalLayout
+        {/* <CalenderPlaceModalLayout
           isOpen={modalType.calenderPlaceModal}
           onClose={closeModal}
           {...{ showMap }}
-          name ="calenderPlaceModal"
+          name="calenderPlaceModal"
           title="Brasserie Colmar"
         >
           <PlacesFormModal />
@@ -582,7 +608,7 @@ const Layout = (WrappedComponent: any) => {
           isOpen={modalType.PlacesConfirmModal}
           onClose={closeModal}
           {...{ showMap }}
-          name ="PlacesConfirmModal"
+          name="PlacesConfirmModal"
           title="Brasserie Colmar"
         >
           <PlacesConfirmModal />
@@ -592,12 +618,12 @@ const Layout = (WrappedComponent: any) => {
           >
             <CommonButton text="Done" />
           </div>
-        </CalenderConfirmModalLayout>
+        </CalenderConfirmModalLayout> */}
         <CreateAccountModalLayout
           isOpen={modalType.createAccountModal}
           onClose={closeModal}
           {...{ showMap }}
-          name ="createAccountModal"
+          name="createAccountModal"
           title="Create an account"
         >
           <CreateAccountContent
@@ -610,7 +636,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Login"
-          name ="LoginAccountModal"
+          name="LoginAccountModal"
         >
           <LoginAccountContent
             previousModal={() => modalClick("createAccountModal")}
@@ -622,7 +648,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Welcome back!"
-          name ="WelcomeBackModal"
+          name="WelcomeBackModal"
         >
           <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} />
         </WelcomeBackModalLayout>
@@ -631,7 +657,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Update my details"
-          name ="UpdateMyDetailsModal"
+          name="UpdateMyDetailsModal"
         >
           <UpdateMyDetails isOpen={() => modalClick("UpdateMyEmailModal")} previousModal={() => modalClick("WelcomeBackModal")} />
         </UpdateMyDetailsModalLayout>
@@ -640,7 +666,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Update my email"
-          name ="UpdateMyEmailModal"
+          name="UpdateMyEmailModal"
         >
           <UpdateMyEmail
             isOpen={() => modalClick("UpdateMyPreferencesModal")}
@@ -652,7 +678,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Update my preferences"
-          name ="UpdateMyPreferencesModal"
+          name="UpdateMyPreferencesModal"
         >
           <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} />
         </UpdateMyPreferencesModalLayout>
@@ -661,7 +687,7 @@ const Layout = (WrappedComponent: any) => {
           onClose={closeModal}
           {...{ showMap }}
           title="Search"
-          name ="search"
+          name="search"
         >
           {/* <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} /> */}
           <SearchedContainer>

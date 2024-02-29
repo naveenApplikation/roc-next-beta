@@ -20,13 +20,6 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: auto;
-  left: ${({ $isopen, $screenwidth }) =>
-  $isopen ? "0%" : "-100%"};
-  bottom: ${({ $isopen }) =>
-    $isopen
-      ? "0%"
-      : "-100%"};
-  height:100vh;
   width: 580px; /* Adjust this value as needed */
   background: #f2f3f3;
   background-blend-mode: normal, luminosity;
@@ -35,11 +28,19 @@ const StyledModal = styled.div<{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  transition: bottom 0.8s ease-in-out;
   z-index: 1;
   padding: 24px 0px;
   overflow: auto;
   transform: none;
+  left: 0;
+    top: auto;
+    height: 100%;
+    
+    bottom: ${({ $isopen }) =>
+    $isopen
+      ? "0%"
+      : "-100%"};
+    transition: bottom 0.8s ease-in-out;
   &::-webkit-scrollbar {
     display: none;
   }
