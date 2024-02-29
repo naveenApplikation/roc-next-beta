@@ -7,8 +7,8 @@ import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import CreateListItems from "./CreateList Components/CreateListItems";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
-import HotelLogo from "../../../assets/images/utensils.png";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
+import { utensils } from "../utils/ImagePath";
 
 interface DragInOrderProps { }
 
@@ -57,7 +57,7 @@ const DragInOrder: React.FC<DragInOrderProps> = () => {
                         dragBtn
                         listItemName="Kyomu"
                         secondLineDetails1
-                        itemPlaceLogo={HotelLogo}
+                        itemPlaceLogo={utensils}
                         placeName1="St Helier"
                         ratedStar
                         ratingStarImage={RatingStarImage}

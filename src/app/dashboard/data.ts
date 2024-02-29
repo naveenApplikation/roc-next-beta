@@ -18,7 +18,6 @@ import sos from "../../../assets/images/topSideMenuImage/sos.png";
 import tides from "../../../assets/images/topSideMenuImage/tides.png";
 import vanTravel from "../../../assets/images/topSideMenuImage/vanTravel.png";
 import poundIcon from "../../../assets/images/poundIcon.png";
-import utensils from "../../../assets/images/utensils.png";
 import clock from "../../../assets/images/modalImage/Places/clock.png";
 import globe from "../../../assets/images/modalImage/Places/globe.png";
 import location from "../../../assets/images/modalImage/Places/location-dot.png";
@@ -48,8 +47,8 @@ import star from "../../../assets/images/createListImages/chooseIcons/star.png";
 import infoCircle from "../../../assets/images/createListImages/chooseIcons/info-circle.png";
 import bin from "../../../assets/images/createListImages/chooseIcons/bin.png";
 import locate from "../../../assets/images/createListImages/chooseIcons/map-placeholder.png";
-import HotelLogo from "../../../assets/images/utensils.png";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
+import { utensils } from "../utils/ImagePath";
 
 
 export const topSideMenu = [
@@ -550,7 +549,7 @@ export const icons = [
   },
   { 
     id: 17, 
-    image: HotelLogo 
+    image: utensils 
   },
   { 
     id: 18, 

@@ -9,9 +9,9 @@ import tour from "../../../assets/images/rightSideMenuImage/tour.png";
 import travel from "../../../assets/images/rightSideMenuImage/travel.png";
 import umbrella from "../../../assets/images/rightSideMenuImage/umbrella.png";
 import calender from "../../../assets/images/rightSideMenuImage/calender.png";
-import utensils from "../../../assets/images/utensils.png";
 import Image from "next/image";
 import styled from "styled-components";
+import { utensils } from "@/app/utils/ImagePath";
 
 const DirectoryWrapper = styled.div`
   display: flex;

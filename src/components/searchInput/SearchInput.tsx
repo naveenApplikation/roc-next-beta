@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import search from '../../../assets/images/search.png';
 import Image from "next/image";
+import { search } from '@/app/utils/ImagePath';
 
 
 interface SearchComponentProps {
