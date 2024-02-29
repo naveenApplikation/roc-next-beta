@@ -20,7 +20,7 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: auto;
-  width: 580px; /* Adjust this value as needed */
+  width: ${({ $showMap }) =>   ( $showMap ? "480px" : "580px")}; /* Adjust this value as needed */
   background: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
