@@ -539,7 +539,7 @@ const Layout = (WrappedComponent: any) => {
                 return (
                   <RightSideMenu key={index}>
                     <RightSideInsideMenuBox onClick={() => menuClick(item)}>
-                      <Image className="iconSize" src={item.image} alt="icon" />
+                      <Image style={{width:item.name == "All"? "22px":"auto"  ,height:item.name == "All"? "auto":"auto"}} src={item.image} alt="icon" />
                       <p>{item.name}</p>
                     </RightSideInsideMenuBox>
                   </RightSideMenu>

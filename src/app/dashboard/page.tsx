@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import filter from "../../../assets/images/filter.png";
+import {filter} from '../utils/ImagePath'
 import {
   EnjoyShineMenuItem,
   familyEventMenuItem,
@@ -14,13 +14,14 @@ import {
   RestroListData,
   WalksData,
 } from "./data";
-import chevronRight from "../../../assets/images/chevron-right.png";
+// import chevronRight from "../../../assets/images/chevron-right.png";
+import {chevronRight} from "../utils/ImagePath";
 import CommentRatingImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import SearchInput from "../../components/searchInput/SearchInput";
 import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
-import {  boxOverlay} from "../utils/ImagePath";
+import { boxOverlay } from "../utils/ImagePath";
 import Layout from "../layout/page";
 
 interface DashboardProps {
@@ -160,7 +161,7 @@ const DirectoryContainer = styled.div`
 `;
 
 const DirectoryTitle = styled.p`
-  font-family: "Proxima Nova";
+  /* font-family: "Proxima Nova"; */
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -231,7 +232,6 @@ type tabs = "Lists" | "Places";
 const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
-
   const handleClick = (event: MouseEvent) => {
     if (
       specificSectionRef.current &&
@@ -248,194 +248,194 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
 
   return (
     <>
-     
-          <InputWrapper>
-            <SearchInput onFocus={()=>modalClick("search")} />
-            <FilterInput>
+      <InputWrapper>
+        <SearchInput onFocus={() => modalClick("search")} />
+        <FilterInput>
+          <Image
+            src={filter}
+            alt="Filter icon"
+          />
+          Filter
+        </FilterInput>
+      </InputWrapper>
+      <ScrollingMenu>
+        {topSideMenu.map((item, index) => {
+          return (
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,height:56,justifyContent:"space-evenly"}} key={index}>
               <Image
-                style={{ width: "16px", height: "16px" }}
-                src={filter}
-                alt="Filter icon"
+                src={item.image}
+                alt="right icon"
+              />{" "}
+              <p style={{fontSize:"14px"}}>{item.name}</p>
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("ModalContent")}
+        title="Local cuisine"
+      />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
               />
-              Filter
-            </FilterInput>
-          </InputWrapper>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Local cuisine"
-          />
-          <ScrollingMenu>
-            {LocalCuisineMenuItem.map((item, index) => {
-              return (
-                <div key={index}>
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                </div>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("calenderModal")}
-            title="Family Events"
-          />
-          <ScrollingMenu>
-            {familyEventMenuItem.map((item, index) => {
-              return (
-                <FamilEventContainer key={index}>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <p className="date">{item.date}</p>
-                    <span className="month">{item.month}</span>
-                  </div>
-                  <FamilEventText>{item.resturantName}</FamilEventText>
-                </FamilEventContainer>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Enjoy the sunshine"
-          />
-          <ScrollingMenu>
-            {EnjoyShineMenuItem.map((item, index) => {
-              return (
-                <div key={index}>
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                </div>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Top Attractions"
-          />
-          <ScrollingMenu>
-            {topAttractionItem.map((item, index) => {
-              return (
-                <TopAttractionContainer key={index}>
-                  <TopAttractionprofile></TopAttractionprofile>
-                  <p>{item.menuName}</p>
-                </TopAttractionContainer>
-              );
-            })}
-          </ScrollingMenu>
-          <DirectoryContainer>
-            <DirectoryTitle>Directory</DirectoryTitle>
-            <Image
-              style={{ width: "10px", height: "16px" }}
-              src={chevronRight}
-              alt="right icon"
-            />{" "}
-          </DirectoryContainer>
-          <Directory />
-          <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
-          <ScrollingMenu>
-            {LocalCuisineMenuItem.map((item, index) => {
-              return (
-                <div key={index}>
-                  <RatingMenu
-                    title={item.menuName}
-                    menuImageUrl={item.image}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.resturantName}
-                  />
-                </div>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Community"
-          />
-          <ScrollingMenu>
-            {community.map((item, index) => {
-              return (
-                <CommunityContainer
-                  key={index}
-                  style={{ background: item.color }}
-                >
-                  <Image
-                    style={{ width: "18px", height: "16px" }}
-                    src={item.image}
-                    alt="right icon"
-                  />{" "}
-                  <p>{item.name}</p>
-                </CommunityContainer>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Walks"
-          />
-          <ScrollingMenu>
-            {WalksData.map((item, index) => {
-              return (
-                <WalkContainer
-                  key={index}
-                  style={{
-                    backgroundImage: `url(${boxOverlay.src}) !important`,
-                  }}
-                >
-                  <p>{item.name}</p>
-                </WalkContainer>
-              );
-            })}
-          </ScrollingMenu>
-          <MenuDetails
-            isOpen={() => modalClick("ModalContent")}
-            title="Heritage"
-          />
-          <ScrollingMenu style={{ paddingBottom: "40px" }}>
-            {LocalCuisineMenuItem.map((item, index) => {
-              return (
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("calenderModal")}
+        title="Family Events"
+      />
+      <ScrollingMenu>
+        {familyEventMenuItem.map((item, index) => {
+          return (
+            <FamilEventContainer key={index}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <p className="date">{item.date}</p>
+                <span className="month">{item.month}</span>
+              </div>
+              <FamilEventText>{item.resturantName}</FamilEventText>
+            </FamilEventContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("ModalContent")}
+        title="Enjoy the sunshine"
+      />
+      <ScrollingMenu>
+        {EnjoyShineMenuItem.map((item, index) => {
+          return (
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
+              />
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("ModalContent")}
+        title="Top Attractions"
+      />
+      <ScrollingMenu>
+        {topAttractionItem.map((item, index) => {
+          return (
+            <TopAttractionContainer key={index}>
+              <TopAttractionprofile></TopAttractionprofile>
+              <p>{item.menuName}</p>
+            </TopAttractionContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <DirectoryContainer>
+        <DirectoryTitle>Directory</DirectoryTitle>
+        <Image
+          src={chevronRight}
+          alt="right icon"
+        />{" "}
+      </DirectoryContainer>
+      <Directory />
+      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
+              />
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("ModalContent")}
+        title="Community"
+      />
+      <ScrollingMenu>
+        {community.map((item, index) => {
+          return (
+            <CommunityContainer key={index} style={{ background: item.color }}>
+              <Image
+                style={{ width: "18px", height: "16px" }}
+                src={item.image}
+                alt="right icon"
+              />{" "}
+              <p>{item.name}</p>
+            </CommunityContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Walks" />
+      <ScrollingMenu>
+        {WalksData.map((item, index) => {
+          return (
+            <WalkContainer
+              key={index}
+              style={{
+                backgroundImage: `url(${boxOverlay.src}) !important`,
+              }}
+            >
+              <p>{item.name}</p>
+            </WalkContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Heritage" />
+      <ScrollingMenu style={{ paddingBottom: "40px" }}>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <div
+              style={{
+                width: 120,
+                gap: 16,
+                display: "flex",
+                flexDirection: "column",
+              }}
+              key={index}
+            >
+              <div
+                style={{
+                  height: 64,
+                  width: "100%",
+                  background: "linear-gradient(45deg, black, transparent)",
+                }}
+              ></div>
+              <div>
                 <div
                   style={{
-                    width: 120,
-                    gap: 16,
                     display: "flex",
-                    flexDirection: "column",
+                    gap: 4,
+                    alignItems: "center",
                   }}
-                  key={index}
                 >
-                  <div
-                    style={{
-                      height: 64,
-                      width: "100%",
-                      background: "linear-gradient(45deg, black, transparent)",
-                    }}
-                  ></div>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 4,
-                        alignItems: "center",
-                      }}
-                    >
-                      <Image
-                        style={{ width: "68px", height: "12px" }}
-                        src={CommentRatingImage}
-                        alt="right icon"
-                      />{" "}
-                      <p>4.7</p>
-                    </div>
-                    <p style={{ fontSize: 14 }}>{item.resturantName}</p>
-                  </div>
+                  <Image
+                    style={{ width: "68px", height: "12px" }}
+                    src={CommentRatingImage}
+                    alt="right icon"
+                  />{" "}
+                  <p>4.7</p>
                 </div>
-              );
-            })}
-          </ScrollingMenu>
-        </>
-      
+                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+              </div>
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+    </>
   );
 };
 export default Layout(DashBoard);

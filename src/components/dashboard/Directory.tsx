@@ -1,17 +1,7 @@
 import React from "react";
-import castle from "../../../assets/images/rightSideMenuImage/castle.png";
-import glass from "../../../assets/images/rightSideMenuImage/glass.png";
-import hiking from "../../../assets/images/rightSideMenuImage/hiking.png";
-import holiday from "../../../assets/images/rightSideMenuImage/holiday.png";
-import hotel from "../../../assets/images/rightSideMenuImage/hotel.png";
-import shop from "../../../assets/images/rightSideMenuImage/shop.png";
-import tour from "../../../assets/images/rightSideMenuImage/tour.png";
-import travel from "../../../assets/images/rightSideMenuImage/travel.png";
-import umbrella from "../../../assets/images/rightSideMenuImage/umbrella.png";
-import calender from "../../../assets/images/rightSideMenuImage/calender.png";
 import Image from "next/image";
 import styled from "styled-components";
-import { utensils } from "@/app/utils/ImagePath";
+import { utensil,shopping,hotel,personHiking,castle,holidayDas,beachumbrella,camera, compass ,glass} from "@/app/utils/ImagePath";
 
 const DirectoryWrapper = styled.div`
   display: flex;
@@ -83,7 +73,6 @@ const Directory = () => {
       <DirectoryWrapper>
         <MainWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={castle}
             alt="right icon"
           />{" "}
@@ -91,8 +80,7 @@ const Directory = () => {
         </MainWrapper>
         <MainWrapper style={{ justifyContent: "flex-start" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={utensils}
+            src={utensil}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Food & Drink</DirectoryMenuTitle>
@@ -101,16 +89,14 @@ const Directory = () => {
       <DirectoryWrapper>
         <MainWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={shop}
+            src={shopping}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Shopping</DirectoryMenuTitle>
         </MainWrapper>
         <MainWrapper style={{ justifyContent: "flex-start" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={tour}
+            src={camera}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Tours</DirectoryMenuTitle>
@@ -119,7 +105,6 @@ const Directory = () => {
       <DirectoryWrapper>
         <MainWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={hotel}
             alt="right icon"
           />{" "}
@@ -127,8 +112,7 @@ const Directory = () => {
         </MainWrapper>
         <MainWrapper style={{ justifyContent: "flex-start" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={hiking}
+            src={personHiking}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Activities</DirectoryMenuTitle>
@@ -137,15 +121,13 @@ const Directory = () => {
       <DirectoryWrapper>
         <MainWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={travel}
+            src={compass}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Travel</DirectoryMenuTitle>
         </MainWrapper>
         <MainWrapper style={{ justifyContent: "flex-start" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={glass}
             alt="right icon"
           />{" "}
@@ -155,16 +137,14 @@ const Directory = () => {
       <DirectoryWrapper>
         <MainWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={holiday}
+            src={holidayDas}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Holidays</DirectoryMenuTitle>
         </MainWrapper>
         <MainWrapper style={{ justifyContent: "flex-start" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={umbrella}
+            src={beachumbrella}
             alt="right icon"
           />{" "}
           <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>

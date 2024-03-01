@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import CommentRatingImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-import thumbsUp from "../../../assets/images/modalImage/thumbs-up.png";
-import thumbsDown from "../../../assets/images/modalImage/thumbs-down.png";
+// import CommentRatingImage from "../../../assets/images/modalImage/CommentRatingImage.png";
+// import thumbsUp from "../../../assets/images/modalImage/thumbs-up.png";
+// import thumbsDown from "../../../assets/images/modalImage/thumbs-down.png";
+import {
+  thumbsDown,
+  thumbsUp,
+  yellowStar,
+} from "../../app/utils/ImagePath";
 
 interface RatingProps {
   Titletext: string;
@@ -83,8 +88,7 @@ const CommentRating: React.FC<RatingProps> = ({
       <TitleContainer>
         <RatingContainer>
           <Image
-            style={{ width: "68px", height: "12px" }}
-            src={CommentRatingImage}
+            src={yellowStar}
             alt="icon"
           />
           <p>{starRating}</p>
@@ -95,7 +99,6 @@ const CommentRating: React.FC<RatingProps> = ({
       <LikeDislikeContainer>
         <LikeDislikeWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={thumbsUp}
             alt="icon"
           />
@@ -103,7 +106,6 @@ const CommentRating: React.FC<RatingProps> = ({
         </LikeDislikeWrapper>
         <LikeDislikeWrapper>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={thumbsDown}
             alt="icon"
           />

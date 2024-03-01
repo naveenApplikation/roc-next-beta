@@ -1,25 +1,25 @@
-import castle from "../../../assets/images/rightSideMenuImage/castle.png";
-import glass from "../../../assets/images/rightSideMenuImage/glass.png";
+// import castle from "../../../assets/images/rightSideMenuImage/castle.png";
+// import glass from "../../../assets/images/rightSideMenuImage/glass.png";
 import hiking from "../../../assets/images/rightSideMenuImage/hiking.png";
 import holiday from "../../../assets/images/rightSideMenuImage/holiday.png";
-import hotel from "../../../assets/images/rightSideMenuImage/hotel.png";
+// import hotel from "../../../assets/images/rightSideMenuImage/hotel.png";
 import shop from "../../../assets/images/rightSideMenuImage/shop.png";
 import tour from "../../../assets/images/rightSideMenuImage/tour.png";
 import travel from "../../../assets/images/rightSideMenuImage/travel.png";
 import umbrella from "../../../assets/images/rightSideMenuImage/umbrella.png";
-import calender from "../../../assets/images/rightSideMenuImage/calender.png";
+// import calender from "../../../assets/images/rightSideMenuImage/calender.png";
 import allItem from "../../../assets/images/rightSideMenuImage/allItem.png";
 import weather from "../../../assets/images/topSideMenuImage/weather.png";
 import flights from "../../../assets/images/topSideMenuImage/flights.png";
-import news from "../../../assets/images/topSideMenuImage/news.png";
+// import news from "../../../assets/images/topSideMenuImage/news.png";
 import phones from "../../../assets/images/topSideMenuImage/photos.png";
 import sailing from "../../../assets/images/topSideMenuImage/sailing.png";
-import sos from "../../../assets/images/topSideMenuImage/sos.png";
-import tides from "../../../assets/images/topSideMenuImage/tides.png";
+// import sos from "../../../assets/images/topSideMenuImage/sos.png";
+// import tides from "../../../assets/images/topSideMenuImage/tides.png";
 import vanTravel from "../../../assets/images/topSideMenuImage/vanTravel.png";
-import poundIcon from "../../../assets/images/poundIcon.png";
-import clock from "../../../assets/images/modalImage/Places/clock.png";
-import globe from "../../../assets/images/modalImage/Places/globe.png";
+// import poundIcon from "../../../assets/images/poundIcon.png";
+// import clock from "../../../assets/images/modalImage/Places/clock.png";
+// import globe from "../../../assets/images/modalImage/Places/globe.png";
 import location from "../../../assets/images/modalImage/Places/location-dot.png";
 import phone from "../../../assets/images/modalImage/Places/phone.png";
 import StoreMobile from "../../../assets/images/rightSideMenuImage/StoreMobile.png";
@@ -48,13 +48,41 @@ import infoCircle from "../../../assets/images/createListImages/chooseIcons/info
 import bin from "../../../assets/images/createListImages/chooseIcons/bin.png";
 import locate from "../../../assets/images/createListImages/chooseIcons/map-placeholder.png";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
-import { utensils } from "../utils/ImagePath";
-
+import {
+  utensils,
+  sun,
+  news,
+  van,
+  sos,
+  tides,
+  flight,
+  saling,
+  network,
+  holidayDas,
+  beachumbrella,
+  poundIcon,
+  castle,
+  utensil,
+  shopping,
+  calender,
+  camera,
+  hotel,
+  personHiking,
+  compass,
+  glass,
+  event,
+  BlackStar,
+  phoneBlack,
+  locationDot,
+  clientLogoImg,
+  clock,
+  globes
+} from "../utils/ImagePath";
 
 export const topSideMenu = [
   {
     name: "Weather",
-    image: weather,
+    image: sun,
   },
   {
     name: "News",
@@ -62,7 +90,7 @@ export const topSideMenu = [
   },
   {
     name: "Travel",
-    image: vanTravel,
+    image: van,
   },
   {
     name: "SOS",
@@ -74,27 +102,27 @@ export const topSideMenu = [
   },
   {
     name: "Flights",
-    image: flights,
+    image: flight,
   },
   {
     name: "Sailings",
-    image: sailing,
+    image: saling,
   },
   {
     name: "Phones",
-    image: phones,
+    image: network,
   },
   {
     name: "Holidays",
-    image: holiday,
+    image: holidayDas,
   },
   {
     name: "Beaches",
-    image: umbrella,
+    image: beachumbrella,
   },
   {
     name: "Weather",
-    image: weather,
+    image: sun,
   },
   {
     name: "News",
@@ -102,7 +130,7 @@ export const topSideMenu = [
   },
   {
     name: "Travel",
-    image: vanTravel,
+    image: van,
   },
 ];
 
@@ -113,19 +141,19 @@ export const rightSideMenu = [
   },
   {
     name: "Dine",
-    image: utensils,
+    image: utensil,
   },
   {
     name: "Shop",
-    image: shop,
+    image: shopping,
   },
   {
     name: "Events",
-    image: calender,
+    image: event,
   },
   {
     name: "Tours",
-    image: tour,
+    image: camera,
   },
   {
     name: "Hotels",
@@ -133,11 +161,11 @@ export const rightSideMenu = [
   },
   {
     name: "Activities",
-    image: hiking,
+    image: personHiking,
   },
   {
     name: "Travel",
-    image: travel,
+    image: compass,
   },
   {
     name: "Nightlife",
@@ -145,11 +173,11 @@ export const rightSideMenu = [
   },
   {
     name: "Holidays",
-    image: holiday,
+    image: holidayDas,
   },
   {
     name: "Beaches",
-    image: umbrella,
+    image: beachumbrella,
   },
   {
     name: "All",
@@ -347,8 +375,6 @@ export const DirectoryMenu = [
   },
 ];
 
-export const shopping = [{}];
-
 export const community = [
   {
     name: "Kids Activities...",
@@ -404,7 +430,7 @@ export const ResturantDetailData = [
   },
   {
     name: "colmar.je",
-    image: globe,
+    image: globes,
   },
   {
     name: "01534 662992",
@@ -456,200 +482,196 @@ export const RestroListData = [
     rating: 2.5,
     likeCount: 128,
   },
- 
- 
-]
+];
 
-export const WalksData =[
-{
-  id:1,
-  name : "North"
-},
-{
-  id:2,
-  name : "East"
-},
-{
-  id:3,
-  name : "South"
-},
-{
-  id:4,
-  name : "West"
-},
-
-]
-
-export const icons = [
-  { 
-    id: 1, 
-    image: cartShopping, 
-    width: 32,
-    height: 32
+export const WalksData = [
+  {
+    id: 1,
+    name: "North",
   },
-  { 
-    id: 2, 
-    image: child
+  {
+    id: 2,
+    name: "East",
   },
-  { 
-    id: 3, 
-    image: wheelChair 
+  {
+    id: 3,
+    name: "South",
   },
-  { 
-    id: 4, 
-    image: dog 
-  },
-  { 
-    id: 5, 
-    image: burgerSoda 
-  },
-  { 
-    id: 6, 
-    image: taxi 
-  },
-  { 
-    id: 7, 
-    image: pipeValve 
-  },
-  { 
-    id: 8, 
-    image: leaf
-  },
-  { 
-    id: 9, 
-    image: siren 
-  },
-  { 
-    id: 10, 
-    image: speaker 
-  },
-  { 
-    id: 11, 
-    image: music 
-  },
-  { 
-    id: 12, 
-    image: star 
-  },
-  { 
-    id: 13, 
-    image: infoCircle 
-  },
-  { 
-    id: 14, 
-    image: bin
-  },
-  { 
-    id: 15, 
-    image: locate 
-  },
-  { 
-    id: 16, 
-    image: infoCircle 
-  },
-  { 
-    id: 17, 
-    image: utensils 
-  },
-  { 
-    id: 18, 
-    image: StHelierLogo 
-  },
-  { 
-    id: 19, 
-    image: infoCircle 
-  },
-  { 
-    id: 20, 
-    image: infoCircle 
-  },
-  { 
-    id: 21, 
-    image: infoCircle 
-  },
-  { 
-    id: 22, 
-    image: infoCircle 
-  },
-  { 
-    id: 23, 
-    image: infoCircle 
-  },
-  { 
-    id: 24, 
-    image: infoCircle 
-  },
-  { 
-    id: 25, 
-    image: infoCircle 
-  },
-  { 
-    id: 26, 
-    image: infoCircle 
-  },
-  { 
-    id: 27, 
-    image: infoCircle 
-  },
-  { 
-    id: 28, 
-    image: infoCircle 
-  },
-  { 
-    id: 29, 
-    image: infoCircle 
-  },
-  { 
-    id: 30, 
-    image: infoCircle 
-  },
-  { 
-    id: 31, 
-    image: infoCircle 
-  },
-  { 
-    id: 32, 
-    image: infoCircle 
-  },
-  { 
-    id: 33, 
-    image: infoCircle 
-  },
-  { 
-    id: 34, 
-    image: infoCircle 
-  },
-  { 
-    id: 35, 
-    image: infoCircle 
-  },
-  { 
-    id: 36, 
-    image: infoCircle 
-  },
-  { 
-    id: 37, 
-    image: infoCircle 
-  },
-  { 
-    id: 38, 
-    image: infoCircle 
-  },
-  { 
-    id: 39, 
-    image: infoCircle 
-  },
-  { 
-    id: 40, 
-    image: infoCircle 
-  },
-  { 
-    id: 41, 
-    image: infoCircle 
-  },
-  { 
-    id: 42, 
-    image: infoCircle 
+  {
+    id: 4,
+    name: "West",
   },
 ];
 
+export const icons = [
+  {
+    id: 1,
+    image: cartShopping,
+    width: 32,
+    height: 32,
+  },
+  {
+    id: 2,
+    image: child,
+  },
+  {
+    id: 3,
+    image: wheelChair,
+  },
+  {
+    id: 4,
+    image: dog,
+  },
+  {
+    id: 5,
+    image: burgerSoda,
+  },
+  {
+    id: 6,
+    image: taxi,
+  },
+  {
+    id: 7,
+    image: pipeValve,
+  },
+  {
+    id: 8,
+    image: leaf,
+  },
+  {
+    id: 9,
+    image: siren,
+  },
+  {
+    id: 10,
+    image: speaker,
+  },
+  {
+    id: 11,
+    image: music,
+  },
+  {
+    id: 12,
+    image: star,
+  },
+  {
+    id: 13,
+    image: infoCircle,
+  },
+  {
+    id: 14,
+    image: bin,
+  },
+  {
+    id: 15,
+    image: locate,
+  },
+  {
+    id: 16,
+    image: infoCircle,
+  },
+  {
+    id: 17,
+    image: utensils,
+  },
+  {
+    id: 18,
+    image: StHelierLogo,
+  },
+  {
+    id: 19,
+    image: infoCircle,
+  },
+  {
+    id: 20,
+    image: infoCircle,
+  },
+  {
+    id: 21,
+    image: infoCircle,
+  },
+  {
+    id: 22,
+    image: infoCircle,
+  },
+  {
+    id: 23,
+    image: infoCircle,
+  },
+  {
+    id: 24,
+    image: infoCircle,
+  },
+  {
+    id: 25,
+    image: infoCircle,
+  },
+  {
+    id: 26,
+    image: infoCircle,
+  },
+  {
+    id: 27,
+    image: infoCircle,
+  },
+  {
+    id: 28,
+    image: infoCircle,
+  },
+  {
+    id: 29,
+    image: infoCircle,
+  },
+  {
+    id: 30,
+    image: infoCircle,
+  },
+  {
+    id: 31,
+    image: infoCircle,
+  },
+  {
+    id: 32,
+    image: infoCircle,
+  },
+  {
+    id: 33,
+    image: infoCircle,
+  },
+  {
+    id: 34,
+    image: infoCircle,
+  },
+  {
+    id: 35,
+    image: infoCircle,
+  },
+  {
+    id: 36,
+    image: infoCircle,
+  },
+  {
+    id: 37,
+    image: infoCircle,
+  },
+  {
+    id: 38,
+    image: infoCircle,
+  },
+  {
+    id: 39,
+    image: infoCircle,
+  },
+  {
+    id: 40,
+    image: infoCircle,
+  },
+  {
+    id: 41,
+    image: infoCircle,
+  },
+  {
+    id: 42,
+    image: infoCircle,
+  },
+];
