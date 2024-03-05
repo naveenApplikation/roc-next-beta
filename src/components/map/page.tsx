@@ -15,7 +15,8 @@ const LeafletMap = lazy(() => import('react-leaflet' as any));
 
 
 const LeafletMaps: React.FC<LeafletMapProps> = (props) => {
-  const position: any = [22.7196, 75.8577]
+  // const position: any = [22.7196, 75.8577]
+  const position: any = [49.2138, -2.13125]
   return (
 
     typeof window !== 'undefined' && (
