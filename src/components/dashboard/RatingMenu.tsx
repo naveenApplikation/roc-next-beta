@@ -49,8 +49,8 @@ const MenuIconContainer = styled.div`
 `;
 
 const MenuIcon = styled(Image)`
-  width: 11px;
-  height: 12px;
+  /* width: 11px;
+  height: 12px; */
 `;
 
 const RatingMenu: React.FC<MenuProps> = ({

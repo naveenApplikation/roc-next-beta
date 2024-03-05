@@ -45,7 +45,6 @@ const DashBoardButton: React.FC<ButtonProps> = ({
     <Container style={{ backgroundColor: bcColor }}>
       {image ? 
       <Image
-        style={{ width: imageStyle, height: "auto" }}
         src={image}
         alt="icon"
       />: ""}

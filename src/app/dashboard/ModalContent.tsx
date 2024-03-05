@@ -7,14 +7,23 @@ import DashBoardButton from "../../components/button/DashBoardButton";
 import bookImage from "../../../assets/images/modalImage/book-open.png";
 import resButtonImage from "../../../assets/images/modalImage/resButtonImage.png";
 import CommentRating from "../../components/dashboard/CommentRating";
-import comment from "../../../assets/images/modalImage/comment.png";
+// import comment from "../../../assets/images/modalImage/comment.png";
 import addReview from "../../../assets/images/modalImage/plus-circle.png";
 import { ResturantDetailData, LocalCuisineMenuItem } from "./data";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import CommonButton from "../../components/button/CommonButton";
-import moped from "../../../assets/images/modalImage/moped.png";
+// import moped from "../../../assets/images/modalImage/moped.png";
 import calendar from "../../../assets/images/modalImage/calendar.png";
-import CommonInput from '../../components/CommonInput/CommonInput'
+import CommonInput from "../../components/CommonInput/CommonInput";
+import {
+  bookOpen,
+  comment,
+  moped,
+  plus,
+  BlackStar,  
+  clientLogoImg,
+  calenderWhiteImg
+} from "../utils/ImagePath";
 
 interface ModalProps {
   onClose: () => void;
@@ -69,11 +78,11 @@ const ResturantDetailsWrapper = styled.div`
 `;
 
 const RestDetailTitle = styled.p`
-color: var(--BODY, #000);
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px; /* 150% */
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
 `;
 
 const ReviewContainer = styled.div`
@@ -142,8 +151,8 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
         <Image
-          style={{ width: 70, height: 24, cursor: "pointer" }}
-          src={ratingStar}
+          style={{ cursor: "pointer" }}
+          src={BlackStar}
           alt="Logo Outline"
         />
       </ResturatContainer>
@@ -173,20 +182,19 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
         <DashBoardButton
           text="Special menu"
           bcColor="#E8468F"
-          image={resButtonImage}
+          image={clientLogoImg}
           imageStyle={91}
         />
         <DashBoardButton
           text="Normal Menu"
           bcColor="#2F80ED"
-          image={bookImage}
+          image={bookOpen}
           imageStyle={27}
         />
       </MenuButtonContainer>
       <ReviewContainer>
         <ReviewWraaper>
           <Image
-            style={{ width: "16px", height: "16px" }}
             src={comment}
             alt="icon"
           />
@@ -208,8 +216,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
         />
         <ReviewWraaper style={{ marginBottom: "8px" }}>
           <Image
-            style={{ width: "16px", height: "16px" }}
-            src={addReview}
+            src={plus}
             alt="icon"
           />
           <p>Add Review</p>
@@ -217,21 +224,21 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
       </ReviewContainer>
       <AlsoSeeText>Also see</AlsoSeeText>
       <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item,index) => {
+        {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <div key={index}> 
-            <RatingMenu
-              title={item.menuName}
-              menuImageUrl={item.image}
-              containerImageUrl={true}
-              MenutitleDetail={item.resturantName}
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
               />
-              </div>
+            </div>
           );
         })}
       </ScrollingMenu>
       <ButtonContainer>
-        <CommonButton text="Reservation" image={calendar} imageStyle={14} />
+        <CommonButton text="Reservation" image={calenderWhiteImg} imageStyle={14} />
         <CommonButton text="Order Online" image={moped} imageStyle={20} />
       </ButtonContainer>
     </Container>

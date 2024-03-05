@@ -1,7 +1,8 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import CloseModal from "../../../assets/images/CloseModal.png";
+// import CloseModal from "../../../assets/images/CloseModal.png";
+import {CloseModal} from '../../app/utils/ImagePath'
 
 interface SearchModalProps {
   isOpen: boolean;
