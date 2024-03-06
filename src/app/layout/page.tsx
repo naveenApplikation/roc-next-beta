@@ -1,23 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import RightSideLogo from "../../../assets/images/RightSideLogo.png";
 import { rightSideMenu, rightSideMenuMobile } from "../dashboard/data";
 import { useRouter } from "next/navigation";
-import { headerHome, mapIcon, profileIcon, user } from "../utils/ImagePath";
+import { headerHome, logoBlack, mapBlack, mapIcon, profileBlack, profileIcon, profileWhite } from "../utils/ImagePath";
 import Header from "@/components/header/page";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
-import CalenderPlaceModalLayout from "../../components/modal/Modal";
 import CreateAccountModalLayout from "../../components/modal/Modal";
 import LoginAccountModalLayout from "../../components/modal/Modal";
 import UpdateMyDetailsModalLayout from "../../components/modal/Modal";
 import UpdateMyEmailModalLayout from "../../components/modal/Modal";
 import UpdateMyPreferencesModalLayout from "../../components/modal/Modal";
 import WelcomeBackModalLayout from "../../components/modal/Modal";
-import CalenderConfirmModalLayout from "../../components/modal/Modal";
 import SearchModalLayout from "../../components/searchModal/page";
 import ModalContent from "../dashboard/ModalContent";
 import CalenderModal from "../dashboard/calenderModal";
@@ -32,7 +29,6 @@ import UpdateMyPreferences from "../dashboard/Menu Modal Contents/UpdateMyPrefer
 import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
-import LeafletMaps from "@/components/map/page";
 import dynamic from "next/dynamic";
 import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
 
@@ -225,7 +221,7 @@ const MapSection = styled.div`
     top: 0;
     z-index: 3;
     width: 100%;
-    padding: 40px 34px;
+    padding: 40px 15px;
   }
 
   @media screen and (max-width: 800px) {
@@ -484,19 +480,19 @@ const Layout = (WrappedComponent: any) => {
               <RightSideHeadMenu className="mapHeader">
                 <Image
                   style={{ width: "116.615px", height: "48px" }}
-                  src={RightSideLogo}
+                  src={logoBlack}
                   alt="Logo Outline"
                 />
                 <HeaderMapProfileContainer>
                   <Image
                     style={{ width: "48px", height: "48px" }}
-                    src={showMap ? headerHome : mapIcon}
+                    src={showMap ? mapBlack : mapIcon}
                     alt="Logo Outline"
                     onClick={() => iconClick("mapClick")}
                   />
                   <Image
                     style={{ width: "48px", height: "48px" }}
-                    src={profileIcon}
+                    src={profileBlack}
                     alt="Logo Outline"
                   />
                 </HeaderMapProfileContainer>
@@ -517,7 +513,7 @@ const Layout = (WrappedComponent: any) => {
             <RightSideHeadMenu>
               <Image
                 style={{ width: "116.615px", height: "48px" }}
-                src={RightSideLogo}
+                src={logoBlack}
                 alt="Logo Outline"
               />
               <HeaderMapProfileContainer>
@@ -529,7 +525,7 @@ const Layout = (WrappedComponent: any) => {
                 />
                 <Image
                   style={{ width: "48px", height: "48px" }}
-                  src={profileIcon}
+                  src={profileWhite}
                   alt="Logo Outline"
                 />
               </HeaderMapProfileContainer>

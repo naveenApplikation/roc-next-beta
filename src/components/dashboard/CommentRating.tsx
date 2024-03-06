@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-// import CommentRatingImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-// import thumbsUp from "../../../assets/images/modalImage/thumbs-up.png";
-// import thumbsDown from "../../../assets/images/modalImage/thumbs-down.png";
 import {
   thumbsDown,
   thumbsUp,

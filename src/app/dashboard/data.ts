@@ -1,25 +1,10 @@
-// import castle from "../../../assets/images/rightSideMenuImage/castle.png";
-// import glass from "../../../assets/images/rightSideMenuImage/glass.png";
 import hiking from "../../../assets/images/rightSideMenuImage/hiking.png";
 import holiday from "../../../assets/images/rightSideMenuImage/holiday.png";
-// import hotel from "../../../assets/images/rightSideMenuImage/hotel.png";
 import shop from "../../../assets/images/rightSideMenuImage/shop.png";
 import tour from "../../../assets/images/rightSideMenuImage/tour.png";
 import travel from "../../../assets/images/rightSideMenuImage/travel.png";
 import umbrella from "../../../assets/images/rightSideMenuImage/umbrella.png";
-// import calender from "../../../assets/images/rightSideMenuImage/calender.png";
 import allItem from "../../../assets/images/rightSideMenuImage/allItem.png";
-import weather from "../../../assets/images/topSideMenuImage/weather.png";
-import flights from "../../../assets/images/topSideMenuImage/flights.png";
-// import news from "../../../assets/images/topSideMenuImage/news.png";
-import phones from "../../../assets/images/topSideMenuImage/photos.png";
-import sailing from "../../../assets/images/topSideMenuImage/sailing.png";
-// import sos from "../../../assets/images/topSideMenuImage/sos.png";
-// import tides from "../../../assets/images/topSideMenuImage/tides.png";
-import vanTravel from "../../../assets/images/topSideMenuImage/vanTravel.png";
-// import poundIcon from "../../../assets/images/poundIcon.png";
-// import clock from "../../../assets/images/modalImage/Places/clock.png";
-// import globe from "../../../assets/images/modalImage/Places/globe.png";
 import location from "../../../assets/images/modalImage/Places/location-dot.png";
 import phone from "../../../assets/images/modalImage/Places/phone.png";
 import StoreMobile from "../../../assets/images/rightSideMenuImage/StoreMobile.png";
@@ -64,19 +49,27 @@ import {
   castle,
   utensil,
   shopping,
-  calender,
   camera,
   hotel,
   personHiking,
   compass,
   glass,
   event,
-  BlackStar,
-  phoneBlack,
-  locationDot,
-  clientLogoImg,
   clock,
-  globes
+  globes,
+  banjo,
+  resturant1,
+  resturant2,
+  resturant3,
+  resturant4,
+  resturant5,
+  resturant6,
+  bar1,
+  bar2,
+  bar3,
+  bar4,
+  bar5,
+  bar6
 } from "../utils/ImagePath";
 
 export const topSideMenu = [
@@ -209,31 +202,75 @@ export const LocalCuisineMenuItem = [
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    headerImage : banjo
   },
   {
     image: utensils,
     menuName: "Restaurant",
     resturantName: "La Bouche",
+    headerImage : resturant1
   },
   {
     image: utensils,
     menuName: "St Aubin",
     resturantName: "Salty Dog Bar...",
+    headerImage : resturant2
   },
   {
     image: utensils,
     menuName: "Gorey Pier",
     resturantName: "Feast Restaurant",
+    headerImage : resturant3
   },
   {
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    headerImage : resturant4
   },
   {
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    headerImage : resturant5
+  },
+];
+export const BarMenuItem = [
+  {
+    image: utensils,
+    menuName: "St Helier",
+    resturantName: "Banjo",
+    headerImage : bar1
+  },
+  {
+    image: utensils,
+    menuName: "Restaurant",
+    resturantName: "La Bouche",
+    headerImage : bar2
+  },
+  {
+    image: utensils,
+    menuName: "St Aubin",
+    resturantName: "Salty Dog Bar...",
+    headerImage : bar3
+  },
+  {
+    image: utensils,
+    menuName: "Gorey Pier",
+    resturantName: "Feast Restaurant",
+    headerImage : bar4
+  },
+  {
+    image: utensils,
+    menuName: "St Helier",
+    resturantName: "Banjo",
+    headerImage : bar5
+  },
+  {
+    image: utensils,
+    menuName: "St Helier",
+    resturantName: "Banjo",
+    headerImage : bar6
   },
 ];
 
@@ -280,31 +317,37 @@ export const EnjoyShineMenuItem = [
     image: poundIcon,
     menuName: "From £7",
     resturantName: "Kalimukti Yoga",
+    headerImage : resturant1
   },
   {
     image: poundIcon,
     menuName: "25-30",
     resturantName: "Wild Adventures",
+    headerImage : resturant2
   },
   {
     image: poundIcon,
     menuName: "FREE",
     resturantName: "BeachAbility",
+    headerImage : resturant3
   },
   {
     image: poundIcon,
     menuName: "From £30",
     resturantName: "Kayak Nomad",
+    headerImage : resturant4
   },
   {
     image: poundIcon,
     menuName: "St Helier",
     resturantName: "Banjo",
+    headerImage : resturant5
   },
   {
     image: poundIcon,
     menuName: "St Helier",
     resturantName: "Banjo",
+    headerImage : resturant6
   },
 ];
 

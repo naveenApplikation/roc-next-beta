@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {filter} from '../utils/ImagePath'
+import { filter } from '../utils/ImagePath'
 import {
   EnjoyShineMenuItem,
   familyEventMenuItem,
@@ -13,9 +13,9 @@ import {
   community,
   RestroListData,
   WalksData,
+  BarMenuItem,
 } from "./data";
-// import chevronRight from "../../../assets/images/chevron-right.png";
-import {chevronRight} from "../utils/ImagePath";
+import { chevronRight } from "../utils/ImagePath";
 import CommentRatingImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import SearchInput from "../../components/searchInput/SearchInput";
 import MenuDetails from "../../components/dashboard/MenuDetails";
@@ -261,12 +261,12 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       <ScrollingMenu>
         {topSideMenu.map((item, index) => {
           return (
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8,height:56,justifyContent:"space-evenly"}} key={index}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, height: 56, justifyContent: "space-evenly" }} key={index}>
               <Image
                 src={item.image}
                 alt="right icon"
               />{" "}
-              <p style={{fontSize:"14px"}}>{item.name}</p>
+              <p style={{ fontSize: "14px" }}>{item.name}</p>
             </div>
           );
         })}
@@ -282,6 +282,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
               <RatingMenu
                 title={item.menuName}
                 menuImageUrl={item.image}
+                headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
               />
@@ -317,6 +318,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
               <RatingMenu
                 title={item.menuName}
                 menuImageUrl={item.image}
+                headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
               />
@@ -348,12 +350,13 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       <Directory />
       <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
       <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item, index) => {
+        {BarMenuItem.map((item, index) => {
           return (
             <div key={index}>
               <RatingMenu
                 title={item.menuName}
                 menuImageUrl={item.image}
+                headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
               />
@@ -413,7 +416,11 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                   width: "100%",
                   background: "linear-gradient(45deg, black, transparent)",
                 }}
-              ></div>
+              >
+                <Image 
+                style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
+                src={item.headerImage} alt="" />
+              </div>
               <div>
                 <div
                   style={{

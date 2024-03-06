@@ -32,13 +32,6 @@ import salingsImg from  "../../../assets/images/salings.svg"
 import networkImg from  "../../../assets/images/network.svg"
 import holidayImg from  "../../../assets/images/lights-holiday.svg"
 import beachumbrellaImg from  "../../../assets/images/umbrella-beach.svg"
-import profileImg from  "../../../assets/images/tagd.svg"
-import breakfast from  "../../../assets/images/tagds.svg"
-import plumberImg from  "../../../assets/images/tagqw.svg"
-import carImg from  "../../../assets/images/tagsdf.svg"
-
-import umbrella from  "../../../assets/images/umbrella-beach.svg"
-import StoreWhite from  "../../../assets/images/Stores.svg"
 import cameraImg from  "../../../assets/images/camera-retro.svg"
 import calenderWhite from  "../../../assets/images/calendaras.svg"
 import bookOpenImg from  "../../../assets/images/Places/book-open.svg"
@@ -64,6 +57,23 @@ import eventImg from  "../../../assets/images/event.svg"
 import closeModalImg from  "../../../assets/images/closeModal.svg"
 import clocksImg from  "../../../assets/images/clocks.svg"
 import globeImg from  "../../../assets/images/globereal.svg"
+import profileBlackImg from  "../../../assets/images/profileBlack.svg"
+import profileWhiteImg from  "../../../assets/images/profileWhite.svg"
+import mapBlackImg from  "../../../assets/images/mapBlack.svg"
+import logoBlackImg from  "../../../assets/images/logoBlack.svg"
+import banjoImg from  "../../../assets/images/banjo.jpg"
+import resturant1Img from  "../../../assets/images/restaurant1.jpg"
+import resturant2Img from  "../../../assets/images/restaurant2.jpg"
+import resturant3Img from  "../../../assets/images/restaurant3.jpg"
+import resturant4Img from  "../../../assets/images/restaurant4.jpg"
+import resturant5Img from  "../../../assets/images/restaurant5.jpg"
+import resturant6Img from  "../../../assets/images/restaurant6.jpg"
+import bar1Img from  "../../../assets/images/bar1.jpg"
+import bar2Img from  "../../../assets/images/bar2.jpg"
+import bar3Img from  "../../../assets/images/bar3.jpg"
+import bar4Img from  "../../../assets/images/bar4.jpg"
+import bar5Img from  "../../../assets/images/bar5.jpg"
+import bar6Img from  "../../../assets/images/bar6.jpg"
 
 export const filter = filterImg 
 export const globe = gloveImg 
@@ -125,3 +135,20 @@ export const clientLogoImg =  clientLogo
 export const clock =  clocksImg
 export const globes =  globeImg
 export const calenderWhiteImg =  calenderWhite
+export const profileWhite =  profileWhiteImg
+export const profileBlack =  profileBlackImg
+export const mapBlack =  mapBlackImg
+export const logoBlack =  logoBlackImg
+export const banjo =  banjoImg
+export const resturant1 =  resturant1Img
+export const resturant2 =  resturant2Img
+export const resturant3 =  resturant3Img
+export const resturant4 =  resturant4Img
+export const resturant5 =  resturant5Img
+export const resturant6 =  resturant6Img
+export const bar1 =  bar1Img
+export const bar2 =  bar2Img
+export const bar3 =  bar3Img
+export const bar4 =  bar4Img
+export const bar5 =  bar5Img
+export const bar6 =  bar6Img

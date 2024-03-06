@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import ThumbsUp from "../../../assets/images/searchListPlaces/thumbs-up.png";
 import styled from "styled-components";
 import {PopularLists} from './Data'
+import { thumbsup } from "@/app/utils/ImagePath";
 
 
 const Container = styled.div`
@@ -97,7 +97,7 @@ const Lists = () => {
             <LikesContainer>
               <Image
                 style={{ width: 16, height: "auto" }}
-                src={ThumbsUp}
+                src={thumbsup}
                 alt="icon"
               />
               <p>{item.likes}</p>

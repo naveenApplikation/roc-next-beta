@@ -1,20 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import CloseModal from "../../../assets/images/CloseModal.png";
 import styled from "styled-components";
-import ratingStar from "../../../assets/images/modalImage/ratingStar.png";
 import DashBoardButton from "../../components/button/DashBoardButton";
-import bookImage from "../../../assets/images/modalImage/book-open.png";
-import resButtonImage from "../../../assets/images/modalImage/resButtonImage.png";
 import CommentRating from "../../components/dashboard/CommentRating";
-// import comment from "../../../assets/images/modalImage/comment.png";
-import addReview from "../../../assets/images/modalImage/plus-circle.png";
 import { ResturantDetailData, LocalCuisineMenuItem } from "./data";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import CommonButton from "../../components/button/CommonButton";
-// import moped from "../../../assets/images/modalImage/moped.png";
-import calendar from "../../../assets/images/modalImage/calendar.png";
-import CommonInput from "../../components/CommonInput/CommonInput";
 import {
   bookOpen,
   comment,

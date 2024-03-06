@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { banjo } from "@/app/utils/ImagePath";
 
 interface MenuProps {
   title?: string;
@@ -8,6 +9,7 @@ interface MenuProps {
   isOpen?: () => void;
   containerImageUrl?: boolean;
   menuImageUrl?: any;
+  headerImage?: any;
 }
 
 const ScrollingMenuDishes = styled.div`
@@ -58,12 +60,17 @@ const RatingMenu: React.FC<MenuProps> = ({
   title,
   menuImageUrl,
   MenutitleDetail,
+  headerImage
 }) => {
   return (
     <ScrollingMenuDishes>
       {containerImageUrl && (
         <>
-          <UtensilsDishesImage></UtensilsDishesImage>
+          <UtensilsDishesImage>
+            <Image
+              style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
+              src={headerImage} alt="" />
+          </UtensilsDishesImage>
           {title && (
             <MenuIconContainer>
               {menuImageUrl && <MenuIcon src={menuImageUrl} alt="icon" />}

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import chevronRight from "../../../assets/images/modalImage/chevron-right.png";
+import { chevronRight } from "@/app/utils/ImagePath";
 
 interface ButtonProps {
   text: string;
