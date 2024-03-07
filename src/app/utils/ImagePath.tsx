@@ -74,6 +74,26 @@ import bar3Img from  "../../../assets/images/bar3.jpg"
 import bar4Img from  "../../../assets/images/bar4.jpg"
 import bar5Img from  "../../../assets/images/bar5.jpg"
 import bar6Img from  "../../../assets/images/bar6.jpg"
+import family1Img from  "../../../assets/images/family1.jpg"
+import family2Img from  "../../../assets/images/family2.jpg"
+import family3Img from  "../../../assets/images/family3.jpg"
+import family4Img from  "../../../assets/images/family4.jpg"
+import family5Img from  "../../../assets/images/family5.jpg"
+import family6Img from  "../../../assets/images/family6.jpg"
+import attraction1Img from  "../../../assets/images/attraction1.jpg"
+import attraction2Img from  "../../../assets/images/attraction2.jpg"
+import attraction3Img from  "../../../assets/images/attraction3.jpg"
+import attraction4Img from  "../../../assets/images/attraction4.jpg"
+import attraction5Img from  "../../../assets/images/attraction5.jpg"
+import attraction6Img from  "../../../assets/images/attraction6.jpg"
+import attraction7Img from  "../../../assets/images/attraction7.jpg"
+import walks1Img from  "../../../assets/images/walks1.jpg"
+import walks2Img from  "../../../assets/images/walks2.jpg"
+import walks3Img from  "../../../assets/images/walks3.jpg"
+import walks4Img from  "../../../assets/images/walks4.jpg"
+import walks5Img from  "../../../assets/images/walks5.jpg"
+import walks6Img from  "../../../assets/images/walks6.jpg"
+import walks7Img from  "../../../assets/images/walks7.jpg"
 
 export const filter = filterImg 
 export const globe = gloveImg 
@@ -152,3 +172,23 @@ export const bar3 =  bar3Img
 export const bar4 =  bar4Img
 export const bar5 =  bar5Img
 export const bar6 =  bar6Img
+export const family1 =  family1Img
+export const family2 =  family2Img
+export const family3 =  family3Img
+export const family4 =  family4Img
+export const family5 =  family5Img
+export const family6 =  family6Img
+export const attraction1 =  attraction1Img
+export const attraction2 =  attraction2Img
+export const attraction3 =  attraction3Img
+export const attraction4 =  attraction4Img
+export const attraction5 =  attraction5Img
+export const attraction6 =  attraction6Img
+export const attraction7 =  attraction7Img
+export const walks1 =  walks1Img
+export const walks2 =  walks2Img
+export const walks3 =  walks3Img
+export const walks4 =  walks4Img
+export const walks5 =  walks5Img
+export const walks6 =  walks6Img
+export const walks7 =  walks7Img

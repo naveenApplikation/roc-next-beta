@@ -69,7 +69,24 @@ import {
   bar3,
   bar4,
   bar5,
-  bar6
+  bar6,
+  family1,
+  family2,
+  family3,
+  family4,
+  family5,
+  family6,
+  attraction1,
+  attraction2,
+  attraction3,
+  attraction4,
+  attraction5,
+  attraction6,
+  attraction7,
+  walks1,
+  walks2,
+  walks3,
+  walks4
 } from "../utils/ImagePath";
 
 export const topSideMenu = [
@@ -279,36 +296,44 @@ export const familyEventMenuItem = [
     date: 9,
     month: "MAY",
     resturantName: "Liberation Day",
+    headerImage : family1
+
   },
   {
     date: 14,
     month: "SEPT",
     resturantName: "Jersey International..",
+    headerImage : family2
   },
   {
     date: 28,
     month: "OCT",
     resturantName: "Halloween Scavenger...",
+    headerImage : family3
   },
   {
     date: 11,
     month: "NOV",
     resturantName: "CluedUpp – Witchcraft &..",
+    headerImage : family4
   },
   {
     date: 18,
     month: "JUNE",
     resturantName: "Jersey Triathlon",
+    headerImage : family5
   },
   {
     date: 9,
     month: "MAY",
     resturantName: "Liberation Day",
+    headerImage : family6
   },
   {
     date: 25,
     month: "APRIL",
     resturantName: "Liberation Day",
+    headerImage : family1
   },
 ];
 
@@ -354,24 +379,31 @@ export const EnjoyShineMenuItem = [
 export const topAttractionItem = [
   {
     menuName: "Jersey War Tunnels",
+    headerImage:attraction1
   },
   {
     menuName: "Jersey Heritage",
+    headerImage:attraction2
   },
   {
     menuName: "Jersey Pearl",
+    headerImage:attraction3
   },
   {
     menuName: "The Botanic Gardens a..",
+    headerImage:attraction4
   },
   {
     menuName: "La Mare Wine Estate",
+    headerImage:attraction5
   },
   {
     menuName: "Jersey War Tunnels",
+    headerImage:attraction6
   },
   {
     menuName: "Jersey Pearl",
+    headerImage:attraction7
   },
 ];
 
@@ -500,12 +532,14 @@ export const RestroListData = [
     name: "Jersey War Tunnels",
     rating: 2.5,
     likeCount: 128,
+    headerImage:attraction1
   },
   {
     id: 2,
     name: "Mont Orgueil Castle",
     rating: 3.5,
     likeCount: 128,
+    headerImage:attraction1
   },
   {
     id: 3,
@@ -531,18 +565,22 @@ export const WalksData = [
   {
     id: 1,
     name: "North",
+    headerImage:walks1
   },
   {
     id: 2,
     name: "East",
+    headerImage:walks2
   },
   {
     id: 3,
     name: "South",
+    headerImage:walks3
   },
   {
     id: 4,
     name: "West",
+    headerImage:walks4
   },
 ];
 

@@ -31,6 +31,7 @@ import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import dynamic from "next/dynamic";
 import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
+import GoogleMapComp from "@/components/googleMap/page";
 
 interface LayoutProps {
   children: any;
@@ -206,7 +207,7 @@ const MobileViewRightSideMenu = styled.div`
 `;
 const MapSection = styled.div`
   position: relative;
-  .leaflet-container {
+  .googleMap {
     height: 100vh;
     width: calc(100vw - 480px);
     transition: 0.5s;
@@ -214,6 +215,9 @@ const MapSection = styled.div`
     @media screen and (max-width: 800px) {
       width: 100vw;
       height: 525px;
+    }
+    div{
+      outline:none !important;
     }
   }
   .mapHeader {
@@ -497,7 +501,8 @@ const Layout = (WrappedComponent: any) => {
                   />
                 </HeaderMapProfileContainer>
               </RightSideHeadMenu>
-              <DynamicMap {...{ showMap }} />
+              {/* <DynamicMap {...{ showMap }} /> */}
+              <GoogleMapComp />
               <SearchFilterSection>
 
                 <MapNavigator />

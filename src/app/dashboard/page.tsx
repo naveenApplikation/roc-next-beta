@@ -106,15 +106,21 @@ const TopAttractionContainer = styled.div`
   }
 `;
 
-const TopAttractionprofile = styled.div`
+const TopAttractionprofile = styled.div<{
+  $image: any
+}>`
   width: 80px;
   height: 80px;
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.08);
+  background-image: url(${props => props.$image?.src}) !important;
+  background-size:contain;
 `;
 
-const FamilEventContainer = styled.div`
+const FamilEventContainer = styled.div<{
+  $image: any
+}>`
   display: flex;
   width: 80px;
   flex-direction: column;
@@ -123,10 +129,11 @@ const FamilEventContainer = styled.div`
   flex-shrink: 0;
 
   .date {
-    font-size: 17px;
+    font-size: 10px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
+    width:30px;
   }
 
   .month {
@@ -138,6 +145,19 @@ const FamilEventContainer = styled.div`
     background-color: red;
     width: fit-content;
     color: #fff;
+    width:30px;
+  }
+  div{
+    background-image: url(${props => props.$image.src}) !important;
+    height:64px;
+    background-size:contain;
+    justify-content:end;
+    padding:8px;
+    p{
+      background-color:white;
+      color:black;
+      text-align : center;
+    }
   }
 `;
 
@@ -168,47 +188,6 @@ const DirectoryTitle = styled.p`
   line-height: normal;
 `;
 
-const SearchedContainer = styled.div`
-  background-color: #f2f3f3;
-  padding: 0px 40px;
-  border-radius: 24px 24px 0px 0px;
-  box-shadow: 0px -8px 40px 0px #00000040;
-  transition: 5s;
-  min-height: 100vh;
-  @media screen and (max-width: 800px) {
-    box-shadow: none;
-    background-color: transparent;
-    padding: 0px 15px;
-  }
-
-  .ant-segmented {
-    width: 100%;
-    min-height: 32px;
-    padding: 3px;
-    background-color: #7676801f;
-  }
-  .filterInput {
-    padding: 0px;
-    box-shadow: 0px 0px 0px 0px #5229001a;
-    box-shadow: 0px 9px 21px 0px #5229001a;
-    margin: 15px 0px;
-  }
-  .ant-segmented-item {
-    flex-grow: 1;
-  }
-  :where(.css-dev-only-do-not-override-1rqnfsa).ant-segmented
-    .ant-segmented-item-selected {
-    border-radius: 7px;
-    box-shadow: 0px 3px 8px 0px #0000001f;
-  }
-  .ant-segmented-item-label {
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .ant-segmented-item-selected .ant-segmented-item-label {
-    font-weight: 600;
-  }
-`;
 const WalkContainer = styled.div`
   height: 120px;
   min-width: 120px;
@@ -217,13 +196,22 @@ const WalkContainer = styled.div`
   background-color: #ffffffcc;
   display: flex;
   align-items: end;
+  flex-direction:column;
+
+  justify-content: space-between;
   p {
     color: white;
     font-size: 14px;
     font-weight: 400;
     padding: 10px 10px;
   }
+  img{
+    height:85px;
+    width:100%;
+    border-radius:10px;
+  }
 `;
+
 
 const options = ["Lists", "Places"];
 
@@ -296,8 +284,12 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       />
       <ScrollingMenu>
         {familyEventMenuItem.map((item, index) => {
+          console.log("item.headerImageitem.headerImage", item.headerImage);
+
           return (
-            <FamilEventContainer key={index}>
+            <FamilEventContainer key={index}
+              $image={item.headerImage}
+            >
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <p className="date">{item.date}</p>
                 <span className="month">{item.month}</span>
@@ -332,9 +324,11 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       />
       <ScrollingMenu>
         {topAttractionItem.map((item, index) => {
+          console.log("item", item);
+
           return (
             <TopAttractionContainer key={index}>
-              <TopAttractionprofile></TopAttractionprofile>
+              <TopAttractionprofile $image={item.headerImage}></TopAttractionprofile>
               <p>{item.menuName}</p>
             </TopAttractionContainer>
           );
@@ -392,6 +386,10 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
+              <Image
+                src={item.headerImage}
+                alt=""
+              />
               <p>{item.name}</p>
             </WalkContainer>
           );
@@ -417,9 +415,9 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                   background: "linear-gradient(45deg, black, transparent)",
                 }}
               >
-                <Image 
-                style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
-                src={item.headerImage} alt="" />
+                <Image
+                  style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
+                  src={item.headerImage} alt="" />
               </div>
               <div>
                 <div
