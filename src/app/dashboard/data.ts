@@ -57,6 +57,8 @@ import {
   event,
   clock,
   globes,
+  phoneBlack,
+  locationDot,
   banjo,
   resturant1,
   resturant2,
@@ -86,7 +88,17 @@ import {
   walks1,
   walks2,
   walks3,
-  walks4
+  walks4,
+  Mobilecastle,
+  MobileStore,
+  Mobilecalendar,
+  Mobileutensil,
+  cartShopping1,
+  cartShopping2,
+  cartShopping3,
+  cartShopping4,
+  cartShopping5,
+  cartShopping6
 } from "../utils/ImagePath";
 
 export const topSideMenu = [
@@ -198,19 +210,19 @@ export const rightSideMenu = [
 export const rightSideMenuMobile = [
   {
     name: "To do",
-    image: castleMobile,
+    image: Mobilecastle,
   },
   {
     name: "Dine",
-    image: utensilsMobile,
+    image: Mobileutensil,
   },
   {
     name: "Shop",
-    image: StoreMobile,
+    image: MobileStore,
   },
   {
     name: "Events",
-    image: calendarMobile,
+    image: Mobilecalendar,
   },
 ];
 
@@ -453,47 +465,47 @@ export const DirectoryMenu = [
 export const community = [
   {
     name: "Kids Activities...",
-    image: kids,
+    image: cartShopping1,
     color: "#BB6BD9",
   },
   {
     name: "Shops in St Brelade",
-    image: home,
+    image: cartShopping2,
     color: "#56CCF2",
   },
   {
     name: "Best Breakfasts...",
-    image: toy,
+    image: cartShopping3,
     color: "#EB5757",
   },
   {
     name: "Outdoor Dining",
-    image: breakfastUtensils,
+    image: cartShopping4,
     color: "#27AE60",
   },
   {
     name: "History",
-    image: fort,
+    image: cartShopping5,
     color: "#F2994A",
   },
   {
     name: "Beans & Crapauds",
-    image: frog,
+    image: cartShopping6,
     color: "#56CCF2",
   },
   {
     name: "Kids Activities...",
-    image: kids,
+    image: cartShopping1,
     color: "#BB6BD9",
   },
   {
     name: "Shops in St Brelade",
-    image: home,
+    image: cartShopping2,
     color: "#56CCF2",
   },
   {
     name: "Best Breakfasts...",
-    image: toy,
+    image: cartShopping3,
     color: "#EB5757",
   },
 ];
@@ -509,11 +521,11 @@ export const ResturantDetailData = [
   },
   {
     name: "01534 662992",
-    image: phone,
+    image: phoneBlack,
   },
   {
     name: "51-53 King St, St Helier, Jersey",
-    image: location,
+    image: locationDot,
   },
 ];
 export const SoryByItem = [
@@ -579,6 +591,26 @@ export const WalksData = [
   },
   {
     id: 4,
+    name: "West",
+    headerImage:walks4
+  },
+  {
+    id: 5,
+    name: "North",
+    headerImage:walks1
+  },
+  {
+    id: 6,
+    name: "East",
+    headerImage:walks2
+  },
+  {
+    id: 7,
+    name: "South",
+    headerImage:walks3
+  },
+  {
+    id: 8,
     name: "West",
     headerImage:walks4
   },

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { rightSideMenu, rightSideMenuMobile } from "../dashboard/data";
 import { useRouter } from "next/navigation";
-import { headerHome, logoBlack, mapBlack, mapIcon, profileBlack, profileIcon, profileWhite } from "../utils/ImagePath";
+import { headerHome, logoBlack, mapBlack, mapIcon, profileBlack, profileIcon, profileWhite,MobileMap,MobileProfile,MobileRocLogo } from "../utils/ImagePath";
 import Header from "@/components/header/page";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
@@ -498,6 +498,7 @@ const Layout = (WrappedComponent: any) => {
                     style={{ width: "48px", height: "48px" }}
                     src={profileBlack}
                     alt="Logo Outline"
+                    onClick={() => modalClick("createAccountModal")}
                   />
                 </HeaderMapProfileContainer>
               </RightSideHeadMenu>
@@ -517,21 +518,19 @@ const Layout = (WrappedComponent: any) => {
           <RightMenu>
             <RightSideHeadMenu>
               <Image
-                style={{ width: "116.615px", height: "48px" }}
-                src={logoBlack}
+                src={MobileRocLogo}
                 alt="Logo Outline"
               />
               <HeaderMapProfileContainer>
                 <Image
-                  style={{ width: "48px", height: "48px" }}
-                  src={showMap ? headerHome : mapIcon}
+                  src={showMap ? headerHome : MobileMap}
                   alt="Logo Outline"
                   onClick={() => iconClick("mapClick")}
                 />
                 <Image
-                  style={{ width: "48px", height: "48px" }}
-                  src={profileWhite}
+                  src={MobileProfile}
                   alt="Logo Outline"
+                  onClick={() => modalClick("createAccountModal")}
                 />
               </HeaderMapProfileContainer>
             </RightSideHeadMenu>
@@ -552,7 +551,7 @@ const Layout = (WrappedComponent: any) => {
                 return (
                   <RightSideMenu key={index}>
                     <RightSideInsideMenuBox onClick={() => menuClick(item)}>
-                      <Image className="iconSize" src={item.image} alt="icon" />
+                      <Image src={item.image} alt="icon" />
                       <p>{item.name}</p>
                     </RightSideInsideMenuBox>
                   </RightSideMenu>

@@ -47,9 +47,6 @@ const StyledModal = styled.div<{
 
   .modal-content {
     background: #f2f3f3;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     width: 100%;
   }
 
@@ -59,34 +56,9 @@ const StyledModal = styled.div<{
     cursor: pointer;
   }
 
-//   @media screen and (min-width: 1500px) {
-//     left: ${({ $isopen }) => ($isopen ? "40%" : "0%")};
-//     transform: none;
-//   }
-
   @media screen and (max-width: 800px) {
-    left: 0;
-    top: auto;
     height: 100%;
-    
-    bottom: ${({ $isopen }) =>
-    $isopen
-      ? "0%"
-      : "-100%"};
     width: 100%;
-    transition: bottom 0.8s ease-in-out;
-  }
-
-  @media screen and (max-width: 1130px) {
-    width: ${({ $screenwidth }) => ($screenwidth < 800 ? "none" : "585px")};
-    max-width: 100%;
-    left: ${({ $isopen, $screenwidth }) =>
-    $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
-    transform: none;
-    z-index: 1;
-    max-height:100vh;
-    margin: 0px; /* Center the modal horizontally */
-    border-radius: 0px;
   }
 `;
 

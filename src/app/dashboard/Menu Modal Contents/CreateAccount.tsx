@@ -18,7 +18,7 @@ const MenuModalContent = styled.div`
 const SelectReceiveOffers = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     gap: 12px;
     padding: 8px 16px;

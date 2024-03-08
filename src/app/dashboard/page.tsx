@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { filter } from '../utils/ImagePath'
+import { filter } from "../utils/ImagePath";
 import {
   EnjoyShineMenuItem,
   familyEventMenuItem,
@@ -21,7 +21,7 @@ import SearchInput from "../../components/searchInput/SearchInput";
 import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
-import { boxOverlay } from "../utils/ImagePath";
+import { boxOverlay, yellowStar } from "../utils/ImagePath";
 import Layout from "../layout/page";
 
 interface DashboardProps {
@@ -107,19 +107,19 @@ const TopAttractionContainer = styled.div`
 `;
 
 const TopAttractionprofile = styled.div<{
-  $image: any
+  $image: any;
 }>`
   width: 80px;
   height: 80px;
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  background-image: url(${props => props.$image?.src}) !important;
-  background-size:contain;
+  background-image: url(${(props) => props.$image?.src}) !important;
+  background-size: contain;
 `;
 
 const FamilEventContainer = styled.div<{
-  $image: any
+  $image: any;
 }>`
   display: flex;
   width: 80px;
@@ -133,7 +133,7 @@ const FamilEventContainer = styled.div<{
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    width:30px;
+    width: 30px;
   }
 
   .month {
@@ -145,18 +145,18 @@ const FamilEventContainer = styled.div<{
     background-color: red;
     width: fit-content;
     color: #fff;
-    width:30px;
+    width: 30px;
   }
-  div{
-    background-image: url(${props => props.$image.src}) !important;
-    height:64px;
-    background-size:contain;
-    justify-content:end;
-    padding:8px;
-    p{
-      background-color:white;
-      color:black;
-      text-align : center;
+  div {
+    background-image: url(${(props) => props.$image.src}) !important;
+    height: 64px;
+    background-size: contain;
+    justify-content: end;
+    padding: 8px;
+    p {
+      background-color: white;
+      color: black;
+      text-align: center;
     }
   }
 `;
@@ -196,7 +196,7 @@ const WalkContainer = styled.div`
   background-color: #ffffffcc;
   display: flex;
   align-items: end;
-  flex-direction:column;
+  flex-direction: column;
 
   justify-content: space-between;
   p {
@@ -205,13 +205,12 @@ const WalkContainer = styled.div`
     font-weight: 400;
     padding: 10px 10px;
   }
-  img{
-    height:85px;
-    width:100%;
-    border-radius:10px;
+  img {
+    height: 85px;
+    width: 100%;
+    /* border-radius: 10px; */
   }
 `;
-
 
 const options = ["Lists", "Places"];
 
@@ -239,21 +238,25 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
         <FilterInput>
-          <Image
-            src={filter}
-            alt="Filter icon"
-          />
+          <Image src={filter} alt="Filter icon" />
           Filter
         </FilterInput>
       </InputWrapper>
       <ScrollingMenu>
         {topSideMenu.map((item, index) => {
           return (
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, height: 56, justifyContent: "space-evenly" }} key={index}>
-              <Image
-                src={item.image}
-                alt="right icon"
-              />{" "}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 8,
+                height: 56,
+                justifyContent: "space-evenly",
+              }}
+              key={index}
+            >
+              <Image src={item.image} alt="right icon" />{" "}
               <p style={{ fontSize: "14px" }}>{item.name}</p>
             </div>
           );
@@ -287,9 +290,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
           console.log("item.headerImageitem.headerImage", item.headerImage);
 
           return (
-            <FamilEventContainer key={index}
-              $image={item.headerImage}
-            >
+            <FamilEventContainer key={index} $image={item.headerImage}>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <p className="date">{item.date}</p>
                 <span className="month">{item.month}</span>
@@ -328,7 +329,9 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
 
           return (
             <TopAttractionContainer key={index}>
-              <TopAttractionprofile $image={item.headerImage}></TopAttractionprofile>
+              <TopAttractionprofile
+                $image={item.headerImage}
+              ></TopAttractionprofile>
               <p>{item.menuName}</p>
             </TopAttractionContainer>
           );
@@ -336,10 +339,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       </ScrollingMenu>
       <DirectoryContainer>
         <DirectoryTitle>Directory</DirectoryTitle>
-        <Image
-          src={chevronRight}
-          alt="right icon"
-        />{" "}
+        <Image src={chevronRight} alt="right icon" />{" "}
       </DirectoryContainer>
       <Directory />
       <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
@@ -367,7 +367,6 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
           return (
             <CommunityContainer key={index} style={{ background: item.color }}>
               <Image
-                style={{ width: "18px", height: "16px" }}
                 src={item.image}
                 alt="right icon"
               />{" "}
@@ -386,10 +385,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
-              <Image
-                src={item.headerImage}
-                alt=""
-              />
+              <Image src={item.headerImage} alt="" />
               <p>{item.name}</p>
             </WalkContainer>
           );
@@ -416,8 +412,14 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 }}
               >
                 <Image
-                  style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
-                  src={item.headerImage} alt="" />
+                  style={{
+                    width: "-webkit-fill-available",
+                    height: "64px",
+                    borderRadius: "6px",
+                  }}
+                  src={item.headerImage}
+                  alt=""
+                />
               </div>
               <div>
                 <div
@@ -427,12 +429,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Image
-                    style={{ width: "68px", height: "12px" }}
-                    src={CommentRatingImage}
-                    alt="right icon"
-                  />{" "}
-                  <p>4.7</p>
+                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>

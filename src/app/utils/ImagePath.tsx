@@ -46,7 +46,7 @@ import phoneBlackImg from  "../../../assets/images/Places/phone.svg"
 import locationDotImg from  "../../../assets/images/Places/location-dot.svg"
 import clientLogo from  "../../../assets/images/Places/imagedsd.svg"
 import filterImg from  "../../../assets/images/filter.svg"
-import chevronRightImg from  "../../../assets/images/chevron-right.svg"
+import chevronRightImg from  "../../../assets/images/chevronRight.svg"
 import hotelImg from  "../../../assets/images/hotel.svg"
 import compassImg from  "../../../assets/images/compass.svg"
 import personHikingImg from  "../../../assets/images/hiking.svg"
@@ -61,6 +61,30 @@ import profileBlackImg from  "../../../assets/images/profileBlack.svg"
 import profileWhiteImg from  "../../../assets/images/profileWhite.svg"
 import mapBlackImg from  "../../../assets/images/mapBlack.svg"
 import logoBlackImg from  "../../../assets/images/logoBlack.svg"
+import MobileRocLogoIcon from  "../../../assets/images/MobileIcon/MobileRocLogo.svg"
+import MobileMapIcon from  "../../../assets/images/MobileIcon/MobileMap.svg"
+import MobileProfileIcon from  "../../../assets/images/MobileIcon/MobileProfile.svg"
+import MobileStoreIcon from  "../../../assets/images/MobileIcon/MobileStore.svg"
+import MobilecalendarIcon from  "../../../assets/images/MobileIcon/Mobilecalendar.svg"
+import MobilecastleIcon from  "../../../assets/images/MobileIcon/Mobilecastle.svg"
+import MobileutensilsIcon from  "../../../assets/images/MobileIcon/Mobileutensils.svg"
+import ListIcon1 from  "../../../assets/images/MobileIcon/tagd.svg"
+import ListIcon2 from  "../../../assets/images/MobileIcon/tagds.svg"
+import ListIcon3 from  "../../../assets/images/MobileIcon/tagqw.svg"
+import ListIcon4 from  "../../../assets/images/MobileIcon/tagsdf.svg"
+import ListIcon5 from  "../../../assets/images/MobileIcon/tag4.svg"
+import ListIcon6 from  "../../../assets/images/MobileIcon/tag5.svg"
+import ListIcon7 from  "../../../assets/images/MobileIcon/tag7.svg"
+import cartShoppingIcon1 from  "../../../assets/images/cart-shopping.svg"
+import cartShoppingIcon2 from  "../../../assets/images/cart-shoppings.svg"
+import cartShoppingIcon3 from  "../../../assets/images/cart-shoppingsa.svg"
+import cartShoppingIcon4 from  "../../../assets/images/cart-shoppingsas.svg"
+import cartShoppingIcon5 from  "../../../assets/images/cart-shoppingsw.svg"
+import cartShoppingIcon6 from  "../../../assets/images/cartShoppingFrog.svg"
+
+
+
+
 import banjoImg from  "../../../assets/images/banjo.jpg"
 import resturant1Img from  "../../../assets/images/restaurant1.jpg"
 import resturant2Img from  "../../../assets/images/restaurant2.jpg"
@@ -192,3 +216,23 @@ export const walks4 =  walks4Img
 export const walks5 =  walks5Img
 export const walks6 =  walks6Img
 export const walks7 =  walks7Img
+export const MobileRocLogo =  MobileRocLogoIcon
+export const MobileMap =  MobileMapIcon
+export const MobileProfile =  MobileProfileIcon
+export const MobileStore =  MobileStoreIcon
+export const Mobilecastle =  MobilecastleIcon
+export const Mobilecalendar =  MobilecalendarIcon
+export const Mobileutensil =  MobileutensilsIcon
+export const cartShopping1 =  cartShoppingIcon1
+export const cartShopping2 =  cartShoppingIcon2
+export const cartShopping3 =  cartShoppingIcon3
+export const cartShopping4 =  cartShoppingIcon4
+export const cartShopping5 =  cartShoppingIcon5
+export const cartShopping6 =  cartShoppingIcon6
+export const List1 =  ListIcon1
+export const List2 =  ListIcon2
+export const List3 =  ListIcon3
+export const List4 =  ListIcon4
+export const List5 =  ListIcon5
+export const List6 =  ListIcon6
+export const List7 =  ListIcon7

@@ -154,7 +154,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
             <ResturantDetailsWrapper key={index}>
               {" "}
               <Image
-                style={{ width: 16, height: "auto", cursor: "pointer" }}
+                style={{cursor: "pointer" }}
                 src={item.image}
                 alt="Logo Outline"
               />{" "}
@@ -220,6 +220,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
             <div key={index}>
               <RatingMenu
                 title={item.menuName}
+                headerImage={item.headerImage}
                 menuImageUrl={item.image}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
