@@ -287,8 +287,6 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       />
       <ScrollingMenu>
         {familyEventMenuItem.map((item, index) => {
-          console.log("item.headerImageitem.headerImage", item.headerImage);
-
           return (
             <FamilEventContainer key={index} $image={item.headerImage}>
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -325,8 +323,6 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
       />
       <ScrollingMenu>
         {topAttractionItem.map((item, index) => {
-          console.log("item", item);
-
           return (
             <TopAttractionContainer key={index}>
               <TopAttractionprofile
