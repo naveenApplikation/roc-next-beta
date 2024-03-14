@@ -384,7 +384,8 @@ const Layout = (WrappedComponent: any) => {
 
     const menuClick = (item: any) => {
       if (item.name === "To do") {
-        router.push("/screens/resturants");
+        // router.push("/screens/resturants");
+        router.push("/categories/aniruddh");
       } else if (item.name === "Dine") {
         router.push("/screens/ecoDining");
       } else if (item.name === "Shop") {
