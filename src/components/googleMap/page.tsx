@@ -1,4 +1,5 @@
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 
 interface GoogleMapCompProps {
@@ -62,8 +63,19 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
         }
     };
 
-    const markerClick=(e:any)=>{
-        console.log("kkkkkkkkkkkkkkkkkkkkkkkkk" , e)
+    const markerClick = (e: any) => {
+        console.log("kkkkkkkkkkkkkkkkkkkkkkkkk", e)
+
+    }
+    const handleClick = async (e: any) => {
+        console.log("martkier", e)
+        // const response = await fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0")
+        const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
 
     }
 
@@ -72,20 +84,22 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
         isLoaded && <GoogleMap
             // mapContainerStyle={containerStyle}
             center={center}
+            onClick={(e: any) => handleClick(e)}
+
             mapContainerClassName='googleMap'
             onLoad={(map) => {
                 mapRef.current = map;
                 handleZoomChanged();
             }}
             zoom={zoom}
-            onZoomChanged={handleZoomChanged} 
+            onZoomChanged={handleZoomChanged}
             onUnmount={onUnmount}
-            // onClick={onMapClick}
+        // onClick={onMapClick}
         >
-            <Marker position={markerLocation}  onClick={markerClick}/>
+            <Marker position={markerLocation} onClick={markerClick} />
             { /* Child components, such as markers, info windows, etc. */}
             {/* {selectedPlace && ( */}
-                {/* <InfoWindow
+            {/* <InfoWindow
                     position={center}
                 >
                    
