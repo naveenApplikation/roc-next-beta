@@ -71,6 +71,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
         console.log("martkier", e)
         // const response = await fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0")
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0`);
+        console.log("response" , response)
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
