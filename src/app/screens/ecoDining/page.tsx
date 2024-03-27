@@ -27,6 +27,9 @@ const CommunityBody = styled.div`
     font-weight:500;
     font-style : italic;
   }
+  @media screen and (max-width: 400px) {
+    padding:0px 15px;
+  }
 `
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;

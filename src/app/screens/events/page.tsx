@@ -12,20 +12,25 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
+
 interface EventsProps {
   // Define your props here
 }
 const CategoryBody = styled.div`
-  padding:0px 40px;
+  padding:12px 40px;
   min-height:calc(100vh - 113px);
   .communityName{
     font-size : 24px;
     font-weight:700;
+    margin-bottom: 24px;
   }
   .likesCount{
     font-size:15px;
     font-weight:500;
     font-style : italic;
+  }
+  @media screen and (max-width: 400px) {
+    padding:12px 15px;
   }
 `
 

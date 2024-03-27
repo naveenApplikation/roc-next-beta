@@ -7,6 +7,7 @@ interface ButtonProps {
   image?: any;
   bcColor?: string;
   imageStyle?: number;
+  isOpen?:()=>void;
 }
 
 const Container = styled.div`
@@ -39,9 +40,10 @@ const CommonButton: React.FC<ButtonProps> = ({
   image,
   text,
   imageStyle,
+  isOpen
 }) => {
   return (
-    <Container style={{ backgroundColor: bcColor }}>
+    <Container style={{ backgroundColor: bcColor }} onClick={isOpen}>
       {image && (
         <Image
           style={{ width: imageStyle, height: "auto" }}

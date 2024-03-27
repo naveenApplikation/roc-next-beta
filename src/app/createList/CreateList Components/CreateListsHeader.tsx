@@ -3,20 +3,22 @@
 import React from "react";
 import styled from "styled-components";
 
-interface CreateListingsProps {}
+interface CreateListingsProps {homePage?:any}
 
 const CreateListingHeader =  styled.div`
-    width: 390px;
-    height: 88px;
     padding: 24px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--Line, rgba(0, 0, 0, 0.16));
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.80) 100%), #FF0;
+    background-color: #f2f3f3;
     background-blend-mode: normal, luminosity;
     backdrop-filter: blur(22px);
+
+    @media screen and (max-width: 400px) {
+        padding: 24px 10px;
+  }
 `;
 
 const CreateListTitle = styled.div`
@@ -47,12 +49,11 @@ const SaveText = styled.div`
     cursor: pointer;
 `;
 
-const CreateListingsHeader: React.FC<CreateListingsProps> = () => {
+const CreateListingsHeader: React.FC<CreateListingsProps> = ({homePage}) => {
     return(
         <CreateListingHeader>
             <CreateListTitle>Create List</CreateListTitle>
-            <CancelText>CANCEL</CancelText>
-            <SaveText>SAVE</SaveText>
+            <CancelText onClick={homePage}>CANCEL</CancelText>
         </CreateListingHeader>
     )
 }

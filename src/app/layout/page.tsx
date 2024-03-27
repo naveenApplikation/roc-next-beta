@@ -5,8 +5,27 @@ import styled from "styled-components";
 import Image from "next/image";
 import { rightSideMenu, rightSideMenuMobile } from "../dashboard/data";
 import { useRouter } from "next/navigation";
-import { headerHome, logoBlack, mapBlack, mapIcon, profileBlack, profileIcon, profileWhite,MobileMap,MobileProfile,MobileRocLogo } from "../utils/ImagePath";
+import {
+  headerHome,
+  logoBlack,
+  mapBlack,
+  mapIcon,
+  profileBlack,
+  profileIcon,
+  profileWhite,
+  MobileMap,
+  MobileProfile,
+  MobileRocLogo,
+} from "../utils/ImagePath";
 import Header from "@/components/header/page";
+import FilterModal from "../../components/modal/FilterModal";
+import DirectionModal from "../../components/modal/DirectionModal";
+import AddToDirectoryModal from "../../components/modal/AddToDirectoryModal";
+import CreateDirectoryModal from "../../components/modal/CreateDirectoryModal";
+import ThankYouDiresctoryModal from "../../components/modal/ThankYouDiresctoryModal";
+import FilterModalLayout from "../../components/modal/Modal";
+import AddToDirectoryModalLayout from "../../components/modal/Modal";
+import DirectionModalLayout from "../../components/modal/Modal";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
 import CreateAccountModalLayout from "../../components/modal/Modal";
@@ -14,9 +33,11 @@ import LoginAccountModalLayout from "../../components/modal/Modal";
 import UpdateMyDetailsModalLayout from "../../components/modal/Modal";
 import UpdateMyEmailModalLayout from "../../components/modal/Modal";
 import UpdateMyPreferencesModalLayout from "../../components/modal/Modal";
+import OrderOnlineModalLayout from "../../components/modal/Modal";
 import WelcomeBackModalLayout from "../../components/modal/Modal";
 import SearchModalLayout from "../../components/searchModal/page";
 import ModalContent from "../dashboard/ModalContent";
+import OrderOnlineModal from "../dashboard/orderOnlineModal";
 import CalenderModal from "../dashboard/calenderModal";
 import CommonButton from "@/components/button/CommonButton";
 import PlacesFormModal from "../dashboard/placesFormModal";
@@ -25,6 +46,9 @@ import CreateAccountContent from "../dashboard/Menu Modal Contents/CreateAccount
 import LoginAccountContent from "../dashboard/Menu Modal Contents/Login";
 import UpdateMyDetails from "../dashboard/Menu Modal Contents/UpdateMyDetails";
 import UpdateMyEmail from "../dashboard/Menu Modal Contents/UpdateMyEmail";
+import UpdateName from "../dashboard/Menu Modal Contents/UpdateName";
+import UpdatePasssword from "../dashboard/Menu Modal Contents/UpdatePasssword";
+import ContactUs from "../dashboard/Menu Modal Contents/ContactUs";
 import UpdateMyPreferences from "../dashboard/Menu Modal Contents/UpdateMyPreferences";
 import Welcomeback from "../dashboard/Menu Modal Contents/Welcomeback";
 import MapNavigator from "@/components/mapNavigator/page";
@@ -114,10 +138,9 @@ const DashboardMenu = styled.div<{
   width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
   padding-bottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
   background: #f2f3f3;
-  transition: 0.8s;
+  transition: width 0.6s ease; /* Adjust transition timing function and duration */
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(22px);
   position: relative;
   z-index: 1;
   display: flex;
@@ -126,13 +149,13 @@ const DashboardMenu = styled.div<{
   min-height: 100vh;
 
   @media screen and (max-width: 800px) {
-    /* height: 100vh; */
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-    $showMap ? "calc(100vh - 500px)" : "100vh"};
+      $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
+
 const RightSideMenu = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   @media screen and (max-width: 800px) {
@@ -205,19 +228,21 @@ const MobileViewRightSideMenu = styled.div`
     z-index: 23;
   }
 `;
-const MapSection = styled.div`
+const MapSection = styled.div<{
+  $showMap: boolean;
+}>`
   position: relative;
   .googleMap {
     height: 100vh;
-    width: calc(100vw - 480px);
-    transition: 0.5s;
+    width: ${({ $showMap }) => ($showMap ? "calc(100vw - 480px)" : "calc(100vw - 580px)")}; /* Adjust width based on $showMap */
+    transition: width 0.6s ease; /* Adjust transition timing function and duration */
     z-index: 0;
     @media screen and (max-width: 800px) {
       width: 100vw;
       height: 525px;
     }
-    div{
-      outline:none !important;
+    div {
+      outline: none !important;
     }
   }
   .mapHeader {
@@ -234,6 +259,7 @@ const MapSection = styled.div`
     z-index: 2;
   }
 `;
+
 
 const SearchFilterSection = styled.div`
   position: absolute;
@@ -299,8 +325,6 @@ const AllCategories = styled.div`
   }
 `;
 
-
-
 const SearchedContainer = styled.div`
   background-color: #f2f3f3;
   padding: 0px 40px;
@@ -350,9 +374,10 @@ const Layout = (WrappedComponent: any) => {
     const [showMap, setShowMap] = useState<boolean>(false);
     const [modalName, setModalName] = useState<string>("");
     const specificSectionRef = useRef<HTMLDivElement>(null);
-    const [tabValue, setTabValue] = useState("Lists")
+    const [tabValue, setTabValue] = useState("Lists");
     const [modalType, setModalType] = useState({
       ModalContent: false,
+      orderOnlineModal: false,
       calenderModal: false,
       calenderPlaceModal: false,
       PlacesConfirmModal: false,
@@ -362,10 +387,15 @@ const Layout = (WrappedComponent: any) => {
       UpdateMyDetailsModal: false,
       UpdateMyEmailModal: false,
       UpdateMyPreferencesModal: false,
-      search :false,
-    })
+      modalFilter: false,
+      AddDirectoryModal: false,
+      DirectionModal: false,
+      search: false,
+    });
 
-    const DynamicMap = dynamic(() => import("../../components/map/page"), { ssr: false });
+    const DynamicMap = dynamic(() => import("../../components/map/page"), {
+      ssr: false,
+    });
 
     const router = useRouter();
     // const handleClick = (event: MouseEvent) => {
@@ -385,11 +415,11 @@ const Layout = (WrappedComponent: any) => {
     const menuClick = (item: any) => {
       if (item.name === "To do") {
         // router.push("/screens/resturants");
-        router.push("/categories/aniruddh");
+        router.push("/screens/events");
       } else if (item.name === "Dine") {
-        router.push("/screens/ecoDining");
+        router.push("/screens/events");
       } else if (item.name === "Shop") {
-        router.push("/screens/wellbeing");
+        router.push("/screens/events");
       } else if (item.name === "Events") {
         router.push("/screens/events");
       } else if (item.name === "Tours") {
@@ -402,23 +432,30 @@ const Layout = (WrappedComponent: any) => {
         router.push("/screens/attractions");
       } else if (item.name === "Nightlife") {
         router.push("/screens/financial");
+      }else if (item === "CategorieList") {
+        router.push("/screens/categorieList");
       }
     };
     const closeModal = (name: string) => {
-      setModalType((prev: any) => ({ ...prev, [name]: !prev[name] as boolean }))
-      setModalName("")
+      setModalType((prev: any) => ({
+        ...prev,
+        [name]: !prev[name] as boolean,
+      }));
+      setModalName("");
     };
 
     const modalClick = (name: string) => {
-      setModalType((prev: any) => ({ ...prev, [name]: !prev[name] as boolean }))
-      setModalName(name)
+      setModalType((prev: any) => ({
+        ...prev,
+        [name]: !prev[name] as boolean,
+      }));
+      setModalName(name);
     };
     const iconClick = (name: string) => {
       if (name === "mapClick") {
         setShowMap(!showMap);
       }
     };
-
 
     // const DynamicComponent: React.FC<DynamicComponentProps> = ({ componentName, onClose }) => {
     //   if (modalName) {
@@ -431,14 +468,140 @@ const Layout = (WrappedComponent: any) => {
     //   }
     // };
 
+    const DirectoryModalHandle = () => {
+      if (modalName === "AddDirectoryModal") {
+        return (
+          <>
+            <AddToDirectoryModal
+              isOpen={() => modalClick("CreateDirectoryModal")}
+            />
+          </>
+        );
+      } else if (modalName === "CreateDirectoryModal") {
+        return (
+          <>
+            <CreateDirectoryModal
+              isOpen={() => modalClick("ThankYouDiresctoryModal")}
+            />
+          </>
+        );
+      } else if (modalName === "ThankYouDiresctoryModal") {
+        return (
+          <>
+            <ThankYouDiresctoryModal
+              isOpen={() => closeModal("AddDirectoryModal")}
+            />
+          </>
+        );
+      }
+    };
+
+    const showLoginHandle = () => {
+      if (modalName === "createAccountModal") {
+        return (
+          <>
+            <CreateAccountContent
+              isOpen={() => modalClick("LoginAccountModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+            />
+          </>
+        );
+      } else if (modalName === "LoginAccountModal") {
+        return (
+          <>
+            <LoginAccountContent
+              previousModal={() => modalClick("createAccountModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+            />
+          </>
+        );
+      } else if (modalName === "WelcomeBackModal") {
+        return (
+          <>
+            <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} isOpenContact={() => modalClick("ContactUsModal")} />
+          </>
+        );
+      } else if (modalName === "UpdateMyDetailsModal") {
+        return (
+          <>
+            <UpdateMyDetails
+              isOpen={() => modalClick("UpdateMyEmailModal")}
+              isOpenName={() => modalClick("UpdateNameModal")}
+              isOpenPassword={() => modalClick("UpdatePassswordModal")}
+              isOpenContact={() => modalClick("UpdateMyPreferencesModal")}
+              previousModal={() => modalClick("WelcomeBackModal")}
+            />
+          </>
+        );
+      } else if (modalName === "UpdateMyEmailModal") {
+        return (
+          <>
+            <UpdateMyEmail
+              isOpen={() => modalClick("WelcomeBackModal")}
+              previousModal={() => modalClick("UpdateMyDetailsModal")}
+            />
+          </>
+        );
+      } else if (modalName === "UpdateNameModal") {
+        return (
+          <>
+            <UpdateName
+              isOpen={() => modalClick("WelcomeBackModal")}
+              previousModal={() => modalClick("UpdateMyDetailsModal")}
+            />
+          </>
+        );
+      } else if (modalName === "UpdatePassswordModal") {
+        return (
+          <>
+            <UpdatePasssword
+              isOpen={() => modalClick("WelcomeBackModal")}
+              previousModal={() => modalClick("UpdateMyDetailsModal")}
+            />
+          </>
+        );
+      } else if (modalName === "ContactUsModal") {
+        return (
+          <>
+            <ContactUs
+             isOpen={() => modalClick("LoginThankYouDiresctoryModal")}
+              previousModal={() => modalClick("UpdateMyDetailsModal")}
+            />
+          </>
+        );
+      } else if (modalName === "LoginThankYouDiresctoryModal") {
+        return (
+          <>
+            <ThankYouDiresctoryModal
+              isOpen={() => closeModal("createAccountModal")}
+            />
+          </>
+        );
+      } else if (modalName === "UpdateMyPreferencesModal") {
+        return (
+          <>
+            <UpdateMyPreferences
+            isOpen={() => modalClick("WelcomeBackModal")}
+              previousModal={() => modalClick("UpdateMyDetailsModal")}
+            />
+          </>
+        );
+      }
+    };
+
     const showModalContent = () => {
       if (modalName === "calenderModal") {
-        return (<>
-          <CalenderModal onClose={closeModal} />
-          <div style={{ marginTop: 16, padding: "0px 24px" }} onClick={() => modalClick("calenderPlaceModal")}>
-            <CommonButton text="Next" />
-          </div>
-        </>)
+        return (
+          <>
+            <CalenderModal onClose={closeModal} />
+            <div
+              style={{ marginTop: 16, padding: "0px 24px" }}
+              onClick={() => modalClick("calenderPlaceModal")}
+            >
+              <CommonButton text="Next" />
+            </div>
+          </>
+        );
       } else if (modalName === "calenderPlaceModal") {
         return (
           <>
@@ -450,20 +613,26 @@ const Layout = (WrappedComponent: any) => {
               <CommonButton text="Next" />
             </div>
           </>
-        )
+        );
       } else if (modalName === "PlacesConfirmModal") {
         return (
           <>
             <PlacesConfirmModal />
             <div
               style={{ marginTop: 16, padding: "0px 24px" }}
-              onClick={()=>closeModal("PlacesConfirmModal")}
+              onClick={() => closeModal("PlacesConfirmModal")}
             >
               <CommonButton text="Done" />
             </div>
           </>
-        )
+        );
       }
+    };
+
+    const [CreateListState,setCreateListState] = useState("")
+
+    const CreateListHandle = (name:string)=>{
+      setCreateListState(name)
     }
 
     const tabChange = (value: tabs) => {
@@ -473,15 +642,13 @@ const Layout = (WrappedComponent: any) => {
       <>
         <Container>
           <MainContainer>
-            <DashboardMenu
-              $showMap={showMap}
-            >
+            <DashboardMenu $showMap={showMap}>
               <Header {...{ modalClick, iconClick, showMap }} />
-              <WrappedComponent {...{ modalClick, showMap }} />
+              <WrappedComponent {...{ modalClick, showMap,CreateListHandle }} />
             </DashboardMenu>
           </MainContainer>
           {showMap && (
-            <MapSection>
+            <MapSection $showMap={showMap}>
               <RightSideHeadMenu className="mapHeader">
                 <Image
                   style={{ width: "116.615px", height: "48px" }}
@@ -506,7 +673,6 @@ const Layout = (WrappedComponent: any) => {
               {/* <DynamicMap {...{ showMap }} /> */}
               <GoogleMapComp />
               <SearchFilterSection>
-
                 <MapNavigator />
               </SearchFilterSection>
               <MapSearch>
@@ -518,10 +684,7 @@ const Layout = (WrappedComponent: any) => {
           )}
           <RightMenu>
             <RightSideHeadMenu>
-              <Image
-                src={MobileRocLogo}
-                alt="Logo Outline"
-              />
+              <Image src={MobileRocLogo} alt="Logo Outline" />
               <HeaderMapProfileContainer>
                 <Image
                   src={showMap ? headerHome : MobileMap}
@@ -540,7 +703,14 @@ const Layout = (WrappedComponent: any) => {
                 return (
                   <RightSideMenu key={index}>
                     <RightSideInsideMenuBox onClick={() => menuClick(item)}>
-                      <Image style={{width:item.name == "All"? "22px":"auto"  ,height:item.name == "All"? "auto":"auto"}} src={item.image} alt="icon" />
+                      <Image
+                        style={{
+                          width: item.name == "All" ? "22px" : "auto",
+                          height: item.name == "All" ? "auto" : "auto",
+                        }}
+                        src={item.image}
+                        alt="icon"
+                      />
                       <p>{item.name}</p>
                     </RightSideInsideMenuBox>
                   </RightSideMenu>
@@ -560,22 +730,74 @@ const Layout = (WrappedComponent: any) => {
               })}
             </MobileViewRightSideMenu>
             <AllCategories>
-              <button>All Categories</button>
+              <button onClick={() => menuClick("CategorieList")} >All Categories</button>
             </AllCategories>
           </RightMenu>
         </Container>
         <DashBoardModal
           isOpen={modalType.ModalContent}
-          onClose={()=>closeModal("ModalContent")}
+          onClose={() => closeModal("ModalContent")}
           name="ModalContent"
           {...{ showMap }}
           title="Brasserie Colmar"
         >
-          <ModalContent onClose={()=>closeModal("ModalContent")} />
+          <ModalContent
+            onClose={() => closeModal("ModalContent")}
+            reservationModal={modalClick}
+          />
         </DashBoardModal>
+        <DirectionModalLayout
+          isOpen={modalType.DirectionModal}
+          onClose={() => closeModal("DirectionModal")}
+          name="DirectionModal"
+          {...{ showMap }}
+          title="Directions"
+        >
+          <DirectionModal />
+        </DirectionModalLayout>
+        <FilterModalLayout
+          isOpen={modalType.modalFilter}
+          onClose={() => closeModal("modalFilter")}
+          name="modalFilter"
+          {...{ showMap }}
+        >
+          <FilterModal />
+        </FilterModalLayout>
+        <AddToDirectoryModalLayout
+          isOpen={
+            modalName === "AddDirectoryModal" ||
+            modalName === "CreateDirectoryModal" ||
+            modalName === "ThankYouDiresctoryModal"
+          }
+          onClose={() => closeModal("AddDirectoryModal")}
+          name="AddDirectoryModal"
+          {...{ showMap }}
+          title={
+            (modalName === "AddDirectoryModal" && "Add to directory") ||
+            (modalName === "CreateDirectoryModal" && "Add to directory") ||
+            (modalName === "ThankYouDiresctoryModal" && "Thank you")
+          }
+        >
+          {DirectoryModalHandle()}
+        </AddToDirectoryModalLayout>
+        <OrderOnlineModalLayout
+          isOpen={modalType.orderOnlineModal}
+          onClose={() => closeModal("orderOnlineModal")}
+          {...{ showMap }}
+          title="Order Online"
+          name="orderOnlineModal"
+        >
+          <OrderOnlineModal
+            previousModal={() => modalClick("orderOnlineModal")}
+          />
+        </OrderOnlineModalLayout>
         <CalenderModalLayout
-          isOpen={modalName === "calenderModal" || modalName === "calenderPlaceModal"  || modalName === "PlacesConfirmModal"}
-          onClose={()=>closeModal("calenderModal")}
+          isOpen={
+            modalName === "calenderModal" ||
+            modalName === "calenderPlaceModal" ||
+            modalName === "PlacesConfirmModal"
+          }
+          onClose={() => closeModal("calenderModal")}
           {...{ showMap }}
           name="calenderModal"
           title="Brasserie Colmar"
@@ -620,20 +842,40 @@ const Layout = (WrappedComponent: any) => {
           </div>
         </CalenderConfirmModalLayout> */}
         <CreateAccountModalLayout
-          isOpen={modalType.createAccountModal}
-          onClose={()=>closeModal("createAccountModal")}
+          isOpen={
+            modalName === "createAccountModal" ||
+            modalName === "LoginAccountModal" ||
+            modalName === "WelcomeBackModal" ||
+            modalName === "UpdateMyDetailsModal" ||
+            modalName === "UpdateMyEmailModal" ||
+            modalName === "UpdatePassswordModal" ||
+            modalName === "UpdateNameModal" ||
+            modalName === "ContactUsModal" ||
+            modalName === "LoginThankYouDiresctoryModal" ||
+            modalName === "UpdateMyPreferencesModal"
+          }
+          onClose={() => closeModal("createAccountModal")}
           {...{ showMap }}
           name="createAccountModal"
-          title="Create an account"
+          title={
+            (modalName === "createAccountModal" && "Create an account") ||
+            (modalName === "LoginAccountModal" && "Login") ||
+            (modalName === "WelcomeBackModal" && "Welcome back!") ||
+            (modalName === "UpdateMyDetailsModal" && "Update my details") ||
+            (modalName === "UpdateMyEmailModal" && "Update my email") ||
+            (modalName === "UpdateNameModal" && "Update my name") ||
+            (modalName === "UpdatePassswordModal" && "Update my password") ||
+            (modalName === "ContactUsModal" && "Contact us") ||
+            (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
+            (modalName === "UpdateMyPreferencesModal" &&
+              "Update my preferences")
+          }
         >
-          <CreateAccountContent
-            isOpen={() => modalClick("LoginAccountModal")}
-            nextModal={() => modalClick("WelcomeBackModal")}
-          />
+          {showLoginHandle()}
         </CreateAccountModalLayout>
-        <LoginAccountModalLayout
+        {/* <LoginAccountModalLayout
           isOpen={modalType.LoginAccountModal}
-          onClose={()=>closeModal("LoginAccountModal")}
+          onClose={() => closeModal("LoginAccountModal")}
           {...{ showMap }}
           title="Login"
           name="LoginAccountModal"
@@ -645,25 +887,28 @@ const Layout = (WrappedComponent: any) => {
         </LoginAccountModalLayout>
         <WelcomeBackModalLayout
           isOpen={modalType.WelcomeBackModal}
-          onClose={()=>closeModal("WelcomeBackModal")}
+          onClose={() => closeModal("WelcomeBackModal")}
           {...{ showMap }}
           title="Welcome back!"
           name="WelcomeBackModal"
         >
           <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} />
-        </WelcomeBackModalLayout>
-        <UpdateMyDetailsModalLayout
+        </WelcomeBackModalLayout> */}
+        {/* <UpdateMyDetailsModalLayout
           isOpen={modalType.UpdateMyDetailsModal}
-          onClose={()=>closeModal("UpdateMyDetailsModal")}
+          onClose={() => closeModal("UpdateMyDetailsModal")}
           {...{ showMap }}
           title="Update my details"
           name="UpdateMyDetailsModal"
         >
-          <UpdateMyDetails isOpen={() => modalClick("UpdateMyEmailModal")} previousModal={() => modalClick("WelcomeBackModal")} />
-        </UpdateMyDetailsModalLayout>
-        <UpdateMyEmailModalLayout
+          <UpdateMyDetails
+            isOpen={() => modalClick("UpdateMyEmailModal")}
+            previousModal={() => modalClick("WelcomeBackModal")}
+          />
+        </UpdateMyDetailsModalLayout> */}
+        {/* <UpdateMyEmailModalLayout
           isOpen={modalType.UpdateMyEmailModal}
-          onClose={()=>closeModal("UpdateMyEmailModal")}
+          onClose={() => closeModal("UpdateMyEmailModal")}
           {...{ showMap }}
           title="Update my email"
           name="UpdateMyEmailModal"
@@ -672,26 +917,30 @@ const Layout = (WrappedComponent: any) => {
             isOpen={() => modalClick("UpdateMyPreferencesModal")}
             previousModal={() => modalClick("UpdateMyDetailsModal")}
           />
-        </UpdateMyEmailModalLayout>
-        <UpdateMyPreferencesModalLayout
+        </UpdateMyEmailModalLayout> */}
+        {/* <UpdateMyPreferencesModalLayout
           isOpen={modalType.UpdateMyPreferencesModal}
-          onClose={()=>closeModal("UpdateMyPreferencesModal")}
+          onClose={() => closeModal("UpdateMyPreferencesModal")}
           {...{ showMap }}
           title="Update my preferences"
           name="UpdateMyPreferencesModal"
         >
-          <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} />
-        </UpdateMyPreferencesModalLayout>
+          <UpdateMyPreferences
+            previousModal={() => modalClick("UpdateMyEmailModal")}
+          />
+        </UpdateMyPreferencesModalLayout> */}
         <SearchModalLayout
           isOpen={modalType.search}
-          onClose={()=>closeModal("search")}
+          onClose={() => closeModal("search")}
           {...{ showMap }}
           title="Search"
           name="search"
         >
           {/* <UpdateMyPreferences previousModal={() => modalClick("UpdateMyEmailModal")} /> */}
           <SearchedContainer>
-            <DashboardSearchContainer {...{ tabChange, options, tabValue, showMap }} />
+            <DashboardSearchContainer
+              {...{ tabChange, options, tabValue, showMap }}
+            />
           </SearchedContainer>
         </SearchModalLayout>
       </>

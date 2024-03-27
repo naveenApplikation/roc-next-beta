@@ -11,6 +11,7 @@ import navigateImg from "../../../../assets/images/menuModalsImage/forwardNaviga
 
 interface ModalProps {
   isOpen?: any;
+  isOpenContact?: any;
 }
 
 const MenuModalContent = styled.div`
@@ -19,7 +20,7 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({isOpen}) => {
+const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact}) => {
   return (
     <MenuModalContent>
       <MenuOptionList
@@ -56,13 +57,15 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen}) => {
         menuOptionImg={activityImg}
         comingSoon
       />
+      <div onClick={isOpenContact} style={{cursor:"pointer"}}>
       <MenuOptionList
         optionListText
         title1="Contact us"
         menuOptionImg={contactUsImg}
         navigaetImg
         forwardNavigateImg={navigateImg}
-      />
+        />
+        </div>
     </MenuModalContent>
   );
 };

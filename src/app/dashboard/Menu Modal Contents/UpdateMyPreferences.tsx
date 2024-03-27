@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 
-interface ModalProps {previousModal:any }
+interface ModalProps {previousModal:any,isOpen:any }
 
 const MenuModalContent = styled.div`
     display: flex;
@@ -63,7 +63,7 @@ const BackAccount = styled.p`
   cursor: pointer;
 `;
 
-const UpdateMyPreferencesContent: React.FC<ModalProps> = ({previousModal}) => {
+const UpdateMyPreferencesContent: React.FC<ModalProps> = ({previousModal,isOpen}) => {
     return (
         <MenuModalContent>
             <SelectReceiveOffers>
@@ -74,7 +74,9 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({previousModal}) => {
                     I would like to receive offers and news from ROC.
                 </ReceiveOffersText>
             </SelectReceiveOffers>
+            <div onClick={isOpen}>
             <CommonButton bcColor="#2F80ED" text="Save new email address" imageStyle={0} />
+            </div>
             <BackAccount onClick={previousModal}>Back to my account</BackAccount>
         </MenuModalContent>
     );

@@ -27,6 +27,9 @@ const CategoryBody = styled.div`
     font-weight:500;
     font-style : italic;
   }
+  @media screen and (max-width: 400px) {
+    padding:0px 15px;
+  }
 `
 
 const Experiences: React.FC<ExperiencesProps> = (props) => {

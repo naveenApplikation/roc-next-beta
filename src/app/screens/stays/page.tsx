@@ -21,6 +21,9 @@ const CategoryBody = styled.div`
     font-weight:500;
     font-style : italic;
   }
+  @media screen and (max-width: 400px) {
+    padding:0px 15px;
+  }
 `
 
 const Stays: React.FC<StaysProps> = (props) => {

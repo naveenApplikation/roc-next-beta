@@ -573,6 +573,52 @@ export const RestroListData = [
   },
 ];
 
+export const EventData = [
+  {
+    id: 1,
+    name: "Liberation Day",
+    date: 9,
+    month: "may",
+    headerImage:attraction1
+  },
+  {
+    id: 2,
+    name: "Jersey International Motoring Festival 2023",
+    date: 11,
+    month: "may",
+    headerImage:attraction1
+  },
+  {
+    id: 3,
+    name: "Canaccord Genuity Jersey Half Marathon",
+    date: "11-12",
+    month: "may",
+    headerImage:attraction1
+  },
+  {
+    id: 4,
+    name: "Island Walk",
+    date: 12,
+    month: "may",
+    headerImage:attraction1
+  },
+  {
+    id: 5,
+    name: "Jersey Triathlon",
+    date: 15,
+    month: "may",
+    headerImage:attraction1
+  },
+  {
+    id: 5,
+    name: "Canaccord Genuity Jersey Half Marathon",
+    date: 16,
+    month: "may",
+    headerImage:attraction1
+  },
+];
+
+
 export const WalksData = [
   {
     id: 1,

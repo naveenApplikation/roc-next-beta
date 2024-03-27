@@ -17,6 +17,7 @@ const ScrollingMenuDishes = styled.div`
   width: 120px;
   flex-direction: column;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 const UtensilsDishesImage = styled.div`
@@ -60,10 +61,11 @@ const RatingMenu: React.FC<MenuProps> = ({
   title,
   menuImageUrl,
   MenutitleDetail,
-  headerImage
+  headerImage,
+  isOpen
 }) => {
   return (
-    <ScrollingMenuDishes>
+    <ScrollingMenuDishes onClick={isOpen}>
       {containerImageUrl && (
         <>
           <UtensilsDishesImage>

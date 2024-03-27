@@ -11,7 +11,7 @@ interface SearchComponentProps {
 
 const InputContainer = styled.div`
   position: relative;
-  border: 1px solid #ccc;
+  box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.10);
   border-radius: 8px;
   padding: 19px 24px;
   width: 100%;
@@ -24,17 +24,20 @@ const SearchInput = styled.input`
   width: 100%;
   border: none; /* Remove border */
   background-color: transparent; /* Remove background color */
+  font-size: 18px;
+  
+ &::placeholder{
+  color: #000;
+ }
 `;
 
 const SearchIcon = styled(Image)`
-  width: 20px;
-  height: 20px;
   cursor: pointer;
 `;
 
 const SearchComponent: React.FC<SearchComponentProps> = ({onFocus}) => {
   const handleSearch = () => {
-    console.log('Searching...');
+    // console.log('Searching...');
   };
 
   return (

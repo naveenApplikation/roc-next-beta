@@ -1,13 +1,13 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {CloseModal} from '../../app/utils/ImagePath'
+import { CloseModal } from "../../app/utils/ImagePath";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: (name:string) => void;
+  onClose: (name: string) => void;
   children?: ReactNode;
-  title: string;
+  title?: any;
   name: string;
   showMap: boolean;
 }
@@ -20,10 +20,15 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: 0;
-  left: ${({ $isopen, $screenwidthpercentage , $showMap }) =>
-    $isopen ? `${190 - ($showMap ?  ($screenwidthpercentage + 10) : $screenwidthpercentage )}%` : "0%"};
+  left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
+    $isopen
+      ? `${
+          190 -
+          ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
+        }%`
+      : "0%"};
   transform: translateX(
-    -${({ $screenwidthpercentage ,$showMap }) => 230 - ($showMap ?  ($screenwidthpercentage + 10) : $screenwidthpercentage )}%
+    -${({ $screenwidthpercentage, $showMap }) => 230 - ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)}%
   );
   bottom: 0%;
   max-height: 95vh;
@@ -66,29 +71,30 @@ const StyledModal = styled.div<{
     transform: none;
   }
 
+
+
+  @media screen and (max-width: 1130px) {
+    width: ${({ $screenwidth, $showMap }) => ($showMap ? "480px" : "580px")};
+    max-width: 100%;
+    left: ${({ $isopen, $screenwidth }) => ($isopen ? "0%" : "-100%")};
+    transform: none;
+    z-index: 1;
+    max-height: 100vh;
+    margin: 0px; /* Center the modal horizontally */
+    border-radius: 0px;
+  }
+
   @media screen and (max-width: 800px) {
     left: 0;
     top: auto;
     height: 100%;
-    
+
     bottom: ${({ $isopen }) =>
-    $isopen
-      ? "0%"
-      : "-100%"}; // Position at bottom if open, otherwise off-screen
+      $isopen
+        ? "0%"
+        : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
     transition: bottom 0.8s ease-in-out;
-  }
-
-  @media screen and (max-width: 1130px) {
-    width: ${({ $screenwidth , $showMap }) => ($screenwidth < 800 ? "none" :  ( $showMap ? "480px" : "580px"))};
-    max-width: 100%;
-    left: ${({ $isopen, $screenwidth }) =>
-    $isopen ? "0%" : $screenwidth < 800 ? "0" : "-100%"};
-    transform: none;
-    z-index: 1;
-    max-height:100vh;
-    margin: 0px; /* Center the modal horizontally */
-    border-radius: 0px;
   }
 `;
 
@@ -107,7 +113,14 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap , name}) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  showMap,
+  name,
+}) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -142,7 +155,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, showMap
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
-            onClick={()=>onClose(name)}
+            onClick={() => onClose(name)}
           />
         </HeaderContainer>
         {children}

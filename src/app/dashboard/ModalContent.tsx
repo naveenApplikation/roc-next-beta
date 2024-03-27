@@ -18,6 +18,7 @@ import {
 
 interface ModalProps {
   onClose: () => void;
+  reservationModal: Function;
 }
 
 const Container = styled.div`
@@ -60,6 +61,7 @@ const ViewDirection = styled.div`
   font-style: normal;
   font-weight: 400;
   margin-left: 24px;
+  cursor: pointer;
 `;
 
 const ResturantDetailsWrapper = styled.div`
@@ -132,12 +134,12 @@ const AlsoSeeText = styled.p`
   margin-left: 24px;
 `;
 
-const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
+const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p>Restaurant</p>
+          <p style={{fontSize:"16px"}}>Restaurant</p>
           <p>|</p>
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
@@ -162,7 +164,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
             </ResturantDetailsWrapper>
           );
         })}
-        <ViewDirection>View Directionss</ViewDirection>
+        <ViewDirection onClick={()=>reservationModal("DirectionModal")}>View Directions</ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>
         Traditional french Brasserie serving breakfast, lunch and dinner in a
@@ -230,8 +232,8 @@ const ModalContent: React.FC<ModalProps> = ({ onClose }) => {
         })}
       </ScrollingMenu>
       <ButtonContainer>
-        <CommonButton text="Reservation" image={calenderWhiteImg} imageStyle={14} />
-        <CommonButton text="Order Online" image={moped} imageStyle={20} />
+        <CommonButton text="Reservation" image={calenderWhiteImg} imageStyle={14} isOpen={()=>reservationModal("calenderModal")} />
+        <CommonButton text="Order Online" image={moped} imageStyle={20} isOpen={()=>reservationModal("orderOnlineModal")} />
       </ButtonContainer>
     </Container>
   );

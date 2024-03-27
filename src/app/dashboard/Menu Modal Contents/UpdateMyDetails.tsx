@@ -8,7 +8,10 @@ import emailPreferencesImg from "../../../../assets/images/menuModalsImage/email
 
 interface ModalProps {
   isOpen?: any;
-  previousModal?:any
+  isOpenName?: any;
+  isOpenPassword?: any;
+  isOpenContact?: any;
+  previousModal?: any;
 }
 
 const MenuModalContent = styled.div`
@@ -28,7 +31,13 @@ const BackAccount = styled.p`
   cursor: pointer;
 `;
 
-const UpdateMyDetailsContent: React.FC<ModalProps> = ({ isOpen,previousModal }) => {
+const UpdateMyDetailsContent: React.FC<ModalProps> = ({
+  isOpen,
+  previousModal,
+  isOpenContact,
+  isOpenName,
+  isOpenPassword,
+}) => {
   return (
     <MenuModalContent>
       <div style={{ cursor: "pointer" }} onClick={isOpen}>
@@ -39,24 +48,30 @@ const UpdateMyDetailsContent: React.FC<ModalProps> = ({ isOpen,previousModal }) 
           change
         />
       </div>
-      <MenuOptionList
-        optionListText
-        title1="Password"
-        menuOptionImg={passwordImg}
-        change
-      />
-      <MenuOptionList
-        optionListText
-        title1="Name"
-        menuOptionImg={nameImg}
-        change
-      />
-      <MenuOptionList
-        optionListText
-        title1="Email Preferences"
-        menuOptionImg={emailPreferencesImg}
-        change
-      />
+      <div onClick={isOpenPassword} style={{cursor:"pointer"}}>
+        <MenuOptionList
+          optionListText
+          title1="Password"
+          menuOptionImg={passwordImg}
+          change
+        />
+      </div>
+      <div onClick={isOpenName} style={{cursor:"pointer"}}>
+        <MenuOptionList
+          optionListText
+          title1="Name"
+          menuOptionImg={nameImg}
+          change
+        />
+      </div>
+      <div onClick={isOpenContact} style={{cursor:"pointer"}}>
+        <MenuOptionList
+          optionListText
+          title1="Email Preferences"
+          menuOptionImg={emailPreferencesImg}
+          change
+        />
+      </div>
       <BackAccount onClick={previousModal}>Back to my account</BackAccount>
     </MenuModalContent>
   );

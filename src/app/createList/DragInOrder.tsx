@@ -10,14 +10,22 @@ import CurrencySign from "../../../assets/images/createListImages/currencySign.p
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import { utensils } from "../utils/ImagePath";
 
-interface DragInOrderProps { }
+interface DragInOrderProps {
+    ScreenSwitch?:Function
+    preScreen?:Function
+    homePage:any
+ }
 
 const DragInOrderScreen = styled.div`
-    width: 390px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.80) 100%), #FF0;
+    width: 580px;
+    background-color: #f2f3f3;
     background-blend-mode: normal, luminosity;
     box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(22px);
+
+    @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const DragInOrderContent = styled.div`
@@ -39,16 +47,24 @@ const DragInOrderTitle = styled.div`
 `;
 
 const DragInOrderListScrollBox = styled.div`
-    height: 450px;
+    /* height: 450px; */
     overflow-y: scroll;
     scrollbar-width: none;
 `;
 
+const ListItemScrollBox = styled.div`
+  height: 100vh;
+  overflow: auto;
+  scrollbar-width: none;
+  padding-bottom: 100px;
+`;
 
-const DragInOrder: React.FC<DragInOrderProps> = () => {
+
+const DragInOrder: React.FC<DragInOrderProps> = ({ScreenSwitch,preScreen,homePage}) => {
     return (
         <DragInOrderScreen>
-            <CreateListingsHeader />
+            <ListItemScrollBox>
+            <CreateListingsHeader homePage={homePage} />
             <DragInOrderContent>
                 <DragInOrderTitle>Drag in order</DragInOrderTitle>
                 {/*  DRAG AND DROP COMPONENTS  */}
@@ -121,7 +137,8 @@ const DragInOrder: React.FC<DragInOrderProps> = () => {
                     />
                 </DragInOrderListScrollBox>
             </DragInOrderContent>
-            <CreateListingsFooter footerBtns firstBtnText="Select more" />
+            </ListItemScrollBox>
+            <CreateListingsFooter footerBtns firstBtnText="Select more" ScreenSwitch={ScreenSwitch} preScreen={preScreen} />
         </DragInOrderScreen>
     )
 }

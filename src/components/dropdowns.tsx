@@ -7,6 +7,7 @@ interface DropDwonsProps {
     // Define your props here
     items: any;
     name:string;
+    stylePass?:any
 }
 
 const DropdownText = styled.p`
@@ -18,15 +19,15 @@ min-width:90px;
 gap:8px;
 background:white;
 border-radius:8px;
-justify-content:center;
+justify-content:space-between;
 align-items: center;
 
 `
 
-const DropDwons: React.FC<DropDwonsProps> = ({ items , name }) => {
+const DropDwons: React.FC<DropDwonsProps> = ({ items , name ,stylePass}) => {
     return (
         <Dropdown menu={{ items }} trigger={['click']}>
-            <DropdownText onClick={(e) => e.preventDefault()}>
+            <DropdownText onClick={(e) => e.preventDefault()} style={{padding:stylePass ?"16px":" 0px 10px"}}>
                 {name}
                 <CaretDownOutlined />
             </DropdownText>

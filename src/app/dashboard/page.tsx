@@ -22,16 +22,19 @@ import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
 import { boxOverlay, yellowStar } from "../utils/ImagePath";
+import CommonButton from '../../components/button/CommonButton'
 import Layout from "../layout/page";
+import { useRouter } from "next/navigation";
 
 interface DashboardProps {
   modalClick: Function;
+  CreateListHandle: Function;
 }
 
 const InputWrapper = styled.div`
   display: flex;
   padding: 0px 40px;
-  gap: 6px;
+  gap: 8px;
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
@@ -41,7 +44,7 @@ const InputWrapper = styled.div`
 
 const FilterInput = styled.div`
   position: relative;
-  border: 1px solid #ccc;
+  box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.1);
   border-radius: 8px;
   padding: 0px 16px;
   gap: 6px;
@@ -50,6 +53,8 @@ const FilterInput = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 const ScrollingMenu = styled.div`
@@ -65,6 +70,18 @@ const ScrollingMenu = styled.div`
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
   }
+`;
+
+const OptionMenu = styled(ScrollingMenu)`
+  gap: 25px;
+`;
+
+const NormalOption = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
 `;
 
 const CommunityContainer = styled.div`
@@ -212,12 +229,74 @@ const WalkContainer = styled.div`
   }
 `;
 
+const StarContainer = styled.div`
+  width: 120px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StarWrapper = styled.div`
+  height: 64px;
+  width: 100%;
+  background: linear-gradient(45deg, black, transparent);
+  position: relative;
+
+  p{
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    background: #fff;
+    width: 30px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 8px;
+  }
+
+  .StarImageStyle {
+    width: -webkit-fill-available;
+    height: 64px;
+    border-radius: 6px;
+  }
+`;
+
 const options = ["Lists", "Places"];
 
 type tabs = "Lists" | "Places";
 
-const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
+const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+
+  const menuClick = (item: any) => {
+    if (item === "To do") {
+      // router.push("/screens/resturants");
+      router.push("/categories/aniruddh");
+    } else if (item === "Dine") {
+      router.push("/screens/ecoDining");
+    } else if (item === "Shop") {
+      router.push("/screens/wellbeing");
+    } else if (item === "Events") {
+      router.push("/screens/events");
+    } else if (item === "Tours") {
+      router.push("/screens/stays");
+    } else if (item === "Hotels") {
+      router.push("/screens/scaffolding");
+    } else if (item === "Activities") {
+      router.push("/screens/experiences");
+    } else if (item === "Travel") {
+      router.push("/screens/attractions");
+    } else if (item === "Nightlife") {
+      router.push("/screens/financial");
+    }else if (item === "AddToCreate") {
+      router.push("/screens/createList");
+    }else if (item === "CategorieList") {
+      router.push("/screens/categorieList");
+    }else if (item === "TrendingList") {
+      router.push("/screens/trendingList");
+    }
+  };
 
   const handleClick = (event: MouseEvent) => {
     if (
@@ -237,58 +316,49 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
     <>
       <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
-        <FilterInput>
-          <Image src={filter} alt="Filter icon" />
+        <FilterInput onClick={() => modalClick("modalFilter")}>
+          <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
           Filter
         </FilterInput>
       </InputWrapper>
-      <ScrollingMenu>
+      <OptionMenu>
         {topSideMenu.map((item, index) => {
           return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 8,
-                height: 56,
-                justifyContent: "space-evenly",
-              }}
-              key={index}
-            >
+            <NormalOption key={index}>
               <Image src={item.image} alt="right icon" />{" "}
               <p style={{ fontSize: "14px" }}>{item.name}</p>
-            </div>
+            </NormalOption>
           );
         })}
-      </ScrollingMenu>
+      </OptionMenu>
       <MenuDetails
-        isOpen={() => modalClick("ModalContent")}
+        isOpen={() => menuClick("Events")}
         title="Local cuisine"
       />
       <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item, index) => {
-          return (
-            <div key={index}>
-              <RatingMenu
-                title={item.menuName}
-                menuImageUrl={item.image}
-                headerImage={item.headerImage}
-                containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
-              />
-            </div>
-          );
-        })}
+        {LocalCuisineMenuItem.map((item, index) => (
+          // return (
+          <div key={index}>
+            <RatingMenu
+              title={item.menuName}
+              menuImageUrl={item.image}
+              headerImage={item.headerImage}
+              containerImageUrl={true}
+              MenutitleDetail={item.resturantName}
+              isOpen={() => modalClick("ModalContent")}
+            />
+          </div>
+          // );
+        ))}
       </ScrollingMenu>
       <MenuDetails
-        isOpen={() => modalClick("calenderModal")}
+        isOpen={() => menuClick("Events")}
         title="Family Events"
       />
       <ScrollingMenu>
         {familyEventMenuItem.map((item, index) => {
           return (
-            <FamilEventContainer key={index} $image={item.headerImage}>
+            <FamilEventContainer key={index} $image={item.headerImage} onClick={() => menuClick("Events")}>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <p className="date">{item.date}</p>
                 <span className="month">{item.month}</span>
@@ -299,7 +369,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
         })}
       </ScrollingMenu>
       <MenuDetails
-        isOpen={() => modalClick("ModalContent")}
+        isOpen={() => menuClick("Events")}
         title="Enjoy the sunshine"
       />
       <ScrollingMenu>
@@ -312,19 +382,36 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
+                isOpen={() => menuClick("Events")}
               />
             </div>
           );
         })}
       </ScrollingMenu>
       <MenuDetails
-        isOpen={() => modalClick("ModalContent")}
+       isOpen={() => menuClick("TrendingList")}
+        title="Trending Lists"
+      />
+      <ScrollingMenu>
+        {community.map((item, index) => {
+          return (
+            <CommunityContainer key={index} style={{ background: item.color }}>
+              <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
+            </CommunityContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <div style={{padding:"0px 40px"}} onClick={() => menuClick("AddToCreate")}>
+      <CommonButton text="Create a List" />
+      </div>
+      <MenuDetails
+        isOpen={() => menuClick("Events")}
         title="Top Attractions"
       />
       <ScrollingMenu>
         {topAttractionItem.map((item, index) => {
           return (
-            <TopAttractionContainer key={index}>
+            <TopAttractionContainer key={index} onClick={() => menuClick("Events")}>
               <TopAttractionprofile
                 $image={item.headerImage}
               ></TopAttractionprofile>
@@ -333,12 +420,13 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
           );
         })}
       </ScrollingMenu>
-      <DirectoryContainer>
+      <MenuDetails title="Directory"  isOpen={() => menuClick("CategorieList")}  />
+      {/* <DirectoryContainer>
         <DirectoryTitle>Directory</DirectoryTitle>
         <Image src={chevronRight} alt="right icon" />{" "}
-      </DirectoryContainer>
-      <Directory />
-      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Bars" />
+      </DirectoryContainer> */}
+      <Directory isOpen={() => modalClick("AddDirectoryModal")} />
+      <MenuDetails title="Bars" isOpen={() => menuClick("Events")} />
       <ScrollingMenu>
         {BarMenuItem.map((item, index) => {
           return (
@@ -349,33 +437,18 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
+                isOpen={() => menuClick("Events")}
               />
             </div>
           );
         })}
       </ScrollingMenu>
-      <MenuDetails
-        isOpen={() => modalClick("ModalContent")}
-        title="Community"
-      />
-      <ScrollingMenu>
-        {community.map((item, index) => {
-          return (
-            <CommunityContainer key={index} style={{ background: item.color }}>
-              <Image
-                src={item.image}
-                alt="right icon"
-              />{" "}
-              <p>{item.name}</p>
-            </CommunityContainer>
-          );
-        })}
-      </ScrollingMenu>
-      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Walks" />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Shopping" />
       <ScrollingMenu>
         {WalksData.map((item, index) => {
           return (
             <WalkContainer
+            onClick={() => menuClick("Events")}
               key={index}
               style={{
                 backgroundImage: `url(${boxOverlay.src}) !important`,
@@ -387,36 +460,81 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
           );
         })}
       </ScrollingMenu>
-      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Heritage" />
-      <ScrollingMenu style={{ paddingBottom: "40px" }}>
+      <MenuDetails
+        isOpen={() => menuClick("Events")}
+        title="Community"
+      />
+      <ScrollingMenu>
+        {community.map((item, index) => {
+          return (
+            <CommunityContainer key={index} style={{ background: item.color }} onClick={() => menuClick("Events")}>
+              <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
+            </CommunityContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+       isOpen={() => menuClick("Events")}
+        title="Beach life "
+      />
+      <ScrollingMenu>
+        {WalksData.map((item, index) => {
+          return (
+            <WalkContainer
+            onClick={() => menuClick("Events")}
+              key={index}
+              style={{
+                backgroundImage: `url(${boxOverlay.src}) !important`,
+              }}
+            >
+              <Image src={item.headerImage} alt="" />
+              <p>{item.name}</p>
+            </WalkContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails title="Sustainability" isOpen={() => menuClick("Events")} />
+      <ScrollingMenu>
+        {BarMenuItem.map((item, index) => {
+          return (
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                headerImage={item.headerImage}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
+                isOpen={() => menuClick("Events")}
+              />
+            </div>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails
+        isOpen={() => modalClick("ModalContent")}
+        title="Jerseyisms"
+      />
+      <ScrollingMenu>
+        {community.map((item, index) => {
+          return (
+            <CommunityContainer key={index} style={{ background: item.color }}>
+              <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
+            </CommunityContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Heritage" />
+      <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <div
-              style={{
-                width: 120,
-                gap: 16,
-                display: "flex",
-                flexDirection: "column",
-              }}
-              key={index}
-            >
-              <div
-                style={{
-                  height: 64,
-                  width: "100%",
-                  background: "linear-gradient(45deg, black, transparent)",
-                }}
-              >
+            <StarContainer key={index} onClick={() => menuClick("Events")}>
+              <StarWrapper>
                 <Image
-                  style={{
-                    width: "-webkit-fill-available",
-                    height: "64px",
-                    borderRadius: "6px",
-                  }}
+                  className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
                 />
-              </div>
+              </StarWrapper>
               <div>
                 <div
                   style={{
@@ -429,10 +547,177 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
+            </StarContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Walks" />
+      <ScrollingMenu>
+        {WalksData.map((item, index) => {
+          return (
+            <WalkContainer
+            onClick={() => menuClick("Events")}
+              key={index}
+              style={{
+                backgroundImage: `url(${boxOverlay.src}) !important`,
+              }}
+            >
+              <Image src={item.headerImage} alt="" />
+              <p>{item.name}</p>
+            </WalkContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Wellbeing" />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <StarContainer key={index} onClick={() => menuClick("Events")}>
+              <StarWrapper>
+                <Image
+                  className="StarImageStyle"
+                  src={item.headerImage}
+                  alt=""
+                />
+                {index == 0 && <p>New</p>}  
+              </StarWrapper>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 4,
+                    alignItems: "center",
+                  }}
+                >
+                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                </div>
+                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+              </div>
+            </StarContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="WW2" />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <StarContainer key={index} onClick={() => menuClick("Events")}>
+              <StarWrapper>
+                <Image
+                  className="StarImageStyle"
+                  src={item.headerImage}
+                  alt=""
+                />
+              </StarWrapper>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 4,
+                    alignItems: "center",
+                  }}
+                >
+                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                </div>
+                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+              </div>
+            </StarContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Cycle Routes" />
+      <ScrollingMenu>
+        {WalksData.map((item, index) => {
+          return (
+            <WalkContainer
+            onClick={() => menuClick("Events")}
+              key={index}
+              style={{
+                backgroundImage: `url(${boxOverlay.src}) !important`,
+              }}
+            >
+              <Image src={item.headerImage} alt="" />
+              <p>{item.name}</p>
+            </WalkContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails title="Delicious Dine Out" isOpen={() => menuClick("Events")} />
+      <ScrollingMenu>
+        {BarMenuItem.map((item, index) => {
+          return (
+            <div key={index}>
+              <RatingMenu
+                title={item.menuName}
+                menuImageUrl={item.image}
+                headerImage={item.headerImage}
+                containerImageUrl={true}
+                MenutitleDetail={item.resturantName}
+                isOpen={() => menuClick("Events")}
+              />
             </div>
           );
         })}
       </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Out out" />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <StarContainer key={index} onClick={() => menuClick("Events")}>
+              <StarWrapper>
+                <Image
+                  className="StarImageStyle"
+                  src={item.headerImage}
+                  alt=""
+                />
+              </StarWrapper>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 4,
+                    alignItems: "center",
+                  }}
+                >
+                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                </div>
+                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+              </div>
+            </StarContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <MenuDetails isOpen={() => menuClick("Events")} title="Surfing" />
+      <ScrollingMenu>
+        {LocalCuisineMenuItem.map((item, index) => {
+          return (
+            <StarContainer key={index} onClick={() => menuClick("Events")}>
+              <StarWrapper>
+                <Image
+                  className="StarImageStyle"
+                  src={item.headerImage}
+                  alt=""
+                />
+              </StarWrapper>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 4,
+                    alignItems: "center",
+                  }}
+                >
+                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                </div>
+                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+              </div>
+            </StarContainer>
+          );
+        })}
+      </ScrollingMenu>
+      <div style={{padding:"0px 40px",paddingBottom:"20px"}} onClick={() => menuClick("AddToCreate")}>
+      <CommonButton text="Leave feedback" />
+      </div>
     </>
   );
 };

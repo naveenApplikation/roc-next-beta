@@ -48,8 +48,8 @@ const FilterButton = styled.button`
     display: flex;
     gap: 20px;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    /* margin-top: 20px;
+    margin-bottom: 30px; */
     div {
       padding: 0px;
     }

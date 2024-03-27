@@ -1,12 +1,24 @@
-import React from "react";
+"use client"
+
+import React from 'react';
+import Layout from '@/app/layout/page';
+import Directory from "@/components/dashboard/Directory";
+import styled from 'styled-components';
 import Image from "next/image";
-import styled from "styled-components";
 import { utensil,shopping,hotel,personHiking,castle,holidayDas,beachumbrella,camera, compass ,glass} from "@/app/utils/ImagePath";
+import HeaderScreen from '../../../components/header/HeaderScreen'
 
-
-interface MenuProps {
-  isOpen?: () => void;
-}
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #f2f3f3;
+    width: 580px;
+    height: 100vh;
+    @media screen and (max-width: 800px) {
+    width: 100%;
+  }
+`
 
 const DirectoryWrapper = styled.div`
   display: flex;
@@ -69,26 +81,24 @@ const AddButton = styled.button`
   }
 `;
 
-const Directory: React.FC<MenuProps> = ({isOpen}) => {
+const TitltCategory = styled.p`
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 40px;
+    margin-top: 24px;
+
+    @media screen and (max-width: 800px) {
+     margin-left: 16px;
+  }
+`
+
+const CategorieList = () => {
   return (
     <>
-      {/* <DirectoryWrapper>
-              {DirectoryMenu.map((item,index) => {
-                return (
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 6 }}
-                  >
-                    <Image
-                      style={{ width: "10px", height: "16px" }}
-                      src={item.image}
-                      alt="right icon"
-                    />{" "}
-                    <DirectoryMenuTitle>{item.name}</DirectoryMenuTitle>
-                  </div>
-                );
-              })}
-            </DirectoryWrapper> */}
-      <DirectoryWrapper>
+   <HeaderScreen />
+    <Container>
+   <TitltCategory>All Categories</TitltCategory>
+       <DirectoryWrapper>
         <FirstMainWraaper>
           <Image
             src={castle}
@@ -168,9 +178,73 @@ const Directory: React.FC<MenuProps> = ({isOpen}) => {
           <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>
         </MainWrapper>
       </DirectoryWrapper>
-      <AddButton onClick={isOpen}>Add to Directory</AddButton>
+      <DirectoryWrapper>
+        <FirstMainWraaper>
+          <Image
+            src={holidayDas}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Holidays</DirectoryMenuTitle>
+        </FirstMainWraaper>
+        <MainWrapper>
+          <Image
+            src={beachumbrella}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>
+        </MainWrapper>
+      </DirectoryWrapper>
+      <DirectoryWrapper>
+        <FirstMainWraaper>
+          <Image
+            src={holidayDas}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Holidays</DirectoryMenuTitle>
+        </FirstMainWraaper>
+        <MainWrapper>
+          <Image
+            src={beachumbrella}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>
+        </MainWrapper>
+      </DirectoryWrapper>
+      <DirectoryWrapper>
+        <FirstMainWraaper>
+          <Image
+            src={holidayDas}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Holidays</DirectoryMenuTitle>
+        </FirstMainWraaper>
+        <MainWrapper>
+          <Image
+            src={beachumbrella}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>
+        </MainWrapper>
+      </DirectoryWrapper>
+      <DirectoryWrapper>
+        <FirstMainWraaper>
+          <Image
+            src={holidayDas}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Holidays</DirectoryMenuTitle>
+        </FirstMainWraaper>
+        <MainWrapper>
+          <Image
+            src={beachumbrella}
+            alt="right icon"
+          />{" "}
+          <DirectoryMenuTitle>Beaches</DirectoryMenuTitle>
+        </MainWrapper>
+      </DirectoryWrapper>
+    </Container>
     </>
-  );
-};
+  )
+}
 
-export default Directory;
+export default CategorieList

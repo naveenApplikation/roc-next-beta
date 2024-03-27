@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { globe, phone } from '../utils/ImagePath';
 
 interface OrderOnlineModalProps {
-    // Define your props here
+    previousModal?:Function
 }
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const MenuButtonContainer = styled.div`
   gap: 16px;
 `;
 
-const OrderOnlineModal: React.FC<OrderOnlineModalProps> = () => {
+const OrderOnlineModal: React.FC<OrderOnlineModalProps> = ({previousModal}) => {
     return (
         <Container>
             <MenuButtonContainer>
