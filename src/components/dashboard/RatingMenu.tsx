@@ -62,7 +62,7 @@ const RatingMenu: React.FC<MenuProps> = ({
   menuImageUrl,
   MenutitleDetail,
   headerImage,
-  isOpen
+  isOpen,
 }) => {
   return (
     <ScrollingMenuDishes onClick={isOpen}>
@@ -70,12 +70,20 @@ const RatingMenu: React.FC<MenuProps> = ({
         <>
           <UtensilsDishesImage>
             <Image
-              style={{ width: "-webkit-fill-available", height: "64px", borderRadius: "6px" }}
-              src={headerImage} alt="" />
+              style={{
+                width: "-webkit-fill-available",
+                height: "64px",
+                borderRadius: "6px",
+              }}
+              src={headerImage}
+              alt=""
+              width={120}
+              height={64}
+            />
           </UtensilsDishesImage>
           {title && (
             <MenuIconContainer>
-              {menuImageUrl && <MenuIcon src={menuImageUrl} alt="icon" />}
+              {menuImageUrl && <MenuIcon src={menuImageUrl} width={11} height={12} alt="icon" />}
               <Title>{title}</Title>
             </MenuIconContainer>
           )}

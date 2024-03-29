@@ -20,11 +20,13 @@ import {
 import Header from "@/components/header/page";
 import FilterModal from "../../components/modal/FilterModal";
 import DirectionModal from "../../components/modal/DirectionModal";
+import EventListingModal from "../../components/modal/EventListing";
 import AddToDirectoryModal from "../../components/modal/AddToDirectoryModal";
 import CreateDirectoryModal from "../../components/modal/CreateDirectoryModal";
 import ThankYouDiresctoryModal from "../../components/modal/ThankYouDiresctoryModal";
 import FilterModalLayout from "../../components/modal/Modal";
 import AddToDirectoryModalLayout from "../../components/modal/Modal";
+import EventListingModalLayout from "../../components/modal/Modal";
 import DirectionModalLayout from "../../components/modal/Modal";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
@@ -36,6 +38,7 @@ import UpdateMyPreferencesModalLayout from "../../components/modal/Modal";
 import OrderOnlineModalLayout from "../../components/modal/Modal";
 import WelcomeBackModalLayout from "../../components/modal/Modal";
 import SearchModalLayout from "../../components/searchModal/page";
+import MyListModalLayout from "../../components/modal/Modal";
 import ModalContent from "../dashboard/ModalContent";
 import OrderOnlineModal from "../dashboard/orderOnlineModal";
 import CalenderModal from "../dashboard/calenderModal";
@@ -55,7 +58,9 @@ import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import dynamic from "next/dynamic";
 import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
+import MylistContainer from "@/components/myListModal/page";
 import GoogleMapComp from "@/components/googleMap/page";
+import ShadowWrapper from "@/components/Beta UI/page";
 
 interface LayoutProps {
   children: any;
@@ -234,7 +239,10 @@ const MapSection = styled.div<{
   position: relative;
   .googleMap {
     height: 100vh;
-    width: ${({ $showMap }) => ($showMap ? "calc(100vw - 480px)" : "calc(100vw - 580px)")}; /* Adjust width based on $showMap */
+    width: ${({ $showMap }) =>
+      $showMap
+        ? "calc(100vw - 480px)"
+        : "calc(100vw - 580px)"}; /* Adjust width based on $showMap */
     transition: width 0.6s ease; /* Adjust transition timing function and duration */
     z-index: 0;
     @media screen and (max-width: 800px) {
@@ -259,7 +267,6 @@ const MapSection = styled.div<{
     z-index: 2;
   }
 `;
-
 
 const SearchFilterSection = styled.div`
   position: absolute;
@@ -368,6 +375,8 @@ const SearchedContainer = styled.div`
 
 const options = ["Lists", "Places"];
 type tabs = "Lists" | "Places";
+const mylistoptions = ["Created", "Contributed"];
+type mylisttabs = "Created" | "Contributed";
 
 const Layout = (WrappedComponent: any) => {
   const Hoc = () => {
@@ -391,6 +400,8 @@ const Layout = (WrappedComponent: any) => {
       AddDirectoryModal: false,
       DirectionModal: false,
       search: false,
+      myList: false,
+      eventListing:false,
     });
 
     const DynamicMap = dynamic(() => import("../../components/map/page"), {
@@ -432,7 +443,7 @@ const Layout = (WrappedComponent: any) => {
         router.push("/screens/attractions");
       } else if (item.name === "Nightlife") {
         router.push("/screens/financial");
-      }else if (item === "CategorieList") {
+      } else if (item === "CategorieList") {
         router.push("/screens/categorieList");
       }
     };
@@ -441,7 +452,11 @@ const Layout = (WrappedComponent: any) => {
         ...prev,
         [name]: !prev[name] as boolean,
       }));
-      setModalName("");
+      if(modalName === "myList"){
+        setModalName("WelcomeBackModal");
+      }else{
+        setModalName("");
+      }
     };
 
     const modalClick = (name: string) => {
@@ -496,6 +511,12 @@ const Layout = (WrappedComponent: any) => {
       }
     };
 
+    const [myListtabValue, setMyListTabValue] = useState("Created");
+
+    const myListtabChange = (value: mylisttabs) => {
+      setMyListTabValue(value);
+    };
+
     const showLoginHandle = () => {
       if (modalName === "createAccountModal") {
         return (
@@ -515,10 +536,14 @@ const Layout = (WrappedComponent: any) => {
             />
           </>
         );
-      } else if (modalName === "WelcomeBackModal") {
+      } else if ((modalName === "WelcomeBackModal") || ( modalName === "myList")) {
         return (
           <>
-            <Welcomeback isOpen={() => modalClick("UpdateMyDetailsModal")} isOpenContact={() => modalClick("ContactUsModal")} />
+            <Welcomeback
+              isOpen={() => modalClick("UpdateMyDetailsModal")}
+              isOpenContact={() => modalClick("ContactUsModal")}
+              myListOpen={() => modalClick("myList")}
+            />
           </>
         );
       } else if (modalName === "UpdateMyDetailsModal") {
@@ -564,7 +589,7 @@ const Layout = (WrappedComponent: any) => {
         return (
           <>
             <ContactUs
-             isOpen={() => modalClick("LoginThankYouDiresctoryModal")}
+              isOpen={() => modalClick("LoginThankYouDiresctoryModal")}
               previousModal={() => modalClick("UpdateMyDetailsModal")}
             />
           </>
@@ -581,7 +606,7 @@ const Layout = (WrappedComponent: any) => {
         return (
           <>
             <UpdateMyPreferences
-            isOpen={() => modalClick("WelcomeBackModal")}
+              isOpen={() => modalClick("WelcomeBackModal")}
               previousModal={() => modalClick("UpdateMyDetailsModal")}
             />
           </>
@@ -629,22 +654,24 @@ const Layout = (WrappedComponent: any) => {
       }
     };
 
-    const [CreateListState,setCreateListState] = useState("")
+    const [CreateListState, setCreateListState] = useState("");
 
-    const CreateListHandle = (name:string)=>{
-      setCreateListState(name)
-    }
+    const CreateListHandle = (name: string) => {
+      setCreateListState(name);
+    };
 
     const tabChange = (value: tabs) => {
       setTabValue(value);
     };
     return (
-      <>
+      <ShadowWrapper>
         <Container>
           <MainContainer>
             <DashboardMenu $showMap={showMap}>
               <Header {...{ modalClick, iconClick, showMap }} />
-              <WrappedComponent {...{ modalClick, showMap,CreateListHandle }} />
+              <WrappedComponent
+                {...{ modalClick, showMap, CreateListHandle }}
+              />
             </DashboardMenu>
           </MainContainer>
           {showMap && (
@@ -684,15 +711,19 @@ const Layout = (WrappedComponent: any) => {
           )}
           <RightMenu>
             <RightSideHeadMenu>
-              <Image src={MobileRocLogo} alt="Logo Outline" />
+              <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201662.png?alt=media&token=1d8c1112-bb3f-4b87-b411-5f30d9a923e4"} width={117} height={48} alt="Logo Outline" />
               <HeaderMapProfileContainer>
                 <Image
-                  src={showMap ? headerHome : MobileMap}
+                  src={showMap ? headerHome : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FSubtract.png?alt=media&token=139cba6b-da87-459e-a98f-1175af63647b"}
                   alt="Logo Outline"
+                  width={48}
+                  height={48}
                   onClick={() => iconClick("mapClick")}
                 />
                 <Image
-                  src={MobileProfile}
+                  src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FSubtract%20(1).png?alt=media&token=076b658c-cbac-4ea1-86a3-343611447c45"}
+                  width={48}
+                  height={48}
                   alt="Logo Outline"
                   onClick={() => modalClick("createAccountModal")}
                 />
@@ -706,9 +737,11 @@ const Layout = (WrappedComponent: any) => {
                       <Image
                         style={{
                           width: item.name == "All" ? "22px" : "auto",
-                          height: item.name == "All" ? "auto" : "auto",
+                          height: item.name == "All" ? "auto" : "revert-layer",
                         }}
                         src={item.image}
+                        width={item.width}
+                        height={item.height}
                         alt="icon"
                       />
                       <p>{item.name}</p>
@@ -722,7 +755,7 @@ const Layout = (WrappedComponent: any) => {
                 return (
                   <RightSideMenu key={index}>
                     <RightSideInsideMenuBox onClick={() => menuClick(item)}>
-                      <Image src={item.image} alt="icon" />
+                      <Image src={item.image} width={item.width} height={item.height} alt="icon" />
                       <p>{item.name}</p>
                     </RightSideInsideMenuBox>
                   </RightSideMenu>
@@ -730,7 +763,9 @@ const Layout = (WrappedComponent: any) => {
               })}
             </MobileViewRightSideMenu>
             <AllCategories>
-              <button onClick={() => menuClick("CategorieList")} >All Categories</button>
+              <button onClick={() => menuClick("CategorieList")}>
+                All Categories
+              </button>
             </AllCategories>
           </RightMenu>
         </Container>
@@ -746,6 +781,15 @@ const Layout = (WrappedComponent: any) => {
             reservationModal={modalClick}
           />
         </DashBoardModal>
+        <EventListingModalLayout
+          isOpen={modalType.eventListing}
+          onClose={() => closeModal("eventListing")}
+          name="eventListing"
+          {...{ showMap }}
+          title="Jersey Bulls FC Home Games"
+        >
+         <EventListingModal />
+        </EventListingModalLayout>
         <DirectionModalLayout
           isOpen={modalType.DirectionModal}
           onClose={() => closeModal("DirectionModal")}
@@ -850,6 +894,7 @@ const Layout = (WrappedComponent: any) => {
             modalName === "UpdateMyEmailModal" ||
             modalName === "UpdatePassswordModal" ||
             modalName === "UpdateNameModal" ||
+            modalName === "myList" ||
             modalName === "ContactUsModal" ||
             modalName === "LoginThankYouDiresctoryModal" ||
             modalName === "UpdateMyPreferencesModal"
@@ -865,6 +910,7 @@ const Layout = (WrappedComponent: any) => {
             (modalName === "UpdateMyEmailModal" && "Update my email") ||
             (modalName === "UpdateNameModal" && "Update my name") ||
             (modalName === "UpdatePassswordModal" && "Update my password") ||
+            (modalName === "myList" && "Welcome back!") ||
             (modalName === "ContactUsModal" && "Contact us") ||
             (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
             (modalName === "UpdateMyPreferencesModal" &&
@@ -943,7 +989,20 @@ const Layout = (WrappedComponent: any) => {
             />
           </SearchedContainer>
         </SearchModalLayout>
-      </>
+        <MyListModalLayout
+          isOpen={modalType.myList}
+          onClose={() => closeModal("myList")}
+          {...{ showMap }}
+          title="My Lists"
+          name="myListModal"
+        >
+          <SearchedContainer>
+            <MylistContainer
+              {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+            />
+          </SearchedContainer>
+        </MyListModalLayout>
+      </ShadowWrapper>
 
       // <LeafletMap />
     );

@@ -8,10 +8,12 @@ import myListsImg from "../../../../assets/images/menuModalsImage/myList.png";
 import activityImg from "../../../../assets/images/menuModalsImage/activity.png";
 import contactUsImg from "../../../../assets/images/menuModalsImage/contactUs.png";
 import navigateImg from "../../../../assets/images/menuModalsImage/forwardNavigate.png";
+import listStar from "../../../../assets/images/listStar.svg";
 
 interface ModalProps {
   isOpen?: any;
   isOpenContact?: any;
+  myListOpen?: any;
 }
 
 const MenuModalContent = styled.div`
@@ -20,7 +22,7 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact}) => {
+const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact,myListOpen}) => {
   return (
     <MenuModalContent>
       <MenuOptionList
@@ -39,24 +41,15 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact}) => {
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <MenuOptionList
-        unoptionListText
-        title2="Saved"
-        menuOptionImg={savedImg}
-        comingSoon
-      />
-      <MenuOptionList
-        unoptionListText
-        title2="My lists"
-        menuOptionImg={myListsImg}
-        comingSoon
-      />
-      <MenuOptionList
-        unoptionListText
-        title2="Activity"
-        menuOptionImg={activityImg}
-        comingSoon
-      />
+      <div style={{cursor:"pointer"}} onClick={myListOpen}>
+        <MenuOptionList
+          optionListText
+          title1="My lists"
+          menuOptionImg={listStar}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
       <div onClick={isOpenContact} style={{cursor:"pointer"}}>
       <MenuOptionList
         optionListText
@@ -66,6 +59,28 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact}) => {
         forwardNavigateImg={navigateImg}
         />
         </div>
+        <div onClick={isOpenContact} style={{cursor:"pointer"}}>
+      <MenuOptionList
+        optionListText
+        title1="Leave feedback"
+        menuOptionImg={contactUsImg}
+        navigaetImg
+        forwardNavigateImg={navigateImg}
+        />
+        </div>
+      <MenuOptionList
+        unoptionListText
+        title2="Saved"
+        menuOptionImg={savedImg}
+        comingSoon
+      />
+      <MenuOptionList
+        unoptionListText
+        title2="Activity"
+        menuOptionImg={activityImg}
+        comingSoon
+      />
+     
     </MenuModalContent>
   );
 };

@@ -22,7 +22,7 @@ import MenuDetails from "../../components/dashboard/MenuDetails";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import Directory from "../../components/dashboard/Directory";
 import { boxOverlay, yellowStar } from "../utils/ImagePath";
-import CommonButton from '../../components/button/CommonButton'
+import CommonButton from "../../components/button/CommonButton";
 import Layout from "../layout/page";
 import { useRouter } from "next/navigation";
 
@@ -123,21 +123,32 @@ const TopAttractionContainer = styled.div`
   }
 `;
 
-const TopAttractionprofile = styled.div<{
-  $image: any;
-}>`
+const TopAttractionprofile = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 100%;
   background-color: rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  background-image: url(${(props) => props.$image?.src}) !important;
+
   background-size: contain;
 `;
 
-const FamilEventContainer = styled.div<{
-  $image: any;
-}>`
+const FamilyEventWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const FamilyEventWrapperInside = styled.div`
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  text-align: center;
+  background: white;
+  border-radius: 0px 0px 8px 8px;
+`;
+
+const FamilEventContainer = styled.div`
   display: flex;
   width: 80px;
   flex-direction: column;
@@ -163,18 +174,7 @@ const FamilEventContainer = styled.div<{
     width: fit-content;
     color: #fff;
     width: 30px;
-  }
-  div {
-    background-image: url(${(props) => props.$image.src}) !important;
-    height: 64px;
-    background-size: contain;
-    justify-content: end;
-    padding: 8px;
-    p {
-      background-color: white;
-      color: black;
-      text-align: center;
-    }
+    border-radius: 0px 0px 8px 8px;
   }
 `;
 
@@ -242,7 +242,7 @@ const StarWrapper = styled.div`
   background: linear-gradient(45deg, black, transparent);
   position: relative;
 
-  p{
+  p {
     position: absolute;
     top: 4px;
     right: 5px;
@@ -254,7 +254,7 @@ const StarWrapper = styled.div`
   }
 
   .StarImageStyle {
-    width: -webkit-fill-available;
+    /* width: -webkit-fill-available; */
     height: 64px;
     border-radius: 6px;
   }
@@ -264,7 +264,10 @@ const options = ["Lists", "Places"];
 
 type tabs = "Lists" | "Places";
 
-const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) => {
+const DashBoard: React.FC<DashboardProps> = ({
+  modalClick,
+  CreateListHandle,
+}) => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -289,11 +292,11 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
       router.push("/screens/attractions");
     } else if (item === "Nightlife") {
       router.push("/screens/financial");
-    }else if (item === "AddToCreate") {
+    } else if (item === "AddToCreate") {
       router.push("/screens/createList");
-    }else if (item === "CategorieList") {
+    } else if (item === "CategorieList") {
       router.push("/screens/categorieList");
-    }else if (item === "TrendingList") {
+    } else if (item === "TrendingList") {
       router.push("/screens/trendingList");
     }
   };
@@ -317,7 +320,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
       <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
         <FilterInput onClick={() => modalClick("modalFilter")}>
-          <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
+          <Image style={{ marginTop: "10px" }} src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Ffilter.png?alt=media&token=39f6b801-3af0-4187-adff-4ba787ceea23"} width={16} height={16} alt="Filter icon" />
           Filter
         </FilterInput>
       </InputWrapper>
@@ -325,16 +328,13 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
         {topSideMenu.map((item, index) => {
           return (
             <NormalOption key={index}>
-              <Image src={item.image} alt="right icon" />{" "}
+              <Image src={item.image} width={item.width} height={item.height} style={{width:"auto"}} alt="right icon" />{" "}
               <p style={{ fontSize: "14px" }}>{item.name}</p>
             </NormalOption>
           );
         })}
       </OptionMenu>
-      <MenuDetails
-        isOpen={() => menuClick("Events")}
-        title="Local cuisine"
-      />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Local cuisine" />
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => (
           // return (
@@ -345,24 +345,34 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
               headerImage={item.headerImage}
               containerImageUrl={true}
               MenutitleDetail={item.resturantName}
-              isOpen={() => modalClick("ModalContent")}
+              // isOpen={() => modalClick("ModalContent")}
+              isOpen={() => modalClick("eventListing")}
             />
           </div>
           // );
         ))}
       </ScrollingMenu>
-      <MenuDetails
-        isOpen={() => menuClick("Events")}
-        title="Family Events"
-      />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Family Events" />
       <ScrollingMenu>
         {familyEventMenuItem.map((item, index) => {
           return (
-            <FamilEventContainer key={index} $image={item.headerImage} onClick={() => menuClick("Events")}>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <p className="date">{item.date}</p>
-                <span className="month">{item.month}</span>
-              </div>
+            <FamilEventContainer
+              key={index}
+              onClick={() => menuClick("Events")}
+            >
+              <FamilyEventWrapper>
+                <Image
+                  src={item.headerImage}
+                  alt=""
+                  width={80}
+                  height={80}
+                  // alt=""
+                />
+                <FamilyEventWrapperInside>
+                  <p className="date">{item.date}</p>
+                  <p className="month">{item.month}</p>
+                </FamilyEventWrapperInside>
+              </FamilyEventWrapper>
               <FamilEventText>{item.resturantName}</FamilEventText>
             </FamilEventContainer>
           );
@@ -389,7 +399,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
         })}
       </ScrollingMenu>
       <MenuDetails
-       isOpen={() => menuClick("TrendingList")}
+        isOpen={() => menuClick("TrendingList")}
         title="Trending Lists"
       />
       <ScrollingMenu>
@@ -401,26 +411,39 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
           );
         })}
       </ScrollingMenu>
-      <div style={{padding:"0px 40px"}} onClick={() => menuClick("AddToCreate")}>
-      <CommonButton text="Create a List" />
+      <div
+        style={{ padding: "0px 40px" }}
+        onClick={() => menuClick("AddToCreate")}
+      >
+        <CommonButton text="Create a List" />
       </div>
-      <MenuDetails
-        isOpen={() => menuClick("Events")}
-        title="Top Attractions"
-      />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Top Attractions" />
       <ScrollingMenu>
         {topAttractionItem.map((item, index) => {
           return (
-            <TopAttractionContainer key={index} onClick={() => menuClick("Events")}>
-              <TopAttractionprofile
-                $image={item.headerImage}
-              ></TopAttractionprofile>
+            <TopAttractionContainer
+              key={index}
+              onClick={() => menuClick("Events")}
+            >
+              <TopAttractionprofile>
+                <Image
+                  src={item.headerImage}
+                  alt=""
+                  width={80}
+                  height={80}
+                  style={{ borderRadius: "100%" }}
+                  // alt=""
+                />
+              </TopAttractionprofile>
               <p>{item.menuName}</p>
             </TopAttractionContainer>
           );
         })}
       </ScrollingMenu>
-      <MenuDetails title="Directory"  isOpen={() => menuClick("CategorieList")}  />
+      <MenuDetails
+        title="Directory"
+        isOpen={() => menuClick("CategorieList")}
+      />
       {/* <DirectoryContainer>
         <DirectoryTitle>Directory</DirectoryTitle>
         <Image src={chevronRight} alt="right icon" />{" "}
@@ -448,46 +471,56 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
         {WalksData.map((item, index) => {
           return (
             <WalkContainer
-            onClick={() => menuClick("Events")}
+              onClick={() => menuClick("Events")}
               key={index}
               style={{
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
-              <Image src={item.headerImage} alt="" />
+              <Image
+                src={item.headerImage}
+                alt=""
+                width={120}
+                height={64}
+                // alt=""
+              />
               <p>{item.name}</p>
             </WalkContainer>
           );
         })}
       </ScrollingMenu>
-      <MenuDetails
-        isOpen={() => menuClick("Events")}
-        title="Community"
-      />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Community" />
       <ScrollingMenu>
         {community.map((item, index) => {
           return (
-            <CommunityContainer key={index} style={{ background: item.color }} onClick={() => menuClick("Events")}>
+            <CommunityContainer
+              key={index}
+              style={{ background: item.color }}
+              onClick={() => menuClick("Events")}
+            >
               <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
             </CommunityContainer>
           );
         })}
       </ScrollingMenu>
-      <MenuDetails
-       isOpen={() => menuClick("Events")}
-        title="Beach life "
-      />
+      <MenuDetails isOpen={() => menuClick("Events")} title="Beach life " />
       <ScrollingMenu>
         {WalksData.map((item, index) => {
           return (
             <WalkContainer
-            onClick={() => menuClick("Events")}
+              onClick={() => menuClick("Events")}
               key={index}
               style={{
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
-              <Image src={item.headerImage} alt="" />
+              <Image
+                src={item.headerImage}
+                alt=""
+                width={120}
+                height={64}
+                // alt=""
+              />
               <p>{item.name}</p>
             </WalkContainer>
           );
@@ -533,6 +566,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                   className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
+                  width={120}
+                  height={64}
                 />
               </StarWrapper>
               <div>
@@ -543,7 +578,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                     alignItems: "center",
                   }}
                 >
-                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                  <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"} width={69} height={12} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
@@ -556,13 +591,19 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
         {WalksData.map((item, index) => {
           return (
             <WalkContainer
-            onClick={() => menuClick("Events")}
+              onClick={() => menuClick("Events")}
               key={index}
               style={{
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
-              <Image src={item.headerImage} alt="" />
+              <Image
+                src={item.headerImage}
+                alt=""
+                width={120}
+                height={64}
+                // alt=""
+              />
               <p>{item.name}</p>
             </WalkContainer>
           );
@@ -578,8 +619,10 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                   className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
+                  width={120}
+                  height={64}
                 />
-                {index == 0 && <p>New</p>}  
+                {index == 0 && <p>New</p>}
               </StarWrapper>
               <div>
                 <div
@@ -589,7 +632,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                     alignItems: "center",
                   }}
                 >
-                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                 <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"} width={69} height={12} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
@@ -607,6 +650,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                   className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
+                  width={120}
+                  height={64}
                 />
               </StarWrapper>
               <div>
@@ -617,7 +662,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                     alignItems: "center",
                   }}
                 >
-                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                  <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"} width={69} height={12} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
@@ -630,19 +675,22 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
         {WalksData.map((item, index) => {
           return (
             <WalkContainer
-            onClick={() => menuClick("Events")}
+              onClick={() => menuClick("Events")}
               key={index}
               style={{
                 backgroundImage: `url(${boxOverlay.src}) !important`,
               }}
             >
-              <Image src={item.headerImage} alt="" />
+              <Image src={item.headerImage} alt="" width={120} height={64} />
               <p>{item.name}</p>
             </WalkContainer>
           );
         })}
       </ScrollingMenu>
-      <MenuDetails title="Delicious Dine Out" isOpen={() => menuClick("Events")} />
+      <MenuDetails
+        title="Delicious Dine Out"
+        isOpen={() => menuClick("Events")}
+      />
       <ScrollingMenu>
         {BarMenuItem.map((item, index) => {
           return (
@@ -669,6 +717,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                   className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
+                  width={120}
+                  height={64}
                 />
               </StarWrapper>
               <div>
@@ -679,7 +729,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                     alignItems: "center",
                   }}
                 >
-                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                  <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"} width={69} height={12} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
@@ -697,6 +747,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                   className="StarImageStyle"
                   src={item.headerImage}
                   alt=""
+                  width={120}
+                  height={64}
                 />
               </StarWrapper>
               <div>
@@ -707,7 +759,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
                     alignItems: "center",
                   }}
                 >
-                  <Image src={yellowStar} alt="right icon" /> <p>4.7</p>
+                  <Image src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"} width={69} height={12} alt="right icon" /> <p>4.7</p>
                 </div>
                 <p style={{ fontSize: 14 }}>{item.resturantName}</p>
               </div>
@@ -715,8 +767,11 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick,CreateListHandle }) =>
           );
         })}
       </ScrollingMenu>
-      <div style={{padding:"0px 40px",paddingBottom:"20px"}} onClick={() => menuClick("AddToCreate")}>
-      <CommonButton text="Leave feedback" />
+      <div
+        style={{ padding: "0px 40px", paddingBottom: "20px" }}
+        onClick={() => menuClick("AddToCreate")}
+      >
+        <CommonButton text="Leave feedback" />
       </div>
     </>
   );
