@@ -345,8 +345,8 @@ const DashBoard: React.FC<DashboardProps> = ({
               headerImage={item.headerImage}
               containerImageUrl={true}
               MenutitleDetail={item.resturantName}
-              // isOpen={() => modalClick("ModalContent")}
-              isOpen={() => modalClick("eventListing")}
+              isOpen={() => modalClick("ModalContent")}
+              // isOpen={() => modalClick("eventListing")}
             />
           </div>
           // );
@@ -358,7 +358,8 @@ const DashBoard: React.FC<DashboardProps> = ({
           return (
             <FamilEventContainer
               key={index}
-              onClick={() => menuClick("Events")}
+              onClick={() => modalClick("eventListing")}
+              style={{cursor:"pointer"}}
             >
               <FamilyEventWrapper>
                 <Image
