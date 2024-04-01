@@ -1,23 +1,11 @@
-"use client";
-
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import React, { useState } from "react";
-import CommonButton from "../button/CommonButton";
-
 import styled from "styled-components";
-// import logoBlack from '../../../assets/images/logoBlack.svg';
-import {
-  headerHome,
-  home,
-  logoBlack,
-  MobileRocLogo,
-  mapIcon,
-  mapIconDark,
-  profileIcon,
-  profileIconDark,
-  search,
-  user,
-} from "@/app/utils/ImagePath";
+import CommonButton from "../button/CommonButton";
+import BetaUIModal from "../modal/BetaUIModal";
+import AboutRocModal from "@/components/modal/BetaUIModal";
+import JoinList from "@/components/Beta UI/JoinList";
+import { MobileRocLogo } from "@/app/utils/ImagePath";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -25,7 +13,6 @@ interface ShadowWrapperProps {
 
 const StyledShadowWrapper = styled.div`
   position: relative;
-  /* display: inline-block; */
 
   .shadow-background {
     position: absolute;
@@ -33,7 +20,7 @@ const StyledShadowWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
   }
 
@@ -51,7 +38,7 @@ const StyledShadowWrapper = styled.div`
 
     @media screen and (max-width: 600px) {
       width: 100%;
-  }
+    }
   }
 
   .content-wrapper input {
@@ -63,7 +50,6 @@ const StyledShadowWrapper = styled.div`
     cursor: pointer;
   }
 `;
-
 
 const ContentInfo = styled.div`
   color: var(--White, #fff);
@@ -98,7 +84,7 @@ const AccountInputText = styled.input`
   text-align: center;
 
   &::placeholder {
-    color: black; /* Change the color to your desired color */
+    color: black;
   }
 `;
 
@@ -108,55 +94,107 @@ const JoinText = styled.p`
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 19px; /* 118.75% */
+  line-height: 19px;
   text-decoration-line: underline;
 `;
 
 const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
-  const [showContent, setShowContent] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  // const [loading, setLoading] = useState(true);
+
+  const [modalType, setModalType] = useState({
+    ModalContent: false,
+    AboutRoc:false
+  });
+
+  const modalClick = (name: string) => {
+    setModalType((prev: any) => ({
+      ...prev,
+      [name]: !prev[name] as boolean,
+    }));
+  };
+
+  const closeModal = (name: string) => {
+    setModalType((prev: any) => ({
+      ...prev,
+      [name]: !prev[name] as boolean,
+    }));
+  };
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem("hideUI");
+    if (storedValue && !isNaN(Number(storedValue))) {
+      setShowContent(false);
+    } else {
+      setShowContent(true);
+    }
+    // setLoading(false);
+  }, []);
 
   const handleOKClick = () => {
-    // Assuming inputValue contains the entered number
-    if (inputValue.trim() !== "") {
+    if (inputValue.trim() == "1234") {
+      localStorage.setItem("hideUI", inputValue.trim());
       setShowContent(false);
     }
   };
 
   return (
-    <StyledShadowWrapper>
-      {showContent && (
-        <>
-          <div className="shadow-background"></div>
-          <div className="content-wrapper">
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Image src={MobileRocLogo} alt="right icon" />
-            </div>
-            <ContentInfo>
-              Enter the private invite code or sign up to the waiting list
-            </ContentInfo>
-            <div>
-              <MenuInputField>
-                <AccountInputText
-                  type="number"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Enter code"
-                />
-              </MenuInputField>
-              <div onClick={handleOKClick} style={{ marginTop: 8 }}>
-                <CommonButton text="submit" />
+    <>
+      <StyledShadowWrapper>
+        {showContent && (
+          <>
+            <div className="shadow-background"></div>
+            <div className="content-wrapper">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Image src={MobileRocLogo} alt="right icon" />
+              </div>
+              <ContentInfo>
+                Enter the private invite code or sign up to the waiting list
+              </ContentInfo>
+              <div>
+                <MenuInputField>
+                  <AccountInputText
+                    type="number"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Enter code"
+                  />
+                </MenuInputField>
+                <div onClick={handleOKClick} style={{ marginTop: 8 }}>
+                  <CommonButton text="Submit" />
+                </div>
+              </div>
+              <div>
+                <JoinText onClick={() => modalClick("ModalContent")} style={{cursor:"pointer"}}>
+                  Join the waiting list
+                </JoinText>
+                <JoinText style={{ marginTop: 24,cursor:"pointer" }} onClick={() => modalClick("AboutRoc")}>
+                  Read more about ROC
+                </JoinText>
               </div>
             </div>
-            <div>
-              <JoinText>Join the waiting list</JoinText>
-              <JoinText style={{marginTop:24}}>Read more about ROC</JoinText>
-            </div>
-          </div>
-        </>
-      )}
-      {children}
-    </StyledShadowWrapper>
+          </>
+        )}
+        {children}
+      </StyledShadowWrapper>
+      <BetaUIModal
+        isOpen={modalType.ModalContent}
+        onClose={() => closeModal("ModalContent")}
+        name="ModalContent"
+        title="Join the waiting list"
+      >
+        <JoinList />
+      </BetaUIModal>
+      <AboutRocModal
+        isOpen={modalType.AboutRoc}
+        onClose={() => closeModal("AboutRoc")}
+        name="AboutRoc"
+        title="About ROC"
+      >
+        <p style={{textAlign:"center",fontSize:16}}>to do...</p>
+      </AboutRocModal>
+    </>
   );
 };
 
