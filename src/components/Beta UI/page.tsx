@@ -147,7 +147,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
             <div className="shadow-background"></div>
             <div className="content-wrapper">
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <Image src={MobileRocLogo} alt="right icon" />
+                <Image src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FBETA.png?alt=media&token=94d2f0f3-f0f1-4e2f-b81f-80aa889cf243" width={117} height={68} alt="right icon" />
               </div>
               <ContentInfo>
                 Enter the private invite code or sign up to the waiting list

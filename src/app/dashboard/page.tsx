@@ -345,7 +345,7 @@ const DashBoard: React.FC<DashboardProps> = ({
               headerImage={item.headerImage}
               containerImageUrl={true}
               MenutitleDetail={item.resturantName}
-              isOpen={() => modalClick("ModalContent")}
+              isOpen={() => modalClick("ModalContent",item)}
               // isOpen={() => modalClick("eventListing")}
             />
           </div>
@@ -358,7 +358,7 @@ const DashBoard: React.FC<DashboardProps> = ({
           return (
             <FamilEventContainer
               key={index}
-              onClick={() => modalClick("eventListing")}
+              onClick={() => modalClick("eventListing",item)}
               style={{cursor:"pointer"}}
             >
               <FamilyEventWrapper>
@@ -374,7 +374,7 @@ const DashBoard: React.FC<DashboardProps> = ({
                   <p className="month">{item.month}</p>
                 </FamilyEventWrapperInside>
               </FamilyEventWrapper>
-              <FamilEventText>{item.resturantName}</FamilEventText>
+              <FamilEventText>{item.eventName}</FamilEventText>
             </FamilEventContainer>
           );
         })}
@@ -393,7 +393,7 @@ const DashBoard: React.FC<DashboardProps> = ({
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
-                isOpen={() => menuClick("Events")}
+                isOpen={() => modalClick("activities",item)}
               />
             </div>
           );
@@ -424,7 +424,9 @@ const DashBoard: React.FC<DashboardProps> = ({
           return (
             <TopAttractionContainer
               key={index}
-              onClick={() => menuClick("Events")}
+              // onClick={() => menuClick("Events")}
+              style={{cursor:"pointer"}}
+              onClick={() => modalClick("ModalContent",item)}
             >
               <TopAttractionprofile>
                 <Image
@@ -436,7 +438,7 @@ const DashBoard: React.FC<DashboardProps> = ({
                   // alt=""
                 />
               </TopAttractionprofile>
-              <p>{item.menuName}</p>
+              <p>{item.resturantName}</p>
             </TopAttractionContainer>
           );
         })}
@@ -461,7 +463,8 @@ const DashBoard: React.FC<DashboardProps> = ({
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
-                isOpen={() => menuClick("Events")}
+                // isOpen={() => menuClick("Events")}
+                isOpen={() => modalClick("ModalContent",item)}
               />
             </div>
           );
@@ -538,7 +541,7 @@ const DashBoard: React.FC<DashboardProps> = ({
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
-                isOpen={() => menuClick("Events")}
+                isOpen={() => modalClick("ModalContent",item)}
               />
             </div>
           );
@@ -561,7 +564,7 @@ const DashBoard: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <StarContainer key={index} onClick={() => menuClick("Events")}>
+            <StarContainer key={index} style={{cursor:"pointer"}} onClick={() => modalClick("ModalContent",item)}>
               <StarWrapper>
                 <Image
                   className="StarImageStyle"
@@ -614,7 +617,7 @@ const DashBoard: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <StarContainer key={index} onClick={() => menuClick("Events")}>
+            <StarContainer key={index} style={{cursor:"pointer"}} onClick={() => modalClick("ModalContent",item)}>
               <StarWrapper>
                 <Image
                   className="StarImageStyle"
@@ -645,7 +648,7 @@ const DashBoard: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <StarContainer key={index} onClick={() => menuClick("Events")}>
+            <StarContainer key={index} style={{cursor:"pointer"}} onClick={() => modalClick("ModalContent",item)}>
               <StarWrapper>
                 <Image
                   className="StarImageStyle"
@@ -702,7 +705,7 @@ const DashBoard: React.FC<DashboardProps> = ({
                 headerImage={item.headerImage}
                 containerImageUrl={true}
                 MenutitleDetail={item.resturantName}
-                isOpen={() => menuClick("Events")}
+                isOpen={() => modalClick("ModalContent",item)}
               />
             </div>
           );
@@ -712,7 +715,7 @@ const DashBoard: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <StarContainer key={index} onClick={() => menuClick("Events")}>
+            <StarContainer key={index} style={{cursor:"pointer"}} onClick={() => modalClick("ModalContent",item)}>
               <StarWrapper>
                 <Image
                   className="StarImageStyle"
@@ -742,7 +745,7 @@ const DashBoard: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
-            <StarContainer key={index} onClick={() => menuClick("Events")}>
+            <StarContainer key={index} style={{cursor:"pointer"}} onClick={() => modalClick("ModalContent",item)}>
               <StarWrapper>
                 <Image
                   className="StarImageStyle"

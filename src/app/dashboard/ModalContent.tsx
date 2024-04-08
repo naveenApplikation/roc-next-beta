@@ -11,14 +11,15 @@ import {
   comment,
   moped,
   plus,
-  BlackStar,  
+  BlackStar,
   clientLogoImg,
-  calenderWhiteImg
+  calenderWhiteImg,
 } from "../utils/ImagePath";
 
 interface ModalProps {
   onClose: () => void;
   reservationModal: Function;
+  dataImage: any;
 }
 
 const Container = styled.div`
@@ -111,6 +112,19 @@ const ScrollingMenu = styled.div`
   }
 `;
 
+const ItemImageContainer = styled.div`
+  padding: 0px 24px;
+
+  .imageContainer{
+    border-radius: 6px;
+    width: -webkit-fill-available;
+
+    @media screen and (max-width: 1130px) {
+    height: auto;
+  }
+  }
+`
+
 const MenuButtonContainer = styled.div`
   padding: 0px 24px;
   display: flex;
@@ -125,6 +139,44 @@ const ButtonContainer = styled.div`
   bottom: 0px;
 `;
 
+const DatesContainer = styled.div`
+  padding: 16px 16px;
+  margin: 0px 24px;
+  border-radius: 8px;
+  background: var(--White, #fff);
+`;
+
+const OpeningTitle = styled.p`
+  color: var(--BODY, #000);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+const DatesWrapperText = styled.div`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  margin: 16px 0px;
+`;
+
+const WeekTimeArrange = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    color: var(--BODY, #000);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+`;
+
 const AlsoSeeText = styled.p`
   color: #000;
   font-size: 24px;
@@ -134,12 +186,26 @@ const AlsoSeeText = styled.p`
   margin-left: 24px;
 `;
 
-const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
+const ModalContent: React.FC<ModalProps> = ({
+  onClose,
+  reservationModal,
+  dataImage,
+}) => {
+  const WeekDays = [
+    "Monday:",
+    "Tuesday:",
+    "Wednesday:",
+    "Thursday:",
+    "Friday:",
+    "Saturday:",
+    "Sunday:",
+  ];
+
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{fontSize:"16px"}}>Restaurant</p>
+          <p style={{ fontSize: "16px" }}>Restaurant</p>
           <p>|</p>
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
@@ -149,22 +215,42 @@ const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
           alt="Logo Outline"
         />
       </ResturatContainer>
-      <div style={{ height: "192px" }}></div>
+      <ItemImageContainer>
+        <Image
+          src={dataImage}
+          alt="Logo"
+          width={342}
+          height={192}
+          className="imageContainer"
+          // style={{ borderRadius: 6, width: "-webkit-fill-available" }}
+        />
+      </ItemImageContainer>
       <ResturantDetailsContainer>
         {ResturantDetailData.map((item, index) => {
           return (
             <ResturantDetailsWrapper key={index}>
               {" "}
               <Image
-                style={{cursor: "pointer" }}
+                style={{ cursor: "pointer" }}
                 src={item.image}
                 alt="Logo Outline"
               />{" "}
               <RestDetailTitle>{item.name}</RestDetailTitle>
+              {index == 0 && (
+                <Image
+                  style={{ cursor: "pointer", width: "auto", height: "auto" }}
+                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
+                  alt="Logo down"
+                  width={10}
+                  height={24}
+                />
+              )}
             </ResturantDetailsWrapper>
           );
         })}
-        <ViewDirection onClick={()=>reservationModal("DirectionModal")}>View Directions</ViewDirection>
+        <ViewDirection onClick={() => reservationModal("DirectionModal")}>
+          View Directions
+        </ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>
         Traditional french Brasserie serving breakfast, lunch and dinner in a
@@ -187,10 +273,7 @@ const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
       </MenuButtonContainer>
       <ReviewContainer>
         <ReviewWraaper>
-          <Image
-            src={comment}
-            alt="icon"
-          />
+          <Image src={comment} alt="icon" />
           <p>Reviews</p>
         </ReviewWraaper>
         <CommentRating
@@ -208,13 +291,23 @@ const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
           disLike={0}
         />
         <ReviewWraaper style={{ marginBottom: "8px" }}>
-          <Image
-            src={plus}
-            alt="icon"
-          />
+          <Image src={plus} alt="icon" />
           <p>Add Review</p>
         </ReviewWraaper>
       </ReviewContainer>
+      <DatesContainer>
+        <OpeningTitle>Opening</OpeningTitle>
+        <DatesWrapperText>
+          January, February, March, April, July, August, September, October,
+          November, December
+        </DatesWrapperText>
+        {WeekDays.map((item, index) => (
+          <WeekTimeArrange key={index}>
+            <p>{item}</p>
+            <p>09:00 - 18:00</p>
+          </WeekTimeArrange>
+        ))}
+      </DatesContainer>
       <AlsoSeeText>Also see</AlsoSeeText>
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
@@ -232,8 +325,18 @@ const ModalContent: React.FC<ModalProps> = ({ onClose,reservationModal }) => {
         })}
       </ScrollingMenu>
       <ButtonContainer>
-        <CommonButton text="Reservation" image={calenderWhiteImg} imageStyle={14} isOpen={()=>reservationModal("calenderModal")} />
-        <CommonButton text="Order Online" image={moped} imageStyle={20} isOpen={()=>reservationModal("orderOnlineModal")} />
+        <CommonButton
+          text="Reservation"
+          image={calenderWhiteImg}
+          imageStyle={14}
+          isOpen={() => reservationModal("calenderModal")}
+        />
+        <CommonButton
+          text="Order Online"
+          image={moped}
+          imageStyle={20}
+          isOpen={() => reservationModal("orderOnlineModal")}
+        />
       </ButtonContainer>
     </Container>
   );

@@ -22,6 +22,8 @@ import {
 interface ModalProps {
   //   onClose: () => void;
   //   reservationModal: Function;
+  dataImage: any;
+  reservationModal: any;
 }
 
 const Container = styled.div`
@@ -167,6 +169,19 @@ const DatesWrapperText = styled.div`
   line-height: 24px; /* 150% */
 `;
 
+const ItemImageContainer = styled.div`
+  padding: 0px 24px;
+
+  .imageContainer{
+    border-radius: 6px;
+    width: -webkit-fill-available;
+
+    @media screen and (max-width: 1130px) {
+    height: auto;
+  }
+  }
+`
+
 const BulletPointWrapper = styled.ul`
   list-style-type: disc;
   color: black;
@@ -181,7 +196,7 @@ const BulletPointWrapper = styled.ul`
   }
 `;
 
-const ModalContent: React.FC<ModalProps> = () => {
+const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
   return (
     <Container>
       <ResturatContainer>
@@ -193,7 +208,16 @@ const ModalContent: React.FC<ModalProps> = () => {
           {/* <OpenRestText>OPEN</OpenRestText> */}
         </ResturatWrapper>
       </ResturatContainer>
-      <div style={{ height: "192px" }}></div>
+      <ItemImageContainer>
+        <Image
+          src={dataImage}
+          alt="Logo"
+          width={342}
+          height={192}
+          className="imageContainer"
+          // style={{ borderRadius: 6, width: "-webkit-fill-available" }}
+        />
+      </ItemImageContainer>
       <ResturantDetailsContainer>
         {EventListData.map((item, index) => {
           return (
@@ -212,7 +236,7 @@ const ModalContent: React.FC<ModalProps> = () => {
             </ResturantDetailsWrapper>
           );
         })}
-        <ViewDirection>View Directions</ViewDirection>
+        <ViewDirection onClick={() => reservationModal("DirectionModal")}>View Directions</ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>
         Head to Springfield Stadium and watch the Jersey Bulls, English

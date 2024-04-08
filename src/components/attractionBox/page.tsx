@@ -46,7 +46,7 @@ const SearchedData = styled.div`
 const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
   return (
     <SearchedListContainer>
-      {RestroListData.map((item: any,index:any) => {
+      {RestroListData.map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
             <div
@@ -54,26 +54,44 @@ const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
                 display: "flex",
                 alignItems: "center",
                 gap: 16,
+                justifyContent: "space-between",
+                width: "100%",
               }}
             >
-              <Image style={{ background: "white" }} src={blank} alt="" />
-              <div className="restroRating">
-                <p className="shopName">item.name</p>
-                <div style={{alignItems:"center",display:"flex"}}>
-                  <Image
-                    src={utensils}
-                    style={{
-                      width: "13px",
-                      height: "13px",
-                      marginRight: 8,
-                    }}
-                    alt="utensils"
-                  />
-                  <Ratings defaultValue={3} />
+              <div style={{ display: "flex", alignItems: "center" ,gap:16}}>
+                <Image
+                  style={{ background: "white" }}
+                  src={item.headerImage}
+                  width={80}
+                  height={80}
+                  alt=""
+                />
+                <div className="restroRating">
+                  <p className="shopName">{item.name}</p>
+                  <div style={{ alignItems: "center", display: "flex" }}>
+                    <Image
+                      src={utensils}
+                      style={{
+                        width: "13px",
+                        height: "13px",
+                        marginRight: 8,
+                      }}
+                      alt="utensils"
+                    />
+                    <Ratings defaultValue={3} />
+                  </div>
+                  <p>
+                    <span>Open - Closes {item.time}</span>
+                  </p>
                 </div>
-                <p>
-                  <span>Open - Closes</span>
-                </p>
+              </div>
+              <div className="likes">
+                <Image
+                  src={thumbsup}
+                  alt="like"
+                  style={{ width: "16px", height: "16px" }}
+                />
+                <p>{item.likeCount}</p>
               </div>
             </div>
           </SearchedData>

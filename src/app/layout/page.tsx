@@ -21,12 +21,14 @@ import Header from "@/components/header/page";
 import FilterModal from "../../components/modal/FilterModal";
 import DirectionModal from "../../components/modal/DirectionModal";
 import EventListingModal from "../../components/modal/EventListing";
+import ActivitiesModal from "../../components/modal/ActivitiesModal";
 import AddToDirectoryModal from "../../components/modal/AddToDirectoryModal";
 import CreateDirectoryModal from "../../components/modal/CreateDirectoryModal";
 import ThankYouDiresctoryModal from "../../components/modal/ThankYouDiresctoryModal";
 import FilterModalLayout from "../../components/modal/Modal";
 import AddToDirectoryModalLayout from "../../components/modal/Modal";
 import EventListingModalLayout from "../../components/modal/Modal";
+import ActivitiesModalLayout from "../../components/modal/Modal";
 import DirectionModalLayout from "../../components/modal/Modal";
 import DashBoardModal from "../../components/modal/Modal";
 import CalenderModalLayout from "../../components/modal/Modal";
@@ -402,6 +404,7 @@ const Layout = (WrappedComponent: any) => {
       search: false,
       myList: false,
       eventListing:false,
+      activities:false
     });
 
     const DynamicMap = dynamic(() => import("../../components/map/page"), {
@@ -459,13 +462,21 @@ const Layout = (WrappedComponent: any) => {
       }
     };
 
-    const modalClick = (name: string) => {
+    const [dataDetails, setDataDetails] = useState<any>({});
+
+   
+
+    const modalClick = (name: string,item?: any) => {
       setModalType((prev: any) => ({
         ...prev,
-        [name]: !prev[name] as boolean,
+        [name]: true,
       }));
       setModalName(name);
+      if(item){
+        setDataDetails(item)
+      }
     };
+
     const iconClick = (name: string) => {
       if (name === "mapClick") {
         setShowMap(!showMap);
@@ -771,14 +782,16 @@ const Layout = (WrappedComponent: any) => {
         </Container>
         <DashBoardModal
           isOpen={modalType.ModalContent}
+          // isOpen={modalName === "ModalContent" }
           onClose={() => closeModal("ModalContent")}
           name="ModalContent"
           {...{ showMap }}
-          title="Brasserie Colmar"
+          title={dataDetails?.resturantName}
         >
           <ModalContent
             onClose={() => closeModal("ModalContent")}
             reservationModal={modalClick}
+            dataImage={dataDetails?.headerImage}
           />
         </DashBoardModal>
         <EventListingModalLayout
@@ -786,10 +799,19 @@ const Layout = (WrappedComponent: any) => {
           onClose={() => closeModal("eventListing")}
           name="eventListing"
           {...{ showMap }}
-          title="Jersey Bulls FC Home Games"
+          title={dataDetails?.eventName}
         >
-         <EventListingModal />
+         <EventListingModal dataImage={dataDetails?.headerImage} reservationModal={modalClick} />
         </EventListingModalLayout>
+        <ActivitiesModalLayout
+          isOpen={modalType.activities}
+          onClose={() => closeModal("activities")}
+          name="activities"
+          {...{ showMap }}
+          title={dataDetails?.resturantName}
+        >
+         <ActivitiesModal dataImage={dataDetails?.headerImage} reservationModal={modalClick} />
+        </ActivitiesModalLayout>
         <DirectionModalLayout
           isOpen={modalType.DirectionModal}
           onClose={() => closeModal("DirectionModal")}
