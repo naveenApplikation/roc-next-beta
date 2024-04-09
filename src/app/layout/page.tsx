@@ -786,12 +786,12 @@ const Layout = (WrappedComponent: any) => {
           onClose={() => closeModal("ModalContent")}
           name="ModalContent"
           {...{ showMap }}
-          title={dataDetails?.resturantName}
+          title={dataDetails.resturantName}
         >
           <ModalContent
             onClose={() => closeModal("ModalContent")}
             reservationModal={modalClick}
-            dataImage={dataDetails?.headerImage}
+            dataImage={dataDetails.headerImage}
           />
         </DashBoardModal>
         <EventListingModalLayout
@@ -799,18 +799,18 @@ const Layout = (WrappedComponent: any) => {
           onClose={() => closeModal("eventListing")}
           name="eventListing"
           {...{ showMap }}
-          title={dataDetails?.eventName}
+          title={dataDetails.eventName}
         >
-         <EventListingModal dataImage={dataDetails?.headerImage} reservationModal={modalClick} />
+         <EventListingModal dataImage={dataDetails.headerImage} reservationModal={modalClick} />
         </EventListingModalLayout>
         <ActivitiesModalLayout
           isOpen={modalType.activities}
           onClose={() => closeModal("activities")}
           name="activities"
           {...{ showMap }}
-          title={dataDetails?.resturantName}
+          title={dataDetails.resturantName}
         >
-         <ActivitiesModal dataImage={dataDetails?.headerImage} reservationModal={modalClick} />
+         <ActivitiesModal dataImage={dataDetails.headerImage} reservationModal={modalClick} />
         </ActivitiesModalLayout>
         <DirectionModalLayout
           isOpen={modalType.DirectionModal}

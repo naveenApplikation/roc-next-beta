@@ -11,6 +11,8 @@ import StaysBox from '@/components/staysBox/page';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
+import { useSearchParams } from 'next/navigation';
+import HeaderScreen from '@/components/header/HeaderScreen'
 
 interface CategoriesPageProps {
   // Define your props here
@@ -40,6 +42,14 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     urlData = (params.eventName).toString().replaceAll("%20", " ")
   }
 
+
+  const searchParams = useSearchParams()
+ 
+  const search = searchParams.get('search')
+
+  console.log(search,"search")
+ 
+
   const categories = () => {
     if (urlData === "Events") {
       return <EventBox />
@@ -53,15 +63,17 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       return <FinancialBox />
     }else if(urlData === "Scaffolding"){
       return <ScaffoldingBox />
+    }else{
+      return <AttractionBox urlData={search} urlTitle={urlData} />
     }
   }
 
   return (
-      <CategoryBody>
-        <p className='communityName'>{urlData}</p>
-        <FilterSection />
+      <>
+      <HeaderScreen />
+        {/* <FilterSection /> */}
         {categories()}
-      </CategoryBody>
+      </>
   );
 };
-export default Layout(CategoriesPage)
+export default CategoriesPage

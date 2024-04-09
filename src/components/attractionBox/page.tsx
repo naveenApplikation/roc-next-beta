@@ -1,16 +1,42 @@
-import { RestroListData } from "@/app/dashboard/data";
+// import { RestroListData } from "@/app/dashboard/data";
 import { blank, thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import Ratings from "../ratings";
+import {
+  EnjoyShineMenuItem,
+  familyEventMenuItem,
+  LocalCuisineMenuItem,
+  topAttractionItem,
+  topSideMenu,
+  community,
+  RestroListData,
+  WalksData,
+  BarMenuItem,
+} from "@/app/dashboard/data";
 
 interface AttractionBoxProps {
   // Define your props here
+  urlData?: any;
+  urlTitle?: string;
 }
 
+const TitleText = styled.p`
+  font-size: 24px;
+  font-weight: 700;
+`;
+
 const SearchedListContainer = styled.div`
-  padding-bottom: 40px;
+  /* padding-bottom: 40px; */
+  padding: 40px;
+  background-color: #f2f3f3;
+  width: 580px;
+  height: 100%;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 40px 15px;
+  }
 `;
 
 const SearchedData = styled.div`
@@ -43,10 +69,45 @@ const SearchedData = styled.div`
   }
 `;
 
-const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
+type MenuItemArray = typeof LocalCuisineMenuItem[];
+
+const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
+
+
+
+  const dataShow = ()=>{
+    if(urlData == 1){
+      return LocalCuisineMenuItem
+    }
+    else if(urlData == 2){
+      return topAttractionItem
+    }
+    else if(urlData == 3){
+      return BarMenuItem
+    }
+    else if(urlData == 4){
+      return BarMenuItem
+    }
+    else if(urlData == 5){
+      return LocalCuisineMenuItem
+    }
+    else if(urlData == 6){
+      return WalksData
+    }
+    else if(urlData == 7){
+      return LocalCuisineMenuItem
+    }
+    else{
+      return RestroListData
+    }
+  }
+
+  // console.log(dataShow(),"dsdsd")
+
   return (
     <SearchedListContainer>
-      {RestroListData.map((item: any, index: any) => {
+      <TitleText>{urlTitle}</TitleText>
+      {dataShow().map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
             <div
@@ -58,16 +119,17 @@ const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
                 width: "100%",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" ,gap:16}}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
                 <Image
-                  style={{ background: "white" }}
+                  // style={{ background: "white" }}
                   src={item.headerImage}
                   width={80}
                   height={80}
+                  style={{borderRadius:8}}
                   alt=""
                 />
                 <div className="restroRating">
-                  <p className="shopName">{item.name}</p>
+                  <p className="shopName">{item.resturantName}</p>
                   <div style={{ alignItems: "center", display: "flex" }}>
                     <Image
                       src={utensils}
@@ -78,7 +140,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = (props) => {
                       }}
                       alt="utensils"
                     />
-                    <Ratings defaultValue={3} />
+                    <Ratings defaultValue={item.rating} />
                   </div>
                   <p>
                     <span>Open - Closes {item.time}</span>

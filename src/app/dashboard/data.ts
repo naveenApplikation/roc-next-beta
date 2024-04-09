@@ -5,18 +5,6 @@ import tour from "../../../assets/images/rightSideMenuImage/tour.png";
 import travel from "../../../assets/images/rightSideMenuImage/travel.png";
 import umbrella from "../../../assets/images/rightSideMenuImage/umbrella.png";
 import allItem from "../../../assets/images/rightSideMenuImage/allItem.png";
-import location from "../../../assets/images/modalImage/Places/location-dot.png";
-import phone from "../../../assets/images/modalImage/Places/phone.png";
-import StoreMobile from "../../../assets/images/rightSideMenuImage/StoreMobile.png";
-import calendarMobile from "../../../assets/images/rightSideMenuImage/calendarMobile.png";
-import castleMobile from "../../../assets/images/rightSideMenuImage/castleMobile.png";
-import utensilsMobile from "../../../assets/images/rightSideMenuImage/utensilsMobile.png";
-import toy from "../../../assets/images/community/toy.png";
-import kids from "../../../assets/images/community/kids.png";
-import home from "../../../assets/images/community/home.png";
-import frog from "../../../assets/images/community/frog.png";
-import fort from "../../../assets/images/community/fort.png";
-import breakfastUtensils from "../../../assets/images/community/breakfastUtensils.png";
 import cartShopping from "../../../assets/images/createListImages/chooseIcons/cart-shopping.png";
 import child from "../../../assets/images/createListImages/chooseIcons/child.png";
 import wheelChair from "../../../assets/images/createListImages/chooseIcons/wheelchair.png";
@@ -35,64 +23,17 @@ import locate from "../../../assets/images/createListImages/chooseIcons/map-plac
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import {
   utensils,
-  sun,
-  news,
-  van,
-  sos,
-  tides,
-  flight,
-  saling,
-  network,
   holidayDas,
   beachumbrella,
   poundIcon,
   castle,
-  utensil,
-  shopping,
-  camera,
   hotel,
-  personHiking,
-  compass,
   glass,
-  event,
   clock,
   globes,
   phoneBlack,
   locationDot,
-  banjo,
-  resturant1,
-  resturant2,
-  resturant3,
-  resturant4,
-  resturant5,
-  resturant6,
-  bar1,
-  bar2,
-  bar3,
-  bar4,
-  bar5,
-  bar6,
-  family1,
-  family2,
-  family3,
-  family4,
-  family5,
-  family6,
   attraction1,
-  attraction2,
-  attraction3,
-  attraction4,
-  attraction5,
-  attraction6,
-  attraction7,
-  walks1,
-  walks2,
-  walks3,
-  walks4,
-  Mobilecastle,
-  MobileStore,
-  Mobilecalendar,
-  Mobileutensil,
   cartShopping1,
   cartShopping2,
   cartShopping3,
@@ -316,6 +257,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 3.5,
+    likeCount: 128,
+    time: "5:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FAppImage%2Fbanjo.jpg?alt=media&token=e20e5e98-87f9-4a6c-8dda-7f2372d5f7dc",
   },
@@ -324,6 +268,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "Restaurant",
     resturantName: "La Bouche",
+    rating: 4.7,
+    likeCount: 166,
+    time: "12:00 AM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant1.jpg?alt=media&token=c48ad7ce-9020-4dc9-b91f-1c866cb3e836",
   },
@@ -332,6 +279,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "St Aubin",
     resturantName: "Salty Dog Bar...",
+    rating: 4.5,
+    likeCount: 143,
+    time: "2:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant2.jpg?alt=media&token=a867a48c-4ca1-4326-8336-cfbce9e1f291",
   },
@@ -340,6 +290,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "Gorey Pier",
     resturantName: "Feast Restaurant",
+    rating: 3.9,
+    likeCount: 178,
+    time: "10:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant3.jpg?alt=media&token=dcbdddfe-24ea-4ad7-bca4-24b2ba5f9154",
   },
@@ -348,6 +301,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 4.1,
+    likeCount: 199,
+    time: "06:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant4.jpg?alt=media&token=e77e9515-ee4f-4eb8-b61b-93feb22f56d0",
   },
@@ -356,6 +312,9 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65",
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 2.9,
+    likeCount: 108,
+    time: "11:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant5.jpg?alt=media&token=3ab8f184-5388-4bd6-8236-7733cdb84731",
   },
@@ -758,7 +717,7 @@ export const SoryByItem = [
 export const RestroListData = [
   {
     id: 1,
-    name: "Jersey War Tunnels",
+    resturantName: "Jersey War Tunnels",
     rating: 2.5,
     likeCount: 128,
     headerImage:
@@ -767,7 +726,7 @@ export const RestroListData = [
   },
   {
     id: 2,
-    name: "Mont Orgueil Castle",
+    resturantName: "Mont Orgueil Castle",
     rating: 3.5,
     likeCount: 128,
     headerImage:
@@ -776,7 +735,7 @@ export const RestroListData = [
   },
   {
     id: 3,
-    name: "Jersey Zoo",
+    resturantName: "Jersey Zoo",
     rating: 4.5,
     likeCount: 128,
     headerImage:
@@ -785,7 +744,7 @@ export const RestroListData = [
   },
   {
     id: 4,
-    name: "La Houge Bie",
+    resturantName: "La Houge Bie",
     rating: 3.5,
     likeCount: 128,
     headerImage:
@@ -794,7 +753,7 @@ export const RestroListData = [
   },
   {
     id: 5,
-    name: "La Mare Wine Estate",
+    resturantName: "La Mare Wine Estate",
     rating: 2.5,
     likeCount: 128,
     headerImage:

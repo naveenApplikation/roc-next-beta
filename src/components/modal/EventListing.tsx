@@ -204,8 +204,6 @@ const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
           <p style={{ fontSize: "14px" }}>
             Family friendly | Sports | Outdoor | Spect...
           </p>
-          {/* <p>|</p> */}
-          {/* <OpenRestText>OPEN</OpenRestText> */}
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
@@ -215,7 +213,6 @@ const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
           width={342}
           height={192}
           className="imageContainer"
-          // style={{ borderRadius: 6, width: "-webkit-fill-available" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>
