@@ -51,7 +51,7 @@ const FamilEventContainer = styled.div`
     width: fit-content;
     color: #fff;
     width: 30px;
-    border-radius: 0px 0px 8px 8px;
+    border-radius: 0px 0px 4px 4px;
   }
 `;
 
@@ -75,13 +75,13 @@ const FamilyEventWrapperInside = styled.div`
   left: 4px;
   text-align: center;
   background: white;
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 4px;
 `;
 
 const FamilyEvent: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Events")} title="Family Events" />
+      <MenuDetails isOpen={() => menuClick("Family Events", true, 1)} title="Family Events" />
       <ScrollingMenu>
         {familyEventMenuItem.map((item, index) => {
           return (
@@ -96,7 +96,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
                   alt=""
                   width={80}
                   height={80}
-                  // alt=""
+                  style={{borderRadius:4}}
                 />
                 <FamilyEventWrapperInside>
                   <p className="date">{item.date}</p>

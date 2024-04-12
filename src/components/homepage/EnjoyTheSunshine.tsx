@@ -28,7 +28,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
   return (
     <>
     <MenuDetails
-        isOpen={() => menuClick("Events")}
+        isOpen={() => menuClick("Enjoy the sunshine", true, 1)}
         title="Enjoy the sunshine"
       />
       <ScrollingMenu>

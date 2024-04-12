@@ -51,7 +51,7 @@ const CommunityContainer = styled.div`
 const Jerseyisms: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   return (
     <>
-      <MenuDetails isOpen={() => modalClick("ModalContent")} title="Jerseyisms" />
+      <MenuDetails isOpen={() => menuClick("Jerseyisms", true, 1)} title="Jerseyisms" />
       <ScrollingMenu>
         {community.map((item, index) => {
           return (

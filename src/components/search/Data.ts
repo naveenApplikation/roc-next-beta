@@ -75,3 +75,49 @@ export const PopularLists = [
     likes: 893,
   },
 ];
+
+
+export const SelectedLists = [
+  {
+    name: "Summer kids clubs",
+    image: List1,
+    color: "#F2C94C",
+    likes: 934,
+  },
+  {
+    name: "Wheelchair Access",
+    image: List5,
+    color: "#2F80ED",
+    likes: 893,
+  },
+  {
+    name: "Dog friendly",
+    image: List6,
+    color: "#F2994A",
+    likes: 600,
+  },
+  {
+    name: "Top restaurants",
+    image: List2,
+    color: "#27AE60",
+    likes: 435,
+  },
+  {
+    name: "New in St Brelade",
+    image: List7,
+    color: "#2F80ED",
+    likes: 567,
+  },
+  {
+    name: "Outdoor Dining",
+    image: List2,
+    color: "#27AE60",
+    likes: 201,
+  },
+  {
+    name: "Taxis",
+    image: List4,
+    color: "#4F4F4F",
+    likes: 778,
+  },
+];

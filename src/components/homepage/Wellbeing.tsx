@@ -40,6 +40,7 @@ const StarWrapper = styled.div`
   width: 100%;
   background: linear-gradient(45deg, black, transparent);
   position: relative;
+  border-radius: 4px;
 
   p {
     position: absolute;
@@ -55,14 +56,14 @@ const StarWrapper = styled.div`
   .StarImageStyle {
     /* width: -webkit-fill-available; */
     height: 64px;
-    border-radius: 6px;
+    border-radius: 4px;
   }
 `;
 
 const Wellbeing: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Wellbeing", true,7)} title="Wellbeing" />
+      <MenuDetails isOpen={() => menuClick("Wellbeing", true,1)} title="Wellbeing" />
       <ScrollingMenu>
         {LocalCuisineMenuItem.map((item, index) => {
           return (
@@ -99,7 +100,7 @@ const Wellbeing: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
                   />{" "}
                   <p>4.7</p>
                 </div>
-                <p style={{ fontSize: 14 }}>{item.resturantName}</p>
+                <p style={{ fontSize: 14,marginTop:8  }}>{item.resturantName}</p>
               </div>
             </StarContainer>
           );

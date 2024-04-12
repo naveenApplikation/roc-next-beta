@@ -31,40 +31,45 @@ const WalkContainer = styled.div`
   min-width: 120px;
   background-position: bottom;
   background-repeat: no-repeat;
-  background-color: #ffffffcc;
+  background-color: rgba(0, 0, 0, 0.01);
   display: flex;
   align-items: end;
   flex-direction: column;
+  position: relative;
 
   justify-content: space-between;
   p {
     color: white;
     font-size: 14px;
     font-weight: 400;
-    padding: 10px 10px;
+    position: absolute;
+    bottom: 8px;
+    left: 12px;
   }
   img {
-    height: 85px;
+    height: 100%;
     width: 100%;
-    /* border-radius: 10px; */
+    border-radius: 4px;
   }
 `;
 
 const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Events")} title="Cycle Routes" />
+      <MenuDetails title="Cycle Routes" />
       <ScrollingMenu>
         {WalksData.map((item, index) => {
           return (
-            <WalkContainer
-              onClick={() => menuClick("Events")}
-              key={index}
-              style={{
-                backgroundImage: `url(${boxOverlay.src}) !important`,
-              }}
-            >
+            <WalkContainer  key={index}>
               <Image src={item.headerImage} alt="" width={120} height={64} />
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                alt=""
+                width={120}
+                height={64}
+                style={{ position: "absolute", bottom: 0, height: 50 }}
+                // alt=""
+              />
               <p>{item.name}</p>
             </WalkContainer>
           );

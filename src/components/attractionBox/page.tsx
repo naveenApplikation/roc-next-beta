@@ -15,6 +15,9 @@ import {
   WalksData,
   BarMenuItem,
 } from "@/app/dashboard/data";
+import FilterSection from "@/components/filterSection";
+import CommonButton from "@/components/button/CommonButton";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface AttractionBoxProps {
   // Define your props here
@@ -49,6 +52,9 @@ const SearchedData = styled.div`
   p {
     font-size: 13px;
     font-weight: 400;
+    @media screen and (max-width: 350px) {
+      font-size: 1.3rem;
+    }
   }
   .likes {
     background-color: #00000014;
@@ -63,50 +69,104 @@ const SearchedData = styled.div`
   .shopName {
     font-size: 16px;
     font-weight: 600;
+    @media screen and (max-width: 350px) {
+      font-size: 1.6rem;
+    }
   }
   p span {
     color: #2b902b;
   }
 `;
 
-type MenuItemArray = typeof LocalCuisineMenuItem[];
+const LikeCount = styled.p`
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 16px;
+`;
+
+const UtenssilsImage = styled(Image)`
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  @media screen and (max-width: 350px) {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+`;
+
+const DeliveryContainer = styled.div`
+  display: flex;
+  width: 64px;
+  padding: 2px 4px;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  border-radius: 4px;
+  background: var(--White, #fff);
+
+  p {
+    color: var(--BODY, #000);
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+`;
+
+const NewResturant = styled.div`
+  display: flex;
+  padding: 2px 4px;
+  align-items: flex-start;
+  gap: 8px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 4px;
+  background: var(--White, #fff);
+  p {
+    color: var(--BODY, #000);
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+`;
+
+const AddListButton = styled.div`
+  padding-top: 20px;
+`
+
+type MenuItemArray = (typeof LocalCuisineMenuItem)[];
 
 const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
 
+  const {modalClick} = useMyContext();
 
+  const dataShow = () => {
+    if (urlData == 1) {
+      return LocalCuisineMenuItem;
+    } else if (urlData == 2) {
+      return topAttractionItem;
+    } else if (urlData == 3) {
+      return BarMenuItem;
+    } 
+    else {
+      return RestroListData;
+    }
+  };
 
-  const dataShow = ()=>{
-    if(urlData == 1){
-      return LocalCuisineMenuItem
-    }
-    else if(urlData == 2){
-      return topAttractionItem
-    }
-    else if(urlData == 3){
-      return BarMenuItem
-    }
-    else if(urlData == 4){
-      return BarMenuItem
-    }
-    else if(urlData == 5){
-      return LocalCuisineMenuItem
-    }
-    else if(urlData == 6){
-      return WalksData
-    }
-    else if(urlData == 7){
-      return LocalCuisineMenuItem
-    }
-    else{
-      return RestroListData
-    }
-  }
-
-  // console.log(dataShow(),"dsdsd")
+  // console.log(urlData,"asasa")
 
   return (
     <SearchedListContainer>
       <TitleText>{urlTitle}</TitleText>
+      <LikeCount>5,281 likes</LikeCount>
+      {(urlData != 77) && <div style={{margin:"24px 0px"}}><FilterSection /></div>}
       {dataShow().map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
@@ -120,26 +180,37 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                <Image
-                  // style={{ background: "white" }}
-                  src={item.headerImage}
-                  width={80}
-                  height={80}
-                  style={{borderRadius:8}}
-                  alt=""
-                />
+                <div style={{ position: "relative" }}>
+                  <Image
+                    // style={{ background: "white" }}
+                    src={item.headerImage}
+                    width={80}
+                    height={80}
+                    style={{ borderRadius: 8,cursor:"pointer" }}
+                    alt=""
+                    onClick={() => modalClick("ModalContent", item)}
+                  />
+                  {item.deliverActive && (
+                    <DeliveryContainer>
+                      <Image
+                        src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
+                        width={10}
+                        height={8}
+                        alt=""
+                      />
+                      <p>delivery</p>
+                    </DeliveryContainer>
+                  )}
+                  {item.NewRes && (
+                    <NewResturant>
+                      <p>New</p>
+                    </NewResturant>
+                  )}
+                </div>
                 <div className="restroRating">
                   <p className="shopName">{item.resturantName}</p>
                   <div style={{ alignItems: "center", display: "flex" }}>
-                    <Image
-                      src={utensils}
-                      style={{
-                        width: "13px",
-                        height: "13px",
-                        marginRight: 8,
-                      }}
-                      alt="utensils"
-                    />
+                    <UtenssilsImage src={utensils} alt="utensils" />
                     <Ratings defaultValue={item.rating} />
                   </div>
                   <p>
@@ -159,6 +230,9 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
           </SearchedData>
         );
       })}
+        <AddListButton>
+        <CommonButton text="Add to the list" />
+      </AddListButton>
     </SearchedListContainer>
   );
 };

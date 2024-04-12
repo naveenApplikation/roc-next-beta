@@ -43,6 +43,7 @@ const Menutitle = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-top: 8px;
 `;
 
 const MenuIconContainer = styled.div`

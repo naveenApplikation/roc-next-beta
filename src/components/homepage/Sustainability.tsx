@@ -31,7 +31,7 @@ const Sustainability: React.FC<DashboardProps> = ({
 }) => {
   return (
     <>
-      <MenuDetails title="Sustainability" isOpen={() => menuClick("Sustainability", true, 4)} />
+      <MenuDetails title="Sustainability" isOpen={() => menuClick("Sustainability", true, 3)} />
       <ScrollingMenu>
         {BarMenuItem.map((item, index) => {
           return (

@@ -1,12 +1,18 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import SearchInput from "@/components/searchInput/SearchInput";
 import Image from "next/image";
+import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen';
+import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen';
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
     modalClick?: any;
     menuClick?: any;
   }
+
+  const options = ["Lists", "Places"];
+type tabs = "Lists" | "Places";
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -51,6 +57,15 @@ const FilterInput = styled.div`
 `;
 
 const SearchNFilter: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+
+  const {showMap } = useMyContext();
+
+  const [tabValue, setTabValue] = useState("Lists");
+
+  const tabChange = (value: tabs) => {
+    setTabValue(value);
+  };
+
   return (
     <>
      <InputWrapper>
@@ -68,6 +83,8 @@ const SearchNFilter: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
           Filter
         </FilterInput>
       </InputWrapper>
+      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      {/* <FilterModalScreen showMap={showMap}  /> */}
     </>
   );
 };

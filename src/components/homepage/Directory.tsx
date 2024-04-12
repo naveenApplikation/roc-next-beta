@@ -30,7 +30,7 @@ const DirectoryList: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
     <>
        <MenuDetails
         title="Directory"
-        isOpen={() => menuClick("CategorieList")}
+        isOpen={() => menuClick("categorieList",true,1)}
       />
       <Directory isOpen={() => modalClick("AddDirectoryModal")} />
     </>

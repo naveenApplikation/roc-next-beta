@@ -1,0 +1,24 @@
+<svg width="120" height="57" viewBox="0 0 120 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Mask group">
+<mask id="mask0_1238_24571" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="57">
+<rect id="Rectangle 40" y="0.195312" width="120" height="56.8046" fill="url(#paint0_linear_1238_24571)"/>
+</mask>
+<g mask="url(#mask0_1238_24571)">
+<g id="Rectangle 39" filter="url(#filter0_b_1238_24571)">
+<rect y="0.195312" width="120" height="56.8046" fill="black" fill-opacity="0.01"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_b_1238_24571" x="-52" y="-51.8047" width="224" height="160.805" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="26"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1238_24571"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1238_24571" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_1238_24571" x1="60" y1="0.195312" x2="60" y2="28.5976" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>

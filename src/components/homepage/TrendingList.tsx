@@ -52,7 +52,8 @@ const TrendingList: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
   return (
     <>
        <MenuDetails
-        isOpen={() => menuClick("TrendingList")}
+        // isOpen={() => menuClick("TrendingList")}
+        isOpen={() => menuClick("Trending Lists", true, 1)}
         title="Trending Lists"
       />
       <ScrollingMenu>

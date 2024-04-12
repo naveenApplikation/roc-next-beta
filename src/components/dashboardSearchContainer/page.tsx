@@ -13,7 +13,7 @@ interface DashboardSearchContainerProps {
     tabChange:Function,
     options:any,
     tabValue:string,
-    showMap:boolean
+    showMap?:boolean
 }
 
 const InputWrapper = styled.div`

@@ -271,6 +271,7 @@ export const LocalCuisineMenuItem = [
     rating: 4.7,
     likeCount: 166,
     time: "12:00 AM",
+    deliverActive:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant1.jpg?alt=media&token=c48ad7ce-9020-4dc9-b91f-1c866cb3e836",
   },
@@ -282,6 +283,7 @@ export const LocalCuisineMenuItem = [
     rating: 4.5,
     likeCount: 143,
     time: "2:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant2.jpg?alt=media&token=a867a48c-4ca1-4326-8336-cfbce9e1f291",
   },
@@ -293,6 +295,7 @@ export const LocalCuisineMenuItem = [
     rating: 3.9,
     likeCount: 178,
     time: "10:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant3.jpg?alt=media&token=dcbdddfe-24ea-4ad7-bca4-24b2ba5f9154",
   },
@@ -324,6 +327,9 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 3.5,
+    likeCount: 128,
+    time: "5:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar1.jpg?alt=media&token=94ba8d23-8789-4881-a4f0-13418273ff65",
   },
@@ -331,6 +337,10 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "Restaurant",
     resturantName: "La Bouche",
+    rating: 4.7,
+    likeCount: 166,
+    time: "12:00 AM",
+    deliverActive:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar2.jpg?alt=media&token=1463939a-3d65-4cb8-99e0-bc92a85f3308",
   },
@@ -338,6 +348,10 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "St Aubin",
     resturantName: "Salty Dog Bar...",
+    rating: 4.5,
+    likeCount: 143,
+    time: "2:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar3.jpg?alt=media&token=32566e65-596c-44ca-ba9d-8fa56d4dd329",
   },
@@ -345,6 +359,10 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "Gorey Pier",
     resturantName: "Feast Restaurant",
+    rating: 3.9,
+    likeCount: 178,
+    time: "10:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar4.jpg?alt=media&token=5f36996b-cc37-47c1-a6fd-5121131e62e0",
   },
@@ -352,6 +370,9 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 4.1,
+    likeCount: 199,
+    time: "06:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar5.jpg?alt=media&token=7bb5ed44-3d33-4a04-a6c5-e15654b48976",
   },
@@ -359,6 +380,9 @@ export const BarMenuItem = [
     image: utensils,
     menuName: "St Helier",
     resturantName: "Banjo",
+    rating: 4.1,
+    likeCount: 199,
+    time: "06:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fbar6.jpg?alt=media&token=58d0509d-32cc-4c8d-bd5a-6853226cd0b9",
   },
@@ -464,36 +488,60 @@ export const EnjoyShineMenuItem = [
 export const topAttractionItem = [
   {
     resturantName: "Jersey War Tunnels",
+    rating: 3.5,
+    likeCount: 128,
+    time: "5:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction1.jpg?alt=media&token=b485920c-0295-4972-a8be-009caec582e6",
   },
   {
     resturantName: "Jersey Heritage",
+    rating: 4.7,
+    likeCount: 166,
+    time: "12:00 AM",
+    deliverActive:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction2.jpg?alt=media&token=36c10bde-2ef9-4f7e-aba2-151a03d62a04",
   },
   {
     resturantName: "Jersey Pearl",
+    rating: 4.5,
+    likeCount: 143,
+    time: "2:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction3.jpg?alt=media&token=53110c70-9724-4fc9-ba04-e38d2051cc33",
   },
   {
     resturantName: "The Botanic Gardens a..",
+    rating: 3.9,
+    likeCount: 178,
+    time: "10:00 PM",
+    NewRes:true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction4.jpg?alt=media&token=4e6d2140-9de3-4469-9b25-f364433bf003",
   },
   {
     resturantName: "La Mare Wine Estate",
+    rating: 1.7,
+    likeCount: 116,
+    time: "02:00 AM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction5.jpg?alt=media&token=8d451192-92b9-4833-ad42-0e5f1a2f482c",
   },
   {
     resturantName: "Jersey War Tunnels",
+    rating: 4.9,
+    likeCount: 466,
+    time: "12:00 AM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction6.jpg?alt=media&token=84fa4ed8-808a-4356-9e90-d6cb1c2197d3",
   },
   {
     resturantName: "Jersey Pearl",
+    rating: 3.7,
+    likeCount: 125,
+    time: "04:00 PM",
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Fattraction7.jpg?alt=media&token=7d7f5238-5ce9-4de3-8ed2-c9a4f72b286f",
   },
