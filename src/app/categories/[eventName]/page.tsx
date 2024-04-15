@@ -91,8 +91,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       <>
       <CategoryBody>
       <HeaderScreen />
-     
-        {categories()}
+        {/* {categories()} */}
+        <FinancialBox />
       </CategoryBody>
         <SearchModalScreen {...{ tabChange, options, tabValue, showMap }}  />
         <ProfileAccountModalScreen showMap={showMap} />

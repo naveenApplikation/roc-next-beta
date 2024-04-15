@@ -28,10 +28,21 @@ import Surfing from "@/components/homepage/Surfing";
 import CommonButton from "@/components/button/CommonButton";
 import Layout from "../layout/page";
 import { useRouter } from "next/navigation";
+import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen'
+import ProfileMylistModalScreen from '@/components/AllModalScreen/ProfileMylistModalScreen'
+import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen'
+import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen'
+import PlacesModalScreen from '@/components/AllModalScreen/PlacesModalScreen'
+import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen'
+import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen'
+import PlaceOrderOnlineModalScreen from '@/components/AllModalScreen/PlaceOrderOnlineModalScreen'
+import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen'
+import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen'
+import DirectoryModalScreen from '@/components/AllModalScreen/DirectoryModalScreen'
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
   modalClick: Function;
-  CreateListHandle: Function;
 }
 
 const LeaveFeedbackButton = styled.div`
@@ -44,6 +55,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+
+  const {showMap,} = useMyContext()
 
   const menuClick = (item: any, condition?: boolean, id?: number) => {
     if (condition) {
@@ -89,6 +102,7 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
 
   return (
     <>
+    <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} />
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
@@ -115,7 +129,8 @@ const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
     </>
+    </>
   );
 };
-export default Layout(DashBoard);
+export default DashBoard;
 // export default DashBoard;

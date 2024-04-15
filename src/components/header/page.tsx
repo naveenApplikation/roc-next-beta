@@ -1,21 +1,9 @@
-import {
-  headerHome,
-  home,
-  logoOutline,
-  mapIcon,
-  mapIconDark,
-  profileIcon,
-  profileIconDark,
-  search,
-  user,
-} from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import { usePathname, useRouter } from "next/navigation";
 
 interface HeaderProps {
-  // Define your props here
   setCreateAccountModal?: Function;
   createAccountModal?: boolean;
   showMap?: boolean;
@@ -23,17 +11,33 @@ interface HeaderProps {
   iconClick: Function;
 }
 
-const HeadMenu = styled.div<{
-  $pathname: string;
-}>`
+// const HeadMenu = styled.div<{
+//   $pathname: string;
+// }>`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 0px 40px;
+//   padding-top: 64px;
+//   padding-bottom: 6px;
+//   background-color: ${({ $pathname }) =>
+//     $pathname === "/" ? "transparent" : "#FDFDFD"};
+
+//   @media screen and (max-width: 800px) {
+//     padding: 0px 16px;
+//     padding-top: 40px;
+//     display: none;
+//   }
+// `;
+
+const HeadMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 40px;
   padding-top: 64px;
   padding-bottom: 6px;
-  background-color: ${({ $pathname }) =>
-    $pathname === "/" ? "transparent" : "#FDFDFD"};
+  background-color: "transparent";
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
@@ -41,6 +45,7 @@ const HeadMenu = styled.div<{
     display: none;
   }
 `;
+
 const HeaderMapProfileContainer = styled.div`
   display: flex;
   align-items: center;
@@ -56,7 +61,8 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap }) => {
   };
   return (
     <>
-      <HeadMenu $pathname={pathname ? pathname : "/"}>
+      {/* <HeadMenu $pathname={pathname ? pathname : "/"}> */}
+      <HeadMenu>
         <Image
           style={{ cursor: "pointer" }}
           src={
