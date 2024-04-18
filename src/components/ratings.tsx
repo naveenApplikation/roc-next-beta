@@ -14,6 +14,10 @@ const Container = styled.div`
     font-size: 1.6rem;
     }
   }
+
+  :where(.css-dev-only-do-not-override-1k979oh).ant-rate .ant-rate-star:not(:last-child) {
+    margin-inline-end: 5px;
+}
 `;
 
 const RatingValue = styled.span`

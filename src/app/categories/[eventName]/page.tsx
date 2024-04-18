@@ -33,6 +33,9 @@ const CategoryBody = styled.div`
 position: relative;
  z-index: 1;
  width: 580px;
+ @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -91,8 +94,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       <>
       <CategoryBody>
       <HeaderScreen />
-        {/* {categories()} */}
-        <FinancialBox />
+        {categories()}
+        {/* <FinancialBox /> */}
       </CategoryBody>
         <SearchModalScreen {...{ tabChange, options, tabValue, showMap }}  />
         <ProfileAccountModalScreen showMap={showMap} />
