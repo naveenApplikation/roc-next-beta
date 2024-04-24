@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import { topSideMenu } from "@/app/dashboard/data";
 import Image from "next/image";
+import {fetchDatAll } from "@/app/API/Baseurl";
 
 interface DashboardProps {
     modalClick?: any;
@@ -28,7 +29,7 @@ const OptionMenu = styled(ScrollingMenu)`
   gap: 25px;
 `;
 
-const NormalOption = styled.div`
+const NormalOption = styled.a`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,12 +38,24 @@ const NormalOption = styled.div`
 `;
 
 const InfoApp: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+
+const [linkData, setLinkData] = useState("")
+
+  const fetchDataAsync = async () => {
+    const result = await fetchDatAll("/nav-links");
+    setLinkData(result.data[0])
+  };
+
+  useEffect(()=>{
+    fetchDataAsync()
+  },[])
+
   return (
     <>
       <OptionMenu>
-        {topSideMenu.map((item, index) => {
+        {topSideMenu.map((item:any, index:any) => {
           return (
-            <NormalOption key={index}>
+            <NormalOption key={index} href={linkData[item.name]} target="_blank" >
               <Image
                 src={item.image}
                 width={item.width}

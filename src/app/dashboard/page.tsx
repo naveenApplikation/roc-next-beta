@@ -41,9 +41,7 @@ import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalSc
 import DirectoryModalScreen from '@/components/AllModalScreen/DirectoryModalScreen'
 import { useMyContext } from "@/app/Context/MyContext";
 
-interface DashboardProps {
-  modalClick: Function;
-}
+
 
 const LeaveFeedbackButton = styled.div`
   padding-left: 40px;
@@ -51,12 +49,12 @@ const LeaveFeedbackButton = styled.div`
   padding-bottom: 20px;
 `
 
-const DashBoard: React.FC<DashboardProps> = ({ modalClick }) => {
+const DashBoard= () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
-  const {showMap,} = useMyContext()
+  const {showMap,modalClick} = useMyContext()
 
   const menuClick = (item: any, condition?: boolean, id?: number) => {
     if (condition) {

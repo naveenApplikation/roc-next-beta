@@ -1,9 +1,13 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
 import { familyEventMenuItem } from "@/app/dashboard/data";
 import Image from "next/image";
+import { useMyContext } from "@/app/Context/MyContext";
+import {fetchDatAll } from "@/app/API/Baseurl";
+import {formatMonth,formatDate} from '@/app/utils/date'
+import {ApiResponse} from '@/app/utils/types'
 
 interface DashboardProps {
     modalClick?: any;
@@ -29,7 +33,7 @@ const FamilEventContainer = styled.div`
   display: flex;
   width: 80px;
   flex-direction: column;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   gap: 8px;
   flex-shrink: 0;
 
@@ -79,31 +83,49 @@ const FamilyEventWrapperInside = styled.div`
 `;
 
 const FamilyEvent: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+
+  const {filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      const result = await fetchDatAll('/family-events');
+      setData(result);
+    };
+
+    fetchDataAsync();
+  }, []);
+
+ const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Family Events", true, 1)} title="Family Events" />
+      <MenuDetails isOpen={() => menuClick("Family Events", true, "Events")} title="Family Events" />
       <ScrollingMenu>
-        {familyEventMenuItem.map((item, index) => {
+        {data.slice(0, 10).map((item, index) => {
           return (
             <FamilEventContainer
               key={index}
-              onClick={() => modalClick("eventListing", item)}
+              onClick={() => modalClick("eventListing", item,filteredUrls[index])}
               style={{ cursor: "pointer" }}
             >
               <FamilyEventWrapper>
                 <Image
-                  src={item.headerImage}
+                  src={filteredUrls[index]}
                   alt=""
                   width={80}
                   height={80}
                   style={{borderRadius:4}}
                 />
                 <FamilyEventWrapperInside>
-                  <p className="date">{item.date}</p>
-                  <p className="month">{item.month}</p>
+                  <p className="date">{formatDate(item.acf.event_dates[0].date)}</p>
+                  <p className="month">{formatMonth(item.acf.event_dates[0].date)}</p>
                 </FamilyEventWrapperInside>
               </FamilyEventWrapper>
-              <FamilEventText>{item.eventName}</FamilEventText>
+              <FamilEventText>{item.acf.title}</FamilEventText>
             </FamilEventContainer>
           );
         })}

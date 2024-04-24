@@ -1,12 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import {
+  formatMonth,
+  formatFullDate,
+  formatCalenderTime,
+  formatDay,
+  formatDate,
+} from "@/app/utils/date";
 import DashBoardButton from "../../components/button/DashBoardButton";
 import CommentRating from "../../components/dashboard/CommentRating";
-import {
-  EventListData,
-  LocalCuisineMenuItem,
-} from "@/app/dashboard/data";
+import { EventListData, LocalCuisineMenuItem } from "@/app/dashboard/data";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import CommonButton from "../../components/button/CommonButton";
 import {
@@ -24,6 +28,7 @@ interface ModalProps {
   //   reservationModal: Function;
   dataImage: any;
   reservationModal: any;
+  data?: any;
 }
 
 const Container = styled.div`
@@ -172,15 +177,15 @@ const DatesWrapperText = styled.div`
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
 
-  .imageContainer{
+  .imageContainer {
     border-radius: 6px;
     width: -webkit-fill-available;
 
     @media screen and (max-width: 1130px) {
-    height: auto;
+      height: auto;
+    }
   }
-  }
-`
+`;
 
 const BulletPointWrapper = styled.ul`
   list-style-type: disc;
@@ -196,14 +201,97 @@ const BulletPointWrapper = styled.ul`
   }
 `;
 
-const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
+const DateMonthWraaper = styled.div`
+  border-radius: 4px;
+  background: rgb(242, 242, 242);
+  text-align: center;
+  font-weight: bold;
+`;
+
+const Monthstyle = styled.p`
+  background: red;
+  font-size: 10px;
+  color: white;
+  padding: 0px 5px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  text-transform: uppercase;
+`;
+
+const ModalContent: React.FC<ModalProps> = ({
+  dataImage,
+  reservationModal,
+  data,
+}) => {
+  const EventListData = [
+    {
+      // name: formatFullDate(data.acf?.event_dates[0]?.date),
+      name: "ssds",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
+      width: 14,
+      height: 24,
+    },
+    {
+      // name: data.acf?.event_dates[0]?.start_time,
+      name: "sdsd",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: `£ ${data.acf?.from_price}`,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      width: 10,
+      height: 24,
+    },
+    {
+      name: data.acf?.email_address,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: data?.link,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: data.acf?.map_location.address,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      width: 12,
+      height: 24,
+    },
+  ];
+
+  const formattedValues = data.acf?.type
+    .map((item: any) => item.label)
+    .join(" | ");
+
+  const strippedContent = data.acf?.short_description
+    .replace(/<p[^>]*>/g, "")
+    .replace(/<\/p>/g, "");
+
+  const formatRoute = (routeText: any) => {
+    return routeText
+      .replace("<br>", ": ")
+      .replace("<i>", "")
+      .replace("</i>", "")
+      .replace(/(\()/, "")
+      .replace(/\)/, "");
+  };
+
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "14px" }}>
-            Family friendly | Sports | Outdoor | Spect...
-          </p>
+          <p style={{ fontSize: "14px" }}>{formattedValues}</p>
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
@@ -220,29 +308,28 @@ const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
           return (
             <ResturantDetailsWrapper key={index}>
               {" "}
-              <div style={{width:20}}>
-              <Image
-                style={{ cursor: "pointer",height:"auto" }}
-                src={item.image}
-                width={item.width}
-                height={item.height}
-                alt="Logo Outline"
+              <div style={{ width: 20 }}>
+                <Image
+                  style={{ cursor: "pointer", height: "auto" }}
+                  src={item.image}
+                  width={item.width}
+                  height={item.height}
+                  alt="Logo Outline"
                 />{" "}
-                </div>
-              <RestDetailTitle style={{marginLeft:(index == 5)?5:0}}>{item.name}</RestDetailTitle>
+              </div>
+              <RestDetailTitle
+                style={{ marginLeft: index == 4 || index == 5 ? 5 : 0 }}
+              >
+                {item.name}
+              </RestDetailTitle>
             </ResturantDetailsWrapper>
           );
         })}
-        <ViewDirection onClick={() => reservationModal("DirectionModal")}>View Directions</ViewDirection>
+        <ViewDirection onClick={() => reservationModal("DirectionModal")}>
+          View Directions
+        </ViewDirection>
       </ResturantDetailsContainer>
-      <RestDetailText>
-        Head to Springfield Stadium and watch the Jersey Bulls, English
-        football's newest and most southernly club, as they host an action
-        packed exhibition of football. Jersey Bulls have been climbing the
-        leagues and have been involved in a number of successful cup runs,
-        including the FA Cup, FA Vase and have most recently entered the FA
-        Youth Cup.
-      </RestDetailText>
+      <RestDetailText>{strippedContent}</RestDetailText>
       <AlsoSeeText>More information</AlsoSeeText>
       <MoreInfo>
         <p>Home Fixtures:</p>
@@ -259,42 +346,48 @@ const ModalContent: React.FC<ModalProps> = ({dataImage,reservationModal}) => {
         <p>20/04 = Fleet Town</p>
       </MoreInfo>
       <AlsoSeeText>More dates</AlsoSeeText>
-      <DatesContainer>
-        <DatesWrapperText>
-          <p>09/03/2024</p>
-          <p>SATURDAY</p>
-          <p>15:00</p>
-        </DatesWrapperText>
-        <div style={{ borderRadius: 4, background: "#F2F2F2",textAlign:"center",fontWeight:"bold"}}>
-          <p style={{fontSize:17}}>9</p>
-          <p style={{ background: "red",fontSize:10,color:"white",padding:"0px 5px",borderBottomLeftRadius:4,borderBottomRightRadius:4 }}>MAR</p>
-        </div>
-      </DatesContainer>
-      <AlsoSeeText>More dates</AlsoSeeText>
+      {data.acf?.event_dates?.map((item: any, index: any) => (
+        <DatesContainer key={index}>
+          <DatesWrapperText>
+            <p>{formatCalenderTime(item.date)}</p>
+            <p>{formatDay(item.date)}</p>
+            <p>{item.start_time}</p>
+          </DatesWrapperText>
+          <DateMonthWraaper>
+            <p style={{ fontSize: 17 }}>{formatDate(item.date)}</p>
+            <Monthstyle>{formatMonth(item.date)}</Monthstyle>
+          </DateMonthWraaper>
+        </DatesContainer>
+      ))}
+      <AlsoSeeText>Key Features</AlsoSeeText>
       <BulletPointWrapper>
-        <li>Outdoor</li>
-        <li>Family friendly</li>
-        <li>Couples</li>
-        <li>Wheelchair access</li>
+        {data.acf?.key_facilities.map((item: any, index: any) => (
+          <li key={index}>{item.label}</li>
+        ))}
       </BulletPointWrapper>
       <AlsoSeeText>Accessibility</AlsoSeeText>
       <BulletPointWrapper>
-        <li>Level access to bar</li>
-        <li>Level access to dining room, cafe or restaurant</li>
-        <li>Level access to main entrance</li>
-        <li>Suitable for visitors with limited mobility</li>
+        {data.acf?.accessibility.map((item: any, index: any) => (
+          <li key={index}>{item.label}</li>
+        ))}
       </BulletPointWrapper>
       <AlsoSeeText>Bus Route</AlsoSeeText>
       <BulletPointWrapper>
-        <li style={{ textDecoration: "underline" }}>
-          Route 23: Liberation Station - Jersey Zoo
-        </li>
+        {data.acf?.bus_routes.map((item: any, index: any) => (
+          <li key={index} style={{ textDecoration: "underline" }}>
+            {formatRoute(item.label)}
+          </li>
+        ))}
       </BulletPointWrapper>
       <AlsoSeeText>Opening</AlsoSeeText>
       <BulletPointWrapper>
         <li>
-          January, February, March, April, July, August, September, October,
-          November, December
+          {data.acf?.seasonality.map((item: any, index: any) => (
+            <p key={index}>
+              {item.label}
+              {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+            </p>
+          ))}
         </li>
       </BulletPointWrapper>
     </Container>

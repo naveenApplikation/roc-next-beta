@@ -139,7 +139,7 @@ const AllCategories = styled.div`
   }
 `;
 
-const page = () => {
+const RightSide = () => {
   const { modalClick, showMap, iconClick } = useMyContext();
 
   const router = useRouter();
@@ -226,4 +226,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default RightSide;

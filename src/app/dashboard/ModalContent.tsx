@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import DashBoardButton from "../../components/button/DashBoardButton";
 import CommentRating from "../../components/dashboard/CommentRating";
-import { ResturantDetailData, LocalCuisineMenuItem } from "./data";
+import { LocalCuisineMenuItem } from "./data";
 import RatingMenu from "../../components/dashboard/RatingMenu";
 import CommonButton from "../../components/button/CommonButton";
 import {
@@ -14,12 +14,17 @@ import {
   BlackStar,
   clientLogoImg,
   calenderWhiteImg,
+  clock,
+  globes,
+  phoneBlack,
+  locationDot,
 } from "../utils/ImagePath";
 
 interface ModalProps {
   onClose: () => void;
   reservationModal: Function;
   dataImage: any;
+  data?: any;
 }
 
 const Container = styled.div`
@@ -31,12 +36,14 @@ const Container = styled.div`
 const ResturatContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0px 24px;
+  gap: 10px;
 `;
 
 const ResturatWrapper = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
 `;
 
@@ -115,15 +122,15 @@ const ScrollingMenu = styled.div`
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
 
-  .imageContainer{
+  .imageContainer {
     border-radius: 6px;
     width: -webkit-fill-available;
 
     @media screen and (max-width: 1130px) {
-    height: auto;
+      height: auto;
+    }
   }
-  }
-`
+`;
 
 const MenuButtonContainer = styled.div`
   padding: 0px 24px;
@@ -161,6 +168,9 @@ const DatesWrapperText = styled.div`
   font-weight: 400;
   line-height: 24px; /* 150% */
   margin: 16px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
 `;
 
 const WeekTimeArrange = styled.div`
@@ -174,6 +184,7 @@ const WeekTimeArrange = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
+    text-transform: capitalize;
   }
 `;
 
@@ -190,23 +201,45 @@ const ModalContent: React.FC<ModalProps> = ({
   onClose,
   reservationModal,
   dataImage,
+  data,
 }) => {
-  const WeekDays = [
-    "Monday:",
-    "Tuesday:",
-    "Wednesday:",
-    "Thursday:",
-    "Friday:",
-    "Saturday:",
-    "Sunday:",
+
+  const ResturantDetailData = [
+    {
+      name: "Open ⋅ Closes 11 pm",
+      image: clock,
+    },
+    {
+      name: data.link,
+      image: globes,
+    },
+    {
+      name: data.acf?.telephone_number.number,
+      image: phoneBlack,
+    },
+    {
+      name: data.acf?.map_location.address,
+      image: locationDot,
+    },
   ];
+
+  const formattedValues = data.acf?.type
+    .map((item: any) => item.label)
+    .join(" | ");
+
+  const strippedContent = data.acf?.short_description
+    .replace(/<p[^>]*>/g, "")
+    .replace(/<\/p>/g, "");
+
+    const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
+    const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as { opens: string,closes:string  }[];
 
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "16px" }}>Restaurant</p>
-          <p>|</p>
+          <p style={{ fontSize: "16px" }}>{formattedValues}</p>
+          <p style={{ fontSize: 16 }}>|</p>
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
         <Image
@@ -238,7 +271,7 @@ const ModalContent: React.FC<ModalProps> = ({
               <RestDetailTitle>{item.name}</RestDetailTitle>
               {index == 0 && (
                 <Image
-                  style={{ cursor: "pointer", width: "auto", height: "auto" }}
+                  style={{ cursor: "pointer", height: "auto" }}
                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
                   alt="Logo down"
                   width={10}
@@ -252,11 +285,7 @@ const ModalContent: React.FC<ModalProps> = ({
           View Directions
         </ViewDirection>
       </ResturantDetailsContainer>
-      <RestDetailText>
-        Traditional french Brasserie serving breakfast, lunch and dinner in a
-        stunning lively town centre setting. Al fresco seating available for
-        drinks and snacks.
-      </RestDetailText>
+      <RestDetailText>{strippedContent}</RestDetailText>
       <MenuButtonContainer>
         <DashBoardButton
           text="Special menu"
@@ -298,13 +327,14 @@ const ModalContent: React.FC<ModalProps> = ({
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-          January, February, March, April, July, August, September, October,
-          November, December
+          {data.acf?.seasonality.map((item: any, index: any) => (
+            <p key={index}>{item.label}{index !== data.acf?.seasonality.length - 1 && ','} </p>
+          ))}
         </DatesWrapperText>
-        {WeekDays.map((item, index) => (
+        {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
-            <p>{item}</p>
-            <p>09:00 - 18:00</p>
+            <p>{item}:</p>
+            <p>{(daysOfWeekTiming[index].opens)} - {(daysOfWeekTiming[index].closes)}</p>
           </WeekTimeArrange>
         ))}
       </DatesContainer>

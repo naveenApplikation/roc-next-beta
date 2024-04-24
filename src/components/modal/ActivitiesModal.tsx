@@ -298,7 +298,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
               </RestDetailTitle>
               {index == 1 && (
                 <Image
-                  style={{ cursor: "pointer", width: "auto", height: "auto" }}
+                  style={{ cursor: "pointer", height: "auto" }}
                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
                   alt="Logo down"
                   width={10}

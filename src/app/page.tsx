@@ -96,7 +96,7 @@ export default function Home() {
       <MainContainer>
       <DashboardMenu $showMap={showMap}>
         <Header {...{ modalClick, iconClick, showMap }} />
-        <Dashboard modalClick={modalClick} />
+        <Dashboard />
       </DashboardMenu>
       </MainContainer>
       {showMap && <MapWithMenu />}

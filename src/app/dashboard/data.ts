@@ -44,56 +44,56 @@ import {
 
 export const topSideMenu = [
   {
-    name: "Weather",
+    name: "weather",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle.png?alt=media&token=7f44cc9f-a512-4e50-b38e-7f338a7a0225",
     width: 16,
     height: 16,
   },
   {
-    name: "News",
+    name: "news",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(1).png?alt=media&token=0e613108-f98c-46b6-8816-73e3ea9d9eb0",
     width: 16,
     height: 16,
   },
   {
-    name: "Travel",
+    name: "travels",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(2).png?alt=media&token=4050b487-86d9-400a-9ce5-2072560b9e3f",
     width: 20,
     height: 16,
   },
   {
-    name: "SOS",
+    name: "sos",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(3).png?alt=media&token=d65d73a5-438f-4b3f-b9dc-d02eebc5968d",
     width: 20,
     height: 16,
   },
   {
-    name: "Tides",
+    name: "tides",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(4).png?alt=media&token=036d998e-21b1-485b-b4fc-a4180c0969bb",
     width: 18,
     height: 16,
   },
   {
-    name: "Flights",
+    name: "flight",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(5).png?alt=media&token=d4673b91-05fc-40e4-a776-5651988ff4d5",
     width: 18,
     height: 16,
   },
   {
-    name: "Sailings",
+    name: "sailing",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fsailing.png?alt=media&token=fa0f72a1-1504-40a8-939a-da540684225f",
     width: 16,
     height: 16,
   },
   {
-    name: "Phones",
+    name: "phones",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fphotos.png?alt=media&token=15a406e9-198b-49a6-9166-919b737f10bb",
     width: 16,

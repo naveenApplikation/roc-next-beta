@@ -6,6 +6,7 @@ import BetaUIModal from "../modal/BetaUIModal";
 import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import { MobileRocLogo } from "@/app/utils/ImagePath";
+import { verifyInviteCode } from "@/app/API/Baseurl";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -103,9 +104,18 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
   const [inputValue, setInputValue] = useState("");
   // const [loading, setLoading] = useState(true);
 
+
+
+  const fetchDataAsync = async () => {
+    const result = await verifyInviteCode(inputValue);
+    localStorage.setItem("hideUI", inputValue.trim());
+    setShowContent(false);
+    localStorage.setItem("Token", result.data);
+  };
+
   const [modalType, setModalType] = useState({
     ModalContent: false,
-    AboutRoc:false
+    AboutRoc: false,
   });
 
   const modalClick = (name: string) => {
@@ -132,12 +142,12 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
     // setLoading(false);
   }, []);
 
-  const handleOKClick = () => {
-    if (inputValue.trim() == "1234") {
-      localStorage.setItem("hideUI", inputValue.trim());
-      setShowContent(false);
-    }
-  };
+  // const handleOKClick = () => {
+  //   if (inputValue.trim() == "1234") {
+  //     localStorage.setItem("hideUI", inputValue.trim());
+  //     setShowContent(false);
+  //   }
+  // };
 
   return (
     <>
@@ -147,7 +157,12 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
             <div className="shadow-background"></div>
             <div className="content-wrapper">
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <Image src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FBETA.png?alt=media&token=94d2f0f3-f0f1-4e2f-b81f-80aa889cf243" width={117} height={68} alt="right icon" />
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FBETA.png?alt=media&token=94d2f0f3-f0f1-4e2f-b81f-80aa889cf243"
+                  width={117}
+                  height={68}
+                  alt="right icon"
+                />
               </div>
               <ContentInfo>
                 Enter the private invite code or sign up to the waiting list
@@ -161,15 +176,21 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
                     placeholder="Enter code"
                   />
                 </MenuInputField>
-                <div onClick={handleOKClick} style={{ marginTop: 8 }}>
+                <div onClick={fetchDataAsync} style={{ marginTop: 8 }}>
                   <CommonButton text="Submit" />
                 </div>
               </div>
               <div>
-                <JoinText onClick={() => modalClick("ModalContent")} style={{cursor:"pointer"}}>
+                <JoinText
+                  onClick={() => modalClick("ModalContent")}
+                  style={{ cursor: "pointer" }}
+                >
                   Join the waiting list
                 </JoinText>
-                <JoinText style={{ marginTop: 24,cursor:"pointer" }} onClick={() => modalClick("AboutRoc")}>
+                <JoinText
+                  style={{ marginTop: 24, cursor: "pointer" }}
+                  onClick={() => modalClick("AboutRoc")}
+                >
                   Read more about ROC
                 </JoinText>
               </div>
@@ -192,7 +213,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
         name="AboutRoc"
         title="About ROC"
       >
-        <p style={{textAlign:"center",fontSize:16}}>to do...</p>
+        <p style={{ textAlign: "center", fontSize: 16 }}>to do...</p>
       </AboutRocModal>
     </>
   );

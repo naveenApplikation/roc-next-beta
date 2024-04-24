@@ -1,12 +1,14 @@
 import { familyEventMenuItem } from "@/app/dashboard/data";
 import { blank, locationMark, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
-import Ratings from "../ratings";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import FilterSection from "@/components/filterSection";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
+import {fetchDatAll } from "@/app/API/Baseurl";
+import {formatMonth,formatDate} from '@/app/utils/date'
+import {ApiResponse} from '@/app/utils/types'
 
 interface EventBoxProps {
   urlData?: any;
@@ -16,6 +18,7 @@ interface EventBoxProps {
 const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #f2f3f3;
+  min-height: 100vh;
 `;
 
 const SearchedData = styled.div`
@@ -100,11 +103,26 @@ const TitleText = styled.p`
 
 const AddListButton = styled.div`
   padding-top: 20px;
-`
+`;
 
 const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
 
-  const {modalClick} = useMyContext();
+  const { modalClick,filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      const result = await fetchDatAll('/family-events');
+      setData(result);
+    };
+
+    fetchDataAsync();
+  }, []);
+
+ const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <SearchedListContainer>
@@ -114,7 +132,7 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
           <FilterSection />
         </div>
       )}
-      {familyEventMenuItem.map((item: any, index: any) => {
+      {data.map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
             <div
@@ -126,20 +144,20 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
             >
               <FamilyEventWrapper>
                 <Image
-                  src={item.headerImage}
+                  src={filteredUrls[index]}
                   alt=""
                   width={80}
                   height={80}
-                  style={{ borderRadius: 4,cursor:"pointer" }}
+                  style={{ borderRadius: 4, cursor: "pointer" }}
                   onClick={() => modalClick("eventListing", item)}
                 />
                 <FamilyEventWrapperInside>
-                  <p className="date">{item.date}</p>
-                  <p className="month">{item.month}</p>
+                  <p className="date">{formatDate(item.acf.event_dates[0].date)}</p>
+                  <p className="month">{formatMonth(item.acf.event_dates[0].date)}</p>
                 </FamilyEventWrapperInside>
               </FamilyEventWrapper>
               <div className="restroRating">
-                <p className="shopName">{item.eventName}</p>
+                <p className="shopName">{item.acf.title}</p>
                 <DetailContainer>
                   <Image
                     src={locationMark}
@@ -150,10 +168,10 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
                     }}
                     alt="utensils"
                   />
-                  <p>St Helier</p>
+                  <p>{item.acf.parish.label}</p>
                 </DetailContainer>
                 <p>
-                  <span>11:40 - 14:00</span>
+                  <span>{item.acf.event_dates[0].start_time} - {item.acf.event_dates[0].end_time}</span>
                 </p>
               </div>
             </div>

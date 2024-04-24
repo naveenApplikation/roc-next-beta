@@ -9,7 +9,7 @@ import FinancialBox from '@/components/financialBox/page';
 import ScaffoldingBox from '@/components/scaffoldingBox/page';
 import StaysBox from '@/components/staysBox/page';
 import { useParams } from 'next/navigation';
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'next/navigation';
 import HeaderScreen from '@/components/header/HeaderScreen'
@@ -25,6 +25,7 @@ import EventListingModalScreen from '@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
 import CategorieList from '@/components/categorieList/page';
 import { useMyContext } from "@/app/Context/MyContext";
+import { fetchData } from '@/app/API/Baseurl';
 
 interface CategoriesPageProps {
   // Define your props here
@@ -33,6 +34,13 @@ const CategoryBody = styled.div`
 position: relative;
  z-index: 1;
  width: 580px;
+ height: 100%;
+ overflow: auto;
+
+ &::-webkit-scrollbar {
+    display: none;
+  }
+
  @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -59,6 +67,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
     const [myListtabValue, setMyListTabValue] = useState("Created");
 
+
     const myListtabChange = (value: mylisttabs) => {
       setMyListTabValue(value);
     };
@@ -67,12 +76,37 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
  
   const search = searchParams.get('search')
 
+  
+  interface ApiResponse {
+    id: number;
+    name: string;
+  }
+
+  const [data, setData] = useState<ApiResponse | string>("");
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        if (search) {
+          const result = await fetchData(search);
+          setData(result);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchDataAsync();
+  }, [search]);
+
+  // console.log(data,"data")
+
   const {showMap,modalName,modalClick} = useMyContext()
  
 
   const categories = () => {
     if (urlData === "Family Events") {
-      return <EventBox urlData={search} urlTitle={urlData}  />
+      return <EventBox urlData={data} urlTitle={urlData}  />
     }else if(urlData === "Enjoy the sunshine"){
       return <ExperienceBox urlData={search} urlTitle={urlData}   />
     }else if(urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" ){

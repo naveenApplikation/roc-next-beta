@@ -97,6 +97,7 @@ body {
 
 html{
   font-size: 62.5%;
+  font-family: __Inter_aaf875, __Inter_Fallback_aaf875;;
 }
 
 @media screen and (max-width: 1100px) {
@@ -117,6 +118,13 @@ body {
     background-attachment:fixed;
     background-size: cover;
 }
+
+@media screen and (max-width: 800px) {
+  body{
+    background-size: auto;
+  }
+}
+
 
 a {
   color: inherit;
