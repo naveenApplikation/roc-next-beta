@@ -1,8 +1,10 @@
-import React from "react";
-import MenuDetails from "@/components/dashboard/MenuDetails";
+import React,{useEffect,useState} from "react";
+import {fetchDatAll } from "@/app/API/Baseurl";
+import {ApiResponse} from '@/app/utils/types'
+import { useMyContext } from "@/app/Context/MyContext";
 import styled from "styled-components";
-import { topAttractionItem } from "@/app/dashboard/data";
 import Image from "next/image";
+import MenuDetails from "@/components/dashboard/MenuDetails";
 
 interface DashboardProps {
     modalClick?: any;
@@ -51,20 +53,38 @@ const TopAttractionprofile = styled.div`
 `;
 
 const TopAttractions: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+
+  const {filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const fetchDataAsync = async () => {
+    const result = await fetchDatAll('/top-attractions');
+    setData(result)
+  };
+
+  useEffect(()=>{
+    fetchDataAsync()
+  },[])
+
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
   return (
     <>
-     <MenuDetails isOpen={() => menuClick("Top Attractions", true,2)} title="Top Attractions" />
+     <MenuDetails isOpen={() => menuClick("Top Attractions", true,"top-attractions")} title="Top Attractions" />
       <ScrollingMenu>
-        {topAttractionItem.map((item, index) => {
+        {data?.slice(0, 10).map((item, index) => {
           return (
             <TopAttractionContainer
               key={index}
               style={{ cursor: "pointer" }}
-              onClick={() => modalClick("ModalContent", item)}
+              onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
             >
               <TopAttractionprofile>
                 <Image
-                  src={item.headerImage}
+                  src={filteredUrls[index]}
                   alt=""
                   width={80}
                   height={80}
@@ -72,7 +92,7 @@ const TopAttractions: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
                   // alt=""
                 />
               </TopAttractionprofile>
-              <p>{item.resturantName}</p>
+              <p>{item.acf.title}</p>
             </TopAttractionContainer>
           );
         })}

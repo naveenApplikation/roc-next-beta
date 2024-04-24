@@ -28,7 +28,7 @@ const ScrollingMenu = styled.div`
 const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   return (
     <>
-      <MenuDetails title="Bars" isOpen={() => menuClick("Bars", true, 3)} />
+      <MenuDetails title="Bars" isOpen={() => menuClick("Bars", true,"bar-pubs")} />
       <ScrollingMenu>
         {BarMenuItem.map((item, index) => {
           return (

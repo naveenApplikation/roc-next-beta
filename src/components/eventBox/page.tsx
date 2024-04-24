@@ -13,6 +13,7 @@ import {ApiResponse} from '@/app/utils/types'
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
+  filteredUrls?:any
 }
 
 const SearchedListContainer = styled.div`
@@ -105,24 +106,9 @@ const AddListButton = styled.div`
   padding-top: 20px;
 `;
 
-const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
+const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData,filteredUrls }) => {
 
-  const { modalClick,filterUrls } = useMyContext();
-
-  const [data, setData] = useState<ApiResponse[]>([]);
-
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      const result = await fetchDatAll('/family-events');
-      setData(result);
-    };
-
-    fetchDataAsync();
-  }, []);
-
- const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
-
-  const filteredUrls = filterUrls(ImageUrlData);
+  const {modalClick} = useMyContext();
 
   return (
     <SearchedListContainer>
@@ -132,7 +118,7 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
           <FilterSection />
         </div>
       )}
-      {data.map((item: any, index: any) => {
+      {urlData?.map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
             <div
@@ -149,7 +135,7 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
                   width={80}
                   height={80}
                   style={{ borderRadius: 4, cursor: "pointer" }}
-                  onClick={() => modalClick("eventListing", item)}
+                  onClick={() => modalClick("eventListing", item,filteredUrls[index])}
                 />
                 <FamilyEventWrapperInside>
                   <p className="date">{formatDate(item.acf.event_dates[0].date)}</p>

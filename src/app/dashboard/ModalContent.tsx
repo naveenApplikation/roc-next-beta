@@ -223,9 +223,13 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-  const formattedValues = data.acf?.type
-    .map((item: any) => item.label)
-    .join(" | ");
+  const formattedValues = ()=>{
+    if(Array.isArray(data.acf?.type)){
+      return data.acf?.type.map((item: any) => item.label).join(" | ")
+    }else{
+     return data.acf?.type.label
+    }
+  }
 
   const strippedContent = data.acf?.short_description
     .replace(/<p[^>]*>/g, "")
@@ -238,7 +242,7 @@ const ModalContent: React.FC<ModalProps> = ({
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "16px" }}>{formattedValues}</p>
+          <p style={{ fontSize: "16px" }}>{formattedValues()}</p>
           <p style={{ fontSize: 16 }}>|</p>
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
@@ -327,7 +331,7 @@ const ModalContent: React.FC<ModalProps> = ({
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-          {data.acf?.seasonality.map((item: any, index: any) => (
+          {data.acf?.seasonality && data.acf?.seasonality.map((item: any, index: any) => (
             <p key={index}>{item.label}{index !== data.acf?.seasonality.length - 1 && ','} </p>
           ))}
         </DatesWrapperText>

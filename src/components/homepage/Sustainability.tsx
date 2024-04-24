@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import { BarMenuItem } from "@/app/dashboard/data";
-import Image from "next/image";
+import { fetchDatAll } from "@/app/API/Baseurl";
+import { ApiResponse } from "@/app/utils/types";
+import { useMyContext } from "@/app/Context/MyContext";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 
 interface DashboardProps {
@@ -29,20 +31,42 @@ const Sustainability: React.FC<DashboardProps> = ({
   modalClick,
   menuClick,
 }) => {
+  const { filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const fetchDataAsync = async () => {
+    const result = await fetchDatAll("/sustainability");
+    setData(result);
+  };
+
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
+
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
   return (
     <>
-      <MenuDetails title="Sustainability" isOpen={() => menuClick("Sustainability", true, 3)} />
+      <MenuDetails
+        title="Sustainability"
+        isOpen={() => menuClick("Sustainability", true, "sustainability")}
+      />
       <ScrollingMenu>
-        {BarMenuItem.map((item, index) => {
+        {data?.slice(0, 10).map((item, index) => {
           return (
             <div key={index}>
               <RatingMenu
-                title={item.menuName}
-                menuImageUrl={item.image}
-                headerImage={item.headerImage}
+                title={item.acf.parish.label}
+                menuImageUrl={
+                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65"
+                }
+                headerImage={filteredUrls[index]}
                 containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
-                isOpen={() => modalClick("ModalContent", item)}
+                MenutitleDetail={item.acf.title}
+                isOpen={() => modalClick("ModalContent", item,filteredUrls[index])}
               />
             </div>
           );

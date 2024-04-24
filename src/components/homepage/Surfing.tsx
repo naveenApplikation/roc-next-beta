@@ -1,8 +1,11 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import { LocalCuisineMenuItem } from "@/app/dashboard/data";
 import Image from "next/image";
+import {fetchDatAll } from "@/app/API/Baseurl";
+import {ApiResponse} from '@/app/utils/types'
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
   modalClick?: any;
@@ -61,21 +64,42 @@ const StarWrapper = styled.div`
 `;
 
 const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+
+
+  const {filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const fetchDataAsync = async () => {
+    const result = await fetchDatAll('/surfing');
+
+    const combinedArray = [...result.activity1, ...result.activity2];
+    setData(combinedArray);
+  };
+
+  useEffect(()=>{
+    fetchDataAsync()
+  },[])
+
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Surfing",true,1)} title="Surfing" />
+      <MenuDetails isOpen={() => menuClick("Surfing",true,"surfing")} title="Surfing" />
       <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item, index) => {
+        {data?.slice(0, 10).map((item, index) => {
           return (
             <StarContainer
               key={index}
               style={{ cursor: "pointer" }}
-              onClick={() => modalClick("ModalContent", item)}
+              onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
             >
               <StarWrapper>
                 <Image
                   className="StarImageStyle"
-                  src={item.headerImage}
+                  src={filteredUrls[index]}
                   alt=""
                   width={120}
                   height={64}
@@ -99,7 +123,7 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   />{" "}
                   <p>4.7</p>
                 </div>
-                <p style={{ fontSize: 14,marginTop:8  }}>{item.resturantName}</p>
+                <p style={{ fontSize: 14,marginTop:8  }}>{item.acf.title}</p>
               </div>
             </StarContainer>
           );

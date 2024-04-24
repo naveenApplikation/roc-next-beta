@@ -56,7 +56,7 @@ const DashBoard= () => {
 
   const {showMap,modalClick} = useMyContext()
 
-  const menuClick = (item: any, condition?: boolean, id?: number) => {
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "Dine") {

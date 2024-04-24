@@ -225,16 +225,16 @@ const ModalContent: React.FC<ModalProps> = ({
 }) => {
   const EventListData = [
     {
-      // name: formatFullDate(data.acf?.event_dates[0]?.date),
-      name: "ssds",
+      name: data.acf?.event_dates ? formatFullDate(data.acf?.event_dates[0]?.date) : "No events",
+      // name: "ssds",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
       width: 14,
       height: 24,
     },
     {
-      // name: data.acf?.event_dates[0]?.start_time,
-      name: "sdsd",
+      name: data.acf?.event_dates ? data.acf?.event_dates[0]?.start_time : "No events",
+      // name: "sdsd",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
@@ -270,9 +270,14 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-  const formattedValues = data.acf?.type
-    .map((item: any) => item.label)
-    .join(" | ");
+
+  const formattedValues = ()=>{
+    if(Array.isArray(data.acf?.type)){
+      return data.acf?.type.map((item: any) => item.label).join(" | ")
+    }else{
+     return data.acf?.type.label
+    }
+  }
 
   const strippedContent = data.acf?.short_description
     .replace(/<p[^>]*>/g, "")
@@ -291,7 +296,7 @@ const ModalContent: React.FC<ModalProps> = ({
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "14px" }}>{formattedValues}</p>
+          <p style={{ fontSize: "14px" }}>{formattedValues()}</p>
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
@@ -382,7 +387,7 @@ const ModalContent: React.FC<ModalProps> = ({
       <AlsoSeeText>Opening</AlsoSeeText>
       <BulletPointWrapper>
         <li>
-          {data.acf?.seasonality.map((item: any, index: any) => (
+          {data.acf?.seasonality && data.acf?.seasonality.map((item: any, index: any) => (
             <p key={index}>
               {item.label}
               {index !== data.acf?.seasonality.length - 1 && ","}{" "}

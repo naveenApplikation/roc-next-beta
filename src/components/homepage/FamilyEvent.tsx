@@ -103,7 +103,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Family Events", true, "Events")} title="Family Events" />
+      <MenuDetails isOpen={() => menuClick("Family Events", true, "family-events")} title="Family Events" />
       <ScrollingMenu>
         {data.slice(0, 10).map((item, index) => {
           return (

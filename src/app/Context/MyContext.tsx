@@ -83,17 +83,24 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
-  const filterUrls = (ImageUrlData:any) => {
+  const filterUrls = (ImageUrlData: any) => {
     const imageUrls: string[] = [];
     ImageUrlData.forEach((item: any) => {
-      try {
-        const jsonData = JSON.parse(item);
-        const url = jsonData[0]['url']; 
-        if (url && (url.endsWith('.jpg') || url.endsWith('.png'))) {
-          imageUrls.push(url);
+      if (item) { // Check if item is not undefined
+        try {
+          const jsonData = JSON.parse(item);
+          const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
+          if (url && (url.endsWith('.jpg') || url.endsWith('.png'))) {
+            imageUrls.push(url);
+          } else {
+            imageUrls.push("https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"); // Push default image URL if URL is not valid
+          }
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          imageUrls.push("default_image_url.jpg"); // Push default image URL if JSON parsing fails
         }
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
+      } else {
+        imageUrls.push("https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"); // Push default image URL if item is undefined
       }
     });
     return imageUrls;

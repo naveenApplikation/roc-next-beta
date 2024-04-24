@@ -25,7 +25,8 @@ import EventListingModalScreen from '@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
 import CategorieList from '@/components/categorieList/page';
 import { useMyContext } from "@/app/Context/MyContext";
-import { fetchData } from '@/app/API/Baseurl';
+import {fetchDatAll } from "@/app/API/Baseurl";
+import {ApiResponse} from '@/app/utils/types'
 
 interface CategoriesPageProps {
   // Define your props here
@@ -76,37 +77,30 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
  
   const search = searchParams.get('search')
 
-  
-  interface ApiResponse {
-    id: number;
-    name: string;
-  }
-
-  const [data, setData] = useState<ApiResponse | string>("");
+  const [data, setData] = useState<ApiResponse[]>([]);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
-      try {
-        if (search) {
-          const result = await fetchData(search);
-          setData(result);
-        }
-      } catch (error) {
-        console.error(error);
+      const result = await fetchDatAll(`${search}`);
+      if(search == "surfing" || search == "ww2"){
+        const combinedArray = [...result.activity1, ...result.activity2];
+        setData(combinedArray);
+      }else{
+        setData(result);
       }
     };
-  
     fetchDataAsync();
   }, [search]);
 
-  // console.log(data,"data")
+  const {showMap,modalName,modalClick,filterUrls} = useMyContext()
 
-  const {showMap,modalName,modalClick} = useMyContext()
- 
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
 
   const categories = () => {
     if (urlData === "Family Events") {
-      return <EventBox urlData={data} urlTitle={urlData}  />
+      return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls}  />
     }else if(urlData === "Enjoy the sunshine"){
       return <ExperienceBox urlData={search} urlTitle={urlData}   />
     }else if(urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" ){
@@ -118,7 +112,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     }else if(urlData === "Scaffolding"){
       return <ScaffoldingBox />
     }else{
-      return <AttractionBox urlData={search} urlTitle={urlData} />
+      return <AttractionBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} />
     }
   }
 

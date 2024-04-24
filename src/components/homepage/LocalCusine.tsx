@@ -57,7 +57,7 @@ const LocalCusine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
         title="Local cuisine"
       />
       <ScrollingMenu>
-        {data.slice(0, 10).map((item, index) => (
+        {data?.slice(0, 10).map((item, index) => (
           <div key={index}>
             <RatingMenu
               title={item.acf.parish.label}

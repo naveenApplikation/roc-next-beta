@@ -1,7 +1,7 @@
 // import { RestroListData } from "@/app/dashboard/data";
 import { blank, thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import Ratings from "../ratings";
 import {
@@ -18,11 +18,14 @@ import {
 import FilterSection from "@/components/filterSection";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
+import {ApiResponse} from '@/app/utils/types'
+import {fetchDatAll } from "@/app/API/Baseurl";
 
 interface AttractionBoxProps {
   // Define your props here
   urlData?: any;
   urlTitle?: string;
+  filteredUrls?:any
 }
 
 const TitleText = styled.p`
@@ -35,7 +38,7 @@ const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #f2f3f3;
   width: 580px;
-  height: 100%;
+  min-height: 100vh;
   @media screen and (max-width: 800px) {
     width: 100%;
     padding: 40px 15px;
@@ -143,9 +146,9 @@ const AddListButton = styled.div`
 
 type MenuItemArray = (typeof LocalCuisineMenuItem)[];
 
-const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
+const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData,filteredUrls }) => {
 
-  const {modalClick} = useMyContext();
+  const {modalClick,filterUrls} = useMyContext();
 
   const dataShow = () => {
     if (urlData == 1) {
@@ -160,14 +163,12 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
     }
   };
 
-  // console.log(urlData,"asasa")
-
   return (
     <SearchedListContainer>
       <TitleText>{urlTitle}</TitleText>
       <LikeCount>5,281 likes</LikeCount>
       {(urlData != 77) && <div style={{margin:"24px 0px"}}><FilterSection /></div>}
-      {dataShow().map((item: any, index: any) => {
+      {urlData?.map((item: any, index: any) => {
         return (
           <SearchedData key={index}>
             <div
@@ -183,12 +184,12 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
                 <div style={{ position: "relative" }}>
                   <Image
                     // style={{ background: "white" }}
-                    src={item.headerImage}
+                    src={filteredUrls[index]}
                     width={80}
                     height={80}
                     style={{ borderRadius: 8,cursor:"pointer" }}
                     alt=""
-                    onClick={() => modalClick("ModalContent", item)}
+                    onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
                   />
                   {item.deliverActive && (
                     <DeliveryContainer>
@@ -208,13 +209,13 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({ urlTitle, urlData }) => {
                   )}
                 </div>
                 <div className="restroRating">
-                  <p className="shopName">{item.resturantName}</p>
+                  <p className="shopName">{item.acf.parish.label}</p>
                   <div style={{ alignItems: "center", display: "flex" }}>
                     <UtenssilsImage src={utensils} alt="utensils" />
                     <Ratings defaultValue={item.rating} />
                   </div>
                   <p>
-                    <span>Open - Closes {item.time}</span>
+                    <span>Open - Closes 11 pm</span>
                   </p>
                 </div>
               </div>
