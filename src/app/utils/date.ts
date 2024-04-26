@@ -22,3 +22,5 @@ export function formatMonth(timestamp: Date): string {
 export function formatTime(timestamp: Date): string {
   return moment(timestamp).format("LT");
 }
+
+export const skeletonItems = new Array(10).fill(null);

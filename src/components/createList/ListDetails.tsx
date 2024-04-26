@@ -4,9 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
-import { icons } from "../../app/dashboard/data";
+import { icons } from "@/app/utils/data";
 import Image from "next/image";
-import Checkbox from "@/components/Checkbox";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;

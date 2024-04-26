@@ -1,16 +1,17 @@
-import React,{useEffect,useState} from "react";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import {ApiResponse} from '@/app/utils/types'
+import React, { useEffect, useState } from "react";
+import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { LocalCuisineMenuItem } from "@/app/dashboard/data";
+import Instance from "@/app/utils/Instance";
+import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import Image from "next/image";
+import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -63,20 +64,29 @@ const StarWrapper = styled.div`
   }
 `;
 
-const Wellbeing: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
-
-  const {filterUrls } = useMyContext();
+const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { filterUrls } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
+  const [loader, setloader] = useState(true);
+
   const fetchDataAsync = async () => {
-    const result = await fetchDatAll('/well-being');
-    setData(result)
+    setloader(true);
+    try {
+      const result = await Instance.get("/well-being");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
   };
 
-  useEffect(()=>{
-    fetchDataAsync()
-  },[])
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 
@@ -84,48 +94,61 @@ const Wellbeing: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Wellbeing", true,"well-being")} title="Wellbeing" />
+      <MenuDetails
+        isOpen={() => menuClick("Wellbeing", true, "well-being")}
+        title="Wellbeing"
+      />
       <ScrollingMenu>
-        {data?.slice(0, 10).map((item, index) => {
-          return (
-            <StarContainer
-              key={index}
-              style={{ cursor: "pointer" }}
-              onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
-            >
-              <StarWrapper>
-                <Image
-                  className="StarImageStyle"
-                  src={filteredUrls[index]}
-                  alt=""
-                  width={120}
-                  height={64}
-                />
-                {index == 0 && <p>New</p>}
-              </StarWrapper>
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 4,
-                    alignItems: "center",
-                  }}
-                >
-                  <Image
-                    src={
-                      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
-                    }
-                    width={69}
-                    height={12}
-                    alt="right icon"
-                  />{" "}
-                  <p>4.7</p>
-                </div>
-                <p style={{ fontSize: 14,marginTop:8  }}>{item.acf.title}</p>
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <CommonSkeletonLoader />
               </div>
-            </StarContainer>
-          );
-        })}
+            ))
+          : data?.slice(0, 10).map((item, index) => {
+              return (
+                <StarContainer
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    modalClick("ModalContent", item, filteredUrls[index])
+                  }
+                >
+                  <StarWrapper>
+                    <Image
+                      className="StarImageStyle"
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={120}
+                      height={64}
+                    />
+                    {index == 0 && <p>New</p>}
+                  </StarWrapper>
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 4,
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        src={
+                          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
+                        }
+                        width={69}
+                        height={12}
+                        alt="right icon"
+                      />{" "}
+                      <p>4.7</p>
+                    </div>
+                    <p style={{ fontSize: 14, marginTop: 8 }}>
+                      {item.acf.title}
+                    </p>
+                  </div>
+                </StarContainer>
+              );
+            })}
       </ScrollingMenu>
     </>
   );

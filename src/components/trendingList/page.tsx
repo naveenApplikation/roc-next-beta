@@ -1,25 +1,8 @@
 "use client";
 
 import React from "react";
-import Layout from "@/app/layout/page";
-import Directory from "@/components/dashboard/Directory";
 import styled from "styled-components";
 import Image from "next/image";
-import {
-  utensil,
-  shopping,
-  hotel,
-  personHiking,
-  castle,
-  holidayDas,
-  beachumbrella,
-  camera,
-  compass,
-  glass,
-} from "@/app/utils/ImagePath";
-// import HeaderScreen from "../../../components/header/HeaderScreen";
-import Lists from "@/components/search/Lists";
-
 import { PopularLists,SelectedLists } from "@/components/search/Data";
 import { thumbsup } from "@/app/utils/ImagePath";
 

@@ -2,15 +2,15 @@ import React,{useState} from "react";
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
-import CreateAccountContent from "@/app/dashboard/Menu Modal Contents/CreateAccount";
-import LoginAccountContent from "@/app/dashboard/Menu Modal Contents/Login";
-import UpdateMyDetails from "@/app/dashboard/Menu Modal Contents/UpdateMyDetails";
-import UpdateMyEmail from "@/app/dashboard/Menu Modal Contents/UpdateMyEmail";
-import UpdateName from "@/app/dashboard/Menu Modal Contents/UpdateName";
-import UpdatePasssword from "@/app/dashboard/Menu Modal Contents/UpdatePasssword";
-import ContactUs from "@/app/dashboard/Menu Modal Contents/ContactUs";
-import UpdateMyPreferences from "@/app/dashboard/Menu Modal Contents/UpdateMyPreferences";
-import Welcomeback from "@/app/dashboard/Menu Modal Contents/Welcomeback";
+import CreateAccountContent from "@/components/LoginSignup/CreateAccount";
+import LoginAccountContent from "@/components/LoginSignup/Login";
+import UpdateMyDetails from "@/components/LoginSignup/UpdateMyDetails";
+import UpdateMyEmail from "@/components/LoginSignup/UpdateMyEmail";
+import UpdateName from "@/components/LoginSignup/UpdateName";
+import UpdatePasssword from "@/components/LoginSignup/UpdatePasssword";
+import ContactUs from "@/components/LoginSignup/ContactUs";
+import UpdateMyPreferences from "@/components/LoginSignup/UpdateMyPreferences";
+import Welcomeback from "@/components/LoginSignup/Welcomeback";
 import ThankYouDiresctoryModal from "@/components/modal/ThankYouDiresctoryModal";
 
 interface DashboardSearchContainerProps {

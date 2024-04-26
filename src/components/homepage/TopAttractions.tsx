@@ -1,15 +1,18 @@
-import React,{useEffect,useState} from "react";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import {ApiResponse} from '@/app/utils/types'
+import React, { useEffect, useState } from "react";
+import Instance from "@/app/utils/Instance";
+import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import styled from "styled-components";
 import Image from "next/image";
 import MenuDetails from "@/components/dashboard/MenuDetails";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -52,20 +55,32 @@ const TopAttractionprofile = styled.div`
   background-size: contain;
 `;
 
-const TopAttractions: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
-
-  const {filterUrls } = useMyContext();
+const TopAttractions: React.FC<DashboardProps> = ({
+  modalClick,
+  menuClick,
+}) => {
+  const { filterUrls } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
+  const [loader, setloader] = useState(true);
+
   const fetchDataAsync = async () => {
-    const result = await fetchDatAll('/top-attractions');
-    setData(result)
+    setloader(true);
+    try {
+      const result = await Instance.get("/top-attractions");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
   };
 
-  useEffect(()=>{
-    fetchDataAsync()
-  },[])
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 
@@ -73,29 +88,41 @@ const TopAttractions: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
   return (
     <>
-     <MenuDetails isOpen={() => menuClick("Top Attractions", true,"top-attractions")} title="Top Attractions" />
+      <MenuDetails
+        isOpen={() => menuClick("Top Attractions", true, "top-attractions")}
+        title="Top Attractions"
+      />
       <ScrollingMenu>
-        {data?.slice(0, 10).map((item, index) => {
-          return (
-            <TopAttractionContainer
-              key={index}
-              style={{ cursor: "pointer" }}
-              onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
-            >
-              <TopAttractionprofile>
-                <Image
-                  src={filteredUrls[index]}
-                  alt=""
-                  width={80}
-                  height={80}
-                  style={{ borderRadius: "100%" }}
-                  // alt=""
-                />
-              </TopAttractionprofile>
-              <p>{item.acf.title}</p>
-            </TopAttractionContainer>
-          );
-        })}
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <Skeleton width={80} height={80} style={{borderRadius:"100%"}} />
+                <Skeleton width={80} height={15} style={{marginTop:8,borderRadius:6}} />
+              </div>
+            ))
+          : data?.slice(0, 10).map((item, index) => {
+              return (
+                <TopAttractionContainer
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    modalClick("ModalContent", item, filteredUrls[index])
+                  }
+                >
+                  <TopAttractionprofile>
+                    <Image
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: "100%" }}
+                      // alt=""
+                    />
+                  </TopAttractionprofile>
+                  <p>{item.acf.title}</p>
+                </TopAttractionContainer>
+              );
+            })}
       </ScrollingMenu>
     </>
   );

@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import DashBoardButton from "../../components/button/DashBoardButton";
-import CommentRating from "../../components/dashboard/CommentRating";
-import { LocalCuisineMenuItem } from "./data";
-import RatingMenu from "../../components/dashboard/RatingMenu";
-import CommonButton from "../../components/button/CommonButton";
+import DashBoardButton from "@/components/button/DashBoardButton";
+import CommentRating from "@/components/dashboard/CommentRating";
+import { LocalCuisineMenuItem } from "@/app/utils/data";
+import RatingMenu from "@/components/dashboard/RatingMenu";
+import CommonButton from "@/components/button/CommonButton";
 import {
   bookOpen,
   comment,
@@ -18,7 +18,7 @@ import {
   globes,
   phoneBlack,
   locationDot,
-} from "../utils/ImagePath";
+} from "@/app/utils/ImagePath";
 
 interface ModalProps {
   onClose: () => void;
@@ -121,14 +121,14 @@ const ScrollingMenu = styled.div`
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
+`;
 
-  .imageContainer {
-    border-radius: 6px;
-    width: -webkit-fill-available;
+const ImageWrraper = styled(Image)`
+  border-radius: 6px;
+  width: -webkit-fill-available;
 
-    @media screen and (max-width: 1130px) {
-      height: auto;
-    }
+  @media screen and (max-width: 1130px) {
+    height: auto;
   }
 `;
 
@@ -253,13 +253,11 @@ const ModalContent: React.FC<ModalProps> = ({
         />
       </ResturatContainer>
       <ItemImageContainer>
-        <Image
-          src={dataImage}
+        <ImageWrraper
+        src={dataImage ? dataImage: "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
           alt="Logo"
           width={342}
           height={192}
-          className="imageContainer"
-          // style={{ borderRadius: 6, width: "-webkit-fill-available" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>

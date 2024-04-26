@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import MenuOptionList from "../../../components/menuOptionList/MenuOptionList";
-import emailImg from "../../../../assets/images/menuModalsImage/email.png";
-import passwordImg from "../../../../assets/images/menuModalsImage/password.png";
-import nameImg from "../../../../assets/images/menuModalsImage/profile.png";
-import emailPreferencesImg from "../../../../assets/images/menuModalsImage/emailPreference.png";
+import MenuOptionList from "@/components/menuOptionList/MenuOptionList";
+import emailImg from "../../../assets/images/menuModalsImage/email.png";
+import passwordImg from "../../../assets/images/menuModalsImage/password.png";
+import nameImg from "../../../assets/images/menuModalsImage/profile.png";
+import emailPreferencesImg from "../../../assets/images/menuModalsImage/emailPreference.png";
 
 interface ModalProps {
   isOpen?: any;

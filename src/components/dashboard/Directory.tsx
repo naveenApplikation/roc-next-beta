@@ -72,22 +72,6 @@ const AddButton = styled.button`
 const Directory: React.FC<MenuProps> = ({isOpen}) => {
   return (
     <>
-      {/* <DirectoryWrapper>
-              {DirectoryMenu.map((item,index) => {
-                return (
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 6 }}
-                  >
-                    <Image
-                      style={{ width: "10px", height: "16px" }}
-                      src={item.image}
-                      alt="right icon"
-                    />{" "}
-                    <DirectoryMenuTitle>{item.name}</DirectoryMenuTitle>
-                  </div>
-                );
-              })}
-            </DirectoryWrapper> */}
       <DirectoryWrapper>
         <FirstMainWraaper>
           <Image

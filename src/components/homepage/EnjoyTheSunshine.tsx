@@ -2,7 +2,7 @@ import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
-import { EnjoyShineMenuItem } from "@/app/dashboard/data";
+import { EnjoyShineMenuItem } from "@/app/utils/data";
 
 interface DashboardProps {
     modalClick?: any;

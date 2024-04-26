@@ -1,9 +1,8 @@
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { community } from "@/app/dashboard/data";
+import { community } from "@/app/utils/data";
 import Image from "next/image";
-import CommonButton from "@/components/button/CommonButton";
 
 interface DashboardProps {
   modalClick?: any;

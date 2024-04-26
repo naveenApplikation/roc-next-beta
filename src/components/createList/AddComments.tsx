@@ -8,7 +8,7 @@ import CreateListItems from "./CreateList Components/CreateListItems";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-import { utensils } from "../utils/ImagePath";
+import { utensils } from "@/app/utils/ImagePath";
 
 interface DragInOrderProps {
   ScreenSwitch?: Function;

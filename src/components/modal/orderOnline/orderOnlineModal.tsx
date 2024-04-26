@@ -1,7 +1,7 @@
 import DashBoardButton from '@/components/button/DashBoardButton';
 import React from 'react';
 import { styled } from 'styled-components';
-import { globe, phone } from '../utils/ImagePath';
+import { globe, phone } from '@/app/utils/ImagePath';
 
 interface OrderOnlineModalProps {
     previousModal?:Function

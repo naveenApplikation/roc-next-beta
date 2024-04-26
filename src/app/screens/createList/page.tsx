@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
-import CreateListings from '../../createList/CreateListings'
-import DragInOrder from '../../createList/DragInOrder';
-import AddComments from '../../createList/AddComments';
-import ListDetails from '../../createList/ListDetails';
-import Greetings from '../../createList/Greetings';
-import { usePathname, useRouter } from "next/navigation";
+import CreateListings from '@/components/createList/CreateListings'
+import DragInOrder from '@/components/createList/DragInOrder';
+import AddComments from '@/components/createList/AddComments';
+import ListDetails from '@/components/createList/ListDetails';
+import Greetings from '@/components/createList/Greetings';
+import { useRouter } from "next/navigation";
 
 const Page = () => {
 

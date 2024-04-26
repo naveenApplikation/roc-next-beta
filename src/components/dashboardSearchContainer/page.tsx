@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TabPanel from '../tabPanel';
 import Lists from '../search/Lists';
 import FilterSection from '../filterSection';
-import { RestroListData } from '@/app/dashboard/data';
+import { RestroListData } from '@/app/utils/data';
 import Image from 'next/image';
 import { blank, thumbsup, utensils } from '@/app/utils/ImagePath';
 import Ratings from '../ratings';

@@ -67,8 +67,8 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (min-width: 1500px) {
-    left: ${({ $isopen }) => ($isopen ? "40%" : "0%")};
-    transform: none;
+    left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
+    /* transform: none; */
   }
 
 

@@ -5,9 +5,7 @@ import CommonButton from "@/components/button/CommonButton";
 import TextArea from "@/components/button/textArea";
 import Checkbox from "@/components/Checkbox";
 import Dropdowns from "@/components/dropdowns";
-import { SoryByItem, topSideMenu } from '@/app/dashboard/data';
-import { CaretDownOutlined } from '@ant-design/icons';
-import { Dropdown } from 'antd';
+import { SoryByItem } from '@/app/utils/data';
 
 interface ModalProps {
     isOpen: () => void;

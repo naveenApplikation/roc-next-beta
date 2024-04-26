@@ -1,8 +1,6 @@
 import React,{useState} from "react";
 import ActivitiesModalLayout from "@/components//modal/Modal";
-import ModalContent from "@/app/dashboard/ModalContent";
 import ActivitiesModal from "@/components/modal/ActivitiesModal";
-import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {

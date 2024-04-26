@@ -1,8 +1,6 @@
-import React,{useState} from "react";
-import OrderOnlineModalLayout from "@/components//modal/Modal";
-import ModalContent from "@/app/dashboard/ModalContent";
-import OrderOnlineModal from "@/app/dashboard/orderOnlineModal";
-import styled from "styled-components";
+import React from "react";
+import OrderOnlineModalLayout from "@/components/modal/Modal";
+import OrderOnlineModal from "@/components/modal/orderOnline/orderOnlineModal";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {

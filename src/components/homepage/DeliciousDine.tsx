@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { BarMenuItem } from "@/app/dashboard/data";
 import RatingMenu from "@/components/dashboard/RatingMenu";
+import { ApiResponse } from "@/app/utils/types";
+import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
+import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
+import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
   modalClick?: any;
@@ -25,24 +29,64 @@ const ScrollingMenu = styled.div`
 `;
 
 const DeliciousDine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { filterUrls } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const [loader, setloader] = useState(true);
+
+  const fetchDataAsync = async () => {
+    setloader(true);
+    try {
+      const result = await Instance.get("/dine-out");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
+
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
   return (
     <>
-    <MenuDetails title="Delicious Dine Out" isOpen={() => menuClick("Delicious Dine",true,3)} />
+      <MenuDetails
+        title="Delicious Dine Out"
+        isOpen={() => menuClick("Delicious Dine", true, "dine-out")}
+      />
       <ScrollingMenu>
-        {BarMenuItem.map((item, index) => {
-          return (
-            <div key={index}>
-              <RatingMenu
-                title={item.menuName}
-                menuImageUrl={item.image}
-                headerImage={item.headerImage}
-                containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
-                isOpen={() => modalClick("ModalContent", item)}
-              />
-            </div>
-          );
-        })}
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <CommonSkeletonLoader />
+              </div>
+            ))
+          : data?.slice(0, 10).map((item, index) => {
+              return (
+                <div key={index}>
+                  <RatingMenu
+                    title={item.acf.parish.label}
+                    menuImageUrl={
+                      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65"
+                    }
+                    headerImage={filteredUrls[index]}
+                    containerImageUrl={true}
+                    MenutitleDetail={item.acf.title}
+                    isOpen={() =>
+                      modalClick("ModalContent", item, filteredUrls[index])
+                    }
+                  />
+                </div>
+              );
+            })}
       </ScrollingMenu>
     </>
   );

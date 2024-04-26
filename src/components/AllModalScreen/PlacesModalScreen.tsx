@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import DashBoardModal from "@/components//modal/Modal";
-import ModalContent from "@/app/dashboard/ModalContent";
-import styled from "styled-components";
+import ModalContent from "@/components/modal/PlaceModal/ModalContent";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {

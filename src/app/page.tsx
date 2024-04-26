@@ -2,16 +2,14 @@
 
 import styled from "styled-components";
 import React, { useState } from "react";
-import Dashboard from "./dashboard/page";
+import Dashboard from "@/components/dashboard/DashBoardPage";
 import { useMyContext } from "@/app/Context/MyContext";
 import ShadowWrapper from "@/components/Beta UI/page";
 import Header from "@/components/header/page";
-import HeaderScreen from "@/components/header/HeaderScreen";
 import RightSideMenu from "@/components/RightSideMenu/page";
 import MapWithMenu from "@/components/RightSideMenu/MapWithMenu";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistModalScreen";
-import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
@@ -20,7 +18,6 @@ import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderO
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
-import DashBoardHome from "@/components/dashboard/DashBoardHome";
 
 const Container = styled.div`
   display: flex;
@@ -115,27 +112,5 @@ export default function Home() {
       <DirectoryModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
         </ShadowWrapper>
-    // <>
-    //   <Container>
-    //     <CategoryBody>
-    //       <HeaderScreen />
-    //       <DashBoardHome />
-    //     </CategoryBody>
-    //     {showMap && <MapWithMenu />}
-    //     <RightSideMenu />
-    //   </Container>
-    //   <ProfileAccountModalScreen showMap={showMap} />
-    //   <ProfileMylistModalScreen
-    //     {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
-    //   />
-    //   <PlacesModalScreen showMap={showMap} />
-    //   <CalenderBookDatesModalScreen showMap={showMap} />
-    //   <PlaceOrderOnlineModalScreen showMap={showMap} />
-    //   <FilterModalScreen showMap={showMap} />
-    //   <EventListingModalScreen showMap={showMap} />
-    //   <ActivitiesModalScreen showMap={showMap} />
-    //   <DirectoryModalScreen showMap={showMap} />
-    //   <ViewDirectionModalScreen showMap={showMap} />
-    // </>
   );
 }

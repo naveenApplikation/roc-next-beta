@@ -1,10 +1,8 @@
 import React,{useState} from "react";
 import AddToDirectoryModalLayout from "@/components//modal/Modal";
-import ModalContent from "@/app/dashboard/ModalContent";
 import AddToDirectoryModal from "../../components/modal/AddToDirectoryModal";
 import CreateDirectoryModal from "../../components/modal/CreateDirectoryModal";
 import ThankYouDiresctoryModal from "../../components/modal/ThankYouDiresctoryModal";
-import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {

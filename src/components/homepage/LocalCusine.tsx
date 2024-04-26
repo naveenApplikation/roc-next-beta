@@ -1,16 +1,17 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import { LocalCuisineMenuItem } from "@/app/dashboard/data";
-import {ApiResponse} from '@/app/utils/types'
+import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
+import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
+import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -31,20 +32,29 @@ const OptionMenu = styled(ScrollingMenu)`
   gap: 25px;
 `;
 
-const LocalCusine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
-
-  const {filterUrls } = useMyContext();
+const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { filterUrls } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
+  const [loader, setloader] = useState(true);
+
   const fetchDataAsync = async () => {
-    const result = await fetchDatAll('/local-cuisine');
-    setData(result)
+    setloader(true);
+    try {
+      const result = await Instance.get("/local-cuisine");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
   };
 
-  useEffect(()=>{
-    fetchDataAsync()
-  },[])
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 
@@ -57,18 +67,24 @@ const LocalCusine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
         title="Local cuisine"
       />
       <ScrollingMenu>
-        {data?.slice(0, 10).map((item, index) => (
-          <div key={index}>
-            <RatingMenu
-              title={item.acf.parish.label}
-              menuImageUrl={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65"}
-              headerImage={filteredUrls[index]}
-              containerImageUrl={true}
-              MenutitleDetail={item.acf.title}
-              isOpen={() => modalClick("ModalContent", item,filteredUrls[index])}
-            />
-          </div>
-        ))}
+        {loader ? (
+        skeletonItems.map((item,index)=> <div key={index}><CommonSkeletonLoader /></div>)
+        ) : (
+          data?.slice(0, 10).map((item, index) => (
+            <div key={index}>
+              <RatingMenu
+                title={item.acf.parish.label}
+                menuImageUrl={
+                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65"
+                }
+                headerImage={filteredUrls[index]}
+                containerImageUrl={true}
+                MenutitleDetail={item.acf.title}
+                isOpen={() => modalClick("ModalContent", item, filteredUrls[index])}
+              />
+            </div>
+          ))
+        )}
       </ScrollingMenu>
     </>
   );

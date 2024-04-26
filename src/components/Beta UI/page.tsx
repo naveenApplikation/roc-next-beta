@@ -5,8 +5,7 @@ import CommonButton from "../button/CommonButton";
 import BetaUIModal from "../modal/BetaUIModal";
 import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
-import { MobileRocLogo } from "@/app/utils/ImagePath";
-import { verifyInviteCode } from "@/app/API/Baseurl";
+import Instance from "@/app/utils/Instance";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -105,12 +104,40 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
   // const [loading, setLoading] = useState(true);
 
 
+  // interface ApiVerifyCodeResponse {
+  //   message: string;
+  //   data: any;
+  // }
+  
+  // export const verifyInviteCode = async (code: string): Promise<ApiVerifyCodeResponse> => {
+  //   try {
+  //     const response = await axios.post<ApiVerifyCodeResponse>(`${baseUrl}/verifyCode`,{ code });
+  //     return response.data;
+  //   } catch (error) {
+  //     throw new Error("Failed to verify invite code");
+  //   }
+  // };
+
+  // const fetchDataAsync = async () => {
+  //   const result = await verifyInviteCode(inputValue);
+  //   localStorage.setItem("hideUI", inputValue.trim());
+  //   setShowContent(false);
+  //   localStorage.setItem("Token", result.data);
+  // };
 
   const fetchDataAsync = async () => {
-    const result = await verifyInviteCode(inputValue);
-    localStorage.setItem("hideUI", inputValue.trim());
-    setShowContent(false);
-    localStorage.setItem("Token", result.data);
+    // setloader(true);
+    try {
+      const result = await Instance.post("/verifyCode",{ code:inputValue });
+      localStorage.setItem("hideUI", inputValue.trim());
+      setShowContent(false);
+      localStorage.setItem("Token", result.data.data);
+    } catch (error: any) {
+      console.log(error.message);
+      // setloader(false);
+    } finally {
+      // setloader(false);
+    }
   };
 
   const [modalType, setModalType] = useState({

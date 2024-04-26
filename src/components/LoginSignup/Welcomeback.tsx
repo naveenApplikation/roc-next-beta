@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import MenuOptionList from "../../../components/menuOptionList/MenuOptionList";
-import createListImg from "../../../../assets/images/menuModalsImage/createList.png";
-import updateDetailsImg from "../../../../assets/images/menuModalsImage/profile.png";
-import savedImg from "../../../../assets/images/menuModalsImage/saved.png";
-import myListsImg from "../../../../assets/images/menuModalsImage/myList.png";
-import activityImg from "../../../../assets/images/menuModalsImage/activity.png";
-import contactUsImg from "../../../../assets/images/menuModalsImage/contactUs.png";
-import navigateImg from "../../../../assets/images/menuModalsImage/forwardNavigate.png";
-import listStar from "../../../../assets/images/listStar.svg";
+import MenuOptionList from "@/components/menuOptionList/MenuOptionList";
+import createListImg from "../../../assets/images/menuModalsImage/createList.png";
+import updateDetailsImg from "../../../assets/images/menuModalsImage/profile.png";
+import savedImg from "../../../assets/images/menuModalsImage/saved.png";
+import activityImg from "../../../assets/images/menuModalsImage/activity.png";
+import contactUsImg from "../../../assets/images/menuModalsImage/contactUs.png";
+import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.png";
+import listStar from "../../../assets/images/listStar.svg";
 
 interface ModalProps {
   isOpen?: any;

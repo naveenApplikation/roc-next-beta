@@ -1,9 +1,8 @@
 import React, { useEffect,useState } from "react";
-import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { topSideMenu } from "@/app/dashboard/data";
+import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
-import {fetchDatAll } from "@/app/API/Baseurl";
+import Instance from "@/app/utils/Instance";
 
 interface DashboardProps {
     modalClick?: any;
@@ -41,9 +40,19 @@ const InfoApp: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
 const [linkData, setLinkData] = useState("")
 
+  const [loader, setloader] = useState(true);
+
   const fetchDataAsync = async () => {
-    const result = await fetchDatAll("/nav-links");
-    setLinkData(result.data[0])
+    setloader(true);
+    try {
+      const result = await Instance.get("/nav-links");
+      setLinkData(result.data.data[0])
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
   };
 
   useEffect(()=>{

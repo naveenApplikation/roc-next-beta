@@ -1,5 +1,4 @@
-import { EnjoyShineMenuItem } from "@/app/dashboard/data";
-import { blank, currency } from "@/app/utils/ImagePath";
+import { EnjoyShineMenuItem } from "@/app/utils/data";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";

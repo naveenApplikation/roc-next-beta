@@ -1,8 +1,6 @@
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { topAttractionItem } from "@/app/dashboard/data";
-import Image from "next/image";
 import Directory from "@/components/dashboard/Directory";
 
 interface DashboardProps {

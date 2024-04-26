@@ -1,14 +1,11 @@
-import { RestroListData } from "@/app/dashboard/data";
-import { blank } from "@/app/utils/ImagePath";
-import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
 import LocalCusine from "@/components/homepage/LocalCusine";
 import FamilyEvent from "@/components/homepage/FamilyEvent";
 import EnjoyTheSunshine from "@/components/homepage/EnjoyTheSunshine";
-// import TrendingList from "@/components/homepage/TrendingList";
+import TrendingList from "@/components/homepage/TrendingList";
 import TopAttractions from "@/components/homepage/TopAttractions";
 import Directory from "@/components/homepage/Directory";
 import Bars from "@/components/homepage/Bars";
@@ -25,59 +22,76 @@ import CycleRoutes from "@/components/homepage/CycleRoutes";
 import DeliciousDine from "@/components/homepage/DeliciousDine";
 import Outout from "@/components/homepage/Outout";
 import Surfing from "@/components/homepage/Surfing";
+import CommonButton from "@/components/button/CommonButton";
+import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 
-interface FinancialBoxProps {
-  // Define your props here
-}
-const SearchedListContainer = styled.div`
-  padding: 0px;
-  display: flex;
-  background-color: #f2f3f3;
-  flex-direction: column;
-  gap: 16px;
-`;
 
-const SearchedData = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #d9d9d9;
-  padding: 10px 0px;
-  p {
-    font-size: 13px;
-    font-weight: 400;
-  }
-  .likes {
-    background-color: #00000014;
-    padding: 8px 16px;
-    border-radius: 16px;
-    text-align: center;
 
-    @media screen and (max-width: 350px) {
-      padding: 6px 12px;
+const LeaveFeedbackButton = styled.div`
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 20px;
+`
+
+const DashBoard= () => {
+  const specificSectionRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+
+  const {showMap,modalClick} = useMyContext()
+
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
+    if (condition) {
+      router.push(`/categories/${item}?search=${id}`);
+    } else if (item === "Dine") {
+      router.push("/screens/ecoDining");
+    } else if (item === "Shop") {
+      router.push("/screens/wellbeing");
+    } else if (item === "Events") {
+      router.push("/screens/events");
+    } else if (item === "Tours") {
+      router.push("/screens/stays");
+    } else if (item === "Hotels") {
+      router.push("/screens/scaffolding");
+    } else if (item === "Activities") {
+      router.push("/screens/experiences");
+    } else if (item === "Travel") {
+      router.push("/screens/attractions");
+    } else if (item === "Nightlife") {
+      router.push("/screens/financial");
+    } else if (item === "AddToCreate") {
+      router.push("/screens/createList");
+    } else if (item === "CategorieList") {
+      router.push("/screens/categorieList");
+    } else if (item === "TrendingList") {
+      router.push("/screens/trendingList");
     }
-  }
-  .shopName {
-    font-size: 16px;
-    font-weight: 600;
-  }
-`;
+  };
 
-const DashBoardHome: React.FC<FinancialBoxProps> = (props) => {
-  const { modalClick } = useMyContext();
-
-  const menuClick = () => {};
+  const handleClick = (event: MouseEvent) => {
+    if (
+      specificSectionRef.current &&
+      !specificSectionRef.current.contains(event.target as Node)
+    ) {
+    }
+  };
+  useEffect(() => {
+    document.body.addEventListener("click", handleClick);
+    return () => {
+      document.body.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
-    <SearchedListContainer>
+    <>
+    <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} />
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
-      {/* <TrendingList menuClick={menuClick} modalClick={modalClick} /> */}
+      <TrendingList menuClick={menuClick} modalClick={modalClick} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
@@ -94,8 +108,12 @@ const DashBoardHome: React.FC<FinancialBoxProps> = (props) => {
       <DeliciousDine menuClick={menuClick} modalClick={modalClick} />
       <Outout menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} />
-    </SearchedListContainer>
+      <LeaveFeedbackButton onClick={() => menuClick("AddToCreate")}>
+        <CommonButton text="Leave feedback" />
+      </LeaveFeedbackButton>
+    </>
+    </>
   );
 };
-
-export default DashBoardHome;
+export default DashBoard;
+// export default DashBoard;

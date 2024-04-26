@@ -1,18 +1,19 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
-import { familyEventMenuItem } from "@/app/dashboard/data";
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import {formatMonth,formatDate} from '@/app/utils/date'
-import {ApiResponse} from '@/app/utils/types'
+import { formatMonth, formatDate } from "@/app/utils/date";
+import { ApiResponse } from "@/app/utils/types";
+import Instance from "@/app/utils/Instance";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -82,53 +83,78 @@ const FamilyEventWrapperInside = styled.div`
   border-radius: 4px;
 `;
 
-const FamilyEvent: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
-
-  const {filterUrls } = useMyContext();
+const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { filterUrls } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      const result = await fetchDatAll('/family-events');
-      setData(result);
-    };
+  const [loader, setloader] = useState(true);
 
+  const fetchDataAsync = async () => {
+    setloader(true);
+    try {
+      const result = await Instance.get("/family-events");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
+  };
+
+  useEffect(() => {
     fetchDataAsync();
   }, []);
 
- const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("Family Events", true, "family-events")} title="Family Events" />
+      <MenuDetails
+        isOpen={() => menuClick("Family Events", true, "family-events")}
+        title="Family Events"
+      />
       <ScrollingMenu>
-        {data.slice(0, 10).map((item, index) => {
-          return (
-            <FamilEventContainer
-              key={index}
-              onClick={() => modalClick("eventListing", item,filteredUrls[index])}
-              style={{ cursor: "pointer" }}
-            >
-              <FamilyEventWrapper>
-                <Image
-                  src={filteredUrls[index]}
-                  alt=""
-                  width={80}
-                  height={80}
-                  style={{borderRadius:4}}
-                />
-                <FamilyEventWrapperInside>
-                  <p className="date">{formatDate(item.acf.event_dates[0].date)}</p>
-                  <p className="month">{formatMonth(item.acf.event_dates[0].date)}</p>
-                </FamilyEventWrapperInside>
-              </FamilyEventWrapper>
-              <FamilEventText>{item.acf.title}</FamilEventText>
-            </FamilEventContainer>
-          );
-        })}
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <Skeleton width={80} height={80} style={{borderRadius:6}} />
+                <Skeleton width={80} height={15} style={{ marginTop: 8,borderRadius:6}} />
+              </div>
+            ))
+          : data.slice(0, 10).map((item, index) => {
+              return (
+                <FamilEventContainer
+                  key={index}
+                  onClick={() =>
+                    modalClick("eventListing", item, filteredUrls[index])
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <FamilyEventWrapper>
+                    <Image
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 4 }}
+                    />
+                    <FamilyEventWrapperInside>
+                      <p className="date">
+                        {formatDate(item.acf.event_dates[0].date)}
+                      </p>
+                      <p className="month">
+                        {formatMonth(item.acf.event_dates[0].date)}
+                      </p>
+                    </FamilyEventWrapperInside>
+                  </FamilyEventWrapper>
+                  <FamilEventText>{item.acf.title}</FamilEventText>
+                </FamilEventContainer>
+              );
+            })}
       </ScrollingMenu>
     </>
   );

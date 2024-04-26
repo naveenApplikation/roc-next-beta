@@ -1,24 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import DashBoardButton from "../../components/button/DashBoardButton";
-import CommentRating from "../../components/dashboard/CommentRating";
-import {
-  EventListData,
-  LocalCuisineMenuItem,
-  ActivitiesListData,
-} from "@/app/dashboard/data";
-import RatingMenu from "../../components/dashboard/RatingMenu";
-import CommonButton from "../../components/button/CommonButton";
-import {
-  bookOpen,
-  comment,
-  moped,
-  plus,
-  BlackStar,
-  clientLogoImg,
-  calenderWhiteImg,
-} from "@/app/utils/ImagePath";
+import { ActivitiesListData } from "@/app/utils/data";
+
 
 interface ModalProps {
   //   onClose: () => void;
@@ -188,14 +172,14 @@ const WeekTimeArrange = styled.div`
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
+`;
 
-  .imageContainer {
-    border-radius: 6px;
-    width: -webkit-fill-available;
+const ImageWrraper = styled(Image)`
+  border-radius: 6px;
+  width: -webkit-fill-available;
 
-    @media screen and (max-width: 1130px) {
-      height: auto;
-    }
+  @media screen and (max-width: 1130px) {
+    height: auto;
   }
 `;
 
@@ -266,13 +250,15 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-        <Image
-          src={dataImage}
+        <ImageWrraper
+          src={
+            dataImage
+              ? dataImage
+              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+          }
           alt="Logo"
           width={342}
           height={192}
-          className="imageContainer"
-          // style={{ borderRadius: 6, width: "-webkit-fill-available" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>
@@ -320,41 +306,41 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         adrenaline fix, there is a Seafari for you.
       </RestDetailText>
       <AlsoSeeText>Tours & activities available</AlsoSeeText>
-      {WeekDays.map((item,index)=>(
-             <TouristContainer key={index}>
-             <Image
-               src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2F%23Image.png?alt=media&token=a48f741c-748f-4378-bc6c-82f727f01563"
-               alt="Logo down"
-               width={80}
-               height={80}
-               style={{borderRadius:4}}
-             />
-             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-               <TouristTitle>South Coast Seafari</TouristTitle>
-               <div style={{ display: "flex" }}>
-                 <Image
-                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8"
-                   alt="Logo down"
-                   width={9}
-                   height={13}
-                 />
-                 <TouristText style={{ marginLeft: 10 }}>
-                   May 11 2024 ‐ Jun 03 2024
-                 </TouristText>
-               </div>
-               <div style={{ display: "flex" }}>
-                 <Image
-                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f"
-                   alt="Logo down"
-                   width={12}
-                   height={13}
-                 />
-                 <TouristText>34.99 - 37.99</TouristText>
-               </div>
-             </div>
-           </TouristContainer>
+      {WeekDays.map((item, index) => (
+        <TouristContainer key={index}>
+          <Image
+            src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2F%23Image.png?alt=media&token=a48f741c-748f-4378-bc6c-82f727f01563"
+            alt="Logo down"
+            width={80}
+            height={80}
+            style={{ borderRadius: 4 }}
+          />
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <TouristTitle>South Coast Seafari</TouristTitle>
+            <div style={{ display: "flex" }}>
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8"
+                alt="Logo down"
+                width={9}
+                height={13}
+              />
+              <TouristText style={{ marginLeft: 10 }}>
+                May 11 2024 ‐ Jun 03 2024
+              </TouristText>
+            </div>
+            <div style={{ display: "flex" }}>
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f"
+                alt="Logo down"
+                width={12}
+                height={13}
+              />
+              <TouristText>34.99 - 37.99</TouristText>
+            </div>
+          </div>
+        </TouristContainer>
       ))}
- 
+
       <AlsoSeeText>Key Features</AlsoSeeText>
       <BulletPointWrapper>
         <li>Outdoor</li>

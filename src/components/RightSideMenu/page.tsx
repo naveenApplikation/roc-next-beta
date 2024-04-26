@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { headerHome } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
-import { rightSideMenu, rightSideMenuMobile } from "@/app/dashboard/data";
+import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
 
 const RightSideMenuContainer = styled.div`

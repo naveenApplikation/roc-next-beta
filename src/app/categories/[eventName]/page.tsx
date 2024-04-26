@@ -1,13 +1,11 @@
 "use client"
 
-import Layout from '@/app/layout/page';
 import AttractionBox from '@/components/attractionBox/page';
 import EventBox from '@/components/eventBox/page';
 import ExperienceBox from '@/components/experienceBox/page';
 import TrendingList from '@/components/trendingList/page';
 import FinancialBox from '@/components/financialBox/page';
 import ScaffoldingBox from '@/components/scaffoldingBox/page';
-import StaysBox from '@/components/staysBox/page';
 import { useParams } from 'next/navigation';
 import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
@@ -25,8 +23,8 @@ import EventListingModalScreen from '@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
 import CategorieList from '@/components/categorieList/page';
 import { useMyContext } from "@/app/Context/MyContext";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import {ApiResponse} from '@/app/utils/types'
+import {ApiResponse} from '@/app/utils/types';
+import Instance from "@/app/utils/Instance";
 
 interface CategoriesPageProps {
   // Define your props here
@@ -35,7 +33,7 @@ const CategoryBody = styled.div`
 position: relative;
  z-index: 1;
  width: 580px;
- height: 100%;
+ height: 100vh;
  overflow: auto;
 
  &::-webkit-scrollbar {
@@ -79,16 +77,28 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
+  const [loader, setloader] = useState(true);
+
   useEffect(() => {
     const fetchDataAsync = async () => {
-      const result = await fetchDatAll(`${search}`);
-      if(search == "surfing" || search == "ww2"){
-        const combinedArray = [...result.activity1, ...result.activity2];
-        setData(combinedArray);
-      }else{
-        setData(result);
+      setloader(true);
+      try {
+        const result = await Instance.get(`${search}`);
+        if(search == "surfing" || search == "ww2"){
+          const combinedArray = [...result.data.activity1, ...result.data.activity2];
+          setData(combinedArray);
+        }else{
+          setData(result.data);
+        }
+      
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
       }
     };
+
     fetchDataAsync();
   }, [search]);
 
@@ -100,7 +110,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const categories = () => {
     if (urlData === "Family Events") {
-      return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls}  />
+      return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader}   />
     }else if(urlData === "Enjoy the sunshine"){
       return <ExperienceBox urlData={search} urlTitle={urlData}   />
     }else if(urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" ){
@@ -112,18 +122,15 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     }else if(urlData === "Scaffolding"){
       return <ScaffoldingBox />
     }else{
-      return <AttractionBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} />
+      return <AttractionBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
     }
   }
-
-  
 
   return (
       <>
       <CategoryBody>
       <HeaderScreen />
         {categories()}
-        {/* <FinancialBox /> */}
       </CategoryBody>
         <SearchModalScreen {...{ tabChange, options, tabValue, showMap }}  />
         <ProfileAccountModalScreen showMap={showMap} />

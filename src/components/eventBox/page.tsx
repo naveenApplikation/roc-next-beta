@@ -1,19 +1,19 @@
-import { familyEventMenuItem } from "@/app/dashboard/data";
-import { blank, locationMark, utensils } from "@/app/utils/ImagePath";
+import { locationMark } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import FilterSection from "@/components/filterSection";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
-import {fetchDatAll } from "@/app/API/Baseurl";
-import {formatMonth,formatDate} from '@/app/utils/date'
-import {ApiResponse} from '@/app/utils/types'
+import { formatMonth, formatDate } from "@/app/utils/date";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
-  filteredUrls?:any
+  filteredUrls?: any;
+  loader?: boolean;
 }
 
 const SearchedListContainer = styled.div`
@@ -106,9 +106,21 @@ const AddListButton = styled.div`
   padding-top: 20px;
 `;
 
-const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData,filteredUrls }) => {
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
 
-  const {modalClick} = useMyContext();
+const EventBox: React.FC<EventBoxProps> = ({
+  urlTitle,
+  urlData,
+  filteredUrls,
+  loader,
+}) => {
+  const { modalClick } = useMyContext();
+
+  const skeletonItems = new Array(10).fill(null);
 
   return (
     <SearchedListContainer>
@@ -118,52 +130,69 @@ const EventBox: React.FC<EventBoxProps> = ({ urlTitle, urlData,filteredUrls }) =
           <FilterSection />
         </div>
       )}
-      {urlData?.map((item: any, index: any) => {
-        return (
-          <SearchedData key={index}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 16,
-              }}
-            >
-              <FamilyEventWrapper>
-                <Image
-                  src={filteredUrls[index]}
-                  alt=""
-                  width={80}
-                  height={80}
-                  style={{ borderRadius: 4, cursor: "pointer" }}
-                  onClick={() => modalClick("eventListing", item,filteredUrls[index])}
-                />
-                <FamilyEventWrapperInside>
-                  <p className="date">{formatDate(item.acf.event_dates[0].date)}</p>
-                  <p className="month">{formatMonth(item.acf.event_dates[0].date)}</p>
-                </FamilyEventWrapperInside>
-              </FamilyEventWrapper>
+      {loader
+        ? skeletonItems.map((item, index) => (
+            <SearchedData key={index}>
+              <MainInsideWrapper>
+              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
               <div className="restroRating">
-                <p className="shopName">{item.acf.title}</p>
-                <DetailContainer>
-                  <Image
-                    src={locationMark}
-                    style={{
-                      width: "13px",
-                      height: "13px",
-                      marginRight: 8,
-                    }}
-                    alt="utensils"
-                  />
-                  <p>{item.acf.parish.label}</p>
-                </DetailContainer>
-                <p>
-                  <span>{item.acf.event_dates[0].start_time} - {item.acf.event_dates[0].end_time}</span>
-                </p>
+                <Skeleton width={160} height={17} style={{ borderRadius: 8 }} />
+                <Skeleton width={100} height={14} style={{ borderRadius: 8 }} />
+                <Skeleton width={80} height={13} style={{ borderRadius: 8 }} />
               </div>
-            </div>
-          </SearchedData>
-        );
-      })}
+              </MainInsideWrapper>
+            </SearchedData>
+          ))
+        : urlData?.map((item: any, index: any) => {
+            return (
+              <SearchedData key={index}>
+                <MainInsideWrapper>
+                  <FamilyEventWrapper>
+                    <Image
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 4, cursor: "pointer" }}
+                      onClick={() =>
+                        modalClick("eventListing", item, filteredUrls[index])
+                      }
+                    />
+                    <FamilyEventWrapperInside>
+                      <p className="date">
+                        {formatDate(item.acf.event_dates[0].date)}
+                      </p>
+                      <p className="month">
+                        {formatMonth(item.acf.event_dates[0].date)}
+                      </p>
+                    </FamilyEventWrapperInside>
+                  </FamilyEventWrapper>
+                  <div className="restroRating">
+                    <p className="shopName">{item.acf.title}</p>
+                    <DetailContainer>
+                      <Image
+                        src={locationMark}
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          marginRight: 8,
+                        }}
+                        alt="utensils"
+                      />
+                      <p>{item.acf.parish.label}</p>
+                    </DetailContainer>
+                    <p>
+                      <span>
+                        {item.acf.event_dates[0].start_time} -{" "}
+                        {item.acf.event_dates[0].end_time}
+                      </span>
+                    </p>
+                  </div>
+                </MainInsideWrapper>
+              </SearchedData>
+            );
+          })}
+
       <AddListButton>
         <CommonButton text="Suggest an Event" />
       </AddListButton>

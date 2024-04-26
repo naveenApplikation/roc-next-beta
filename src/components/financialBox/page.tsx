@@ -1,4 +1,4 @@
-import { RestroListData } from "@/app/dashboard/data";
+import { RestroListData } from '@/app/utils/data';
 import { blank } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";

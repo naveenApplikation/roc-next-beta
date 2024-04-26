@@ -1,8 +1,6 @@
-import React,{useState} from "react";
+import React from "react";
 import FilterModalLayout from "@/components//modal/Modal";
-import ModalContent from "@/app/dashboard/ModalContent";
 import FilterModal from "@/components/modal/FilterModal";
-import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {

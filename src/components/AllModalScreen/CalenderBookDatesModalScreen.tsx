@@ -2,10 +2,10 @@ import React,{useState} from "react";
 import CalenderModalLayout from "@/components//modal/Modal";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
-import CalenderModal from "@/app/dashboard/calenderModal";
+import CalenderModal from "@/components/modal/calender/calenderModal";
 import CommonButton from "@/components/button/CommonButton";
-import PlacesFormModal from "@/app/dashboard/placesFormModal";
-import PlacesConfirmModal from "@/app/dashboard/placeConfirmNodal";
+import PlacesFormModal from "@/components/modal/calender/placesFormModal";
+import PlacesConfirmModal from "@/components/modal/calender/placeConfirmModal";
 
 interface DashboardSearchContainerProps {
     showMap:boolean
