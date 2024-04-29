@@ -65,7 +65,7 @@ const StarWrapper = styled.div`
 `;
 
 const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls } = useMyContext();
+  const { filterUrls,showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -73,24 +73,27 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    try {
-      const result = await Instance.get("/ww2");
-      const combinedArray = [
-        ...result.data.activity1,
-        ...result.data.activity2,
-      ];
-      setData(combinedArray);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
+    const storedValue = localStorage.getItem("hideUI");
+    if(storedValue){
+      try {
+        const result = await Instance.get("/ww2");
+        const combinedArray = [
+          ...result.data.activity1,
+          ...result.data.activity2,
+        ];
+        setData(combinedArray);
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
     }
   };
 
   useEffect(() => {
     fetchDataAsync();
-  }, []);
+  }, [showContent]);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 

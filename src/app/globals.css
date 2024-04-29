@@ -117,11 +117,27 @@ body {
     background-image: url(../../assets//images/946723516_plemont-bay-jersey.jpg);
     background-attachment:fixed;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 800px) {
   body{
-    background-size: auto;
+    background-size: 120vw 100vh;
+    background-position: right top;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  body{
+    background-size: 165vw 100vh;
+    background-position: right top;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body{
+    background-size: 230vw 100vh;
+    background-position: right top;
   }
 }
 

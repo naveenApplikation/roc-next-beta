@@ -54,6 +54,7 @@ import personHikingImg from  "../../../assets/images/hiking.svg"
 import glassImg from  "../../../assets/images/wineGlass.svg"
 import shoppingImg from  "../../../assets/images/shopping.svg"
 import utensilImg from  "../../../assets/images/utensilsImg.svg"
+import ellipsisImg from  "../../../assets/images/ellipsis.svg"
 import eventImg from  "../../../assets/images/event.svg"
 import closeModalImg from  "../../../assets/images/closeModal.svg"
 import clocksImg from  "../../../assets/images/clocks.svg"
@@ -119,7 +120,13 @@ import walks4Img from  "../../../assets/images/walks4.jpg"
 import walks5Img from  "../../../assets/images/walks5.jpg"
 import walks6Img from  "../../../assets/images/walks6.jpg"
 import walks7Img from  "../../../assets/images/walks7.jpg"
+import ROCLogoImg from '../../../assets/images/ROCLogo.svg'
+import NewLogoRocImg from '../../../assets/images/NewLogoRoc.svg'
+import ROCLogoWhiteImg from '../../../assets/images/ROCLogoWhite.svg'
 
+export const NewLogoRoc = NewLogoRocImg 
+export const ROCLogoWhite = ROCLogoWhiteImg 
+export const ROCLogo = ROCLogoImg 
 export const filter = filterImg 
 export const globe = gloveImg 
 export const phone = phoneImg 
@@ -165,6 +172,7 @@ export const glass =  glassImg
 export const shopping =  shoppingImg
 export const utensil =  utensilImg
 export const event =  eventImg
+export const ellipsis =  ellipsisImg
 export const CloseModal =  closeModalImg
 export const bookOpen =  bookOpenImg
 export const comment =  commentImg

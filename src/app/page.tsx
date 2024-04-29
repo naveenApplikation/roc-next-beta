@@ -18,6 +18,7 @@ import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderO
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
+import { toast, ToastContainer } from "react-toastify";
 
 const Container = styled.div`
   display: flex;
@@ -89,20 +90,18 @@ export default function Home() {
   };
   return (
     <ShadowWrapper>
-    <Container>
-      <MainContainer>
-      <DashboardMenu $showMap={showMap}>
-        <Header {...{ modalClick, iconClick, showMap }} />
-        <Dashboard />
-      </DashboardMenu>
-      </MainContainer>
-      {showMap && <MapWithMenu />}
-      <RightSideMenu />
-    </Container>
+      <Container>
+        <MainContainer>
+          <DashboardMenu $showMap={showMap}>
+            <Header {...{ modalClick, iconClick, showMap }} />
+            <Dashboard />
+          </DashboardMenu>
+        </MainContainer>
+        {showMap && <MapWithMenu />}
+        <RightSideMenu />
+      </Container>
       <ProfileAccountModalScreen showMap={showMap} />
-      <ProfileMylistModalScreen
-        {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
-        />
+      <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
       <FilterModalScreen showMap={showMap} />
       <PlacesModalScreen showMap={showMap} />
       <CalenderBookDatesModalScreen showMap={showMap} />
@@ -111,6 +110,6 @@ export default function Home() {
       <ActivitiesModalScreen showMap={showMap} />
       <DirectoryModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
-        </ShadowWrapper>
+    </ShadowWrapper>
   );
 }

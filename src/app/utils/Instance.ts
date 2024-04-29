@@ -7,10 +7,15 @@ const Instance = axios.create({
 Instance.interceptors.request.use(
   (config) => {
     const token = window.localStorage.getItem("Token");
+    const loginToken = window.localStorage.getItem("loginToken");
     // const user = getData ? JSON.parse(getData) : null;
     if (token) {
       config.headers["x-auth-token"] = token;
+      if (loginToken) { // If loginToken exists, add it to headers
+        config.headers["x-login-token"] = loginToken;
+      }
     }
+   
     return config;
   },
   (error) => {
@@ -21,7 +26,7 @@ Instance.interceptors.request.use(
 Instance.interceptors.response.use(
   (config) => {
     config.headers["x-auth-token"] = "";
-
+    config.headers["x-login-token"] = "";
     return config;
   },
   (error) => {

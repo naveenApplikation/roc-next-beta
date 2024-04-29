@@ -6,9 +6,9 @@ import {
   mapBlack,
   mapIcon,
   profileBlack,
+  NewLogoRoc
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
-import { useRouter } from "next/navigation";
 import GoogleMapComp from "@/components/googleMap/page";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
@@ -45,7 +45,6 @@ const MapSection = styled.div<{
     z-index: 0;
     @media screen and (max-width: 800px) {
       width: 100vw;
-      height: 525px;
     }
     div {
       outline: none !important;
@@ -53,10 +52,10 @@ const MapSection = styled.div<{
   }
   .mapHeader {
     position: absolute;
-    top: 0;
+    top: 50px;
     z-index: 3;
     width: 100%;
-    padding: 40px 15px;
+    padding: 20px 10px 0px 10px;
   }
 
   @media screen and (max-width: 800px) {
@@ -68,9 +67,7 @@ const MapSection = styled.div<{
 
 const SearchFilterSection = styled.div`
   position: absolute;
-  bottom: 40px;
-  /* left:30px; */
-  padding: 0px 15px;
+  bottom: 105px;
   width: 100%;
   overflow: auto;
   display: none;
@@ -99,8 +96,7 @@ const MapSearch = styled.div`
   background-color: white !important;
   width: 100%;
   position: absolute;
-  bottom: -126px;
-  min-height: 22vh;
+  bottom: 0px;
   border-radius: 24px 24px 0px 0px;
   box-shadow: 0px -8px 40px 0px #00000040;
   display: none;
@@ -117,7 +113,7 @@ const MapWithMenu = () => {
       <RightSideHeadMenu className="mapHeader">
         <Image
           style={{ width: "116.615px", height: "48px" }}
-          src={logoBlack}
+          src={NewLogoRoc}
           alt="Logo Outline"
         />
         <HeaderMapProfileContainer>

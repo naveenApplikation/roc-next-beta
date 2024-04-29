@@ -30,181 +30,146 @@ import {
   cartShopping4,
   cartShopping5,
   cartShopping6,
+  sun,
+  news,
+  van,
+  sos,
+  tides,
+  flight,
+  saling,
+  network,
+  castle,
+  event,
+  shopping,
+  camera,
+  hotel,
+  personHiking,
+  compass,
+  glass,
+  ellipsis
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
   {
     name: "weather",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle.png?alt=media&token=7f44cc9f-a512-4e50-b38e-7f338a7a0225",
-    width: 16,
-    height: 16,
+    image:sun,
   },
   {
     name: "news",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(1).png?alt=media&token=0e613108-f98c-46b6-8816-73e3ea9d9eb0",
-    width: 16,
-    height: 16,
+    image:news,
   },
   {
     name: "travels",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(2).png?alt=media&token=4050b487-86d9-400a-9ce5-2072560b9e3f",
+    image:van,
     width: 20,
     height: 16,
   },
   {
     name: "sos",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(3).png?alt=media&token=d65d73a5-438f-4b3f-b9dc-d02eebc5968d",
+    image:sos,
     width: 20,
     height: 16,
   },
   {
     name: "tides",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(4).png?alt=media&token=036d998e-21b1-485b-b4fc-a4180c0969bb",
+    image:tides,
     width: 18,
     height: 16,
   },
   {
     name: "flight",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(5).png?alt=media&token=d4673b91-05fc-40e4-a776-5651988ff4d5",
+    image:flight,
     width: 18,
     height: 16,
   },
   {
     name: "sailing",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fsailing.png?alt=media&token=fa0f72a1-1504-40a8-939a-da540684225f",
-    width: 16,
-    height: 16,
+    image:saling,
   },
   {
     name: "phones",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fphotos.png?alt=media&token=15a406e9-198b-49a6-9166-919b737f10bb",
-    width: 16,
-    height: 16,
+    image:network,
   },
   {
     name: "Holidays",
     image: holidayDas,
-    width: 16,
-    height: 16,
   },
   {
     name: "Beaches",
     image: beachumbrella,
-    width: 16,
-    height: 16,
-  },
-  {
-    name: "Weather",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle.png?alt=media&token=7f44cc9f-a512-4e50-b38e-7f338a7a0225",
-    width: 16,
-    height: 16,
-  },
-  {
-    name: "News",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(1).png?alt=media&token=0e613108-f98c-46b6-8816-73e3ea9d9eb0",
-    width: 16,
-    height: 16,
-  },
-  {
-    name: "Travel",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fvan-shuttle%20(2).png?alt=media&token=4050b487-86d9-400a-9ce5-2072560b9e3f",
-    width: 16,
-    height: 16,
   },
 ];
 
 export const rightSideMenu = [
   {
     name: "To do",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle.png?alt=media&token=ce0cbd43-f430-42e8-ad5d-10b057801aa2",
+    image:castle,
     width: 25,
     height: 20,
   },
   {
     name: "Dine",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(4).png?alt=media&token=08c96c86-6358-48fd-bba4-cacb5885942c",
+    image:utensils,
     width: 18,
     height: 20,
   },
   {
     name: "Shop",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(1).png?alt=media&token=2f177709-8cf4-4894-ba72-818a509a65b6",
+    image:shopping,
     width: 23,
     height: 20,
   },
   {
     name: "Events",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(2).png?alt=media&token=08075a61-f3db-4536-a047-f6f6ccfa35c2",
+    image:event,
     width: 18,
     height: 20,
   },
   {
     name: "Tours",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(3).png?alt=media&token=5be8557f-38ef-495b-96ed-12e4ca1243b5",
+    image:camera,
     width: 16,
     height: 16,
   },
   {
     name: "Hotels",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(5).png?alt=media&token=ae058945-9484-49bf-b63e-e8824bcf3ba6",
+    image:hotel,
     width: 20,
     height: 20,
   },
   {
     name: "Activities",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(6).png?alt=media&token=352d8f21-14e7-47c7-823c-6aa86baee023",
+    image:personHiking,
     width: 15,
     height: 20,
   },
   {
     name: "Travel",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(7).png?alt=media&token=f2dff386-8269-4c2c-9fb6-d3c6c243a476",
+    image:compass,
     width: 20,
     height: 20,
   },
   {
     name: "Nightlife",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(8).png?alt=media&token=f56bca5c-2dc7-4c35-a20b-717135702d02",
+    image:glass,
     width: 23,
     height: 20,
   },
   {
     name: "Holidays",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(9).png?alt=media&token=988fee6d-166a-4545-a6dd-6bdf9dcbdc34",
+    image:holidayDas,
     width: 25,
     height: 20,
   },
   {
     name: "Beaches",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FRightSideMenu%2Fcastle%20(10).png?alt=media&token=37100701-62db-4456-9535-05681fa9297c",
+    image:beachumbrella,
     width: 23,
     height: 20,
   },
   {
     name: "All",
-    image: allItem,
+    image: ellipsis,
     width: 16,
     height: 16,
   },

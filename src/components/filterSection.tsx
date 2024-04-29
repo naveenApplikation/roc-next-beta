@@ -1,9 +1,10 @@
-import { SoryByItem} from "@/app/utils/data";
+import { SoryByItem } from "@/app/utils/data";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import DropDwons from "./dropdowns";
 import { useMyContext } from "@/app/Context/MyContext";
+import { filterSearch } from "@/app/utils/ImagePath";
 
 interface FilterSectionProps {
   // Define your props here
@@ -61,11 +62,9 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
   return (
     <FilterContainer>
       <Image
-        src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Ffilter-list.png?alt=media&token=626f0d43-3a9a-40ed-8a1c-e35b105be153"
-        width={32}
-        height={20}
+        src={filterSearch}
         onClick={() => modalClick("modalFilter")}
-        style={{cursor:"pointer"}}
+        style={{ cursor: "pointer" }}
         alt=""
       />
       <ScrollingMenu>

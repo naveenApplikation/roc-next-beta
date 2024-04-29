@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
+import Instance from "@/app/utils/Instance";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 interface ModalProps { 
     previousModal?:any,
@@ -34,15 +37,67 @@ const CreateAccountText = styled.div`
     cursor: pointer;
 `;
 
+export const ErrorMessage = styled.p`
+  color: #c93535;
+  /* margin-top: 8px; */
+  margin-bottom: 20px;
+  font-size: 16px;
+`;
+
 const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
+
+    const formik = useFormik({
+        initialValues: {
+          email: "",
+          password: "",
+        },
+        validationSchema: Yup.object({
+          email: Yup.string().email("Invalid email format").required("Required!"),
+          password: Yup.string()
+            .min(8, "Minimum 8 characters")
+            .required("Required!"),
+        }),
+        onSubmit: async (values) => {
+          try {
+            const loginData = await Instance.post("sign-in", {
+              email: values.email,
+              password: values.password,
+            });
+            localStorage.setItem("loginToken", loginData.data.token);
+            console.log(loginData);
+            nextModal()
+          } catch (error: any) {
+            console.log(error.message);
+            // showToast(error.message, "error");
+          } finally {
+          }
+        },
+      });
+
     return (
         <MenuModalContent>
-            <MenuAccountInput title="Email" />
-            <MenuAccountInput title="Password" />
+            <MenuAccountInput
+        title="Email"
+        type="text"
+        name="email"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+      />
+      {formik.errors.email && formik.touched.email && (
+        <ErrorMessage>{formik.errors.email}</ErrorMessage>
+      )}
+      <MenuAccountInput
+        title="Password"
+        type="password"
+        name="password"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+      />
+      {formik.errors.password && formik.touched.password && (
+        <ErrorMessage>{formik.errors.password}</ErrorMessage>
+      )}
             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
-            <div onClick={nextModal}>
-            <CommonButton bcColor="#2F80ED" text="Login" imageStyle={0} />
-            </div>
+            <CommonButton bcColor="#2F80ED" text="Login" imageStyle={0}    isOpen={formik.handleSubmit} />
             <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
         </MenuModalContent>
     );

@@ -66,7 +66,7 @@ const StarWrapper = styled.div`
 
 const Heritage: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   
-  const { filterUrls } = useMyContext();
+  const { filterUrls,showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -74,20 +74,23 @@ const Heritage: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    try {
-      const result = await Instance.get("/heritages");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
+    const storedValue = localStorage.getItem("hideUI");
+    if(storedValue){
+      try {
+        const result = await Instance.get("/heritages");
+        setData(result.data);
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
     }
   };
 
   useEffect(() => {
     fetchDataAsync();
-  }, []);
+  }, [showContent]);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 

@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {
-  thumbsDown,
-  thumbsUp,
-  yellowStar,
-} from "../../app/utils/ImagePath";
+import { thumbsDown, thumbsUp, yellowStar } from "@/app/utils/ImagePath";
+import Ratings from "@/components/rating/ShowRating";
 
 interface RatingProps {
   Titletext: string;
@@ -70,8 +67,18 @@ const LikeDislikeContainer = styled.div`
 `;
 const LikeDislikeWrapper = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
 `;
+
+const RatingValue = styled.div`
+  color: var(--MAIN, #2F80ED);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
+`
 
 const CommentRating: React.FC<RatingProps> = ({
   Titletext,
@@ -84,10 +91,7 @@ const CommentRating: React.FC<RatingProps> = ({
     <Container>
       <TitleContainer>
         <RatingContainer>
-          <Image
-            src={yellowStar}
-            alt="icon"
-          />
+          <Ratings defaultValue={starRating} />
           <p>{starRating}</p>
         </RatingContainer>
         <TitleText>{Titletext}</TitleText>
@@ -95,18 +99,12 @@ const CommentRating: React.FC<RatingProps> = ({
       <MainText>{Maintext}</MainText>
       <LikeDislikeContainer>
         <LikeDislikeWrapper>
-          <Image
-            src={thumbsUp}
-            alt="icon"
-          />
-          <p>{like}</p>
+          <Image src={thumbsUp} alt="icon" />
+          <RatingValue>{like}</RatingValue>
         </LikeDislikeWrapper>
         <LikeDislikeWrapper>
-          <Image
-            src={thumbsDown}
-            alt="icon"
-          />
-          <p>{disLike}</p>
+          <Image src={thumbsDown} alt="icon" />
+          <RatingValue>{disLike}</RatingValue>
         </LikeDislikeWrapper>
       </LikeDislikeContainer>
     </Container>

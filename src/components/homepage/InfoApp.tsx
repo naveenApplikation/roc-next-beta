@@ -67,9 +67,6 @@ const [linkData, setLinkData] = useState("")
             <NormalOption key={index} href={linkData[item.name]} target="_blank" >
               <Image
                 src={item.image}
-                width={item.width}
-                height={item.height}
-                style={{ width: "auto" }}
                 alt="right icon"
               />{" "}
               <p style={{ fontSize: "14px" }}>{item.name}</p>

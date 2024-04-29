@@ -1,17 +1,18 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchInput from "@/components/searchInput/SearchInput";
 import Image from "next/image";
-import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen';
-import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen';
+import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
+import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
+import { filter } from "@/app/utils/ImagePath";
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
-  const options = ["Lists", "Places"];
+const options = ["Lists", "Places"];
 type tabs = "Lists" | "Places";
 
 const ScrollingMenu = styled.div`
@@ -28,7 +29,6 @@ const ScrollingMenu = styled.div`
     padding: 0px 16px;
   }
 `;
-
 
 const InputWrapper = styled.div`
   display: flex;
@@ -56,9 +56,8 @@ const FilterInput = styled.div`
   cursor: pointer;
 `;
 
-const SearchNFilter: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
-
-  const {showMap } = useMyContext();
+const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { showMap } = useMyContext();
 
   const [tabValue, setTabValue] = useState("Lists");
 
@@ -68,16 +67,12 @@ const SearchNFilter: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
   return (
     <>
-     <InputWrapper>
+      <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
         <FilterInput onClick={() => modalClick("modalFilter")}>
           <Image
             style={{ marginTop: "10px" }}
-            src={
-              "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Ffilter.png?alt=media&token=39f6b801-3af0-4187-adff-4ba787ceea23"
-            }
-            width={16}
-            height={16}
+            src={filter}
             alt="Filter icon"
           />
           Filter

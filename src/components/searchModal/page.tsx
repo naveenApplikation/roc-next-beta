@@ -23,7 +23,7 @@ const StyledModal = styled.div<{
   width: ${({ $showMap }) =>   ( $showMap ? "480px" : "580px")}; /* Adjust this value as needed */
   background: #f2f3f3;
   background-blend-mode: normal, luminosity;
-  box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: ${({ $isopen }) => $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
   backdrop-filter: blur(22px);
   display: flex;
   justify-content: space-between;

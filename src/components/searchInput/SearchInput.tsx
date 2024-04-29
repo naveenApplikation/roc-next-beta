@@ -43,7 +43,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({onFocus}) => {
   return (
     <InputContainer>
       <SearchInput onFocus={onFocus}  type="text" placeholder="Search..." />
-      <SearchIcon src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fsearch%20(1).png?alt=media&token=9d503043-8cc0-4145-9024-eb3ddd2991d2"} width={24} height={24} alt="Search" onClick={handleSearch} />
+      <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import DashBoardButton from "@/components/button/DashBoardButton";
@@ -6,6 +6,8 @@ import CommentRating from "@/components/dashboard/CommentRating";
 import { LocalCuisineMenuItem } from "@/app/utils/data";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import CommonButton from "@/components/button/CommonButton";
+import Instance from "@/app/utils/Instance";
+import Ratings from "@/components/ratings";
 import {
   bookOpen,
   comment,
@@ -197,12 +199,37 @@ const AlsoSeeText = styled.p`
   margin-left: 24px;
 `;
 
+const TextAreaContainer = styled.textarea`
+  width: 100%;
+  outline: none;
+  background-color: white;
+  height: 160px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  resize: none;
+  &::placeholder {
+    color: black; /* Change the color to your desired color */
+    font-size: 16px;
+    font-family: Inter;
+  }
+`;
+
+const AddReview = styled.p`
+  color: var(--MAIN, #2f80ed);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+`;
+
 const ModalContent: React.FC<ModalProps> = ({
   onClose,
   reservationModal,
   dataImage,
   data,
 }) => {
+  const [showApiData, setShowApiData] = useState(data);
 
   const ResturantDetailData = [
     {
@@ -223,20 +250,84 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-  const formattedValues = ()=>{
-    if(Array.isArray(data.acf?.type)){
-      return data.acf?.type.map((item: any) => item.label).join(" | ")
-    }else{
-     return data.acf?.type.label
+  const [showReview, setShowReview] = useState(false);
+  const [commentReview, setCommentReview] = useState("");
+  const [rating, setRating] = React.useState("");
+
+  // console.log(data.reviews, "ssds");
+
+  const giveRating = (value: any) => {
+    setRating(value);
+  };
+
+  const handleButtonClick = () => {
+    setShowReview(!showReview);
+  };
+
+  const [loader, setloader] = useState(true);
+  const [reviewData, setReviewData] = useState([]);
+  const [reviewShowToggle, setReviewShowToggle] = useState(false);
+
+
+
+  useEffect(() => {
+    const getReviewData = async () => {
+      setloader(true);
+      if (data._id) {
+        try {
+          const ReviewData = await Instance.get(`review/${data?._id}`);
+          console.log(ReviewData, "sdsdsds");
+          setReviewData(ReviewData.data);
+          setReviewShowToggle(false);
+        } catch (error: any) {
+          console.log(error.message);
+          setloader(false);
+        } finally {
+          setloader(false);
+        }
+      }
+    };
+    getReviewData();
+  }, [data?._id, reviewShowToggle]);
+
+  const fetchDataAsync = async () => {
+    setloader(true);
+    try {
+      const ReviewData = await Instance.post("review", {
+        placeId: data._id,
+        rating: rating,
+        comment: commentReview,
+      });
+      setShowReview(false);
+      setReviewShowToggle(true);
+      setCommentReview("");
+      setRating("");
+      console.log(ReviewData, "sdsdsds");
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
-  }
+  };
+
+  const formattedValues = () => {
+    if (Array.isArray(data.acf?.type)) {
+      return data.acf?.type.map((item: any) => item.label).join(" | ");
+    } else {
+      return data.acf?.type.label;
+    }
+  };
 
   const strippedContent = data.acf?.short_description
     .replace(/<p[^>]*>/g, "")
     .replace(/<\/p>/g, "");
 
-    const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
-    const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as { opens: string,closes:string  }[];
+  const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
+  const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as {
+    opens: string;
+    closes: string;
+  }[];
 
   return (
     <Container>
@@ -254,7 +345,11 @@ const ModalContent: React.FC<ModalProps> = ({
       </ResturatContainer>
       <ItemImageContainer>
         <ImageWrraper
-        src={dataImage ? dataImage: "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+          src={
+            dataImage
+              ? dataImage
+              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+          }
           alt="Logo"
           width={342}
           height={192}
@@ -304,39 +399,66 @@ const ModalContent: React.FC<ModalProps> = ({
       </MenuButtonContainer>
       <ReviewContainer>
         <ReviewWraaper>
-          <Image src={comment} alt="icon" />
-          <p>Reviews</p>
+          {/* <Image src={comment} alt="icon" /> */}
+          <OpeningTitle>Reviews</OpeningTitle>
         </ReviewWraaper>
-        <CommentRating
-          Titletext="ELCIAS DE FREITAS"
-          Maintext="Great French style restaurant right in the middle of town grab a drink and watch people go by or have a full blown meal. Try the 3 course set menu at just £18, it's the best bargain to be had in Jersey and tastes wonderful. Staff are also very friendly and attentive. More"
-          starRating={4.7}
-          like={24}
-          disLike={7}
-        />
-        <CommentRating
-          Titletext="Anonymous"
-          Maintext="Excellent place to have a lunch or dinner. Service is at par. I have ordered sea food soup which was mind blowing and a sea bass grill. Excellent taste. Chef made sure that food is tasty. Worth the visit from UK. I’ll go again when I go to Jersey More"
-          starRating={4.7}
-          like={2}
-          disLike={0}
-        />
-        <ReviewWraaper style={{ marginBottom: "8px" }}>
+        {reviewData.map((item: any, index: any) => (
+          <div key={index}>
+            <CommentRating
+              Titletext="ELCIAS DE FREITAS"
+              Maintext={item.comment}
+              starRating={item.rating}
+              like={24}
+              disLike={7}
+            />
+          </div>
+        ))}
+        <ReviewWraaper
+          style={{ marginBottom: "8px", cursor: "pointer" }}
+          onClick={handleButtonClick}
+        >
           <Image src={plus} alt="icon" />
-          <p>Add Review</p>
+          <AddReview>Add Review</AddReview>
         </ReviewWraaper>
+        {showReview && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+            <TextAreaContainer
+              rows={4}
+              cols={50}
+              placeholder="Comments"
+              value={commentReview}
+              onChange={(e) => setCommentReview(e.target.value)}
+            />
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
+              <Ratings
+                defaultValue={0}
+                giveRating={giveRating}
+                ratingvalue={rating}
+              />
+            </div>
+            <CommonButton text="Submit Review" isOpen={fetchDataAsync} />
+          </div>
+        )}
       </ReviewContainer>
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-          {data.acf?.seasonality && data.acf?.seasonality.map((item: any, index: any) => (
-            <p key={index}>{item.label}{index !== data.acf?.seasonality.length - 1 && ','} </p>
-          ))}
+          {data.acf?.seasonality &&
+            data.acf?.seasonality.map((item: any, index: any) => (
+              <p key={index}>
+                {item.label}
+                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+              </p>
+            ))}
         </DatesWrapperText>
         {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
             <p>{item}:</p>
-            <p>{(daysOfWeekTiming[index].opens)} - {(daysOfWeekTiming[index].closes)}</p>
+            <p>
+              {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
+            </p>
           </WeekTimeArrange>
         ))}
       </DatesContainer>

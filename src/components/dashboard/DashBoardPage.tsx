@@ -85,7 +85,6 @@ const DashBoard= () => {
 
   return (
     <>
-    <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} />
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
@@ -111,7 +110,6 @@ const DashBoard= () => {
       <LeaveFeedbackButton onClick={() => menuClick("AddToCreate")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
-    </>
     </>
   );
 };

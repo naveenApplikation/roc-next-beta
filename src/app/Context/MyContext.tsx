@@ -21,6 +21,8 @@ interface ContextProps {
   modalClick: (name: string, item?: any,urlImage?:any) => void;
   iconClick: (name: string) => void;
   filterUrls: any;
+  handleApiResponse:any,
+  showContent:boolean
 }
 
 // Create a context
@@ -30,6 +32,7 @@ const MyContext = createContext<ContextProps | undefined>(undefined);
 const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [modalName, setModalNames] = useState<string>('');
   const [dataDetails, setDataDetails] = useState<DataDetails>({});
+  const [showContent, setShowContent] = useState(false);
   const [dataUrlImage, setDataUrlImage] = useState("");
   const [showMap, setShowMap] = useState<boolean>(false);
   const [modalType, setModalType] = useState({
@@ -52,6 +55,10 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     eventListing:false,
     activities:false
   });
+
+  const handleApiResponse = (shouldShowContent:any) => {
+    setShowContent(shouldShowContent);
+  };
 
   const closeModal = (name: string) => {
     setModalType((prev) => ({
@@ -115,7 +122,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     modalClick,
     iconClick,
     filterUrls,
-    dataUrlImage
+    dataUrlImage,
+    handleApiResponse,
+    showContent
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { headerHome } from "@/app/utils/ImagePath";
+import {
+  headerHome,
+  mapIcon,
+  profileWhite,
+  ROCLogoWhite,
+} from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
@@ -147,30 +152,15 @@ const RightSide = () => {
   return (
     <RightMenu>
       <RightSideHeadMenu>
-        <Image
-          src={
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201662.png?alt=media&token=1d8c1112-bb3f-4b87-b411-5f30d9a923e4"
-          }
-          width={117}
-          height={48}
-          alt="Logo Outline"
-        />
+        <Image src={ROCLogoWhite} width={117} height={48} alt="Logo Outline" />
         <HeaderMapProfileContainer>
           <Image
-            src={
-              showMap
-                ? headerHome
-                : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FSubtract.png?alt=media&token=139cba6b-da87-459e-a98f-1175af63647b"
-            }
+            src={showMap ? headerHome : mapIcon}
             alt="Logo Outline"
-            width={48}
-            height={48}
             onClick={() => iconClick("mapClick")}
           />
           <Image
-            src={
-              "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FSubtract%20(1).png?alt=media&token=076b658c-cbac-4ea1-86a3-343611447c45"
-            }
+            src={profileWhite}
             width={48}
             height={48}
             alt="Logo Outline"
@@ -217,10 +207,7 @@ const RightSide = () => {
         })}
       </MobileViewRightSideMenu>
       <AllCategories>
-        {/* <button onClick={() => menuClick("CategorieList")}> */}
-        <button>
-          All Categories
-        </button>
+        <button>All Categories</button>
       </AllCategories>
     </RightMenu>
   );

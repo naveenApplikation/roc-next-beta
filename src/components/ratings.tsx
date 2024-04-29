@@ -5,6 +5,8 @@ import styled from "styled-components";
 interface RatingsProps {
   // Define your props here
   defaultValue: number;
+  giveRating?:any
+  ratingvalue?:any
 }
 
 const Container = styled.div`
@@ -34,18 +36,17 @@ const RatingValue = styled.span`
     }
 `;
 
-const Ratings: React.FC<RatingsProps> = ({ defaultValue }) => {
-  const [rating, setRating] = React.useState(defaultValue);
+const Ratings: React.FC<RatingsProps> = ({ defaultValue,giveRating,ratingvalue }) => {
 
   return (
     <Container>
       <Rate
         allowHalf
         defaultValue={defaultValue}
-        value={rating}
-        onChange={(value) => setRating(value)}
+        value={ratingvalue}
+        onChange={(value) => giveRating(value)}
       />
-      <RatingValue>{rating}</RatingValue>
+      <RatingValue>{ratingvalue}</RatingValue>
     </Container>
   );
 };

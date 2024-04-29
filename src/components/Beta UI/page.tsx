@@ -6,6 +6,7 @@ import BetaUIModal from "../modal/BetaUIModal";
 import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -101,6 +102,7 @@ const JoinText = styled.p`
 const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
   const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const { handleApiResponse} = useMyContext();
   // const [loading, setLoading] = useState(true);
 
 
@@ -132,6 +134,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
       localStorage.setItem("hideUI", inputValue.trim());
       setShowContent(false);
       localStorage.setItem("Token", result.data.data);
+      handleApiResponse(true)
     } catch (error: any) {
       console.log(error.message);
       // setloader(false);

@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 interface InputProps {
-    title: string
+    title: string;
+    type?:string;
+    name?:string;
+    value?:any;
+    onChange?:any
 }
 
 const MenuInputField = styled.div`
@@ -33,10 +37,10 @@ const AccountInputText = styled.input`
   }
 `;
 
-const MenuAccountInput: React.FC<InputProps> = ({ title }) => {
+const MenuAccountInput: React.FC<InputProps> = ({type, title,name,value,onChange }) => {
     return (
         <MenuInputField>
-            <AccountInputText type="text" placeholder={title} />
+            <AccountInputText type={type} placeholder={title} name={name} value={value} onChange={onChange} />
         </MenuInputField>
     );
 };

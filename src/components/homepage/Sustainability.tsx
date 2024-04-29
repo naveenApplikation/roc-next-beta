@@ -32,7 +32,7 @@ const Sustainability: React.FC<DashboardProps> = ({
   modalClick,
   menuClick,
 }) => {
-  const { filterUrls } = useMyContext();
+  const { filterUrls,showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -40,20 +40,23 @@ const Sustainability: React.FC<DashboardProps> = ({
 
   const fetchDataAsync = async () => {
     setloader(true);
-    try {
-      const result = await Instance.get("/sustainability");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
+    const storedValue = localStorage.getItem("hideUI");
+    if(storedValue){
+      try {
+        const result = await Instance.get("/sustainability");
+        setData(result.data);
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
     }
   };
 
   useEffect(() => {
     fetchDataAsync();
-  }, []);
+  }, [showContent]);
 
   const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
 
