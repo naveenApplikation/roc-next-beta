@@ -60,6 +60,7 @@ const nextConfig = {
     // formats: ['image/jpeg', 'image/png'],
     // unoptimized: true, 
   },
+  reactStrictMode: false,
 };
 
 export default nextConfig;
