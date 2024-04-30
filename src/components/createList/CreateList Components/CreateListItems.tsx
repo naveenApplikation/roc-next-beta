@@ -34,6 +34,8 @@ interface CreateListItemsProps {
   newText?: any;
   delivery?: any;
   isOpen?: any;
+  handleToggle?: any;
+  index?: any;
 }
 
 const CreateListItem = styled.div`
@@ -252,6 +254,8 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
   newText,
   delivery,
   isOpen,
+  handleToggle,
+  index,
 }) => {
   return (
     <CreateListItem>
@@ -347,12 +351,31 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
           </ItemDetails>
         </ListItemDetails>
       </div>
-      {unSelectedBtn && (
+      {unSelectedBtn ?
+        <UnselectedBtn onClick={() => handleToggle(listItemName, index)}>
+          <Image
+            style={{ width: "16px", height: "16px" }}
+            src={UnselectedBtnImg}
+            alt="UnselectedBtnImg"
+            // onClick={() => handleToggle(listItemName)}
+          />
+        </UnselectedBtn>
+        :
+        <SelectedBtn onClick={() => handleToggle(listItemName, index)}>
+          <Image
+            style={{ width: "14px", height: "16px" }}
+            src={SelectedBtnImg}
+            alt="SelectedBtnImg"
+          />
+        </SelectedBtn>
+      }
+      {/* {unSelectedBtn && (
         <UnselectedBtn>
           <Image
             style={{ width: "16px", height: "16px" }}
             src={UnselectedBtnImg}
             alt="UnselectedBtnImg"
+            onClick={()=>handleToggle(listItemName)}
           />
         </UnselectedBtn>
       )}
@@ -362,9 +385,10 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
             style={{ width: "14px", height: "16px" }}
             src={SelectedBtnImg}
             alt="SelectedBtnImg"
+            onClick={()=>handleToggle(listItemName)}
           />
         </SelectedBtn>
-      )}
+      )} */}
       {commentBtn && (
         <UnselectedBtn onClick={isOpen}>
           <Image

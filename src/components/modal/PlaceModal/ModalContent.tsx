@@ -21,6 +21,7 @@ import {
   phoneBlack,
   locationDot,
 } from "@/app/utils/ImagePath";
+import { setEngine } from "crypto";
 
 interface ModalProps {
   onClose: () => void;
@@ -251,8 +252,10 @@ const ModalContent: React.FC<ModalProps> = ({
   ];
 
   const [showReview, setShowReview] = useState(false);
+  const [showEdit, setShowEdit] = useState('');
   const [commentReview, setCommentReview] = useState("");
-  const [rating, setRating] = React.useState("");
+  const [rating, setRating] = useState("");
+  const [textId, setTextId] = useState("");
 
   // console.log(data.reviews, "ssds");
 
@@ -262,7 +265,16 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const handleButtonClick = () => {
     setShowReview(!showReview);
+
   };
+
+  useEffect(()=>{
+    if(showReview){
+      setShowEdit('')
+      setCommentReview("")
+      setRating("")
+    }
+  }, [showReview])
 
   const [loader, setloader] = useState(true);
   const [reviewData, setReviewData] = useState([]);
@@ -292,16 +304,23 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const fetchDataAsync = async () => {
     setloader(true);
+    const param = {
+      placeId: data._id,
+      rating: rating,
+      comment: commentReview,
+    }
+    const paramUpdate = {
+      rating: rating,
+      comment: commentReview,
+      reviewId: textId,
+    }
     try {
-      const ReviewData = await Instance.post("review", {
-        placeId: data._id,
-        rating: rating,
-        comment: commentReview,
-      });
+      const ReviewData = showEdit !=='' ? await Instance.put("review", paramUpdate) : await Instance.post("review", param);
       setShowReview(false);
       setReviewShowToggle(true);
       setCommentReview("");
       setRating("");
+      setShowEdit('')
       console.log(ReviewData, "sdsdsds");
     } catch (error: any) {
       console.log(error.message);
@@ -328,6 +347,16 @@ const ModalContent: React.FC<ModalProps> = ({
     opens: string;
     closes: string;
   }[];
+
+
+
+  const handleEdit = (index: any, rating: any, text: any, id: any) => {
+    console.log("id", id)
+    setShowEdit(index)
+    setCommentReview(text)
+    setRating(rating)
+    setTextId(id)
+  }
 
   return (
     <Container>
@@ -404,15 +433,45 @@ const ModalContent: React.FC<ModalProps> = ({
         </ReviewWraaper>
         {reviewData.map((item: any, index: any) => (
           <div key={index}>
-            <CommentRating
-              Titletext="ELCIAS DE FREITAS"
-              Maintext={item.comment}
-              starRating={item.rating}
-              like={24}
-              disLike={7}
-            />
+            {
+              showEdit === index ?
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                  <TextAreaContainer
+                    rows={4}
+                    cols={50}
+                    placeholder="Comments"
+                    value={commentReview}
+                    onChange={(e) => setCommentReview(e.target.value)}
+                  />
+                  {
+                    console.log("item", item?._id) as any
+                  }
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
+                    <Ratings
+                      defaultValue={0}
+                      giveRating={giveRating}
+                      ratingvalue={rating}
+                    />
+                  </div>
+                  <CommonButton text={showEdit === index ? "Update Review" : "Submit Review"} isOpen={fetchDataAsync} />
+                </div>
+                :
+                <CommentRating
+                  index={index}
+                  id={item?._id}
+                  Titletext="ELCIAS DE FREITAS"
+                  Maintext={item.comment}
+                  starRating={item.rating}
+                  like={24}
+                  disLike={7}
+                  handleEdit={handleEdit}
+                />
+            }
           </div>
         ))}
+        
         <ReviewWraaper
           style={{ marginBottom: "8px", cursor: "pointer" }}
           onClick={handleButtonClick}

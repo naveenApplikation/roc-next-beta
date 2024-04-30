@@ -10,11 +10,12 @@ import CurrencySign from "../../../assets/images/createListImages/currencySign.p
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import { utensils } from "@/app/utils/ImagePath";
 
+
 interface DragInOrderProps {
-    ScreenSwitch?:Function
-    preScreen?:Function
-    homePage:any
- }
+    ScreenSwitch?: Function
+    preScreen?: Function
+    homePage: any
+}
 
 const DragInOrderScreen = styled.div`
     width: 580px;
@@ -22,7 +23,6 @@ const DragInOrderScreen = styled.div`
     background-blend-mode: normal, luminosity;
     box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(22px);
-
     @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -60,85 +60,86 @@ const ListItemScrollBox = styled.div`
 `;
 
 
-const DragInOrder: React.FC<DragInOrderProps> = ({ScreenSwitch,preScreen,homePage}) => {
+const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage }) => {
     return (
         <DragInOrderScreen>
             <ListItemScrollBox>
-            <CreateListingsHeader homePage={homePage} />
-            <DragInOrderContent>
-                <DragInOrderTitle>Drag in order</DragInOrderTitle>
-                {/*  DRAG AND DROP COMPONENTS  */}
-                <DragInOrderListScrollBox>
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Kyomu"
-                        secondLineDetails1
-                        itemPlaceLogo={utensils}
-                        placeName1="St Helier"
-                        ratedStar
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails1
-                        status1="Open ⋅ Closes"
-                        timing2="11 pm"
-                        newText
-                        delivery
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Chocadyllic"
-                        secondLineDetails1
-                        itemPlaceLogo={StHelierLogo}
-                        placeName1="St Helier"
-                        thirdLineDetails1
-                        status1="Open ⋅ Closes"
-                        timing2="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Kalimukti Yoga"
-                        secondLineDetails1
-                        itemPlaceLogo={CurrencySign}
-                        placeName1="From £5"
-                        thirdLineDetails2
-                        status2="Outdoors"
-                        timing3="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Radisson Blu Waterfront Hotel"
-                        secondLineDetails1
-                        itemPlaceLogo={CurrencySign}
-                        placeName1="From £265/night"
-                        ratedStar
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails2
-                        status2="St Helier"
-                        timing3="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="abrdn"
-                        marginTop="14px"
-                        secondLineDetails2
-                        itemPlaceLogo={false}
-                        placeName2="Investment Managers"
-                        timing1="11pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="C&M Scaffolding"
-                        secondLineDetails3
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails2
-                        status2="Competitive rates. Fast & efficient service. Scaffolding erected to CISRS standards"
-                    />
-                </DragInOrderListScrollBox>
-            </DragInOrderContent>
+                <CreateListingsHeader homePage={homePage} />
+                <DragInOrderContent>
+                    <DragInOrderTitle>Drag in order</DragInOrderTitle>
+                    {/*  DRAG AND DROP COMPONENTS  */}
+                    <DragInOrderListScrollBox>
+                    
+                            <CreateListItems
+                                dragBtn
+                                listItemName="Kyomu"
+                                secondLineDetails1
+                                itemPlaceLogo={utensils}
+                                placeName1="St Helier"
+                                ratedStar
+                                ratingStarImage={RatingStarImage}
+                                starRating={4.7}
+                                thirdLineDetails1
+                                status1="Open ⋅ Closes"
+                                timing2="11 pm"
+                                newText
+                                delivery
+                            />
+                            <CreateListItems
+                                dragBtn
+                                listItemName="Chocadyllic"
+                                secondLineDetails1
+                                itemPlaceLogo={StHelierLogo}
+                                placeName1="St Helier"
+                                thirdLineDetails1
+                                status1="Open ⋅ Closes"
+                                timing2="11 pm"
+                            />
+                            <CreateListItems
+                                dragBtn
+                                listItemName="Kalimukti Yoga"
+                                secondLineDetails1
+                                itemPlaceLogo={CurrencySign}
+                                placeName1="From £5"
+                                thirdLineDetails2
+                                status2="Outdoors"
+                                timing3="11 pm"
+                            />
+                            <CreateListItems
+                                dragBtn
+                                listItemName="Radisson Blu Waterfront Hotel"
+                                secondLineDetails1
+                                itemPlaceLogo={CurrencySign}
+                                placeName1="From £265/night"
+                                ratedStar
+                                ratingStarImage={RatingStarImage}
+                                starRating={4.7}
+                                thirdLineDetails2
+                                status2="St Helier"
+                                timing3="11 pm"
+                            />
+                            <CreateListItems
+                                dragBtn
+                                listItemName="abrdn"
+                                marginTop="14px"
+                                secondLineDetails2
+                                itemPlaceLogo={false}
+                                placeName2="Investment Managers"
+                                timing1="11pm"
+                            />
+                            <CreateListItems
+                                dragBtn
+                                listItemName="C&M Scaffolding"
+                                secondLineDetails3
+                                ratingStarImage={RatingStarImage}
+                                starRating={4.7}
+                                thirdLineDetails2
+                                status2="Competitive rates. Fast & efficient service. Scaffolding erected to CISRS standards"
+                            />
+                    </DragInOrderListScrollBox>
+                </DragInOrderContent>
             </ListItemScrollBox>
-            <CreateListingsFooter footerBtns firstBtnText="Select more" ScreenSwitch={ScreenSwitch} preScreen={preScreen}  secondText={"continue"} />
+            <CreateListingsFooter footerBtns firstBtnText="Select more" ScreenSwitch={ScreenSwitch} preScreen={preScreen} secondText={"continue"} />
         </DragInOrderScreen>
     )
 }

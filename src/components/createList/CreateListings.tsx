@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import SearchComponent from "@/components/searchInput/SearchInput";
@@ -15,8 +15,8 @@ import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImag
 import FilterSection from '@/components/filterSection';
 
 interface CreateListingsProps {
-  ScreenSwitch?:Function
-  homePage:any
+  ScreenSwitch?: Function
+  homePage: any
 }
 
 const CreateListingsScreen = styled.div`
@@ -69,8 +69,28 @@ const CreateListItemScrollBox = styled.div`
   scrollbar-width: none;
   padding-bottom: 100px;
 `;
+const newFilter = [
+  { name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+  { name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: StHelierLogo, status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
+  { name: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: StHelierLogo, status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
+  { name: "abrdn", placeName2: "Investment Managers", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+]
 
-const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) => {
+const CreateListings: React.FC<CreateListingsProps> = ({ ScreenSwitch, homePage }) => {
+
+  const [toggle, setToggle] = useState<any[]>(newFilter);
+
+  const handleToggle = (name: string, index: any) => {
+
+    console.log("name", name)
+
+    if (name === newFilter[index].name) {
+      toggle[index].unSelectedBtn = !toggle[index].unSelectedBtn
+      setToggle([...toggle])
+    } 
+  }
+
+
   return (
     <CreateListingsScreen>
       <CreateListItemScrollBox>
@@ -98,7 +118,27 @@ const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) 
             <ListOptions optionText="Best of" />
           </CreateListOptions> */}
           <div>
-            <CreateListItems
+            {
+              toggle.map((val: any, index: any) => {
+                return (
+                  <CreateListItems
+                    key={index}
+                    listItemName={val?.name}
+                    index={index}
+                    secondLineDetails1
+                    itemPlaceLogo={StHelierLogo}
+                    placeName1={val?.placeName1}
+                    thirdLineDetails1
+                    status1={val?.status1}
+                    timing2={val?.timing2}
+                    unSelectedBtn={val.unSelectedBtn}
+                    handleToggle={handleToggle}
+                  />
+
+                )
+              })
+            }
+            {/* <CreateListItems
               listItemName="Chocadyllic"
               secondLineDetails1
               itemPlaceLogo={StHelierLogo}
@@ -106,7 +146,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) 
               thirdLineDetails1
               status1="Open ⋅ Closes"
               timing2="11 pm"
-              unSelectedBtn={true}
+              unSelectedBtn={toggle === "Chocadyllic" ? true : false}
+              handleToggle={handleToggle}
             />
             <CreateListItems
               listItemName="Kalimukti Yoga"
@@ -116,7 +157,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) 
               thirdLineDetails2
               status2="Outdoors"
               timing3="11 pm"
-              selectedBtn={true}
+              unSelectedBtn={toggle === "Kalimukti Yoga" ? true : false}
+              handleToggle={handleToggle}
             />
             <CreateListItems
               listItemName="Radisson Blu Waterfront Hotel"
@@ -129,7 +171,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) 
               thirdLineDetails2
               status2="St Helier"
               timing3="11 pm"
-              unSelectedBtn={true}
+              unSelectedBtn={toggle === "Radisson Blu Waterfront Hotel" ? true : false}
+              handleToggle={handleToggle}
             />
             <CreateListItems
               listItemName="abrdn"
@@ -137,8 +180,9 @@ const CreateListings: React.FC<CreateListingsProps> = ({ScreenSwitch,homePage}) 
               itemPlaceLogo={false}
               placeName2="Investment Managers"
               timing1="11pm"
-              unSelectedBtn={true}
-            />
+              unSelectedBtn={toggle === "abrdn" ? true : false}
+              handleToggle={handleToggle}
+            /> */}
           </div>
         </CreateListingsContent>
       </CreateListItemScrollBox>

@@ -5,11 +5,14 @@ import { thumbsDown, thumbsUp, yellowStar } from "@/app/utils/ImagePath";
 import Ratings from "@/components/rating/ShowRating";
 
 interface RatingProps {
+  id: any;
+  index: any;
   Titletext: string;
   Maintext: string;
   starRating: number;
   like: number;
   disLike: number;
+  handleEdit: any;
 }
 
 const Container = styled.div`
@@ -81,11 +84,14 @@ line-height: 24px; /* 150% */
 `
 
 const CommentRating: React.FC<RatingProps> = ({
+  id,
+  index,
   Titletext,
   Maintext,
   starRating,
   like,
   disLike,
+  handleEdit,
 }) => {
   return (
     <Container>
@@ -105,6 +111,7 @@ const CommentRating: React.FC<RatingProps> = ({
         <LikeDislikeWrapper>
           <Image src={thumbsDown} alt="icon" />
           <RatingValue>{disLike}</RatingValue>
+          <RatingValue onClick={()=>handleEdit(index, starRating, Maintext, id)}>{"edit"}</RatingValue>
         </LikeDislikeWrapper>
       </LikeDislikeContainer>
     </Container>

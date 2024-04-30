@@ -20,6 +20,7 @@ const Page = () => {
   const [screenName, setScreenName] = useState("create"); // Set default screen
 
   const screenChangeHandle = (name:string)=>{
+    
     setScreenName(name)
   }
 
