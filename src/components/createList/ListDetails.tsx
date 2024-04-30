@@ -194,6 +194,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
         firstBtnText="Go Back"
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
+        secondText={"continue"}
       />
     </ListDetailsScreen>
   );

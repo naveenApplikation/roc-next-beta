@@ -4,6 +4,9 @@ import filterSearchImg from  "../../../assets/images/filterSearch.svg"
 import blankImg from  "../../../assets/images/blank.svg" 
 import utensilsImg from  "../../../assets/images/utensils.svg"
 import thumbsupImg from  "../../../assets/images/thumbs-up.svg"
+import infoCircleImg from  "../../../assets/images/info-circle.svg"
+import Authorcomment from  "../../../assets/images/Authorcomment.svg"
+import commentstarImg from  "../../../assets/images/commentstar.svg"
 // import boxOverlayImg from  "../../../assets/images/boxOverlay.svg"
 import boxOverlayImg from  "../../../assets/images/MaskGroup.svg"
 import plusCircleImg from  "../../../assets/images/plus-circle.svg"
@@ -127,6 +130,9 @@ import ROCLogoWhiteImg from '../../../assets/images/ROCLogoWhite.svg'
 export const NewLogoRoc = NewLogoRocImg 
 export const ROCLogoWhite = ROCLogoWhiteImg 
 export const ROCLogo = ROCLogoImg 
+export const infoCircle = infoCircleImg 
+export const AuthorcommentIcon = Authorcomment 
+export const commentstar = commentstarImg 
 export const filter = filterImg 
 export const globe = gloveImg 
 export const phone = phoneImg 

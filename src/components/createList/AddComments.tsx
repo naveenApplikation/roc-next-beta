@@ -164,6 +164,7 @@ const AddComments: React.FC<DragInOrderProps> = ({
         Handleclose={Handleclose}
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
+        secondText={"continue"}
       />
     </DragInOrderScreen>
   );

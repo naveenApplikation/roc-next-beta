@@ -13,6 +13,7 @@ interface CreateListingsFooterProps {
   Handleclose?: any;
   ScreenSwitch?: any;
   preScreen?: any;
+  secondText?:string
 }
 
 const CreateListingFooter = styled.div`
@@ -115,7 +116,8 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
   ChooseIconFooterBtn,
   Handleclose,
   ScreenSwitch,
-  preScreen
+  preScreen,
+  secondText
 }) => {
 
   return (
@@ -123,13 +125,6 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
       {continueBtn && (
         <ContinueBtn onClick={ScreenSwitch}>Continue with (1) Selected Listing</ContinueBtn>
       )}
-      {/* {footerBtns && (
-                <FooterBtnBox>
-                    <FooterBtn1>{firstBtnText}</FooterBtn1>
-                    <FooterBtn2>Continue</FooterBtn2>
-                </FooterBtnBox>
-            )} */}
-
       {commentOpen ? (
         <div style={{ width: "100%",display:"flex",flexDirection:"column",gap:"16px" }}>
           <div
@@ -158,16 +153,10 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
         footerBtns && (
             <FooterBtnBox>
                 <FooterBtn1 onClick={preScreen}>{firstBtnText}</FooterBtn1>
-                <FooterBtn2 onClick={ScreenSwitch}>Continue</FooterBtn2>
+                <FooterBtn2 onClick={ScreenSwitch}>{secondText}</FooterBtn2>
             </FooterBtnBox>
         )
       )}
-      {/* {ChooseIconFooterBtn && (
-                <FooterBtnBox>
-                <FooterBtn1>Go Back</FooterBtn1>
-                <FooterBtn2>Continue</FooterBtn2>
-            </FooterBtnBox>
-            )} */}
     </CreateListingFooter>
   );
 };

@@ -138,7 +138,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ScreenSwitch,preScreen,homePag
                 </DragInOrderListScrollBox>
             </DragInOrderContent>
             </ListItemScrollBox>
-            <CreateListingsFooter footerBtns firstBtnText="Select more" ScreenSwitch={ScreenSwitch} preScreen={preScreen} />
+            <CreateListingsFooter footerBtns firstBtnText="Select more" ScreenSwitch={ScreenSwitch} preScreen={preScreen}  secondText={"continue"} />
         </DragInOrderScreen>
     )
 }
