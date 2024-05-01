@@ -8,7 +8,7 @@ import { ApiResponse } from "@/app/utils/types";
 import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
 
 interface DashboardProps {
   modalClick?: any;
@@ -84,13 +84,11 @@ const FamilyEventWrapperInside = styled.div`
 `;
 
 const MainImage = styled(Image)`
- width: 80px !important;
- height: 80px !important;
- border-radius: 6px;
+  border-radius: 6px;
 `;
 
 const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -99,7 +97,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/family-events");
         setData(result.data);
@@ -130,8 +128,12 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         {loader
           ? skeletonItems.map((item, index) => (
               <div key={index}>
-                <Skeleton width={80} height={80} style={{borderRadius:6}} />
-                <Skeleton width={80} height={15} style={{ marginTop: 8,borderRadius:6}} />
+                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
+                <Skeleton
+                  width={80}
+                  height={15}
+                  style={{ marginTop: 8, borderRadius: 6 }}
+                />
               </div>
             ))
           : data.slice(0, 10).map((item, index) => {
@@ -141,17 +143,15 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   onClick={() =>
                     modalClick("eventListing", item, filteredUrls[index])
                   }
-                  style={{ cursor: "pointer" }}
-                >
+                  style={{ cursor: "pointer" }}>
                   <FamilyEventWrapper>
                     <MainImage
                       src={filteredUrls[index]}
                       alt=""
-                      width="0"
-                      height="0"
+                      width={200}
+                      height={80}
                       quality={100}
-                      style={{ borderRadius: 4 }}
-                      layout="responsive"
+                      style={{ borderRadius: 4, maxWidth: "100%" }}
                     />
                     <FamilyEventWrapperInside>
                       <p className="date">
