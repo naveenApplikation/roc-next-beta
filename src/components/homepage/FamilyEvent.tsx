@@ -148,10 +148,9 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     <MainImage
                       src={filteredUrls[index]}
                       alt=""
-                      width={200}
+                      width={500}
                       height={80}
-                      quality={100}
-                      style={{ borderRadius: 4, maxWidth: "100%" }}
+                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
                     />
                     <FamilyEventWrapperInside>
                       <p className="date">
