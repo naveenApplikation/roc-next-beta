@@ -55,7 +55,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 

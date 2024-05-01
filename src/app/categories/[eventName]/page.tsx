@@ -104,7 +104,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const {showMap,modalName,modalClick,filterUrls} = useMyContext()
 
-  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 

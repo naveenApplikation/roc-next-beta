@@ -42,7 +42,7 @@ const StarContainer = styled.div`
 
 const StarWrapper = styled.div`
   height: 64px;
-  width: 100%;
+  width: 120px;
   background: linear-gradient(45deg, black, transparent);
   position: relative;
   border-radius: 4px;
@@ -92,7 +92,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -121,8 +121,9 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                       className="StarImageStyle"
                       src={filteredUrls[index]}
                       alt=""
-                      width={120}
-                      height={64}
+                      width={500}
+                      height={80}
+                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
                     />
                   </StarWrapper>
                   <div>

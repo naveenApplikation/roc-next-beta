@@ -193,9 +193,14 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                       <Image
                         // style={{ background: "white" }}
                         src={filteredUrls[index]}
-                        width={80}
+                        width={500}
                         height={80}
-                        style={{ borderRadius: 8, cursor: "pointer" }}
+                        style={{
+                          borderRadius: 4,
+                          // maxWidth: "100%",
+                          width:"80px",
+                          objectFit: "cover",
+                        }}
                         alt=""
                         onClick={() =>
                           modalClick("ModalContent", item, filteredUrls[index])

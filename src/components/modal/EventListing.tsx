@@ -166,10 +166,14 @@ const ItemImageContainer = styled.div`
 
 const ImageWrraper = styled(Image)`
   border-radius: 6px;
-  width: -webkit-fill-available;
-
+  width: 342px;
+  height: 192px;
+  /* width: -webkit-fill-available !important;
+  height: 192px !important; */
+  
   @media screen and (max-width: 1130px) {
     height: auto;
+    width: -webkit-fill-available
   }
 `;
 
@@ -290,8 +294,9 @@ const ModalContent: React.FC<ModalProps> = ({
         <ImageWrraper
           src={dataImage ? dataImage: "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
           alt="Logo"
-          width={342}
-          height={192}
+          width={500}
+          height={80}
+          style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>

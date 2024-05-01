@@ -76,7 +76,13 @@ const RatingMenu: React.FC<MenuProps> = ({
       {containerImageUrl && (
         <>
           <UtensilsDishesImage>
-            <MainImage src={headerImage}  layout="responsive" alt="" width="0" height="0" />
+            <MainImage
+              src={headerImage}
+              alt=""
+              width={500}
+              height={80}
+              style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+            />
           </UtensilsDishesImage>
           {title && (
             <MenuIconContainer>

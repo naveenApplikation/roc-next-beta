@@ -85,7 +85,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -116,9 +116,9 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     <Image
                       src={filteredUrls[index]}
                       alt=""
-                      width={80}
+                     width={500}
                       height={80}
-                      style={{ borderRadius: "100%" }}
+                      style={{ borderRadius:"100%", maxWidth: "100%",objectFit:'cover' }}
                       // alt=""
                     />
                   </TopAttractionprofile>

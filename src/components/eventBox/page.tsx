@@ -65,6 +65,7 @@ const FamilyEventWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 80px;
 
   .date {
     font-size: 17px;
@@ -134,12 +135,24 @@ const EventBox: React.FC<EventBoxProps> = ({
         ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>
               <MainInsideWrapper>
-              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-              <div className="restroRating">
-                <Skeleton width={160} height={17} style={{ borderRadius: 8 }} />
-                <Skeleton width={100} height={14} style={{ borderRadius: 8 }} />
-                <Skeleton width={80} height={13} style={{ borderRadius: 8 }} />
-              </div>
+                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                <div className="restroRating">
+                  <Skeleton
+                    width={160}
+                    height={17}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={100}
+                    height={14}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={80}
+                    height={13}
+                    style={{ borderRadius: 8 }}
+                  />
+                </div>
               </MainInsideWrapper>
             </SearchedData>
           ))
@@ -151,9 +164,14 @@ const EventBox: React.FC<EventBoxProps> = ({
                     <Image
                       src={filteredUrls[index]}
                       alt=""
-                      width={80}
+                      width={500}
                       height={80}
-                      style={{ borderRadius: 4, cursor: "pointer" }}
+                      style={{
+                        borderRadius: 4,
+                        // maxWidth: "100%",
+                        width:"80px",
+                        objectFit: "cover",
+                      }}
                       onClick={() =>
                         modalClick("eventListing", item, filteredUrls[index])
                       }

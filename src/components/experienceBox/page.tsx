@@ -80,9 +80,14 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({ urlTitle, urlData }) => {
             >
               <Image
                 src={item.headerImage}
-                width={80}
+                width={500}
                 height={80}
-                style={{ borderRadius: 4, cursor: "pointer" }}
+                style={{
+                  borderRadius: 4,
+                  // maxWidth: "100%",
+                  width:"80px",
+                  objectFit: "cover",
+                }}
                 onClick={() => modalClick("activities", item)}
                 alt=""
               />

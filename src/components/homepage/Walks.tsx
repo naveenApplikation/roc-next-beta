@@ -82,7 +82,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -102,8 +102,9 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   <Image
                     src={filteredUrls[index]}
                     alt=""
-                    width={120}
-                    height={64}
+                    width={500}
+                    height={80}
+                    style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
                   />
                   <Image
                     src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
