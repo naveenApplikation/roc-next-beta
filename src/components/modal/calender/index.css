@@ -2,10 +2,10 @@
     align-items: center;
 }
 
-.react-calendar button:nth-child(1) {
+.react-calendar__navigation button:nth-child(1) {
     background-color: #e6e6e6 !important;
 }
 
-.react-calendar button:nth-child(3) {
+.react-calendar__navigation button:nth-child(3) {
     background-color: #e6e6e6 !important;
 }
