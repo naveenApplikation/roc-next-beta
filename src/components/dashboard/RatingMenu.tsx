@@ -57,6 +57,12 @@ const MenuIcon = styled(Image)`
   height: 12px; */
 `;
 
+const MainImage = styled(Image)`
+  width: 120px !important;
+  height: 64px !important;
+  border-radius: 6px;
+`;
+
 const RatingMenu: React.FC<MenuProps> = ({
   containerImageUrl,
   title,
@@ -70,21 +76,18 @@ const RatingMenu: React.FC<MenuProps> = ({
       {containerImageUrl && (
         <>
           <UtensilsDishesImage>
-            <Image
-              style={{
-                width: "-webkit-fill-available",
-                height: "64px",
-                borderRadius: "6px",
-              }}
-              src={headerImage}
-              alt=""
-              width={120}
-              height={64}
-            />
+            <MainImage src={headerImage}  layout="responsive" alt="" width="0" height="0" />
           </UtensilsDishesImage>
           {title && (
             <MenuIconContainer>
-              {menuImageUrl && <MenuIcon src={menuImageUrl} width={11} height={12} alt="icon" />}
+              {menuImageUrl && (
+                <MenuIcon
+                  src={menuImageUrl}
+                  width={11}
+                  height={12}
+                  alt="icon"
+                />
+              )}
               <Title>{title}</Title>
             </MenuIconContainer>
           )}

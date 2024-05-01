@@ -128,8 +128,9 @@ const ItemImageContainer = styled.div`
 
 const ImageWrraper = styled(Image)`
   border-radius: 6px;
-  width: -webkit-fill-available;
-
+  /* width: -webkit-fill-available !important;
+  height: 192px !important; */
+  
   @media screen and (max-width: 1130px) {
     height: auto;
   }
@@ -280,6 +281,11 @@ const ModalContent: React.FC<ModalProps> = ({
   const [reviewData, setReviewData] = useState([]);
   const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
+  const MainImage = styled(Image)`
+  width: 120px !important;
+  height: 64px !important;
+  border-radius: 6px;
+`;
 
 
   useEffect(() => {
@@ -312,10 +318,9 @@ const ModalContent: React.FC<ModalProps> = ({
     const paramUpdate = {
       rating: rating,
       comment: commentReview,
-      reviewId: textId,
     }
     try {
-      const ReviewData = showEdit !=='' ? await Instance.put("review", paramUpdate) : await Instance.post("review", param);
+      const ReviewData = showEdit !=='' ? await Instance.put(`review/${textId}`, paramUpdate) : await Instance.post("review", param);
       setShowReview(false);
       setReviewShowToggle(true);
       setCommentReview("");
@@ -380,8 +385,9 @@ const ModalContent: React.FC<ModalProps> = ({
               : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
           }
           alt="Logo"
-          width={342}
-          height={192}
+          width="0"
+          height="0"
+          layout="responsive"
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>

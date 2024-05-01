@@ -44,7 +44,7 @@ const Ratings: React.FC<RatingsProps> = ({ defaultValue,giveRating,ratingvalue }
         allowHalf
         disabled
         defaultValue={defaultValue}
-        value={ratingvalue}
+        value={defaultValue}
         onChange={(value) => giveRating(value)}
       />
       <RatingValue>{ratingvalue}</RatingValue>

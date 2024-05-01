@@ -44,8 +44,8 @@ const DashBoard= () => {
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
-    } else if (item === "Dine") {
-      router.push("/screens/ecoDining");
+    } else if (item === "directoryList") {
+      router.push("/screens/directoryList");
     } else if (item === "Shop") {
       router.push("/screens/wellbeing");
     } else if (item === "Events") {
