@@ -1,3 +1,11 @@
-.react-calendar button{
+.react-calendar button {
     align-items: center;
+}
+
+.react-calendar__navigation button:nth-child(1) {
+    background-color: #e6e6e6 !important;
+}
+
+.react-calendar__navigation button:nth-child(3) {
+    background-color: #e6e6e6 !important;
 }

@@ -8,6 +8,7 @@ import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import './index.css'
 import dayjs from 'dayjs';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 
 interface ModalProps {
@@ -142,6 +143,8 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
                     className="react-cal"
                     next2Label={null}
                     prev2Label={null}
+                    prevLabel={<LeftOutlined />}
+                    nextLabel={<RightOutlined />}
                     defaultView="month"
                     value={value}
                     onChange={(value, event) => handleDate(value, event)}
