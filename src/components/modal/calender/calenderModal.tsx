@@ -1,15 +1,17 @@
 import { styled } from "styled-components";
 import type { CSSProperties } from 'react';
-import { Collapse, theme } from 'antd';
+import { Collapse, TimePicker, theme } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import type { CollapseProps } from 'antd';
 import React, { useState, useEffect } from 'react';
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
+import './index.css'
+import dayjs from 'dayjs';
 
 
 interface ModalProps {
-    onClose: (name:string) => void;
+    onClose: (name: string) => void;
 }
 
 
@@ -102,7 +104,9 @@ const CalenderContainer = styled.div`
 `
 
 const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
-    const [value , onChange] = useState(new Date());
+    const format = 'HH:mm';
+    const [value, setValue] = useState(new Date());
+    const [timeVal, setTimeVal] = useState(dayjs('12:08', format))
 
     const { token } = theme.useToken();
     const panelStyle: React.CSSProperties = {
@@ -115,10 +119,34 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
         return date.date.getDay() === 0 ? 'sunday' : null;
     };
 
+    const handleDate = (value: any, event: any) => {
+        const originalDate = new Date(value);
+
+        // Convert the date to UTC format
+        const utcDate = originalDate.toISOString();
+        console.log("data", utcDate)
+        setValue(value)
+    }
+
+
+
+    const handleTime = (time: any, timeString: any) => {
+        console.log("time", time.$d.toISOString(), timeString)
+        setTimeVal(time)
+    }
+
     const CalenderData = () => {
         return (
             <CalenderContainer>
-            <Calendar  value={value} calendarType="gregory" tileClassName={tileClassName} />
+                <Calendar
+                    className="react-cal"
+                    next2Label={null}
+                    prev2Label={null}
+                    defaultView="month"
+                    value={value}
+                    onChange={(value, event) => handleDate(value, event)}
+                    calendarType="gregory"
+                    tileClassName={tileClassName} />
             </CalenderContainer>
         )
     }
@@ -127,13 +155,23 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
         {
             key: '1',
             label: 'Party Size',
-            children: <CalenderData />,
+            children: text,
             style: panelStyle,
         },
         {
             key: '2',
+            label: 'Calender',
+            children: <CalenderData />,
+            style: panelStyle,
+        },
+        {
+            key: '3',
             label: 'Time',
-            children: text,
+            children: <TimePicker
+                style={{ width: '100%' }}
+                onChange={(time, timeString) => handleTime(time, timeString)}
+                value={timeVal}
+                format={format} />,
             style: panelStyle,
         },
     ];
@@ -142,13 +180,21 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
             <CalenderModalContainer>
                 <Collapse
                     bordered={false}
-                    defaultActiveKey={['1']}
+                    defaultActiveKey={['2']}
                     expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
                     style={{ background: token.colorBgContainer }}
                     items={items}
                     expandIconPosition="end"
                 />
             </CalenderModalContainer>
+            {/* <CalenderModalContainer>
+                <TimePicker
+                    // style={{ width: '100%' }}
+                    style={{ width:'100%', background: token.colorFillAlter,}}
+                    onChange={(time, timeString) => handleTime(time, timeString)}
+                    value={timeVal}
+                    format={format} />
+            </CalenderModalContainer> */}
         </Container>
     )
 }
