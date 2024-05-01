@@ -83,6 +83,12 @@ const FamilyEventWrapperInside = styled.div`
   border-radius: 4px;
 `;
 
+const MainImage = styled(Image)`
+ width: 80px !important;
+ height: 80px !important;
+ border-radius: 6px;
+`;
+
 const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls,showContent } = useMyContext();
 
@@ -138,12 +144,14 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   style={{ cursor: "pointer" }}
                 >
                   <FamilyEventWrapper>
-                    <Image
+                    <MainImage
                       src={filteredUrls[index]}
                       alt=""
-                      width={80}
-                      height={80}
+                      width="0"
+                      height="0"
+                      quality={100}
                       style={{ borderRadius: 4 }}
+                      layout="responsive"
                     />
                     <FamilyEventWrapperInside>
                       <p className="date">

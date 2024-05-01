@@ -17,6 +17,7 @@ import locate from "../../../assets/images/createListImages/chooseIcons/map-plac
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import {
   utensils,
+  utensil,
   holidayDas,
   beachumbrella,
   poundIcon,
@@ -46,49 +47,49 @@ import {
   personHiking,
   compass,
   glass,
-  ellipsis
+  ellipsis,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
   {
     name: "weather",
-    image:sun,
+    image: sun,
   },
   {
     name: "news",
-    image:news,
+    image: news,
   },
   {
     name: "travels",
-    image:van,
+    image: van,
     width: 20,
     height: 16,
   },
   {
     name: "sos",
-    image:sos,
+    image: sos,
     width: 20,
     height: 16,
   },
   {
     name: "tides",
-    image:tides,
+    image: tides,
     width: 18,
     height: 16,
   },
   {
     name: "flight",
-    image:flight,
+    image: flight,
     width: 18,
     height: 16,
   },
   {
     name: "sailing",
-    image:saling,
+    image: saling,
   },
   {
     name: "phones",
-    image:network,
+    image: network,
   },
   {
     name: "Holidays",
@@ -103,67 +104,67 @@ export const topSideMenu = [
 export const rightSideMenu = [
   {
     name: "To do",
-    image:castle,
+    image: castle,
     width: 25,
     height: 20,
   },
   {
     name: "Dine",
-    image:utensils,
+    image: utensils,
     width: 18,
     height: 20,
   },
   {
     name: "Shop",
-    image:shopping,
+    image: shopping,
     width: 23,
     height: 20,
   },
   {
     name: "Events",
-    image:event,
+    image: event,
     width: 18,
     height: 20,
   },
   {
     name: "Tours",
-    image:camera,
+    image: camera,
     width: 16,
     height: 16,
   },
   {
     name: "Hotels",
-    image:hotel,
+    image: hotel,
     width: 20,
     height: 20,
   },
   {
     name: "Activities",
-    image:personHiking,
+    image: personHiking,
     width: 15,
     height: 20,
   },
   {
     name: "Travel",
-    image:compass,
+    image: compass,
     width: 20,
     height: 20,
   },
   {
     name: "Nightlife",
-    image:glass,
+    image: glass,
     width: 23,
     height: 20,
   },
   {
     name: "Holidays",
-    image:holidayDas,
+    image: holidayDas,
     width: 25,
     height: 20,
   },
   {
     name: "Beaches",
-    image:beachumbrella,
+    image: beachumbrella,
     width: 23,
     height: 20,
   },
@@ -226,7 +227,7 @@ export const LocalCuisineMenuItem = [
     rating: 4.7,
     likeCount: 166,
     time: "12:00 AM",
-    deliverActive:true,
+    deliverActive: true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant1.jpg?alt=media&token=c48ad7ce-9020-4dc9-b91f-1c866cb3e836",
   },
@@ -238,7 +239,7 @@ export const LocalCuisineMenuItem = [
     rating: 4.5,
     likeCount: 143,
     time: "2:00 PM",
-    NewRes:true,
+    NewRes: true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant2.jpg?alt=media&token=a867a48c-4ca1-4326-8336-cfbce9e1f291",
   },
@@ -250,7 +251,7 @@ export const LocalCuisineMenuItem = [
     rating: 3.9,
     likeCount: 178,
     time: "10:00 PM",
-    NewRes:true,
+    NewRes: true,
     headerImage:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant3.jpg?alt=media&token=dcbdddfe-24ea-4ad7-bca4-24b2ba5f9154",
   },
@@ -277,7 +278,6 @@ export const LocalCuisineMenuItem = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant5.jpg?alt=media&token=3ab8f184-5388-4bd6-8236-7733cdb84731",
   },
 ];
-
 
 export const EnjoyShineMenuItem = [
   {
@@ -669,5 +669,78 @@ export const icons = [
   {
     id: 42,
     image: infoCircle,
+  },
+];
+
+export const DirectoryItem = [
+  {
+    data: [
+      {
+        image: castle,
+        title: "Attractions",
+        url:"attration"
+      },
+      {
+        image: utensil,
+        title: "Food & Drink",
+        url:"foodandDrinks"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: shopping,
+        title: "Shopping",
+        url:"shopsandMarket"
+      },
+      {
+        image: camera,
+        title: "Tours",
+        url:"tour"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: hotel,
+        title: "Hotels",
+        url:"hotels"
+      },
+      {
+        image: personHiking,
+        title: "Activities",
+        url:"activity"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: compass,
+        title: "Travel",
+        url:"tourOperator"
+      },
+      {
+        image: glass,
+        title: "Nightlife",
+        url:"bar-pubs"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: holidayDas,
+        title: "Holidays",
+        url:"holidays"
+      },
+      {
+        image: beachumbrella,
+        title: "Beaches",
+        url:"beaches"
+      },
+    ],
   },
 ];
