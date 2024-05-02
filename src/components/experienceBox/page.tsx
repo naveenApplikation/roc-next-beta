@@ -5,10 +5,15 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import FilterSection from "@/components/filterSection";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import {thumbsup, utensils } from "@/app/utils/ImagePath";
 
 interface ExperienceBoxProps {
   urlData?: any;
   urlTitle?: string;
+  filteredUrls?: any;
+  loader?: boolean;
 }
 
 const SearchedListContainer = styled.div`
@@ -23,10 +28,7 @@ const SearchedData = styled.div`
   gap: 10px;
   border-bottom: 1px solid #d9d9d9;
   padding: 10px 0px;
-  p {
-    font-size: 13px;
-    font-weight: 400;
-  }
+  
   .likes {
     background-color: #00000014;
     padding: 8px 16px;
@@ -38,7 +40,7 @@ const SearchedData = styled.div`
     }
   }
   .shopName {
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 600;
   }
 `;
@@ -55,10 +57,34 @@ const TitleText = styled.p`
 
 const AddListButton = styled.div`
   padding-top: 20px;
+`;
+
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+const PriceAndLabelText = styled.p`
+  color: rgba(0, 0, 0, 0.48);
+font-size: 1.2rem;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 133.333% */
+letter-spacing: 0.12px;
 `
 
-const ExperienceBox: React.FC<ExperienceBoxProps> = ({ urlTitle, urlData }) => {
+const ExperienceBox: React.FC<ExperienceBoxProps> = ({
+  urlTitle,
+  urlData,
+  filteredUrls,
+  loader,
+}) => {
   const { modalClick } = useMyContext();
+
+  const skeletonItems = new Array(10).fill(null);
+
+  console.log(urlData, "dsdsd");
 
   return (
     <SearchedListContainer>
@@ -68,52 +94,74 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({ urlTitle, urlData }) => {
           <FilterSection />
         </div>
       )}
-      {EnjoyShineMenuItem.map((item: any, index: any) => {
-        return (
-          <SearchedData key={index}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 16,
-              }}
-            >
-              <Image
-                src={item.headerImage}
-                width={500}
-                height={80}
-                style={{
-                  borderRadius: 4,
-                  // maxWidth: "100%",
-                  width:"80px",
-                  objectFit: "cover",
-                }}
-                onClick={() => modalClick("activities", item)}
-                alt=""
-              />
-              <div className="restroRating">
-                <p className="shopName">{item.resturantName}</p>
-                <DetailContainer>
-                  <Image
-                    src={item.image}
-                    style={{
-                      width: "13px",
-                      height: "13px",
-                      marginRight: 8,
-                    }}
-                    alt="utensils"
+      {loader
+        ? skeletonItems.map((item, index) => (
+            <SearchedData key={index}>
+              <MainInsideWrapper>
+                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                <div className="restroRating">
+                  <Skeleton
+                    width={160}
+                    height={17}
+                    style={{ borderRadius: 8 }}
                   />
-                  <p>{item.menuName}</p>
-                </DetailContainer>
-                <p>
-                  <span>Outdoors</span>
-                </p>
-              </div>
-            </div>
-          </SearchedData>
-        );
-      })}
-            <AddListButton>
+                  <Skeleton
+                    width={100}
+                    height={14}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={80}
+                    height={13}
+                    style={{ borderRadius: 8 }}
+                  />
+                </div>
+              </MainInsideWrapper>
+            </SearchedData>
+          ))
+        : urlData?.map((item: any, index: any) => {
+            return (
+              <SearchedData key={index}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                  }}
+                >
+                  <Image
+                    src={filteredUrls[index]}
+                    width={500}
+                    height={80}
+                    style={{
+                      borderRadius: 4,
+                      // maxWidth: "100%",
+                      width: "80px",
+                      objectFit: "cover",
+                    }}
+                    onClick={() =>
+                      modalClick("activities", item, filteredUrls[index])
+                    }
+                    alt=""
+                  />
+                  <div className="restroRating">
+                    <p className="shopName">{item.acf.title}</p>
+                      <PriceAndLabelText>{item.acf.parish.label} ⋅ Activity</PriceAndLabelText>
+                    <PriceAndLabelText>£15-20</PriceAndLabelText>
+                  </div>
+                </div>
+                <div className="likes">
+                    <Image
+                      src={thumbsup}
+                      alt="like"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <p>{item.likeCount}</p>
+                  </div>
+              </SearchedData>
+            );
+          })}
+      <AddListButton>
         <CommonButton text="Suggest an Event" />
       </AddListButton>
     </SearchedListContainer>

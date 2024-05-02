@@ -149,6 +149,34 @@ const RightSide = () => {
 
   const router = useRouter();
 
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
+    if (condition) {
+      router.push(`/categories/${item}?search=${id}`);
+    } else if (item === "directoryList") {
+      router.push("/screens/directoryList");
+    } else if (item === "Shop") {
+      router.push("/screens/wellbeing");
+    } else if (item === "Events") {
+      router.push("/screens/events");
+    } else if (item === "Tours") {
+      router.push("/screens/stays");
+    } else if (item === "Hotels") {
+      router.push("/screens/scaffolding");
+    } else if (item === "Activities") {
+      router.push("/screens/experiences");
+    } else if (item === "Travel") {
+      router.push("/screens/attractions");
+    } else if (item === "Nightlife") {
+      router.push("/screens/financial");
+    } else if (item === "AddToCreate") {
+      router.push("/screens/createList");
+    } else if (item === "CategorieList") {
+      router.push("/screens/categorieList");
+    } else if (item === "TrendingList") {
+      router.push("/screens/trendingList");
+    }
+  };
+
   return (
     <RightMenu>
       <RightSideHeadMenu>
@@ -171,7 +199,16 @@ const RightSide = () => {
       <RightSideMenuContainer>
         {rightSideMenu.map((item, index) => {
           return (
-            <RightSideMenu key={index}>
+            <RightSideMenu
+              key={index}
+              onClick={() => {
+                if (item && item.name) {
+                  menuClick(item.name, true, item.url);
+                } else {
+                  // Handle the case where item or item.data or item.data[0].title is null or undefined
+                }
+              }}
+            >
               <RightSideInsideMenuBox>
                 <Image
                   style={{

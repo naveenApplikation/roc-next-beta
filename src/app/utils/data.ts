@@ -107,66 +107,77 @@ export const rightSideMenu = [
     image: castle,
     width: 25,
     height: 20,
+    url:"attration"
   },
   {
     name: "Dine",
     image: utensils,
     width: 18,
     height: 20,
+    url:"foodandDrinks"
   },
   {
     name: "Shop",
     image: shopping,
     width: 23,
     height: 20,
+    url:"shopsandMarket"
   },
   {
     name: "Events",
     image: event,
     width: 18,
     height: 20,
+    url:"family-events"
   },
   {
     name: "Tours",
     image: camera,
     width: 16,
     height: 16,
+    url:"tour"
   },
   {
     name: "Hotels",
     image: hotel,
     width: 20,
     height: 20,
+    url:"hotels"
   },
   {
     name: "Activities",
     image: personHiking,
     width: 15,
     height: 20,
+    url:"activity"
   },
   {
     name: "Travel",
     image: compass,
     width: 20,
     height: 20,
+    url:"tourOperator"
   },
   {
     name: "Nightlife",
     image: glass,
     width: 23,
     height: 20,
+    url:"bar-pubs"
   },
   {
     name: "Holidays",
     image: holidayDas,
     width: 25,
     height: 20,
+    url:"holidays"
   },
   {
     name: "Beaches",
     image: beachumbrella,
     width: 23,
     height: 20,
+    url:"beaches"
   },
   {
     name: "All",

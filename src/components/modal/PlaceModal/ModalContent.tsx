@@ -89,6 +89,20 @@ const RestDetailTitle = styled.p`
   line-height: 24px; /* 150% */
 `;
 
+const RestDetailTitleWebsite = styled.a`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  /* text-decoration: underline; */
+  display: block;
+  width: 100%; /* Ensures the link takes up the full width of its container */
+  white-space: nowrap; /* Prevents wrapping of the link text */
+  overflow: hidden; /* Hides any overflowing content */
+  text-overflow: ellipsis;
+`;
+
 const ReviewContainer = styled.div`
   padding: 8px 16px;
   background-color: #fff;
@@ -242,15 +256,15 @@ const ModalContent: React.FC<ModalProps> = ({
       image: clock,
     },
     {
-      name: data.link,
+      name: data.acf?.website,
       image: globes,
     },
     {
-      name: data.acf?.telephone_number.number,
+      name: data.acf?.telephone_number.formatted,
       image: phoneBlack,
     },
     {
-      name: data.acf?.map_location.address,
+      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}`,
       image: locationDot,
     },
   ];
@@ -403,7 +417,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 src={item.image}
                 alt="Logo Outline"
               />{" "}
-              <RestDetailTitle>{item.name}</RestDetailTitle>
+              {index == 1  ? <RestDetailTitleWebsite href={item?.name} target="_blank">{item?.name}</RestDetailTitleWebsite> : <RestDetailTitle>{item.name}</RestDetailTitle>}
               {index == 0 && (
                 <Image
                   style={{ cursor: "pointer", height: "auto" }}

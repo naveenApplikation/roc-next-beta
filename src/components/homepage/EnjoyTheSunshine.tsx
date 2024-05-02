@@ -59,17 +59,17 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
     fetchDataAsync();
   }, [showContent]);
 
-  // const ImageUrlData = data.map((item) => item.acf.gallery_images_data);
+  const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
-  // const filteredUrls = filterUrls(ImageUrlData);
+  const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
     <MenuDetails
-        isOpen={() => menuClick("Enjoy the sunshine", true, 1)}
+        isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}
         title="Enjoy the sunshine"
       />
-      <ScrollingMenu>
+      {/* <ScrollingMenu>
         {EnjoyShineMenuItem.map((item, index) => {
           return (
             <div key={index}>
@@ -84,8 +84,8 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
             </div>
           );
         })}
-      </ScrollingMenu>
-      {/* <ScrollingMenu>
+      </ScrollingMenu> */}
+      <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
               <div key={index}>
@@ -110,7 +110,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
                 </div>
               );
             })}
-      </ScrollingMenu> */}
+      </ScrollingMenu>
     </>
   );
 };

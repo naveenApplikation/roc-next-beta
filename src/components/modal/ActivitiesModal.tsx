@@ -1,14 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { ActivitiesListData } from "@/app/utils/data";
-
+import { phoneBlack } from "@/app/utils/ImagePath";
 
 interface ModalProps {
   //   onClose: () => void;
   //   reservationModal: Function;
   dataImage: any;
   reservationModal: any;
+  data?: any;
 }
 
 const Container = styled.div`
@@ -66,6 +66,20 @@ const RestDetailTitle = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
+`;
+
+const RestDetailTitleWebsite = styled.a`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  /* text-decoration: underline; */
+  display: block;
+  width: 100%; /* Ensures the link takes up the full width of its container */
+  white-space: nowrap; /* Prevents wrapping of the link text */
+  overflow: hidden; /* Hides any overflowing content */
+  text-overflow: ellipsis;
 `;
 
 const ReviewContainer = styled.div`
@@ -154,6 +168,9 @@ const DatesWrapperText = styled.div`
   font-weight: 400;
   line-height: 24px; /* 150% */
   margin: 16px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
 `;
 
 const WeekTimeArrange = styled.div`
@@ -180,10 +197,10 @@ const ImageWrraper = styled(Image)`
   height: 192px;
   /* width: -webkit-fill-available !important;
   height: 192px !important; */
-  
+
   @media screen and (max-width: 1130px) {
     height: auto;
-    width: -webkit-fill-available
+    width: -webkit-fill-available;
   }
 `;
 
@@ -231,6 +248,7 @@ const TouristText = styled.p`
 const ActivitiesModal: React.FC<ModalProps> = ({
   dataImage,
   reservationModal,
+  data,
 }) => {
   const WeekDays = [
     "Monday:",
@@ -242,15 +260,91 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     "Sunday:",
   ];
 
+  console.log(data, "dssasa");
+
+  const ActivitiesListData = [
+    {
+      name: "March - October",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
+      width: 14,
+      height: 24,
+    },
+    {
+      name: "Today: 09:00 - 18:00",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: `£ ${data.acf?.price_from}`,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      width: 10,
+      height: 24,
+    },
+    {
+      name: data.acf?.telephone_number.formatted,
+      image: phoneBlack,
+      width: 12,
+      height: 24,
+    },
+    {
+      name: data.acf?.email_address,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: data.acf?.website,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
+      width: 16,
+      height: 24,
+    },
+    {
+      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` ,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      width: 12,
+      height: 24,
+    },
+  ];
+
+  const formattedValues = () => {
+    if (Array.isArray(data.acf?.type)) {
+      return data.acf?.type.map((item: any) => item.label).join(" | ");
+    } else {
+      return data.acf?.type.label;
+    }
+  };
+
+  const strippedContent = data.acf?.short_description
+    .replace(/<p[^>]*>/g, "")
+    .replace(/<\/p>/g, "");
+
+  const formatRoute = (routeText: any) => {
+    return routeText
+      .replace("<br>", ": ")
+      .replace("<i>", "")
+      .replace("</i>", "")
+      .replace(/(\()/, "")
+      .replace(/\)/, "");
+  };
+
+  const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
+  const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as {
+    opens: string;
+    closes: string;
+  }[];
+
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "14px" }}>
-            Family friendly | Sports | Outdoor | Spect...
-          </p>
-          {/* <p>|</p> */}
-          {/* <OpenRestText>OPEN</OpenRestText> */}
+          <p style={{ fontSize: "14px" }}>{formattedValues()}</p>
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
@@ -263,7 +357,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           alt="Logo"
           width={500}
           height={80}
-          style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
+          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>
@@ -284,9 +378,13 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                   alt="Logo Outline"
                 />{" "}
               </div>
-              <RestDetailTitle style={{ marginLeft: index == 6 ? 5 : 0 }}>
-                {item.name}
-              </RestDetailTitle>
+              {index == 5 ? (
+                <RestDetailTitleWebsite href={item?.name} target="_blank">
+                  {item?.name}
+                </RestDetailTitleWebsite>
+              ) : (
+                <RestDetailTitle>{item.name}</RestDetailTitle>
+              )}
               {index == 1 && (
                 <Image
                   style={{ cursor: "pointer", height: "auto" }}
@@ -303,13 +401,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           View Directions
         </ViewDirection>
       </ResturantDetailsContainer>
-      <RestDetailText>
-        RIB boat trips around Jersey's beautiful coastline, offshore reefs and
-        surrounding waters. Seafaris include Les Ecréhous, Les Minquiers, north
-        coast and caves, France for lunch or dinner, dolphin spotting and so
-        much more. Suitable for all, whether it's scenery, wildlife or an
-        adrenaline fix, there is a Seafari for you.
-      </RestDetailText>
+      <RestDetailText>{strippedContent}</RestDetailText>
       <AlsoSeeText>Tours & activities available</AlsoSeeText>
       {WeekDays.map((item, index) => (
         <TouristContainer key={index}>
@@ -348,37 +440,41 @@ const ActivitiesModal: React.FC<ModalProps> = ({
 
       <AlsoSeeText>Key Features</AlsoSeeText>
       <BulletPointWrapper>
-        <li>Outdoor</li>
-        <li>Family friendly</li>
-        <li>Couples</li>
-        <li>Wheelchair access</li>
+      {data.acf?.key_facilities.map((item: any, index: any) => (
+          <li key={index}>{item.label}</li>
+        ))}
       </BulletPointWrapper>
       <AlsoSeeText>Accessibility</AlsoSeeText>
       <BulletPointWrapper>
-        <li>Please contact our team for further information</li>
-        <li>Accessible parking or drop-off point</li>
-        <li>Accessible toilets</li>
-        <li>Partially suitable for visitors with limited mobility</li>
+      {data.acf?.accessibility.map((item: any, index: any) => (
+          <li key={index}>{item.label}</li>
+        ))}
       </BulletPointWrapper>
       <AlsoSeeText>Bus Route</AlsoSeeText>
       <BulletPointWrapper>
-        <li style={{ textDecoration: "underline" }}>
-          Route 2: Liberation Station - St. Catherine
-        </li>
-        <li style={{ textDecoration: "underline" }}>
-          Route 2A: Liberation Station - St. Catherine
-        </li>
+      {data.acf?.bus_routes.map((item: any, index: any) => (
+          <li key={index} style={{ textDecoration: "underline" }}>
+            {formatRoute(item.label)}
+          </li>
+        ))}
       </BulletPointWrapper>
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-          January, February, March, April, July, August, September, October,
-          November, December
+        {data.acf?.seasonality &&
+            data.acf?.seasonality.map((item: any, index: any) => (
+              <p key={index}>
+                {item.label}
+                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+              </p>
+            ))}
         </DatesWrapperText>
-        {WeekDays.map((item, index) => (
+        {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
-            <p>{item}</p>
-            <p>09:00 - 18:00</p>
+            <p>{item}:</p>
+            <p>
+              {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
+            </p>
           </WeekTimeArrange>
         ))}
       </DatesContainer>

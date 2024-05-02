@@ -160,6 +160,20 @@ const DatesWrapperText = styled.div`
   line-height: 24px; /* 150% */
 `;
 
+const RestDetailTitleWebsite = styled.a`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  /* text-decoration: underline; */
+  display: block;
+  width: 100%; /* Ensures the link takes up the full width of its container */
+  white-space: nowrap; /* Prevents wrapping of the link text */
+  overflow: hidden; /* Hides any overflowing content */
+  text-overflow: ellipsis;
+`;
+
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
 `;
@@ -170,10 +184,10 @@ const ImageWrraper = styled(Image)`
   height: 192px;
   /* width: -webkit-fill-available !important;
   height: 192px !important; */
-  
+
   @media screen and (max-width: 1130px) {
     height: auto;
-    width: -webkit-fill-available
+    width: -webkit-fill-available;
   }
 `;
 
@@ -213,10 +227,11 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationModal,
   data,
 }) => {
-  
   const EventListData = [
     {
-      name: data.acf?.event_dates ? formatFullDate(data.acf?.event_dates[0]?.date) : "No events",
+      name: data.acf?.event_dates
+        ? formatFullDate(data.acf?.event_dates[0]?.date)
+        : "No events",
       // name: "ssds",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
@@ -224,7 +239,9 @@ const ModalContent: React.FC<ModalProps> = ({
       height: 24,
     },
     {
-      name: data.acf?.event_dates ? data.acf?.event_dates[0]?.start_time : "No events",
+      name: data.acf?.event_dates
+        ? data.acf?.event_dates[0]?.start_time
+        : "No events",
       // name: "sdsd",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
@@ -246,14 +263,14 @@ const ModalContent: React.FC<ModalProps> = ({
       height: 24,
     },
     {
-      name: data?.link,
+      name: data.acf?.website,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
       width: 16,
       height: 24,
     },
     {
-      name: data.acf?.map_location.address,
+      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}`,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
@@ -261,14 +278,13 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-
-  const formattedValues = ()=>{
-    if(Array.isArray(data.acf?.type)){
-      return data.acf?.type.map((item: any) => item.label).join(" | ")
-    }else{
-     return data.acf?.type.label
+  const formattedValues = () => {
+    if (Array.isArray(data.acf?.type)) {
+      return data.acf?.type.map((item: any) => item.label).join(" | ");
+    } else {
+      return data.acf?.type.label;
     }
-  }
+  };
 
   const strippedContent = data.acf?.short_description
     .replace(/<p[^>]*>/g, "")
@@ -292,11 +308,15 @@ const ModalContent: React.FC<ModalProps> = ({
       </ResturatContainer>
       <ItemImageContainer>
         <ImageWrraper
-          src={dataImage ? dataImage: "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+          src={
+            dataImage
+              ? dataImage
+              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+          }
           alt="Logo"
           width={500}
           height={80}
-          style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
+          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>
@@ -313,11 +333,13 @@ const ModalContent: React.FC<ModalProps> = ({
                   alt="Logo Outline"
                 />{" "}
               </div>
-              <RestDetailTitle
-                style={{ marginLeft: index == 4 || index == 5 ? 5 : 0 }}
-              >
-                {item.name}
-              </RestDetailTitle>
+              {index == 4 ? (
+                <RestDetailTitleWebsite href={item?.name} target="_blank">
+                  {item?.name}
+                </RestDetailTitleWebsite>
+              ) : (
+                <RestDetailTitle>{item.name}</RestDetailTitle>
+              )}
             </ResturantDetailsWrapper>
           );
         })}
@@ -378,12 +400,13 @@ const ModalContent: React.FC<ModalProps> = ({
       <AlsoSeeText>Opening</AlsoSeeText>
       <BulletPointWrapper>
         <li>
-          {data.acf?.seasonality && data.acf?.seasonality.map((item: any, index: any) => (
-            <p key={index}>
-              {item.label}
-              {index !== data.acf?.seasonality.length - 1 && ","}{" "}
-            </p>
-          ))}
+          {data.acf?.seasonality &&
+            data.acf?.seasonality.map((item: any, index: any) => (
+              <p key={index}>
+                {item.label}
+                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+              </p>
+            ))}
         </li>
       </BulletPointWrapper>
     </Container>

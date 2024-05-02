@@ -1,27 +1,39 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import ActivitiesModalLayout from "@/components//modal/Modal";
 import ActivitiesModal from "@/components/modal/ActivitiesModal";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {
-    showMap:boolean
+  showMap: boolean;
 }
 
-const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
-
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
+  showMap,
+}) => {
+  const {
+    modalName,
+    closeModal,
+    modalClick,
+    dataDetails,
+    modalType,
+    dataUrlImage,
+  } = useMyContext();
 
   return (
     <>
       <ActivitiesModalLayout
-          isOpen={modalType.activities}
-          onClose={() => closeModal("activities")}
-          name="activities"
-          {...{ showMap }}
-          title={dataDetails.resturantName}
-        >
-         <ActivitiesModal dataImage={dataDetails.headerImage} reservationModal={modalClick} />
-        </ActivitiesModalLayout>
+        isOpen={modalType.activities}
+        onClose={() => closeModal("activities")}
+        name="activities"
+        {...{ showMap }}
+        title={dataDetails?.acf?.title}
+      >
+        <ActivitiesModal
+             dataImage={dataUrlImage}
+             reservationModal={modalClick}
+             data={dataDetails}
+        />
+      </ActivitiesModalLayout>
     </>
   );
 };

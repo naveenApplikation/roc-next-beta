@@ -224,7 +224,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                       )}
                     </div>
                     <div className="restroRating">
-                      <p className="shopName">{item.acf.parish.label}</p>
+                      <p className="shopName">{item?.acf?.title}</p>
                       <div style={{ alignItems: "center", display: "flex" }}>
                         <UtenssilsImage src={utensils} alt="utensils" />
                         <Ratings defaultValue={item.rating} />

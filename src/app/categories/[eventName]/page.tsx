@@ -102,7 +102,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     fetchDataAsync();
   }, [search]);
 
-  const {showMap,modalName,modalClick,filterUrls} = useMyContext()
+  const {showMap,filterUrls} = useMyContext()
 
   const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
@@ -112,7 +112,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     if (urlData === "Family Events") {
       return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader}   />
     }else if(urlData === "Enjoy the sunshine"){
-      return <ExperienceBox urlData={search} urlTitle={urlData}   />
+      return <ExperienceBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
     }else if(urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" ){
       return <TrendingList urlData={search} urlTitle={urlData} />
     }else if(urlData === "categorieList"){

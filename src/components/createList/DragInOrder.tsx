@@ -182,7 +182,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                             {...provided.dragHandleProps}
                                                             style={{
                                                                 padding: '10px',
-                                                                margin: '10px 0',
+                                                                // margin: '10px 0',
                                                                 background: snapshot.isDragging ? 'lightblue' : 'white',
                                                                 boxShadow: snapshot.isDragging ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
                                                                 borderRadius: '5px',
