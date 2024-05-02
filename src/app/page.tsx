@@ -19,6 +19,7 @@ import EventListingModalScreen from "@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
 import { toast, ToastContainer } from "react-toastify";
+import InfoAppScreen from "@/components/AllModalScreen/InfoAppModalScreen";
 
 const Container = styled.div`
   display: flex;
@@ -110,6 +111,7 @@ export default function Home() {
       <ActivitiesModalScreen showMap={showMap} />
       <DirectoryModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
+      <InfoAppScreen {...{ showMap }} />
     </ShadowWrapper>
   );
 }

@@ -1,13 +1,13 @@
-import React, { useEffect,useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
-import Instance from "@/app/utils/Instance";
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+  showMap?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const OptionMenu = styled(ScrollingMenu)`
   gap: 25px;
 `;
 
-const NormalOption = styled.a`
+const NormalOption = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,44 +36,32 @@ const NormalOption = styled.a`
   justify-content: space-between;
 `;
 
-const InfoApp: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+const InfoApp: React.FC<DashboardProps> = ({ modalClick, menuClick, showMap }) => {
 
-const [linkData, setLinkData] = useState("")
 
-  const [loader, setloader] = useState(true);
-
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/nav-links");
-      setLinkData(result.data.data[0])
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
-
-  useEffect(()=>{
-    fetchDataAsync()
-  },[])
 
   return (
     <>
       <OptionMenu>
-        {topSideMenu.map((item:any, index:any) => {
+        {topSideMenu.map((item: any, index: any) => {
           return (
-            <NormalOption key={index} href={linkData[item.name]} target="_blank" >
+            <NormalOption className="" key={index} onClick={() => modalClick("infoApp", item.name)}>
+
+              {/* <NormalOption key={index} href={linkData[item.name]} target="_blank" > */}
               <Image
                 src={item.image}
                 alt="right icon"
-              />{" "}
+              />{""}
+              {/* {
+                console.log("linkData[item.name]", linkData[item.name])
+              } */}
               <p style={{ fontSize: "14px" }}>{item.name}</p>
+              {/* </NormalOption> */}
             </NormalOption>
           );
         })}
       </OptionMenu>
+      
     </>
   );
 };

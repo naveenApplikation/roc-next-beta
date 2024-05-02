@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import type { CSSProperties } from 'react';
-import { Collapse, TimePicker, theme } from 'antd';
+import { Collapse, Pagination, TimePicker, theme } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import type { CollapseProps } from 'antd';
 import React, { useState, useEffect } from 'react';
@@ -9,6 +9,7 @@ import 'react-calendar/dist/Calendar.css';
 import './index.css'
 import dayjs from 'dayjs';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import PartySize from "@/components/partySize";
 
 
 interface ModalProps {
@@ -108,6 +109,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
     const format = 'HH:mm';
     const [value, setValue] = useState(new Date());
     const [timeVal, setTimeVal] = useState(dayjs('12:08', format))
+    const [partySize, setPartySize] = useState<number>(1)
 
     const { token } = theme.useToken();
     const panelStyle: React.CSSProperties = {
@@ -136,6 +138,11 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
         setTimeVal(time)
     }
 
+    const handlePage = (page: number) => {
+        console.log("page, pageSize", page)
+        setPartySize(page)
+    }
+
     const CalenderData = () => {
         return (
             <CalenderContainer>
@@ -158,7 +165,12 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
         {
             key: '1',
             label: 'Party Size',
-            children: text,
+            children: <PartySize totalItems={200} itemsPerPage={10} onPageChange={handlePage} />,
+            // children: <Pagination 
+            // onChange={(page, pageSize)=>handlePage(page, pageSize)}
+            // current={partySize} 
+            // total={200} 
+            // />,
             style: panelStyle,
         },
         {

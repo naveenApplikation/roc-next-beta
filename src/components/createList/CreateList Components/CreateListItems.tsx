@@ -36,6 +36,7 @@ interface CreateListItemsProps {
   isOpen?: any;
   handleToggle?: any;
   index?: any;
+  dragUi?: any;
 }
 
 const CreateListItem = styled.div`
@@ -256,6 +257,7 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
   isOpen,
   handleToggle,
   index,
+  dragUi,
 }) => {
   return (
     <CreateListItem>
@@ -351,7 +353,8 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
           </ItemDetails>
         </ListItemDetails>
       </div>
-      {unSelectedBtn ?
+      { dragUi ? "" :
+      unSelectedBtn ?
         <UnselectedBtn onClick={() => handleToggle(listItemName, index)}>
           <Image
             style={{ width: "16px", height: "16px" }}

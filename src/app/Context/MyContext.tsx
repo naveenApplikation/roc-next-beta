@@ -14,15 +14,16 @@ interface DataDetails {
 interface ContextProps {
   modalType: ModalType;
   modalName: string;
-  showMap:boolean;
+  showMap: boolean;
   dataDetails: DataDetails;
-  dataUrlImage:any;
+  dataUrlImage: any;
   closeModal: (name: string) => void;
-  modalClick: (name: string, item?: any,urlImage?:any) => void;
+  modalClick: (name: string, item?: any, urlImage?: any) => void;
   iconClick: (name: string) => void;
   filterUrls: any;
-  handleApiResponse:any,
-  showContent:boolean
+  handleApiResponse: any;
+  showContent: boolean;
+  appName: any;
 }
 
 // Create a context
@@ -34,6 +35,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [dataDetails, setDataDetails] = useState<DataDetails>({});
   const [showContent, setShowContent] = useState(false);
   const [dataUrlImage, setDataUrlImage] = useState("");
+  const [appName, setAppName] = useState('')
   const [showMap, setShowMap] = useState<boolean>(false);
   const [modalType, setModalType] = useState({
     ModalContent: false,
@@ -52,11 +54,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     DirectionModal: false,
     search: false,
     myList: false,
-    eventListing:false,
-    activities:false
+    eventListing: false,
+    activities: false,
+    infoApp: false,
   });
 
-  const handleApiResponse = (shouldShowContent:any) => {
+  const handleApiResponse = (shouldShowContent: any) => {
     setShowContent(shouldShowContent);
   };
 
@@ -70,6 +73,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     } else {
       setModalNames('');
     }
+    setAppName('')
   };
 
   const iconClick = (name: string) => {
@@ -78,15 +82,19 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
-  const modalClick = (name: string, item?: any,urlImage?:any) => {
+  const modalClick = (name: string, item?: any, urlImage?: any,) => {
     setModalType((prev) => ({
       ...prev,
       [name]: true,
     }));
     setModalNames(name);
     if (item) {
-      setDataDetails(item);
-      setDataUrlImage(urlImage)
+      if (name === "infoApp") {
+        setAppName(item)
+      } else {
+        setDataDetails(item);
+        setDataUrlImage(urlImage)
+      }
     }
   };
 
@@ -124,7 +132,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     filterUrls,
     dataUrlImage,
     handleApiResponse,
-    showContent
+    showContent,
+    appName
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

@@ -150,7 +150,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div className="modal-content">
         <HeaderContainer>
-          <h4>{title}</h4>
+          <h4 style={{textTransform:'capitalize'}}>{title}</h4>
           <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}

@@ -166,8 +166,8 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}
                                         style={{
-                                            background: 'lightgray',
-                                            padding: '20px',
+                                            // background: 'lightgray',
+                                            // padding: '20px',
                                             borderRadius: '5px',
                                         }}
                                     >
@@ -193,6 +193,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
 
                                                             <CreateListItems
                                                                 dragBtn
+                                                                dragUi = "drag"
                                                                 listItemName={item?.content}
                                                                 secondLineDetails1
                                                                 itemPlaceLogo={item?.itemPlaceLogo}

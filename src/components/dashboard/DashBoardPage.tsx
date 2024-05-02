@@ -34,12 +34,12 @@ const LeaveFeedbackButton = styled.div`
   padding-bottom: 20px;
 `
 
-const DashBoard= () => {
+const DashBoard = () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
-  const {showMap,modalClick} = useMyContext()
+  const { showMap, modalClick } = useMyContext()
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
@@ -86,7 +86,7 @@ const DashBoard= () => {
   return (
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
-      <InfoApp menuClick={menuClick} modalClick={modalClick} />
+      <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
