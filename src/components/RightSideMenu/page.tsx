@@ -109,6 +109,9 @@ const RightMenu = styled.div`
     top: 0;
     width: 100%;
     right: 0;
+    // background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg_containter______alt.jpg?alt=media&token=f67de953-e63e-478d-ab4f-d80e79b827e2);
+    // background-size:contain;
+    // background-repeat:no-repeat;
   }
 `;
 

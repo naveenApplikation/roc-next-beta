@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 // Define types for your state and functions
 interface ModalType {
@@ -59,6 +59,21 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     infoApp: false,
   });
 
+  useEffect(() => {
+    // Check window width on client-side
+    const handleResize = () => {
+      setShowMap(window.innerWidth <= 800 ? false : true);
+    };
+    // Initial check
+    handleResize();
+    // Event listener for window resize
+    window.addEventListener('resize', handleResize);
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleApiResponse = (shouldShowContent: any) => {
     setShowContent(shouldShowContent);
   };
@@ -78,9 +93,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const iconClick = (name: string) => {
     if (name === "mapClick") {
-      setShowMap(!showMap);
+      if (window.innerWidth <= 800) {
+        setShowMap(!showMap);
+      }
     }
   };
+
 
   const modalClick = (name: string, item?: any, urlImage?: any,) => {
     setModalType((prev) => ({

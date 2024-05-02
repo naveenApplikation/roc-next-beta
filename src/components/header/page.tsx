@@ -15,6 +15,7 @@ interface HeaderProps {
   showMap?: boolean;
   modalClick: Function;
   iconClick: Function;
+  className:string
 }
 
 const HeadMenu = styled.div`
@@ -24,7 +25,7 @@ const HeadMenu = styled.div`
   padding: 0px 40px;
   padding-top: 64px;
   padding-bottom: 6px;
-  background-color: "transparent";
+  background-color: transparent;
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
@@ -39,7 +40,7 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap }) => {
+const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap , className }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -48,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap }) => {
   };
   return (
     <>
-      <HeadMenu>
+      <HeadMenu className={className}>
         <Image
           style={{ cursor: "pointer" }}
           src={logoOutline}

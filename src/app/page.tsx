@@ -68,12 +68,14 @@ const DashboardMenu = styled.div<{
   flex-direction: column;
   gap: 24px;
   min-height: 100vh;
-
+.shoadow_wrapper_container{
+  opacity:0;
+}
   @media screen and (max-width: 800px) {
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-      $showMap ? "calc(100vh - 500px)" : "100vh"};
+    $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 
@@ -81,6 +83,7 @@ type mylisttabs = "Created" | "Contributed";
 
 export default function Home() {
   const { modalClick, showMap, iconClick } = useMyContext();
+  const [showContent, setShowContent] = useState(false);
 
   const [myListtabValue, setMyListTabValue] = useState("Created");
 
@@ -90,11 +93,11 @@ export default function Home() {
     setMyListTabValue(value);
   };
   return (
-    <ShadowWrapper>
+    <ShadowWrapper {...{ showContent, setShowContent }}>
       <Container>
         <MainContainer>
           <DashboardMenu $showMap={showMap}>
-            <Header {...{ modalClick, iconClick, showMap }} />
+            <Header className={showContent ? "shoadow_wrapper_container" : ""} {...{ modalClick, iconClick, showMap }} />
             <Dashboard />
           </DashboardMenu>
         </MainContainer>

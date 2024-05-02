@@ -7,9 +7,12 @@ import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
+import { ROCLogo, ROCLogoWhite } from "@/app/utils/ImagePath";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
+  showContent: boolean;
+  setShowContent: any;
 }
 
 const StyledShadowWrapper = styled.div`
@@ -21,13 +24,30 @@ const StyledShadowWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(0 0 0 / 84%);
     z-index: 10;
   }
 
+  .shadow-header{
+    
+    position: fixed;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    padding: 0px 40px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    display:flex !important;
+    flex-direction: row !important;
+    justify-content:space-between !important;
+    align-items:center;
+  }
   .content-wrapper {
     position: fixed;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 11;
@@ -99,10 +119,10 @@ const JoinText = styled.p`
   text-decoration-line: underline;
 `;
 
-const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
-  const [showContent, setShowContent] = useState(false);
+const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, setShowContent }) => {
+  // const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const { handleApiResponse} = useMyContext();
+  const { handleApiResponse } = useMyContext();
   // const [loading, setLoading] = useState(true);
 
 
@@ -110,7 +130,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
   //   message: string;
   //   data: any;
   // }
-  
+
   // export const verifyInviteCode = async (code: string): Promise<ApiVerifyCodeResponse> => {
   //   try {
   //     const response = await axios.post<ApiVerifyCodeResponse>(`${baseUrl}/verifyCode`,{ code });
@@ -130,7 +150,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
   const fetchDataAsync = async () => {
     // setloader(true);
     try {
-      const result = await Instance.post("/verifyCode",{ code:inputValue });
+      const result = await Instance.post("/verifyCode", { code: inputValue });
       localStorage.setItem("hideUI", inputValue.trim());
       setShowContent(false);
       localStorage.setItem("Token", result.data.data);
@@ -185,15 +205,29 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children }) => {
         {showContent && (
           <>
             <div className="shadow-background"></div>
+            <div className="shadow-header" style={{ display: "flex", justifyContent: "center" }}>
+              <Image
+                src={ROCLogoWhite}
+                width={117}
+                height={68}
+                alt="right icon"
+              />
+              <Image
+                src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/Frame%201712.png?alt=media&token=27a64bcd-fb62-4c51-8e32-ece4defa591c"
+                width={80}
+                height={40}
+                alt="right icon"
+              />
+            </div>
             <div className="content-wrapper">
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              {/* <div style={{ display: "flex", justifyContent: "center" }}>
                 <Image
                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FBETA.png?alt=media&token=94d2f0f3-f0f1-4e2f-b81f-80aa889cf243"
                   width={117}
                   height={68}
                   alt="right icon"
-                />
-              </div>
+                /> */}
+              {/* </div> */}
               <ContentInfo>
                 Enter the private invite code or sign up to the waiting list
               </ContentInfo>
