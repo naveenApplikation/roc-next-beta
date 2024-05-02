@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
@@ -7,12 +7,13 @@ import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
+import Image from "next/image";
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -29,10 +30,79 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+const ScrollingMenuDishes = styled.div`
+  display: flex;
+  width: 120px;
+  flex-direction: column;
+  flex-shrink: 0;
+  cursor: pointer;
+`;
 
+const UtensilsDishesImage = styled.div`
+  border-radius: 4px;
+  background: #c4c4c4;
+  height: 64px;
+  align-self: stretch;
+`;
 
-  const { filterUrls,showContent } = useMyContext();
+const Title = styled.p`
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+`;
+
+const Menutitle = styled.p`
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 8px;
+  display: block;
+  width: 100%; /* Ensures the link takes up the full width of its container */
+  white-space: nowrap; /* Prevents wrapping of the link text */
+  overflow: hidden; /* Hides any overflowing content */
+  text-overflow: ellipsis;
+`;
+
+const MenuIconContainer = styled.div`
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+`;
+
+const MenuIcon = styled(Image)`
+  /* width: 11px;
+  height: 12px; */
+`;
+
+const MainImage = styled(Image)`
+  width: 120px !important;
+  height: 64px !important;
+  border-radius: 6px;
+`;
+
+const PriceText = styled.p`
+  overflow: hidden;
+color: rgba(0, 0, 0, 0.48);
+text-overflow: ellipsis;
+font-family: Inter;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 8px;
+`
+
+const EnjoyTheSunshine: React.FC<DashboardProps> = ({
+  modalClick,
+  menuClick,
+}) => {
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -41,10 +111,10 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/sun-shine");
-        console.log(result,"dsdsdsd")
+        console.log(result, "dsdsdsd");
         setData(result.data);
       } catch (error: any) {
         console.log(error.message);
@@ -65,7 +135,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
 
   return (
     <>
-    <MenuDetails
+      <MenuDetails
         isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}
         title="Enjoy the sunshine"
       />
@@ -95,7 +165,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
           : data?.slice(0, 10).map((item, index) => {
               return (
                 <div key={index}>
-                  <RatingMenu
+                  {/* <RatingMenu
                     title={item.acf.parish.label}
                     menuImageUrl={
                       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant1.jpg?alt=media&token=c48ad7ce-9020-4dc9-b91f-1c866cb3e836"
@@ -106,7 +176,24 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
                     isOpen={() =>
                       modalClick("activities", item, filteredUrls[index])
                     }
-                  />
+                  /> */}
+                  <ScrollingMenuDishes  onClick={() => modalClick("activities", item, filteredUrls[index])}>
+                        <UtensilsDishesImage>
+                          <MainImage
+                            src={filteredUrls[index]}
+                            alt=""
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: 4,
+                              maxWidth: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </UtensilsDishesImage>
+                        <Menutitle>{item.acf.title}</Menutitle>
+                        <PriceText>£ {item.acf.price_from}</PriceText>
+                  </ScrollingMenuDishes>
                 </div>
               );
             })}

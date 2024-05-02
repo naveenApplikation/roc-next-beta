@@ -158,7 +158,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                         status2="Competitive rates. Fast & efficient service. Scaffolding erected to CISRS standards"
                     />
                 </DragInOrderListScrollBox> */}
-                    <div style={{ padding: '20px' }}>
+                    <div>
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="droppable">
                                 {(provided) => (
@@ -183,7 +183,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                             style={{
                                                                 padding: '10px',
                                                                 // margin: '10px 0',
-                                                                background: snapshot.isDragging ? 'lightblue' : 'white',
+                                                                background: snapshot.isDragging ? 'lightblue' : 'none',
                                                                 boxShadow: snapshot.isDragging ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
                                                                 borderRadius: '5px',
                                                                 ...provided.draggableProps.style,
@@ -202,8 +202,8 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                                 ratingStarImage={RatingStarImage}
                                                                 starRating={4.7}
                                                                 thirdLineDetails1
-                                                                status1="Open ⋅ Closes"
-                                                                timing2="11 pm"
+                                                                // status1="Open ⋅ Closes"
+                                                                // timing2="11 pm"
                                                                 newText
                                                                 delivery
                                                             />

@@ -129,8 +129,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({ ScreenSwitch, homePage 
                     itemPlaceLogo={StHelierLogo}
                     placeName1={val?.placeName1}
                     thirdLineDetails1
-                    status1={val?.status1}
-                    timing2={val?.timing2}
+                    // status1={val?.status1}
+                    // timing2={val?.timing2}
                     unSelectedBtn={val.unSelectedBtn}
                     handleToggle={handleToggle}
                   />
