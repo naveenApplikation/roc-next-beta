@@ -14,6 +14,7 @@ interface CreateListingsFooterProps {
   ScreenSwitch?: any;
   preScreen?: any;
   secondText?:string
+  selectedItem?:any
 }
 
 const CreateListingFooter = styled.div`
@@ -117,13 +118,14 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
   Handleclose,
   ScreenSwitch,
   preScreen,
-  secondText
+  secondText,
+  selectedItem
 }) => {
 
   return (
     <CreateListingFooter>
       {continueBtn && (
-        <ContinueBtn onClick={ScreenSwitch}>Continue with (1) Selected Listing</ContinueBtn>
+        <ContinueBtn onClick={ScreenSwitch}>Continue with ({selectedItem}) Selected Listing</ContinueBtn>
       )}
       {commentOpen ? (
         <div style={{ width: "100%",display:"flex",flexDirection:"column",gap:"16px" }}>

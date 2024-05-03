@@ -2,7 +2,10 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
+import { commentstar } from "@/app/utils/ImagePath";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
+import UnselectedBtnImg from "../../../assets/images/createListImages/check.png";
+import SelectedBtnImg from "../../../assets/images/createListImages/plus-circle.png";
 import SearchComponent from "@/components/searchInput/SearchInput";
 import ListOptions from "./CreateList Components/ListOptions";
 import Image from "next/image";
@@ -12,11 +15,15 @@ import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-import FilterSection from '@/components/filterSection';
+import FilterSection from "@/components/filterSection";
 
 interface CreateListingsProps {
-  ScreenSwitch?: Function
-  homePage: any
+  ScreenSwitch?: Function;
+  homePage: any;
+  toggleSelected: any;
+  selectedItemIds: any;
+  searchQuery:string;
+  handleSearch:(value:string)=>void
 }
 
 const CreateListingsScreen = styled.div`
@@ -47,6 +54,9 @@ const AddListingsTitle = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  @media screen and (max-width: 400px) {
+    padding-right: 10px;
+  }
 `;
 
 const CreateListOptions = styled.div`
@@ -61,6 +71,9 @@ const CreateListOptions = styled.div`
 const SearchInputBox = styled.div`
   /* margin-right: 24px; */
   padding-right: 24px;
+  @media screen and (max-width: 400px) {
+    padding-right: 10px;
+  }
 `;
 
 const CreateListItemScrollBox = styled.div`
@@ -69,122 +82,259 @@ const CreateListItemScrollBox = styled.div`
   scrollbar-width: none;
   padding-bottom: 100px;
 `;
+
+const ListDataWrraper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgb(217, 217, 217);
+  align-items: center;
+  padding: 9px 0px;
+  position: relative;
+`;
+
+const ListDataTittleText = styled.p`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
+
+const ListDataInfoText = styled.p`
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.12px;
+`;
+
+const UnselectedBtn = styled.div`
+  width: 48px;
+  height: 81px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  gap: 24px;
+  border-radius: 8px;
+  background: var(--MAIN, #2f80ed);
+  background: #27ae60;
+  border-style: none;
+  cursor: pointer;
+  position: absolute;
+  right: 24px;
+  top: 10px;
+
+  @media screen and (max-width: 400px) {
+    right: 10px;
+  }
+`;
+
+const SelectedBtn = styled.button`
+  width: 48px;
+  height: 81px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  gap: 24px;
+  border-radius: 8px;
+  background: #2f80ed;
+  border-style: none;
+  cursor: pointer;
+  position: absolute;
+  right: 24px;
+  top: 10px;
+
+  @media screen and (max-width: 400px) {
+    right: 10px;
+  }
+`;
+
+const ListDataTime = styled.p`
+  color: #2b902b;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.12px;
+`;
+
 const newFilter = [
-  { name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-  { name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: StHelierLogo, status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
-  { name: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: StHelierLogo, status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
-  { name: "abrdn", placeName2: "Investment Managers", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-]
+  {
+    id: "item 1",
+    name: "Chocadyllic",
+    placeName1: "St Helier",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Open ⋅ Closes",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 2",
+    name: "Kalimukti Yoga",
+    placeName1: "From £5",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Outdoore",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 3",
+    name: "Radisson Blu Waterfront Hotel",
+    placeName1: "From £265/night",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "St Helier",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 4",
+    name: "abrdn",
+    placeName1: "Investment Managers",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Open ⋅ Closes",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+];
 
-const CreateListings: React.FC<CreateListingsProps> = ({ ScreenSwitch, homePage }) => {
+interface Item {
+  name: any;
+  placeName1: any;
+  itemPlaceLogo: any;
+  status1: any;
+  timing2: any;
+  unSelectedBtn: any;
+  placeName2?: any; // Make it optional
+}
 
+const CreateListings: React.FC<CreateListingsProps> = ({
+  ScreenSwitch,
+  homePage,
+  selectedItemIds,
+  toggleSelected,
+  handleSearch,
+  searchQuery
+}) => {
   const [toggle, setToggle] = useState<any[]>(newFilter);
 
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+
+  const filteredData = newFilter.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const handleToggle = (name: string, index: any) => {
+    if (name === filteredData[index].name) {
+      toggle[index].unSelectedBtn = !toggle[index].unSelectedBtn;
+      setToggle([...toggle]);
+    }
+  };
 
-    if (name === newFilter[index].name) {
-      toggle[index].unSelectedBtn = !toggle[index].unSelectedBtn
-      setToggle([...toggle])
-    } 
-  }
-
+  // const toggleSelected = (itemId: any): void => {
+  //   const selectedIndex: number = selectedItemIds.indexOf(itemId);
+  //   if (selectedIndex === -1) {
+  //     setSelectedItemIds([...selectedItemIds, itemId]);
+  //   } else {
+  //     const updatedSelectedItems: number[] = [...selectedItemIds];
+  //     updatedSelectedItems.splice(selectedIndex, 1);
+  //     setSelectedItemIds(updatedSelectedItems);
+  //   }
+  // };
 
   return (
     <CreateListingsScreen>
       <CreateListItemScrollBox>
         <CreateListingsHeader homePage={homePage} />
         <CreateListingsContent>
-          <AddListingsTitle>Add listings</AddListingsTitle>
+          <AddListingsTitle>Add business to your list</AddListingsTitle>
           <SearchInputBox>
-            <SearchComponent />
+            <SearchComponent
+              value={searchQuery}
+              onchange={(e: any) => handleSearch(e.target.value)}
+            />
           </SearchInputBox>
-          <FilterSection />
-          {/* <CreateListOptions>
-            <Image
-              style={{
-                width: "32px",
-                height: "20px",
-                opacity: 0.72,
-                cursor: "pointer",
-              }}
-              src={FilterImg}
-              alt="OptionListIcon"
-            />
-            <ListOptions optionText="Sort by" />
-            <ListOptions optionText="Parish" />
-            <ListOptions optionText="Category" />
-            <ListOptions optionText="Best of" />
-          </CreateListOptions> */}
-          <div>
-            {
-              toggle.map((val: any, index: any) => {
-                return (
-                  <CreateListItems
-                    key={index}
-                    listItemName={val?.name}
-                    index={index}
-                    secondLineDetails1
-                    itemPlaceLogo={StHelierLogo}
-                    placeName1={val?.placeName1}
-                    thirdLineDetails1
-                    // status1={val?.status1}
-                    // timing2={val?.timing2}
-                    unSelectedBtn={val.unSelectedBtn}
-                    handleToggle={handleToggle}
-                  />
-
-                )
-              })
-            }
-            {/* <CreateListItems
-              listItemName="Chocadyllic"
-              secondLineDetails1
-              itemPlaceLogo={StHelierLogo}
-              placeName1="St Helier"
-              thirdLineDetails1
-              status1="Open ⋅ Closes"
-              timing2="11 pm"
-              unSelectedBtn={toggle === "Chocadyllic" ? true : false}
-              handleToggle={handleToggle}
-            />
-            <CreateListItems
-              listItemName="Kalimukti Yoga"
-              secondLineDetails1
-              itemPlaceLogo={CurrencySign}
-              placeName1="From £5"
-              thirdLineDetails2
-              status2="Outdoors"
-              timing3="11 pm"
-              unSelectedBtn={toggle === "Kalimukti Yoga" ? true : false}
-              handleToggle={handleToggle}
-            />
-            <CreateListItems
-              listItemName="Radisson Blu Waterfront Hotel"
-              secondLineDetails1
-              itemPlaceLogo={CurrencySign}
-              placeName1="From £265/night"
-              ratedStar
-              ratingStarImage={RatingStarImage}
-              starRating={4.7}
-              thirdLineDetails2
-              status2="St Helier"
-              timing3="11 pm"
-              unSelectedBtn={toggle === "Radisson Blu Waterfront Hotel" ? true : false}
-              handleToggle={handleToggle}
-            />
-            <CreateListItems
-              listItemName="abrdn"
-              secondLineDetails2
-              itemPlaceLogo={false}
-              placeName2="Investment Managers"
-              timing1="11pm"
-              unSelectedBtn={toggle === "abrdn" ? true : false}
-              handleToggle={handleToggle}
-            /> */}
-          </div>
+          {searchQuery &&
+            filteredData.map((item: any, index: any) => {
+              return (
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
+                  key={index}
+                >
+                  <ListDataWrraper>
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 16 }}
+                    >
+                      <div style={{ width: 80, height: 80 }}>
+                        <Image
+                          src={
+                            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FAppImage%2Fbanjo.jpg?alt=media&token=e20e5e98-87f9-4a6c-8dda-7f2372d5f7dc"
+                          }
+                          width={80}
+                          height={80}
+                          style={{ borderRadius: 4 }}
+                          alt="infoCirlce"
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 10,
+                          flexDirection: "column",
+                        }}
+                      >
+                        <ListDataTittleText>{item.name}</ListDataTittleText>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: 10,
+                            alignItems: "center",
+                          }}
+                        >
+                          <ListDataInfoText>4.7</ListDataInfoText>
+                          <Image src={commentstar} alt="infoCirlce" />
+                          <ListDataInfoText>⋅ St Helier</ListDataInfoText>
+                          <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                        </div>
+                      </div>
+                    </div>
+                    <button onClick={() => toggleSelected(item.id)}>
+                      {selectedItemIds.includes(item.id) ? (
+                        <UnselectedBtn>
+                          <Image
+                            style={{ width: "15px", height: "10px" }}
+                            src={UnselectedBtnImg}
+                            alt="UnselectedBtnImg"
+                            // onClick={() => handleToggle(listItemName)}
+                          />
+                        </UnselectedBtn>
+                      ) : (
+                        <SelectedBtn>
+                          <Image
+                            style={{ width: "16px", height: "16px" }}
+                            src={SelectedBtnImg}
+                            alt="SelectedBtnImg"
+                          />
+                        </SelectedBtn>
+                      )}
+                    </button>
+                  </ListDataWrraper>
+                </div>
+              );
+            })}
         </CreateListingsContent>
       </CreateListItemScrollBox>
-      <CreateListingsFooter continueBtn ScreenSwitch={ScreenSwitch} />
+      <CreateListingsFooter
+        continueBtn
+        ScreenSwitch={ScreenSwitch}
+        selectedItem={selectedItemIds.length}
+      />
     </CreateListingsScreen>
   );
 };

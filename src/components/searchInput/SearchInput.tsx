@@ -6,6 +6,8 @@ import { search } from '@/app/utils/ImagePath';
 
 interface SearchComponentProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  value?:any,
+  onchange?:any
 }
 
 
@@ -35,14 +37,14 @@ const SearchIcon = styled(Image)`
   cursor: pointer;
 `;
 
-const SearchComponent: React.FC<SearchComponentProps> = ({onFocus}) => {
+const SearchComponent: React.FC<SearchComponentProps> = ({onFocus,value,onchange}) => {
   const handleSearch = () => {
     // console.log('Searching...');
   };
 
   return (
     <InputContainer>
-      <SearchInput onFocus={onFocus}  type="text" placeholder="Search..." />
+      <SearchInput onFocus={onFocus} value={value} onChange={onchange} type="text" placeholder="Search..." />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>
   );

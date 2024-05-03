@@ -15,7 +15,8 @@ import { sideWidth } from "@/app/utils/date";
 interface DragInOrderProps {
     ScreenSwitch?: Function
     preScreen?: Function
-    homePage: any
+    homePage: any;
+    selectedItemIds:any
 }
 
 const DragInOrderScreen = styled.div`
@@ -69,9 +70,16 @@ const initialItems = [
     { id: 'item4', content: "abrdn", placeName2: "Investment Managers", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
 ];
 
+const newFilter  = [
+    { id: 'item 1', name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+    { id: 'item 2', name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: "StHelierLogo", status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
+    { id: 'item 3', name: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: "StHelierLogo", status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
+    { id: 'item 4', name: "abrdn", placeName1: "Investment Managers", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+  ];
+
 
 const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage }) => {
-    const [items, setItems] = useState(initialItems);
+    const [items, setItems] = useState(newFilter);
 
     const onDragEnd = (result: any) => {
         if (!result.destination) {
@@ -125,7 +133,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                             <CreateListItems
                                                                 dragBtn
                                                                 dragUi = "drag"
-                                                                listItemName={item?.content}
+                                                                listItemName={item?.name}
                                                                 secondLineDetails1
                                                                 itemPlaceLogo={item?.itemPlaceLogo}
                                                                 placeName1="St Helier"

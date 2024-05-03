@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import AddComments from "@/components/createList/AddComments";
@@ -8,12 +8,28 @@ import ListDetails from "@/components/createList/ListDetails";
 import Greetings from "@/components/createList/Greetings";
 import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
 import { useRouter } from "next/navigation";
-import { useMyContext } from "@/app/Context/MyContext";
 import MapWithMenu from "@/components/RightSideMenu/MapWithMenu";
 import PageLayout from "@/app/pageLayout";
+import { ApiResponse } from "@/app/utils/types";
+import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
 
 const Page = () => {
   const { showMap } = useMyContext();
+
+  const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
+  console.log(selectedItemIds,"asasas")
+
+  const toggleSelected = (itemId: number): void => {
+    const selectedIndex: number = selectedItemIds.indexOf(itemId);
+    if (selectedIndex === -1) {
+      setSelectedItemIds([...selectedItemIds, itemId]);
+    } else {
+      const updatedSelectedItems: number[] = [...selectedItemIds];
+      updatedSelectedItems.splice(selectedIndex, 1);
+      setSelectedItemIds(updatedSelectedItems);
+    }
+  };
 
   const router = useRouter();
 
@@ -32,12 +48,47 @@ const Page = () => {
 
   console.log("data icon", selectedIcon, categoryType, listName)
 
+  const { filterUrls,showContent } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (value:string)=>{
+    setSearchQuery(value)
+  }
+
+  const [loader, setloader] = useState(true);
+
+  const fetchDataAsync = async () => {
+    setloader(true);
+    const storedValue = localStorage.getItem("hideUI");
+    if(storedValue){
+      try {
+        const result = await Instance.get("/search?title=Gre");
+        setData(result.data);
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAsync();
+  }, [showContent]);
+
   const ScreenShowHandle = () => {
     if (screenName === "create") {
       return (
         <CreateListings
           ScreenSwitch={() => screenChangeHandle("drag")}
           homePage={navigateClick}
+          selectedItemIds={selectedItemIds}
+          toggleSelected={toggleSelected}
+          searchQuery={searchQuery}
+          handleSearch={handleSearch}
         />
       );
     } else if (screenName === "drag") {
@@ -46,6 +97,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("ProductAndCommentInfo")}
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
+          selectedItemIds={selectedItemIds}
         />
       );
     } else if (screenName === "AddComments") {
