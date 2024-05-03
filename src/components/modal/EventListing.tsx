@@ -348,7 +348,7 @@ const ModalContent: React.FC<ModalProps> = ({
         </ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>{strippedContent}</RestDetailText>
-      <AlsoSeeText>More information</AlsoSeeText>
+      {/* <AlsoSeeText>More information</AlsoSeeText>
       <MoreInfo>
         <p>Home Fixtures:</p>
         <p>06/01 = Alton</p>
@@ -362,41 +362,60 @@ const ModalContent: React.FC<ModalProps> = ({
         <p>16/03 = Horley Town</p>
         <p>23/03 = Farnham Town</p>
         <p>20/04 = Fleet Town</p>
-      </MoreInfo>
-      <AlsoSeeText>More dates</AlsoSeeText>
-      {data.acf?.event_dates?.map((item: any, index: any) => (
-        <DatesContainer key={index}>
-          <DatesWrapperText>
-            <p>{formatCalenderTime(item.date)}</p>
-            <p>{formatDay(item.date)}</p>
-            <p>{item.start_time}</p>
-          </DatesWrapperText>
-          <DateMonthWraaper>
-            <p style={{ fontSize: 17 }}>{formatDate(item.date)}</p>
-            <Monthstyle>{formatMonth(item.date)}</Monthstyle>
-          </DateMonthWraaper>
-        </DatesContainer>
-      ))}
-      <AlsoSeeText>Key Features</AlsoSeeText>
-      <BulletPointWrapper>
-        {data.acf?.key_facilities.map((item: any, index: any) => (
-          <li key={index}>{item.label}</li>
-        ))}
-      </BulletPointWrapper>
-      <AlsoSeeText>Accessibility</AlsoSeeText>
-      <BulletPointWrapper>
-        {data.acf?.accessibility.map((item: any, index: any) => (
-          <li key={index}>{item.label}</li>
-        ))}
-      </BulletPointWrapper>
-      <AlsoSeeText>Bus Route</AlsoSeeText>
-      <BulletPointWrapper>
-        {data.acf?.bus_routes.map((item: any, index: any) => (
-          <li key={index} style={{ textDecoration: "underline" }}>
-            {formatRoute(item.label)}
-          </li>
-        ))}
-      </BulletPointWrapper>
+      </MoreInfo> */}
+      {data.acf?.event_dates != "" && (
+        <>
+          <AlsoSeeText>More dates</AlsoSeeText>
+          {data.acf?.event_dates?.map((item: any, index: any) => (
+            <DatesContainer key={index}>
+              <DatesWrapperText>
+                <p>{formatCalenderTime(item.date)}</p>
+                <p>{formatDay(item.date)}</p>
+                <p>{item.start_time}</p>
+              </DatesWrapperText>
+              <DateMonthWraaper>
+                <p style={{ fontSize: 17 }}>{formatDate(item.date)}</p>
+                <Monthstyle>{formatMonth(item.date)}</Monthstyle>
+              </DateMonthWraaper>
+            </DatesContainer>
+          ))}
+        </>
+      )}
+
+      {data.acf?.key_facilities != "" && (
+        <>
+          <AlsoSeeText>Key Features</AlsoSeeText>
+          <BulletPointWrapper>
+            {data.acf?.key_facilities.map((item: any, index: any) => (
+              <li key={index}>{item.label}</li>
+            ))}
+          </BulletPointWrapper>
+        </>
+      )}
+
+      {data.acf?.accessibility != "" && (
+        <>
+          <AlsoSeeText>Accessibility</AlsoSeeText>
+          <BulletPointWrapper>
+            {data.acf?.accessibility.map((item: any, index: any) => (
+              <li key={index}>{item.label}</li>
+            ))}
+          </BulletPointWrapper>
+        </>
+      )}
+
+      {data.acf?.bus_routes != "" && (
+        <>
+          <AlsoSeeText>Bus Route</AlsoSeeText>
+          <BulletPointWrapper>
+            {data.acf?.bus_routes.map((item: any, index: any) => (
+              <li key={index} style={{ textDecoration: "underline" }}>
+                {formatRoute(item.label)}
+              </li>
+            ))}
+          </BulletPointWrapper>
+        </>
+      )}
       <AlsoSeeText>Opening</AlsoSeeText>
       <BulletPointWrapper>
         <li>

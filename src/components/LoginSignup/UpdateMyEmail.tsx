@@ -52,7 +52,6 @@ const UpdateMyEmailContent: React.FC<ModalProps> = ({
         const loginData = await Instance.put("update-profile", {
           email: values.email,
         });
-        console.log(loginData);
         isOpen();
       } catch (error: any) {
         console.log(error.message);

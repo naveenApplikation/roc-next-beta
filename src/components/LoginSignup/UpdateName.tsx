@@ -49,7 +49,6 @@ const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         const loginData = await Instance.put("update-profile", {
         userName: values.name,
         });
-        console.log(loginData);
         isOpen();
       } catch (error: any) {
         console.log(error.message);

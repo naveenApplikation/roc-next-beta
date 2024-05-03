@@ -83,7 +83,7 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 headerImage={filteredUrls[index]}
                 containerImageUrl={true}
                 MenutitleDetail={item.acf.title}
-                isOpen={() => modalClick("ModalContent", item, filteredUrls[index])}
+                isOpen={() => modalClick("ModalContent", item, filteredUrls[index],true)}
               />
             </div>
           ))

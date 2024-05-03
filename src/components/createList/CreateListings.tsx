@@ -82,8 +82,6 @@ const CreateListings: React.FC<CreateListingsProps> = ({ ScreenSwitch, homePage 
 
   const handleToggle = (name: string, index: any) => {
 
-    console.log("name", name)
-
     if (name === newFilter[index].name) {
       toggle[index].unSelectedBtn = !toggle[index].unSelectedBtn
       setToggle([...toggle])

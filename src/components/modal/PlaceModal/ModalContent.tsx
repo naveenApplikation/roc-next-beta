@@ -28,6 +28,7 @@ interface ModalProps {
   reservationModal: Function;
   dataImage: any;
   data?: any;
+  reservationMenu?: boolean;
 }
 
 const Container = styled.div`
@@ -146,10 +147,10 @@ const ImageWrraper = styled(Image)`
   height: 192px;
   /* width: -webkit-fill-available !important;
   height: 192px !important; */
-  
+
   @media screen and (max-width: 1130px) {
     height: auto;
-    width: -webkit-fill-available
+    width: -webkit-fill-available;
   }
 `;
 
@@ -247,6 +248,7 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationModal,
   dataImage,
   data,
+  reservationMenu,
 }) => {
   const [showApiData, setShowApiData] = useState(data);
 
@@ -270,7 +272,7 @@ const ModalContent: React.FC<ModalProps> = ({
   ];
 
   const [showReview, setShowReview] = useState(false);
-  const [showEdit, setShowEdit] = useState('');
+  const [showEdit, setShowEdit] = useState("");
   const [commentReview, setCommentReview] = useState("");
   const [rating, setRating] = useState("");
   const [textId, setTextId] = useState("");
@@ -283,27 +285,25 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const handleButtonClick = () => {
     setShowReview(!showReview);
-
   };
 
-  useEffect(()=>{
-    if(showReview){
-      setShowEdit('')
-      setCommentReview("")
-      setRating("")
+  useEffect(() => {
+    if (showReview) {
+      setShowEdit("");
+      setCommentReview("");
+      setRating("");
     }
-  }, [showReview])
+  }, [showReview]);
 
   const [loader, setloader] = useState(true);
   const [reviewData, setReviewData] = useState([]);
   const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
   const MainImage = styled(Image)`
-  width: 120px !important;
-  height: 64px !important;
-  border-radius: 6px;
-`;
-
+    width: 120px !important;
+    height: 64px !important;
+    border-radius: 6px;
+  `;
 
   useEffect(() => {
     const getReviewData = async () => {
@@ -331,18 +331,21 @@ const ModalContent: React.FC<ModalProps> = ({
       placeId: data._id,
       rating: rating,
       comment: commentReview,
-    }
+    };
     const paramUpdate = {
       rating: rating,
       comment: commentReview,
-    }
+    };
     try {
-      const ReviewData = showEdit !=='' ? await Instance.put(`review/${textId}`, paramUpdate) : await Instance.post("review", param);
+      const ReviewData =
+        showEdit !== ""
+          ? await Instance.put(`review/${textId}`, paramUpdate)
+          : await Instance.post("review", param);
       setShowReview(false);
       setReviewShowToggle(true);
       setCommentReview("");
       setRating("");
-      setShowEdit('')
+      setShowEdit("");
       console.log(ReviewData, "sdsdsds");
     } catch (error: any) {
       console.log(error.message);
@@ -370,15 +373,13 @@ const ModalContent: React.FC<ModalProps> = ({
     closes: string;
   }[];
 
-
-
   const handleEdit = (index: any, rating: any, text: any, id: any) => {
-    console.log("id", id)
-    setShowEdit(index)
-    setCommentReview(text)
-    setRating(rating)
-    setTextId(id)
-  }
+    console.log("id", id);
+    setShowEdit(index);
+    setCommentReview(text);
+    setRating(rating);
+    setTextId(id);
+  };
 
   return (
     <Container>
@@ -404,7 +405,7 @@ const ModalContent: React.FC<ModalProps> = ({
           alt="Logo"
           width={500}
           height={80}
-          style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
+          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
       <ResturantDetailsContainer>
@@ -417,7 +418,13 @@ const ModalContent: React.FC<ModalProps> = ({
                 src={item.image}
                 alt="Logo Outline"
               />{" "}
-              {index == 1  ? <RestDetailTitleWebsite href={item?.name} target="_blank">{item?.name}</RestDetailTitleWebsite> : <RestDetailTitle>{item.name}</RestDetailTitle>}
+              {index == 1 ? (
+                <RestDetailTitleWebsite href={item?.name} target="_blank">
+                  {item?.name}
+                </RestDetailTitleWebsite>
+              ) : (
+                <RestDetailTitle>{item.name}</RestDetailTitle>
+              )}
               {index == 0 && (
                 <Image
                   style={{ cursor: "pointer", height: "auto" }}
@@ -456,45 +463,47 @@ const ModalContent: React.FC<ModalProps> = ({
         </ReviewWraaper>
         {reviewData.map((item: any, index: any) => (
           <div key={index}>
-            {
-              showEdit === index ?
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-                  <TextAreaContainer
-                    rows={4}
-                    cols={50}
-                    placeholder="Comments"
-                    value={commentReview}
-                    onChange={(e) => setCommentReview(e.target.value)}
-                  />
-                  {
-                    console.log("item", item?._id) as any
-                  }
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
-                    <Ratings
-                      defaultValue={0}
-                      giveRating={giveRating}
-                      ratingvalue={rating}
-                    />
-                  </div>
-                  <CommonButton text={showEdit === index ? "Update Review" : "Submit Review"} isOpen={fetchDataAsync} />
-                </div>
-                :
-                <CommentRating
-                  index={index}
-                  id={item?._id}
-                  Titletext="ELCIAS DE FREITAS"
-                  Maintext={item.comment}
-                  starRating={item.rating}
-                  like={24}
-                  disLike={7}
-                  handleEdit={handleEdit}
+            {showEdit === index ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                <TextAreaContainer
+                  rows={4}
+                  cols={50}
+                  placeholder="Comments"
+                  value={commentReview}
+                  onChange={(e) => setCommentReview(e.target.value)}
                 />
-            }
+                {console.log("item", item?._id) as any}
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span style={{ fontSize: 14, fontWeight: "bold" }}>
+                    Rating:
+                  </span>
+                  <Ratings
+                    defaultValue={0}
+                    giveRating={giveRating}
+                    ratingvalue={rating}
+                  />
+                </div>
+                <CommonButton
+                  text={showEdit === index ? "Update Review" : "Submit Review"}
+                  isOpen={fetchDataAsync}
+                />
+              </div>
+            ) : (
+              <CommentRating
+                index={index}
+                id={item?._id}
+                Titletext="ELCIAS DE FREITAS"
+                Maintext={item.comment}
+                starRating={item.rating}
+                like={24}
+                disLike={7}
+                handleEdit={handleEdit}
+              />
+            )}
           </div>
         ))}
-        
+
         <ReviewWraaper
           style={{ marginBottom: "8px", cursor: "pointer" }}
           onClick={handleButtonClick}
@@ -560,20 +569,22 @@ const ModalContent: React.FC<ModalProps> = ({
           );
         })}
       </ScrollingMenu>
-      <ButtonContainer>
-        <CommonButton
-          text="Reservation"
-          image={calenderWhiteImg}
-          imageStyle={14}
-          isOpen={() => reservationModal("calenderModal")}
-        />
-        <CommonButton
-          text="Order Online"
-          image={moped}
-          imageStyle={20}
-          isOpen={() => reservationModal("orderOnlineModal")}
-        />
-      </ButtonContainer>
+      {reservationMenu && (
+        <ButtonContainer>
+          <CommonButton
+            text="Reservation"
+            image={calenderWhiteImg}
+            imageStyle={14}
+            isOpen={() => reservationModal("calenderModal")}
+          />
+          <CommonButton
+            text="Order Online"
+            image={moped}
+            imageStyle={20}
+            isOpen={() => reservationModal("orderOnlineModal")}
+          />
+        </ButtonContainer>
+      )}
     </Container>
   );
 };

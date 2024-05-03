@@ -158,11 +158,11 @@ const ListDetails: React.FC<ListDetailsProps> = ({
           <ListInputField>
             <ListInputText type="text" placeholder="List name..." />
           </ListInputField>
-          <TextAreaContainer
+          {/* <TextAreaContainer
             rows={4}
             cols={50}
             placeholder="List description..."
-          />
+          /> */}
           <CheckBoxContainer>
             <input type="radio" />
             <p>public List</p>

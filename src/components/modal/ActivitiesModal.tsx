@@ -260,8 +260,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     "Sunday:",
   ];
 
-  console.log(data, "dssasa");
-
   const ActivitiesListData = [
     {
       name: "March - October",

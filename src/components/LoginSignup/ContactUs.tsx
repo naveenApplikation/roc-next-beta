@@ -117,7 +117,6 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
           comments: values.comment,
           prefrence: values.prefrence,
         });
-        console.log(loginData);
         isOpen();
       } catch (error: any) {
         console.log(error.message);

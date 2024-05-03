@@ -24,6 +24,7 @@ interface ContextProps {
   handleApiResponse: any;
   showContent: boolean;
   appName: any;
+  reservationMenu?:boolean
 }
 
 // Create a context
@@ -34,6 +35,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [modalName, setModalNames] = useState<string>('');
   const [dataDetails, setDataDetails] = useState<DataDetails>({});
   const [showContent, setShowContent] = useState(false);
+  const [reservationMenu, setReservationMenu] = useState(false);
   const [dataUrlImage, setDataUrlImage] = useState("");
   const [appName, setAppName] = useState('')
   const [showMap, setShowMap] = useState<boolean>(false);
@@ -100,7 +102,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
 
-  const modalClick = (name: string, item?: any, urlImage?: any,) => {
+  const modalClick = (name: string, item?: any, urlImage?: any,openReservation?:any) => {
     setModalType((prev) => ({
       ...prev,
       [name]: true,
@@ -110,6 +112,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       if (name === "infoApp") {
         setAppName(item)
       } else {
+        setReservationMenu(openReservation)
         setDataDetails(item);
         setDataUrlImage(urlImage)
       }
@@ -151,7 +154,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     dataUrlImage,
     handleApiResponse,
     showContent,
-    appName
+    appName,
+    reservationMenu
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

@@ -82,7 +82,6 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
         const [reorderedItem] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, reorderedItem);
         setItems(newItems);
-        console.log("kllklksfsd", newItems, result)
     };
     return (
         <DragInOrderScreen>
@@ -90,75 +89,6 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                 <CreateListingsHeader homePage={homePage} />
                 <DragInOrderContent>
                     <DragInOrderTitle>Drag in order</DragInOrderTitle>
-                    {/*  DRAG AND DROP COMPONENTS  */}
-                    {/* <DragInOrderListScrollBox>
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Kyomu"
-                        secondLineDetails1
-                        itemPlaceLogo={utensils}
-                        placeName1="St Helier"
-                        ratedStar
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails1
-                        status1="Open ⋅ Closes"
-                        timing2="11 pm"
-                        newText
-                        delivery
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Chocadyllic"
-                        secondLineDetails1
-                        itemPlaceLogo={StHelierLogo}
-                        placeName1="St Helier"
-                        thirdLineDetails1
-                        status1="Open ⋅ Closes"
-                        timing2="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Kalimukti Yoga"
-                        secondLineDetails1
-                        itemPlaceLogo={CurrencySign}
-                        placeName1="From £5"
-                        thirdLineDetails2
-                        status2="Outdoors"
-                        timing3="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="Radisson Blu Waterfront Hotel"
-                        secondLineDetails1
-                        itemPlaceLogo={CurrencySign}
-                        placeName1="From £265/night"
-                        ratedStar
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails2
-                        status2="St Helier"
-                        timing3="11 pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="abrdn"
-                        marginTop="14px"
-                        secondLineDetails2
-                        itemPlaceLogo={false}
-                        placeName2="Investment Managers"
-                        timing1="11pm"
-                    />
-                    <CreateListItems
-                        dragBtn
-                        listItemName="C&M Scaffolding"
-                        secondLineDetails3
-                        ratingStarImage={RatingStarImage}
-                        starRating={4.7}
-                        thirdLineDetails2
-                        status2="Competitive rates. Fast & efficient service. Scaffolding erected to CISRS standards"
-                    />
-                </DragInOrderListScrollBox> */}
                     <div>
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="droppable">

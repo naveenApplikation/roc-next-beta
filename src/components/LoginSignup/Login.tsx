@@ -64,7 +64,6 @@ const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
               password: values.password,
             });
             localStorage.setItem("loginToken", loginData.data.token);
-            console.log(loginData);
             nextModal()
           } catch (error: any) {
             console.log(error.message);

@@ -54,7 +54,6 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         const loginData = await Instance.put("update-profile", {
           password: values.password,
         });
-        console.log(loginData);
         isOpen();
       } catch (error: any) {
         console.log(error.message);

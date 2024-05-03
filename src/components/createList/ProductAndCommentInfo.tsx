@@ -201,13 +201,13 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
       <div style={{ padding: "0px 24px" }}>
         <TittleText>New Shops In St Helier</TittleText>
         <LocationInfoText>By Colm Farrington / 15 June 23</LocationInfoText>
-        <CommentReviewText>
+        {/* <CommentReviewText>
           Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam
           porta sem malesuada magna mollis euismod.{" "}
           <span style={{ color: "#2F80ED", cursor: "pointer" }}>
             Read More.
           </span>
-        </CommentReviewText>
+        </CommentReviewText> */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <ListDataWrraper>
             <div style={{ width: 80, height: 80 }}>
@@ -232,7 +232,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
             </div>
           </ListDataWrraper>
-          <CommentBoxWrapper>
+          {/* <CommentBoxWrapper>
             <Arrow />
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <Image src={AuthorcommentIcon} alt="infoCirlce" />
@@ -245,7 +245,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
                 Read More.
               </span>
             </ListCommentText>
-          </CommentBoxWrapper>
+          </CommentBoxWrapper> */}
         </div>
       </div>
       <CreateListingsFooter

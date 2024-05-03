@@ -84,8 +84,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
 
-  console.log(urlData, "dsdsd");
-
   return (
     <SearchedListContainer>
       <TitleText>{urlTitle}</TitleText>

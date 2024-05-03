@@ -9,7 +9,7 @@ interface DashboardSearchContainerProps {
 
 const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType,dataUrlImage } = useMyContext();
+    const { modalName, closeModal, modalClick, dataDetails,modalType,dataUrlImage,reservationMenu } = useMyContext();
 
   return (
     <>
@@ -26,6 +26,7 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=>
             reservationModal={modalClick}
             dataImage={dataUrlImage}
             data={dataDetails}
+            reservationMenu={reservationMenu}
           />
         </DashBoardModal>
     </>

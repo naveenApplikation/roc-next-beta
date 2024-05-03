@@ -84,7 +84,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     containerImageUrl={true}
                     MenutitleDetail={item.acf.title}
                     isOpen={() =>
-                      modalClick("ModalContent", item, filteredUrls[index])
+                      modalClick("ModalContent", item, filteredUrls[index],true)
                     }
                   />
                 </div>
