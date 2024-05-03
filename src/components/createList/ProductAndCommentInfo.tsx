@@ -12,6 +12,7 @@ import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImag
 import Image from "next/image";
 import CreateListItems from "./CreateList Components/CreateListItems";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
+import { sideWidth } from "@/app/utils/date";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
@@ -20,7 +21,7 @@ interface ListDetailsProps {
 }
 
 const ListDetailsScreen = styled.div`
-  width: 580px;
+  width: ${sideWidth};
   height: 100vh;
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;

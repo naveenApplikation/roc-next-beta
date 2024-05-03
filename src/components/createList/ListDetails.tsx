@@ -6,6 +6,7 @@ import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import { icons } from "@/app/utils/data";
 import Image from "next/image";
+import { sideWidth } from "@/app/utils/date";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
@@ -14,7 +15,7 @@ interface ListDetailsProps {
 }
 
 const ListDetailsScreen = styled.div`
-  width: 580px;
+  width: ${sideWidth};
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);

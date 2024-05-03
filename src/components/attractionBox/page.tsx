@@ -8,6 +8,7 @@ import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { sideWidth } from "@/app/utils/date";
 
 interface AttractionBoxProps {
   // Define your props here
@@ -26,7 +27,7 @@ const SearchedListContainer = styled.div`
   /* padding-bottom: 40px; */
   padding: 40px;
   background-color: #f2f3f3;
-  width: 580px;
+  width: ${sideWidth};
   min-height: 100vh;
   @media screen and (max-width: 800px) {
     width: 100%;

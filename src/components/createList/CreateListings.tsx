@@ -20,7 +20,7 @@ interface CreateListingsProps {
 }
 
 const CreateListingsScreen = styled.div`
-  width: 580px;
+  width: 480px;
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);

@@ -24,3 +24,5 @@ export function formatTime(timestamp: Date): string {
 }
 
 export const skeletonItems = new Array(10).fill(null);
+
+export const sideWidth = "480px"

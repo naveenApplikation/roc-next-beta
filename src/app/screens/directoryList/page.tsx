@@ -11,14 +11,17 @@ import styled from "styled-components";
 import Image from "next/image";
 import { DirectoryItem } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
+import { sideWidth } from "@/app/utils/date";
+import PageLayout from "@/app/pageLayout";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
+const width = "580"
 
 const CategoryBody = styled.div`
   position: relative;
   z-index: 1;
-  width: 580px;
+  width: ${sideWidth};
   height: 100vh;
   overflow: auto;
 
@@ -76,7 +79,7 @@ const Container = styled.div`
     flex-direction: column;
     gap: 24px;
     background-color: #f2f3f3;
-    width: 580px;
+    width: ${sideWidth};
     height: 100vh;
     @media screen and (max-width: 800px) {
     width: 100%;
@@ -165,7 +168,7 @@ const Directorylist = () => {
   };
 
   return (
-    <>
+    <PageLayout>
       <CategoryBody>
         <HeaderScreen />
         <Container>
@@ -221,7 +224,7 @@ const Directorylist = () => {
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
-    </>
+    </PageLayout>
   );
 };
 

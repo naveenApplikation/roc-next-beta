@@ -20,6 +20,7 @@ import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalSc
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
 import { toast, ToastContainer } from "react-toastify";
 import InfoAppScreen from "@/components/AllModalScreen/InfoAppModalScreen";
+import PageLayout from "./pageLayout";
 
 const Container = styled.div`
   display: flex;
@@ -96,12 +97,13 @@ export default function Home() {
     <ShadowWrapper {...{ showContent, setShowContent }}>
       <Container>
         <MainContainer>
-          <DashboardMenu $showMap={showMap}>
-            <Header className={showContent ? "shoadow_wrapper_container" : ""} {...{ modalClick, iconClick, showMap }} />
-            <Dashboard />
-          </DashboardMenu>
+          <PageLayout>
+            <DashboardMenu $showMap={showMap}>
+              <Header className={showContent ? "shoadow_wrapper_container" : ""} {...{ modalClick, iconClick, showMap }} />
+              <Dashboard />
+            </DashboardMenu>
+          </PageLayout>
         </MainContainer>
-        {showMap && <MapWithMenu />}
         <RightSideMenu />
       </Container>
       <ProfileAccountModalScreen showMap={showMap} />

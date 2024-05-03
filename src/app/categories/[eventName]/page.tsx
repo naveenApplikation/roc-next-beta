@@ -7,7 +7,7 @@ import TrendingList from '@/components/trendingList/page';
 import FinancialBox from '@/components/financialBox/page';
 import ScaffoldingBox from '@/components/scaffoldingBox/page';
 import { useParams } from 'next/navigation';
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'next/navigation';
 import HeaderScreen from '@/components/header/HeaderScreen'
@@ -23,8 +23,9 @@ import EventListingModalScreen from '@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
 import CategorieList from '@/components/categorieList/page';
 import { useMyContext } from "@/app/Context/MyContext";
-import {ApiResponse} from '@/app/utils/types';
+import { ApiResponse } from '@/app/utils/types';
 import Instance from "@/app/utils/Instance";
+import PageLayout from '@/app/pageLayout';
 
 interface CategoriesPageProps {
   // Define your props here
@@ -32,7 +33,7 @@ interface CategoriesPageProps {
 const CategoryBody = styled.div`
 position: relative;
  z-index: 1;
- width: 580px;
+ width: 480px;
  height: 100vh;
  overflow: auto;
 
@@ -49,30 +50,30 @@ type mylisttabs = "Created" | "Contributed";
 
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   const params = useParams()
-  let urlData : any
-  if(params){
+  let urlData: any
+  if (params) {
 
     urlData = (params.eventName).toString().replaceAll("%20", " ")
   }
 
-   const options = ["Lists", "Places"];
-   const mylistoptions = ["Created", "Contributed"];
-    const [tabValue, setTabValue] = useState("Lists");
-    // const [showMap, setShowMap] = useState<boolean>(false);
+  const options = ["Lists", "Places"];
+  const mylistoptions = ["Created", "Contributed"];
+  const [tabValue, setTabValue] = useState("Lists");
+  // const [showMap, setShowMap] = useState<boolean>(false);
 
-      const tabChange = (value: tabs) => {
-      setTabValue(value);
-    };
+  const tabChange = (value: tabs) => {
+    setTabValue(value);
+  };
 
-    const [myListtabValue, setMyListTabValue] = useState("Created");
+  const [myListtabValue, setMyListTabValue] = useState("Created");
 
 
-    const myListtabChange = (value: mylisttabs) => {
-      setMyListTabValue(value);
-    };
+  const myListtabChange = (value: mylisttabs) => {
+    setMyListTabValue(value);
+  };
 
   const searchParams = useSearchParams()
- 
+
   const search = searchParams.get('search')
 
   const [data, setData] = useState<ApiResponse[]>([]);
@@ -84,13 +85,13 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       setloader(true);
       try {
         const result = await Instance.get(`${search}`);
-        if(search == "surfing" || search == "ww2"){
+        if (search == "surfing" || search == "ww2") {
           const combinedArray = [...result.data.activity1, ...result.data.activity2];
           setData(combinedArray);
-        }else{
+        } else {
           setData(result.data);
         }
-      
+
       } catch (error: any) {
         console.log(error.message);
         setloader(false);
@@ -102,7 +103,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     fetchDataAsync();
   }, [search]);
 
-  const {showMap,filterUrls} = useMyContext()
+  const { showMap, filterUrls } = useMyContext()
 
   const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
@@ -110,39 +111,41 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const categories = () => {
     if (urlData === "Family Events") {
-      return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader}   />
-    }else if(urlData === "Enjoy the sunshine"){
+      return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
+    } else if (urlData === "Enjoy the sunshine") {
       return <ExperienceBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
-    }else if(urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" ){
+    } else if (urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community") {
       return <TrendingList urlData={search} urlTitle={urlData} />
-    }else if(urlData === "categorieList"){
+    } else if (urlData === "categorieList") {
       return <CategorieList />
-    }else if(urlData === "Financial Services"){
+    } else if (urlData === "Financial Services") {
       return <FinancialBox />
-    }else if(urlData === "Scaffolding"){
+    } else if (urlData === "Scaffolding") {
       return <ScaffoldingBox />
-    }else{
+    } else {
       return <AttractionBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
     }
   }
 
   return (
-      <>
-      <CategoryBody>
-      <HeaderScreen />
-        {categories()}
-      </CategoryBody>
-        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }}  />
+    <>
+      <PageLayout>
+        <CategoryBody>
+          <HeaderScreen />
+          {categories()}
+        </CategoryBody>
+        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
         <ProfileAccountModalScreen showMap={showMap} />
         <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
-        <PlacesModalScreen showMap={showMap}  />
+        <PlacesModalScreen showMap={showMap} />
         <CalenderBookDatesModalScreen showMap={showMap} />
         <PlaceOrderOnlineModalScreen showMap={showMap} />
-        <FilterModalScreen showMap={showMap}  />
-        <EventListingModalScreen showMap={showMap}  />
-        <ActivitiesModalScreen showMap={showMap}  />
-        <ViewDirectionModalScreen showMap={showMap}  />
-      </>
+        <FilterModalScreen showMap={showMap} />
+        <EventListingModalScreen showMap={showMap} />
+        <ActivitiesModalScreen showMap={showMap} />
+        <ViewDirectionModalScreen showMap={showMap} />
+      </PageLayout>
+    </>
   );
 };
 export default CategoriesPage

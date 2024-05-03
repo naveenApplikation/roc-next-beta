@@ -38,6 +38,9 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
   }, [appName])
 
 
+  console.log("linkData[appName]" ,linkData[appName] ,linkData , appName);
+  
+
   return (
     <>
       <DirectionModalLayout

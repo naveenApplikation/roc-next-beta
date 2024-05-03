@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import Image from "next/image";
 import { utensil,shopping,hotel,personHiking,castle,holidayDas,beachumbrella,camera, compass ,glass} from "@/app/utils/ImagePath";
 import HeaderScreen from '@/components/header/HeaderScreen'
+import { sideWidth } from '@/app/utils/date';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
     background-color: #f2f3f3;
-    width: 580px;
+    width: ${sideWidth};
     height: 100vh;
     @media screen and (max-width: 800px) {
     width: 100%;

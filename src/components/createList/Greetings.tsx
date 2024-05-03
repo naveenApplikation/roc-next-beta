@@ -1,5 +1,6 @@
 "use client";
 
+import { sideWidth } from "@/app/utils/date";
 import React from "react";
 import styled from "styled-components";
 
@@ -10,7 +11,7 @@ interface GreetingsProps {
 }
 
 const GreetingsScreen = styled.div`
-  width: 580px;
+  width: ${sideWidth};
   height: 100vh;
   display: flex;
   flex-direction: column;

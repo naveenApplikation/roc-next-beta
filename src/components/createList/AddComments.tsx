@@ -9,6 +9,7 @@ import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import { utensils } from "@/app/utils/ImagePath";
+import { sideWidth } from "@/app/utils/date";
 
 interface DragInOrderProps {
   ScreenSwitch?: Function;
@@ -17,7 +18,7 @@ interface DragInOrderProps {
 }
 
 const DragInOrderScreen = styled.div`
-  width: 580px;
+  width: ${sideWidth};
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);

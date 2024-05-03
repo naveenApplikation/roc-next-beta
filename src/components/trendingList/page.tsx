@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { PopularLists,SelectedLists } from "@/components/search/Data";
 import { thumbsup } from "@/app/utils/ImagePath";
+import { sideWidth } from "@/app/utils/date";
 
 
 interface TrendingListProps {
@@ -15,7 +16,7 @@ interface TrendingListProps {
 const Container = styled.div`
   padding: 40px;
   background-color: #f2f3f3;
-  width: 580px;
+  width: ${sideWidth};
   height: 100%;
   @media screen and (max-width: 800px) {
     width: 100%;

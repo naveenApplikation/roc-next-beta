@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import { home, profileIcon, search, ROCLogo } from "@/app/utils/ImagePath";
+import { sideWidth } from "@/app/utils/date";
 
 const HeadMenu = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const HeadMenu = styled.div`
   padding-top: 64px;
   padding-bottom: 16px;
   background-color: #fdfdfd;
-  width: 580px;
+  width: ${sideWidth};
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
     padding-top: 40px;

@@ -8,8 +8,12 @@ import ListDetails from '@/components/createList/ListDetails';
 import Greetings from '@/components/createList/Greetings';
 import ProductAndCommentInfo from '@/components/createList/ProductAndCommentInfo';
 import { useRouter } from "next/navigation";
+import { useMyContext } from '@/app/Context/MyContext';
+import MapWithMenu from '@/components/RightSideMenu/MapWithMenu';
+import PageLayout from '@/app/pageLayout';
 
 const Page = () => {
+  const { showMap } = useMyContext();
 
   const router = useRouter();
 
@@ -41,9 +45,11 @@ const Page = () => {
   }
 
   return (
-    <div>
-      {ScreenShowHandle()}
-    </div>
+    <PageLayout>
+      <div>
+        {ScreenShowHandle()}
+      </div>
+    </PageLayout>
   )
 }
 
