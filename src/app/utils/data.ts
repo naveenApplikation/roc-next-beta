@@ -15,6 +15,19 @@ import infoCircle from "../../../assets/images/createListImages/chooseIcons/info
 import bin from "../../../assets/images/createListImages/chooseIcons/bin.png";
 import locate from "../../../assets/images/createListImages/chooseIcons/map-placeholder.png";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
+
+
+
+
+
+
+
+
+
+
+
+
+
 import {
   utensils,
   utensil,
@@ -434,6 +447,7 @@ export const ActivitiesListData = [
   },
 ];
 
+
 export const ResturantDetailData = [
   {
     name: "Open ⋅ Closes 11 pm",
@@ -510,178 +524,12 @@ export const RestroListData = [
   },
 ];
 
-export const icons = [
-  {
-    id: 1,
-    image: cartShopping,
-    width: 32,
-    height: 32,
-  },
-  {
-    id: 2,
-    image: child,
-  },
-  {
-    id: 3,
-    image: wheelChair,
-  },
-  {
-    id: 4,
-    image: dog,
-  },
-  {
-    id: 5,
-    image: burgerSoda,
-  },
-  {
-    id: 6,
-    image: taxi,
-  },
-  {
-    id: 7,
-    image: pipeValve,
-  },
-  {
-    id: 8,
-    image: leaf,
-  },
-  {
-    id: 9,
-    image: siren,
-  },
-  {
-    id: 10,
-    image: speaker,
-  },
-  {
-    id: 11,
-    image: music,
-  },
-  {
-    id: 12,
-    image: star,
-  },
-  {
-    id: 13,
-    image: infoCircle,
-  },
-  {
-    id: 14,
-    image: bin,
-  },
-  {
-    id: 15,
-    image: locate,
-  },
-  {
-    id: 16,
-    image: infoCircle,
-  },
-  {
-    id: 17,
-    image: utensils,
-  },
-  {
-    id: 18,
-    image: StHelierLogo,
-  },
-  {
-    id: 19,
-    image: infoCircle,
-  },
-  {
-    id: 20,
-    image: infoCircle,
-  },
-  {
-    id: 21,
-    image: infoCircle,
-  },
-  {
-    id: 22,
-    image: infoCircle,
-  },
-  {
-    id: 23,
-    image: infoCircle,
-  },
-  {
-    id: 24,
-    image: infoCircle,
-  },
-  {
-    id: 25,
-    image: infoCircle,
-  },
-  {
-    id: 26,
-    image: infoCircle,
-  },
-  {
-    id: 27,
-    image: infoCircle,
-  },
-  {
-    id: 28,
-    image: infoCircle,
-  },
-  {
-    id: 29,
-    image: infoCircle,
-  },
-  {
-    id: 30,
-    image: infoCircle,
-  },
-  {
-    id: 31,
-    image: infoCircle,
-  },
-  {
-    id: 32,
-    image: infoCircle,
-  },
-  {
-    id: 33,
-    image: infoCircle,
-  },
-  {
-    id: 34,
-    image: infoCircle,
-  },
-  {
-    id: 35,
-    image: infoCircle,
-  },
-  {
-    id: 36,
-    image: infoCircle,
-  },
-  {
-    id: 37,
-    image: infoCircle,
-  },
-  {
-    id: 38,
-    image: infoCircle,
-  },
-  {
-    id: 39,
-    image: infoCircle,
-  },
-  {
-    id: 40,
-    image: infoCircle,
-  },
-  {
-    id: 41,
-    image: infoCircle,
-  },
-  {
-    id: 42,
-    image: infoCircle,
-  },
-];
+
+
+
+
+
+
 
 export const DirectoryItem = [
   {

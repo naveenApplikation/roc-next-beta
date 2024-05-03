@@ -4,14 +4,21 @@ import React from "react";
 import styled from "styled-components";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
-import { icons } from "@/app/utils/data";
+
 import Image from "next/image";
 import { sideWidth } from "@/app/utils/date";
+import { icons } from "@/app/utils/iconList";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
   preScreen?: Function;
   homePage?: Function;
+  selectedIcon?: string;
+  setSelectedIcon?: any;
+  categoryType?: string;
+  setCategoryType: Function;
+  listName: any;
+  setListName: Function;
 }
 
 const ListDetailsScreen = styled.div`
@@ -88,15 +95,19 @@ const IconsListScrollBox = styled.div`
   /* justify-content: center; */
   align-items: center;
   /* padding: 8px 8px; */
-  gap: 8px;
+  gap: 20px;
 `;
 
-const IconImage = styled.div`
+const IconImage = styled.div<{ selected: boolean }>`
   width: 48px;
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  cursor:pointer;
+  padding:10px 4px;
+  border: ${props => (props.selected ? '1px solid #2F9FEB' : 'none')};
 `;
 
 const TextAreaContainer = styled.textarea`
@@ -141,13 +152,28 @@ const CheckBoxContainer = styled.div`
 const ListDetails: React.FC<ListDetailsProps> = ({
   ScreenSwitch,
   preScreen,
-  homePage
+  homePage,
+  selectedIcon,
+  setSelectedIcon,
+  categoryType,
+  setCategoryType,
+  listName,
+  setListName,
 }) => {
-  const [selectedIcon, setSelectedIcon] = React.useState<number | null>(null);
 
-  const handleIconClick = (iconId: number) => {
+
+  const handleIconClick = (iconId: string) => {
     setSelectedIcon(iconId);
   };
+
+  const handleCategoryType = (e: any) => {
+    console.log("category type", e.target.value)
+    setCategoryType(e.target.value)
+  }
+
+  const handleListName = (e: any)=>{
+    setListName(e.target.value)
+  }
 
   return (
     <ListDetailsScreen>
@@ -156,7 +182,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
         <ListDetailsContent>
           <ListDetailsTitle>List Details</ListDetailsTitle>
           <ListInputField>
-            <ListInputText type="text" placeholder="List name..." />
+            <ListInputText type="text" placeholder="List name..." value={listName} onChange={handleListName} />
           </ListInputField>
           {/* <TextAreaContainer
             rows={4}
@@ -164,11 +190,11 @@ const ListDetails: React.FC<ListDetailsProps> = ({
             placeholder="List description..."
           /> */}
           <CheckBoxContainer>
-            <input type="radio" />
+            <input type="radio" value={"public"} checked={categoryType === "public"} onChange={(e) => handleCategoryType(e)} />
             <p>public List</p>
           </CheckBoxContainer>
           <CheckBoxContainer>
-            <input type="radio" />
+            <input type="radio" value={"private"} checked={categoryType === "private"} onChange={(e) => handleCategoryType(e)} />
             <p>Private List</p>
           </CheckBoxContainer>
           <ListDetailsTitle>Choose an icon</ListDetailsTitle>
@@ -177,13 +203,13 @@ const ListDetails: React.FC<ListDetailsProps> = ({
               return (
                 <IconImage
                   key={icon.id}
-                  onClick={() => handleIconClick(icon.id)}
+                  onClick={() => handleIconClick(icon.name)}
+                  selected={selectedIcon === icon.name}
                 >
-                  <Image
-                    style={{ width: 32, height: 32 }}
-                    src={icon.image}
-                    alt={`Icon ${icon.id}`}
-                  />
+                  {
+                    console.log("selected", selectedIcon,icon.name) as any
+                  }
+                  {icon?.image}
                 </IconImage>
               );
             })}

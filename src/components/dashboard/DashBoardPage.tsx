@@ -87,9 +87,9 @@ const DashBoard = () => {
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
-      <LocalCusine menuClick={menuClick} modalClick={modalClick} />
+      {/* <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
-      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
+      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} /> */}
       <TrendingList menuClick={menuClick} modalClick={modalClick} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       <Directory menuClick={menuClick} modalClick={modalClick} />

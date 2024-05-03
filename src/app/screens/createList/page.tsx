@@ -22,10 +22,15 @@ const Page = () => {
   };
 
   const [screenName, setScreenName] = useState("ListDetails"); // Set default screen
+  const [selectedIcon, setSelectedIcon] = useState<string>('shoppingCart');
+  const [categoryType, setCategoryType] = useState<string>("public")
+  const [listName, setListName] = useState<string>("")
 
   const screenChangeHandle = (name: string) => {
     setScreenName(name);
   };
+
+  console.log("data icon", selectedIcon, categoryType, listName)
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -57,6 +62,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("create")}
           preScreen={navigateClick}
           homePage={navigateClick}
+          {...{categoryType, setCategoryType, setSelectedIcon, selectedIcon, listName, setListName}}
         />
       );
     } else if (screenName === "ProductAndCommentInfo") {
