@@ -119,15 +119,13 @@ body {
 
 @media screen and (max-width: 550px) {
   body {
-    background-size: 165vw 100vh;
-    background-position: right top;
+    background-size: 100vw 200vh;
   }
 }
 
 @media screen and (max-width: 400px) {
   body {
-    background-size: 230vw 100vh;
-    background-position: right top;
+    background-size: 150vw 180vh;
   }
 }
 

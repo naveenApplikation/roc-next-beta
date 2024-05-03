@@ -189,7 +189,7 @@ const DetailsTime = styled.div`
 
 const UnselectedBtn = styled.div`
   width: 48px;
-  height: 80px;
+  height: 81px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -198,6 +198,7 @@ const UnselectedBtn = styled.div`
   gap: 24px;
   border-radius: 8px;
   background: var(--MAIN, #2f80ed);
+  background: #27ae60;
   border-style: none;
   cursor: pointer;
   position: absolute;
@@ -210,7 +211,7 @@ const UnselectedBtn = styled.div`
 
 const SelectedBtn = styled.button`
   width: 48px;
-  height: 80px;
+  height: 81px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -218,7 +219,7 @@ const SelectedBtn = styled.button`
   padding: 16px;
   gap: 24px;
   border-radius: 8px;
-  background: var(--Green-2, #27ae60);
+  background:#2f80ed;
   border-style: none;
   cursor: pointer;
   position: absolute;
@@ -357,7 +358,7 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
       unSelectedBtn ?
         <UnselectedBtn onClick={() => handleToggle(listItemName, index)}>
           <Image
-            style={{ width: "16px", height: "16px" }}
+            style={{ width: "15px", height: "10px" }}
             src={UnselectedBtnImg}
             alt="UnselectedBtnImg"
             // onClick={() => handleToggle(listItemName)}
@@ -366,7 +367,7 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
         :
         <SelectedBtn onClick={() => handleToggle(listItemName, index)}>
           <Image
-            style={{ width: "14px", height: "16px" }}
+            style={{ width: "16px", height: "16px" }}
             src={SelectedBtnImg}
             alt="SelectedBtnImg"
           />
