@@ -79,7 +79,7 @@ const newFilter  = [
 
 
 const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage }) => {
-    const [items, setItems] = useState(newFilter);
+    const [items, setItems] = useState(initialItems);
 
     const onDragEnd = (result: any) => {
         if (!result.destination) {
@@ -133,7 +133,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                             <CreateListItems
                                                                 dragBtn
                                                                 dragUi = "drag"
-                                                                listItemName={item?.name}
+                                                                listItemName={item?.content}
                                                                 secondLineDetails1
                                                                 itemPlaceLogo={item?.itemPlaceLogo}
                                                                 placeName1="St Helier"
