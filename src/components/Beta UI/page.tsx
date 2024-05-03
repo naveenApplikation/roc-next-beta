@@ -7,7 +7,7 @@ import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
-import { ROCLogo, ROCLogoWhite } from "@/app/utils/ImagePath";
+import { ROCLogo, ROCLogoWhite,betaHigh } from "@/app/utils/ImagePath";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -31,18 +31,20 @@ const StyledShadowWrapper = styled.div`
   .shadow-header{
     
     position: fixed;
-    top: 9%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 5%;
+    width: 100%;
+    /* left: 50%;
+    transform: translate(-50%, -50%); */
     z-index: 11;
     padding: 0px 40px;
-    width: 600px;
+    /* width: 600px; */
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    /* flex-direction: column; */
     gap: 24px;
-    display:flex !important;
+    /* display:flex !important;
     flex-direction: row !important;
-    justify-content:space-between !important;
+    justify-content:space-between !important; */
     align-items:center;
   }
   .content-wrapper {
@@ -205,7 +207,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
         {showContent && (
           <>
             <div className="shadow-background"></div>
-            <div className="shadow-header" style={{ display: "flex", justifyContent: "center" }}>
+            <div className="shadow-header">
               <Image
                 src={ROCLogoWhite}
                 width={117}
@@ -213,7 +215,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 alt="right icon"
               />
               <Image
-                src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/Frame%201712.png?alt=media&token=27a64bcd-fb62-4c51-8e32-ece4defa591c"
+                src={betaHigh}
                 width={80}
                 height={40}
                 alt="right icon"

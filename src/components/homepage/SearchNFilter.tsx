@@ -54,6 +54,15 @@ const FilterInput = styled.div`
   background-color: #fff;
   font-size: 14px;
   cursor: pointer;
+
+  p {
+    color: var(--BODY, #000);
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 `;
 
 const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
@@ -70,12 +79,8 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
         <FilterInput onClick={() => modalClick("modalFilter")}>
-          <Image
-            style={{ marginTop: "10px" }}
-            src={filter}
-            alt="Filter icon"
-          />
-          Filter
+          <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
+          <p>Filter</p>
         </FilterInput>
       </InputWrapper>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />

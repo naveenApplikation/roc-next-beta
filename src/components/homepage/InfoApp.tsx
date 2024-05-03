@@ -36,32 +36,36 @@ const NormalOption = styled.div`
   justify-content: space-between;
 `;
 
-const InfoApp: React.FC<DashboardProps> = ({ modalClick, menuClick, showMap }) => {
+const Tittle = styled.p`
+  color: var(--BODY, #000);
+text-align: center;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+`
 
-
-
+const InfoApp: React.FC<DashboardProps> = ({
+  modalClick,
+  menuClick,
+  showMap,
+}) => {
   return (
     <>
       <OptionMenu>
         {topSideMenu.map((item: any, index: any) => {
           return (
-            <NormalOption className="" key={index} onClick={() => modalClick("infoApp", item.name)}>
-
-              {/* <NormalOption key={index} href={linkData[item.name]} target="_blank" > */}
-              <Image
-                src={item.image}
-                alt="right icon"
-              />{""}
-              {/* {
-                console.log("linkData[item.name]", linkData[item.name])
-              } */}
-              <p style={{ fontSize: "14px" }}>{item.name}</p>
-              {/* </NormalOption> */}
+            <NormalOption
+              className=""
+              key={index}
+              onClick={() => modalClick("infoApp", item.name)}
+            >
+              <Image src={item.image} alt="right icon" />
+              <Tittle style={{textTransform:index==3 ? "uppercase":"capitalize"}}>{item.name}</Tittle>
             </NormalOption>
           );
         })}
       </OptionMenu>
-      
     </>
   );
 };

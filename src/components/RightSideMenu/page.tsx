@@ -6,6 +6,9 @@ import {
   mapIcon,
   profileWhite,
   ROCLogoWhite,
+  LogoNew,
+  profileNew,
+  mapNew
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
@@ -183,15 +186,15 @@ const RightSide = () => {
   return (
     <RightMenu>
       <RightSideHeadMenu>
-        <Image src={ROCLogoWhite} width={117} height={48} alt="Logo Outline" />
+        <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
         <HeaderMapProfileContainer>
           <Image
-            src={showMap ? headerHome : mapIcon}
+            src={showMap ? headerHome : mapNew}
             alt="Logo Outline"
             onClick={() => iconClick("mapClick")}
           />
           <Image
-            src={profileWhite}
+            src={profileNew}
             width={48}
             height={48}
             alt="Logo Outline"

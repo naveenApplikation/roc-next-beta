@@ -126,10 +126,18 @@ import walks7Img from  "../../../assets/images/walks7.jpg"
 import ROCLogoImg from '../../../assets/images/ROCLogo.svg'
 import NewLogoRocImg from '../../../assets/images/NewLogoRoc.svg'
 import ROCLogoWhiteImg from '../../../assets/images/ROCLogoWhite.svg'
+import betaHighImg from '../../../assets/images/betaHigh.svg'
+import LogoNewImg from '../../../assets/images/LogoNew.svg'
+import mapNewImg from '../../../assets/images/mapNew.svg'
+import profileNewImg from '../../../assets/images/profileNew.svg'
 
 export const NewLogoRoc = NewLogoRocImg 
 export const ROCLogoWhite = ROCLogoWhiteImg 
+export const betaHigh = betaHighImg 
 export const ROCLogo = ROCLogoImg 
+export const LogoNew = LogoNewImg 
+export const mapNew = mapNewImg 
+export const profileNew = profileNewImg 
 export const infoCircle = infoCircleImg 
 export const AuthorcommentIcon = Authorcomment 
 export const commentstar = commentstarImg 
