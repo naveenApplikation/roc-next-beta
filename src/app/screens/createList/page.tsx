@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import AddComments from "@/components/createList/AddComments";
@@ -13,12 +13,13 @@ import PageLayout from "@/app/pageLayout";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
+import { debounce } from "lodash";
 
 const Page = () => {
   const { showMap } = useMyContext();
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
-  console.log(selectedItemIds,"asasas")
+  console.log(selectedItemIds, "asasas");
 
   const toggleSelected = (itemId: number): void => {
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -38,46 +39,44 @@ const Page = () => {
   };
 
   const [screenName, setScreenName] = useState("ListDetails"); // Set default screen
-  const [selectedIcon, setSelectedIcon] = useState<string>('shoppingCart');
-  const [categoryType, setCategoryType] = useState<string>("public")
-  const [listName, setListName] = useState<string>("")
+  const [selectedIcon, setSelectedIcon] = useState<string>("shoppingCart");
+  const [categoryType, setCategoryType] = useState<string>("public");
+  const [listName, setListName] = useState<string>("");
 
   const screenChangeHandle = (name: string) => {
     setScreenName(name);
   };
 
-  console.log("data icon", selectedIcon, categoryType, listName)
+  console.log("data icon", selectedIcon, categoryType, listName);
 
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = (value:string)=>{
-    setSearchQuery(value)
-  }
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+    debouncedSearch(value);
+  };
 
+  // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
+  const fetchDataAsync = async (value: string) => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
-      try {
-        const result = await Instance.get("/search?title=Gre");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+
+    try {
+      const result = await Instance.get(`/search?title=${value}`);
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, [showContent]);
+  const debouncedSearch = debounce(fetchDataAsync, 0);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -89,6 +88,7 @@ const Page = () => {
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
           handleSearch={handleSearch}
+          data={data}
         />
       );
     } else if (screenName === "drag") {
@@ -114,7 +114,14 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("create")}
           preScreen={navigateClick}
           homePage={navigateClick}
-          {...{categoryType, setCategoryType, setSelectedIcon, selectedIcon, listName, setListName}}
+          {...{
+            categoryType,
+            setCategoryType,
+            setSelectedIcon,
+            selectedIcon,
+            listName,
+            setListName,
+          }}
         />
       );
     } else if (screenName === "ProductAndCommentInfo") {

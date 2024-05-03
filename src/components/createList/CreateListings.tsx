@@ -22,8 +22,9 @@ interface CreateListingsProps {
   homePage: any;
   toggleSelected: any;
   selectedItemIds: any;
-  searchQuery:string;
-  handleSearch:(value:string)=>void
+  searchQuery: string;
+  handleSearch: (value: string) => void;
+  data: any[];
 }
 
 const CreateListingsScreen = styled.div`
@@ -166,7 +167,7 @@ const ListDataTime = styled.p`
 
 const newFilter = [
   {
-    id: "item 1",
+    _id: "item 1",
     name: "Chocadyllic",
     placeName1: "St Helier",
     itemPlaceLogo: "StHelierLogo",
@@ -219,23 +220,13 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   selectedItemIds,
   toggleSelected,
   handleSearch,
-  searchQuery
+  searchQuery,
+  data,
 }) => {
   const [toggle, setToggle] = useState<any[]>(newFilter);
 
   // const [searchQuery, setSearchQuery] = useState("");
   // const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
-
-  const filteredData = newFilter.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleToggle = (name: string, index: any) => {
-    if (name === filteredData[index].name) {
-      toggle[index].unSelectedBtn = !toggle[index].unSelectedBtn;
-      setToggle([...toggle]);
-    }
-  };
 
   // const toggleSelected = (itemId: any): void => {
   //   const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -247,7 +238,6 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   //     setSelectedItemIds(updatedSelectedItems);
   //   }
   // };
-
   return (
     <CreateListingsScreen>
       <CreateListItemScrollBox>
@@ -261,21 +251,27 @@ const CreateListings: React.FC<CreateListingsProps> = ({
             />
           </SearchInputBox>
           {searchQuery &&
-            filteredData.map((item: any, index: any) => {
+            data.map((item: any, index: any) => {
+              if (!item._id) {
+                return null;
+              }
+              const imageList = JSON.parse(item.acf.header_image_data);
+              const image = imageList[0].url;
+
               return (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
-                  key={index}
-                >
+                  key={index}>
                   <ListDataWrraper>
                     <div
-                      style={{ display: "flex", alignItems: "center", gap: 16 }}
-                    >
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 16,
+                      }}>
                       <div style={{ width: 80, height: 80 }}>
                         <Image
-                          src={
-                            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FAppImage%2Fbanjo.jpg?alt=media&token=e20e5e98-87f9-4a6c-8dda-7f2372d5f7dc"
-                          }
+                          src={image}
                           width={80}
                           height={80}
                           style={{ borderRadius: 4 }}
@@ -287,25 +283,35 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                           display: "flex",
                           gap: 10,
                           flexDirection: "column",
-                        }}
-                      >
-                        <ListDataTittleText>{item.name}</ListDataTittleText>
+                        }}>
+                        <ListDataTittleText>
+                          {item.acf.title}
+                        </ListDataTittleText>
                         <div
                           style={{
                             display: "flex",
                             gap: 10,
                             alignItems: "center",
-                          }}
-                        >
-                          <ListDataInfoText>4.7</ListDataInfoText>
+                          }}>
+                          <ListDataInfoText>
+                            {item.acf.aa_rating
+                              ? item.acf.aa_rating.value == "No rating"
+                                ? ""
+                                : item.acf.aa_rating.value
+                              : ""}
+                          </ListDataInfoText>
                           <Image src={commentstar} alt="infoCirlce" />
-                          <ListDataInfoText>⋅ St Helier</ListDataInfoText>
-                          <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                          {item.acf.portal_post_owner_name ? (
+                            <ListDataInfoText>
+                              . {item.acf.portal_post_owner_name}
+                            </ListDataInfoText>
+                          ) : null}
+                          <ListDataInfoText>. {item.type}</ListDataInfoText>
                         </div>
                       </div>
                     </div>
-                    <button onClick={() => toggleSelected(item.id)}>
-                      {selectedItemIds.includes(item.id) ? (
+                    <button onClick={() => toggleSelected(item._id)}>
+                      {selectedItemIds.includes(item._id) ? (
                         <UnselectedBtn>
                           <Image
                             style={{ width: "15px", height: "10px" }}
