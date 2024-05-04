@@ -16,7 +16,8 @@ interface DragInOrderProps {
     ScreenSwitch?: Function
     preScreen?: Function
     homePage: any;
-    selectedItemIds:any
+    selectedItemIds:any;
+    setDragData?: any;
 }
 
 const DragInOrderScreen = styled.div`
@@ -70,15 +71,15 @@ const initialItems = [
     { id: 'item4', content: "abrdn", placeName2: "Investment Managers", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
 ];
 
-const newFilter  = [
-    { id: 'item 1', name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item 2', name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: "StHelierLogo", status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item 3', name: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: "StHelierLogo", status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item 4', name: "abrdn", placeName1: "Investment Managers", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-  ];
+// const newFilter  = [
+//     { id: 'item 1', name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+//     { id: 'item 2', name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: "StHelierLogo", status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
+//     { id: 'item 3', name: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: "StHelierLogo", status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
+//     { id: 'item 4', name: "abrdn", placeName1: "Investment Managers", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
+//   ];
 
 
-const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage }) => {
+const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage, setDragData }) => {
     const [items, setItems] = useState(initialItems);
 
     const onDragEnd = (result: any) => {
@@ -90,6 +91,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
         const [reorderedItem] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, reorderedItem);
         setItems(newItems);
+        setDragData(newItems)
     };
     return (
         <DragInOrderScreen>
@@ -113,7 +115,6 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                         {items.map((item, index) => (
                                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                                 {(provided, snapshot) => {
-                                                    console.log("item", item, item.id)
                                                     return (
                                                         <div
                                                             ref={provided.innerRef}

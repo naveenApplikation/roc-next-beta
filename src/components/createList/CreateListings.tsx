@@ -100,6 +100,9 @@ const ListDataTittleText = styled.p`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 `;
 
 const ListDataInfoText = styled.p`
@@ -260,7 +263,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
 
               return (
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
+                  style={{ display: "flex", flexDirection: "column", gap: 16, width:'100%' }}
                   key={index}>
                   <ListDataWrraper>
                     <div
@@ -268,6 +271,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                         display: "flex",
                         alignItems: "center",
                         gap: 16,
+                        width:'85%',
                       }}>
                       <div style={{ width: 80, height: 80 }}>
                         <Image
@@ -278,21 +282,16 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                           alt="infoCirlce"
                         />
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: 10,
-                          flexDirection: "column",
-                        }}>
+                      <div style={{
+                        display: "flex",
+                        gap: 10,
+                        flexDirection: "column",
+                        maxWidth: 'calc(100% - 30%)'
+                      }}>
                         <ListDataTittleText>
                           {item.acf.title}
                         </ListDataTittleText>
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: 10,
-                            alignItems: "center",
-                          }}>
+                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                           <ListDataInfoText>
                             {item.acf.aa_rating
                               ? item.acf.aa_rating.value == "No rating"
@@ -301,12 +300,17 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                               : ""}
                           </ListDataInfoText>
                           <Image src={commentstar} alt="infoCirlce" />
-                          {item.acf.portal_post_owner_name ? (
-                            <ListDataInfoText>
-                              . {item.acf.portal_post_owner_name}
-                            </ListDataInfoText>
-                          ) : null}
-                          <ListDataInfoText>. {item.type}</ListDataInfoText>
+                          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+
+                            {
+                              item.acf.portal_post_owner_name ? (
+                                <ListDataInfoText>
+                                  . {item.acf.portal_post_owner_name}
+                                </ListDataInfoText>
+                              ) : null
+                            }
+                            <ListDataInfoText>. {item.type}</ListDataInfoText>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -317,7 +321,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                             style={{ width: "15px", height: "10px" }}
                             src={UnselectedBtnImg}
                             alt="UnselectedBtnImg"
-                            // onClick={() => handleToggle(listItemName)}
+                          // onClick={() => handleToggle(listItemName)}
                           />
                         </UnselectedBtn>
                       ) : (

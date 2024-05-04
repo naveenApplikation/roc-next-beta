@@ -149,6 +149,13 @@ const CheckBoxContainer = styled.div`
   }
 `;
 
+const ErrorMessage = styled.p`
+  color: #c93535;
+  /* margin-top: 8px; */
+  margin-bottom: 20px;
+  font-size: 16px;
+`;
+
 const ListDetails: React.FC<ListDetailsProps> = ({
   ScreenSwitch,
   preScreen,
@@ -183,6 +190,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
           <ListDetailsTitle>List Details</ListDetailsTitle>
           <ListInputField>
             <ListInputText type="text" placeholder="List name..." value={listName} onChange={handleListName} />
+            <ErrorMessage>Field is Required</ErrorMessage>
           </ListInputField>
           {/* <TextAreaContainer
             rows={4}
@@ -191,7 +199,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
           /> */}
           <CheckBoxContainer>
             <input type="radio" value={"public"} checked={categoryType === "public"} onChange={(e) => handleCategoryType(e)} />
-            <p>public List</p>
+            <p>Public List</p>
           </CheckBoxContainer>
           <CheckBoxContainer>
             <input type="radio" value={"private"} checked={categoryType === "private"} onChange={(e) => handleCategoryType(e)} />
@@ -206,9 +214,6 @@ const ListDetails: React.FC<ListDetailsProps> = ({
                   onClick={() => handleIconClick(icon.name)}
                   selected={selectedIcon === icon.name}
                 >
-                  {
-                    console.log("selected", selectedIcon,icon.name) as any
-                  }
                   {icon?.image}
                 </IconImage>
               );
@@ -221,7 +226,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
         firstBtnText="Go Back"
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
-        secondText={"continue"}
+        secondText={"Continue"}
       />
     </ListDetailsScreen>
   );

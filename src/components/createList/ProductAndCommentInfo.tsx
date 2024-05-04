@@ -18,16 +18,16 @@ interface ListDetailsProps {
   ScreenSwitch?: Function;
   preScreen?: Function;
   homePage?: any;
+  dragData?: any;
 }
 
 const ListDetailsScreen = styled.div`
   width: ${sideWidth};
-  height: 100vh;
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-
+  padding-bottom:100px;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -187,6 +187,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   homePage,
   ScreenSwitch,
   preScreen,
+  dragData,
 }) => {
   return (
     <ListDetailsScreen>
@@ -232,6 +233,44 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
             </div>
           </ListDataWrraper>
+
+
+
+          {dragData.map((item: any, index: any) => (
+
+
+            <CreateListItems
+              dragBtn
+              dragUi="drag"
+              listItemName={item?.content}
+              secondLineDetails1
+              itemPlaceLogo={item?.itemPlaceLogo}
+              placeName1="St Helier"
+              ratedStar
+              ratingStarImage={RatingStarImage}
+              starRating={4.7}
+              thirdLineDetails1
+              // status1="Open ⋅ Closes"
+              // timing2="11 pm"
+              newText
+              delivery
+            />
+
+          )
+          )}
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* <CommentBoxWrapper>
             <Arrow />
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -246,6 +285,12 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               </span>
             </ListCommentText>
           </CommentBoxWrapper> */}
+
+
+
+
+
+
         </div>
       </div>
       <CreateListingsFooter

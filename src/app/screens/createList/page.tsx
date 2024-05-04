@@ -38,6 +38,11 @@ const Page = () => {
     router.push("/");
   };
 
+  const { filterUrls, showContent } = useMyContext();
+  
+  const [data, setData] = useState<ApiResponse[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [dragData, setDragData] = useState<string[]>([])
   const [screenName, setScreenName] = useState("ListDetails"); // Set default screen
   const [selectedIcon, setSelectedIcon] = useState<string>("shoppingCart");
   const [categoryType, setCategoryType] = useState<string>("public");
@@ -47,18 +52,14 @@ const Page = () => {
     setScreenName(name);
   };
 
-  console.log("data icon", selectedIcon, categoryType, listName);
-
-  const { filterUrls, showContent } = useMyContext();
-
-  const [data, setData] = useState<ApiResponse[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-
+  
+  
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     debouncedSearch(value);
   };
-
+  
+  console.log("data icon", dragData);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
 
@@ -98,6 +99,7 @@ const Page = () => {
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
           selectedItemIds={selectedItemIds}
+          {...{setDragData}}
         />
       );
     } else if (screenName === "AddComments") {
@@ -130,6 +132,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
+          {...{dragData}}
         />
       );
     } else if (screenName === "Greetings") {
