@@ -37,8 +37,6 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
     fetchDataAsync()
   }, [appName])
 
-
-  console.log("linkData[appName]" ,linkData[appName] ,linkData , appName);
   
 
   return (
