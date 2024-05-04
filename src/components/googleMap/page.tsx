@@ -1,6 +1,9 @@
+import { useMyContext } from '@/app/Context/MyContext';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+
+import React, { useEffect, useRef, useState } from 'react';
 
 interface GoogleMapCompProps {
     // Define your props here
@@ -17,25 +20,36 @@ const center = {
 
 const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
 
+    const { dataDetails } = useMyContext();
+
+    console.log("dataDetailsdataDetails", dataDetails?.acf?.map_location_lat);
+    console.log("dataDetailsdataDetails", dataDetails?.acf?.map_location_lng);
+
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0"
     })
 
+    const [selectedLat, setSelectedLat] = useState<number>(49.2138)
+    const [selectedLong, setSelectedLong] = useState<number>(-2.13125)
     const [zoom, setZoom] = useState(15);
     const mapRef = useRef<any>(null);
 
     const [map, setMap] = React.useState(null)
     const [markerLocation, setMarkerLocation] = useState(center)
     const [selectedPlace, setSelectedPlace] = useState<any>({})
+    useEffect(() => {
+        if (window.location.pathname.includes("categories")) {
+            setSelectedLat(dataDetails?.acf?.map_location_lat ? +dataDetails?.acf?.map_location_lat : 49.2138)
+            setSelectedLong(dataDetails?.acf?.map_location_lng ? +dataDetails?.acf?.map_location_lng : -2.13125)
+        }
+    }, [dataDetails?.acf?.map_location_lat, dataDetails?.acf?.map_location_lng])
 
-    // const onLoad = React.useCallback(function callback(map: any) {
-    //     // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    //     const bounds = new window.google.maps.LatLngBounds(center);
-    //     map.fitBounds(bounds);
-    //     map.setZoom(10)
-    //     setMap(map)
-    // }, [])
+    useState(() => {
+        setSelectedLat(49.2138)
+        setSelectedLong(-2.13125)
+    }, [window.location.pathname])
 
     const onUnmount = React.useCallback(function callback(map: any) {
         setMap(null)
@@ -78,12 +92,17 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
 
 
     }
+    const mapLocation = {
+        lat: selectedLat,
+        lng: selectedLong
+    }
+
 
 
     return (
         isLoaded && <GoogleMap
             // mapContainerStyle={containerStyle}
-            center={center}
+            center={mapLocation}
             onClick={(e: any) => handleClick(e)}
 
             mapContainerClassName='googleMap'
@@ -96,7 +115,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
             onUnmount={onUnmount}
         // onClick={onMapClick}
         >
-            <Marker position={markerLocation} onClick={markerClick} />
+            <Marker position={mapLocation} onClick={markerClick} />
             { /* Child components, such as markers, info windows, etc. */}
             {/* {selectedPlace && ( */}
             {/* <InfoWindow
