@@ -236,27 +236,36 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
 
 
-          {dragData.map((item: any, index: any) => (
+          {dragData.map((item: any, index: any) => {
+            const imageList = JSON.parse(item?.acf?.header_image_data);
+            const image = imageList[0].url;
+            console.log("fksldflsjfls", item?.acf?.portal_post_owner_name)
+            return (
 
+              <ListDataWrraper>
+                <div style={{ width: 80, height: 80 }}>
+                  <Image
+                    src={image}
+                    width={80}
+                    height={80}
+                    style={{ borderRadius: 4 }}
+                    alt="infoCirlce"
+                  />
+                </div>
+                <div style={{ display: "flex", gap: 10, flexDirection: "column" }}>
+                  <ListDataTittleText>{item?.acf?.title}</ListDataTittleText>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <ListDataInfoText>{item?.rating}</ListDataInfoText>
+                    <Image src={commentstar} alt="infoCirlce" />
+                    <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText>
+                    <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                  </div>
+                  <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
+                </div>
+              </ListDataWrraper>
 
-            <CreateListItems
-              dragBtn
-              dragUi="drag"
-              listItemName={item?.content}
-              secondLineDetails1
-              itemPlaceLogo={item?.itemPlaceLogo}
-              placeName1="St Helier"
-              ratedStar
-              ratingStarImage={RatingStarImage}
-              starRating={4.7}
-              thirdLineDetails1
-              // status1="Open ⋅ Closes"
-              // timing2="11 pm"
-              newText
-              delivery
-            />
-
-          )
+            )
+          }
           )}
 
 

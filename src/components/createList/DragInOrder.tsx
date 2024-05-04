@@ -18,6 +18,8 @@ interface DragInOrderProps {
     homePage: any;
     selectedItemIds:any;
     setDragData?: any;
+    selectedData?: any;
+    setSelectedData?: any;
 }
 
 const DragInOrderScreen = styled.div`
@@ -79,8 +81,8 @@ const initialItems = [
 //   ];
 
 
-const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage, setDragData }) => {
-    const [items, setItems] = useState(initialItems);
+const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, homePage, setDragData, selectedData, setSelectedData }) => {
+    const [items, setItems] = useState(selectedData);
 
     const onDragEnd = (result: any) => {
         if (!result.destination) {
@@ -93,6 +95,8 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
         setItems(newItems);
         setDragData(newItems)
     };
+
+    console.log("drag list", items)
     return (
         <DragInOrderScreen>
             <ListItemScrollBox>
@@ -112,9 +116,14 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                             borderRadius: '5px',
                                         }}
                                     >
-                                        {items.map((item, index) => (
-                                            <Draggable key={item.id} draggableId={item.id} index={index}>
+                                        {items.length ? items.map((item: any, index: any) => {
+                                            const imageList = JSON.parse(item?.acf?.header_image_data);
+                                            const image = imageList[0].url;
+                                            console.log("item drag", image )
+                                            return(
+                                            <Draggable key={item._id} draggableId={item._id} index={index}>
                                                 {(provided, snapshot) => {
+                                                    
                                                     return (
                                                         <div
                                                             ref={provided.innerRef}
@@ -134,25 +143,29 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                             <CreateListItems
                                                                 dragBtn
                                                                 dragUi = "drag"
-                                                                listItemName={item?.content}
+                                                                listItemName={item?.acf?.title}
                                                                 secondLineDetails1
                                                                 itemPlaceLogo={item?.itemPlaceLogo}
-                                                                placeName1="St Helier"
+                                                                placeName1={item?.acf?.portal_post_owner_name}
                                                                 ratedStar
                                                                 ratingStarImage={RatingStarImage}
-                                                                starRating={4.7}
+                                                                starRating={item.acf.aa_rating
+                                                                    ? item.acf.aa_rating.value == "No rating"
+                                                                      ? ""
+                                                                      : item.acf.aa_rating.value
+                                                                    : ""}
                                                                 thirdLineDetails1
-                                                                // status1="Open ⋅ Closes"
-                                                                // timing2="11 pm"
                                                                 newText
                                                                 delivery
+                                                                image={image}
                                                             />
 
                                                         </div>
                                                     )
                                                 }}
                                             </Draggable>
-                                        ))}
+                                        )}
+                                        ) : ""}
                                         {provided.placeholder}
                                     </div>
                                 )}

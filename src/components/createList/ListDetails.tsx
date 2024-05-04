@@ -190,7 +190,6 @@ const ListDetails: React.FC<ListDetailsProps> = ({
           <ListDetailsTitle>List Details</ListDetailsTitle>
           <ListInputField>
             <ListInputText type="text" placeholder="List name..." value={listName} onChange={handleListName} />
-            <ErrorMessage>Field is Required</ErrorMessage>
           </ListInputField>
           {/* <TextAreaContainer
             rows={4}

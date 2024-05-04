@@ -37,6 +37,7 @@ interface CreateListItemsProps {
   handleToggle?: any;
   index?: any;
   dragUi?: any;
+  image?: any;
 }
 
 const CreateListItem = styled.div`
@@ -259,6 +260,7 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
   handleToggle,
   index,
   dragUi,
+  image,
 }) => {
   return (
     <CreateListItem>
@@ -272,19 +274,31 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
             />
           </DragBtnBox>
         )}
-        <UploadImage>
-          {newText && <NewText>NEW</NewText>}
-          {delivery && (
-            <DeliveryBox>
+        {
+          dragUi ?
+            <div style={{ width: 80, height: 80 }}>
               <Image
-                style={{ width: "10px", height: "8px" }}
-                src={deliveryVehicle}
-                alt="deliveryVehicle"
+                src={image}
+                width={80}
+                height={80}
+                style={{ borderRadius: 4 }}
+                alt="infoCirlce"
               />
-              <DeleiveryText>DELIVERY</DeleiveryText>
-            </DeliveryBox>
-          )}
-        </UploadImage>
+            </div> :
+            <UploadImage>
+              {newText && <NewText>NEW</NewText>}
+              {delivery && (
+                <DeliveryBox>
+                  <Image
+                    style={{ width: "10px", height: "8px" }}
+                    src={deliveryVehicle}
+                    alt="deliveryVehicle"
+                  />
+                  <DeleiveryText>DELIVERY</DeleiveryText>
+                </DeliveryBox>
+              )}
+            </UploadImage>
+        }
         <ListItemDetails>
           <ItemDetails marginTop={marginTop}>
             <ItemName>{listItemName}</ItemName>
@@ -354,24 +368,24 @@ const CreateListItems: React.FC<CreateListItemsProps> = ({
           </ItemDetails>
         </ListItemDetails>
       </div>
-      { dragUi ? "" :
-      unSelectedBtn ?
-        <UnselectedBtn onClick={() => handleToggle(listItemName, index)}>
-          <Image
-            style={{ width: "15px", height: "10px" }}
-            src={UnselectedBtnImg}
-            alt="UnselectedBtnImg"
+      {dragUi ? "" :
+        unSelectedBtn ?
+          <UnselectedBtn onClick={() => handleToggle(listItemName, index)}>
+            <Image
+              style={{ width: "15px", height: "10px" }}
+              src={UnselectedBtnImg}
+              alt="UnselectedBtnImg"
             // onClick={() => handleToggle(listItemName)}
-          />
-        </UnselectedBtn>
-        :
-        <SelectedBtn onClick={() => handleToggle(listItemName, index)}>
-          <Image
-            style={{ width: "16px", height: "16px" }}
-            src={SelectedBtnImg}
-            alt="SelectedBtnImg"
-          />
-        </SelectedBtn>
+            />
+          </UnselectedBtn>
+          :
+          <SelectedBtn onClick={() => handleToggle(listItemName, index)}>
+            <Image
+              style={{ width: "16px", height: "16px" }}
+              src={SelectedBtnImg}
+              alt="SelectedBtnImg"
+            />
+          </SelectedBtn>
       }
       {/* {unSelectedBtn && (
         <UnselectedBtn>

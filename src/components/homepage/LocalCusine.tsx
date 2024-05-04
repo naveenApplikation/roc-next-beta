@@ -74,6 +74,7 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         skeletonItems.map((item,index)=> <div key={index}><CommonSkeletonLoader /></div>)
         ) : (
           data?.slice(0, 10).map((item, index) => (
+            
             <div key={index}>
               <RatingMenu
                 title={item.acf.parish.label}

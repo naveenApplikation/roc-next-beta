@@ -19,19 +19,26 @@ const Page = () => {
   const { showMap } = useMyContext();
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
-  console.log(selectedItemIds, "asasas");
-
-  const toggleSelected = (itemId: number): void => {
+  const [selectedData, setSelectedData] = useState<string[]>([])
+  
+  const toggleSelected = (itemId: number, item: any): void => {
+    console.log("klslklkfs", itemId)
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
     if (selectedIndex === -1) {
       setSelectedItemIds([...selectedItemIds, itemId]);
+      setSelectedData([...selectedData, item])
     } else {
       const updatedSelectedItems: number[] = [...selectedItemIds];
       updatedSelectedItems.splice(selectedIndex, 1);
       setSelectedItemIds(updatedSelectedItems);
+      const upateddata: any[]=[...selectedData];
+      upateddata.splice(selectedIndex, 1);
+      setSelectedData(upateddata)
     }
-  };
 
+  };
+  
+  console.log(selectedData, "asasas");
   const router = useRouter();
 
   const navigateClick = () => {
@@ -59,7 +66,7 @@ const Page = () => {
     debouncedSearch(value);
   };
   
-  console.log("data icon", dragData);
+  console.log("data icon", selectedItemIds);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
 
@@ -99,7 +106,7 @@ const Page = () => {
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
           selectedItemIds={selectedItemIds}
-          {...{setDragData}}
+          {...{setDragData, selectedData, setSelectedData}}
         />
       );
     } else if (screenName === "AddComments") {
