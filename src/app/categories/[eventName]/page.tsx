@@ -134,6 +134,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           <HeaderScreen />
           {categories()}
         </CategoryBody>
+      </PageLayout>
         <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
         <ProfileAccountModalScreen showMap={showMap} />
         <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
@@ -144,7 +145,6 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         <EventListingModalScreen showMap={showMap} />
         <ActivitiesModalScreen showMap={showMap} />
         <ViewDirectionModalScreen showMap={showMap} />
-      </PageLayout>
     </>
   );
 };

@@ -276,9 +276,9 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                       <div style={{ width: 80, height: 80 }}>
                         <Image
                           src={image}
-                          width={80}
+                          width={500}
                           height={80}
-                          style={{ borderRadius: 4 }}
+                          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                           alt="infoCirlce"
                         />
                       </div>

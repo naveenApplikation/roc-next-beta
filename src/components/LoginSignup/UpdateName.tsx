@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -36,6 +36,9 @@ export const ErrorMessage = styled.p`
 `;
 
 const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
+
+  const [loader, setloader] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -44,7 +47,7 @@ const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       name: Yup.string().required("Required!"),
     }),
     onSubmit: async (values) => {
-      //   setloader(true);
+        setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
         userName: values.name,
@@ -53,9 +56,9 @@ const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       } catch (error: any) {
         console.log(error.message);
         // showToast(error.message, "error");
-        // setloader(false);
+        setloader(false);
       } finally {
-        // setloader(false);
+        setloader(false);
       }
     },
   });
@@ -74,7 +77,7 @@ const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       )}
       <CommonButton
         bcColor="#2F80ED"
-        text="Update my name"
+        text={loader ? "Loading..." : "Update my name"}
         imageStyle={0}
         isOpen={formik.handleSubmit}
       />

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -36,6 +36,9 @@ export const ErrorMessage = styled.p`
 `;
 
 const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
+
+  const [loader, setloader] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -50,6 +53,7 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
     onSubmit: async (values) => {
+      setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
           password: values.password,
@@ -58,9 +62,9 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       } catch (error: any) {
         console.log(error.message);
         // showToast(error.message, "error");
-        // setloader(false);
+        setloader(false);
       } finally {
-        // setloader(false);
+        setloader(false);
       }
     },
   });
@@ -89,7 +93,7 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       )}
         <CommonButton
           bcColor="#2F80ED"
-          text="Update my password"
+          text={loader ? "Loading..." : "Update my password"}
           imageStyle={0}
           isOpen={formik.handleSubmit}
         />

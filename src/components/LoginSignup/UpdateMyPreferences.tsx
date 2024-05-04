@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import Instance from "@/app/utils/Instance";
@@ -78,6 +78,9 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
   previousModal,
   isOpen,
 }) => {
+
+  const [loader, setloader] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       prefrence: false,
@@ -86,6 +89,7 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
         prefrence: Yup.boolean().oneOf([true], 'You must accept or back to your account'),
       }),
     onSubmit: async (values) => {
+      setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
           prefrence: values.prefrence,
@@ -95,9 +99,9 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
       } catch (error: any) {
         console.log(error.message);
         // showToast(error.message, "error");
-        // setloader(false);
+        setloader(false);
       } finally {
-        // setloader(false);
+        setloader(false);
       }
     },
   });
@@ -124,7 +128,7 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
       )}
         <CommonButton
           bcColor="#2F80ED"
-          text="Update my preferences"
+          text={loader ? "Loading..." : "Update my preferences"}
           imageStyle={0}
           isOpen={formik.handleSubmit}
         />

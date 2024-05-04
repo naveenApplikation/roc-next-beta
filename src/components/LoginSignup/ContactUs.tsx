@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -96,6 +96,9 @@ export const ErrorMessage = styled.p`
 `;
 
 const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
+
+  const [loader, setloader] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -110,6 +113,7 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       prefrence: Yup.boolean().oneOf([true], 'You must accept or back to your account'),
     }),
     onSubmit: async (values) => {
+      setloader(true);
       try {
         const loginData = await Instance.post("feedback", {
           userName: values.name,
@@ -121,9 +125,9 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       } catch (error: any) {
         console.log(error.message);
         // showToast(error.message, "error");
-        // setloader(false);
+        setloader(false);
       } finally {
-        // setloader(false);
+        setloader(false);
       }
     },
   });
@@ -179,7 +183,7 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       {formik.errors.prefrence && formik.touched.prefrence && (
         <ErrorMessage>{formik.errors.prefrence}</ErrorMessage>
       )}
-        <CommonButton bcColor="#2F80ED" text="Submit" imageStyle={0} isOpen={formik.handleSubmit} />
+        <CommonButton bcColor="#2F80ED"  text={loader ? "Loading..." : "Submit"} imageStyle={0} isOpen={formik.handleSubmit} />
     </MenuModalContent>
   );
 };

@@ -8,6 +8,7 @@ import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
 import { ROCLogo, ROCLogoWhite,betaHigh } from "@/app/utils/ImagePath";
+import { useSearchParams } from "next/navigation";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -123,34 +124,17 @@ const JoinText = styled.p`
 
 const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, setShowContent }) => {
   // const [showContent, setShowContent] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<any>("");
   const { handleApiResponse } = useMyContext();
-  // const [loading, setLoading] = useState(true);
+  const [loader, setloader] = useState(false);
 
+  const searchParams = useSearchParams();
+  const query = searchParams.get('code');
 
-  // interface ApiVerifyCodeResponse {
-  //   message: string;
-  //   data: any;
-  // }
-
-  // export const verifyInviteCode = async (code: string): Promise<ApiVerifyCodeResponse> => {
-  //   try {
-  //     const response = await axios.post<ApiVerifyCodeResponse>(`${baseUrl}/verifyCode`,{ code });
-  //     return response.data;
-  //   } catch (error) {
-  //     throw new Error("Failed to verify invite code");
-  //   }
-  // };
-
-  // const fetchDataAsync = async () => {
-  //   const result = await verifyInviteCode(inputValue);
-  //   localStorage.setItem("hideUI", inputValue.trim());
-  //   setShowContent(false);
-  //   localStorage.setItem("Token", result.data);
-  // };
+  console.log(inputValue,"asas")
 
   const fetchDataAsync = async () => {
-    // setloader(true);
+    setloader(true);
     try {
       const result = await Instance.post("/verifyCode", { code: inputValue });
       localStorage.setItem("hideUI", inputValue.trim());
@@ -159,11 +143,20 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
       handleApiResponse(true)
     } catch (error: any) {
       console.log(error.message);
-      // setloader(false);
+      setloader(false);
     } finally {
-      // setloader(false);
+      setloader(false);
     }
   };
+
+  useEffect(()=>{
+    if(query){
+      setInputValue(query)
+      if(inputValue){
+        fetchDataAsync()
+      }
+    }
+  },[inputValue])
 
   const [modalType, setModalType] = useState({
     ModalContent: false,
@@ -194,12 +187,6 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
     // setLoading(false);
   }, []);
 
-  // const handleOKClick = () => {
-  //   if (inputValue.trim() == "1234") {
-  //     localStorage.setItem("hideUI", inputValue.trim());
-  //     setShowContent(false);
-  //   }
-  // };
 
   return (
     <>
@@ -243,7 +230,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                   />
                 </MenuInputField>
                 <div onClick={fetchDataAsync} style={{ marginTop: 8 }}>
-                  <CommonButton text="Submit" />
+                  <CommonButton text={loader ? "Loading..." : "Submit"} />
                 </div>
               </div>
               <div>

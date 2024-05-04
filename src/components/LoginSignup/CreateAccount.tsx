@@ -108,7 +108,7 @@ export const ErrorMessage = styled.p`
 `;
 
 const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
-  const [loader, setloader] = useState(true);
+  const [loader, setloader] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -173,7 +173,7 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
       </SelectReceiveOffers>
         <CommonButton
           bcColor="#2F80ED"
-          text="Create Acccount"
+          text={loader ? "Loading..." : "Create Acccount"}
           isOpen={formik.handleSubmit}
         />
       <UserTermsText1>

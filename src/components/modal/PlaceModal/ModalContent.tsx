@@ -486,7 +486,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   />
                 </div>
                 <CommonButton
-                  text={showEdit === index ? "Update Review" : "Submit Review"}
+                  text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
                   isOpen={fetchDataAsync}
                 />
               </div>
@@ -530,7 +530,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ratingvalue={rating}
               />
             </div>
-            <CommonButton text="Submit Review" isOpen={fetchDataAsync} />
+            <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
           </div>
         )}
       </ReviewContainer>

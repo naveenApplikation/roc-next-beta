@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -46,6 +46,8 @@ export const ErrorMessage = styled.p`
 
 const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
 
+  const [loader, setloader] = useState(false);
+
     const formik = useFormik({
         initialValues: {
           email: "",
@@ -58,17 +60,21 @@ const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
             .required("Required!"),
         }),
         onSubmit: async (values) => {
+          setloader(true)
           try {
             const loginData = await Instance.post("sign-in", {
               email: values.email,
               password: values.password,
             });
             localStorage.setItem("loginToken", loginData.data.token);
+            setloader(false)
             nextModal()
           } catch (error: any) {
             console.log(error.message);
+            setloader(false)
             // showToast(error.message, "error");
           } finally {
+            setloader(false)
           }
         },
       });
@@ -96,7 +102,7 @@ const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
         <ErrorMessage>{formik.errors.password}</ErrorMessage>
       )}
             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
-            <CommonButton bcColor="#2F80ED" text="Login" imageStyle={0}    isOpen={formik.handleSubmit} />
+            <CommonButton bcColor="#2F80ED" text={loader ? "Loading..." : "Login"} imageStyle={0}    isOpen={formik.handleSubmit} />
             <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
         </MenuModalContent>
     );
