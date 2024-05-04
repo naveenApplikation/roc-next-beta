@@ -23,6 +23,7 @@ interface ListDetailsProps {
 
 const ListDetailsScreen = styled.div`
   width: ${sideWidth};
+  height:100vh;
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
@@ -210,7 +211,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
           </span>
         </CommentReviewText> */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <ListDataWrraper>
+          {/* <ListDataWrraper>
             <div style={{ width: 80, height: 80 }}>
               <Image
                 src={
@@ -232,7 +233,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               </div>
               <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
             </div>
-          </ListDataWrraper>
+          </ListDataWrraper> */}
 
 
 
