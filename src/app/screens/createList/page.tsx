@@ -139,6 +139,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
+          listName={listName}
           {...{dragData}}
         />
       );

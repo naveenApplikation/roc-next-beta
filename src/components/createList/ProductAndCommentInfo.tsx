@@ -19,16 +19,17 @@ interface ListDetailsProps {
   preScreen?: Function;
   homePage?: any;
   dragData?: any;
+  listName?: string;
 }
 
 const ListDetailsScreen = styled.div`
   width: ${sideWidth};
-  height:100vh;
+  height: 100vh;
   background-color: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-  padding-bottom:100px;
+  padding-bottom: 100px;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -188,6 +189,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   homePage,
   ScreenSwitch,
   preScreen,
+  listName,
   dragData,
 }) => {
   return (
@@ -201,7 +203,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
         <Image src={infoCircle} alt="infoCirlce" />
       </PreviewList>
       <div style={{ padding: "0px 24px" }}>
-        <TittleText>New Shops In St Helier</TittleText>
+        <TittleText>{listName}</TittleText>
         <LocationInfoText>By Colm Farrington / 15 June 23</LocationInfoText>
         {/* <CommentReviewText>
           Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam
@@ -235,14 +237,11 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
             </div>
           </ListDataWrraper> */}
 
-
-
           {dragData.map((item: any, index: any) => {
             const imageList = JSON.parse(item?.acf?.header_image_data);
             const image = imageList[0].url;
-            console.log("fksldflsjfls", item?.acf?.portal_post_owner_name)
+            console.log("fksldflsjfls", item?.acf?.portal_post_owner_name);
             return (
-
               <ListDataWrraper>
                 <div style={{ width: 80, height: 80 }}>
                   <Image
@@ -253,33 +252,23 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
                     alt="infoCirlce"
                   />
                 </div>
-                <div style={{ display: "flex", gap: 10, flexDirection: "column" }}>
+                <div
+                  style={{ display: "flex", gap: 10, flexDirection: "column" }}>
                   <ListDataTittleText>{item?.acf?.title}</ListDataTittleText>
-                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                  <div
+                    style={{ display: "flex", gap: 10, alignItems: "center" }}>
                     <ListDataInfoText>{item?.rating}</ListDataInfoText>
                     <Image src={commentstar} alt="infoCirlce" />
-                    <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText>
+                    <ListDataInfoText>
+                      ⋅ {item?.acf?.portal_post_owner_name}
+                    </ListDataInfoText>
                     <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
                   </div>
                   <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
                 </div>
               </ListDataWrraper>
-
-            )
-          }
-          )}
-
-
-
-
-
-
-
-
-
-
-
-
+            );
+          })}
 
           {/* <CommentBoxWrapper>
             <Arrow />
@@ -295,12 +284,6 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               </span>
             </ListCommentText>
           </CommentBoxWrapper> */}
-
-
-
-
-
-
         </div>
       </div>
       <CreateListingsFooter
