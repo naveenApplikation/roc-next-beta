@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
@@ -25,6 +25,8 @@ import Surfing from "@/components/homepage/Surfing";
 import CommonButton from "@/components/button/CommonButton";
 import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
+import { icons } from "@/app/utils/iconList";
 
 
 
@@ -40,6 +42,32 @@ const DashBoard = () => {
   const router = useRouter();
 
   const { showMap, modalClick } = useMyContext()
+  const [listData, setListData] = useState<string[]>([])
+
+  const fetchDataAsync = async () => {
+    try {
+      const response = await Instance.get("/category?limit=true")
+      if (response.status === 200) {
+        response.data.forEach((list: any) => {
+          const matchedIcon = icons.find(icon => icon.name === list.iconName);
+          if (matchedIcon) {
+            list.image = matchedIcon.image;
+          }
+        })
+        setListData(response?.data)
+      } else {
+        setListData([])
+
+      }
+    } catch (error) {
+      setListData([])
+
+    }
+  }
+
+  useEffect(() => {
+    fetchDataAsync()
+  }, [])
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
@@ -90,13 +118,13 @@ const DashBoard = () => {
       {/* <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} /> */}
-      <TrendingList menuClick={menuClick} modalClick={modalClick} />
+      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{listData}} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       {/* <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
-      <Shopping menuClick={menuClick} modalClick={modalClick} />
-      <Community menuClick={menuClick} modalClick={modalClick} />
-      <BeachLife menuClick={menuClick} modalClick={modalClick} />
+      <Shopping menuClick={menuClick} modalClick={modalClick} />*/}
+      <Community menuClick={menuClick} modalClick={modalClick} {...{listData}} />
+      {/* <BeachLife menuClick={menuClick} modalClick={modalClick} />
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
       <Jerseyisms menuClick={menuClick} modalClick={modalClick} />
       <Heritage menuClick={menuClick} modalClick={modalClick} />

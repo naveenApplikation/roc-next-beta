@@ -1,11 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { PopularLists,SelectedLists } from "@/components/search/Data";
+import { PopularLists, SelectedLists } from "@/components/search/Data";
 import { thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
+import Instance from "@/app/utils/Instance";
+import { icons } from "@/app/utils/iconList";
+
 
 
 interface TrendingListProps {
@@ -93,35 +96,61 @@ const LikesContainer = styled.div`
   }
 `;
 
-const TrendingList: React.FC<TrendingListProps>  = ({ urlTitle, urlData }) => {
+const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
+  const [listData, setListData] = useState<string[]>([])
 
-  const dataShow = () => {
-    if (urlData == 1) {
-      return PopularLists;
+
+  const fetchDataAsync = async () => {
+    try {
+      const response = await Instance.get("/category?limit=false")
+      if (response.status === 200) {
+        response.data.forEach((list: any) => {
+          const matchedIcon = icons.find(icon => icon.name === list.iconName);
+          if (matchedIcon) {
+            list.image = matchedIcon.image;
+          }
+        })
+        setListData(response?.data)
+      } else {
+        setListData([])
+
+      }
+    } catch (error) {
+      setListData([])
+
     }
-    else {
-      return SelectedLists;
-    }
-  };
-  
+  }
+
+  useEffect(() => {
+    fetchDataAsync()
+  }, [urlData])
+
+  // const dataShow = () => {
+  //   if (urlData == 1) {
+  //     return PopularLists;
+  //   }
+  //   else {
+
+  //     return SelectedLists;
+  //   }
+  // };
+
+
+
   return (
     <div>
       <Container>
         <PopularListContainer>
           <PopularlistTitle>{urlTitle}</PopularlistTitle>
         </PopularListContainer>
-        {dataShow().map((item, index) => {
+        {listData.length ? listData.map((item: any, index) => {
           return (
             <ListContainer key={index}>
               <ImageTitleContainer>
-                <Imagecontainer style={{ background: item.color }}>
-                  <Image
-                    style={{ width: 24, height: "auto" }}
-                    src={item.image}
-                    alt="icon"
-                  />
+                <Imagecontainer style={{ background: item?.bgColor }}>
+                  {item?.image}
                 </Imagecontainer>
-                <p>{item.name}</p>
+                <p>{item?.listName}</p>
               </ImageTitleContainer>
               <LikesContainer>
                 <Image
@@ -129,11 +158,11 @@ const TrendingList: React.FC<TrendingListProps>  = ({ urlTitle, urlData }) => {
                   src={thumbsup}
                   alt="icon"
                 />
-                <p>{item.likes}</p>
+                <p>0</p>
               </LikesContainer>
             </ListContainer>
           );
-        })}
+        }) : ""}
       </Container>
     </div>
   );

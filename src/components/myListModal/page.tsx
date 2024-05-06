@@ -9,10 +9,11 @@ import { blank, thumbsup, utensils } from '@/app/utils/ImagePath';
 import Ratings from '../ratings';
 
 interface DashboardSearchContainerProps {
-    myListtabChange:Function,
-    mylistoptions:any,
-    myListtabValue:string,
-    showMap:boolean
+    myListtabChange: Function,
+    mylistoptions: any,
+    myListtabValue: string,
+    showMap: boolean,
+    listData?: any,
 }
 
 const InputWrapper = styled.div`
@@ -60,9 +61,9 @@ const SearchedData = styled.div`
 
 
 
-const MylistModal: React.FC<DashboardSearchContainerProps> = ({myListtabChange , mylistoptions , myListtabValue , showMap}) => {
+const MylistModal: React.FC<DashboardSearchContainerProps> = ({ myListtabChange, mylistoptions, myListtabValue, showMap, listData }) => {
     return (
-        
+
         <>
             <TabPanel
                 defaultValue="Created"
@@ -71,13 +72,13 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({myListtabChange ,
             />
             {myListtabValue == "Created" ? (
                 <>
-                    <Lists />
+                    <Lists {...{ listData }} />
                 </>
             ) : (
                 <>
                     <FilterSection />
                     <SearchedListContainer>
-                        {RestroListData.map((item: any,index:any) => {
+                        {RestroListData.map((item: any, index: any) => {
                             return (
                                 <SearchedData key={index}>
                                     <div

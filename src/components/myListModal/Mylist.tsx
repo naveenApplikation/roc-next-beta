@@ -1,8 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import {PopularLists} from '../search/Data'
+import { PopularLists } from '../search/Data'
 import { thumbsup } from "@/app/utils/ImagePath";
+
+
+interface ListProps {
+  listData?: any;
+}
 
 
 const Container = styled.div`
@@ -78,17 +83,19 @@ const LikesContainer = styled.div`
   }
 `;
 
-const Lists = () => {
+const Lists: React.FC<ListProps> = ({ listData }) => {
   return (
     <Container>
-      {PopularLists.map((item,index)=>{
-        return(
-            <ListContainer key={index}>
+      {listData.map((item: any, index: any) => {
+        console.log("list data", item)
+
+        return (
+          <ListContainer key={index}>
             <ImageTitleContainer>
-              <Imagecontainer style={{background:item.color}}>
-                <Image  style={{ width: 24, height: "auto" }} src={item.image} alt="icon" />
+              <Imagecontainer style={{ background: item?.bgColor }}>
+                {item?.image}
               </Imagecontainer>
-              <p>{item.name}</p>
+              <p>{item?.listName}</p>
             </ImageTitleContainer>
             <LikesContainer>
               <Image
@@ -96,12 +103,12 @@ const Lists = () => {
                 src={thumbsup}
                 alt="icon"
               />
-              <p>{item.likes}</p>
+              <p>0</p>
             </LikesContainer>
           </ListContainer>
         )
       })}
-     
+
     </Container>
   );
 };
