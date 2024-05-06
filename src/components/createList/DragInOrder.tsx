@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
+import Image from "next/image";
+import DragIcon from "../../../assets/images/createListImages/dragIcon.png";
+import { commentstar } from "@/app/utils/ImagePath";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import CreateListItems from "./CreateList Components/CreateListItems";
@@ -16,7 +19,7 @@ interface DragInOrderProps {
     ScreenSwitch?: Function
     preScreen?: Function
     homePage: any;
-    selectedItemIds:any;
+    selectedItemIds: any;
     setDragData?: any;
     selectedData?: any;
     setSelectedData?: any;
@@ -64,15 +67,47 @@ const ListItemScrollBox = styled.div`
   scrollbar-width: none;
   padding-bottom: 100px;
 `;
+
+
+const ListDataWrraper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgb(217, 217, 217);
+  align-items: center;
+  padding: 9px 0px;
+  position: relative;
+`;
+
+const ListDataTittleText = styled.p`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+`;
+const ListDataInfoText = styled.p`
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.12px;
+`;
+const DragBtnBox = styled.div`
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+`;
+
+
 // Dummy data for your list
-const initialItems = [
-
-    { id: 'item1', content: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item2', content: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: StHelierLogo, status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item3', content: "Radisson Blu Waterfront Hotel", placeName1: "From £265/night", itemPlaceLogo: StHelierLogo, status1: "St Helier", timing2: "11 pm", unSelectedBtn: false },
-    { id: 'item4', content: "abrdn", placeName2: "Investment Managers", itemPlaceLogo: StHelierLogo, status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
-];
-
 // const newFilter  = [
 //     { id: 'item 1', name: "Chocadyllic", placeName1: "St Helier", itemPlaceLogo: "StHelierLogo", status1: "Open ⋅ Closes", timing2: "11 pm", unSelectedBtn: false },
 //     { id: 'item 2', name: "Kalimukti Yoga", placeName1: "From £5", itemPlaceLogo: "StHelierLogo", status1: "Outdoore", timing2: "11 pm", unSelectedBtn: false },
@@ -93,7 +128,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
         const [reorderedItem] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, reorderedItem);
         setItems(newItems);
-        setDragData(newItems)
+        setSelectedData(newItems)
     };
 
     console.log("drag list", items)
@@ -119,28 +154,28 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                         {items.length ? items.map((item: any, index: any) => {
                                             const imageList = JSON.parse(item?.acf?.header_image_data);
                                             const image = imageList[0].url;
-                                            console.log("item drag", image )
-                                            return(
-                                            <Draggable key={item._id} draggableId={item._id} index={index}>
-                                                {(provided, snapshot) => {
-                                                    
-                                                    return (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={{
-                                                                padding: '10px',
-                                                                // margin: '10px 0',
-                                                                background: snapshot.isDragging ? 'lightblue' : 'none',
-                                                                boxShadow: snapshot.isDragging ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
-                                                                borderRadius: '5px',
-                                                                ...provided.draggableProps.style,
-                                                            }}
-                                                        >
-                                                            {/* {item.content} */}
+                                            console.log("item drag", image)
+                                            return (
+                                                <Draggable key={item._id} draggableId={item._id} index={index}>
+                                                    {(provided, snapshot) => {
 
-                                                            <CreateListItems
+                                                        return (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                style={{
+                                                                    padding: '10px',
+                                                                    // margin: '10px 0',
+                                                                    background: snapshot.isDragging ? 'lightblue' : 'none',
+                                                                    boxShadow: snapshot.isDragging ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
+                                                                    borderRadius: '5px',
+                                                                    ...provided.draggableProps.style,
+                                                                }}
+                                                            >
+                                                                {/* {item.content} */}
+
+                                                                {/* <CreateListItems
                                                                 dragBtn
                                                                 dragUi = "drag"
                                                                 listItemName={item?.acf?.title}
@@ -158,13 +193,79 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                                 newText
                                                                 delivery
                                                                 image={image}
-                                                            />
+                                                            /> */}
 
-                                                        </div>
-                                                    )
-                                                }}
-                                            </Draggable>
-                                        )}
+
+                                                                <div
+                                                                    style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
+                                                                    key={index}>
+                                                                    <ListDataWrraper>
+                                                                        <div
+                                                                            style={{
+                                                                                display: "flex",
+                                                                                alignItems: "center",
+                                                                                gap: 16,
+                                                                                width: '85%',
+                                                                            }}>
+                                                                            <DragBtnBox>
+                                                                                <Image
+                                                                                    style={{ width: "8px", height: "16px" }}
+                                                                                    src={DragIcon}
+                                                                                    alt="dragIcon"
+                                                                                />
+                                                                            </DragBtnBox>
+                                                                            <div style={{ width: 80, height: 80 }}>
+                                                                                <Image
+                                                                                    src={image}
+                                                                                    width={500}
+                                                                                    height={80}
+                                                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover", minWidth:'80px' }}
+                                                                                    alt="infoCirlce"
+                                                                                />
+                                                                            </div>
+                                                                            <div style={{
+                                                                                display: "flex",
+                                                                                gap: 10,
+                                                                                flexDirection: "column",
+                                                                                maxWidth: 'calc(100% - 30%)'
+                                                                            }}>
+                                                                                <ListDataTittleText>
+                                                                                    {item.acf.title}
+                                                                                </ListDataTittleText>
+                                                                                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                                                                                    <ListDataInfoText>
+                                                                                        {item.acf.aa_rating
+                                                                                            ? item.acf.aa_rating.value == "No rating"
+                                                                                                ? ""
+                                                                                                : item.acf.aa_rating.value
+                                                                                            : ""}
+                                                                                    </ListDataInfoText>
+                                                                                    <Image src={commentstar} alt="infoCirlce" />
+                                                                                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+
+                                                                                        {
+                                                                                            item.acf.portal_post_owner_name ? (
+                                                                                                <ListDataInfoText>
+                                                                                                    . {item.acf.portal_post_owner_name}
+                                                                                                </ListDataInfoText>
+                                                                                            ) : null
+                                                                                        }
+                                                                                        <ListDataInfoText>. {item.type}</ListDataInfoText>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </ListDataWrraper>
+                                                                </div>
+
+
+                                                            </div>
+                                                        )
+                                                    }}
+                                                </Draggable>
+                                            )
+                                        }
                                         ) : ""}
                                         {provided.placeholder}
                                     </div>

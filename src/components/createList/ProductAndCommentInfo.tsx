@@ -18,7 +18,7 @@ interface ListDetailsProps {
   ScreenSwitch?: Function;
   preScreen?: Function;
   homePage?: any;
-  dragData?: any;
+  selectedData?: any;
 }
 
 const ListDetailsScreen = styled.div`
@@ -184,34 +184,42 @@ const ListDataTime = styled.p`
   letter-spacing: 0.12px;
 `;
 
+const CreateListItemScrollBox = styled.div`
+  height: 100vh;
+  overflow: auto;
+  scrollbar-width: none;
+  padding-bottom: 100px;
+`;
+
 const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   homePage,
   ScreenSwitch,
   preScreen,
-  dragData,
+  selectedData,
 }) => {
   return (
     <ListDetailsScreen>
-      <CreateListingHeader>
-        <CreateListTitle>Create List</CreateListTitle>
-        <CancelText onClick={homePage}>CANCEL</CancelText>
-      </CreateListingHeader>
-      <PreviewList>
-        <p>Preview your list:</p>
-        <Image src={infoCircle} alt="infoCirlce" />
-      </PreviewList>
-      <div style={{ padding: "0px 24px" }}>
-        <TittleText>New Shops In St Helier</TittleText>
-        <LocationInfoText>By Colm Farrington / 15 June 23</LocationInfoText>
-        {/* <CommentReviewText>
+      <CreateListItemScrollBox>
+        <CreateListingHeader>
+          <CreateListTitle>Create List</CreateListTitle>
+          <CancelText onClick={homePage}>CANCEL</CancelText>
+        </CreateListingHeader>
+        <PreviewList>
+          <p>Preview your list:</p>
+          <Image src={infoCircle} alt="infoCirlce" />
+        </PreviewList>
+        <div style={{ padding: "0px 24px" }}>
+          <TittleText>New Shops In St Helier</TittleText>
+          <LocationInfoText>By Colm Farrington / 15 June 23</LocationInfoText>
+          {/* <CommentReviewText>
           Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam
           porta sem malesuada magna mollis euismod.{" "}
           <span style={{ color: "#2F80ED", cursor: "pointer" }}>
             Read More.
           </span>
         </CommentReviewText> */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* <ListDataWrraper>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* <ListDataWrraper>
             <div style={{ width: 80, height: 80 }}>
               <Image
                 src={
@@ -237,51 +245,51 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
 
 
-          {dragData.map((item: any, index: any) => {
-            const imageList = JSON.parse(item?.acf?.header_image_data);
-            const image = imageList[0].url;
-            console.log("fksldflsjfls", item?.acf?.portal_post_owner_name)
-            return (
+            {selectedData.length && selectedData.map((item: any, index: any) => {
+              const imageList = JSON.parse(item?.acf?.header_image_data);
+              const image = imageList[0].url;
+              console.log("fksldflsjfls", item?.acf?.portal_post_owner_name)
+              return (
 
-              <ListDataWrraper>
-                <div style={{ width: 80, height: 80 }}>
-                  <Image
-                    src={image}
-                    width={80}
-                    height={80}
-                    style={{ borderRadius: 4 }}
-                    alt="infoCirlce"
-                  />
-                </div>
-                <div style={{ display: "flex", gap: 10, flexDirection: "column" }}>
-                  <ListDataTittleText>{item?.acf?.title}</ListDataTittleText>
-                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <ListDataInfoText>{item?.rating}</ListDataInfoText>
-                    <Image src={commentstar} alt="infoCirlce" />
-                    <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText>
-                    <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                <ListDataWrraper>
+                  <div style={{ width: 80, height: 80 }}>
+                    <Image
+                      src={image}
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 4 }}
+                      alt="infoCirlce"
+                    />
                   </div>
-                  <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
-                </div>
-              </ListDataWrraper>
+                  <div style={{ display: "flex", gap: 10, flexDirection: "column" }}>
+                    <ListDataTittleText>{item?.acf?.title}</ListDataTittleText>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <ListDataInfoText>{item?.rating}</ListDataInfoText>
+                      <Image src={commentstar} alt="infoCirlce" />
+                      <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText>
+                      <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                    </div>
+                    <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
+                  </div>
+                </ListDataWrraper>
 
-            )
-          }
-          )}
-
-
-
-
-
-
-
-
-
-
+              )
+            }
+            )}
 
 
 
-          {/* <CommentBoxWrapper>
+
+
+
+
+
+
+
+
+
+
+            {/* <CommentBoxWrapper>
             <Arrow />
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <Image src={AuthorcommentIcon} alt="infoCirlce" />
@@ -301,8 +309,9 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
 
 
+          </div>
         </div>
-      </div>
+      </CreateListItemScrollBox>
       <CreateListingsFooter
         footerBtns
         firstBtnText="Go Back"

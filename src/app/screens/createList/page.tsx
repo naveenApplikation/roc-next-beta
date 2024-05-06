@@ -106,7 +106,7 @@ const Page = () => {
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
           selectedItemIds={selectedItemIds}
-          {...{setDragData, selectedData, setSelectedData}}
+          {...{setDragData, selectedData, setSelectedData, }}
         />
       );
     } else if (screenName === "AddComments") {
@@ -139,7 +139,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
-          {...{dragData}}
+          {...{dragData, selectedData}}
         />
       );
     } else if (screenName === "Greetings") {
