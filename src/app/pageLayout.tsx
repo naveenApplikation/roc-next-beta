@@ -66,7 +66,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
             <MainContainer>
                 {children}
             </MainContainer>
-            {/* {showMap && <MapWithMenu />} */}
+            {showMap && <MapWithMenu />}
            
         </Container>
     )

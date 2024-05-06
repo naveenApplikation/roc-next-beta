@@ -26,20 +26,18 @@ import CommonButton from "@/components/button/CommonButton";
 import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 
-
-
 const LeaveFeedbackButton = styled.div`
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 20px;
-`
+`;
 
 const DashBoard = () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
-  const { showMap, modalClick } = useMyContext()
+  const { showMap, modalClick } = useMyContext();
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
@@ -87,12 +85,12 @@ const DashBoard = () => {
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
-      {/* <LocalCusine menuClick={menuClick} modalClick={modalClick} />
+      <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
-      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} /> */}
+      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
-      {/* <Directory menuClick={menuClick} modalClick={modalClick} />
+      <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <Community menuClick={menuClick} modalClick={modalClick} />
@@ -106,7 +104,7 @@ const DashBoard = () => {
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       <DeliciousDine menuClick={menuClick} modalClick={modalClick} />
       <Outout menuClick={menuClick} modalClick={modalClick} />
-      <Surfing menuClick={menuClick} modalClick={modalClick} /> */}
+      <Surfing menuClick={menuClick} modalClick={modalClick} />
       <LeaveFeedbackButton onClick={() => menuClick("AddToCreate")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
