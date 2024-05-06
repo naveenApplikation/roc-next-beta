@@ -19,6 +19,8 @@ interface ListDetailsProps {
   setCategoryType: Function;
   listName: any;
   setListName: Function;
+  bgColor: any;
+  setBgColor: Function;
 }
 
 const ListDetailsScreen = styled.div`
@@ -166,11 +168,14 @@ const ListDetails: React.FC<ListDetailsProps> = ({
   setCategoryType,
   listName,
   setListName,
+  bgColor,
+  setBgColor
 }) => {
 
 
-  const handleIconClick = (iconId: string) => {
+  const handleIconClick = (iconId: string, color: string) => {
     setSelectedIcon(iconId);
+    setBgColor(color)
   };
 
   const handleCategoryType = (e: any) => {
@@ -210,7 +215,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
               return (
                 <IconImage
                   key={icon.id}
-                  onClick={() => handleIconClick(icon.name)}
+                  onClick={() => handleIconClick(icon.name, icon.color)}
                   selected={selectedIcon === icon.name}
                 >
                   {icon?.image}
