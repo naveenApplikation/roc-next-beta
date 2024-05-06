@@ -63,7 +63,7 @@ const ListItemScrollBox = styled.div`
 const AddComments: React.FC<DragInOrderProps> = ({
   ScreenSwitch,
   preScreen,
-  homePage
+  homePage,
 }) => {
   const [commentOpen, SetCommentOpen] = useState(false);
 
@@ -165,7 +165,7 @@ const AddComments: React.FC<DragInOrderProps> = ({
         Handleclose={Handleclose}
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
-        secondText={"continue"}
+        secondText={"Continue"}
       />
     </DragInOrderScreen>
   );

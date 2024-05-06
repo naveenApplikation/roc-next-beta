@@ -1,10 +1,9 @@
-
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import { MyProvider } from "@/app/Context/MyContext";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
+          <Toaster position="top-left" reverseOrder={false} />
           <MyProvider>{children}</MyProvider>
         </StyledComponentsRegistry>
       </body>

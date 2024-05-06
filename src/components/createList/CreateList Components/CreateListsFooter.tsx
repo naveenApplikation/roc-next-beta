@@ -13,8 +13,9 @@ interface CreateListingsFooterProps {
   Handleclose?: any;
   ScreenSwitch?: any;
   preScreen?: any;
-  secondText?:string
-  selectedItem?:any
+  secondText?: string;
+  selectedItem?: any;
+  loader?: boolean;
 }
 
 const CreateListingFooter = styled.div`
@@ -119,25 +120,32 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
   ScreenSwitch,
   preScreen,
   secondText,
-  selectedItem
+  selectedItem,
+  loader,
 }) => {
-
   return (
     <CreateListingFooter>
       {continueBtn && (
-        <ContinueBtn onClick={ScreenSwitch}>Continue with ({selectedItem}) Selected Listing</ContinueBtn>
+        <ContinueBtn onClick={ScreenSwitch}>
+          Continue with ({selectedItem}) Selected Listing
+        </ContinueBtn>
       )}
       {commentOpen ? (
-        <div style={{ width: "100%",display:"flex",flexDirection:"column",gap:"16px" }}>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems:"center",
+              alignItems: "center",
               width: "100%",
-            }}
-          >
-            <p style={{fontSize:24,fontWeight:"bold",}}>Kyomu</p>
+            }}>
+            <p style={{ fontSize: 24, fontWeight: "bold" }}>Kyomu</p>
             <Image
               // style={{ width: "14px", height: "16px" }}
               src={info}
@@ -153,10 +161,14 @@ const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
         </div>
       ) : (
         footerBtns && (
-            <FooterBtnBox>
-                <FooterBtn1 onClick={preScreen}>{firstBtnText}</FooterBtn1>
-                <FooterBtn2 onClick={ScreenSwitch}>{secondText}</FooterBtn2>
-            </FooterBtnBox>
+          <FooterBtnBox>
+            <FooterBtn1 onClick={preScreen}>{firstBtnText}</FooterBtn1>
+            {loader ? (
+              <FooterBtn2>Loading...</FooterBtn2>
+            ) : (
+              <FooterBtn2 onClick={ScreenSwitch}>{secondText}</FooterBtn2>
+            )}
+          </FooterBtnBox>
         )
       )}
     </CreateListingFooter>

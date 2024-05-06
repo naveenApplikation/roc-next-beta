@@ -14,31 +14,30 @@ import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import { debounce } from "lodash";
+import toast from "react-hot-toast";
+import Router from "next/router";
 
 const Page = () => {
   const { showMap } = useMyContext();
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
-  const [selectedData, setSelectedData] = useState<string[]>([])
-  
+  const [selectedData, setSelectedData] = useState<string[]>([]);
+
   const toggleSelected = (itemId: number, item: any): void => {
-    console.log("klslklkfs", itemId)
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
     if (selectedIndex === -1) {
       setSelectedItemIds([...selectedItemIds, itemId]);
-      setSelectedData([...selectedData, item])
+      setSelectedData([...selectedData, item]);
     } else {
       const updatedSelectedItems: number[] = [...selectedItemIds];
       updatedSelectedItems.splice(selectedIndex, 1);
       setSelectedItemIds(updatedSelectedItems);
-      const upateddata: any[]=[...selectedData];
+      const upateddata: any[] = [...selectedData];
       upateddata.splice(selectedIndex, 1);
-      setSelectedData(upateddata)
+      setSelectedData(upateddata);
     }
-
   };
-  
-  console.log(selectedData, "asasas");
+
   const router = useRouter();
 
   const navigateClick = () => {
@@ -46,26 +45,69 @@ const Page = () => {
   };
 
   const { filterUrls, showContent } = useMyContext();
-  
+
   const [data, setData] = useState<ApiResponse[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [dragData, setDragData] = useState<string[]>([])
+  const [dragData, setDragData] = useState<string[]>([]);
   const [screenName, setScreenName] = useState("ListDetails"); // Set default screen
   const [selectedIcon, setSelectedIcon] = useState<string>("shoppingCart");
   const [categoryType, setCategoryType] = useState<string>("public");
   const [listName, setListName] = useState<string>("");
 
-  const screenChangeHandle = (name: string) => {
+  const [categoryList, setCategoryList] = useState([]);
+
+  useEffect(() => {
+    if (screenName) {
+      const newArray: string[] = [];
+
+      selectedData.map((val: any) => {
+        const newObj: { id: string; type: string } = {
+          id: "",
+          type: "",
+        };
+        (newObj.id = val?._id),
+          (newObj.type = val?.type),
+          newArray.push(newObj as any);
+      });
+
+      setCategoryList([...newArray] as any);
+    }
+  }, [screenName]);
+
+  const postHandler = async (name: string) => {
+    setloader(true);
+    const param = {
+      listName,
+      iconName: selectedIcon,
+      categoryType: categoryType,
+      categoryList,
+    };
+    try {
+      const result = await Instance.post("/create-category", param);
+      console.log(result);
+      setloader(false);
+      toast.success(result.data.message);
+      setScreenName(name);
+    } catch (error: any) {
+      console.log(error.response);
+      setloader(false);
+      toast.error(error.response.data);
+      // setScreenName(name);
+    } finally {
+      setloader(false);
+      // setScreenName(name);
+    }
+  };
+
+  const screenChangeHandle = async (name: string) => {
     setScreenName(name);
   };
 
-  
-  
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     debouncedSearch(value);
   };
-  
+
   console.log("data icon", selectedItemIds);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
@@ -82,6 +124,11 @@ const Page = () => {
     } finally {
       setloader(false);
     }
+  };
+
+  const handleCreateNewList = async (name: string) => {
+    window.location.reload();
+    setScreenName(name);
   };
 
   const debouncedSearch = debounce(fetchDataAsync, 0);
@@ -106,7 +153,7 @@ const Page = () => {
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
           selectedItemIds={selectedItemIds}
-          {...{setDragData, selectedData, setSelectedData}}
+          {...{ setDragData, selectedData, setSelectedData }}
         />
       );
     } else if (screenName === "AddComments") {
@@ -136,18 +183,18 @@ const Page = () => {
     } else if (screenName === "ProductAndCommentInfo") {
       return (
         <ProductAndCommentInfo
-          ScreenSwitch={() => screenChangeHandle("Greetings")}
+          ScreenSwitch={() => postHandler("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
-          listName={listName}
-          {...{dragData}}
+          loader={loader}
+          {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
         />
       );
     } else if (screenName === "Greetings") {
       return (
         <Greetings
           homePage={navigateClick}
-          preScreen={() => screenChangeHandle("ListDetails")}
+          preScreen={() => handleCreateNewList("ListDetails")}
         />
       );
     }

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   infoCircle,
@@ -12,14 +12,17 @@ import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImag
 import Image from "next/image";
 import CreateListItems from "./CreateList Components/CreateListItems";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
-import { sideWidth } from "@/app/utils/date";
+import { categoryCreationDate, sideWidth } from "../..//app/utils/date";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
   preScreen?: Function;
   homePage?: any;
-  dragData?: any;
+  selectedData?: any;
+  categoryType?: any;
+  selectedIcon?: any;
   listName?: string;
+  loader?: boolean;
 }
 
 const ListDetailsScreen = styled.div`
@@ -185,35 +188,46 @@ const ListDataTime = styled.p`
   letter-spacing: 0.12px;
 `;
 
+const CreateListItemScrollBox = styled.div`
+  height: 100vh;
+  overflow: auto;
+  scrollbar-width: none;
+  padding-bottom: 100px;
+`;
+
 const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   homePage,
   ScreenSwitch,
   preScreen,
+  selectedData,
   listName,
-  dragData,
+  loader,
+  categoryType,
+  selectedIcon,
 }) => {
   return (
     <ListDetailsScreen>
-      <CreateListingHeader>
-        <CreateListTitle>Create List</CreateListTitle>
-        <CancelText onClick={homePage}>CANCEL</CancelText>
-      </CreateListingHeader>
-      <PreviewList>
-        <p>Preview your list:</p>
-        <Image src={infoCircle} alt="infoCirlce" />
-      </PreviewList>
-      <div style={{ padding: "0px 24px" }}>
-        <TittleText>{listName}</TittleText>
-        <LocationInfoText>By Colm Farrington / 15 June 23</LocationInfoText>
-        {/* <CommentReviewText>
+      <CreateListItemScrollBox>
+        <CreateListingHeader>
+          <CreateListTitle>Create List</CreateListTitle>
+          <CancelText onClick={homePage}>CANCEL</CancelText>
+        </CreateListingHeader>
+        <PreviewList>
+          <p>Preview your list:</p>
+          <Image src={infoCircle} alt="infoCirlce" />
+        </PreviewList>
+        <div style={{ padding: "0px 24px" }}>
+          <TittleText>{listName}</TittleText>
+          <LocationInfoText>Tester / {categoryCreationDate()}</LocationInfoText>
+          {/* <CommentReviewText>
           Cras justo odio, dapibus ac facilisis in, egestas eget quam. Etiam
           porta sem malesuada magna mollis euismod.{" "}
           <span style={{ color: "#2F80ED", cursor: "pointer" }}>
             Read More.
           </span>
         </CommentReviewText> */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* <ListDataWrraper>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* <ListDataWrraper>
             <div style={{ width: 80, height: 80 }}>
               <Image
                 src={
@@ -237,40 +251,65 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
             </div>
           </ListDataWrraper> */}
 
-          {dragData.map((item: any, index: any) => {
-            const imageList = JSON.parse(item?.acf?.header_image_data);
-            const image = imageList[0].url;
-            console.log("fksldflsjfls", item?.acf?.portal_post_owner_name);
-            return (
-              <ListDataWrraper>
-                <div style={{ width: 80, height: 80 }}>
-                  <Image
-                    src={image}
-                    width={80}
-                    height={80}
-                    style={{ borderRadius: 4 }}
-                    alt="infoCirlce"
-                  />
-                </div>
-                <div
-                  style={{ display: "flex", gap: 10, flexDirection: "column" }}>
-                  <ListDataTittleText>{item?.acf?.title}</ListDataTittleText>
-                  <div
-                    style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <ListDataInfoText>{item?.rating}</ListDataInfoText>
-                    <Image src={commentstar} alt="infoCirlce" />
-                    <ListDataInfoText>
-                      ⋅ {item?.acf?.portal_post_owner_name}
-                    </ListDataInfoText>
-                    <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
-                  </div>
-                  <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
-                </div>
-              </ListDataWrraper>
-            );
-          })}
+            {selectedData.length &&
+              selectedData.map((item: any, index: any) => {
+                const imageList = JSON.parse(item?.acf?.header_image_data);
+                const image = imageList[0].url;
+                console.log("fksldflsjfls", item?.acf?.portal_post_owner_name);
+                return (
+                  <ListDataWrraper key={item.id}>
+                    <div style={{ width: 80, height: 80 }}>
+                      <Image
+                        src={image}
+                        width={80}
+                        height={80}
+                        style={{ borderRadius: 4 }}
+                        alt="infoCirlce"
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        flexDirection: "column",
+                      }}>
+                      <ListDataTittleText>
+                        {item?.acf?.title}
+                      </ListDataTittleText>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 10,
+                          alignItems: "center",
+                        }}>
+                        <ListDataInfoText>{item?.rating}</ListDataInfoText>
+                        <Image src={commentstar} alt="infoCirlce" />
+                        {/* <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText> */}
 
-          {/* <CommentBoxWrapper>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            flexWrap: "wrap",
+                          }}>
+                          {item.acf.portal_post_owner_name ? (
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              <p>.</p>{" "}
+                              <ListDataInfoText>
+                                {item.acf.portal_post_owner_name}
+                              </ListDataInfoText>
+                            </div>
+                          ) : null}
+                          <ListDataInfoText>. {item.type}</ListDataInfoText>
+                        </div>
+                      </div>
+                      <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
+                    </div>
+                  </ListDataWrraper>
+                );
+              })}
+
+            {/* <CommentBoxWrapper>
             <Arrow />
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <Image src={AuthorcommentIcon} alt="infoCirlce" />
@@ -284,14 +323,16 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               </span>
             </ListCommentText>
           </CommentBoxWrapper> */}
+          </div>
         </div>
-      </div>
+      </CreateListItemScrollBox>
       <CreateListingsFooter
         footerBtns
         firstBtnText="Go Back"
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
-        secondText={"post"}
+        secondText={"Post"}
+        loader={loader}
       />
     </ListDetailsScreen>
   );
