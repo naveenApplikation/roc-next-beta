@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   infoCircle,
@@ -19,6 +19,9 @@ interface ListDetailsProps {
   preScreen?: Function;
   homePage?: any;
   selectedData?: any;
+  listName?: any;
+  categoryType?: any;
+  selectedIcon?: any;
 }
 
 const ListDetailsScreen = styled.div`
@@ -196,7 +199,14 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   ScreenSwitch,
   preScreen,
   selectedData,
+  listName,
+  categoryType,
+  selectedIcon
 }) => {
+
+
+
+
   return (
     <ListDetailsScreen>
       <CreateListItemScrollBox>
@@ -205,6 +215,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
           <CancelText onClick={homePage}>CANCEL</CancelText>
         </CreateListingHeader>
         <PreviewList>
+
           <p>Preview your list:</p>
           <Image src={infoCircle} alt="infoCirlce" />
         </PreviewList>
@@ -243,14 +254,11 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
             </div>
           </ListDataWrraper> */}
 
-
-
             {selectedData.length && selectedData.map((item: any, index: any) => {
               const imageList = JSON.parse(item?.acf?.header_image_data);
               const image = imageList[0].url;
               console.log("fksldflsjfls", item?.acf?.portal_post_owner_name)
               return (
-
                 <ListDataWrraper>
                   <div style={{ width: 80, height: 80 }}>
                     <Image
@@ -266,8 +274,19 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
                     <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                       <ListDataInfoText>{item?.rating}</ListDataInfoText>
                       <Image src={commentstar} alt="infoCirlce" />
-                      <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText>
-                      <ListDataInfoText>⋅ Restaurant</ListDataInfoText>
+                      {/* <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText> */}
+
+                      <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+
+                        {
+                          item.acf.portal_post_owner_name ? (
+                            <div style={{ display: 'flex', gap: '5px' }}>
+                              <p>.</p> <ListDataInfoText>{item.acf.portal_post_owner_name}</ListDataInfoText>
+                            </div>
+                          ) : null
+                        }
+                        <ListDataInfoText>. {item.type}</ListDataInfoText>
+                      </div>
                     </div>
                     <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
                   </div>
@@ -276,15 +295,6 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
               )
             }
             )}
-
-
-
-
-
-
-
-
-
 
 
 

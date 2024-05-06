@@ -20,7 +20,7 @@ const Page = () => {
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([])
-  
+
   const toggleSelected = (itemId: number, item: any): void => {
     console.log("klslklkfs", itemId)
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -31,13 +31,13 @@ const Page = () => {
       const updatedSelectedItems: number[] = [...selectedItemIds];
       updatedSelectedItems.splice(selectedIndex, 1);
       setSelectedItemIds(updatedSelectedItems);
-      const upateddata: any[]=[...selectedData];
+      const upateddata: any[] = [...selectedData];
       upateddata.splice(selectedIndex, 1);
       setSelectedData(upateddata)
     }
 
   };
-  
+
   console.log(selectedData, "asasas");
   const router = useRouter();
 
@@ -46,7 +46,7 @@ const Page = () => {
   };
 
   const { filterUrls, showContent } = useMyContext();
-  
+
   const [data, setData] = useState<ApiResponse[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [dragData, setDragData] = useState<string[]>([])
@@ -55,17 +55,48 @@ const Page = () => {
   const [categoryType, setCategoryType] = useState<string>("public");
   const [listName, setListName] = useState<string>("");
 
+
+  const [categoryList, setCategoryList] = useState([])
+
+  useEffect(() => {
+    if (screenName) {
+      const newArray: string[] = []
+      const newObj: { id: string, type: string } = {
+        id: "",
+        type: ""
+      }
+      selectedData.map((val: any) => {
+        return (
+          newObj.id = val?._id,
+          newObj.type = val?.type,
+          newArray.push(newObj as any)
+        )
+      })
+      setCategoryList([...newArray] as any)
+    }
+
+  }, [screenName])
+
+
+
+
   const screenChangeHandle = (name: string) => {
     setScreenName(name);
+   const param = {
+      listName,
+      iconName: selectedIcon,
+      categoryType: categoryType,
+      categoryList
+  }
   };
 
-  
-  
+
+
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     debouncedSearch(value);
   };
-  
+
   console.log("data icon", selectedItemIds);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
@@ -106,7 +137,7 @@ const Page = () => {
           preScreen={() => screenChangeHandle("create")}
           homePage={navigateClick}
           selectedItemIds={selectedItemIds}
-          {...{setDragData, selectedData, setSelectedData, }}
+          {...{ setDragData, selectedData, setSelectedData, }}
         />
       );
     } else if (screenName === "AddComments") {
@@ -139,7 +170,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
-          {...{dragData, selectedData}}
+          {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
         />
       );
     } else if (screenName === "Greetings") {

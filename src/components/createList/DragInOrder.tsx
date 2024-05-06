@@ -219,7 +219,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
                                                                                     src={image}
                                                                                     width={500}
                                                                                     height={80}
-                                                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover", minWidth:'80px' }}
+                                                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover", minWidth: '80px' }}
                                                                                     alt="infoCirlce"
                                                                                 />
                                                                             </div>
@@ -245,9 +245,9 @@ const DragInOrder: React.FC<DragInOrderProps> = ({ ScreenSwitch, preScreen, home
 
                                                                                         {
                                                                                             item.acf.portal_post_owner_name ? (
-                                                                                                <ListDataInfoText>
-                                                                                                    . {item.acf.portal_post_owner_name}
-                                                                                                </ListDataInfoText>
+                                                                                                <div style={{ display: 'flex', gap: '5px' }}>
+                                                                                                    <p>.</p> <ListDataInfoText>{item.acf.portal_post_owner_name}</ListDataInfoText>
+                                                                                                </div>
                                                                                             ) : null
                                                                                         }
                                                                                         <ListDataInfoText>. {item.type}</ListDataInfoText>
