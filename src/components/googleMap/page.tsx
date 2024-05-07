@@ -5,8 +5,6 @@ import {
   Marker,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import axios from "axios";
-import { useSearchParams } from "next/navigation";
 
 import React, { useEffect, useRef, useState } from "react";
 
