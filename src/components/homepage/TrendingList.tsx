@@ -6,9 +6,10 @@ import Image from "next/image";
 import CommonButton from "@/components/button/CommonButton";
 
 interface DashboardProps {
-    modalClick?: any;
-    menuClick?: any;
-  }
+  modalClick?: any;
+  menuClick?: any;
+  listData?: any;
+}
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -48,22 +49,25 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const TrendingList: React.FC<DashboardProps> = ({modalClick,menuClick}) => {
+const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listData }) => {
+
   return (
     <>
-       <MenuDetails
+      <MenuDetails
         // isOpen={() => menuClick("TrendingList")}
         isOpen={() => menuClick("Trending Lists", true, 1)}
         title="Trending Lists"
       />
       <ScrollingMenu>
-        {community.map((item, index) => {
+        {listData.length ? listData.map((item:any, index: any) => {
           return (
-            <CommunityContainer key={index} style={{ background: item.color }}>
-              <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
+            <CommunityContainer key={index} style={{ background: item?.bgColor }}>
+              {/* <Image src={item?.image} alt="right icon" />  */}
+             <p> {item?.image}</p> 
+              <p>{item?.listName}</p>
             </CommunityContainer>
           );
-        })}
+        }) : ""}
       </ScrollingMenu>
       <div
         style={{ padding: "0px 40px" }}

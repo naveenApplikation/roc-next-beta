@@ -1,5 +1,5 @@
 import MapWithMenu from '@/components/RightSideMenu/MapWithMenu';
-import DashBoard from '@/components/dashboard/DashBoardPage';
+// import DashBoard from '@/components/dashboard/DashBoardPage';
 import React from 'react'
 import styled from 'styled-components';
 import { useMyContext } from './Context/MyContext';

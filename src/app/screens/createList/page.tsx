@@ -109,7 +109,6 @@ const Page = () => {
     debouncedSearch(value);
   };
 
-  console.log("data icon", selectedItemIds);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(true);
 

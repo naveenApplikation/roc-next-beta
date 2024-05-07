@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import MyListModalLayout from "@/components//modal/Modal";
 import MylistContainer from "@/components/myListModal/page";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
+import { icons } from "@/app/utils/iconList";
 
 interface DashboardSearchContainerProps {
     myListtabChange:Function,
@@ -57,6 +59,32 @@ type tabs = "Lists" | "Places";
 const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myListtabChange , mylistoptions , myListtabValue , showMap})=> {
 
     const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+    const [listData, setListData] = useState<string[]>([])
+
+    const fetchDataAsync = async () => {
+      try {
+        const response = await Instance.get("/category?limit=true")
+        if (response.status === 200) {
+          response.data.forEach((list: any) => {
+            const matchedIcon = icons.find(icon => icon.name === list.iconName);
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+          })
+          setListData(response?.data)
+        } else {
+          setListData([])
+  
+        }
+      } catch (error) {
+        setListData([])
+  
+      }
+    }
+  
+    useEffect(() => {
+      fetchDataAsync()
+    }, [])
 
   return (
     <>
@@ -69,7 +97,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myLi
         >
           <SearchedContainer>
             <MylistContainer
-              {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+              {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData }}
             />
           </SearchedContainer>
         </MyListModalLayout>

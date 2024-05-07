@@ -7,6 +7,7 @@ import Image from "next/image";
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
+  listData?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -47,22 +48,23 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const Community: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+const Community: React.FC<DashboardProps> = ({ modalClick, menuClick, listData }) => {
   return (
     <>
       <MenuDetails  isOpen={() => menuClick("Community", true, 1)} title="Community" />
       <ScrollingMenu>
-        {community.map((item, index) => {
+        {listData.length ? listData.map((item: any, index: any) => {
           return (
             <CommunityContainer
               key={index}
-              style={{ background: item.color }}
+              style={{ background: item?.bgColor }}
               onClick={() => menuClick("Events")}
             >
-              <Image src={item.image} alt="right icon" /> <p>{item.name}</p>
+             <p> {item?.image}</p> 
+              <p>{item?.listName}</p>
             </CommunityContainer>
           );
-        })}
+        }) : ""}
       </ScrollingMenu>
     </>
   );
