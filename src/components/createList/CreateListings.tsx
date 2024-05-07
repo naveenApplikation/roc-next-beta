@@ -25,6 +25,7 @@ interface CreateListingsProps {
   searchQuery: string;
   handleSearch: (value: string) => void;
   data: any[];
+  loader?: boolean;
 }
 
 const CreateListingsScreen = styled.div`
@@ -225,8 +226,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   handleSearch,
   searchQuery,
   data,
+  loader,
 }) => {
-  const [toggle, setToggle] = useState<any[]>(newFilter);
 
   // const [searchQuery, setSearchQuery] = useState("");
   // const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
@@ -253,7 +254,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
               onchange={(e: any) => handleSearch(e.target.value)}
             />
           </SearchInputBox>
-          {searchQuery &&
+          {loader ? "Loading..." : (searchQuery &&
             data.map((item: any, index: any) => {
               if (!item._id) {
                 return null;
@@ -337,7 +338,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                   </ListDataWrraper>
                 </div>
               );
-            })}
+            })) }
         </CreateListingsContent>
       </CreateListItemScrollBox>
       <CreateListingsFooter

@@ -23,6 +23,7 @@ interface ListDetailsProps {
   selectedIcon?: any;
   listName?: string;
   loader?: boolean;
+  screenName?: string;
 }
 
 const ListDetailsScreen = styled.div`
@@ -204,6 +205,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   loader,
   categoryType,
   selectedIcon,
+  screenName,
 }) => {
   return (
     <ListDetailsScreen>
@@ -331,7 +333,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
         firstBtnText="Go Back"
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
-        secondText={"Post"}
+        secondText={screenName === "Update" ? "Update" :"Post"}
         loader={loader}
       />
     </ListDetailsScreen>

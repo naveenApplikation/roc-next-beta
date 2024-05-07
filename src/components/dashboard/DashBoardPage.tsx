@@ -68,14 +68,15 @@ const DashBoard = () => {
   }, [])
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
+    console.log("item", item, condition, id)
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
       router.push("/screens/directoryList");
     } else if (item === "Shop") {
       router.push("/screens/wellbeing");
-    } else if (item === "Events") {
-      router.push("/screens/events");
+    } else if (item === "Category") {
+      router.push(`/screens/${item}?categoryID=${id}`);
     } else if (item === "Tours") {
       router.push("/screens/stays");
     } else if (item === "Hotels") {
@@ -116,13 +117,13 @@ const DashBoard = () => {
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
-      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{listData}} />
+      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
-      <Community menuClick={menuClick} modalClick={modalClick} {...{listData}} />
-     <BeachLife menuClick={menuClick} modalClick={modalClick} />
+      <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
+      <BeachLife menuClick={menuClick} modalClick={modalClick} />
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
       <Jerseyisms menuClick={menuClick} modalClick={modalClick} />
       <Heritage menuClick={menuClick} modalClick={modalClick} />
@@ -134,6 +135,7 @@ const DashBoard = () => {
       <Outout menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} />
       <LeaveFeedbackButton onClick={() => menuClick("AddToCreate")}>
+
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
     </>
