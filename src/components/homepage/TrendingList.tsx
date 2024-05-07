@@ -61,7 +61,11 @@ const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listDat
       <ScrollingMenu>
         {listData.length ? listData.map((item:any, index: any) => {
           return (
-            <CommunityContainer key={index} style={{ background: item?.bgColor }}>
+            <CommunityContainer 
+            key={index} 
+            style={{ background: item?.bgColor }}
+            onClick={() => menuClick("Category", false, item?._id)}
+            >
               {/* <Image src={item?.image} alt="right icon" />  */}
              <p> {item?.image}</p> 
               <p>{item?.listName}</p>

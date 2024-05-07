@@ -40,8 +40,7 @@ const CommonButton: React.FC<ButtonProps> = ({
   image,
   text,
   imageStyle,
-  isOpen
-}) => {
+  isOpen,}) => {
   return (
     <Container style={{ backgroundColor: bcColor }} onClick={isOpen}>
       {image && (
