@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyListModalLayout from "@/components//modal/Modal";
 import MylistContainer from "@/components/myListModal/page";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
+import Instance from "@/app/utils/Instance";
+import { icons } from "@/app/utils/iconList";
 
 interface DashboardSearchContainerProps {
   myListtabChange: Function;

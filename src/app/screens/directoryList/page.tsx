@@ -219,9 +219,9 @@ const Directorylist = () => {
       </CategoryBody>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
       <ProfileAccountModalScreen showMap={showMap} />
-      <ProfileMylistModalScreen
+      {/* <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
-      />
+      /> */}
     </PageLayout>
   );
 };

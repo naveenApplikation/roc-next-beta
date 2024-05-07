@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Dashboard from "@/components/dashboard/DashBoardPage";
 import { useMyContext } from "@/app/Context/MyContext";
 import ShadowWrapper from "@/components/Beta UI/page";
@@ -101,15 +101,16 @@ export default function Home() {
         // const response = await Instance.get("/category?limit=true")
         const response = await Instance.get("/my-list")
         if (response.status === 200) {
-          console.log("list datadddd", response?.data?.categoryList)
-          response?.data?.categoryList.forEach((list: any) => {
+          console.log("list datadddd", response)
+          const list = [response.data]
+          list.forEach((list: any) => {
             const matchedIcon = icons.find(icon => icon.name === list.iconName);
             if (matchedIcon) {
               list.image = matchedIcon.image;
             }
-            setloader(false)
           })
-          setListData(response?.data?.categoryList)
+          setListData(list)
+          setloader(false)
         } else {
           setListData([])
           setloader(false)
@@ -121,6 +122,10 @@ export default function Home() {
       }
     }
   };
+
+  useEffect(()=>{
+    myListtabChange("Created")
+  },[])
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
