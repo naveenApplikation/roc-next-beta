@@ -8,11 +8,14 @@ import activityImg from "../../../assets/images/menuModalsImage/activity.png";
 import contactUsImg from "../../../assets/images/menuModalsImage/contactUs.png";
 import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.png";
 import listStar from "../../../assets/images/listStar.svg";
+import { Logout } from "@/app/utils/ImagePath";
 
 interface ModalProps {
   isOpen?: any;
   isOpenContact?: any;
   myListOpen?: any;
+  logoutClick: () => void;
+  onClick: (name: string) => void;
 }
 
 const MenuModalContent = styled.div`
@@ -21,17 +24,21 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact,myListOpen}) => {
+const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick }) => {
+
+
   return (
     <MenuModalContent>
-      <MenuOptionList
-        optionListText
-        title1="Create a list"
-        menuOptionImg={createListImg}
-        navigaetImg
-        forwardNavigateImg={navigateImg}
-      />
-      <div style={{cursor:"pointer"}} onClick={isOpen}>
+      <div style={{ cursor: "pointer" }} onClick={() => onClick("AddToCreate")}>
+        <MenuOptionList
+          optionListText
+          title1="Create a list"
+          menuOptionImg={createListImg}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }} onClick={isOpen}>
         <MenuOptionList
           optionListText
           title1="Update my details"
@@ -40,7 +47,7 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact,myListOp
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div style={{cursor:"pointer"}} onClick={myListOpen}>
+      <div style={{ cursor: "pointer" }} onClick={myListOpen}>
         <MenuOptionList
           optionListText
           title1="My lists"
@@ -49,24 +56,24 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact,myListOp
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div onClick={isOpenContact} style={{cursor:"pointer"}}>
-      <MenuOptionList
-        optionListText
-        title1="Contact us"
-        menuOptionImg={contactUsImg}
-        navigaetImg
-        forwardNavigateImg={navigateImg}
+      <div onClick={isOpenContact} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Contact us"
+          menuOptionImg={contactUsImg}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
         />
-        </div>
-        <div onClick={isOpenContact} style={{cursor:"pointer"}}>
-      <MenuOptionList
-        optionListText
-        title1="Leave feedback"
-        menuOptionImg={contactUsImg}
-        navigaetImg
-        forwardNavigateImg={navigateImg}
+      </div>
+      <div onClick={isOpenContact} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Leave feedback"
+          menuOptionImg={contactUsImg}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
         />
-        </div>
+      </div>
       <MenuOptionList
         unoptionListText
         title2="Saved"
@@ -79,7 +86,13 @@ const WelcomebackContent: React.FC<ModalProps> = ({isOpen,isOpenContact,myListOp
         menuOptionImg={activityImg}
         comingSoon
       />
-     
+      <div onClick={logoutClick} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Logout"
+          menuOptionImg={Logout}
+        />
+      </div >
     </MenuModalContent>
   );
 };

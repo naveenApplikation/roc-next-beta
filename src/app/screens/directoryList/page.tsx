@@ -16,7 +16,7 @@ import PageLayout from "@/app/pageLayout";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
-const width = "580"
+const width = "580";
 
 const CategoryBody = styled.div`
   position: relative;
@@ -75,16 +75,16 @@ const FirstMainWraaper = styled(MainWrapper)`
 `;
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    background-color: #f2f3f3;
-    width: ${sideWidth};
-    height: 100vh;
-    @media screen and (max-width: 800px) {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #f2f3f3;
+  width: ${sideWidth};
+  height: 100vh;
+  @media screen and (max-width: 800px) {
     width: 100%;
   }
-`
+`;
 
 const AddButton = styled.button`
   display: flex;
@@ -109,15 +109,15 @@ const AddButton = styled.button`
 `;
 
 const TitltCategory = styled.p`
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 40px;
-    margin-top: 24px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 40px;
+  margin-top: 24px;
 
-    @media screen and (max-width: 800px) {
-     margin-left: 16px;
+  @media screen and (max-width: 800px) {
+    margin-left: 16px;
   }
-`
+`;
 
 const Directorylist = () => {
   const { showMap, modalName, modalClick, filterUrls } = useMyContext();
@@ -134,7 +134,7 @@ const Directorylist = () => {
   const router = useRouter();
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
-    console.log("hiiii", item, id)
+    console.log("hiiii", item, id);
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
@@ -173,51 +173,49 @@ const Directorylist = () => {
       <CategoryBody>
         <HeaderScreen />
         <Container>
-        <TitltCategory> All Categories</TitltCategory>
-       
-        {DirectoryItem.map((item, index) => (
-        <DirectoryWrapper key={index}>
-          <FirstMainWraaper>
-            <Image src={item.data[0].image} alt="right icon" />{" "}
-            <DirectoryMenuTitle
-              onClick={() => {
-                if (
-                  item &&
-                  item.data &&
-                  item.data.length > 0 &&
-                  item.data[0].title
-                ) {
-                  menuClick(item.data[0].title, true, item.data[0].url);
-                } else {
-                  // Handle the case where item or item.data or item.data[0].title is null or undefined
-                }
-              }}
-            >
-              {item.data[0].title}
-            </DirectoryMenuTitle>
-          </FirstMainWraaper>
-          <MainWrapper>
-            <Image src={item.data[1].image} alt="right icon" />{" "}
-            <DirectoryMenuTitle
-              onClick={() => {
-                if (
-                  item &&
-                  item.data &&
-                  item.data.length > 0 &&
-                  item.data[0].title
-                ) {
-                  menuClick(item.data[1].title, true, item.data[1].url);
-                } else {
-                  // Handle the case where item or item.data or item.data[0].title is null or undefined
-                }
-              }}
-            >
-              {item.data[1].title}
-            </DirectoryMenuTitle>
-          </MainWrapper>
-        </DirectoryWrapper>
-      ))}
-       </Container>
+          <TitltCategory> All Categories</TitltCategory>
+
+          {DirectoryItem.map((item, index) => (
+            <DirectoryWrapper key={index}>
+              <FirstMainWraaper>
+                <Image src={item.data[0].image} alt="right icon" />{" "}
+                <DirectoryMenuTitle
+                  onClick={() => {
+                    if (
+                      item &&
+                      item.data &&
+                      item.data.length > 0 &&
+                      item.data[0].title
+                    ) {
+                      menuClick(item.data[0].title, true, item.data[0].url);
+                    } else {
+                      // Handle the case where item or item.data or item.data[0].title is null or undefined
+                    }
+                  }}>
+                  {item.data[0].title}
+                </DirectoryMenuTitle>
+              </FirstMainWraaper>
+              <MainWrapper>
+                <Image src={item.data[1].image} alt="right icon" />{" "}
+                <DirectoryMenuTitle
+                  onClick={() => {
+                    if (
+                      item &&
+                      item.data &&
+                      item.data.length > 0 &&
+                      item.data[0].title
+                    ) {
+                      menuClick(item.data[1].title, true, item.data[1].url);
+                    } else {
+                      // Handle the case where item or item.data or item.data[0].title is null or undefined
+                    }
+                  }}>
+                  {item.data[1].title}
+                </DirectoryMenuTitle>
+              </MainWrapper>
+            </DirectoryWrapper>
+          ))}
+        </Container>
         {/* <CategorieList /> */}
       </CategoryBody>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />

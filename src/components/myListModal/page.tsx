@@ -1,20 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import TabPanel from '../tabPanel';
-import Lists from './Mylist';
-import FilterSection from '../filterSection';
-import { RestroListData } from '@/app/utils/data';
-import Image from 'next/image';
-import { blank, thumbsup, utensils } from '@/app/utils/ImagePath';
-import Ratings from '../ratings';
+import React from "react";
+import styled from "styled-components";
+import TabPanel from "../tabPanel";
+import Lists from "./Mylist";
+import FilterSection from "../filterSection";
+import { RestroListData } from "@/app/utils/data";
+import Image from "next/image";
+import { blank, thumbsup, utensils } from "@/app/utils/ImagePath";
+import Ratings from "../ratings";
 
 interface DashboardSearchContainerProps {
-    myListtabChange: Function,
-    mylistoptions: any,
-    myListtabValue: string,
-    showMap: boolean,
-    listData?: any,
-    loader?: boolean,
+  myListtabChange: Function;
+  mylistoptions: any;
+  myListtabValue: string;
+  showMap: boolean;
+  listData?: any;
+  loader?: boolean;
 }
 
 const InputWrapper = styled.div`
@@ -28,8 +28,8 @@ const InputWrapper = styled.div`
   }
 `;
 const SearchedListContainer = styled.div`
-    padding-bottom: 40px;
-`
+  padding-bottom: 40px;
+`;
 const SearchedData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -60,76 +60,75 @@ const SearchedData = styled.div`
   }
 `;
 
-
-
-const MylistModal: React.FC<DashboardSearchContainerProps> = ({ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }) => {
-    return (
-
+const MylistModal: React.FC<DashboardSearchContainerProps> = ({
+  myListtabChange,
+  mylistoptions,
+  myListtabValue,
+  showMap,
+  listData,
+  loader,
+}) => {
+  return (
+    <>
+      <TabPanel
+        defaultValue="Created"
+        tabChange={myListtabChange}
+        options={mylistoptions}
+      />
+      {myListtabValue == "Created" ? (
         <>
-            <TabPanel
-                defaultValue="Created"
-                tabChange={myListtabChange}
-                options={mylistoptions}
-            />
-            {myListtabValue == "Created" ? (
-                <>
-                    <Lists {...{ listData, loader }} />
-                </>
-            ) : (
-                <>
-                    <FilterSection />
-                    <SearchedListContainer>
-                        {RestroListData.map((item: any, index: any) => {
-                            return (
-                                <SearchedData key={index}>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 16,
-                                        }}
-                                    >
-                                        <Image
-                                            style={{ background: "white" }}
-                                            src={blank}
-                                            alt=""
-                                        />
-                                        <div className="restroRating">
-                                            <p className="shopName">{item.name}</p>
-                                            <div style={{ display: "flex", alignItems: "center" }}>
-                                                <Image
-                                                    src={utensils}
-                                                    style={{
-                                                        width: "13px",
-                                                        height: "13px",
-                                                        marginRight: 8,
-                                                    }}
-                                                    alt="utensils"
-                                                />
-                                                <Ratings defaultValue={item.rating} />
-                                            </div>
-                                            <p>
-                                                <span>Open - Closes</span>
-                                            </p>
-                                            <p>Indoors</p>
-                                        </div>
-                                    </div>
-                                    <div className="likes">
-                                        <Image
-                                            src={thumbsup}
-                                            alt="like"
-                                            style={{ width: "16px", height: "16px" }}
-                                        />
-                                        <p>{item.likeCount}</p>
-                                    </div>
-                                </SearchedData>
-                            );
-                        })}
-                    </SearchedListContainer>
-                </>
-            )}
+          <Lists {...{ listData, loader }} />
         </>
-    );
+      ) : (
+        <>
+          <FilterSection />
+          <SearchedListContainer>
+            {RestroListData.map((item: any, index: any) => {
+              return (
+                <SearchedData key={index}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 16,
+                    }}>
+                    <Image style={{ background: "white" }} src={blank} alt="" />
+                    <div className="restroRating">
+                      <p className="shopName">{item.name}</p>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <Image
+                          src={utensils}
+                          style={{
+                            width: "13px",
+                            height: "13px",
+                            marginRight: 8,
+                          }}
+                          alt="utensils"
+                        />
+                        <Ratings defaultValue={item.rating} />
+                      </div>
+                      <p>
+                        <span>Open - Closes</span>
+                      </p>
+                      <p>Indoors</p>
+                    </div>
+                  </div>
+                  <div className="likes">
+                    <Image
+                      src={thumbsup}
+                      alt="like"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <p>{item.likeCount}</p>
+                  </div>
+                </SearchedData>
+              );
+            })}
+          </SearchedListContainer>
+        </>
+      )}
+    </>
+  );
 };
 
 export default MylistModal;

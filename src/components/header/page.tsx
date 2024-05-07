@@ -7,6 +7,7 @@ import {
   profileIconDark,
   mapIconDark,
   logoOutline,
+  ROCLogo,
 } from "@/app/utils/ImagePath";
 
 interface HeaderProps {
@@ -52,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap , classN
       <HeadMenu className={className}>
         <Image
           style={{ cursor: "pointer" }}
-          src={logoOutline}
+          src={ROCLogo}
           alt="Logo Outline"
           onClick={navigateClick}
         />

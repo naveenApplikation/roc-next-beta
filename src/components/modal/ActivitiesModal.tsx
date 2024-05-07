@@ -303,7 +303,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       height: 24,
     },
     {
-      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` ,
+      name: (data.acf?.address.place_name ||  data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` : "" ,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
@@ -361,6 +361,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       <ResturantDetailsContainer>
         {ActivitiesListData.map((item, index) => {
           return (
+            item.name &&
             <ResturantDetailsWrapper key={index}>
               {" "}
               <div style={{ width: 20 }}>

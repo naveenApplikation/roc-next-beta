@@ -94,8 +94,7 @@ const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 } else {
                   // Handle the case where item or item.data or item.data[0].title is null or undefined
                 }
-              }}
-            >
+              }}>
               {item.data[0].title}
             </DirectoryMenuTitle>
           </FirstMainWraaper>
@@ -113,9 +112,7 @@ const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 } else {
                   // Handle the case where item or item.data or item.data[0].title is null or undefined
                 }
-              }}
-            >
-
+              }}>
               {item.data[1].title}
             </DirectoryMenuTitle>
           </MainWrapper>

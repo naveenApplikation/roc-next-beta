@@ -321,7 +321,9 @@ const ModalContent: React.FC<ModalProps> = ({
       </ItemImageContainer>
       <ResturantDetailsContainer>
         {EventListData.map((item, index) => {
+
           return (
+            item?.name &&
             <ResturantDetailsWrapper key={index}>
               {" "}
               <div style={{ width: 20 }}>

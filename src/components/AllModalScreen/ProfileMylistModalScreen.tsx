@@ -1,18 +1,16 @@
-import React,{useEffect, useState} from "react";
+import React, { useState } from "react";
 import MyListModalLayout from "@/components//modal/Modal";
 import MylistContainer from "@/components/myListModal/page";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
-import Instance from "@/app/utils/Instance";
-import { icons } from "@/app/utils/iconList";
 
 interface DashboardSearchContainerProps {
-    myListtabChange:Function,
-    mylistoptions:any,
-    myListtabValue:string,
-    showMap:boolean;
-    listData?:any;
-    loader?:boolean;
+  myListtabChange: Function;
+  mylistoptions: any;
+  myListtabValue: string;
+  showMap: boolean;
+  listData?: any;
+  loader?: boolean;
 }
 
 const SearchedContainer = styled.div`
@@ -58,51 +56,64 @@ const SearchedContainer = styled.div`
 
 type tabs = "Lists" | "Places";
 
-const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myListtabChange , mylistoptions , myListtabValue , showMap, listData, loader})=> {
+const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
+  myListtabChange,
+  mylistoptions,
+  myListtabValue,
+  showMap,
+  listData,
+  loader,
+}) => {
+  const { modalName, closeModal, modalClick, dataDetails, modalType } =
+    useMyContext();
+  // const [listData, setListData] = useState<string[]>([])
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
-    // const [listData, setListData] = useState<string[]>([])
+  // const fetchDataAsync = async () => {
+  //   try {
+  //     // const response = await Instance.get("/category?limit=true")
+  //     const response = await Instance.get("/my-list")
+  //     if (response.status === 200) {
+  //       response.data.forEach((list: any) => {
+  //         const matchedIcon = icons.find(icon => icon.name === list.iconName);
+  //         if (matchedIcon) {
+  //           list.image = matchedIcon.image;
+  //         }
+  //       })
+  //       setListData(response?.data)
+  //     } else {
+  //       setListData([])
+  //     }
+  //   } catch (error) {
+  //     setListData([])
 
-    // const fetchDataAsync = async () => {
-    //   try {
-    //     // const response = await Instance.get("/category?limit=true")
-    //     const response = await Instance.get("/my-list")
-    //     if (response.status === 200) {
-    //       response.data.forEach((list: any) => {
-    //         const matchedIcon = icons.find(icon => icon.name === list.iconName);
-    //         if (matchedIcon) {
-    //           list.image = matchedIcon.image;
-    //         }
-    //       })
-    //       setListData(response?.data)
-    //     } else {
-    //       setListData([])
-    //     }
-    //   } catch (error) {
-    //     setListData([])
-  
-    //   }
-    // }
-  
-    // useEffect(() => {
-    //   fetchDataAsync()
-    // }, [])
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchDataAsync()
+  // }, [])
 
   return (
     <>
       <MyListModalLayout
-          isOpen={modalType.myList}
-          onClose={() => closeModal("myList")}
-          {...{ showMap }}
-          title="My Lists"
-          name="myListModal"
-        >
-          <SearchedContainer>
-            <MylistContainer
-              {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }}
-            />
-          </SearchedContainer>
-        </MyListModalLayout>
+        isOpen={modalType.myList}
+        onClose={() => closeModal("myList")}
+        {...{ showMap }}
+        title="My Lists"
+        name="myListModal">
+        <SearchedContainer>
+          <MylistContainer
+            {...{
+              myListtabChange,
+              mylistoptions,
+              myListtabValue,
+              showMap,
+              listData,
+              loader,
+            }}
+          />
+        </SearchedContainer>
+      </MyListModalLayout>
     </>
   );
 };

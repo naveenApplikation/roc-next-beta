@@ -39,7 +39,7 @@ const DashBoard = () => {
 
   const router = useRouter();
 
-  const { showMap, modalClick } = useMyContext()
+  const { showMap, modalClick , dataDetails  } = useMyContext()
   const [listData, setListData] = useState<string[]>([])
 
   const fetchDataAsync = async () => {
@@ -93,6 +93,8 @@ const DashBoard = () => {
       router.push("/screens/categorieList");
     } else if (item === "TrendingList") {
       router.push("/screens/trendingList");
+    } else if (item === "LeaveFeedback") {
+      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
     }
   };
 
@@ -109,6 +111,8 @@ const DashBoard = () => {
       document.body.removeEventListener("click", handleClick);
     };
   }, []);
+
+
 
   return (
     <>
@@ -134,7 +138,7 @@ const DashBoard = () => {
       <DeliciousDine menuClick={menuClick} modalClick={modalClick} />
       <Outout menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} />
-      <LeaveFeedbackButton onClick={() => menuClick("AddToCreate")}>
+      <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
 
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>

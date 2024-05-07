@@ -23,6 +23,7 @@ const Page = () => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
   const toggleSelected = (itemId: number, item: any): void => {
+    console.log("klslklkfs", itemId);
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
     if (selectedIndex === -1) {
       setSelectedItemIds([...selectedItemIds, itemId]);
@@ -37,6 +38,7 @@ const Page = () => {
     }
   };
 
+  console.log(selectedData, "asasas");
   const router = useRouter();
 
   const navigateClick = () => {
@@ -81,9 +83,9 @@ const Page = () => {
       iconName: selectedIcon,
       categoryType: categoryType,
       categoryList,
-      bgColor
+      bgColor,
     };
-    console.log("create list")
+
     try {
       const result = await Instance.post("/create-category", param);
       console.log(result);
@@ -110,6 +112,7 @@ const Page = () => {
     debouncedSearch(value);
   };
 
+  console.log("data icon", selectedItemIds);
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(false);
 
@@ -127,11 +130,6 @@ const Page = () => {
     }
   };
 
-  const handleCreateNewList = async (name: string) => {
-    window.location.reload();
-    setScreenName(name);
-  };
-
   const debouncedSearch = debounce(fetchDataAsync, 300);
 
   const ScreenShowHandle = () => {
@@ -145,7 +143,7 @@ const Page = () => {
           searchQuery={searchQuery}
           handleSearch={handleSearch}
           data={data}
-          loader = {loader}
+          loader={loader}
         />
       );
     } else if (screenName === "drag") {
@@ -187,18 +185,17 @@ const Page = () => {
     } else if (screenName === "ProductAndCommentInfo") {
       return (
         <ProductAndCommentInfo
-          ScreenSwitch={() => postHandler("Greetings")}
+          ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
-          loader={loader}
-          {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
+          {...{ dragData, selectedData }}
         />
       );
     } else if (screenName === "Greetings") {
       return (
         <Greetings
           homePage={navigateClick}
-          preScreen={() => handleCreateNewList("ListDetails")}
+          preScreen={() => screenChangeHandle("ListDetails")}
         />
       );
     }
