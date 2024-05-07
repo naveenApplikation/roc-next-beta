@@ -1,18 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import CategorieList from "@/components/categorieList/page";
-import HeaderScreen from "@/components/header/HeaderScreen";
-import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
-import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
-import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistModalScreen";
-import { useMyContext } from "@/app/Context/MyContext";
+import HeaderScreen from "../../../components/header/HeaderScreen";
+import SearchModalScreen from "../../../components/AllModalScreen/SearchModalScreen";
+import ProfileAccountModalScreen from "../../../components/AllModalScreen/ProfileAccountModalScreen";
+import ProfileMylistModalScreen from "../../../components/AllModalScreen/ProfileMylistModalScreen";
+import { useMyContext } from "../../../app/Context/MyContext";
 import styled from "styled-components";
 import Image from "next/image";
-import { DirectoryItem } from "@/app/utils/data";
+import { DirectoryItem } from "../../../app/utils/data";
 import { useRouter } from "next/navigation";
-import { sideWidth } from "@/app/utils/date";
-import PageLayout from "@/app/pageLayout";
+import { sideWidth } from "../../../app/utils/date";
+import PageLayout from "../../../app/pageLayout";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
