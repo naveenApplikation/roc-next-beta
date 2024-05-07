@@ -3,8 +3,8 @@ import MyListModalLayout from "@/components//modal/Modal";
 import MylistContainer from "@/components/myListModal/page";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
-import Instance from "@/app/utils/Instance";
-import { icons } from "@/app/utils/iconList";
+// import Instance from "@/app/utils/Instance";
+// import { icons } from "@/app/utils/iconList";
 
 interface DashboardSearchContainerProps {
     myListtabChange:Function,
@@ -97,6 +97,9 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myLi
           title="My Lists"
           name="myListModal"
         >
+          {
+            console.log("flsdjflksjlkfsjlkfslkfs", listData) as any
+          }
           <SearchedContainer>
             <MylistContainer
               {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }}
