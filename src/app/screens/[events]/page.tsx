@@ -14,6 +14,7 @@ import { debounce } from 'lodash';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
 import styled from 'styled-components';
 
 
@@ -49,7 +50,7 @@ const EventList = () => {
     };
 
 
-    const [screenName, setScreenName] = useState("ListDetails"); // Set default screen
+    const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
     const [loader, setloader] = useState(true);
 
@@ -112,6 +113,26 @@ const EventList = () => {
     const [data, setData] = useState<ApiResponse[]>([]);
     const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [categoryList, setCategoryList] = useState([]);
+  
+    useEffect(() => {
+      if (screenName) {
+        const newArray: string[] = [];
+  
+        selectedData.map((val: any) => {
+          const newObj: { id: string; type: string } = {
+            id: "",
+            type: "",
+          };
+          (newObj.id = val?._id),
+            (newObj.type = val?.type),
+            newArray.push(newObj as any);
+        });
+  
+        setCategoryList([...newArray] as any);
+      }
+    }, [screenName]);
+  
 
     const toggleSelected = (itemId: number, item: any): void => {
         const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -154,29 +175,26 @@ const EventList = () => {
     const debouncedSearch = debounce(fetchDataAsync, 300);
 
     const postHandler = async (name: string) => {
-        setloader(true);
-        // const param = {
-        //   listName,
-        //   iconName: selectedIcon,
-        //   categoryType: categoryType,
-        //   categoryList,
-        //   bgColor
-        // };
-        // try {
-        //   const result = await Instance.post("/create-category", param);
-        //   console.log(result);
-        //   setloader(false);
-        //   toast.success(result.data.message);
-        //   setScreenName(name);
-        // } catch (error: any) {
-        //   console.log(error.response);
-        //   setloader(false);
-        //   toast.error(error.response.data);
-        //   // setScreenName(name);
-        // } finally {
-        //   setloader(false);
-        //   // setScreenName(name);
-        // }
+        const param = {
+            categoryList,
+        };
+        console.log("category list", categoryList)
+        try {
+            setloader(false);
+          const result = await Instance.put(`/category/${event}`, param);
+          console.log(result);
+          setloader(false);
+          toast.success(result.data.message);
+          setScreenName(name);
+        } catch (error: any) {
+          console.log(error.response);
+          setloader(false);
+          toast.error(error.response.data);
+          // setScreenName(name);
+        } finally {
+          setloader(false);
+          // setScreenName(name);
+        }
     };
 
     const handleCreateNewList = async (name: string) => {
@@ -211,27 +229,15 @@ const EventList = () => {
         } else if (screenName === "AddComments") {
             return (
                 <AddComments
-                    ScreenSwitch={() => screenChangeHandle("ListDetails")}
-                    preScreen={() => screenChangeHandle("ListDetails")}
+                    ScreenSwitch={() => screenChangeHandle("categoryList")}
+                    preScreen={() => screenChangeHandle("categoryList")}
                     homePage={navigateClick}
                 />
             );
-        } else if (screenName === "ListDetails") {
+        } else if (screenName === "categoryList") {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}
                     isOpen={() => screenChangeHandle("create")}
-                //   preScreen={navigateClick}
-                //   homePage={navigateClick}
-                //   {...{
-                //     categoryType,
-                //     setCategoryType,
-                //     setSelectedIcon,
-                //     selectedIcon,
-                //     listName,
-                //     bgColor,
-                //     setBgColor,
-                //     setListName,
-                //   }}
                 />
             );
         } else if (screenName === "ProductAndCommentInfo") {
@@ -250,7 +256,7 @@ const EventList = () => {
             return (
                 <Greetings
                     homePage={navigateClick}
-                    preScreen={() => handleCreateNewList("ListDetails")}
+                    preScreen={() => handleCreateNewList("categoryList")}
                 />
             );
         }

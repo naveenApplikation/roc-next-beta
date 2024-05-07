@@ -83,6 +83,7 @@ const Page = () => {
       categoryList,
       bgColor
     };
+    console.log("create list")
     try {
       const result = await Instance.post("/create-category", param);
       console.log(result);
