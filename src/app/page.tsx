@@ -18,7 +18,6 @@ import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderO
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
-import { toast, ToastContainer } from "react-toastify";
 import InfoAppScreen from "@/components/AllModalScreen/InfoAppModalScreen";
 import PageLayout from "./pageLayout";
 
