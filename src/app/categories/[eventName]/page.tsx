@@ -49,11 +49,12 @@ type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
 
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const params = useParams()
+  const params = useParams<any>()
   let urlData: any
   if (params) {
-
     urlData = (params.eventName).toString().replaceAll("%20", " ")
+  } else if(params){
+    urlData = (params.eventName).toString().replaceAll("%26", " ")
   }
 
   const options = ["Lists", "Places"];

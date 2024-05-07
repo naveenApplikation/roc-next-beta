@@ -14,6 +14,7 @@ interface DashboardSearchContainerProps {
     myListtabValue: string,
     showMap: boolean,
     listData?: any,
+    loader?: boolean,
 }
 
 const InputWrapper = styled.div`
@@ -61,7 +62,7 @@ const SearchedData = styled.div`
 
 
 
-const MylistModal: React.FC<DashboardSearchContainerProps> = ({ myListtabChange, mylistoptions, myListtabValue, showMap, listData }) => {
+const MylistModal: React.FC<DashboardSearchContainerProps> = ({ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }) => {
     return (
 
         <>
@@ -72,7 +73,7 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({ myListtabChange,
             />
             {myListtabValue == "Created" ? (
                 <>
-                    <Lists {...{ listData }} />
+                    <Lists {...{ listData, loader }} />
                 </>
             ) : (
                 <>

@@ -134,6 +134,7 @@ const Directorylist = () => {
   const router = useRouter();
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
+    console.log("hiiii", item, id)
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
@@ -172,7 +173,7 @@ const Directorylist = () => {
       <CategoryBody>
         <HeaderScreen />
         <Container>
-        <TitltCategory>All Categories</TitltCategory>
+        <TitltCategory> All Categories</TitltCategory>
        
         {DirectoryItem.map((item, index) => (
         <DirectoryWrapper key={index}>

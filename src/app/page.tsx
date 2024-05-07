@@ -20,6 +20,8 @@ import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalSc
 import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
 import InfoAppScreen from "@/components/AllModalScreen/InfoAppModalScreen";
 import PageLayout from "./pageLayout";
+import Instance from "./utils/Instance";
+import { icons } from "./utils/iconList";
 
 const Container = styled.div`
   display: flex;
@@ -86,11 +88,38 @@ export default function Home() {
   const [showContent, setShowContent] = useState(false);
 
   const [myListtabValue, setMyListTabValue] = useState("Created");
+  const [listData, setListData] = useState<string[]>([])
+  const [loader, setloader] = useState<boolean>(false)
 
   const mylistoptions = ["Created", "Contributed"];
 
-  const myListtabChange = (value: mylisttabs) => {
+  const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
+    if(value === "Created"){
+      try {
+        setloader(true)
+        // const response = await Instance.get("/category?limit=true")
+        const response = await Instance.get("/my-list")
+        if (response.status === 200) {
+          console.log("list datadddd", response?.data?.categoryList)
+          response?.data?.categoryList.forEach((list: any) => {
+            const matchedIcon = icons.find(icon => icon.name === list.iconName);
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+            setloader(false)
+          })
+          setListData(response?.data?.categoryList)
+        } else {
+          setListData([])
+          setloader(false)
+        }
+      } catch (error) {
+        setListData([])
+        setloader(false)
+  
+      }
+    }
   };
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -111,7 +140,7 @@ export default function Home() {
         </Container>
         <ProfileAccountModalScreen showMap={showMap} />
         <ProfileMylistModalScreen
-          {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+          {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }}
         />
         <FilterModalScreen showMap={showMap} />
         <PlacesModalScreen showMap={showMap} />

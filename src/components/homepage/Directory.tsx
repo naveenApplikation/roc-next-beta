@@ -115,6 +115,7 @@ const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 }
               }}
             >
+
               {item.data[1].title}
             </DirectoryMenuTitle>
           </MainWrapper>

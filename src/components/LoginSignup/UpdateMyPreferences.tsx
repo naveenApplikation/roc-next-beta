@@ -4,6 +4,7 @@ import CommonButton from "@/components/button/CommonButton";
 import Instance from "@/app/utils/Instance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 interface ModalProps {
   previousModal: any;
@@ -94,11 +95,17 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
         const loginData = await Instance.put("update-profile", {
           prefrence: values.prefrence,
         });
-        console.log(loginData);
+        if(loginData.status === 200){
+          toast.success(loginData?.data?.message)
+          setloader(false);
+        } else {
+          
+          toast.error(loginData?.data?.message)
+          setloader(false);
+        }
         isOpen();
       } catch (error: any) {
         console.log(error.message);
-        // showToast(error.message, "error");
         setloader(false);
       } finally {
         setloader(false);

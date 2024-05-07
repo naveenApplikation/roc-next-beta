@@ -3,10 +3,12 @@ import Image from "next/image";
 import styled from "styled-components";
 import { PopularLists } from '../search/Data'
 import { thumbsup } from "@/app/utils/ImagePath";
+import { Spin } from "antd";
 
 
 interface ListProps {
   listData?: any;
+  loader?: any;
 }
 
 
@@ -83,31 +85,34 @@ const LikesContainer = styled.div`
   }
 `;
 
-const Lists: React.FC<ListProps> = ({ listData }) => {
+const Lists: React.FC<ListProps> = ({ listData, loader }) => {
   return (
     <Container>
-      {listData.map((item: any, index: any) => {
-        console.log("list data", item)
-
-        return (
-          <ListContainer key={index}>
-            <ImageTitleContainer>
-              <Imagecontainer style={{ background: item?.bgColor }}>
-                {item?.image}
-              </Imagecontainer>
-              <p>{item?.listName}</p>
-            </ImageTitleContainer>
-            <LikesContainer>
-              <Image
-                style={{ width: 16, height: "auto" }}
-                src={thumbsup}
-                alt="icon"
-              />
-              <p>0</p>
-            </LikesContainer>
-          </ListContainer>
-        )
-      })}
+      {
+        loader ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
+          <Spin tip="Loading" size="large" />
+        </div> :
+          listData.map((item: any, index: any) => {
+            console.log("hiiiiii", item)
+            return (
+              <ListContainer key={index}>
+                <ImageTitleContainer>
+                  <Imagecontainer style={{ background: item?.bgColor }}>
+                    {item?.image}
+                  </Imagecontainer>
+                  <p>{item?.listName}</p>
+                </ImageTitleContainer>
+                <LikesContainer>
+                  <Image
+                    style={{ width: 16, height: "auto" }}
+                    src={thumbsup}
+                    alt="icon"
+                  />
+                  <p>0</p>
+                </LikesContainer>
+              </ListContainer>
+            )
+          })}
 
     </Container>
   );

@@ -111,7 +111,7 @@ const Page = () => {
   };
 
   // Debounce for 300 milliseconds
-  const [loader, setloader] = useState(true);
+  const [loader, setloader] = useState(false);
 
   const fetchDataAsync = async (value: string) => {
     setloader(true);
@@ -132,7 +132,7 @@ const Page = () => {
     setScreenName(name);
   };
 
-  const debouncedSearch = debounce(fetchDataAsync, 0);
+  const debouncedSearch = debounce(fetchDataAsync, 300);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -145,6 +145,7 @@ const Page = () => {
           searchQuery={searchQuery}
           handleSearch={handleSearch}
           data={data}
+          loader = {loader}
         />
       );
     } else if (screenName === "drag") {

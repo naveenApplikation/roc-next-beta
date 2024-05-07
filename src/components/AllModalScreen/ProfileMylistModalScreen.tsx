@@ -10,7 +10,9 @@ interface DashboardSearchContainerProps {
     myListtabChange:Function,
     mylistoptions:any,
     myListtabValue:string,
-    showMap:boolean
+    showMap:boolean;
+    listData?:any;
+    loader?:boolean;
 }
 
 const SearchedContainer = styled.div`
@@ -56,35 +58,35 @@ const SearchedContainer = styled.div`
 
 type tabs = "Lists" | "Places";
 
-const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myListtabChange , mylistoptions , myListtabValue , showMap})=> {
+const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myListtabChange , mylistoptions , myListtabValue , showMap, listData, loader})=> {
 
     const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
-    const [listData, setListData] = useState<string[]>([])
+    // const [listData, setListData] = useState<string[]>([])
 
-    const fetchDataAsync = async () => {
-      try {
-        const response = await Instance.get("/category?limit=true")
-        if (response.status === 200) {
-          response.data.forEach((list: any) => {
-            const matchedIcon = icons.find(icon => icon.name === list.iconName);
-            if (matchedIcon) {
-              list.image = matchedIcon.image;
-            }
-          })
-          setListData(response?.data)
-        } else {
-          setListData([])
+    // const fetchDataAsync = async () => {
+    //   try {
+    //     // const response = await Instance.get("/category?limit=true")
+    //     const response = await Instance.get("/my-list")
+    //     if (response.status === 200) {
+    //       response.data.forEach((list: any) => {
+    //         const matchedIcon = icons.find(icon => icon.name === list.iconName);
+    //         if (matchedIcon) {
+    //           list.image = matchedIcon.image;
+    //         }
+    //       })
+    //       setListData(response?.data)
+    //     } else {
+    //       setListData([])
+    //     }
+    //   } catch (error) {
+    //     setListData([])
   
-        }
-      } catch (error) {
-        setListData([])
+    //   }
+    // }
   
-      }
-    }
-  
-    useEffect(() => {
-      fetchDataAsync()
-    }, [])
+    // useEffect(() => {
+    //   fetchDataAsync()
+    // }, [])
 
   return (
     <>
@@ -97,7 +99,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({myLi
         >
           <SearchedContainer>
             <MylistContainer
-              {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData }}
+              {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }}
             />
           </SearchedContainer>
         </MyListModalLayout>

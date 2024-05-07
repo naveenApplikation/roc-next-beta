@@ -158,9 +158,11 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
 
+
+console.log("hiodfodifs", skeletonItems, urlTitle)
   return (
     <SearchedListContainer>
-      <TitleText>{urlTitle}</TitleText>
+      <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
       <LikeCount>5,281 likes</LikeCount>
       {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>

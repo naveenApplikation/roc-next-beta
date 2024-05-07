@@ -28,6 +28,32 @@ import { FaHatCowboy } from "react-icons/fa";
 import { IoIosMan } from "react-icons/io";
 import { IoIosWoman } from "react-icons/io";
 import { BsFillDisplayFill } from "react-icons/bs";
+import { AiFillApple } from "react-icons/ai";
+import { FaBowlFood } from "react-icons/fa6";
+import { FaPizzaSlice } from "react-icons/fa";
+import { GiFullPizza } from "react-icons/gi";
+import { FaBowlRice } from "react-icons/fa6";
+import { IoIosIceCream } from "react-icons/io";
+import { BiSolidDrink } from "react-icons/bi";
+import { RiDrinksFill } from "react-icons/ri";
+import { FaShoppingBag } from "react-icons/fa";
+import { RiShoppingBasketFill } from "react-icons/ri";
+import { GiTravelDress } from "react-icons/gi";
+import { MdOutlineSportsMartialArts } from "react-icons/md";
+import { MdSportsRugby } from "react-icons/md";
+import { MdSportsMotorsports } from "react-icons/md";
+import { MdSportsMma } from "react-icons/md";
+import { MdSportsKabaddi } from "react-icons/md";
+import { MdSportsBaseball } from "react-icons/md";
+import { MdSportsCricket } from "react-icons/md";
+import { MdSportsFootball } from "react-icons/md";
+import { MdSportsHockey } from "react-icons/md";
+import { IoCarSportSharp } from "react-icons/io5";
+import { MdSportsEsports } from "react-icons/md";
+import { BsMusicPlayerFill } from "react-icons/bs";
+import { MdLibraryMusic } from "react-icons/md";
+
+
 
 
 
@@ -68,6 +94,38 @@ const hatIcon =  <FaHatCowboy style={{fontSize:'40px', borderRadius:'50%', backg
 const manIcon =  <IoIosMan style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
 const womanIcon =  <IoIosWoman style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
 const displayIcon =  <BsFillDisplayFill style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+// ************* represent the food
+const appleIcon =  <AiFillApple style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const bowlFoodIcon =  <FaBowlFood style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const pizzaIcon =  <FaPizzaSlice style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const fullPizzaIcon =  <GiFullPizza style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const riceIcon =  <FaBowlRice style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const iceCreamIcon =  <IoIosIceCream style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+
+const solidDrinkIcon =  <BiSolidDrink style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const drinkFillIcon =  <RiDrinksFill style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const shoppingBagIcon =  <FaShoppingBag style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const shoppingBasketIcon =  <RiShoppingBasketFill style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const travelDressIcon =  <GiTravelDress style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const martialArtsIcon =  <MdOutlineSportsMartialArts style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+
+const rugbyIcon =  <MdSportsRugby style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const sportHelmatIcon =  <MdSportsMotorsports style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const glubsIcon =  <MdSportsMma style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const kabaddiIcon =  <MdSportsKabaddi style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const baseBallIcon =  <MdSportsBaseball style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const cricketIcon =  <MdSportsCricket style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+
+const footBallIcon =  <MdSportsFootball style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const hockeyIcon =  <MdSportsHockey style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const sportCarIcon =  <IoCarSportSharp style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const videoGameIcon =  <MdSportsEsports style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
 
 
@@ -240,7 +298,7 @@ export const icons = [
   {
     id: 28,
     color:'#f2994a',
-    name:'hat',
+    name:'man',
     image: manIcon,
   },
   {
@@ -255,52 +313,149 @@ export const icons = [
     name:'diaplay',
     image: displayIcon,
   },
-//   {
-//     id: 31,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 32,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 33,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 34,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 35,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 36,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 37,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 38,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 39,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 40,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 41,
-//     image: infoCircle,
-//   },
-//   {
-//     id: 42,
-//     image: infoCircle,
-//   },
+  {
+    id: 31,
+    color:'#eb5757',
+    name:'apple',
+    image: appleIcon,
+  },
+  {
+    id: 32,
+    color:'#f2c94c',
+    name:'bowlFood',
+    image: bowlFoodIcon,
+  },
+  {
+    id: 33,
+    color:'#2f80ed',
+    name:'pizza',
+    image: pizzaIcon,
+  },
+  {
+    id: 34,
+    color:'#f2994a',
+    name:'fullPizza',
+    image: fullPizzaIcon,
+  },
+  {
+    id: 35,
+    color:'#27ae60',
+    name:'rice',
+    image: riceIcon,
+  },
+  {
+    id: 36,
+    color:'#4f4f4f',
+    name:'iceCream',
+    image: iceCreamIcon,
+  },
+  {
+    id: 37,
+    color:'#eb5757',
+    name:'solidDrink',
+    image: solidDrinkIcon,
+  },
+  {
+    id: 38,
+    color:'#f2c94c',
+    name:'drinkFill',
+    image: drinkFillIcon,
+  },
+  {
+    id: 39,
+    color:'#2f80ed',
+    name:'shoppingBag',
+    image: shoppingBagIcon,
+  },
+  {
+    id: 40,
+    color:'#f2994a',
+    name:'shoppingBasket',
+    image: shoppingBasketIcon,
+  },
+  {
+    id: 41,
+    color:'#27ae60',
+    name:'TravelDress',
+    image: travelDressIcon,
+  },
+  {
+    id: 42,
+    color:'#4f4f4f',
+    name:'martialArts',
+    image: martialArtsIcon,
+  },
+  {
+    id: 43,
+    color:'#eb5757',
+    name:'rugby',
+    image: rugbyIcon,
+  },
+  {
+    id: 44,
+    color:'#f2c94c',
+    name:'sportHelmat',
+    image: sportHelmatIcon,
+  },
+  {
+    id: 45,
+    color:'#2f80ed',
+    name:'glubs',
+    image: glubsIcon,
+  },
+  {
+    id: 46,
+    color:'#f2994a',
+    name:'kabaddi',
+    image: kabaddiIcon,
+  },
+  {
+    id: 47,
+    color:'#27ae60',
+    name:'baseBall',
+    image: baseBallIcon,
+  },
+  {
+    id: 48,
+    color:'#4f4f4f',
+    name:'cricket',
+    image: cricketIcon,
+  },
+  {
+    id: 49,
+    color:'#eb5757',
+    name:'footBall',
+    image: footBallIcon,
+  },
+  {
+    id: 50,
+    color:'#f2c94c',
+    name:'hockey',
+    image: hockeyIcon,
+  },
+  {
+    id: 51,
+    color:'#2f80ed',
+    name:'sportCar',
+    image: sportCarIcon,
+  },
+  {
+    id: 52,
+    color:'#f2994a',
+    name:'videoGame',
+    image: videoGameIcon,
+  },
+  {
+    id: 53,
+    color:'#27ae60',
+    name:'PlayIpod',
+    image: playIpodIcon,
+  },
+  {
+    id: 54,
+    color:'#4f4f4f',
+    name:'musicLibrary',
+    image: musicLibraryIcon,
+  },
+
 ];
