@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import Dashboard from "@/components/dashboard/DashBoardPage";
 import { useMyContext } from "@/app/Context/MyContext";
 import ShadowWrapper from "@/components/Beta UI/page";
@@ -69,14 +69,14 @@ const DashboardMenu = styled.div<{
   flex-direction: column;
   gap: 24px;
   min-height: 100vh;
-.shoadow_wrapper_container{
-  opacity:0;
-}
+  .shoadow_wrapper_container {
+    opacity: 0;
+  }
   @media screen and (max-width: 800px) {
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-    $showMap ? "calc(100vh - 500px)" : "100vh"};
+      $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 
@@ -94,29 +94,36 @@ export default function Home() {
     setMyListTabValue(value);
   };
   return (
-    <ShadowWrapper {...{ showContent, setShowContent }}>
-      <Container>
-        <MainContainer>
-          <PageLayout>
-            <DashboardMenu $showMap={showMap}>
-              <Header className={showContent ? "shoadow_wrapper_container" : ""} {...{ modalClick, iconClick, showMap }} />
-              <Dashboard />
-            </DashboardMenu>
-          </PageLayout>
-        </MainContainer>
-        <RightSideMenu />
-      </Container>
-      <ProfileAccountModalScreen showMap={showMap} />
-      <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
-      <FilterModalScreen showMap={showMap} />
-      <PlacesModalScreen showMap={showMap} />
-      <CalenderBookDatesModalScreen showMap={showMap} />
-      <PlaceOrderOnlineModalScreen showMap={showMap} />
-      <EventListingModalScreen showMap={showMap} />
-      <ActivitiesModalScreen showMap={showMap} />
-      <DirectoryModalScreen showMap={showMap} />
-      <ViewDirectionModalScreen showMap={showMap} />
-      <InfoAppScreen {...{ showMap }} />
-    </ShadowWrapper>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ShadowWrapper {...{ showContent, setShowContent }}>
+        <Container>
+          <MainContainer>
+            <PageLayout>
+              <DashboardMenu $showMap={showMap}>
+                <Header
+                  className={showContent ? "shoadow_wrapper_container" : ""}
+                  {...{ modalClick, iconClick, showMap }}
+                />
+                <Dashboard />
+              </DashboardMenu>
+            </PageLayout>
+          </MainContainer>
+          <RightSideMenu />
+        </Container>
+        <ProfileAccountModalScreen showMap={showMap} />
+        <ProfileMylistModalScreen
+          {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+        />
+        <FilterModalScreen showMap={showMap} />
+        <PlacesModalScreen showMap={showMap} />
+        <CalenderBookDatesModalScreen showMap={showMap} />
+        <PlaceOrderOnlineModalScreen showMap={showMap} />
+        <EventListingModalScreen showMap={showMap} />
+        <ActivitiesModalScreen showMap={showMap} />
+        <DirectoryModalScreen showMap={showMap} />
+        <ViewDirectionModalScreen showMap={showMap} />
+        <InfoAppScreen {...{ showMap }} />
+      </ShadowWrapper>
+    </Suspense>
   );
 }
