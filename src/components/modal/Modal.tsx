@@ -22,10 +22,9 @@ const StyledModal = styled.div<{
   top: 0;
   left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
     $isopen
-      ? `${
-          190 -
-          ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
-        }%`
+      ? `${190 -
+      ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
+      }%`
       : "0%"};
   transform: translateX(
     -${({ $screenwidthpercentage, $showMap }) => 230 - ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)}%
@@ -67,8 +66,11 @@ const StyledModal = styled.div<{
   }
 
   @media screen and (min-width: 1500px) {
-    left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
-    /* transform: none; */
+    // left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
+    left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
+    transform: translateX(
+      ${({ $screenwidthpercentage, $showMap }) =>  ($showMap ? 20 : -500)}px
+    );
   }
 
 
@@ -90,9 +92,9 @@ const StyledModal = styled.div<{
     height: 100%;
 
     bottom: ${({ $isopen }) =>
-      $isopen
-        ? "0%"
-        : "-100%"}; // Position at bottom if open, otherwise off-screen
+    $isopen
+      ? "0%"
+      : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
     transition: bottom 0.8s ease-in-out;
   }
@@ -150,7 +152,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div className="modal-content">
         <HeaderContainer>
-          <h4 style={{textTransform:'capitalize'}}>{title}</h4>
+          <h4 style={{ textTransform: 'capitalize' }}>{title}</h4>
           <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}

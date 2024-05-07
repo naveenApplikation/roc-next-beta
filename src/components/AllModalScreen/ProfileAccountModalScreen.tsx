@@ -12,6 +12,7 @@ import ContactUs from "@/components/LoginSignup/ContactUs";
 import UpdateMyPreferences from "@/components/LoginSignup/UpdateMyPreferences";
 import Welcomeback from "@/components/LoginSignup/Welcomeback";
 import ThankYouDiresctoryModal from "@/components/modal/ThankYouDiresctoryModal";
+import { useRouter } from "next/navigation";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -22,8 +23,19 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
 }) => {
 
   const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
-  
-  const { modalName, closeModal, modalClick} = useMyContext();
+
+  const { modalName, closeModal, modalClick } = useMyContext();
+  const router = useRouter();
+
+  const logoutClick = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+  const onClick = (name: string) => {
+    if (name === "AddToCreate") {
+      router.push("/screens/createList");
+    }
+  }
 
   const showLoginHandle = () => {
     if (modalName === "createAccountModal") {
@@ -34,6 +46,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
               myListOpen={() => modalClick("myList")}
+              {...{ logoutClick, onClick }}
             />
           ) : (
             <CreateAccountContent
@@ -51,6 +64,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
               myListOpen={() => modalClick("myList")}
+              {...{ logoutClick, onClick }}
             />
           ) : (
             <LoginAccountContent
@@ -67,6 +81,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             isOpen={() => modalClick("UpdateMyDetailsModal")}
             isOpenContact={() => modalClick("ContactUsModal")}
             myListOpen={() => modalClick("myList")}
+            {...{ logoutClick, onClick }}
           />
         </>
       );

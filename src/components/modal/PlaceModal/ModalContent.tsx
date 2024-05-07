@@ -251,8 +251,8 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationMenu,
 }) => {
   const [showApiData, setShowApiData] = useState(data);
-  console.log("datadatadata" , data);
-  
+  console.log("datadatadata", data);
+
   const ResturantDetailData = [
     {
       name: "Open ⋅ Closes 11 pm",
@@ -412,6 +412,7 @@ const ModalContent: React.FC<ModalProps> = ({
       <ResturantDetailsContainer>
         {ResturantDetailData.map((item, index) => {
           return (
+            item.name &&
             <ResturantDetailsWrapper key={index}>
               {" "}
               <Image

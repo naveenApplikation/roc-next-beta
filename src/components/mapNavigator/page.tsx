@@ -27,6 +27,7 @@ const MapNavigatorText = styled.div`
     font-size:14px;
     font-weight:400;
     white-space:nowrap;
+    color:black;
 `
 
 const mapNavigatorData = [
@@ -72,7 +73,7 @@ const ScrollingMenu = styled.div`
 const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
     return (
         <ScrollingMenu>
-            {mapNavigatorData.map((item: any,index:any) => {
+            {mapNavigatorData.map((item: any, index: any) => {
                 return (
                     <MapNavigatorBox key={index}>
                         <Image src={item.img} alt='' />

@@ -130,6 +130,7 @@ import betaHighImg from '../../../assets/images/betaHigh.svg'
 import LogoNewImg from '../../../assets/images/LogoNew.svg'
 import mapNewImg from '../../../assets/images/mapNew.svg'
 import profileNewImg from '../../../assets/images/profileNew.svg'
+import logoutImage from "../../../assets/images/menuModalsImage/icons8-logout-96.png"
 
 export const NewLogoRoc = NewLogoRocImg 
 export const ROCLogoWhite = ROCLogoWhiteImg 
@@ -259,3 +260,4 @@ export const List4 =  ListIcon4
 export const List5 =  ListIcon5
 export const List6 =  ListIcon6
 export const List7 =  ListIcon7
+export const Logout =  logoutImage

@@ -19,8 +19,10 @@ const RightSideMenuContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   overflow: auto;
-  padding: 40px;
   gap: 24px;
+  position:absolute ;
+  top: 60px;
+  right : 30px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -91,6 +93,7 @@ const RightSideInsideMenuBox = styled.div`
   @media screen and (max-width: 800px) {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(10px); 
   }
   @media screen and (max-width: 530px) {
     flex-direction: column;
@@ -135,6 +138,7 @@ const AllCategories = styled.div`
   align-items: center;
   margin-top: 8px;
   cursor: pointer;
+  backdrop-filter: blur(10px); 
 
   button {
     width: 100%;
