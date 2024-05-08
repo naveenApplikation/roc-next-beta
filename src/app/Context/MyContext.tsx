@@ -20,6 +20,7 @@ interface ContextProps {
   closeModal: (name: string) => void;
   modalClick: (name: string, item?: any, urlImage?: any) => void;
   iconClick: (name: string) => void;
+  mapButtonClick:()=>void;
   filterUrls: any;
   handleApiResponse: any;
   showContent: boolean;
@@ -101,6 +102,10 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
+  const mapButtonClick=()=>{
+    setShowMap(false);
+  }
+
 
   const modalClick = (name: string, item?: any, urlImage?: any,openReservation?:any) => {
     setModalType((prev) => ({
@@ -151,6 +156,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     closeModal,
     modalClick,
     iconClick,
+    mapButtonClick,
     filterUrls,
     dataUrlImage,
     handleApiResponse,
