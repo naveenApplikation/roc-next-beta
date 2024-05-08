@@ -86,6 +86,9 @@ import cartShoppingIcon3 from  "../../../assets/images/cart-shoppingsa.svg"
 import cartShoppingIcon4 from  "../../../assets/images/cart-shoppingsas.svg"
 import cartShoppingIcon5 from  "../../../assets/images/cart-shoppingsw.svg"
 import cartShoppingIcon6 from  "../../../assets/images/cartShoppingFrog.svg"
+import radioImg from  "../../../assets/images/radio.png"
+import parkingImg from  "../../../assets/images/parking.png"
+import taxiImg from  "../../../assets/images/taxi.png"
 
 
 
@@ -261,3 +264,6 @@ export const List5 =  ListIcon5
 export const List6 =  ListIcon6
 export const List7 =  ListIcon7
 export const Logout =  logoutImage
+export const taxi  = taxiImg
+export const parking  = parkingImg
+export const radio  = radioImg

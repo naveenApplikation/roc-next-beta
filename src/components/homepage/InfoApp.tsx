@@ -34,6 +34,10 @@ const NormalOption = styled.div`
   align-items: center;
   gap: 8px;
   justify-content: space-between;
+  img{
+    height:18px;
+    width:18px;
+  }
 `;
 
 const Tittle = styled.p`
@@ -61,7 +65,7 @@ const InfoApp: React.FC<DashboardProps> = ({
               onClick={() => modalClick("infoApp", item.name)}
             >
               <Image src={item.image} alt="right icon" />
-              <Tittle style={{textTransform:index==3 ? "uppercase":"capitalize"}}>{item.name}</Tittle>
+              <Tittle style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{item.name}</Tittle>
             </NormalOption>
           );
         })}

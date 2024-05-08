@@ -4,7 +4,6 @@ import child from "../../../assets/images/createListImages/chooseIcons/child.png
 import wheelChair from "../../../assets/images/createListImages/chooseIcons/wheelchair.png";
 import dog from "../../../assets/images/createListImages/chooseIcons/dog.png";
 import burgerSoda from "../../../assets/images/createListImages/chooseIcons/burger-soda.png";
-import taxi from "../../../assets/images/createListImages/chooseIcons/taxi.png";
 import pipeValve from "../../../assets/images/createListImages/chooseIcons/pipe-valve.png";
 import leaf from "../../../assets/images/createListImages/chooseIcons/leaf.png";
 import siren from "../../../assets/images/createListImages/chooseIcons/siren.png";
@@ -61,6 +60,9 @@ import {
   compass,
   glass,
   ellipsis,
+  parking,
+  radio,
+  taxi,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
@@ -69,25 +71,31 @@ export const topSideMenu = [
     image: sun,
   },
   {
+    name: "tides",
+    image: tides,
+    width: 18,
+    height: 16,
+  },
+  {
+    name: "parking",
+    image: parking,
+    width: 18,
+    height: 16,
+  },
+  {
     name: "news",
     image: news,
   },
   {
-    name: "travels",
+    name: "taxis",
+    image: taxi,
+    width: 18,
+    height: 16,
+  },
+  {
+    name: "buses",
     image: van,
     width: 20,
-    height: 16,
-  },
-  {
-    name: "sos",
-    image: sos,
-    width: 20,
-    height: 16,
-  },
-  {
-    name: "tides",
-    image: tides,
-    width: 18,
     height: 16,
   },
   {
@@ -101,17 +109,19 @@ export const topSideMenu = [
     image: saling,
   },
   {
-    name: "phones",
-    image: network,
+    name: "sos",
+    image: sos,
+    width: 20,
+    height: 16,
   },
   {
-    name: "Holidays",
-    image: holidayDas,
+    name: "radio",
+    image: radio,
+    width: 20,
+    height: 16,
   },
-  {
-    name: "Beaches",
-    image: beachumbrella,
-  },
+ 
+
 ];
 
 export const rightSideMenu = [
