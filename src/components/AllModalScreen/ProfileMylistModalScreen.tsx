@@ -12,7 +12,6 @@ interface DashboardSearchContainerProps {
   myListtabValue: string;
   showMap: boolean;
   listData?: any;
-  loader?: boolean;
 }
 
 const SearchedContainer = styled.div`
@@ -63,37 +62,42 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   mylistoptions,
   myListtabValue,
   showMap,
-  listData,
-  loader,
 }) => {
   const { modalName, closeModal, modalClick, dataDetails, modalType } =
     useMyContext();
-  // const [listData, setListData] = useState<string[]>([])
+  const [listData, setListData] = useState<string[]>([])
+  const [loader, setloader] = useState<boolean>(false)
 
-  // const fetchDataAsync = async () => {
-  //   try {
-  //     // const response = await Instance.get("/category?limit=true")
-  //     const response = await Instance.get("/my-list")
-  //     if (response.status === 200) {
-  //       response.data.forEach((list: any) => {
-  //         const matchedIcon = icons.find(icon => icon.name === list.iconName);
-  //         if (matchedIcon) {
-  //           list.image = matchedIcon.image;
-  //         }
-  //       })
-  //       setListData(response?.data)
-  //     } else {
-  //       setListData([])
-  //     }
-  //   } catch (error) {
-  //     setListData([])
+  const fetchDataAsync = async () => {
+    try {
+      setloader(true)
+      // const response = await Instance.get("/category?limit=true")
+      const response = await Instance.get("/my-list")
+      
+          const list = [response.data]
+      if (response.status === 200) {
+        list.forEach((list: any) => {
+          const matchedIcon = icons.find(icon => icon.name === list.iconName);
+          if (matchedIcon) {
+            list.image = matchedIcon.image;
+          }
+        })
+        setListData(list)
+        setloader(false)
+      } else {
+        setListData([])
+        setloader(false)
+      }
+    } catch (error) {
+      setListData([])
+      setloader(false)
 
-  //   }
-  // }
+    }
+  }
 
-  // useEffect(() => {
-  //   fetchDataAsync()
-  // }, [])
+  useEffect(() => {
+    fetchDataAsync()
+  }, [])
 
   return (
     <>
