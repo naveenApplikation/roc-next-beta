@@ -1,5 +1,6 @@
 import { Store, calender, castle, location, utensils } from '@/app/utils/ImagePath';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -37,7 +38,8 @@ const mapNavigatorData = [
     },
     {
         img: castle,
-        name: "To do"
+        name: "To do",
+        url:"attration"
     },
     {
         img: utensils,
@@ -45,7 +47,8 @@ const mapNavigatorData = [
     },
     {
         img: Store,
-        name: "Shop"
+        name: "Shop",
+        url:"shopsandMarket"
     },
     {
         img: calender,
@@ -71,11 +74,21 @@ const ScrollingMenu = styled.div`
 
 
 const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
+
+    const router = useRouter();
+    const menuClick = (item: any, condition?: boolean, id?: any) => {
+        if (condition) {
+          router.push(`/categories/${item}?search=${id}`);
+        } else if (item === "directoryList") {
+          router.push("/screens/directoryList");
+        } 
+      };
+    
     return (
         <ScrollingMenu>
             {mapNavigatorData.map((item: any, index: any) => {
                 return (
-                    <MapNavigatorBox key={index}>
+                    <MapNavigatorBox key={index} onClick={()=>menuClick(item.name, true, item.url)}>
                         <Image src={item.img} alt='' />
                         <MapNavigatorText>
                             {item.name}
