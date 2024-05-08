@@ -263,7 +263,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                   alt="Logo Outline"
                 />
               </div>
-              <div>
+              {/* <div>
                 <JoinText
                   onClick={() => modalClick("ModalContent")}
                   style={{ cursor: "pointer" }}
@@ -276,7 +276,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 >
                   Read more about ROC
                 </JoinText>
-              </div>
+              </div> */}
             </div>
           </>
         )}

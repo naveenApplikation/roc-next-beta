@@ -1,5 +1,7 @@
+import { useMyContext } from '@/app/Context/MyContext';
 import { Store, calender, castle, location, utensils } from '@/app/utils/ImagePath';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -37,19 +39,23 @@ const mapNavigatorData = [
     },
     {
         img: castle,
-        name: "To do"
+        name: "To do",
+        url: "attration"
     },
     {
         img: utensils,
-        name: "Dine"
+        name: "Dine",
+        url: "foodandDrinks"
     },
     {
         img: Store,
-        name: "Shop"
+        name: "Shop",
+        url: "shopsandMarket"
     },
     {
         img: calender,
-        name: "Events"
+        name: "Events",
+        url:"family-events"
     },
 ]
 
@@ -71,11 +77,24 @@ const ScrollingMenu = styled.div`
 
 
 const MapNavigator: React.FC<MapNavigatorProps> = (props) => {
+
+    const router = useRouter();
+    const { mapButtonClick } = useMyContext();
+    const menuClick = (item: any, condition?: boolean, id?: any) => {
+        if(item ==="St Heiler"){
+
+        }
+        else if (condition) {
+            router.push(`/categories/${item}?search=${id}`);
+            mapButtonClick()
+        }
+    };
+
     return (
         <ScrollingMenu>
             {mapNavigatorData.map((item: any, index: any) => {
                 return (
-                    <MapNavigatorBox key={index}>
+                    <MapNavigatorBox key={index} onClick={() => menuClick(item.name, true, item.url)}>
                         <Image src={item.img} alt='' />
                         <MapNavigatorText>
                             {item.name}

@@ -98,7 +98,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
           <Spin tip="Loading" size="large" />
         </div>
       ) : (
-        listData.map((item: any, index: any) => {
+        listData?.map((item: any, index: any) => {
           console.log("hiiiiii", item);
           return (
             <ListContainer key={index}>

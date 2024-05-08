@@ -86,6 +86,9 @@ import cartShoppingIcon3 from  "../../../assets/images/cart-shoppingsa.svg"
 import cartShoppingIcon4 from  "../../../assets/images/cart-shoppingsas.svg"
 import cartShoppingIcon5 from  "../../../assets/images/cart-shoppingsw.svg"
 import cartShoppingIcon6 from  "../../../assets/images/cartShoppingFrog.svg"
+import radioImg from  "../../../assets/images/radio.png"
+import parkingImg from  "../../../assets/images/parking.png"
+import taxiImg from  "../../../assets/images/taxi.png"
 
 
 
@@ -277,3 +280,6 @@ export const faceBook = facebookIcon;
 export const instaGram = instagramIcon;
 export const linkedIn = linkedInIcon;
 export const Twitter = twitterIcon;
+export const taxi  = taxiImg
+export const parking  = parkingImg
+export const radio  = radioImg

@@ -130,7 +130,7 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
         });
         localStorage.setItem("loginToken", loginData.data.token);
         console.log(loginData);
-        nextModal()
+        nextModal();
       } catch (error: any) {
         console.log(error.message);
         showToast(error.message, "error");
@@ -171,11 +171,11 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
           I would like to receive offers and news from ROC.
         </ReceiveOffersText>
       </SelectReceiveOffers>
-        <CommonButton
-          bcColor="#2F80ED"
-          text={loader ? "Loading..." : "Create Acccount"}
-          isOpen={formik.handleSubmit}
-        />
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Create Account"}
+        isOpen={formik.handleSubmit}
+      />
       <UserTermsText1>
         By continuing, I agree to the{" "}
         <UserTermsText2>User Terms</UserTermsText2>
