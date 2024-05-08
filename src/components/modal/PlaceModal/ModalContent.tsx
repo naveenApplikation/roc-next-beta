@@ -384,17 +384,25 @@ const ModalContent: React.FC<ModalProps> = ({
 
   return (
     <Container>
+      {
+        console.log("foramattedvalue", showApiData) as any
+      }
       <ResturatContainer>
         <ResturatWrapper>
           <p style={{ fontSize: "16px" }}>{formattedValues()}</p>
           <p style={{ fontSize: 16 }}>|</p>
           <OpenRestText>OPEN</OpenRestText>
         </ResturatWrapper>
-        <Image
+        <Ratings
+          defaultValue={data?.rating}
+          giveRating={giveRating}
+          ratingvalue={data?.rating}
+        />
+        {/* <Image
           style={{ cursor: "pointer" }}
           src={BlackStar}
           alt="Logo Outline"
-        />
+        /> */}
       </ResturatContainer>
       <ItemImageContainer>
         <ImageWrraper

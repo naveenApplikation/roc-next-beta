@@ -86,6 +86,9 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 MenutitleDetail={item.acf.title}
                 isOpen={() => modalClick("ModalContent", item, filteredUrls[index],true)}
               />
+              {
+                console.log("rating cuisine", item) as any
+              }
             </div>
           ))
         )}

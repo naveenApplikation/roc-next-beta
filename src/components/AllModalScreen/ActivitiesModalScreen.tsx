@@ -19,6 +19,9 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
     dataUrlImage,
   } = useMyContext();
 
+
+
+
   return (
     <>
       <ActivitiesModalLayout
@@ -28,6 +31,7 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
         {...{ showMap }}
         title={dataDetails?.acf?.title}
       >
+
         <ActivitiesModal
              dataImage={dataUrlImage}
              reservationModal={modalClick}

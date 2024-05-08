@@ -88,44 +88,44 @@ export default function Home() {
   const [showContent, setShowContent] = useState(false);
 
   const [myListtabValue, setMyListTabValue] = useState("Created");
-  const [listData, setListData] = useState<string[]>([])
-  const [loader, setloader] = useState<boolean>(false)
+  // const [listData, setListData] = useState<string[]>([])
 
   const mylistoptions = ["Created", "Contributed"];
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
-    if(value === "Created"){
-      try {
-        setloader(true)
-        // const response = await Instance.get("/category?limit=true")
-        const response = await Instance.get("/my-list")
-        if (response.status === 200) {
-          console.log("list datadddd", response)
-          const list = [response.data]
-          list.forEach((list: any) => {
-            const matchedIcon = icons.find(icon => icon.name === list.iconName);
-            if (matchedIcon) {
-              list.image = matchedIcon.image;
-            }
-          })
-          setListData(list)
-          setloader(false)
-        } else {
-          setListData([])
-          setloader(false)
-        }
-      } catch (error) {
-        setListData([])
-        setloader(false)
+  }
+  //   if(value === "Created"){
+  //     try {
+  //       setloader(true)
+  //       // const response = await Instance.get("/category?limit=true")
+  //       const response = await Instance.get("/my-list")
+  //       if (response.status === 200) {
+  //         console.log("list datadddd", response)
+  //         const list = [response.data]
+  //         list.forEach((list: any) => {
+  //           const matchedIcon = icons.find(icon => icon.name === list.iconName);
+  //           if (matchedIcon) {
+  //             list.image = matchedIcon.image;
+  //           }
+  //         })
+  //         setListData(list)
+  //         setloader(false)
+  //       } else {
+  //         setListData([])
+  //         setloader(false)
+  //       }
+  //     } catch (error) {
+  //       setListData([])
+  //       setloader(false)
   
-      }
-    }
-  };
+  //     }
+  //   }
+  // };
 
-  useEffect(()=>{
-    myListtabChange("Created")
-  },[])
+  // useEffect(()=>{
+  //   myListtabChange("Created")
+  // },[])
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
@@ -145,7 +145,7 @@ export default function Home() {
         </Container>
         <ProfileAccountModalScreen showMap={showMap} />
         <ProfileMylistModalScreen
-          {...{ myListtabChange, mylistoptions, myListtabValue, showMap, listData, loader }}
+          {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
         />
         <FilterModalScreen showMap={showMap} />
         <PlacesModalScreen showMap={showMap} />
