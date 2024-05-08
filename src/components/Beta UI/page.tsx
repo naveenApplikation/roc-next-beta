@@ -7,7 +7,7 @@ import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
-import { ROCLogo, ROCLogoWhite,betaHigh } from "@/app/utils/ImagePath";
+import { ROCLogo, ROCLogoWhite, Twitter, betaHigh, faceBook, instaGram, linkedIn } from "@/app/utils/ImagePath";
 import { useSearchParams } from "next/navigation";
 
 interface ShadowWrapperProps {
@@ -131,7 +131,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
   const searchParams = useSearchParams();
   const query = searchParams.get('code');
 
-  console.log(inputValue,"asas")
+  console.log(inputValue, "asas")
 
   const fetchDataAsync = async () => {
     setloader(true);
@@ -149,14 +149,14 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
     }
   };
 
-  useEffect(()=>{
-    if(query){
+  useEffect(() => {
+    if (query) {
       setInputValue(query)
-      if(inputValue){
+      if (inputValue) {
         fetchDataAsync()
       }
     }
-  },[inputValue])
+  }, [inputValue])
 
   const [modalType, setModalType] = useState({
     ModalContent: false,
@@ -232,6 +232,36 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 <div onClick={fetchDataAsync} style={{ marginTop: 8 }}>
                   <CommonButton text={loader ? "Loading..." : "Submit"} />
                 </div>
+              </div>
+              <div style={{display:'flex', gap:'25px', justifyContent:'center'}}>
+                <Image
+                  style={{ cursor: "pointer" }}
+                  src={faceBook}
+                  width={25}
+                  height={25}
+                  alt="Logo Outline"
+                />
+                <Image
+                  style={{ cursor: "pointer" }}
+                  src={instaGram}
+                  width={25}
+                  height={25}
+                  alt="Logo Outline"
+                />
+                <Image
+                  style={{ cursor: "pointer" }}
+                  src={linkedIn}
+                  width={25}
+                  height={25}
+                  alt="Logo Outline"
+                />
+                <Image
+                  style={{ cursor: "pointer" }}
+                  src={Twitter}
+                  width={25}
+                  height={25}
+                  alt="Logo Outline"
+                />
               </div>
               <div>
                 <JoinText

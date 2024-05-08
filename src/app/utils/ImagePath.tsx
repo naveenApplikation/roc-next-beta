@@ -131,6 +131,17 @@ import LogoNewImg from '../../../assets/images/LogoNew.svg'
 import mapNewImg from '../../../assets/images/mapNew.svg'
 import profileNewImg from '../../../assets/images/profileNew.svg'
 import logoutImage from "../../../assets/images/menuModalsImage/icons8-logout-96.png"
+import facebookIcon from "../../../assets/images/MobileIcon/facebook.svg"
+import instagramIcon from "../../../assets/images/MobileIcon/instagram.svg"
+import linkedInIcon from "../../../assets/images/MobileIcon/linkedin.svg"
+import twitterIcon from "../../../assets/images/MobileIcon/x-twitter.svg"
+
+
+
+
+
+
+
 
 export const NewLogoRoc = NewLogoRocImg 
 export const ROCLogoWhite = ROCLogoWhiteImg 
@@ -261,3 +272,8 @@ export const List5 =  ListIcon5
 export const List6 =  ListIcon6
 export const List7 =  ListIcon7
 export const Logout =  logoutImage
+
+export const faceBook = facebookIcon;
+export const instaGram = instagramIcon;
+export const linkedIn = linkedInIcon;
+export const Twitter = twitterIcon;
