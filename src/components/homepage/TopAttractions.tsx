@@ -7,7 +7,8 @@ import Image from "next/image";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
+import { topAttractionMapping } from "@/app/utils/mappingFun";
 
 interface DashboardProps {
   modalClick?: any;
@@ -55,11 +56,18 @@ const TopAttractionprofile = styled.div`
   background-size: contain;
 `;
 
+const ImageTag = styled.img`
+width:100%;
+border-radius:50%;
+object-fit:cover;
+height:100%;
+`
+
 const TopAttractions: React.FC<DashboardProps> = ({
   modalClick,
   menuClick,
 }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -68,9 +76,11 @@ const TopAttractions: React.FC<DashboardProps> = ({
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/top-attractions");
+        console.log("top attractions", result)
+        topAttractionMapping(result?.data, setData)
         setData(result.data);
       } catch (error: any) {
         console.log(error.message);
@@ -85,7 +95,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -98,34 +108,40 @@ const TopAttractions: React.FC<DashboardProps> = ({
       <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{borderRadius:"100%"}} />
-                <Skeleton width={80} height={15} style={{marginTop:8,borderRadius:6}} />
-              </div>
-            ))
+            <div key={index}>
+              <Skeleton width={80} height={80} style={{ borderRadius: "100%" }} />
+              <Skeleton width={80} height={15} style={{ marginTop: 8, borderRadius: 6 }} />
+            </div>
+          ))
           : data?.slice(0, 10).map((item, index) => {
-              return (
-                <TopAttractionContainer
-                  key={index}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    modalClick("ModalContent", item, filteredUrls[index])
-                  }
-                >
-                  <TopAttractionprofile>
+            return (
+              <TopAttractionContainer
+                key={index}
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                }
+              >
+                <TopAttractionprofile>
+                  {
+                    item?.data_type === "google" ?
+                    <ImageTag src={item.photoUrl} alt="Image" />
+                    :
                     <Image
-                      src={filteredUrls[index]}
-                      alt=""
-                     width={500}
-                      height={80}
-                      style={{ borderRadius:"100%", maxWidth: "100%",objectFit:'cover' }}
-                      // alt=""
-                    />
-                  </TopAttractionprofile>
-                  <p>{item.acf.title}</p>
-                </TopAttractionContainer>
-              );
-            })}
+                        src={filteredUrls[index]}
+                        alt=""
+                       width={500}
+                        height={80}
+                        style={{ borderRadius:"100%", maxWidth: "100%",objectFit:'cover' }}
+                        // alt=""
+                      />
+
+                  }
+                </TopAttractionprofile>
+                <p>{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
+              </TopAttractionContainer>
+            );
+          })}
       </ScrollingMenu>
     </>
   );

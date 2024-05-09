@@ -259,15 +259,15 @@ const ModalContent: React.FC<ModalProps> = ({
       image: clock,
     },
     {
-      name: data.acf?.website,
+      name: data?.acf?.website,
       image: globes,
     },
     {
-      name: data.acf?.telephone_number.formatted,
+      name: data?.acf?.telephone_number?.formatted,
       image: phoneBlack,
     },
     {
-      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}`,
+      name: `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
       image: locationDot,
     },
   ];
@@ -313,7 +313,7 @@ const ModalContent: React.FC<ModalProps> = ({
         try {
           const ReviewData = await Instance.get(`review/${data?._id}`);
           console.log(ReviewData, "sdsdsds");
-          setReviewData(ReviewData.data);
+          setReviewData(ReviewData?.data);
           setReviewShowToggle(false);
         } catch (error: any) {
           console.log(error.message);
@@ -329,7 +329,7 @@ const ModalContent: React.FC<ModalProps> = ({
   const fetchDataAsync = async () => {
     setloader(true);
     const param = {
-      placeId: data._id,
+      placeId: data?._id,
       rating: rating,
       comment: commentReview,
     };
@@ -357,19 +357,19 @@ const ModalContent: React.FC<ModalProps> = ({
   };
 
   const formattedValues = () => {
-    if (Array.isArray(data.acf?.type)) {
-      return data.acf?.type.map((item: any) => item.label).join(" | ");
+    if (Array.isArray(data?.acf?.type)) {
+      return data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
-      return data.acf?.type.label;
+      return data?.acf?.type?.label;
     }
   };
 
-  const strippedContent = data.acf?.short_description
+  const strippedContent = data?.acf?.short_description
     .replace(/<p[^>]*>/g, "")
     .replace(/<\/p>/g, "");
 
-  const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
-  const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as {
+  const daysOfWeek = Object.keys(data?.acf?.opening_hours ?? {});
+  const daysOfWeekTiming = Object.values(data?.acf?.opening_hours ?? {}) as {
     opens: string;
     closes: string;
   }[];
@@ -420,12 +420,12 @@ const ModalContent: React.FC<ModalProps> = ({
       <ResturantDetailsContainer>
         {ResturantDetailData.map((item, index) => {
           return (
-            item.name &&
+            item?.name &&
             <ResturantDetailsWrapper key={index}>
               {" "}
               <Image
                 style={{ cursor: "pointer" }}
-                src={item.image}
+                src={item?.image}
                 alt="Logo Outline"
               />{" "}
               {index == 1 ? (
@@ -433,7 +433,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   {item?.name}
                 </RestDetailTitleWebsite>
               ) : (
-                <RestDetailTitle>{item.name}</RestDetailTitle>
+                <RestDetailTitle>{item?.name}</RestDetailTitle>
               )}
               {index == 0 && (
                 <Image
@@ -504,8 +504,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 index={index}
                 id={item?._id}
                 Titletext="ELCIAS DE FREITAS"
-                Maintext={item.comment}
-                starRating={item.rating}
+                Maintext={item?.comment}
+                starRating={item?.rating}
                 like={24}
                 disLike={7}
                 handleEdit={handleEdit}
@@ -546,11 +546,11 @@ const ModalContent: React.FC<ModalProps> = ({
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-          {data.acf?.seasonality &&
-            data.acf?.seasonality.map((item: any, index: any) => (
+          {data?.acf?.seasonality &&
+            data?.acf?.seasonality.map((item: any, index: any) => (
               <p key={index}>
-                {item.label}
-                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+                {item?.label}
+                {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
               </p>
             ))}
         </DatesWrapperText>
@@ -569,11 +569,11 @@ const ModalContent: React.FC<ModalProps> = ({
           return (
             <div key={index}>
               <RatingMenu
-                title={item.menuName}
-                headerImage={item.headerImage}
-                menuImageUrl={item.image}
+                title={item?.menuName}
+                headerImage={item?.headerImage}
+                menuImageUrl={item?.image}
                 containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
+                MenutitleDetail={item?.resturantName}
               />
             </div>
           );

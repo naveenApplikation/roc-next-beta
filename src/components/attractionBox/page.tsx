@@ -1,4 +1,4 @@
-import {thumbsup, utensils } from "@/app/utils/ImagePath";
+import { thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -148,6 +148,13 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
 `;
 
+const ImageTag = styled.img`
+width:80px;
+border-radius:4px;
+object-fit:cover;
+height:100%;
+`
+
 const AttractionBox: React.FC<AttractionBoxProps> = ({
   urlTitle,
   urlData,
@@ -159,7 +166,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
   const skeletonItems = new Array(10).fill(null);
 
 
-console.log("hiodfodifs", skeletonItems, urlTitle)
+  console.log("hiodfodifs", urlData)
   return (
     <SearchedListContainer>
       <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
@@ -174,81 +181,89 @@ console.log("hiodfodifs", skeletonItems, urlTitle)
           <SearchedData key={index}>
             <MainWrraper>
               <MainInsideWrapper>
-              <Skeleton width={80} height={80} style={{borderRadius:8}} />
-              <div className="restroRating">
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              </div>
+                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                <div className="restroRating">
+                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                </div>
               </MainInsideWrapper>
               <div className="likes">
-              <Skeleton width={16} height={16} />
+                <Skeleton width={16} height={16} />
               </div>
             </MainWrraper>
-            </SearchedData>
-          ))
+          </SearchedData>
+        ))
         : urlData?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainWrraper>
-                  <MainInsideWrapper>
-                    <div style={{ position: "relative" }}>
-                      <Image
-                        // style={{ background: "white" }}
-                        src={filteredUrls[index]}
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: 4,
-                          // maxWidth: "100%",
-                          width:"80px",
-                          objectFit: "cover",
-                        }}
-                        alt=""
+          return (
+            <SearchedData key={index}>
+              <MainWrraper>
+                <MainInsideWrapper>
+                  <div style={{ position: "relative" }}>
+                    {
+                      item?.data_type === "google" ?
+                        <ImageTag src={item.photoUrl} alt="Image"
                         onClick={() =>
-                          modalClick("ModalContent", item, filteredUrls[index])
+                          modalClick("ModalContent", item, item.photoUrl)
                         }
-                      />
-                      {item.deliverActive && (
-                        <DeliveryContainer>
-                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
-                            width={10}
-                            height={8}
-                            alt=""
-                          />
-                          <p>delivery</p>
-                        </DeliveryContainer>
-                      )}
-                      {item.NewRes && (
-                        <NewResturant>
-                          <p>New</p>
-                        </NewResturant>
-                      )}
-                    </div>
-                    <div className="restroRating">
-                      <p className="shopName">{item?.acf?.title}</p>
-                      <div style={{ alignItems: "center", display: "flex" }}>
-                        <UtenssilsImage src={utensils} alt="utensils" />
-                        <Ratings defaultValue={item.rating} />
-                      </div>
-                      <p>
-                        <span>Open - Closes 11 pm</span>
-                      </p>
-                    </div>
-                  </MainInsideWrapper>
-                  <div className="likes">
-                    <Image
-                      src={thumbsup}
-                      alt="like"
-                      style={{ width: "16px", height: "16px" }}
-                    />
-                    <p>{item.likeCount}</p>
+                        />
+                        :
+                        <Image
+                          // style={{ background: "white" }}
+                          src={filteredUrls[index]}
+                          width={500}
+                          height={80}
+                          style={{
+                            borderRadius: 4,
+                            width: "80px",
+                            objectFit: "cover",
+                          }}
+                          alt=""
+                          onClick={() =>
+                            modalClick("ModalContent", item, filteredUrls[index])
+                          }
+                        />
+                    }
+                    {item.deliverActive && (
+                      <DeliveryContainer>
+                        <Image
+                          src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
+                          width={10}
+                          height={8}
+                          alt=""
+                        />
+                        <p>delivery</p>
+                      </DeliveryContainer>
+                    )}
+                    {item.NewRes && (
+                      <NewResturant>
+                        <p>New</p>
+                      </NewResturant>
+                    )}
                   </div>
-                </MainWrraper>
-              </SearchedData>
-            );
-          })}
+                  <div className="restroRating">
+                    <p className="shopName">{item?.acf?.title}</p>
+                    <div style={{ alignItems: "center", display: "flex" }}>
+                      <UtenssilsImage src={utensils} alt="utensils" />
+                      <Ratings defaultValue={item.rating} />
+                    </div>
+                    <p>
+                      <span>Open - Closes 11 pm</span>
+                    </p>
+                  </div>
+                </MainInsideWrapper>
+                <div className="likes">
+                  <Image
+                    src={thumbsup}
+                    alt="like"
+                    style={{ width: "16px", height: "16px" }}
+                  />
+                  <p>{item.likeCount}</p>
+                </div>
+              </MainWrraper>
+            </SearchedData>
+          );
+        })}
 
       <AddListButton>
         <CommonButton text="Add to the list" />

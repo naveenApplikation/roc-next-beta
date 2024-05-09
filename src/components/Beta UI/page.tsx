@@ -7,7 +7,7 @@ import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
-import { ROCLogo, ROCLogoWhite, Twitter, betaHigh, faceBook, instaGram, linkedIn } from "@/app/utils/ImagePath";
+import { ROCLogo, ROCLogoWhite, Twitter, betaHigh, Facebook, Instagram, Linkedin } from "@/app/utils/ImagePath";
 import { useSearchParams } from "next/navigation";
 
 interface ShadowWrapperProps {
@@ -236,28 +236,28 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
               <div style={{display:'flex', gap:'25px', justifyContent:'center'}}>
                 <Image
                   style={{ cursor: "pointer" }}
-                  src={faceBook}
+                  src={Facebook as any}
                   width={25}
                   height={25}
                   alt="Logo Outline"
                 />
                 <Image
                   style={{ cursor: "pointer" }}
-                  src={instaGram}
+                  src={Instagram as any}
                   width={25}
                   height={25}
                   alt="Logo Outline"
                 />
                 <Image
                   style={{ cursor: "pointer" }}
-                  src={linkedIn}
+                  src={Linkedin as any}
                   width={25}
                   height={25}
                   alt="Logo Outline"
                 />
                 <Image
                   style={{ cursor: "pointer" }}
-                  src={Twitter}
+                  src={Twitter as any}
                   width={25}
                   height={25}
                   alt="Logo Outline"

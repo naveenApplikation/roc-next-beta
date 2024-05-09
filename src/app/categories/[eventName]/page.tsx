@@ -90,6 +90,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           const combinedArray = [...result.data.activity1, ...result.data.activity2];
           setData(combinedArray);
         } else {
+          console.log("data", search)
           setData(result.data);
         }
 
@@ -106,7 +107,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const { showMap, filterUrls } = useMyContext()
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
