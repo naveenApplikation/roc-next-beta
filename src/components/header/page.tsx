@@ -8,6 +8,8 @@ import {
   mapIconDark,
   logoOutline,
   ROCLogo,
+  Hamburger,
+  HamburgerDesktop,
 } from "@/app/utils/ImagePath";
 
 interface HeaderProps {
@@ -16,7 +18,7 @@ interface HeaderProps {
   showMap?: boolean;
   modalClick: Function;
   iconClick: Function;
-  className:string
+  className: string
 }
 
 const HeadMenu = styled.div`
@@ -41,7 +43,7 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap , className }) => {
+const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap, className }) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -60,17 +62,18 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap , classN
         <HeaderMapProfileContainer>
           {pathname === "/" ? (
             <>
-              <Image
+              {/* <Image
                 src={showMap ? headerHome : mapIconDark}
                 alt="Logo Outline"
                 onClick={() => iconClick("mapClick")}
-              />
+              /> */}
               <Image
                 style={{ cursor: "pointer" }}
                 src={profileIconDark}
                 alt="Logo Outline"
                 onClick={() => modalClick("createAccountModal")}
               />
+              <HamburgerDesktop onClick={() => modalClick("LoginSignupModal")} />
             </>
           ) : (
             <>

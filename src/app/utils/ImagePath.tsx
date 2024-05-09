@@ -289,6 +289,10 @@ export const arrowRight = arrowRightImg
 export const arrowLeft = arrowLeftImg
 export const arrowBottom = arrowBottomImg
 export const more = moreImage
+export const faceBook = facebookIcon;
+export const instaGram = instagramIcon;
+export const linkedIn = linkedInIcon;
+export const Twitter = twitterIcon;
 
 
 interface HamburgerProps {
@@ -298,7 +302,7 @@ interface HamburgerProps {
 
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
-        <svg onClick={onClick} width="48" height="48" viewBox="0 0 48 48" fill="#645f44" xmlns="http://www.w3.org/2000/svg">
+        <svg onClick={onClick} width="48" height="48" viewBox="0 0 48 48" fill="#dfe0e0" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_b_1562_13613)">
                 <g filter="url(#filter1_b_1562_13613)">
                     <path d="M15 18.25C15 17.5859 15.5469 17 16.25 17H31.25C31.9141 17 32.5 17.5859 32.5 18.25C32.5 18.9531 31.9141 19.5 31.25 19.5H16.25C15.5469 19.5 15 18.9531 15 18.25ZM15 24.5C15 23.8359 15.5469 23.25 16.25 23.25H31.25C31.9141 23.25 32.5 23.8359 32.5 24.5C32.5 25.2031 31.9141 25.75 31.25 25.75H16.25C15.5469 25.75 15 25.2031 15 24.5ZM32.5 30.75C32.5 31.4531 31.9141 32 31.25 32H16.25C15.5469 32 15 31.4531 15 30.75C15 30.0859 15.5469 29.5 16.25 29.5H31.25C31.9141 29.5 32.5 30.0859 32.5 30.75Z" fill="white" fillOpacity="0.2" />
@@ -331,6 +335,24 @@ export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
 
     )
 }
+export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
+    return (
+        <svg onClick={onClick} width="48px" height="48px" viewBox="-9.12 -9.12 66.24 66.24" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0">
+
+                <rect x="-9.12" y="-9.12" width="66.24" height="66.24" rx="33.12" fill="#dfe0e0"  />
+
+            </g>
+
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+            <g id="SVGRepo_iconCarrier"> <title>menu-hamburger</title> <g id="Layer_2" data-name="Layer 2"> <g id="invisible_box" data-name="invisible box"> <rect width="48" height="48" fill="none" /> </g> <g id="icons_Q2" data-name="icons Q2"> <g> <path d="M42,12a2,2,0,0,1-2,2H8a2,2,0,0,1-2-2H6a2,2,0,0,1,2-2H40a2,2,0,0,1,2,2Z" /> <path d="M42,24a2,2,0,0,1-2,2H8a2,2,0,0,1-2-2H6a2,2,0,0,1,2-2H40a2,2,0,0,1,2,2Z" /> <path d="M42,36a2,2,0,0,1-2,2H8a2,2,0,0,1-2-2H6a2,2,0,0,1,2-2H40a2,2,0,0,1,2,2Z" /> </g> </g> </g> </g>
+
+        </svg>
+
+    )
+}
 
 export const Linkedin = () => {
     return (
@@ -356,7 +378,7 @@ export const Instagram = () => {
     )
 }
 
-export const Twitter = () => {
+export const TwitterIcon = () => {
     return (
         <svg width="30" height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.3238 -0.000488281H27.7363L18.0988 11.012L29.4363 25.9995H20.5613L13.6051 16.912L5.65508 25.9995H1.23633L11.5426 14.2183L0.673828 -0.000488281H9.77383L16.0551 8.30576L23.3238 -0.000488281ZM21.7738 23.362H24.2176L8.44258 2.49951H5.81758L21.7738 23.362Z" fill="black" />

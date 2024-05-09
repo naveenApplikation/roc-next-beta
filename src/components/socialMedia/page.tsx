@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Twitter } from '@/app/utils/ImagePath';
+import { Facebook, Instagram, Linkedin,  TwitterIcon } from '@/app/utils/ImagePath';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -22,10 +22,10 @@ const SocialMediaContent = styled.div`
 const SocialMedia: React.FC<SocialMediaProps> = (props) => {
     return (
         <SocialMediaContent>
-            <Linkedin/>
-            <Instagram/>
-            <Facebook/>
-            <Twitter/>
+            <Linkedin />
+            <Instagram />
+            <Facebook />
+            <TwitterIcon />
         </SocialMediaContent>
     );
 };
