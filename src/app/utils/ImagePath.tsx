@@ -339,7 +339,7 @@ export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
         <svg onClick={onClick} width="48px" height="48px" viewBox="-9.12 -9.12 66.24 66.24" xmlns="http://www.w3.org/2000/svg" fill="#000000">
 
-            <g id="SVGRepo_bgCarrier" stroke-width="0">
+            <g id="SVGRepo_bgCarrier" strokeWidth="0">
 
                 <rect x="-9.12" y="-9.12" width="66.24" height="66.24" rx="33.12" fill="#dfe0e0"  />
 

@@ -1,6 +1,6 @@
 import { thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import styled from "styled-components";
 import Ratings from "../ratings";
 import FilterSection from "@/components/filterSection";
@@ -152,7 +152,8 @@ const ImageTag = styled.img`
 width:80px;
 border-radius:4px;
 object-fit:cover;
-height:100%;
+height:80px;
+cursor:pointer;
 `
 
 const AttractionBox: React.FC<AttractionBoxProps> = ({
@@ -168,107 +169,110 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
 
   console.log("hiodfodifs", urlData)
   return (
-    <SearchedListContainer>
-      <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
-      <LikeCount>5,281 likes</LikeCount>
-      {urlData != 77 && (
-        <div style={{ margin: "24px 0px" }}>
-          <FilterSection />
-        </div>
-      )}
-      {loader
-        ? skeletonItems.map((item, index) => (
-          <SearchedData key={index}>
-            <MainWrraper>
-              <MainInsideWrapper>
-                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                <div className="restroRating">
-                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                  <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                </div>
-              </MainInsideWrapper>
-              <div className="likes">
-                <Skeleton width={16} height={16} />
-              </div>
-            </MainWrraper>
-          </SearchedData>
-        ))
-        : urlData?.map((item: any, index: any) => {
-          return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchedListContainer>
+        <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
+        <LikeCount>5,281 likes</LikeCount>
+        {urlData != 77 && (
+          <div style={{ margin: "24px 0px" }}>
+            <FilterSection />
+          </div>
+        )}
+        {loader
+          ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>
               <MainWrraper>
                 <MainInsideWrapper>
-                  <div style={{ position: "relative" }}>
-                    {
-                      item?.data_type === "google" ?
-                        <ImageTag src={item.photoUrl} alt="Image"
-                        onClick={() =>
-                          modalClick("ModalContent", item, item.photoUrl)
-                        }
-                        />
-                        :
-                        <Image
-                          // style={{ background: "white" }}
-                          src={filteredUrls[index]}
-                          width={500}
-                          height={80}
-                          style={{
-                            borderRadius: 4,
-                            width: "80px",
-                            objectFit: "cover",
-                          }}
-                          alt=""
-                          onClick={() =>
-                            modalClick("ModalContent", item, filteredUrls[index])
-                          }
-                        />
-                    }
-                    {item.deliverActive && (
-                      <DeliveryContainer>
-                        <Image
-                          src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
-                          width={10}
-                          height={8}
-                          alt=""
-                        />
-                        <p>delivery</p>
-                      </DeliveryContainer>
-                    )}
-                    {item.NewRes && (
-                      <NewResturant>
-                        <p>New</p>
-                      </NewResturant>
-                    )}
-                  </div>
+                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
                   <div className="restroRating">
-                    <p className="shopName">{item?.acf?.title}</p>
-                    <div style={{ alignItems: "center", display: "flex" }}>
-                      <UtenssilsImage src={utensils} alt="utensils" />
-                      <Ratings defaultValue={item.rating} />
-                    </div>
-                    <p>
-                      <span>Open - Closes 11 pm</span>
-                    </p>
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
                   </div>
                 </MainInsideWrapper>
                 <div className="likes">
-                  <Image
-                    src={thumbsup}
-                    alt="like"
-                    style={{ width: "16px", height: "16px" }}
-                  />
-                  <p>{item.likeCount}</p>
+                  <Skeleton width={16} height={16} />
                 </div>
               </MainWrraper>
             </SearchedData>
-          );
-        })}
+          ))
+          : urlData?.map((item: any, index: any) => {
+            return (
+              <SearchedData key={index}>
+                <MainWrraper>
+                  <MainInsideWrapper>
+                    <div style={{ position: "relative" }}>
+                      {
+                        item?.data_type === "google" ?
+                          <ImageTag src={item.photoUrl} alt="Image"
+                            onClick={() =>
+                              modalClick("ModalContent", item, item.photoUrl)
+                            }
+                          />
+                          :
+                          <Image
+                            // style={{ background: "white" }}
+                            src={filteredUrls[index]}
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: 4,
+                              width: "80px",
+                              objectFit: "cover",
+                              cursor: 'pointer'
+                            }}
+                            alt=""
+                            onClick={() =>
+                              modalClick("ModalContent", item, filteredUrls[index])
+                            }
+                          />
+                      }
+                      {item.deliverActive && (
+                        <DeliveryContainer>
+                          <Image
+                            src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
+                            width={10}
+                            height={8}
+                            alt=""
+                          />
+                          <p>delivery</p>
+                        </DeliveryContainer>
+                      )}
+                      {item.NewRes && (
+                        <NewResturant>
+                          <p>New</p>
+                        </NewResturant>
+                      )}
+                    </div>
+                    <div className="restroRating">
+                      <p className="shopName">{item?.acf?.title}</p>
+                      <div style={{ alignItems: "center", display: "flex" }}>
+                        <UtenssilsImage src={utensils} alt="utensils" />
+                        <Ratings defaultValue={item.rating} />
+                      </div>
+                      <p>
+                        <span>Open - Closes 11 pm</span>
+                      </p>
+                    </div>
+                  </MainInsideWrapper>
+                  <div className="likes">
+                    <Image
+                      src={thumbsup}
+                      alt="like"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <p>{item.likeCount}</p>
+                  </div>
+                </MainWrraper>
+              </SearchedData>
+            );
+          })}
 
-      <AddListButton>
-        <CommonButton text="Add to the list" />
-      </AddListButton>
-    </SearchedListContainer>
+        <AddListButton>
+          <CommonButton text="Add to the list" />
+        </AddListButton>
+      </SearchedListContainer>
+    </Suspense>
   );
 };
 

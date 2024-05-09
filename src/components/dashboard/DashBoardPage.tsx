@@ -122,9 +122,9 @@ const DashBoard = () => {
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} /> */}
-      <TopAttractions menuClick={menuClick} modalClick={modalClick} />
-      {/* <Directory menuClick={menuClick} modalClick={modalClick} />
-      <Bars menuClick={menuClick} modalClick={modalClick} />
+      {/* <TopAttractions menuClick={menuClick} modalClick={modalClick} /> */}
+       <Directory menuClick={menuClick} modalClick={modalClick} />
+      {/*<Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} />
@@ -132,12 +132,12 @@ const DashBoard = () => {
       {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> not working */}
       {/* <Heritage menuClick={menuClick} modalClick={modalClick} />
       <Walks menuClick={menuClick} modalClick={modalClick} />
-      <Wellbeing menuClick={menuClick} modalClick={modalClick} />
+      <Wellbeing menuClick={menuClick} modalClick={modalClick} />*/}
       <WW2 menuClick={menuClick} modalClick={modalClick} />
-      <CycleRoutes menuClick={menuClick} modalClick={modalClick} /> */}
+      {/* <CycleRoutes menuClick={menuClick} modalClick={modalClick} />  */}
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
-      {/* <Outout menuClick={menuClick} modalClick={modalClick} />
-      <Surfing menuClick={menuClick} modalClick={modalClick} /> */}
+      {/* <Outout menuClick={menuClick} modalClick={modalClick} /> */}
+      <Surfing menuClick={menuClick} modalClick={modalClick} />
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
 
         <CommonButton text="Leave feedback" />

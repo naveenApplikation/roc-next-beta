@@ -56,7 +56,7 @@ const rewrites = () => {
 
 const nextConfig = {
   images: {
-    domains: ['firebasestorage.googleapis.com','cdn.jersey.com'],
+    domains: ['firebasestorage.googleapis.com','cdn.jersey.com','lh3.googleusercontent.com'],
     // formats: ['image/jpeg', 'image/png'],
     // unoptimized: true, 
   },

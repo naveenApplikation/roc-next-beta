@@ -61,7 +61,7 @@ width:100%;
 border-radius:50%;
 object-fit:cover;
 height:100%;
-`
+`;
 
 const TopAttractions: React.FC<DashboardProps> = ({
   modalClick,
@@ -79,8 +79,6 @@ const TopAttractions: React.FC<DashboardProps> = ({
     if (storedValue) {
       try {
         const result = await Instance.get("/top-attractions");
-        console.log("top attractions", result)
-        topAttractionMapping(result?.data, setData)
         setData(result.data);
       } catch (error: any) {
         console.log(error.message);

@@ -45,7 +45,7 @@ const mapNavigatorData = [
     {
         img: utensils,
         name: "Dine",
-        url: "foodandDrinks"
+        url: "food-drinks"
     },
     {
         img: Store,

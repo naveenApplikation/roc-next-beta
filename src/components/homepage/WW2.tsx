@@ -6,7 +6,7 @@ import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
 
 interface DashboardProps {
   modalClick?: any;
@@ -63,9 +63,15 @@ const StarWrapper = styled.div`
     border-radius: 4px;
   }
 `;
+const ImageTag = styled.img`
+width:100%;
+border-radius:4px;
+object-fit:cover;
+height:100%;
+`;
 
 const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -74,14 +80,19 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
-        const result = await Instance.get("/ww2");
-        const combinedArray = [
-          ...result.data.activity1,
-          ...result.data.activity2,
-        ];
-        setData(combinedArray);
+        const result = await Instance.get("/ww-2");
+        if(result?.data?.activity1){
+          const combinedArray = [
+            ...result.data.activity1,
+            ...result.data.activity2,
+          ];
+          setData(combinedArray);
+        } else {
+          setData(result?.data);
+
+        }
       } catch (error: any) {
         console.log(error.message);
         setloader(false);
@@ -95,64 +106,70 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
-      <MenuDetails isOpen={() => menuClick("WW2", true, "ww2")} title="WW2" />
+      <MenuDetails isOpen={() => menuClick("WW2", true, "ww-2")} title="WW2" />
       <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <CommonSkeletonLoader />
-              </div>
-            ))
+            <div key={index}>
+              <CommonSkeletonLoader />
+            </div>
+          ))
           : data?.slice(0, 10).map((item, index) => {
-              return (
-                <StarContainer
-                  key={index}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    modalClick("ModalContent", item, filteredUrls[index])
-                  }
-                >
-                  <StarWrapper>
-                    <Image
-                      className="StarImageStyle"
-                      src={filteredUrls[index]}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                    />
-                  </StarWrapper>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 4,
-                        alignItems: "center",
-                      }}
-                    >
+            return (
+              <StarContainer
+                key={index}
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                }
+              >
+                <StarWrapper>
+                  {
+                    item?.data_type === "google" ?
+                      <ImageTag src={item.photoUrl} alt="Image" />
+                      :
                       <Image
-                        src={
-                          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
-                        }
-                        width={69}
-                        height={12}
-                        alt="right icon"
-                      />{" "}
-                      <p>4.7</p>
-                    </div>
-                    <p style={{ fontSize: 14, marginTop: 8 }}>
-                      {item.acf.title}
-                    </p>
+                        src={filteredUrls[index]}
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
+                      // alt=""
+                      />
+
+                  }
+                </StarWrapper>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 4,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      src={
+                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
+                      }
+                      width={69}
+                      height={12}
+                      alt="right icon"
+                    />{" "}
+                    <p>{item?.rating}</p>
                   </div>
-                </StarContainer>
-              );
-            })}
+                  <p style={{ fontSize: 14, marginTop: 8 }}>
+                    {item?.data_type === "google" ? item?.name : item?.acf?.title}
+                  </p>
+                </div>
+              </StarContainer>
+            );
+          })}
       </ScrollingMenu>
     </>
   );

@@ -160,6 +160,7 @@ const Modal: React.FC<ModalProps> = ({
             onClick={() => onClose(name)}
           />
         </HeaderContainer>
+        
         {children}
       </div>
     </StyledModal>

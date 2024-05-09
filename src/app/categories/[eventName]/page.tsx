@@ -90,7 +90,6 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           const combinedArray = [...result.data.activity1, ...result.data.activity2];
           setData(combinedArray);
         } else {
-          console.log("data", search)
           setData(result.data);
         }
 

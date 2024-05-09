@@ -63,11 +63,18 @@ const StarWrapper = styled.div`
     border-radius: 4px;
   }
 `;
+const ImageTag = styled.img`
+width:100%;
+border-radius:4px;
+object-fit:cover;
+height:100%;
+`;
+
 
 const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls,showContent } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  const [data, setData] = useState<ApiResponse[] >([]);
 
   const [loader, setloader] = useState(true);
 
@@ -76,12 +83,16 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     const storedValue = localStorage.getItem("hideUI");
     if(storedValue){
       try {
-        const result = await Instance.get("/surfing");
-        const combinedArray = [
-          ...result.data.activity1,
-          ...result.data.activity2,
-        ];
-        setData(combinedArray);
+        const result = await Instance.get("/surfings");
+        if(result?.data?.activity1){
+          const combinedArray = [
+            ...result.data.activity1,
+            ...result.data.activity2,
+          ];
+          setData(combinedArray);
+        } else {
+          setData(result?.data);
+        }
       } catch (error: any) {
         console.log(error.message);
         setloader(false);
@@ -95,14 +106,14 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
       <MenuDetails
-        isOpen={() => menuClick("Surfing", true, "surfing")}
+        isOpen={() => menuClick("Surfing", true, "surfings")}
         title="Surfing"
       />
       <ScrollingMenu>
@@ -118,18 +129,24 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   key={index}
                   style={{ cursor: "pointer" }}
                   onClick={() =>
-                    modalClick("ModalContent", item, filteredUrls[index])
+                    modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
                   }
                 >
                   <StarWrapper>
-                    <Image
-                      className="StarImageStyle"
-                      src={filteredUrls[index]}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                    />
+                  {
+                    item?.data_type === "google" ?
+                      <ImageTag src={item.photoUrl} alt="Image" />
+                      :
+                      <Image
+                        src={filteredUrls[index]}
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
+                      // alt=""
+                      />
+
+                  }
                   </StarWrapper>
                   <div>
                     <div
@@ -147,10 +164,10 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                         height={12}
                         alt="right icon"
                       />{" "}
-                      <p>4.7</p>
+                      <p>{item?.rating}</p>
                     </div>
                     <p style={{ fontSize: 14, marginTop: 8 }}>
-                      {item.acf.title}
+                    {item?.data_type === "google" ? item?.name : item?.acf?.title}
                     </p>
                   </div>
                 </StarContainer>
