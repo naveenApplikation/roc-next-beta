@@ -136,6 +136,11 @@ import LogoNewImg from '../../../assets/images/LogoNew.svg'
 import mapNewImg from '../../../assets/images/mapNew.svg'
 import profileNewImg from '../../../assets/images/profileNew.svg'
 import logoutImage from "../../../assets/images/menuModalsImage/icons8-logout-96.png"
+import facebookIcon from "../../../assets/images/MobileIcon/facebook.svg"
+import instagramIcon from "../../../assets/images/MobileIcon/instagram.svg"
+import linkedInIcon from "../../../assets/images/MobileIcon/linkedin.svg"
+import twitterIcon from "../../../assets/images/MobileIcon/x-twitter.svg"
+
 import mapWhiteImage from "../../../assets/images/mapWhite.svg"
 import arrowTopImg from "../../../assets/images/arrow-top.svg"
 import arrowRightImg from "../../../assets/images/arrow-right.svg"
