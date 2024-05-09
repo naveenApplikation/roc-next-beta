@@ -8,7 +8,8 @@ import {
   ROCLogoWhite,
   LogoNew,
   profileNew,
-  mapNew
+  mapNew,
+  Hamburger
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
@@ -187,16 +188,18 @@ const RightSide = () => {
     }
   };
 
+  const click=(item:any)=>{
+    console.log("iiiiiiiii" , item)
+    if(item.name ==="Map"){
+      iconClick("mapClick")
+    }
+  }
+
   return (
     <RightMenu>
       <RightSideHeadMenu>
         <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
         <HeaderMapProfileContainer>
-          <Image
-            src={showMap ? headerHome : mapNew}
-            alt="Logo Outline"
-            onClick={() => iconClick("mapClick")}
-          />
           <Image
             src={profileNew}
             width={48}
@@ -204,6 +207,13 @@ const RightSide = () => {
             alt="Logo Outline"
             onClick={() => modalClick("createAccountModal")}
           />
+          {/* <Image
+            src={showMap ? headerHome : mapNew}
+            alt="Logo Outline"
+            onClick={() => iconClick("mapClick")}
+          /> */}
+          <Hamburger onClick={()=>modalClick("LoginSignupModal")} />
+
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
       <RightSideMenuContainer>
@@ -239,7 +249,7 @@ const RightSide = () => {
       <MobileViewRightSideMenu>
         {rightSideMenuMobile.map((item, index) => {
           return (
-            <RightSideMenu key={index}>
+            <RightSideMenu key={index} onClick={()=>click(item)}>
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}

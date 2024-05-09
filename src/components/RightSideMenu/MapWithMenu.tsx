@@ -55,7 +55,7 @@ const MapSection = styled.div<{
     top: 50px;
     z-index: 3;
     width: 100%;
-    padding: 20px 10px 0px 10px;
+    padding: 0px 10px 0px 10px;
   }
 
   @media screen and (max-width: 800px) {
@@ -112,7 +112,7 @@ const MapWithMenu = () => {
     <MapSection $showMap={showMap}>
       <RightSideHeadMenu className="mapHeader">
         <Image
-          style={{ width: "116.615px", height: "48px" }}
+          style={{ width: "48.615px", height: "48px" }}
           src={NewLogoRoc}
           alt="Logo Outline"
         />

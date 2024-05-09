@@ -13,6 +13,10 @@ import UpdateMyPreferences from "@/components/LoginSignup/UpdateMyPreferences";
 import Welcomeback from "@/components/LoginSignup/Welcomeback";
 import ThankYouDiresctoryModal from "@/components/modal/ThankYouDiresctoryModal";
 import { useRouter } from "next/navigation";
+import LoginSignupModal from "../LoginSignup/loginSignupModal";
+import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
+import FeedbackModal from "../LoginSignup/FeedbackModal";
+import WalksModal from "./WalksModal";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -36,6 +40,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       router.push("/screens/createList");
     }
   }
+  console.log("modalName", modalName);
 
   const showLoginHandle = () => {
     if (modalName === "createAccountModal") {
@@ -56,6 +61,36 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           )}
         </>
       );
+    } else if (modalName === "LoginSignupModal") {
+      return (
+        <>
+          {loginToken ? (
+            <Welcomeback
+              isOpen={() => modalClick("UpdateMyDetailsModal")}
+              isOpenContact={() => modalClick("ContactUsModal")}
+              myListOpen={() => modalClick("myList")}
+              {...{ logoutClick, onClick }}
+            />
+          ) : (
+
+            <LoginSignupModal
+              isOpen={() => modalClick("ContactUsModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+              {...{ onClick }}
+              myListOpen={() => modalClick("TermsAndConditionModal")}
+            />
+
+          )}
+        </>
+      )
+    } else if (modalName === "TermsAndConditionModal") {
+      return (
+        <TermsAndConditionModal />
+      )
+    } else if (modalName === "LeaveFeedback") {
+      return (
+        <FeedbackModal />
+      )
     } else if (modalName === "LoginAccountModal") {
       return (
         <>
@@ -150,6 +185,10 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           />
         </>
       );
+    } else if(modalName === "walksModal"){
+      return(
+        <WalksModal/>
+      )
     }
   };
 
@@ -159,11 +198,15 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         isOpen={
           modalName === "WelcomeBackModal" ||
           modalName === "createAccountModal" ||
+          modalName === "LeaveFeedback" ||
           modalName === "LoginAccountModal" ||
+          modalName === "LoginSignupModal" ||
           modalName === "UpdateMyDetailsModal" ||
           modalName === "UpdateMyEmailModal" ||
           modalName === "UpdatePassswordModal" ||
           modalName === "UpdateNameModal" ||
+          modalName === "TermsAndConditionModal" ||
+          modalName === "walksModal" ||
           modalName === "myList" ||
           modalName === "ContactUsModal" ||
           modalName === "LoginThankYouDiresctoryModal" ||
@@ -174,6 +217,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         name=""
         title={
           (modalName === "WelcomeBackModal" && "Welcome back!") ||
+          (modalName === "TermsAndConditionModal" && "Terms & Conditions") ||
           (modalName === "createAccountModal" &&
             loginToken &&
             "Welcome back!") ||
@@ -182,6 +226,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "UpdateMyDetailsModal" && "Update my details") ||
           (modalName === "UpdateMyEmailModal" && "Update my email") ||
           (modalName === "UpdateNameModal" && "Update my name") ||
+          (modalName === "LeaveFeedback" && "Feedback") ||
           (modalName === "UpdatePassswordModal" && "Update my password") ||
           (modalName === "myList" && "Welcome back!") ||
           (modalName === "ContactUsModal" && "Contact us") ||

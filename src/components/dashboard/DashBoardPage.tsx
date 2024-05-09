@@ -129,13 +129,13 @@ const DashBoard = () => {
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} />
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
-      <Jerseyisms menuClick={menuClick} modalClick={modalClick} />
+      {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> */}
       <Heritage menuClick={menuClick} modalClick={modalClick} />
       <Walks menuClick={menuClick} modalClick={modalClick} />
       <Wellbeing menuClick={menuClick} modalClick={modalClick} />
       <WW2 menuClick={menuClick} modalClick={modalClick} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
-      <DeliciousDine menuClick={menuClick} modalClick={modalClick} />
+      {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> */}
       <Outout menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} />
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>

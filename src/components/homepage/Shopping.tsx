@@ -98,7 +98,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
             ))
           : data.slice(0, 10).map((item, index) => {
               return (
-                <WalkContainer key={index}>
+                <WalkContainer key={index} onClick={menuClick}>
                   <Image
                     src={filteredUrls[index]}
                     alt=""

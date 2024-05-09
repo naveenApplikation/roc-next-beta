@@ -8,8 +8,8 @@ import Dropdowns from "@/components/dropdowns";
 import { SoryByItem } from '@/app/utils/data';
 
 interface ModalProps {
-    isOpen: () => void;
-  }
+  isOpen: () => void;
+}
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ const CheckBoxContainer = styled.div`
     border-radius: 8px;
     `;
 
-    const stylePass = styled.div`
+const stylePass = styled.div`
       padding: 16px;
       justify-content: space-between;
     `
@@ -70,12 +70,12 @@ const CreateDirectoryModal: React.FC<ModalProps> = ({ isOpen }) => {
       <CommonInput title="Postcode" />
       <TextArea placeholder="Comments" />
       <CheckBoxContainer>
-      <Checkbox label="I would like to receive offers and news from ROC." />
+        <Checkbox label="I would like to receive offers and news from ROC." />
       </CheckBoxContainer>
       <div onClick={isOpen}>
-      <CommonButton text="Submit" />
+        <CommonButton text="Submit" />
       </div>
-      <InfoText>By continuing, I agree to the <span style={{borderBottom:"1px solid black"}}>User Terms</span></InfoText>
+      <InfoText>By continuing, I agree to the <span style={{ borderBottom: "1px solid black" }}>User Terms</span></InfoText>
     </Container>
   );
 };

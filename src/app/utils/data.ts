@@ -63,6 +63,13 @@ import {
   parking,
   radio,
   taxi,
+  mapNew,
+  mapWhite,
+  arrowTop,
+  arrowRight,
+  arrowBottom,
+  arrowLeft,
+  more,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
@@ -120,7 +127,7 @@ export const topSideMenu = [
     width: 20,
     height: 16,
   },
- 
+
 
 ];
 
@@ -130,77 +137,77 @@ export const rightSideMenu = [
     image: castle,
     width: 25,
     height: 20,
-    url:"attration"
+    url: "attration"
   },
   {
     name: "Dine",
     image: utensils,
     width: 18,
     height: 20,
-    url:"foodandDrinks"
+    url: "foodandDrinks"
   },
   {
     name: "Shop",
     image: shopping,
     width: 23,
     height: 20,
-    url:"shopsandMarket"
+    url: "shopsandMarket"
   },
   {
     name: "Events",
     image: event,
     width: 18,
     height: 20,
-    url:"family-events"
+    url: "family-events"
   },
   {
     name: "Tours",
     image: camera,
     width: 16,
     height: 16,
-    url:"tour"
+    url: "tour"
   },
   {
     name: "Hotels",
     image: hotel,
     width: 20,
     height: 20,
-    url:"hotels"
+    url: "hotels"
   },
   {
     name: "Activities",
     image: personHiking,
     width: 15,
     height: 20,
-    url:"activity"
+    url: "activity"
   },
   {
     name: "Travel",
     image: compass,
     width: 20,
     height: 20,
-    url:"tourOperator"
+    url: "tourOperator"
   },
   {
     name: "Nightlife",
     image: glass,
     width: 23,
     height: 20,
-    url:"bar-pubs"
+    url: "bar-pubs"
   },
   {
     name: "Holidays",
     image: holidayDas,
     width: 25,
     height: 20,
-    url:"holidays"
+    url: "holidays"
   },
   {
     name: "Beaches",
     image: beachumbrella,
     width: 23,
     height: 20,
-    url:"beaches"
+    url: "beaches"
   },
   {
     name: "All",
@@ -226,17 +233,17 @@ export const rightSideMenuMobile = [
     height: 20,
   },
   {
-    name: "Shop",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FStore.png?alt=media&token=b40746b0-2430-426a-9c69-79337bb82e3b",
-    width: 23,
-    height: 20,
-  },
-  {
     name: "Events",
     image:
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcalendar.png?alt=media&token=232e231d-db2b-4571-b388-7d92fbb532c7",
     width: 18,
+    height: 20,
+  },
+  {
+    name: "Map",
+    image: mapWhite,
+    // "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FStore.png?alt=media&token=b40746b0-2430-426a-9c69-79337bb82e3b",
+    width: 23,
     height: 20,
   },
 ];
@@ -547,12 +554,12 @@ export const DirectoryItem = [
       {
         image: castle,
         title: "Attractions",
-        url:"attration"
+        url: "attration"
       },
       {
         image: utensil,
         title: "Food & Drink",
-        url:"foodandDrinks"
+        url: "foodandDrinks"
       },
     ],
   },
@@ -561,12 +568,12 @@ export const DirectoryItem = [
       {
         image: shopping,
         title: "Shopping",
-        url:"shopsandMarket"
+        url: "shopsandMarket"
       },
       {
         image: camera,
         title: "Tours",
-        url:"tour"
+        url: "tour"
       },
     ],
   },
@@ -575,12 +582,12 @@ export const DirectoryItem = [
       {
         image: hotel,
         title: "Hotels",
-        url:"hotels"
+        url: "hotels"
       },
       {
         image: personHiking,
         title: "Activities",
-        url:"activity"
+        url: "activity"
       },
     ],
   },
@@ -589,12 +596,12 @@ export const DirectoryItem = [
       {
         image: compass,
         title: "Travel",
-        url:"tourOperator"
+        url: "tourOperator"
       },
       {
         image: glass,
         title: "Nightlife",
-        url:"bar-pubs"
+        url: "bar-pubs"
       },
     ],
   },
@@ -603,13 +610,48 @@ export const DirectoryItem = [
       {
         image: holidayDas,
         title: "Holidays",
-        url:"holidays"
+        url: "holidays"
       },
       {
         image: beachumbrella,
         title: "Beaches",
-        url:"beaches"
+        url: "beaches"
       },
     ],
   },
 ];
+
+export const walkData =
+  [
+    {
+      name: "North",
+      color: "#BB6BD9",
+      icon: arrowTop,
+      url: "https://www.jersey.com/inspire-me/itineraries/north-coast-jersey-walks/"
+    },
+    {
+      name: "East",
+      color: "#56CCF2",
+      icon: arrowRight,
+      url: "https://www.jersey.com/inspire-me/itineraries/five-east-coast-jersey-walks/"
+    },
+    {
+      name: "South",
+      color: "#EB5757",
+      icon: arrowBottom,
+      url: "https://www.jersey.com/inspire-me/itineraries/south-coast-jersey-walks/"
+    },
+    {
+      name: "West",
+      color: "#27AE60",
+      icon: arrowLeft,
+      url: "https://www.jersey.com/inspire-me/itineraries/five-west-coast-jersey-walks/"
+    },
+    {
+      name: "More",
+      color: "#F2994A",
+      icon: more,
+      url: "https://www.jersey.com/holidays/active/walking/"
+    },
+  ]
+

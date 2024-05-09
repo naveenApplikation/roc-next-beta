@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 interface MenuProps {
-    title:string;
-    isOpen?: () => void;
-  }
+  title: string;
+  isOpen?: () => void;
+  hideShowAll?: boolean
+}
 
 const HeadMenu = styled.div`
   display: flex;
@@ -33,14 +34,15 @@ const ViewAllText = styled.p`
   cursor: pointer;
 `;
 
-const MenuDetails: React.FC<MenuProps> = ({isOpen,title}) => {
+const MenuDetails: React.FC<MenuProps> = ({ isOpen, title, hideShowAll }) => {
   return (
     <div>
       <HeadMenu>
         <MenuTitle>{title}</MenuTitle>
-        <ViewAllText onClick={isOpen}>
-          View All
-        </ViewAllText>
+        {!hideShowAll &&
+          <ViewAllText onClick={isOpen}>
+            View All
+          </ViewAllText>}
       </HeadMenu>
     </div>
   );

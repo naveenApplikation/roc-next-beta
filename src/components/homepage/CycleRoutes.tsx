@@ -89,7 +89,7 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   return (
     <>
-      <MenuDetails title="Cycle Routes" />
+      <MenuDetails title="Cycle Routes" hideShowAll={true} />
       <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (

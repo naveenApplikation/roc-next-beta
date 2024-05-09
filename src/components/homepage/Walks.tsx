@@ -6,7 +6,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
+import { walkData } from "@/app/utils/data";
 
 interface DashboardProps {
   modalClick?: any;
@@ -55,8 +56,31 @@ const WalkContainer = styled.div`
   }
 `;
 
+const CommunityContainer = styled.div`
+  display: flex;
+  width: 80px;
+  padding: 0px 8px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: end;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 80px;
+  border-radius: 8px;
+  background: #bb6bd9;
+
+  p {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+  }
+`;
+
 const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -65,7 +89,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/walks");
         setData(result.data);
@@ -88,35 +112,55 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   return (
     <>
-      <MenuDetails title="Walks" />
-      <ScrollingMenu>
+      <MenuDetails title="Walks" hideShowAll={true} />
+      {/* <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <ShopBrachSkeleton />
-              </div>
-            ))
+            <div key={index}>
+              <ShopBrachSkeleton />
+            </div>
+          ))
           : data.slice(0, 10).map((item, index) => {
-              return (
-                <WalkContainer key={index}>
-                  <Image
-                    src={filteredUrls[index]}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                  />
-                  <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
-                    alt=""
-                    width={120}
-                    height={64}
-                    style={{ position: "absolute", bottom: 0, height: 50 }}
-                  />
-                  <p>{item.acf.title}</p>
-                </WalkContainer>
-              );
-            })}
+            return (
+              <WalkContainer key={index}>
+                <Image
+                  src={filteredUrls[index]}
+                  alt=""
+                  width={500}
+                  height={80}
+                  style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
+                />
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                  alt=""
+                  width={120}
+                  height={64}
+                  style={{ position: "absolute", bottom: 0, height: 50 }}
+                />
+                <p>{item.acf.title}</p>
+              </WalkContainer>
+            );
+          })}
+      </ScrollingMenu> */}
+      <ScrollingMenu>
+        {walkData.length ? walkData?.map((item: any, index: any) => {
+          return (
+            <CommunityContainer
+              key={index}
+              style={{ background: item?.color }}
+              onClick={() => window.open(item.url)}
+            >
+              <Image
+                src={item.icon}
+                alt=""
+                width={20}
+                height={20}
+                style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
+              />
+              <p>{item?.name}</p>
+            </CommunityContainer>
+          );
+        }) : ""}
       </ScrollingMenu>
     </>
   );
