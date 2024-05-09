@@ -289,6 +289,10 @@ export const arrowRight = arrowRightImg
 export const arrowLeft = arrowLeftImg
 export const arrowBottom = arrowBottomImg
 export const more = moreImage
+export const faceBook = facebookIcon;
+export const instaGram = instagramIcon;
+export const linkedIn = linkedInIcon;
+export const Twitter = twitterIcon;
 
 
 interface HamburgerProps {
@@ -356,7 +360,7 @@ export const Instagram = () => {
     )
 }
 
-export const Twitter = () => {
+export const TwitterIcon = () => {
     return (
         <svg width="30" height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.3238 -0.000488281H27.7363L18.0988 11.012L29.4363 25.9995H20.5613L13.6051 16.912L5.65508 25.9995H1.23633L11.5426 14.2183L0.673828 -0.000488281H9.77383L16.0551 8.30576L23.3238 -0.000488281ZM21.7738 23.362H24.2176L8.44258 2.49951H5.81758L21.7738 23.362Z" fill="black" />
