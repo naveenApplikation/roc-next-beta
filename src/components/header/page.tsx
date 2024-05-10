@@ -10,7 +10,6 @@ import {
   ROCLogo,
   Hamburger,
   HamburgerDesktop,
-  homeBg
 } from "@/app/utils/ImagePath";
 
 interface HeaderProps {

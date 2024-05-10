@@ -88,7 +88,6 @@ const Page = () => {
 
     try {
       const result = await Instance.post("/create-category", param);
-      console.log(result);
       setloader(false);
       toast.success(result.data.message);
       setScreenName(name);
@@ -104,7 +103,11 @@ const Page = () => {
   };
 
   const screenChangeHandle = async (name: string) => {
-    setScreenName(name);
+    if(name === "Greetings"){
+      postHandler(name)
+    } else {
+      setScreenName(name);
+    }
   };
 
   const handleSearch = (value: string) => {
