@@ -1,9 +1,10 @@
-import { Facebook, Instagram, Linkedin,  TwitterIcon } from '@/app/utils/ImagePath';
+import { Facebook, Instagram, Linkedin, TwitterIcon } from '@/app/utils/ImagePath';
+import { facebookURL, instagramURL, linkedinURL, twitterURL } from '@/app/utils/constantData';
 import React from 'react';
 import styled from 'styled-components';
 
 interface SocialMediaProps {
-    // Define your props here
+  // Define your props here
 }
 
 const SocialMediaContent = styled.div`
@@ -20,14 +21,18 @@ const SocialMediaContent = styled.div`
 `;
 
 const SocialMedia: React.FC<SocialMediaProps> = (props) => {
-    return (
-        <SocialMediaContent>
-            <Linkedin />
-            <Instagram />
-            <Facebook />
-            <TwitterIcon />
-        </SocialMediaContent>
-    );
+
+  const navigateClick = (url: string) => {
+    window.open(url)
+  }
+  return (
+    <SocialMediaContent>
+      <Linkedin onClick={() => navigateClick(linkedinURL)} />
+      <Instagram onClick={() => navigateClick(instagramURL)} />
+      <Facebook onClick={() => navigateClick(facebookURL)} />
+      <TwitterIcon onClick={() => navigateClick(twitterURL)} />
+    </SocialMediaContent>
+  );
 };
 
 export default SocialMedia;

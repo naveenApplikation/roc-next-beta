@@ -9,6 +9,7 @@ import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
 import { ROCLogo, ROCLogoWhite, Twitter, betaHigh, faceBook, instaGram, linkedIn } from "@/app/utils/ImagePath";
 import { useSearchParams } from "next/navigation";
+import { facebookURL, instagramURL, linkedinURL, twitterURL } from "@/app/utils/constantData";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -187,6 +188,10 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
     // setLoading(false);
   }, []);
 
+  const navigateClick=(url:string)=>{
+    window.open(url)
+  }
+
 
   return (
     <>
@@ -233,9 +238,10 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                   <CommonButton text={loader ? "Loading..." : "Submit"} />
                 </div>
               </div>
-              <div style={{display:'flex', gap:'25px', justifyContent:'center'}}>
+              <div style={{ display: 'flex', gap: '25px', justifyContent: 'center' }}>
                 <Image
                   style={{ cursor: "pointer" }}
+                  onClick={() => navigateClick(facebookURL)}
                   src={faceBook}
                   width={25}
                   height={25}
@@ -244,6 +250,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 <Image
                   style={{ cursor: "pointer" }}
                   src={instaGram}
+                  onClick={() => navigateClick(instagramURL)}
                   width={25}
                   height={25}
                   alt="Logo Outline"
@@ -251,12 +258,14 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 <Image
                   style={{ cursor: "pointer" }}
                   src={linkedIn}
+                  onClick={() => navigateClick(linkedinURL)}
                   width={25}
                   height={25}
                   alt="Logo Outline"
                 />
                 <Image
                   style={{ cursor: "pointer" }}
+                  onClick={() => navigateClick(twitterURL)}
                   src={Twitter}
                   width={25}
                   height={25}

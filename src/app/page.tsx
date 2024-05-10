@@ -26,10 +26,25 @@ import { icons } from "./utils/iconList";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  position:relative;
 
   @media screen and (max-width: 800px) {
     flex-direction: column-reverse;
   }
+  .left_container{
+    position:relative;
+    z-index: 1;
+  }
+  .left_container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: -1; /* Place the shadow behind the content */
+}
 `;
 
 const CategoryBody = styled.div`
@@ -129,8 +144,8 @@ export default function Home() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
-        <Container>
-          <MainContainer>
+        <Container >
+          <MainContainer >
             <PageLayout>
               <DashboardMenu $showMap={showMap}>
                 <Header
