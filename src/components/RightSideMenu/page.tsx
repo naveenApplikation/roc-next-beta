@@ -9,7 +9,8 @@ import {
   LogoNew,
   profileNew,
   mapNew,
-  Hamburger
+  Hamburger,
+  profileBrown
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
@@ -95,6 +96,7 @@ const RightSideInsideMenuBox = styled.div`
     width: 100%;
     background-color: rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(2px); 
+    --webkit-backdrop-filter: blur(40px);
   }
   @media screen and (max-width: 530px) {
     flex-direction: column;
@@ -140,6 +142,7 @@ const AllCategories = styled.div`
   margin-top: 8px;
   cursor: pointer;
   backdrop-filter: blur(2px); 
+  --webkit-backdrop-filter: blur(40px);
 
   button {
     width: 100%;
@@ -188,9 +191,9 @@ const RightSide = () => {
     }
   };
 
-  const click=(item:any)=>{
-    console.log("iiiiiiiii" , item)
-    if(item.name ==="Map"){
+  const click = (item: any) => {
+    console.log("iiiiiiiii", item)
+    if (item.name === "Map") {
       iconClick("mapClick")
     }
   }
@@ -201,7 +204,7 @@ const RightSide = () => {
         <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
         <HeaderMapProfileContainer>
           <Image
-            src={profileNew}
+            src={profileBrown}
             width={48}
             height={48}
             alt="Logo Outline"
@@ -212,7 +215,7 @@ const RightSide = () => {
             alt="Logo Outline"
             onClick={() => iconClick("mapClick")}
           /> */}
-          <Hamburger onClick={()=>modalClick("LoginSignupModal")} />
+          <Hamburger onClick={() => modalClick("LoginSignupModal")} />
 
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
@@ -249,7 +252,7 @@ const RightSide = () => {
       <MobileViewRightSideMenu>
         {rightSideMenuMobile.map((item, index) => {
           return (
-            <RightSideMenu key={index} onClick={()=>click(item)}>
+            <RightSideMenu key={index} onClick={() => click(item)}>
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}

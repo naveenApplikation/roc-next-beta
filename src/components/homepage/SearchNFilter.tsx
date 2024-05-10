@@ -78,10 +78,10 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     <>
       <InputWrapper>
         <SearchInput onFocus={() => modalClick("search")} />
-        <FilterInput onClick={() => modalClick("modalFilter")}>
+        {/* <FilterInput onClick={() => modalClick("modalFilter")}>
           <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
           <p>Filter</p>
-        </FilterInput>
+        </FilterInput> */}
       </InputWrapper>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
       {/* <FilterModalScreen showMap={showMap}  /> */}

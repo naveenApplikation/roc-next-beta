@@ -6,7 +6,8 @@ import {
   mapBlack,
   mapIcon,
   profileBlack,
-  NewLogoRoc
+  NewLogoRoc,
+  homeBlack
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import GoogleMapComp from "@/components/googleMap/page";
@@ -38,9 +39,9 @@ const MapSection = styled.div<{
   .googleMap {
     height: 100vh;
     width: ${({ $showMap }) =>
-      $showMap
-        ? "calc(100vw - 480px)"
-        : "calc(100vw - 580px)"}; /* Adjust width based on $showMap */
+    $showMap
+      ? "calc(100vw - 480px)"
+      : "calc(100vw - 580px)"}; /* Adjust width based on $showMap */
     transition: width 0.6s ease; /* Adjust transition timing function and duration */
     z-index: 0;
     @media screen and (max-width: 800px) {
@@ -52,7 +53,7 @@ const MapSection = styled.div<{
   }
   .mapHeader {
     position: absolute;
-    top: 50px;
+    top: 43px;
     z-index: 3;
     width: 100%;
     padding: 0px 10px 0px 10px;
@@ -115,20 +116,22 @@ const MapWithMenu = () => {
           style={{ width: "48.615px", height: "48px" }}
           src={NewLogoRoc}
           alt="Logo Outline"
+          onClick={() => iconClick("mapClick")}
         />
         <HeaderMapProfileContainer>
-          <Image
-            style={{ width: "48px", height: "48px" }}
-            src={showMap ? mapBlack : mapIcon}
-            alt="Logo Outline"
-            onClick={() => iconClick("mapClick")}
-          />
           <Image
             style={{ width: "48px", height: "48px" }}
             src={profileBlack}
             alt="Logo Outline"
             onClick={() => modalClick("createAccountModal")}
           />
+          <Image
+            style={{ width: "48px", height: "48px" }}
+            src={homeBlack}
+            alt="Logo Outline"
+            onClick={() => iconClick("mapClick")}
+          />
+
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
       <GoogleMapComp />

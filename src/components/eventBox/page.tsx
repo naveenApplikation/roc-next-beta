@@ -126,11 +126,11 @@ const EventBox: React.FC<EventBoxProps> = ({
   return (
     <SearchedListContainer>
       <TitleText>{urlTitle}</TitleText>
-      {urlData != 77 && (
+      {/* {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>
           <FilterSection />
         </div>
-      )}
+      )} */}
       {loader
         ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>

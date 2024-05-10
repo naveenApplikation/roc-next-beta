@@ -91,10 +91,6 @@ import parkingImg from "../../../assets/images/parking.png"
 import taxiImg from "../../../assets/images/taxi.png"
 import tacImg from "../../../assets/images/tandc.svg"
 import emailImg from "../../../assets/images/email.svg"
-
-
-
-
 import banjoImg from "../../../assets/images/banjo.jpg"
 import resturant1Img from "../../../assets/images/restaurant1.jpg"
 import resturant2Img from "../../../assets/images/restaurant2.jpg"
@@ -140,13 +136,14 @@ import facebookIcon from "../../../assets/images/MobileIcon/facebook.svg"
 import instagramIcon from "../../../assets/images/MobileIcon/instagram.svg"
 import linkedInIcon from "../../../assets/images/MobileIcon/linkedin.svg"
 import twitterIcon from "../../../assets/images/MobileIcon/x-twitter.svg"
-
 import mapWhiteImage from "../../../assets/images/mapWhite.svg"
 import arrowTopImg from "../../../assets/images/arrow-top.svg"
 import arrowRightImg from "../../../assets/images/arrow-right.svg"
 import arrowLeftImg from "../../../assets/images/arrow-left.svg"
 import arrowBottomImg from "../../../assets/images/arrow-bottom.svg"
 import moreImage from "../../../assets/images/more.svg"
+import homeBlackImg from "../../../assets/images/homeBlack.svg"
+import profileBrownImg from "../../../assets/images/profile_brown.svg"
 
 
 export const NewLogoRoc = NewLogoRocImg
@@ -293,6 +290,8 @@ export const faceBook = facebookIcon;
 export const instaGram = instagramIcon;
 export const linkedIn = linkedInIcon;
 export const Twitter = twitterIcon;
+export const homeBlack = homeBlackImg
+export const profileBrown = profileBrownImg
 
 
 interface HamburgerProps {
@@ -303,32 +302,15 @@ interface HamburgerProps {
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
         <svg onClick={onClick} width="48" height="48" viewBox="0 0 48 48" fill="#dfe0e0" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_b_1562_13613)">
-                <g filter="url(#filter1_b_1562_13613)">
-                    <path d="M15 18.25C15 17.5859 15.5469 17 16.25 17H31.25C31.9141 17 32.5 17.5859 32.5 18.25C32.5 18.9531 31.9141 19.5 31.25 19.5H16.25C15.5469 19.5 15 18.9531 15 18.25ZM15 24.5C15 23.8359 15.5469 23.25 16.25 23.25H31.25C31.9141 23.25 32.5 23.8359 32.5 24.5C32.5 25.2031 31.9141 25.75 31.25 25.75H16.25C15.5469 25.75 15 25.2031 15 24.5ZM32.5 30.75C32.5 31.4531 31.9141 32 31.25 32H16.25C15.5469 32 15 31.4531 15 30.75C15 30.0859 15.5469 29.5 16.25 29.5H31.25C31.9141 29.5 32.5 30.0859 32.5 30.75Z" fill="white" fill-opacity="0.2" />
-                </g>
-            </g>
-            <g filter="url(#filter2_b_1562_13613)">
+            <g filter="url(#filter0_b_1634_393)">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM16.25 17C15.5469 17 15 17.5859 15 18.25C15 18.9531 15.5469 19.5 16.25 19.5H31.25C31.9141 19.5 32.5 18.9531 32.5 18.25C32.5 17.5859 31.9141 17 31.25 17H16.25ZM16.25 23.25C15.5469 23.25 15 23.8359 15 24.5C15 25.2031 15.5469 25.75 16.25 25.75H31.25C31.9141 25.75 32.5 25.2031 32.5 24.5C32.5 23.8359 31.9141 23.25 31.25 23.25H16.25ZM31.25 32C31.9141 32 32.5 31.4531 32.5 30.75C32.5 30.0859 31.9141 29.5 31.25 29.5H16.25C15.5469 29.5 15 30.0859 15 30.75C15 31.4531 15.5469 32 16.25 32H31.25Z" fill="#886D63" />
             </g>
             <defs>
-                <filter id="filter0_b_1562_13613" x="-20" y="-20" width="88" height="88" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feGaussianBlur in="BackgroundImageFix" stdDeviation="10" />
-                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1562_13613" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1562_13613" result="shape" />
-                </filter>
-                <filter id="filter1_b_1562_13613" x="-5" y="-3" width="57.5" height="55" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feGaussianBlur in="BackgroundImageFix" stdDeviation="10" />
-                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1562_13613" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1562_13613" result="shape" />
-                </filter>
-                <filter id="filter2_b_1562_13613" x="-40" y="-40" width="128" height="128" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <filter id="filter0_b_1634_393" x="-40" y="-40" width="128" height="128" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                     <feFlood flood-opacity="0" result="BackgroundImageFix" />
                     <feGaussianBlur in="BackgroundImageFix" stdDeviation="20" />
-                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1562_13613" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1562_13613" result="shape" />
+                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1634_393" />
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1634_393" result="shape" />
                 </filter>
             </defs>
         </svg>
@@ -341,7 +323,7 @@ export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
 
             <g id="SVGRepo_bgCarrier" stroke-width="0">
 
-                <rect x="-9.12" y="-9.12" width="66.24" height="66.24" rx="33.12" fill="#dfe0e0"  />
+                <rect x="-9.12" y="-9.12" width="66.24" height="66.24" rx="33.12" fill="#dfe0e0" />
 
             </g>
 
@@ -354,33 +336,33 @@ export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
     )
 }
 
-export const Linkedin = () => {
+export const Linkedin: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" onClick={onClick} height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M26 0.000976562H1.99375C0.89375 0.000976562 0 0.907227 0 2.01973V25.9822C0 27.0947 0.89375 28.001 1.99375 28.001H26C27.1 28.001 28 27.0947 28 25.9822V2.01973C28 0.907227 27.1 0.000976562 26 0.000976562ZM8.4625 24.001H4.3125V10.6385H8.46875V24.001H8.4625ZM6.3875 8.81348C5.05625 8.81348 3.98125 7.73223 3.98125 6.40723C3.98125 5.08223 5.05625 4.00098 6.3875 4.00098C7.7125 4.00098 8.79375 5.08223 8.79375 6.40723C8.79375 7.73848 7.71875 8.81348 6.3875 8.81348ZM24.0187 24.001H19.8687V17.501C19.8687 15.951 19.8375 13.9572 17.7125 13.9572C15.55 13.9572 15.2188 15.6447 15.2188 17.3885V24.001H11.0688V10.6385H15.05V12.4635H15.1062C15.6625 11.4135 17.0188 10.3072 19.0375 10.3072C23.2375 10.3072 24.0187 13.076 24.0187 16.676V24.001Z" fill="black" />
         </svg>
 
     )
 }
-export const Facebook = () => {
+export const Facebook: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="32" onClick={onClick} height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M32 16C32 7.1625 24.8375 0 16 0C7.1625 0 0 7.1625 0 16C0 23.5 5.16875 29.8 12.1375 31.5312V20.8875H8.8375V16H12.1375V13.8937C12.1375 8.45 14.6 5.925 19.95 5.925C20.9625 5.925 22.7125 6.125 23.4312 6.325V10.75C23.0562 10.7125 22.4 10.6875 21.5812 10.6875C18.9562 10.6875 17.9438 11.6812 17.9438 14.2625V16H23.1688L22.2687 20.8875H17.9375V31.8812C25.8625 30.925 32 24.1812 32 16Z" fill="black" />
         </svg>
 
     )
 }
-export const Instagram = () => {
+export const Instagram: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
-        <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" onClick={onClick} height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14.0063 7.8127C10.0313 7.8127 6.82505 11.0189 6.82505 14.9939C6.82505 18.9689 10.0313 22.1752 14.0063 22.1752C17.9813 22.1752 21.1875 18.9689 21.1875 14.9939C21.1875 11.0189 17.9813 7.8127 14.0063 7.8127ZM14.0063 19.6627C11.4375 19.6627 9.33755 17.5689 9.33755 14.9939C9.33755 12.4189 11.4313 10.3252 14.0063 10.3252C16.5813 10.3252 18.675 12.4189 18.675 14.9939C18.675 17.5689 16.575 19.6627 14.0063 19.6627ZM23.1563 7.51895C23.1563 8.4502 22.4063 9.19395 21.4813 9.19395C20.5501 9.19395 19.8063 8.44395 19.8063 7.51895C19.8063 6.59395 20.5563 5.84395 21.4813 5.84395C22.4063 5.84395 23.1563 6.59395 23.1563 7.51895ZM27.9125 9.21895C27.8063 6.9752 27.2938 4.9877 25.65 3.3502C24.0125 1.7127 22.025 1.2002 19.7813 1.0877C17.4688 0.956445 10.5375 0.956445 8.22505 1.0877C5.98755 1.19395 4.00005 1.70645 2.3563 3.34395C0.712549 4.98145 0.206299 6.96895 0.0937988 9.2127C-0.0374512 11.5252 -0.0374512 18.4564 0.0937988 20.7689C0.200049 23.0127 0.712549 25.0002 2.3563 26.6377C4.00005 28.2752 5.9813 28.7877 8.22505 28.9002C10.5375 29.0314 17.4688 29.0314 19.7813 28.9002C22.025 28.7939 24.0125 28.2814 25.65 26.6377C27.2875 25.0002 27.8001 23.0127 27.9125 20.7689C28.0438 18.4564 28.0438 11.5314 27.9125 9.21895ZM24.925 23.2502C24.4375 24.4752 23.4938 25.4189 22.2626 25.9127C20.4188 26.6439 16.0438 26.4752 14.0063 26.4752C11.9688 26.4752 7.58755 26.6377 5.75005 25.9127C4.52505 25.4252 3.5813 24.4814 3.08755 23.2502C2.3563 21.4064 2.52505 17.0314 2.52505 14.9939C2.52505 12.9564 2.36255 8.5752 3.08755 6.7377C3.57505 5.5127 4.5188 4.56895 5.75005 4.0752C7.5938 3.34395 11.9688 3.5127 14.0063 3.5127C16.0438 3.5127 20.4251 3.35019 22.2626 4.0752C23.4876 4.5627 24.4313 5.50644 24.925 6.7377C25.6563 8.58145 25.4875 12.9564 25.4875 14.9939C25.4875 17.0314 25.6563 21.4127 24.925 23.2502Z" fill="black" />
         </svg>
     )
 }
 
-export const TwitterIcon = () => {
+export const TwitterIcon: React.FC<HamburgerProps> = ({ onClick }) => {
     return (
-        <svg width="30" height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="30" onClick={onClick} height="26" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.3238 -0.000488281H27.7363L18.0988 11.012L29.4363 25.9995H20.5613L13.6051 16.912L5.65508 25.9995H1.23633L11.5426 14.2183L0.673828 -0.000488281H9.77383L16.0551 8.30576L23.3238 -0.000488281ZM21.7738 23.362H24.2176L8.44258 2.49951H5.81758L21.7738 23.362Z" fill="black" />
         </svg>
 
