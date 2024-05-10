@@ -20,12 +20,14 @@ interface ContextProps {
   closeModal: (name: string) => void;
   modalClick: (name: string, item?: any, urlImage?: any) => void;
   iconClick: (name: string) => void;
-  mapButtonClick:()=>void;
+  mapButtonClick: () => void;
   filterUrls: any;
   handleApiResponse: any;
   showContent: boolean;
   appName: any;
-  reservationMenu?:boolean
+  reservationMenu?: boolean;
+  oldName:string;
+  setOldName: any;
 }
 
 // Create a context
@@ -40,6 +42,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [dataUrlImage, setDataUrlImage] = useState("");
   const [appName, setAppName] = useState('')
   const [showMap, setShowMap] = useState<boolean>(false);
+  const [oldName, setOldName] = useState<string>("");
   const [modalType, setModalType] = useState({
     ModalContent: false,
     orderOnlineModal: false,
@@ -102,17 +105,26 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
-  const mapButtonClick=()=>{
+  const mapButtonClick = () => {
     setShowMap(false);
   }
 
 
-  const modalClick = (name: string, item?: any, urlImage?: any,openReservation?:any) => {
+  const modalClick = (name: string, item?: any, urlImage?: any, openReservation?: any) => {
+    console.log("aaaaaaaaaaaaaaa", name)
     setModalType((prev) => ({
       ...prev,
       [name]: true,
     }));
     setModalNames(name);
+    if(name === "createAccountModal"){
+      setOldName('')
+    } else if(name === "WelcomeBackModal"){
+      setOldName('')
+    } 
+    else if(name === "myList"){
+      setOldName('')
+    }
     if (item) {
       if (name === "infoApp") {
         setAppName(item)
@@ -162,7 +174,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     handleApiResponse,
     showContent,
     appName,
-    reservationMenu
+    reservationMenu,
+    oldName, 
+    setOldName
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

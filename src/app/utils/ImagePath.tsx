@@ -388,3 +388,15 @@ export const TwitterIcon = () => {
     )
 }
 
+
+export const BackArrow = () => {
+    return (
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="20" fill="black" fillOpacity="0.08" />
+            <path d="M12.4062 20L13.2031 19.2031L22.2031 10.2031L23 9.40625L24.5469 11L23.7969 11.7969L15.5469 20L23.7969 28.2031L24.5938 29L23 30.5938L22.2031 29.7969L13.2031 20.7969L12.4062 20Z" fill="black" />
+        </svg>
+
+
+    )
+}
+

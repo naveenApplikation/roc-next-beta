@@ -1,7 +1,8 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { CloseModal } from "../../app/utils/ImagePath";
+import { BackArrow, CloseModal } from "../../app/utils/ImagePath";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -69,7 +70,7 @@ const StyledModal = styled.div<{
     // left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
     left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
     transform: translateX(
-      ${({ $screenwidthpercentage, $showMap }) =>  ($showMap ? 20 : -500)}px
+      ${({ $screenwidthpercentage, $showMap }) => ($showMap ? 20 : -500)}px
     );
   }
 
@@ -125,6 +126,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
+  const { modalClick, oldName, modalType } = useMyContext()
 
   useEffect(() => {
     const handleResize = () => {
@@ -143,6 +145,8 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, []);
 
+
+  console.log("aaaaaaaaaa1111 ", title, modalType)
   return (
     <StyledModal
       $isopen={isOpen}
@@ -152,6 +156,18 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div className="modal-content">
         <HeaderContainer>
+          {
+            oldName === ""  ? "" :
+          <div onClick={() => modalClick(oldName)} >
+            <BackArrow />
+          </div>
+          }
+          {
+            modalType.myList ? 
+            <div onClick={() => onClose(name)}>
+              <BackArrow />
+            </div> : ""
+          }
           <h4 style={{ textTransform: 'capitalize' }}>{title}</h4>
           <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}

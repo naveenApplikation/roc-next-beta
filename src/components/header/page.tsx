@@ -10,6 +10,7 @@ import {
   ROCLogo,
   Hamburger,
   HamburgerDesktop,
+  homeBg
 } from "@/app/utils/ImagePath";
 
 interface HeaderProps {
@@ -21,6 +22,11 @@ interface HeaderProps {
   className: string
 }
 
+// background-image:url('${homeBg.src}');
+
+// width: 100%;
+// height: 500px;
+// background-size: cover;
 const HeadMenu = styled.div`
   display: flex;
   align-items: center;
@@ -28,6 +34,7 @@ const HeadMenu = styled.div`
   padding: 0px 40px;
   padding-top: 64px;
   padding-bottom: 6px;
+
   background-color: transparent;
 
   @media screen and (max-width: 800px) {
@@ -52,7 +59,8 @@ const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap, classNa
   };
   return (
     <>
-      <HeadMenu className={className}>
+      {/* <HeadMenu className={className}> */}
+      <HeadMenu >
         <Image
           style={{ cursor: "pointer" }}
           src={ROCLogo}
