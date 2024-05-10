@@ -54,9 +54,10 @@ const Page = () => {
   const [selectedIcon, setSelectedIcon] = useState<string>("shoppingCart");
   const [categoryType, setCategoryType] = useState<string>("public");
   const [listName, setListName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false)
 
   const [categoryList, setCategoryList] = useState([]);
-  const [bgColor, setBgColor] = useState<string>("");
+  const [bgColor, setBgColor] = useState<string>("#eb5757");
 
   useEffect(() => {
     if (screenName) {
@@ -76,6 +77,8 @@ const Page = () => {
     }
   }, [screenName]);
 
+
+
   const postHandler = async (name: string) => {
     setloader(true);
     const param = {
@@ -87,17 +90,30 @@ const Page = () => {
     };
 
     try {
+      setLoading(true)
       const result = await Instance.post("/create-category", param);
-      setloader(false);
-      toast.success(result.data.message);
-      setScreenName(name);
+
+      console.log("resu", result)
+      if(result?.status === 200){
+
+        setLoading(false);
+        toast.success(result.data.message);
+        setSearchQuery('')
+        setListName("")
+        setCategoryType("public")
+        setSelectedIcon('shoppingCart')
+        setBgColor("#eb5757")
+        setScreenName(name);
+      } else{
+        setLoading(false);
+      }
     } catch (error: any) {
       console.log(error.response);
-      setloader(false);
+      setLoading(false);
       toast.error(error.response.data);
       // setScreenName(name);
     } finally {
-      setloader(false);
+      setLoading(false);
       // setScreenName(name);
     }
   };
@@ -191,6 +207,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
+          loader= {loading}
           {...{ dragData, selectedData }}
         />
       );
