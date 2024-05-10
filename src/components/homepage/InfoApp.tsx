@@ -32,6 +32,7 @@ const NormalOption = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
   gap: 8px;
   justify-content: space-between;
   img{
