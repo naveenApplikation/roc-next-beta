@@ -70,6 +70,10 @@ import {
   arrowBottom,
   arrowLeft,
   more,
+  cycle,
+  family,
+  pro,
+  shield,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
@@ -652,6 +656,39 @@ export const walkData =
       color: "#F2994A",
       icon: more,
       url: "https://www.jersey.com/holidays/active/walking/"
+    },
+  ]
+export const cycleRouteData =
+  [
+    {
+      name: "Cycling Guide",
+      color: "#BB6BD9",
+      icon: cycle,
+      url: "https://www.jersey.com/holidays/active/cycling/"
+    },
+    {
+      name: "Family",
+      color: "#56CCF2",
+      icon: family,
+      url: "https://www.jersey.com/inspire-me/inspiration/family-friendly-cycle-routes/"
+    },
+    {
+      name: "Advanced",
+      color: "#EB5757",
+      icon: pro,
+      url: "https://www.komoot.com/user/1633110317504/tours?sport=racebike"
+    },
+    {
+      name: "Cycle hire",
+      color: "#27AE60",
+      icon: cycle,
+      url: "https://www.jersey.com/things-to-do/outdoor-activities/cycle-hire/"
+    },
+    {
+      name: "Cycling safety",
+      color: "#F2994A",
+      icon: shield,
+      url: "https://www.gov.je/Environment/ClimateEmergency/TacklingTransport/CyclingWalking/Pages/CyclingSafely.aspx"
     },
   ]
 

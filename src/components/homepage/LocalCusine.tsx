@@ -64,6 +64,7 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData,data);
 
   return (
+    data.length &&
     <>
       <MenuDetails
         isOpen={() => menuClick("Local cuisine", true, "local-cuisine")}

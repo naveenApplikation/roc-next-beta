@@ -117,7 +117,7 @@ body {
   }
 }
 
-@media screen and (max-width: 550px) {
+/* @media screen and (max-width: 550px) {
   body {
     background-size: 100vw 200vh;
   }
@@ -127,7 +127,7 @@ body {
   body {
     background-size: 150vw 180vh;
   }
-}
+} */
 
 
 a {

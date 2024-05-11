@@ -144,6 +144,10 @@ import arrowBottomImg from "../../../assets/images/arrow-bottom.svg";
 import moreImage from "../../../assets/images/more.svg";
 import homeBlackImg from "../../../assets/images/homeBlack.svg";
 import profileBrownImg from "../../../assets/images/profile_brown.svg";
+import cycleImg from "../../../assets/images/cycle.svg"
+import familyImg from "../../../assets/images/family.svg"
+import proImg from "../../../assets/images/pro.svg"
+import shieldImg from "../../../assets/images/sheild.svg"
 
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
@@ -291,6 +295,11 @@ export const linkedIn = linkedInIcon;
 export const Twitter = twitterIcon;
 export const homeBlack = homeBlackImg;
 export const profileBrown = profileBrownImg;
+export const cycle = cycleImg
+export const family = familyImg
+export const pro = proImg;
+export const shield = shieldImg;
+
 
 interface HamburgerProps {
   // Define your props here

@@ -3,7 +3,6 @@ import MapWithMenu from '@/components/RightSideMenu/MapWithMenu';
 import React from 'react'
 import styled from 'styled-components';
 import { useMyContext } from './Context/MyContext';
-import RightSideMenu from "@/components/RightSideMenu/page";
 
 const Container = styled.div`
         display: flex;
@@ -16,7 +15,8 @@ const Container = styled.div`
 const MainContainer = styled.div`
         height: 100vh;
         overflow: auto;
-
+        box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
+        z-index: 1;
         &::-webkit-scrollbar {
             display: none;
         }
@@ -30,31 +30,7 @@ const MainContainer = styled.div`
         `;
 
 
-const DashboardMenu = styled.div<{
-    $showMap: boolean;
-}>`
-        width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
-        padding-bottom: ${({ $showMap }) => ($showMap ? "0" : "0")};
-        background: #f2f3f3;
-        transition: width 0.6s ease; /* Adjust transition timing function and duration */
-        background-blend-mode: normal, luminosity;
-        box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        min-height: 100vh;
-    .shoadow_wrapper_container{
-        opacity:0;
-    }
-    @media screen and (max-width: 800px) {
-      display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
-      width: 100%;
-      min-height: ${({ $showMap }) =>
-        $showMap ? "calc(100vh - 500px)" : "100vh"};
-    }
-  `;
+
 interface PageLayoutProps {
     children: any;
 }

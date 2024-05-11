@@ -7,6 +7,7 @@ import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import {skeletonItems} from '@/app/utils/date'
+import { cycleRouteData, walkData } from "@/app/utils/data";
 
 interface DashboardProps {
   modalClick?: any;
@@ -54,7 +55,29 @@ const WalkContainer = styled.div`
     border-radius: 4px;
   }
 `;
+const CommunityContainer = styled.div`
+  display: flex;
+  width: 80px;
+  padding: 7px 8px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 80px;
+  border-radius: 8px;
+  background: #bb6bd9;
+  cursor:pointer;
 
+  p {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+  }
+`;
 const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls,showContent } = useMyContext();
 
@@ -97,28 +120,25 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 <ShopBrachSkeleton />
               </div>
             ))
-          : data.slice(0, 10).map((item, index) => {
-              return (
-                <WalkContainer key={index}>
-                  <Image
-                    src={filteredUrls[index]}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                  />
-                  <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
-                    alt=""
-                    width={120}
-                    height={64}
-                    style={{ position: "absolute", bottom: 0, height: 50 }}
-                    // alt=""
-                  />
-                  <p>{item.acf.title}</p>
-                </WalkContainer>
-              );
-            })}
+          :
+          cycleRouteData.length ? cycleRouteData?.map((item: any, index: any) => {
+            return (
+              <CommunityContainer
+                key={index}
+                style={{ background: item?.color }}
+                onClick={() => window.open(item.url)}
+              >
+                <Image
+                  src={item.icon}
+                  alt=""
+                  width={20}
+                  height={20}
+                  style={{ borderRadius: 4 }}
+                />
+                <p>{item?.name}</p>
+              </CommunityContainer>
+            );
+          }) : ""}
       </ScrollingMenu>
     </>
   );
