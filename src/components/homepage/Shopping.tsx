@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
 
 interface DashboardProps {
   modalClick?: any;
@@ -56,7 +56,7 @@ const WalkContainer = styled.div`
 `;
 
 const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -65,7 +65,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/shopsandMarket");
         setData(result.data);
@@ -85,20 +85,21 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
+  console.log("loaderloader", loader);
 
   return (
     data.length ?
-    <>
-      <MenuDetails title="Shopping" />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
+      <>
+        <MenuDetails title="Shopping" />
+        <ScrollingMenu>
+          {loader
+            ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <ShopBrachSkeleton />
               </div>
             ))
-          : 
-          data.slice(0, 10).map((item, index) => {
+            :
+            data.slice(0, 10).map((item, index) => {
               return (
                 <WalkContainer key={index} onClick={menuClick}>
                   <Image
@@ -106,7 +107,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     alt=""
                     width={500}
                     height={80}
-                    style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
+                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
                   />
                   <Image
                     src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
@@ -119,8 +120,8 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 </WalkContainer>
               );
             })}
-      </ScrollingMenu>
-    </> : ""
+        </ScrollingMenu>
+      </> : ""
   );
 };
 
