@@ -6,12 +6,99 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
 
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
 }
+
+
+const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+  const { filterUrls, showContent } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const [loader, setloader] = useState(true);
+
+  const fetchDataAsync = async () => {
+    setloader(true);
+    const storedValue = localStorage.getItem("hideUI");
+    if (storedValue) {
+      try {
+        const result = await Instance.get("/shopsandMarket");
+        setData(result.data);
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAsync();
+  }, [showContent]);
+
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
+
+  const filteredUrls = filterUrls(ImageUrlData);
+
+  return (
+    data.length ?
+      <>
+        <MenuDetails
+        isOpen={() => menuClick("Shopping", true, "shopsandMarket")}
+         title="Shopping" />
+        <ScrollingMenu>
+          {loader
+            ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <ShopBrachSkeleton />
+              </div>
+            ))
+            :
+            data.slice(0, 10).map((item, index) => {
+              return (
+                <WalkContainer key={index} 
+                onClick={() =>
+                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                }>
+                {/* <WalkContainer key={index} onClick={menuClick}> */}
+                  {
+                    item?.data_type === "google" ?
+                      <ImageTag src={item.photoUrl} alt="Image" />
+                      :
+                      <Image
+                        src={filteredUrls[index]}
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{ borderRadius: "100%", maxWidth: "100%", objectFit: 'cover' }}
+                      // alt=""
+                      />
+
+                  }
+                  <Image
+                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                    alt=""
+                    width={120}
+                    height={64}
+                    style={{ position: "absolute", bottom: 0, height: 50 }}
+                  />
+                  <p>{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
+                </WalkContainer>
+              );
+            })}
+        </ScrollingMenu>
+      </> : ""
+  );
+};
+
+export default Shopping;
+
+
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -55,73 +142,11 @@ const WalkContainer = styled.div`
   }
 `;
 
-const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
-
-  const fetchDataAsync = async () => {
-    setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
-      try {
-        const result = await Instance.get("/shopsandMarket");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchDataAsync();
-  }, [showContent]);
-
-  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
-
-  const filteredUrls = filterUrls(ImageUrlData);
-
-  return (
-    data.length ?
-    <>
-      <MenuDetails title="Shopping" />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <ShopBrachSkeleton />
-              </div>
-            ))
-          : 
-          data.slice(0, 10).map((item, index) => {
-              return (
-                <WalkContainer key={index} onClick={menuClick}>
-                  <Image
-                    src={filteredUrls[index]}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                  />
-                  <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
-                    alt=""
-                    width={120}
-                    height={64}
-                    style={{ position: "absolute", bottom: 0, height: 50 }}
-                  />
-                  <p>{item?.acf?.title}</p>
-                </WalkContainer>
-              );
-            })}
-      </ScrollingMenu>
-    </> : ""
-  );
-};
-
-export default Shopping;
+const ImageTag = styled.img`
+width:100%;
+border-radius:4px;
+object-fit:cover;
+height:100%;
+`;
