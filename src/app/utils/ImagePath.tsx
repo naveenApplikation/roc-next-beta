@@ -317,8 +317,8 @@ export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
       xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_b_1634_393)">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM16.25 17C15.5469 17 15 17.5859 15 18.25C15 18.9531 15.5469 19.5 16.25 19.5H31.25C31.9141 19.5 32.5 18.9531 32.5 18.25C32.5 17.5859 31.9141 17 31.25 17H16.25ZM16.25 23.25C15.5469 23.25 15 23.8359 15 24.5C15 25.2031 15.5469 25.75 16.25 25.75H31.25C31.9141 25.75 32.5 25.2031 32.5 24.5C32.5 23.8359 31.9141 23.25 31.25 23.25H16.25ZM31.25 32C31.9141 32 32.5 31.4531 32.5 30.75C32.5 30.0859 31.9141 29.5 31.25 29.5H16.25C15.5469 29.5 15 30.0859 15 30.75C15 31.4531 15.5469 32 16.25 32H31.25Z"
           fill="#886D63"
         />
@@ -364,7 +364,7 @@ export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
       viewBox="-9.12 -9.12 66.24 66.24"
       xmlns="http://www.w3.org/2000/svg"
       fill="#000000">
-      <g id="SVGRepo_bgCarrier" stroke-width="0">
+      <g id="SVGRepo_bgCarrier" strokeWidth="0">
         <rect
           x="-9.12"
           y="-9.12"
@@ -377,8 +377,8 @@ export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
 
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
       <g id="SVGRepo_iconCarrier">

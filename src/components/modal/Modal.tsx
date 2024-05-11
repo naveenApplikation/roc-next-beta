@@ -21,14 +21,9 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: 0;
-  left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
-    $isopen
-      ? `${190 -
-      ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
-      }%`
-      : "0%"};
+  left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
   transform: translateX(
-    -${({ $screenwidthpercentage, $showMap }) => 230 - ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)}%
+    ${({ $screenwidthpercentage, $showMap }) => ($showMap ? 20 : -500)}px
   );
   bottom: 0%;
   max-height: 95vh;
@@ -183,3 +178,14 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
+
+
+// left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
+//   $isopen
+//     ? `${190 -
+//     ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
+//     }%`
+//     : "0%"};
+// transform: translateX(
+//   -${({ $screenwidthpercentage, $showMap }) => 230 - ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)}%
+// );
