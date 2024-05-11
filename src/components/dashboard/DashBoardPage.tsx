@@ -39,8 +39,11 @@ const DashBoard = () => {
 
   const router = useRouter();
 
-  const { showMap, modalClick , dataDetails  } = useMyContext()
-  const [listData, setListData] = useState<string[]>([])
+  const { showMap, modalClick , dataDetails  } = useMyContext();
+  const [listData, setListData] = useState<string[]>([]);
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [data, setData] = useState<any[]>([]);
+  // const [loader, setLoader] = useState<boolean>(false)
 
   const fetchDataAsync = async () => {
     try {
@@ -111,7 +114,6 @@ const DashBoard = () => {
       document.body.removeEventListener("click", handleClick);
     };
   }, []);
-
 
 
   return (

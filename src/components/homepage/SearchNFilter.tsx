@@ -6,10 +6,13 @@ import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import { filter } from "@/app/utils/ImagePath";
+import Instance from "@/app/utils/Instance";
+import { debounce } from "lodash";
 
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
+
 }
 
 const options = ["Lists", "Places"];
@@ -74,10 +77,13 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     setTabValue(value);
   };
 
+
+
   return (
     <>
       <InputWrapper>
-        <SearchInput onFocus={() => modalClick("search")} />
+        <SearchInput
+          onFocus={() => modalClick("search")} />
         {/* <FilterInput onClick={() => modalClick("modalFilter")}>
           <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
           <p>Filter</p>
