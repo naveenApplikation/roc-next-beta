@@ -64,7 +64,7 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData,data);
 
   return (
-    data.length &&
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Local cuisine", true, "local-cuisine")}
@@ -94,7 +94,7 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           ))
         )}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

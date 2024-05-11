@@ -98,6 +98,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Top Attractions", true, "top-attractions")}
@@ -141,7 +142,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
             );
           })}
       </ScrollingMenu>
-    </>
+    </> :""
   );
 };
 

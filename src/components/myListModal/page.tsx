@@ -81,7 +81,7 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
         </>
       ) : (
         <>
-          <FilterSection />
+          {/* <FilterSection /> */}
           <SearchedListContainer>
             {RestroListData.map((item: any, index: any) => {
               return (

@@ -108,7 +108,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                     onchange={(e: any) => handleSearch(e.target.value)} />
             </InputWrapper>
             <>
-                <FilterSection />
+                {/* <FilterSection /> */}
                 <SearchedListContainer>
                     {loader ? "Loading..." : (searchQuery &&
                         data.map((item: any, index: any) => {

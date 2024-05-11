@@ -134,6 +134,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data?.length &&
     <>
       <MenuDetails
         isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}

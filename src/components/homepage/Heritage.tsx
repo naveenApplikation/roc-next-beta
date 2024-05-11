@@ -97,6 +97,7 @@ const Heritage: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Heritage", true, "heritages")}
@@ -154,7 +155,7 @@ const Heritage: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

@@ -111,6 +111,7 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Surfing", true, "surfings")}
@@ -174,7 +175,7 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

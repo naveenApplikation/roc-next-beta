@@ -119,6 +119,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Family Events", true, "family-events")}
@@ -166,7 +167,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
-import { home, profileIcon, search, ROCLogo, Hamburger } from "@/app/utils/ImagePath";
+import { home, profileIcon, search, ROCLogo, Hamburger, HamburgerDesktop, HamburgerWithoutBG } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 
 const HeadMenu = styled.div`
@@ -57,20 +57,13 @@ const HeaderScreen = () => {
             onClick={() => modalClick("search")}
             // onClick={() => modalClick("search")}
           />
-
-          {/* <Image
-            style={{ cursor: "pointer" }}
-            src={profileIcon}
-            alt="Logo Outline"
-            onClick={() => modalClick("createAccountModal")}
-          /> */}
           <Image
             style={{ cursor: "pointer" }}
             src={home}
             alt="Logo Outline"
             onClick={navigateClick}
           />
-          <Hamburger onClick={()=>modalClick("LoginSignupModal")} />
+          <HamburgerWithoutBG onClick={()=>modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
       </HeadMenu>
     </div>

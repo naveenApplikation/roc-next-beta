@@ -188,7 +188,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                                     </FamilyEventWrapperInside>
                                 </FamilyEventWrapper>
                                 <div className="restroRating">
-                                    <p className="shopName">{item.acf.title}</p>
+                                    <p className="shopName">{item?.acf?.title}</p>
                                     <DetailContainer>
                                         <Image
                                             src={locationMark}
@@ -199,7 +199,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                                             }}
                                             alt="utensils"
                                         />
-                                        <p>{item.acf.parish.label}</p>
+                                        <p>{item?.acf?.parish?.label}</p>
                                     </DetailContainer>
                                     {/* <p>
                                         <span>

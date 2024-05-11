@@ -97,24 +97,25 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    <>
-      <MenuDetails
-        isOpen={() => menuClick("Out out", true, "out-out")}
-        title="Out out"
-      />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
+    data.length ?
+      <>
+        <MenuDetails
+          isOpen={() => menuClick("Out out", true, "out-out")}
+          title="Out out"
+        />
+        <ScrollingMenu>
+          {loader
+            ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />
               </div>
             ))
-          : data?.slice(0, 10).map((item, index) => {
+            : data?.slice(0, 10).map((item, index) => {
               return (
                 <StarContainer
                   key={index}
                   style={{ cursor: "pointer" }}
-                  onClick={() => modalClick("ModalContent", item,filteredUrls[index])}
+                  onClick={() => modalClick("ModalContent", item, filteredUrls[index])}
                 >
                   <StarWrapper>
                     <Image
@@ -123,7 +124,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                       alt=""
                       width={500}
                       height={80}
-                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
+                      style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
                     />
                   </StarWrapper>
                   <div>
@@ -145,14 +146,15 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                       <p>4.7</p>
                     </div>
                     <p style={{ fontSize: 14, marginTop: 8 }}>
-                    {item.acf.title}
+                      {item.acf.title}
                     </p>
                   </div>
                 </StarContainer>
               );
             })}
-      </ScrollingMenu>
-    </>
+        </ScrollingMenu>
+      </>
+      : ""
   );
 };
 

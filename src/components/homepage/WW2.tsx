@@ -111,6 +111,7 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails isOpen={() => menuClick("WW2", true, "ww-2")} title="WW2" />
       <ScrollingMenu>
@@ -171,7 +172,7 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
             );
           })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

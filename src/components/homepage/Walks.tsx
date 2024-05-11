@@ -111,6 +111,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails title="Walks" hideShowAll={true} />
       {/* <ScrollingMenu>
@@ -161,8 +162,8 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
             </CommunityContainer>
           );
         }) : ""}
-      </ScrollingMenu>
-    </>
+      </ScrollingMenu> 
+    </>: ""
   );
 };
 

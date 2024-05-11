@@ -6,7 +6,7 @@ import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import RatingMenu from "@/components/dashboard/RatingMenu";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from '@/app/utils/date'
 
 interface DashboardProps {
   modalClick?: any;
@@ -29,7 +29,7 @@ const ScrollingMenu = styled.div`
 `;
 
 const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  const { filterUrls, showContent } = useMyContext();
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
@@ -38,7 +38,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
+    if (storedValue) {
       try {
         const result = await Instance.get("/bar-pubs");
         setData(result.data);
@@ -60,19 +60,20 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    <>
-      <MenuDetails
-        title="Bars"
-        isOpen={() => menuClick("Bars", true, "bar-pubs")}
-      />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
+    data.length ?
+      <>
+        <MenuDetails
+          title="Bars"
+          isOpen={() => menuClick("Bars", true, "bar-pubs")}
+        />
+        <ScrollingMenu>
+          {loader
+            ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />
               </div>
             ))
-          : data?.slice(0, 10).map((item, index) => {
+            : data?.slice(0, 10).map((item, index) => {
               return (
                 <div key={index}>
                   <RatingMenu
@@ -84,14 +85,14 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     containerImageUrl={true}
                     MenutitleDetail={item.acf.title}
                     isOpen={() =>
-                      modalClick("ModalContent", item, filteredUrls[index],true)
+                      modalClick("ModalContent", item, filteredUrls[index], true)
                     }
                   />
                 </div>
               );
             })}
-      </ScrollingMenu>
-    </>
+        </ScrollingMenu>
+      </> : ""
   );
 };
 

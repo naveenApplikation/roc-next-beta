@@ -173,11 +173,11 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
       <SearchedListContainer>
         <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
         <LikeCount>5,281 likes</LikeCount>
-        {urlData != 77 && (
+        {/* {urlData != 77 && (
           <div style={{ margin: "24px 0px" }}>
             <FilterSection />
           </div>
-        )}
+        )} */}
         {loader
           ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>

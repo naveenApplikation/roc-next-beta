@@ -96,6 +96,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         isOpen={() => menuClick("Wellbeing", true, "well-being")}
@@ -154,7 +155,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

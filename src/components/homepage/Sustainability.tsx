@@ -63,6 +63,7 @@ const Sustainability: React.FC<DashboardProps> = ({
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails
         title="Sustainability"
@@ -94,7 +95,7 @@ const Sustainability: React.FC<DashboardProps> = ({
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

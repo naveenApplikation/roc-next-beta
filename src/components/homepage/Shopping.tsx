@@ -87,6 +87,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails title="Shopping" />
       <ScrollingMenu>
@@ -119,7 +120,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 

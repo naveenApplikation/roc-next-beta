@@ -87,6 +87,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
+    data.length ?
     <>
       <MenuDetails title="Beach life " />
       <ScrollingMenu>
@@ -118,7 +119,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               );
             })}
       </ScrollingMenu>
-    </>
+    </> : ""
   );
 };
 
