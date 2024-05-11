@@ -1,6 +1,6 @@
 import { thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 import styled from "styled-components";
 import Ratings from "../ratings";
 import FilterSection from "@/components/filterSection";
@@ -148,6 +148,14 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
 `;
 
+const ImageTag = styled.img`
+width:80px;
+border-radius:4px;
+object-fit:cover;
+height:80px;
+cursor:pointer;
+`
+
 const AttractionBox: React.FC<AttractionBoxProps> = ({
   urlTitle,
   urlData,
@@ -158,41 +166,28 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
 
+
+  console.log("hiodfodifs", urlData)
   return (
-    <SearchedListContainer>
-      <TitleText>{urlTitle}</TitleText>
-      <LikeCount>5,281 likes</LikeCount>
-      {/* {urlData != 77 && (
-        <div style={{ margin: "24px 0px" }}>
-          <FilterSection />
-        </div>
-      )} */}
-      {loader
-        ? skeletonItems.map((item, index) => (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchedListContainer>
+        <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
+        <LikeCount>5,281 likes</LikeCount>
+        {urlData != 77 && (
+          <div style={{ margin: "24px 0px" }}>
+            <FilterSection />
+          </div>
+        )}
+        {loader
+          ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>
               <MainWrraper>
                 <MainInsideWrapper>
-                  <Skeleton
-                    width={80}
-                    height={80}
-                    style={{ borderRadius: 8 }}
-                  />
+                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
                   <div className="restroRating">
-                    <Skeleton
-                      width={120}
-                      height={15}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={120}
-                      height={15}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={120}
-                      height={15}
-                      style={{ borderRadius: 8 }}
-                    />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
                   </div>
                 </MainInsideWrapper>
                 <div className="likes">
@@ -201,28 +196,37 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
               </MainWrraper>
             </SearchedData>
           ))
-        : urlData?.map((item: any, index: any) => {
+          : urlData?.map((item: any, index: any) => {
             return (
               <SearchedData key={index}>
                 <MainWrraper>
                   <MainInsideWrapper>
                     <div style={{ position: "relative" }}>
-                      <Image
-                        // style={{ background: "white" }}
-                        src={filteredUrls[index]}
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: 4,
-                          // maxWidth: "100%",
-                          width: "80px",
-                          objectFit: "cover",
-                        }}
-                        alt=""
-                        onClick={() =>
-                          modalClick("ModalContent", item, filteredUrls[index])
-                        }
-                      />
+                      {
+                        item?.data_type === "google" ?
+                          <ImageTag src={item.photoUrl} alt="Image"
+                            onClick={() =>
+                              modalClick("ModalContent", item, item.photoUrl)
+                            }
+                          />
+                          :
+                          <Image
+                            // style={{ background: "white" }}
+                            src={filteredUrls[index]}
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: 4,
+                              width: "80px",
+                              objectFit: "cover",
+                              cursor: 'pointer'
+                            }}
+                            alt=""
+                            onClick={() =>
+                              modalClick("ModalContent", item, filteredUrls[index])
+                            }
+                          />
+                      }
                       {item.deliverActive && (
                         <DeliveryContainer>
                           <Image
@@ -264,10 +268,11 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             );
           })}
 
-      <AddListButton>
-        <CommonButton text="Add to the list" />
-      </AddListButton>
-    </SearchedListContainer>
+        <AddListButton>
+          <CommonButton text="Add to the list" />
+        </AddListButton>
+      </SearchedListContainer>
+    </Suspense>
   );
 };
 

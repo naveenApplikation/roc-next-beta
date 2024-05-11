@@ -82,7 +82,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, [showContent]);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -96,7 +96,8 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 <ShopBrachSkeleton />
               </div>
             ))
-          : data.slice(0, 10).map((item, index) => {
+          : 
+          data.slice(0, 10).map((item, index) => {
               return (
                 <WalkContainer key={index} onClick={menuClick}>
                   <Image
@@ -113,7 +114,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     height={64}
                     style={{ position: "absolute", bottom: 0, height: 50 }}
                   />
-                  <p>{item.acf.title}</p>
+                  <p>{item?.acf?.title}</p>
                 </WalkContainer>
               );
             })}

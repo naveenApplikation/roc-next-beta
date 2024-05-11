@@ -146,7 +146,6 @@ const Modal: React.FC<ModalProps> = ({
   }, []);
 
 
-  console.log("aaaaaaaaaa1111 ", title, modalType)
   return (
     <StyledModal
       $isopen={isOpen}
