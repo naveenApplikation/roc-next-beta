@@ -51,6 +51,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         onChange={onchange}
         type="text"
         placeholder="Search..."
+        onFocus={onFocus}
       />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>

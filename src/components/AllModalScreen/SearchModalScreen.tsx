@@ -55,7 +55,7 @@ const SearchedContainer = styled.div`
 
 const SearchModalScreen: React.FC<SearchContainerProps> = ({tabChange , options , tabValue , showMap})=> {
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+    const { modalName, closeModal, modalClick, dataDetails, modalType } = useMyContext();
 
   return (
     <>
