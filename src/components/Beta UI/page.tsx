@@ -7,9 +7,22 @@ import AboutRocModal from "@/components/modal/BetaUIModal";
 import JoinList from "@/components/Beta UI/JoinList";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
-import { ROCLogo, ROCLogoWhite, Twitter, betaHigh, faceBook, instaGram, linkedIn } from "@/app/utils/ImagePath";
+import {
+  ROCLogo,
+  ROCLogoWhite,
+  Twitter,
+  betaHigh,
+  faceBook,
+  instaGram,
+  linkedIn,
+} from "@/app/utils/ImagePath";
 import { useSearchParams } from "next/navigation";
-import { facebookURL, instagramURL, linkedinURL, twitterURL } from "@/app/utils/constantData";
+import {
+  facebookURL,
+  instagramURL,
+  linkedinURL,
+  twitterURL,
+} from "@/app/utils/constantData";
 
 interface ShadowWrapperProps {
   children: React.ReactNode;
@@ -30,8 +43,7 @@ const StyledShadowWrapper = styled.div`
     z-index: 10;
   }
 
-  .shadow-header{
-    
+  .shadow-header {
     position: fixed;
     top: 5%;
     width: 100%;
@@ -47,7 +59,7 @@ const StyledShadowWrapper = styled.div`
     /* display:flex !important;
     flex-direction: row !important;
     justify-content:space-between !important; */
-    align-items:center;
+    align-items: center;
   }
   .content-wrapper {
     position: fixed;
@@ -123,16 +135,20 @@ const JoinText = styled.p`
   text-decoration-line: underline;
 `;
 
-const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, setShowContent }) => {
+const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
+  children,
+  showContent,
+  setShowContent,
+}) => {
   // const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState<any>("");
   const { handleApiResponse } = useMyContext();
   const [loader, setloader] = useState(false);
 
   const searchParams = useSearchParams();
-  const query = searchParams.get('code');
+  const query = searchParams.get("code");
 
-  console.log(inputValue, "asas")
+  console.log(inputValue, "asas");
 
   const fetchDataAsync = async () => {
     setloader(true);
@@ -141,7 +157,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
       localStorage.setItem("hideUI", inputValue.trim());
       setShowContent(false);
       localStorage.setItem("Token", result.data.data);
-      handleApiResponse(true)
+      handleApiResponse(true);
     } catch (error: any) {
       console.log(error.message);
       setloader(false);
@@ -152,12 +168,12 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
 
   useEffect(() => {
     if (query) {
-      setInputValue(query)
+      setInputValue(query);
       if (inputValue) {
-        fetchDataAsync()
+        fetchDataAsync();
       }
     }
-  }, [inputValue])
+  }, [inputValue]);
 
   const [modalType, setModalType] = useState({
     ModalContent: false,
@@ -188,10 +204,9 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
     // setLoading(false);
   }, []);
 
-  const navigateClick=(url:string)=>{
-    window.open(url)
-  }
-
+  const navigateClick = (url: string) => {
+    window.open(url);
+  };
 
   return (
     <>
@@ -206,12 +221,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                 height={68}
                 alt="right icon"
               />
-              <Image
-                src={betaHigh}
-                width={80}
-                height={40}
-                alt="right icon"
-              />
+              <Image src={betaHigh} width={80} height={40} alt="right icon" />
             </div>
             <div className="content-wrapper">
               {/* <div style={{ display: "flex", justifyContent: "center" }}>
@@ -238,7 +248,12 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
                   <CommonButton text={loader ? "Loading..." : "Submit"} />
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '25px', justifyContent: 'center' }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "25px",
+                  justifyContent: "center",
+                }}>
                 <Image
                   style={{ cursor: "pointer" }}
                   onClick={() => navigateClick(facebookURL)}
@@ -295,16 +310,14 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({ children, showContent, se
         isOpen={modalType.ModalContent}
         onClose={() => closeModal("ModalContent")}
         name="ModalContent"
-        title="Join the waiting list"
-      >
+        title="Join the waiting list">
         <JoinList />
       </BetaUIModal>
       <AboutRocModal
         isOpen={modalType.AboutRoc}
         onClose={() => closeModal("AboutRoc")}
         name="AboutRoc"
-        title="About ROC"
-      >
+        title="About ROC">
         <p style={{ textAlign: "center", fontSize: 16 }}>to do...</p>
       </AboutRocModal>
     </>

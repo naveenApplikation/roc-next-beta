@@ -22,6 +22,9 @@ import {
   locationDot,
 } from "@/app/utils/ImagePath";
 import { setEngine } from "crypto";
+import { topAttractionMapping } from "@/app/utils/mappingFun";
+import { convertTo12HourTime } from "@/app/utils/commanFun";
+import { Spin } from "antd";
 
 interface ModalProps {
   onClose: () => void;
@@ -39,7 +42,6 @@ const Container = styled.div`
 
 const ResturatContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
   gap: 10px;
@@ -197,7 +199,7 @@ const DatesWrapperText = styled.div`
 
 const WeekTimeArrange = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap:10px;
   align-items: center;
 
   p {
@@ -250,8 +252,21 @@ const ModalContent: React.FC<ModalProps> = ({
   data,
   reservationMenu,
 }) => {
-  const [showApiData, setShowApiData] = useState(data);
-  console.log("datadatadata", data);
+  const [showApiData, setShowApiData] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false)
+  useEffect(() => {
+    console.log("hioo")
+    const timer = setTimeout(() => setLoading(true), 1500);
+    return () => clearTimeout(timer)
+  }, [showApiData?.types, data?.acf?.type])
+
+  useEffect(() => {
+    setLoading(false)
+    topAttractionMapping(data).then((res: any) => {
+      console.log("ddddddddd")
+      setShowApiData(res)
+    })
+  }, [data?._id, Object.keys(showApiData).length])
 
   const ResturantDetailData = [
     {
@@ -259,15 +274,15 @@ const ModalContent: React.FC<ModalProps> = ({
       image: clock,
     },
     {
-      name: data.acf?.website,
+      name: data?.data_type === "google" ? showApiData?.website : data?.acf?.website,
       image: globes,
     },
     {
-      name: data.acf?.telephone_number.formatted,
+      name: data?.data_type === "google" ? showApiData?.formatted_phone_number : data?.acf?.telephone_number?.formatted,
       image: phoneBlack,
     },
     {
-      name: `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}`,
+      name: data?.data_type === "google" ? showApiData?.formatted_address : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
       image: locationDot,
     },
   ];
@@ -313,7 +328,7 @@ const ModalContent: React.FC<ModalProps> = ({
         try {
           const ReviewData = await Instance.get(`review/${data?._id}`);
           console.log(ReviewData, "sdsdsds");
-          setReviewData(ReviewData.data);
+          setReviewData(ReviewData?.data);
           setReviewShowToggle(false);
         } catch (error: any) {
           console.log(error.message);
@@ -329,7 +344,7 @@ const ModalContent: React.FC<ModalProps> = ({
   const fetchDataAsync = async () => {
     setloader(true);
     const param = {
-      placeId: data._id,
+      placeId: data?._id,
       rating: rating,
       comment: commentReview,
     };
@@ -357,19 +372,20 @@ const ModalContent: React.FC<ModalProps> = ({
   };
 
   const formattedValues = () => {
-    if (Array.isArray(data.acf?.type)) {
-      return data.acf?.type.map((item: any) => item.label).join(" | ");
+    const typeData = data?.data_type === "google" ? showApiData?.types : data?.acf?.type
+    if (Array.isArray(typeData)) {
+      return data?.data_type === "google" ? showApiData?.types.map((item: any) => item.replaceAll("_", " ")).join(" | ") : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
-      return data.acf?.type.label;
+      return data?.data_type === "google" ? showApiData?.types : data?.acf?.type?.label;
     }
   };
 
-  const strippedContent = data.acf?.short_description
+  const strippedContent = data?.acf?.short_description
     .replace(/<p[^>]*>/g, "")
     .replace(/<\/p>/g, "");
 
-  const daysOfWeek = Object.keys(data.acf?.opening_hours ?? {});
-  const daysOfWeekTiming = Object.values(data.acf?.opening_hours ?? {}) as {
+  const daysOfWeek = Object.keys(data?.acf?.opening_hours ?? {});
+  const daysOfWeekTiming = Object.values(data?.acf?.opening_hours ?? {}) as {
     opens: string;
     closes: string;
   }[];
@@ -383,177 +399,209 @@ const ModalContent: React.FC<ModalProps> = ({
   };
 
   return (
-    <Container>
-      {
-        console.log("foramattedvalue", showApiData) as any
-      }
-      <ResturatContainer>
-        <ResturatWrapper>
-          <p style={{ fontSize: "16px" }}>{formattedValues()}</p>
-          <p style={{ fontSize: 16 }}>|</p>
-          <OpenRestText>OPEN</OpenRestText>
-        </ResturatWrapper>
-        <Ratings
-          defaultValue={data?.rating}
-          giveRating={giveRating}
-          ratingvalue={data?.rating}
-        />
-        {/* <Image
-          style={{ cursor: "pointer" }}
-          src={BlackStar}
-          alt="Logo Outline"
-        /> */}
-      </ResturatContainer>
-      <ItemImageContainer>
-        <ImageWrraper
-          src={
-            dataImage
-              ? dataImage
-              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          }
-          alt="Logo"
-          width={500}
-          height={80}
-          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-        />
-      </ItemImageContainer>
-      <ResturantDetailsContainer>
-        {ResturantDetailData.map((item, index) => {
-          return (
-            item.name &&
-            <ResturantDetailsWrapper key={index}>
-              {" "}
-              <Image
-                style={{ cursor: "pointer" }}
-                src={item.image}
-                alt="Logo Outline"
-              />{" "}
-              {index == 1 ? (
-                <RestDetailTitleWebsite href={item?.name} target="_blank">
-                  {item?.name}
-                </RestDetailTitleWebsite>
-              ) : (
-                <RestDetailTitle>{item.name}</RestDetailTitle>
-              )}
-              {index == 0 && (
+    !loading ? 
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
+      <Spin tip="Loading" size="large" />
+    </div> :
+      <Container>
+        <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}>{formattedValues()}</p>
+        <ResturatContainer>
+          <ResturatWrapper>
+            {/* <p style={{ fontSize: 16 }}>|</p> */}
+            <OpenRestText>OPEN</OpenRestText>
+          </ResturatWrapper>
+          <Ratings
+            defaultValue={data?.rating}
+            giveRating={giveRating}
+            ratingvalue={data?.rating}
+          />
+
+        </ResturatContainer>
+        <ItemImageContainer>
+          <ImageWrraper
+            src={
+              dataImage
+                ? dataImage
+                : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+            }
+            alt="Logo"
+            width={500}
+            height={80}
+            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+          />
+        </ItemImageContainer>
+        <ResturantDetailsContainer>
+          {ResturantDetailData.map((item, index) => {
+
+            return (
+              item?.name &&
+              <ResturantDetailsWrapper key={index}>
+                {" "}
                 <Image
-                  style={{ cursor: "pointer", height: "auto" }}
-                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
-                  alt="Logo down"
-                  width={10}
-                  height={24}
-                />
-              )}
-            </ResturantDetailsWrapper>
-          );
-        })}
-        <ViewDirection onClick={() => reservationModal("DirectionModal")}>
-          View Directions
-        </ViewDirection>
-      </ResturantDetailsContainer>
-      <RestDetailText>{strippedContent}</RestDetailText>
-      <MenuButtonContainer>
-        <DashBoardButton
-          text="Special menu"
-          bcColor="#E8468F"
-          image={clientLogoImg}
-          imageStyle={91}
-        />
-        <DashBoardButton
-          text="Normal Menu"
-          bcColor="#2F80ED"
-          image={bookOpen}
-          imageStyle={27}
-        />
-      </MenuButtonContainer>
-      <ReviewContainer>
-        <ReviewWraaper>
-          {/* <Image src={comment} alt="icon" /> */}
-          <OpeningTitle>Reviews</OpeningTitle>
-        </ReviewWraaper>
-        {reviewData.map((item: any, index: any) => (
-          <div key={index}>
-            {showEdit === index ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-                <TextAreaContainer
-                  rows={4}
-                  cols={50}
-                  placeholder="Comments"
-                  value={commentReview}
-                  onChange={(e) => setCommentReview(e.target.value)}
-                />
-                {console.log("item", item?._id) as any}
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                    Rating:
-                  </span>
-                  <Ratings
-                    defaultValue={0}
-                    giveRating={giveRating}
-                    ratingvalue={rating}
+                  style={{ cursor: "pointer" }}
+                  src={item?.image}
+                  alt="Logo Outline"
+                />{" "}
+                {index == 1 ? (
+                  <RestDetailTitleWebsite href={item?.name} target="_blank">
+                    {item?.name}
+                  </RestDetailTitleWebsite>
+                ) : (
+                  <RestDetailTitle>{item?.name}</RestDetailTitle>
+                )}
+                {index == 0 && (
+                  <Image
+                    style={{ cursor: "pointer", height: "auto" }}
+                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
+                    alt="Logo down"
+                    width={10}
+                    height={24}
+                  />
+                )}
+              </ResturantDetailsWrapper>
+            );
+          })}
+          <ViewDirection onClick={() => reservationModal("DirectionModal")}>
+            View Directions
+          </ViewDirection>
+        </ResturantDetailsContainer>
+        <RestDetailText>{strippedContent}</RestDetailText>
+        <MenuButtonContainer>
+          <DashBoardButton
+            text="Special menu"
+            bcColor="#E8468F"
+            image={clientLogoImg}
+            imageStyle={91}
+          />
+          <DashBoardButton
+            text="Normal Menu"
+            bcColor="#2F80ED"
+            image={bookOpen}
+            imageStyle={27}
+          />
+        </MenuButtonContainer>
+        <ReviewContainer>
+          <ReviewWraaper>
+            <Image src={comment} alt="icon" />
+            <OpeningTitle>Reviews</OpeningTitle>
+          </ReviewWraaper>
+          {reviewData.length ? reviewData.map((item: any, index: any) => (
+            <div key={index}>
+              {showEdit === index ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                  <TextAreaContainer
+                    rows={4}
+                    cols={50}
+                    placeholder="Comments"
+                    value={commentReview}
+                    onChange={(e) => setCommentReview(e.target.value)}
+                  />
+                  {console.log("item", item?._id) as any}
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <span style={{ fontSize: 14, fontWeight: "bold" }}>
+                      Rating:
+                    </span>
+                    <Ratings
+                      defaultValue={0}
+                      giveRating={giveRating}
+                      ratingvalue={rating}
+                    />
+                  </div>
+                  <CommonButton
+                    text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
+                    isOpen={fetchDataAsync}
                   />
                 </div>
-                <CommonButton
-                  text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
-                  isOpen={fetchDataAsync}
+              ) : (
+                <CommentRating
+                  index={index}
+                  id={item?._id}
+                  Titletext="ELCIAS DE FREITAS"
+                  Maintext={item?.comment}
+                  starRating={item?.rating}
+                  like={24}
+                  disLike={7}
+                  handleEdit={handleEdit}
+                />
+              )}
+            </div>
+          )) : ""}
+
+          <ReviewWraaper
+            style={{ marginBottom: "8px", cursor: "pointer" }}
+            onClick={handleButtonClick}
+          >
+            <Image src={plus} alt="icon" />
+            <AddReview>Add Review</AddReview>
+          </ReviewWraaper>
+          {showReview && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+              <TextAreaContainer
+                rows={4}
+                cols={50}
+                placeholder="Comments"
+                value={commentReview}
+                onChange={(e) => setCommentReview(e.target.value)}
+              />
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
+                <Ratings
+                  defaultValue={0}
+                  giveRating={giveRating}
+                  ratingvalue={rating}
                 />
               </div>
-            ) : (
-              <CommentRating
-                index={index}
-                id={item?._id}
-                Titletext="ELCIAS DE FREITAS"
-                Maintext={item.comment}
-                starRating={item.rating}
-                like={24}
-                disLike={7}
-                handleEdit={handleEdit}
-              />
-            )}
-          </div>
-        ))}
-
-        <ReviewWraaper
-          style={{ marginBottom: "8px", cursor: "pointer" }}
-          onClick={handleButtonClick}
-        >
-          <Image src={plus} alt="icon" />
-          <AddReview>Add Review</AddReview>
-        </ReviewWraaper>
-        {showReview && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-            <TextAreaContainer
-              rows={4}
-              cols={50}
-              placeholder="Comments"
-              value={commentReview}
-              onChange={(e) => setCommentReview(e.target.value)}
-            />
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
-              <Ratings
-                defaultValue={0}
-                giveRating={giveRating}
-                ratingvalue={rating}
-              />
+              <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
             </div>
-            <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
-          </div>
-        )}
-      </ReviewContainer>
-      <DatesContainer>
-        <OpeningTitle>Opening</OpeningTitle>
-        <DatesWrapperText>
-          {data.acf?.seasonality &&
-            data.acf?.seasonality.map((item: any, index: any) => (
-              <p key={index}>
-                {item.label}
-                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
-              </p>
-            ))}
-        </DatesWrapperText>
+          )}
+        </ReviewContainer>
+        <DatesContainer>
+          <OpeningTitle>Opening</OpeningTitle>
+          {
+            data?.data_type === "google" ?
+              <DatesWrapperText>
+                {showApiData?.current_opening_hours?.weekday_text &&
+                  showApiData?.current_opening_hours?.weekday_text.map((item: any, index: any) => (
+                    <p key={index}>
+                      {item}
+                      {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "}
+                    </p>
+                  ))}
+              </DatesWrapperText>
+              :
+              <DatesWrapperText>
+                {data?.acf?.seasonality &&
+                  data?.acf?.seasonality.map((item: any, index: any) => (
+                    <p key={index}>
+                      {item?.label}
+                      {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
+                    </p>
+                  ))}
+              </DatesWrapperText>
+          }
+
+          {
+            data?.data_type === "google" ?
+
+              <WeekTimeArrange>
+                <p>Time:</p>
+                <p>
+                  {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].open.time)} - {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].close.time)}
+                </p>
+              </WeekTimeArrange>
+              :
+              daysOfWeek.map((item, index) => (
+                <WeekTimeArrange key={index}>
+                  <p>{item}:</p>
+                  <p>
+                    {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
+                  </p>
+                </WeekTimeArrange>
+              ))
+          }
+          {/* 
         {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
             <p>{item}:</p>
@@ -561,41 +609,41 @@ const ModalContent: React.FC<ModalProps> = ({
               {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
             </p>
           </WeekTimeArrange>
-        ))}
-      </DatesContainer>
-      <AlsoSeeText>Also see</AlsoSeeText>
-      <ScrollingMenu>
-        {LocalCuisineMenuItem.map((item, index) => {
-          return (
-            <div key={index}>
-              <RatingMenu
-                title={item.menuName}
-                headerImage={item.headerImage}
-                menuImageUrl={item.image}
-                containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
-              />
-            </div>
-          );
-        })}
-      </ScrollingMenu>
-      {reservationMenu && (
-        <ButtonContainer>
-          <CommonButton
-            text="Reservation"
-            image={calenderWhiteImg}
-            imageStyle={14}
-            isOpen={() => reservationModal("calenderModal")}
-          />
-          <CommonButton
-            text="Order Online"
-            image={moped}
-            imageStyle={20}
-            isOpen={() => reservationModal("orderOnlineModal")}
-          />
-        </ButtonContainer>
-      )}
-    </Container>
+        ))} */}
+        </DatesContainer>
+        <AlsoSeeText>Also see</AlsoSeeText>
+        <ScrollingMenu>
+          {LocalCuisineMenuItem.map((item, index) => {
+            return (
+              <div key={index}>
+                <RatingMenu
+                  title={item?.menuName}
+                  headerImage={item?.headerImage}
+                  menuImageUrl={item?.image}
+                  containerImageUrl={true}
+                  MenutitleDetail={item?.resturantName}
+                />
+              </div>
+            );
+          })}
+        </ScrollingMenu>
+        {reservationMenu && (
+          <ButtonContainer>
+            <CommonButton
+              text="Reservation"
+              image={calenderWhiteImg}
+              imageStyle={14}
+              isOpen={() => reservationModal("calenderModal")}
+            />
+            <CommonButton
+              text="Order Online"
+              image={moped}
+              imageStyle={20}
+              isOpen={() => reservationModal("orderOnlineModal")}
+            />
+          </ButtonContainer>
+        )}
+      </Container>
   );
 };
 

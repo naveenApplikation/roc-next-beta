@@ -1,4 +1,4 @@
-import {thumbsup, utensils } from "@/app/utils/ImagePath";
+import { thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -158,11 +158,9 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
 
-
-console.log("hiodfodifs", skeletonItems, urlTitle)
   return (
     <SearchedListContainer>
-      <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
+      <TitleText>{urlTitle}</TitleText>
       <LikeCount>5,281 likes</LikeCount>
       {/* {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>
@@ -171,20 +169,36 @@ console.log("hiodfodifs", skeletonItems, urlTitle)
       )} */}
       {loader
         ? skeletonItems.map((item, index) => (
-          <SearchedData key={index}>
-            <MainWrraper>
-              <MainInsideWrapper>
-              <Skeleton width={80} height={80} style={{borderRadius:8}} />
-              <div className="restroRating">
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              <Skeleton width={120} height={15} style={{borderRadius:8}} />
-              </div>
-              </MainInsideWrapper>
-              <div className="likes">
-              <Skeleton width={16} height={16} />
-              </div>
-            </MainWrraper>
+            <SearchedData key={index}>
+              <MainWrraper>
+                <MainInsideWrapper>
+                  <Skeleton
+                    width={80}
+                    height={80}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <div className="restroRating">
+                    <Skeleton
+                      width={120}
+                      height={15}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={120}
+                      height={15}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={120}
+                      height={15}
+                      style={{ borderRadius: 8 }}
+                    />
+                  </div>
+                </MainInsideWrapper>
+                <div className="likes">
+                  <Skeleton width={16} height={16} />
+                </div>
+              </MainWrraper>
             </SearchedData>
           ))
         : urlData?.map((item: any, index: any) => {
@@ -201,7 +215,7 @@ console.log("hiodfodifs", skeletonItems, urlTitle)
                         style={{
                           borderRadius: 4,
                           // maxWidth: "100%",
-                          width:"80px",
+                          width: "80px",
                           objectFit: "cover",
                         }}
                         alt=""

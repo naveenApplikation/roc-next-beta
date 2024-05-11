@@ -99,7 +99,6 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
         </div>
       ) : (
         listData?.map((item: any, index: any) => {
-          console.log("hiiiiii", item);
           return (
             <ListContainer key={index}>
               <ImageTitleContainer>

@@ -144,7 +144,7 @@ export const rightSideMenu = [
     image: utensils,
     width: 18,
     height: 20,
-    url: "foodandDrinks"
+    url: "food-drinks"
   },
   {
     name: "Shop",
@@ -559,7 +559,7 @@ export const DirectoryItem = [
       {
         image: utensil,
         title: "Food & Drink",
-        url: "foodandDrinks"
+        url: "food-drinks"
       },
     ],
   },
@@ -582,7 +582,7 @@ export const DirectoryItem = [
       {
         image: hotel,
         title: "Hotels",
-        url: "hotels"
+        url: "accommodations"
       },
       {
         image: personHiking,
