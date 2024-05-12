@@ -10,13 +10,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 interface EventBoxProps {
-    urlData?: any;
-    urlTitle?: string;
-    filteredUrls?: any;
-    loader?: boolean;
-    isOpen?: any;
-    handleLike?: any;
-    totalVote?: any;
+  urlData?: any;
+  urlTitle?: string;
+  filteredUrls?: any;
+  loader?: boolean;
+  isOpen?: any;
+  handleLike?: any;
+  totalVote?: any;
 }
 
 const SearchedListContainer = styled.div`
@@ -117,133 +117,147 @@ const MainInsideWrapper = styled.div`
 `;
 
 const CategoryEvent: React.FC<EventBoxProps> = ({
-    urlTitle,
-    urlData,
-    filteredUrls,
-    loader,
-    isOpen,
-    handleLike,
-    totalVote,
+  urlTitle,
+  urlData,
+  filteredUrls,
+  loader,
+  isOpen,
+  handleLike,
+  totalVote,
 }) => {
-    const { modalClick } = useMyContext();
-    const [togg, setTogg] = useState<string>('')
-    const skeletonItems = new Array(10).fill(null);
+  const { modalClick } = useMyContext();
+  const [togg, setTogg] = useState<string>('')
+  const skeletonItems = new Array(10).fill(null);
 
 
 
-    // const handleLike = (id: string, index: number) =>{
-    //     if(id === data[index]._id){
-    //             data[index].userVoted = !data[index].voded
-    //             setData([...data])
-    //     }
+  // const handleLike = (id: string, index: number) =>{
+  //     if(id === data[index]._id){
+  //             data[index].userVoted = !data[index].voded
+  //             setData([...data])
+  //     }
 
-    //     // setTogg(id)
-    // }
+  //     // setTogg(id)
+  // }
 
-    return (
-        <SearchedListContainer>
-            <TitleText>{urlTitle}</TitleText>
-            <LikeCount>{totalVote} {urlTitle ? "likes" : ""}</LikeCount>
-            {/* {urlData != 77 && (
+  return (
+    <SearchedListContainer>
+      <TitleText>{urlTitle}</TitleText>
+      <LikeCount>{totalVote} {urlTitle ? "likes" : ""}</LikeCount>
+      {/* {urlData != 77 && (
                 <div style={{ margin: "24px 0px" }}>
                     <FilterSection />
                 </div>
             )} */}
-            {loader
-                ? skeletonItems.map((item, index) => (
-                    <SearchedData key={index}>
-                        <MainInsideWrapper>
-                            <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                            <div className="restroRating">
-                                <Skeleton
-                                    width={160}
-                                    height={17}
-                                    style={{ borderRadius: 8 }}
-                                />
-                                <Skeleton
-                                    width={100}
-                                    height={14}
-                                    style={{ borderRadius: 8 }}
-                                />
-                                <Skeleton
-                                    width={80}
-                                    height={13}
-                                    style={{ borderRadius: 8 }}
-                                />
-                            </div>
-                        </MainInsideWrapper>
-                    </SearchedData>
-                ))
-                : urlData?.map((item: any, index: any) => {
-                    return (
-                        <SearchedData key={index}>
-                            <MainInsideWrapper>
-                                <FamilyEventWrapper>
-                                    <Image
-                                        src={item?.data_type === "google" ? item?.photoUrl : filteredUrls[index]}
-                                        alt=""
-                                        width={500}
-                                        height={80}
-                                        style={{
-                                            borderRadius: 4,
-                                            // maxWidth: "100%",
-                                            width: "80px",
-                                            objectFit: "cover",
-                                        }}
-                                        onClick={() =>
-                                            modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
-                                        }
-                                    />
-                                    <FamilyEventWrapperInside>
-                                        {/* <p className="date">
+      {loader
+        ? skeletonItems.map((item, index) => (
+          <SearchedData key={index}>
+            <MainInsideWrapper>
+              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+              <div className="restroRating">
+                <Skeleton
+                  width={160}
+                  height={17}
+                  style={{ borderRadius: 8 }}
+                />
+                <Skeleton
+                  width={100}
+                  height={14}
+                  style={{ borderRadius: 8 }}
+                />
+                <Skeleton
+                  width={80}
+                  height={13}
+                  style={{ borderRadius: 8 }}
+                />
+              </div>
+            </MainInsideWrapper>
+          </SearchedData>
+        ))
+        : urlData?.map((item: any, index: any) => {
+          return (
+            <SearchedData key={index}>
+              <MainInsideWrapper>
+                <FamilyEventWrapper>
+                  {
+                    console.log("dkfslkflsdfs", item?.photoUrl) as any
+                  }
+                  {
+                    item?.data_type === "google" ?
+                      <ImageTag src={item.photoUrl} alt="Image"
+                        onClick={() =>
+                          modalClick("eventListing", item, item.photoUrl)
+                        }
+                      />
+                      :
+                      <Image
+                        // style={{ background: "white" }}
+                        src={filteredUrls[index]}
+                        width={500}
+                        height={80}
+                        style={{
+                          borderRadius: 4,
+                          width: "80px",
+                          objectFit: "cover",
+                          cursor: 'pointer'
+                        }}
+                        alt=""
+                        onClick={() =>
+                          modalClick("eventListing", item, filteredUrls[index])
+                        }
+                      />
+                  }
+
+                  <FamilyEventWrapperInside>
+                    {/* <p className="date">
                                             {formatDate(item.acf.event_dates[0].date)}
                                         </p>
                                         <p className="month">
                                             {formatMonth(item.acf.event_dates[0].date)}
                                         </p> */}
-                                    </FamilyEventWrapperInside>
-                                </FamilyEventWrapper>
-                                <div className="restroRating">
-                                    <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
-                                    <DetailContainer>
-                                        <p>{item?.rating} &nbsp;</p>
-                                        <Image
-                                            src={commentstar}
-                                            style={{
-                                                width: "13px",
-                                                height: "13px",
-                                                marginRight: 8,
-                                            }}
-                                            alt="utensils"
-                                        />
-                                        <p>{item?.type}</p>
-                                    </DetailContainer>
-                                    <p>
-                                        <span style={{ color: '#2B902B' }}>
-                                            {item?.opening_hours?.open_now ? "Open" : "Close"}
-                                        </span>
-                                    </p>
-                                </div>
-                            </MainInsideWrapper>
-                            <LikesContainer selected={item?.userVoted} onClick={() => handleLike(item?._id, item?.userVoted)}>
-                                {/* <Image
+                  </FamilyEventWrapperInside>
+                </FamilyEventWrapper>
+                <div className="restroRating">
+                  <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
+                  <DetailContainer>
+                    <p>{item?.rating} &nbsp;</p>
+                    <Image
+                      src={commentstar}
+                      style={{
+                        width: "13px",
+                        height: "13px",
+                        marginRight: 8,
+                      }}
+                      alt="utensils"
+                    />
+                    <p>{item?.type}</p>
+                  </DetailContainer>
+                  <p>
+                    <span style={{ color: '#2B902B' }}>
+                      {item?.opening_hours?.open_now ? "Open" : "Close"}
+                    </span>
+                  </p>
+                </div>
+              </MainInsideWrapper>
+              <LikesContainer selected={item?.userVoted} onClick={() => handleLike(item?._id, item?.userVoted)}>
+                {/* <Image
                                     style={{ width: 16, height: "auto" }}
                                     src={thumbsUPIcon}
                                     alt="icon"
                                 /> */}
-                                <ThumbsUPIcon color = {item?.userVoted ? "#3b86ed" : "#000000"} />
-                                <p>{item?.itemVotes}</p>
-                            </LikesContainer>
+                <ThumbsUPIcon color={item?.userVoted ? "#3b86ed" : "#000000"} />
+                <p>{item?.itemVotes}</p>
+              </LikesContainer>
 
-                        </SearchedData>
-                    );
-                })}
+            </SearchedData>
+          );
+        })}
 
-            <AddListButton>
-                <CommonButton {...{ isOpen }} text="Add to the list" />
-            </AddListButton>
-        </SearchedListContainer>
-    );
+      <AddListButton>
+        <CommonButton {...{ isOpen }} text="Add to the list" />
+      </AddListButton>
+    </SearchedListContainer>
+  );
 };
 
 export default CategoryEvent;
@@ -276,3 +290,10 @@ const LikeCount = styled.p`
   font-style: italic;
   margin-top: 16px;
 `;
+const ImageTag = styled.img`
+width:80px;
+border-radius:4px;
+object-fit:cover;
+height:80px;
+cursor:pointer;
+`
