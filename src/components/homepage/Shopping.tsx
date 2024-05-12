@@ -142,8 +142,6 @@ const WalkContainer = styled.div`
   }
 `;
 
-
-
 const ImageTag = styled.img`
 width:100%;
 border-radius:4px;
