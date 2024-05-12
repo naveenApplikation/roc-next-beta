@@ -57,8 +57,8 @@ const Community: React.FC<DashboardProps> = ({ modalClick, menuClick, listData }
           return (
             <CommunityContainer
               key={index}
-              style={{ background: item?.bgColor }}
-              onClick={() => menuClick("Category", false, item?._id)}
+              style={{ background: item?.bgColor, cursor:'pointer' }}
+              onClick={() => menuClick(item?.listName, false, item?._id)}
             >
               <p>{item?.image}</p>
               <p>{item?.listName}</p>

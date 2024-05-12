@@ -74,7 +74,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                         alt=""
                         width={500}
                         height={80}
-                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
+                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover', cursor:'pointer' }}
                       // alt=""
                       />
 
@@ -144,4 +144,5 @@ width:100%;
 border-radius:50%;
 object-fit:cover;
 height:100%;
+cursor:'pointer';
 `;

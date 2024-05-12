@@ -63,8 +63,8 @@ const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listDat
           return (
             <CommunityContainer 
             key={index} 
-            style={{ background: item?.bgColor }}
-            onClick={() => menuClick("Category", false, item?._id)}
+            style={{ background: item?.bgColor, cursor:'pointer'}}
+            onClick={() => menuClick(item?.listName, false, item?._id)}
             >
               {/* <Image src={item?.image} alt="right icon" />  */}
              <p> {item?.image}</p> 

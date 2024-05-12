@@ -147,7 +147,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           return (
             <CommunityContainer
               key={index}
-              style={{ background: item?.color }}
+              style={{ background: item?.color, cursor:'pointer' }}
               onClick={() => window.open(item.url)}
             >
               <Image
@@ -155,7 +155,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 alt=""
                 width={20}
                 height={20}
-                style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
+                style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover'}}
               />
               <p>{item?.name}</p>
             </CommunityContainer>

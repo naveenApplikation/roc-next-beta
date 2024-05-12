@@ -82,7 +82,7 @@ const DashBoard = () => {
     } else if (item === "Shop") {
       router.push("/screens/wellbeing");
     } else if (item === "Category") {
-      router.push(`/screens/${item}?categoryID=${id}`);
+      // router.push(`/screens/${item}?categoryID=${id}`);
     } else if (item === "Tours") {
       router.push("/screens/stays");
     } else if (item === "Hotels") {
@@ -101,6 +101,8 @@ const DashBoard = () => {
       router.push("/screens/trendingList");
     } else if (item === "LeaveFeedback") {
       window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
+    } else {
+      router.push(`/screens/${item}?categoryID=${id}`);
     }
   };
 

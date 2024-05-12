@@ -143,7 +143,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     return (
         <SearchedListContainer>
             <TitleText>{urlTitle}</TitleText>
-            <LikeCount>{totalVote} likes</LikeCount>
+            <LikeCount>{totalVote} {urlTitle ? "likes" : ""}</LikeCount>
             {/* {urlData != 77 && (
                 <div style={{ margin: "24px 0px" }}>
                     <FilterSection />
