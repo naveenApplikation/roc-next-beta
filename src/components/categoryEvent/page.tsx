@@ -1,6 +1,6 @@
-import { locationMark } from "@/app/utils/ImagePath";
+import { ThumbsUPIcon, commentstar, locationMark, thumbsup } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterSection from "@/components/filterSection";
 import CommonButton from "@/components/button/CommonButton";
@@ -15,6 +15,8 @@ interface EventBoxProps {
     filteredUrls?: any;
     loader?: boolean;
     isOpen?: any;
+    handleLike?: any;
+    totalVote?: any;
 }
 
 const SearchedListContainer = styled.div`
@@ -120,14 +122,28 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     filteredUrls,
     loader,
     isOpen,
+    handleLike,
+    totalVote,
 }) => {
     const { modalClick } = useMyContext();
-
+    const [togg, setTogg] = useState<string>('')
     const skeletonItems = new Array(10).fill(null);
+
+
+
+    // const handleLike = (id: string, index: number) =>{
+    //     if(id === data[index]._id){
+    //             data[index].userVoted = !data[index].voded
+    //             setData([...data])
+    //     }
+
+    //     // setTogg(id)
+    // }
 
     return (
         <SearchedListContainer>
             <TitleText>{urlTitle}</TitleText>
+            <LikeCount>{totalVote} likes</LikeCount>
             {/* {urlData != 77 && (
                 <div style={{ margin: "24px 0px" }}>
                     <FilterSection />
@@ -164,7 +180,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                             <MainInsideWrapper>
                                 <FamilyEventWrapper>
                                     <Image
-                                        src={filteredUrls[index]}
+                                        src={item?.data_type === "google" ? item?.photoUrl : filteredUrls[index]}
                                         alt=""
                                         width={500}
                                         height={80}
@@ -175,7 +191,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                                             objectFit: "cover",
                                         }}
                                         onClick={() =>
-                                            modalClick("eventListing", item, filteredUrls[index])
+                                            modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
                                         }
                                     />
                                     <FamilyEventWrapperInside>
@@ -188,10 +204,11 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                                     </FamilyEventWrapperInside>
                                 </FamilyEventWrapper>
                                 <div className="restroRating">
-                                    <p className="shopName">{item?.acf?.title}</p>
+                                    <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
                                     <DetailContainer>
+                                        <p>{item?.rating} &nbsp;</p>
                                         <Image
-                                            src={locationMark}
+                                            src={commentstar}
                                             style={{
                                                 width: "13px",
                                                 height: "13px",
@@ -199,25 +216,63 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                                             }}
                                             alt="utensils"
                                         />
-                                        <p>{item?.acf?.parish?.label}</p>
+                                        <p>{item?.type}</p>
                                     </DetailContainer>
-                                    {/* <p>
-                                        <span>
-                                            {item.acf.event_dates[0].start_time} -{" "}
-                                            {item.acf.event_dates[0].end_time}
+                                    <p>
+                                        <span style={{ color: '#2B902B' }}>
+                                            {item?.opening_hours?.open_now ? "Open" : "Close"}
                                         </span>
-                                    </p> */}
+                                    </p>
                                 </div>
                             </MainInsideWrapper>
+                            <LikesContainer selected={item?.userVoted} onClick={() => handleLike(item?._id, item?.userVoted)}>
+                                {/* <Image
+                                    style={{ width: 16, height: "auto" }}
+                                    src={thumbsUPIcon}
+                                    alt="icon"
+                                /> */}
+                                <ThumbsUPIcon color = {item?.userVoted ? "#3b86ed" : "#000000"} />
+                                <p>{item?.itemVotes}</p>
+                            </LikesContainer>
+
                         </SearchedData>
                     );
                 })}
 
             <AddListButton>
-                <CommonButton {...{isOpen}} text="Add to the list" />
+                <CommonButton {...{ isOpen }} text="Add to the list" />
             </AddListButton>
         </SearchedListContainer>
     );
 };
 
 export default CategoryEvent;
+
+
+
+const LikesContainer = styled.div<{ selected: boolean }>`
+  display: flex;
+  align-items: center;
+  flex-Direction: column;
+  cursor: pointer;
+  width:60px;
+  height:50px;
+  background-color: ${props => (props.selected ? '#3B86ED29' : '#00000014')};
+  border-radius: 15px;
+  justify-content: center;
+
+  p {
+    color: ${props => (props.selected ? '#3b86ed' : '')};
+    font-size: 16px;
+    font-style: normal;
+    font-weight: ${props => (props.selected ? '600' : '400')};
+    line-height: 24px; /* 150% */
+  }
+`;
+
+const LikeCount = styled.p`
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 16px;
+`;

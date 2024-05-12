@@ -85,13 +85,13 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     const fetchDataAsync = async () => {
       setloader(true);
       try {
-        const result = await Instance.get(`${search}`);
-        if (search == "surfing" || search == "ww2") {
-          const combinedArray = [...result.data.activity1, ...result.data.activity2];
-          setData(combinedArray);
-        } else {
-          setData(result.data);
-        }
+        // const result = await Instance.get(`${search}`);
+        // if (search == "surfing" || search == "ww2") {
+        //   const combinedArray = [...result.data.activity1, ...result.data.activity2];
+        //   setData(combinedArray);
+        // } else {
+        //   setData(result.data);
+        // }
 
       } catch (error: any) {
         console.log(error.message);

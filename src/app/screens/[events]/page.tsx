@@ -12,7 +12,7 @@ import Greetings from '@/components/createList/Greetings';
 import ProductAndCommentInfo from '@/components/createList/ProductAndCommentInfo';
 import { debounce } from 'lodash';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
@@ -28,10 +28,14 @@ const EventList = () => {
     const { showMap, filterUrls } = useMyContext()
     const [eventData, setEventData] = useState<ApiResponse[]>([])
     const [eventTitle, setEventTitle] = useState('')
+    const [totalVote, setTotalVote] = useState<any>('')
+    const [categoryId, setCategoryId] = useState('')
 
     const searchParams = useSearchParams()
 
     const event = searchParams.get('categoryID')
+    const { events } = useParams()
+
 
     const options = ["Lists", "Places"];
     const mylistoptions = ["Created", "Contributed"];
@@ -80,11 +84,12 @@ const EventList = () => {
     const fetchEventDataById = async () => {
         try {
             setloader(true)
-            const response = await Instance.get(`/category/${event}`)
-            console.log("event reaponse", response)
+            const response = await Instance.get(`/category/${event}?type=${events}`)
             if (response.status === 200) {
                 setEventData(response?.data?.categoryList)
                 setEventTitle(response?.data?.listName)
+                setTotalVote(response?.data?.totalVote)
+                setCategoryId(response?.data?._id)
                 setloader(false)
             }
         } catch (error) {
@@ -114,25 +119,25 @@ const EventList = () => {
     const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [categoryList, setCategoryList] = useState([]);
-  
+
     useEffect(() => {
-      if (screenName) {
-        const newArray: string[] = [];
-  
-        selectedData.map((val: any) => {
-          const newObj: { id: string; type: string } = {
-            id: "",
-            type: "",
-          };
-          (newObj.id = val?._id),
-            (newObj.type = val?.type),
-            newArray.push(newObj as any);
-        });
-  
-        setCategoryList([...newArray] as any);
-      }
+        if (screenName) {
+            const newArray: string[] = [];
+
+            selectedData.map((val: any) => {
+                const newObj: { id: string; type: string } = {
+                    id: "",
+                    type: "",
+                };
+                (newObj.id = val?._id),
+                    (newObj.type = val?.type),
+                    newArray.push(newObj as any);
+            });
+
+            setCategoryList([...newArray] as any);
+        }
     }, [screenName]);
-  
+
 
     const toggleSelected = (itemId: number, item: any): void => {
         const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -158,6 +163,34 @@ const EventList = () => {
     };
 
 
+    const handleLike = async (id: string, vote: any) => {
+        eventData.map(val => {
+            if (id === val._id) {
+                if(vote){
+                    val.userVoted = false;
+                    val.itemVotes = val.itemVotes - 1
+                    setEventData([...eventData])
+                } else {
+                    val.userVoted = true;
+                    val.itemVotes = val.itemVotes + 1
+                    setEventData([...eventData])
+                    
+                }
+            }
+        })
+        const result = await Instance.post(`/category/${vote ? 'removeVoting' : "addVoting"}`,
+            {
+                categroryId: categoryId,
+                itemId: id
+            })
+            vote ? 
+            toast.error(result?.data?.message)
+            :
+            toast.success(result?.data?.message)
+
+    }
+
+
 
     const fetchDataAsync = async (value: string) => {
         setloader(true);
@@ -178,29 +211,28 @@ const EventList = () => {
         const param = {
             categoryList,
         };
-        console.log("category list", categoryList)
         try {
             setloader(false);
-          const result = await Instance.put(`/category/${event}`, param);
-          console.log(result);
-          setloader(false);
-          toast.success(result.data.message);
-          setScreenName(name);
+            const result = await Instance.put(`/category/${event}`, param);
+            console.log(result);
+            setloader(false);
+            toast.success(result.data.message);
+            setScreenName(name);
         } catch (error: any) {
-          console.log(error.response);
-          setloader(false);
-          toast.error(error.response.data);
-          // setScreenName(name);
+            console.log(error.response);
+            setloader(false);
+            toast.error(error.response.data);
+            // setScreenName(name);
         } finally {
-          setloader(false);
-          // setScreenName(name);
+            setloader(false);
+            // setScreenName(name);
         }
     };
 
     const handleCreateNewList = async (name: string) => {
         window.location.reload();
         setScreenName(name);
-      };
+    };
 
     const ScreenShowHandle = () => {
         if (screenName === "create") {
@@ -213,7 +245,7 @@ const EventList = () => {
                     searchQuery={searchQuery}
                     handleSearch={handleSearch}
                     data={data}
-                    loader = {loader}
+                    loader={loader}
                 />
             );
         } else if (screenName === "drag") {
@@ -238,6 +270,7 @@ const EventList = () => {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}
                     isOpen={() => screenChangeHandle("create")}
+                    handleLike={handleLike} totalVote={totalVote}
                 />
             );
         } else if (screenName === "ProductAndCommentInfo") {
@@ -247,7 +280,7 @@ const EventList = () => {
                     preScreen={() => screenChangeHandle("drag")}
                     homePage={navigateClick}
                     loader={loader}
-                    screenName = "Update"
+                    screenName="Update"
                     // {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
                     {...{ dragData, selectedData }}
                 />

@@ -1,5 +1,7 @@
 // types.ts
 export interface ApiResponse {
+  userVoted: any;
+  _id: any;
   id: number;
   name: string;
   acf: any;
@@ -8,6 +10,7 @@ export interface ApiResponse {
   photoUrl: string;
   data_type: string;
   rating: any;
+  itemVotes: number;
 }
 
 

@@ -8,6 +8,8 @@ import { thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
+import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/navigation";
 
 
 
@@ -54,6 +56,7 @@ const ListContainer = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding: 8px 0px;
+  cursor: pointer;
 `;
 
 const ImageTitleContainer = styled.div`
@@ -98,11 +101,12 @@ const LikesContainer = styled.div`
 
 const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
   const [listData, setListData] = useState<string[]>([])
+  const router = useRouter();
 
 
   const fetchDataAsync = async () => {
     try {
-      const response = await Instance.get("/category?limit=false")
+      const response = await Instance.get("/category")
       if (response.status === 200) {
         response.data.forEach((list: any) => {
           const matchedIcon = icons.find(icon => icon.name === list.iconName);
@@ -125,17 +129,14 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
     fetchDataAsync()
   }, [urlData])
 
-  // const dataShow = () => {
-  //   if (urlData == 1) {
-  //     return PopularLists;
-  //   }
-  //   else {
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
 
-  //     return SelectedLists;
-  //   }
-  // };
+    if (condition === true) {
+      router.push(`/screens/${item}?categoryID=${id}`);
+    }
+  };
 
-
+  const skeletonItems = new Array(10).fill(null);
 
   return (
     <div>
@@ -145,7 +146,7 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
         </PopularListContainer>
         {listData.length ? listData.map((item: any, index) => {
           return (
-            <ListContainer key={index}>
+            <ListContainer key={index} onClick={() => menuClick(item?.listName, true, item?._id)}>
               <ImageTitleContainer>
                 <Imagecontainer style={{ background: item?.bgColor }}>
                   {item?.image}
@@ -162,10 +163,78 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
               </LikesContainer>
             </ListContainer>
           );
-        }) : ""}
+        }) :
+          skeletonItems.map((item, index) => (
+            <SearchedData key={index}>
+              <MainWrraper>
+                <MainInsideWrapper>
+                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                  <div className="restroRating">
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                  </div>
+                </MainInsideWrapper>
+                <div className="likes">
+                  <Skeleton width={16} height={16} />
+                </div>
+              </MainWrraper>
+            </SearchedData>
+          ))
+        }
       </Container>
     </div>
   );
 };
 
 export default TrendingList;
+
+
+const SearchedData = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+    @media screen and (max-width: 350px) {
+      font-size: 1.3rem;
+    }
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
+
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+    @media screen and (max-width: 350px) {
+      font-size: 1.6rem;
+    }
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
+
+const MainWrraper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+`;
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;

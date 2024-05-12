@@ -38,8 +38,9 @@ const DashBoard = () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
-
-  const { showMap, modalClick , dataDetails  } = useMyContext();
+  const token = localStorage.getItem('token')
+  const loginToken = localStorage.getItem('loginToken')
+  const { showMap, modalClick, dataDetails } = useMyContext();
   const [listData, setListData] = useState<string[]>([]);
   // const [searchQuery, setSearchQuery] = useState("");
   // const [data, setData] = useState<any[]>([]);
@@ -47,7 +48,7 @@ const DashBoard = () => {
 
   const fetchDataAsync = async () => {
     try {
-      const response = await Instance.get("/category?limit=true")
+      const response = await Instance.get("/category?limit=10")
       if (response.status === 200) {
         response.data.forEach((list: any) => {
           const matchedIcon = icons.find(icon => icon.name === list.iconName);
@@ -67,8 +68,10 @@ const DashBoard = () => {
   }
 
   useEffect(() => {
-    fetchDataAsync()
-  }, [])
+    if(loginToken){
+      fetchDataAsync()
+    }
+  }, [loginToken])
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     console.log("item", item, condition, id)
@@ -125,7 +128,7 @@ const DashBoard = () => {
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
-       <Directory menuClick={menuClick} modalClick={modalClick} />
+      <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
@@ -136,7 +139,7 @@ const DashBoard = () => {
       <Walks menuClick={menuClick} modalClick={modalClick} />
       <Wellbeing menuClick={menuClick} modalClick={modalClick} />
       <WW2 menuClick={menuClick} modalClick={modalClick} />
-      <CycleRoutes menuClick={menuClick} modalClick={modalClick} /> 
+      <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
       <Outout menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} />

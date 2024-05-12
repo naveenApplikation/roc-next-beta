@@ -306,6 +306,10 @@ interface HamburgerProps {
   onClick: () => void;
 }
 
+interface ThumbsUPIconProp {
+  color:string;
+}
+
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
   return (
     <svg
@@ -484,6 +488,13 @@ export const BackArrow = () => {
         d="M12.4062 20L13.2031 19.2031L22.2031 10.2031L23 9.40625L24.5469 11L23.7969 11.7969L15.5469 20L23.7969 28.2031L24.5938 29L23 30.5938L22.2031 29.7969L13.2031 20.7969L12.4062 20Z"
         fill="black"
       />
+    </svg>
+  );
+};
+export const ThumbsUPIcon: React.FC<ThumbsUPIconProp> = ({color}) => {
+  return (
+    <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.5 1.625V0.5H10.5V1.625C10.5 2.8125 10.2188 3.96875 9.6875 5H14.5H16V8H15.5V10.5H14.75V12.75H14V14.5H12.5H8.75H8.28125L7.90625 14.25L5.65625 12.75L5 12.3125V11.5V9.5V6.5V5.78125L5.5625 5.34375L5.78125 5.15625C6.875 4.28125 7.46875 3 7.46875 1.625H7.5ZM4 5.5V14.5H0V5.5H4Z" fill= {color}/>
     </svg>
   );
 };
