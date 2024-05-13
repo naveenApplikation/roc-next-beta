@@ -673,22 +673,28 @@ export const walkData =
 export const cycleRouteData =
   [
     {
-      name: "Cycling Guide",
-      color: "#BB6BD9",
-      icon: cycle,
-      url: "https://www.jersey.com/holidays/active/cycling/"
-    },
-    {
-      name: "Family",
+      name: "Easy",
       color: "#56CCF2",
       icon: family,
-      url: "https://www.jersey.com/inspire-me/inspiration/family-friendly-cycle-routes/"
+      url: "https://hub.roc.je/cycle/cycle-routes-easy"
     },
     {
-      name: "Advanced",
+      name: "Medium",
+      color: "#BB6BD9",
+      icon: cycle,
+      url: "https://hub.roc.je/cycle/cycle-routes-medium"
+    },
+    {
+      name: "Difficult",
       color: "#EB5757",
       icon: pro,
-      url: "https://www.komoot.com/user/1633110317504/tours?sport=racebike"
+      url: "https://hub.roc.je/cycle/cycle-routes-difficult"
+    },
+    {
+      name: "Cycling safety",
+      color: "#F2994A",
+      icon: shield,
+      url: "https://hub.roc.je/cycle/cycling-safety"
     },
     {
       name: "Cycle hire",
@@ -696,11 +702,6 @@ export const cycleRouteData =
       icon: cycle,
       url: "https://www.jersey.com/things-to-do/outdoor-activities/cycle-hire/"
     },
-    {
-      name: "Cycling safety",
-      color: "#F2994A",
-      icon: shield,
-      url: "https://www.gov.je/Environment/ClimateEmergency/TacklingTransport/CyclingWalking/Pages/CyclingSafely.aspx"
-    },
+
   ]
 
