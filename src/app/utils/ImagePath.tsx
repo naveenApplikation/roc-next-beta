@@ -148,6 +148,13 @@ import cycleImg from "../../../assets/images/cycle.svg"
 import familyImg from "../../../assets/images/family.svg"
 import proImg from "../../../assets/images/pro.svg"
 import shieldImg from "../../../assets/images/sheild.svg"
+import archirondelImg from "../../../assets/images/Archirondel.svg"
+import goreyImg from "../../../assets/images/Gorey.svg"
+import hongueImg from "../../../assets/images/La Hougue Bie.svg"
+import pulenteImg from "../../../assets/images/La Pulente.svg"
+import aubinImg from "../../../assets/images/St Aubin.svg"
+import trinityImg from "../../../assets/images/Trinity.svg"
+import walkMaskImg from "../../../assets/images/walkMask.svg"
 
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
@@ -299,6 +306,20 @@ export const cycle = cycleImg
 export const family = familyImg
 export const pro = proImg;
 export const shield = shieldImg;
+export const archirondel = archirondelImg;
+export const gorey = goreyImg;
+export const hongue = hongueImg;
+export const pulente = pulenteImg;
+export const aubin = aubinImg;
+export const trinity = trinityImg;
+export const walkMask = walkMaskImg;
+
+// import archirondelImg from "../../../assets/images/Archirondel.svg"
+// import goreyImg from "../../../assets/images/Gorey.svg"
+// import hongueImg from "../../../assets/images/La Hougue Bie.svg"
+// import pulenteImg from "../../../assets/images/La Pulente.svg"
+// import aubinImg from "../../../assets/images/St Aubin.svg"
+// import trinityImg from "../../../assets/images/Trinity.svg"
 
 
 interface HamburgerProps {
@@ -307,7 +328,7 @@ interface HamburgerProps {
 }
 
 interface ThumbsUPIconProp {
-  color:string;
+  color: string;
 }
 
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
@@ -356,7 +377,7 @@ export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
 };
 export const HamburgerWithoutBG: React.FC<HamburgerProps> = ({ onClick }) => {
   return (
-    <svg onClick={onClick} xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="36px" height="36px"><path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"/></svg>
+    <svg onClick={onClick} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36px" height="36px"><path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z" /></svg>
   );
 };
 export const HamburgerDesktop: React.FC<HamburgerProps> = ({ onClick }) => {
@@ -491,10 +512,10 @@ export const BackArrow = () => {
     </svg>
   );
 };
-export const ThumbsUPIcon: React.FC<ThumbsUPIconProp> = ({color}) => {
+export const ThumbsUPIcon: React.FC<ThumbsUPIconProp> = ({ color }) => {
   return (
     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7.5 1.625V0.5H10.5V1.625C10.5 2.8125 10.2188 3.96875 9.6875 5H14.5H16V8H15.5V10.5H14.75V12.75H14V14.5H12.5H8.75H8.28125L7.90625 14.25L5.65625 12.75L5 12.3125V11.5V9.5V6.5V5.78125L5.5625 5.34375L5.78125 5.15625C6.875 4.28125 7.46875 3 7.46875 1.625H7.5ZM4 5.5V14.5H0V5.5H4Z" fill= {color}/>
+      <path d="M7.5 1.625V0.5H10.5V1.625C10.5 2.8125 10.2188 3.96875 9.6875 5H14.5H16V8H15.5V10.5H14.75V12.75H14V14.5H12.5H8.75H8.28125L7.90625 14.25L5.65625 12.75L5 12.3125V11.5V9.5V6.5V5.78125L5.5625 5.34375L5.78125 5.15625C6.875 4.28125 7.46875 3 7.46875 1.625H7.5ZM4 5.5V14.5H0V5.5H4Z" fill={color} />
     </svg>
   );
 };

@@ -126,10 +126,12 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               <CommunityContainer
                 key={index}
                 style={{ background: item?.color }}
-                onClick={() => window.open(item.url)}
+                onClick={() =>
+                  modalClick("walksModal" , item)
+                }
               >
                 <Image
-                  src={item.icon}
+                  src={item?.icon}
                   alt=""
                   width={20}
                   height={20}

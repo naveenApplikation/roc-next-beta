@@ -1,0 +1,22 @@
+<svg width="120" height="57" viewBox="0 0 120 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_3778_10602" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="57">
+<rect y="0.195312" width="120" height="56.8046" fill="url(#paint0_linear_3778_10602)"/>
+</mask>
+<g mask="url(#mask0_3778_10602)">
+<g filter="url(#filter0_b_3778_10602)">
+<rect y="0.195312" width="120" height="56.8046" fill="black" fill-opacity="0.01"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_b_3778_10602" x="-52" y="-51.8047" width="224" height="160.805" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="26"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_3778_10602"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_3778_10602" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_3778_10602" x1="60" y1="0.195312" x2="60" y2="28.5976" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>

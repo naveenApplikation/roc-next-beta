@@ -7,8 +7,8 @@ interface WalksModalProps {
 
 const WalksModal: React.FC<WalksModalProps> = (props) => {
 
-    const {dataDetails } = useMyContext();
-    console.log("dataDetailsdataDetails" ,dataDetails)
+    const { dataDetails } = useMyContext();
+    console.log("dataDetailsdataDetails", dataDetails)
 
     return (
         <iframe

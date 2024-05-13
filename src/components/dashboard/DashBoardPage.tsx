@@ -38,8 +38,8 @@ const DashBoard = () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
-  const token = localStorage.getItem('token')
-  const loginToken = localStorage.getItem('loginToken')
+  const token = window.localStorage.getItem('token')
+  const loginToken = window.localStorage.getItem('loginToken')
   const { showMap, modalClick, dataDetails } = useMyContext();
   const [listData, setListData] = useState<string[]>([]);
   // const [searchQuery, setSearchQuery] = useState("");
