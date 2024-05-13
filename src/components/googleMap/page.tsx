@@ -17,19 +17,19 @@ const containerStyle = {
 };
 
 const center = {
-    lat: 49.2138,
-    lng: -2.13125,
+    lat: 49.1811261,
+    lng: -2.1051429,
 };
 
 const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
-    const { dataDetails ,modalName } = useMyContext();
+    const { dataDetails, modalName } = useMyContext();
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: "AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0",
     });
 
-    const [selectedLat, setSelectedLat] = useState<number>(49.2138);
-    const [selectedLong, setSelectedLong] = useState<number>(-2.13125);
+    const [selectedLat, setSelectedLat] = useState<number>(49.1811261);
+    const [selectedLong, setSelectedLong] = useState<number>(2.1051429);
     const [zoom, setZoom] = useState(15);
     const mapRef = useRef<any>(null);
 
@@ -38,23 +38,23 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
     const [selectedPlace, setSelectedPlace] = useState<any>({});
     useEffect(() => {
         // if (window.location.pathname.includes("categories")) {
-            setSelectedLat(
-                dataDetails?.acf?.map_location_lat
-                    ? +dataDetails?.acf?.map_location_lat
-                    : 49.2138
-            );
-            setSelectedLong(
+        setSelectedLat(
+            dataDetails?.acf?.map_location_lat
+                ? +dataDetails?.acf?.map_location_lat
+                : 49.1811261
+        );
+        setSelectedLong(
 
-                dataDetails?.acf?.map_location_lng
-                    ? +dataDetails?.acf?.map_location_lng
-                    : -2.13125
-            );
+            dataDetails?.acf?.map_location_lng
+                ? +dataDetails?.acf?.map_location_lng
+                : -2.1051429
+        );
         // }
-    }, [(dataDetails?.acf?.map_location_lat ) , (dataDetails?.acf?.map_location_lng )]);
+    }, [(dataDetails?.acf?.map_location_lat), (dataDetails?.acf?.map_location_lng)]);
 
     useEffect(() => {
-        setSelectedLat(49.2138);
-        setSelectedLong(-2.13125);
+        setSelectedLat(49.1811261);
+        setSelectedLong(-2.1051429);
     }, [window.location.pathname]);
 
     const onUnmount = React.useCallback(function callback(map: any) {
@@ -84,16 +84,17 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
 
     const markerClick = (e: any) => { };
     const handleClick = async (e: any) => {
-        // console.log("martkier", e)
-        // const response = await fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0")
-        const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0`
-        );
-        // console.log("response" , response)
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
+        try {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0`
+            );
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+        } catch (error) {
+            console.log("error", error)
         }
-        const data = await response.json();
     };
     const mapLocation = {
         lat: selectedLat,
@@ -114,11 +115,11 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
                 onZoomChanged={handleZoomChanged}
                 onUnmount={onUnmount}
                 options={{
-                    mapTypeControl: false, 
-                    zoomControl: window.innerWidth >= 800 ? true : false, 
-                    fullscreenControl : window.innerWidth >= 800 ? true : false,
+                    mapTypeControl: false,
+                    zoomControl: window.innerWidth >= 800 ? true : false,
+                    fullscreenControl: window.innerWidth >= 800 ? true : false,
                 }}
-                
+
 
             // onClick={onMapClick}
             >

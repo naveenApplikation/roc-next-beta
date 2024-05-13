@@ -8,6 +8,7 @@ import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
 import { walkData } from "@/app/utils/data";
+import { walkMask } from "@/app/utils/ImagePath";
 
 interface DashboardProps {
   modalClick?: any;
@@ -113,23 +114,34 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   return (
     <>
       <MenuDetails title="Walks" hideShowAll={true} />
-      {/* <ScrollingMenu>
+      <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
             <div key={index}>
               <ShopBrachSkeleton />
             </div>
           ))
-          : data.slice(0, 10).map((item, index) => {
+          :
+          walkData?.map((item, index) => {
             return (
-              <WalkContainer key={index}>
+              <WalkContainer key={index}
+              onClick={() =>
+                modalClick("walksModal" , item)
+              }
+              >
+                {/* <WalkContainer key={index} onClick={menuClick}> */}
+
+
                 <Image
-                  src={filteredUrls[index]}
+                  src={item.icon}
                   alt=""
                   width={500}
                   height={80}
-                  style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover' }}
+                  style={{ borderRadius: "8px", maxWidth: "100%", objectFit: 'cover' }}
+                // alt=""
                 />
+
+
                 <Image
                   src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
                   alt=""
@@ -137,12 +149,12 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   height={64}
                   style={{ position: "absolute", bottom: 0, height: 50 }}
                 />
-                <p>{item.acf.title}</p>
+                <p>{item?.name}</p>
               </WalkContainer>
             );
           })}
-      </ScrollingMenu> */}
-      <ScrollingMenu>
+      </ScrollingMenu>
+      {/* <ScrollingMenu>
         {walkData.length ? walkData?.map((item: any, index: any) => {
           return (
             <CommunityContainer
@@ -161,7 +173,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
             </CommunityContainer>
           );
         }) : ""}
-      </ScrollingMenu> 
+      </ScrollingMenu>  */}
     </>
   );
 };

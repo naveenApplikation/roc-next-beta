@@ -49,8 +49,8 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     data.length ?
       <>
         <MenuDetails
-        isOpen={() => menuClick("Shopping", true, "shopsandMarket")}
-         title="Shopping" />
+          isOpen={() => menuClick("Shopping", true, "shopsandMarket")}
+          title="Shopping" />
         <ScrollingMenu>
           {loader
             ? skeletonItems.map((item, index) => (
@@ -61,11 +61,11 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
             :
             data.slice(0, 10).map((item, index) => {
               return (
-                <WalkContainer key={index} 
-                onClick={() =>
-                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
-                }>
-                {/* <WalkContainer key={index} onClick={menuClick}> */}
+                <WalkContainer key={index}
+                  onClick={() =>
+                    modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                  }>
+                  {/* <WalkContainer key={index} onClick={menuClick}> */}
                   {
                     item?.data_type === "google" ?
                       <ImageTag src={item.photoUrl} alt="Image" />

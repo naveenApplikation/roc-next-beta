@@ -74,6 +74,12 @@ import {
   family,
   pro,
   shield,
+  gorey,
+  aubin,
+  archirondel,
+  trinity,
+  hongue,
+  pulente,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
@@ -628,34 +634,40 @@ export const DirectoryItem = [
 export const walkData =
   [
     {
-      name: "North",
+      name: "Gorey",
       color: "#BB6BD9",
-      icon: arrowTop,
-      url: "https://www.jersey.com/inspire-me/itineraries/north-coast-jersey-walks/"
+      icon: gorey,
+      url: "https://hub.roc.je/walks/gorey-walk"
     },
     {
-      name: "East",
+      name: "St Aubin",
       color: "#56CCF2",
-      icon: arrowRight,
-      url: "https://www.jersey.com/inspire-me/itineraries/five-east-coast-jersey-walks/"
+      icon: aubin,
+      url: "https://hub.roc.je/walks/st-aubin-walk"
     },
     {
-      name: "South",
+      name: "Archirondel",
       color: "#EB5757",
-      icon: arrowBottom,
-      url: "https://www.jersey.com/inspire-me/itineraries/south-coast-jersey-walks/"
+      icon: archirondel,
+      url: "https://hub.roc.je/walks/archirondel-walk"
     },
     {
-      name: "West",
+      name: "Trinity",
       color: "#27AE60",
-      icon: arrowLeft,
-      url: "https://www.jersey.com/inspire-me/itineraries/five-west-coast-jersey-walks/"
+      icon: trinity,
+      url: "https://hub.roc.je/walks/trinity-walk"
     },
     {
-      name: "More",
+      name: "La Hougue Bie",
       color: "#F2994A",
-      icon: more,
-      url: "https://www.jersey.com/holidays/active/walking/"
+      icon: hongue,
+      url: "https://hub.roc.je/walks/la-Hougue-bie-walk"
+    },
+    {
+      name: "La Pulente",
+      color: "#F2994A",
+      icon: pulente,
+      url: "https://hub.roc.je/walks/la-pulente-walk"
     },
   ]
 export const cycleRouteData =
