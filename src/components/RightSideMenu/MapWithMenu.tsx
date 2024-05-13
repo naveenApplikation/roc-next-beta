@@ -7,12 +7,14 @@ import {
   mapIcon,
   profileBlack,
   NewLogoRoc,
-  homeBlack
+  homeBlack,
+  CloseModal
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import GoogleMapComp from "@/components/googleMap/page";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
+import CommonButton from "../button/CommonButton";
 
 const RightSideHeadMenu = styled.div`
   display: none;
@@ -105,6 +107,9 @@ const MapSearch = styled.div`
     display: block;
   }
 `;
+const MapBetaContainer = styled.div`
+  padding: 10px 24px;
+  `
 
 const MapWithMenu = () => {
   const { modalClick, showMap, iconClick } = useMyContext();
@@ -139,12 +144,66 @@ const MapWithMenu = () => {
         <MapNavigator />
       </SearchFilterSection>
       <MapSearch>
-        <InputWrapper className="filterInput">
+        {/* <InputWrapper className="filterInput">
           <SearchInput />
-        </InputWrapper>
+        </InputWrapper> */}
+
+        <MapBetaContainer>
+          <HeaderContainer>
+            <h4>MAP BETA</h4>
+            <Image
+              style={{ width: 40, height: 40, cursor: "pointer" }}
+              src={CloseModal}
+              alt="Logo Outline"
+            />
+          </HeaderContainer>
+          <MapBetaBody>
+            <p>Coming Soon:</p>
+            <ul>
+              <li>Default to your location</li>
+              <li>Filter what’s around you</li>
+              <li>Open business profiles in our profile panel</li>
+            </ul>
+            <CommonButton className="map_common_btn" text="Close" />
+          </MapBetaBody>
+        </MapBetaContainer>
       </MapSearch>
     </MapSection>
   );
 };
 
 export default MapWithMenu;
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  h4 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+`;
+const MapBetaBody = styled.div`
+    p{
+      font-size:16px;
+      margin-bottom:10px;
+    }
+    ul{
+      padding-left:45px;
+      padding-bottom: 30px;
+    }
+    ul li{
+      font-size:16px;
+    }
+    .map_common_btn{
+      padding:10px ;
+      p{
+        margin-bottom:0px;
+      }
+      margin-bottom:40px;
+    }
+
+`
