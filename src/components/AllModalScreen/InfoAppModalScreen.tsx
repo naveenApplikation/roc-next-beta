@@ -2,23 +2,30 @@ import React, { useEffect, useRef, useState } from "react";
 import DirectionModalLayout from "@/components//modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
-import { Spin } from 'antd';
+import { Spin } from "antd";
 import Link from "next/link";
 import styled from "styled-components";
 
 interface InfoAppProps {
-  showMap: boolean,
+  showMap: boolean;
 }
 
-
-const appInfoName = ["weather", "tides", "parking", "news", "taxis", "sos", "radio"]
+const appInfoName = [
+  "weather",
+  "tides",
+  "parking",
+  "news",
+  "taxis",
+  "sos",
+  "radio",
+];
 
 const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
-
   const [frameLoaded, setFrameLoaded] = useState<boolean>(false);
 
-  const { modalName, closeModal, modalClick, dataDetails, modalType, appName } = useMyContext();
-  const [linkData, setLinkData] = useState("")
+  const { modalName, closeModal, modalClick, dataDetails, modalType, appName } =
+    useMyContext();
+  const [linkData, setLinkData] = useState("");
 
   const [loader, setloader] = useState(false);
 
@@ -28,7 +35,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
       const result = await Instance.get("/nav-links");
       if (result.status === 200) {
         setloader(false);
-        setLinkData(result.data.data[0])
+        setLinkData(result.data.data[0]);
       } else {
         setloader(false);
       }
@@ -40,16 +47,14 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
   };
 
   useEffect(() => {
-    fetchDataAsync()
-  }, [appName])
-
-
-  useEffect(() => {
-    const data = appInfoName.includes(appName)
-    setFrameLoaded(data)
-    console.log("datata", data, appName)
+    fetchDataAsync();
   }, [appName]);
 
+  useEffect(() => {
+    const data = appInfoName.includes(appName);
+    setFrameLoaded(data);
+    console.log("datata", data, appName);
+  }, [appName]);
 
   return (
     <>
@@ -60,15 +65,21 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
         {...{ showMap }}
         title={appName}
       >
-
-        {
-          loader ?
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
-              <Spin tip="Loading" size="large" />
-            </div>
-            :
-            <>
-              {
+        {loader ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "500px",
+            }}
+          >
+            <Spin tip="Loading" size="large" />
+          </div>
+        ) : (
+          <>
+            {/* {
                 frameLoaded ?
                   <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', background: '#2F80ED1F', margin: '25px', padding: '25px', borderRadius: '4px' }}>
                     <p style={{ fontSize: '16px', fontWeight: '600' }}>BETA:</p>
@@ -81,11 +92,16 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
                     style={{ border: 'none' }}
                     src={linkData[appName]} height="500px" width="100%" title={appName}>
                   </iframe>
-              }
-
-
-            </>
-        }
+              } */}
+            <iframe
+              style={{ border: "none" }}
+              src={"https://www.channel103.com/radioplayer/"}
+              height="500px"
+              width="100%"
+              title={appName}
+            ></iframe>
+          </>
+        )}
       </DirectionModalLayout>
     </>
   );
@@ -93,14 +109,13 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
 
 export default InfoAppScreen;
 
-
 const LInkBtn = styled.a`
-margin-top: 20px;
-text-align: center;
-/* height: 15px; */
-background: #2F80ED;
-padding: 10px;
-border-radius: 8px;
-color: white;
-font-size: 16px;
-`
+  margin-top: 20px;
+  text-align: center;
+  /* height: 15px; */
+  background: #2f80ed;
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+`;
