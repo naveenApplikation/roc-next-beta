@@ -457,7 +457,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </ViewDirection>
         </ResturantDetailsContainer>
         <RestDetailText>{strippedContent}</RestDetailText>
-        <MenuButtonContainer>
+        {/* <MenuButtonContainer>
           <DashBoardButton
             text="Special menu"
             bcColor="#E8468F"
@@ -470,7 +470,7 @@ const ModalContent: React.FC<ModalProps> = ({
             image={bookOpen}
             imageStyle={27}
           />
-        </MenuButtonContainer>
+        </MenuButtonContainer> */}
         <ReviewContainer>
           <ReviewWraaper>
             <Image src={comment} alt="icon" />
