@@ -283,6 +283,7 @@ const EventList = () => {
                     homePage={navigateClick}
                     loader={loader}
                     screenName="Update"
+                    
                     // {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
                     {...{ dragData, selectedData }}
                 />
