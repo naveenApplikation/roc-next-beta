@@ -114,6 +114,7 @@ const MainInsideWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  cursor: pointer;
 `;
 
 const CategoryEvent: React.FC<EventBoxProps> = ({
@@ -177,11 +178,12 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
         : urlData?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}>
-              <MainInsideWrapper>
+              <MainInsideWrapper
+                onClick={() =>
+                  modalClick("eventListing", item, filteredUrls[index])
+                }
+              >
                 <FamilyEventWrapper>
-                  {
-                    console.log("dkfslkflsdfs", item?.photoUrl) as any
-                  }
                   {
                     item?.data_type === "google" ?
                       <ImageTag src={item.photoUrl} alt="Image"
@@ -202,20 +204,10 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                           cursor: 'pointer'
                         }}
                         alt=""
-                        onClick={() =>
-                          modalClick("eventListing", item, filteredUrls[index])
-                        }
+
                       />
                   }
 
-                  <FamilyEventWrapperInside>
-                    {/* <p className="date">
-                                            {formatDate(item.acf.event_dates[0].date)}
-                                        </p>
-                                        <p className="month">
-                                            {formatMonth(item.acf.event_dates[0].date)}
-                                        </p> */}
-                  </FamilyEventWrapperInside>
                 </FamilyEventWrapper>
                 <div className="restroRating">
                   <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
@@ -230,7 +222,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       }}
                       alt="utensils"
                     />
-                    <p>{item?.type}</p>
+                    {/* <p>{item?.type}</p> */}
                   </DetailContainer>
                   <p>
                     <span style={{ color: '#2B902B' }}>
@@ -240,11 +232,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 </div>
               </MainInsideWrapper>
               <LikesContainer selected={item?.userVoted} onClick={() => handleLike(item?._id, item?.userVoted)}>
-                {/* <Image
-                                    style={{ width: 16, height: "auto" }}
-                                    src={thumbsUPIcon}
-                                    alt="icon"
-                                /> */}
+
                 <ThumbsUPIcon color={item?.userVoted ? "#3b86ed" : "#000000"} />
                 <p>{item?.itemVotes}</p>
               </LikesContainer>
