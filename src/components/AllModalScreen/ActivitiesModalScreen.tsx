@@ -29,7 +29,7 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
         onClose={() => closeModal("activities")}
         name="activities"
         {...{ showMap }}
-        title={dataDetails?.acf?.title}
+        title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
       >
 
         <ActivitiesModal

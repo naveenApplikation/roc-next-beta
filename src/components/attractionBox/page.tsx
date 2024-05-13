@@ -146,6 +146,7 @@ const MainInsideWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  cursor: pointer;
 `;
 
 const ImageTag = styled.img`
@@ -200,14 +201,18 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             return (
               <SearchedData key={index}>
                 <MainWrraper>
-                  <MainInsideWrapper>
+                  <MainInsideWrapper
+                    onClick={() =>
+                      modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                    }
+                  >
                     <div style={{ position: "relative" }}>
                       {
                         item?.data_type === "google" ?
                           <ImageTag src={item.photoUrl} alt="Image"
-                            onClick={() =>
-                              modalClick("ModalContent", item, item.photoUrl)
-                            }
+                            // onClick={() =>
+                            //   modalClick("ModalContent", item, item.photoUrl)
+                            // }
                           />
                           :
                           <Image
@@ -222,9 +227,9 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                               cursor: 'pointer'
                             }}
                             alt=""
-                            onClick={() =>
-                              modalClick("ModalContent", item, filteredUrls[index])
-                            }
+                            // onClick={() =>
+                            //   modalClick("ModalContent", item, filteredUrls[index])
+                            // }
                           />
                       }
                       {item.deliverActive && (
@@ -245,7 +250,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                       )}
                     </div>
                     <div className="restroRating">
-                      <p className="shopName">{item?.acf?.title}</p>
+                      <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
                       <div style={{ alignItems: "center", display: "flex" }}>
                         <UtenssilsImage src={utensils} alt="utensils" />
                         <Ratings defaultValue={item.rating} />

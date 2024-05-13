@@ -19,7 +19,7 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=>
           onClose={() => closeModal("ModalContent")}
           name="ModalContent"
           {...{ showMap }}
-          title={dataDetails?.acf?.title}
+          title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
         >
           <ModalContent
             onClose={() => closeModal("ModalContent")}
