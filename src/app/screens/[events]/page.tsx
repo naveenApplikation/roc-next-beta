@@ -4,6 +4,7 @@ import { useMyContext } from '@/app/Context/MyContext';
 import PageLayout from '@/app/pageLayout';
 import Instance from '@/app/utils/Instance';
 import { ApiResponse } from '@/app/utils/types';
+import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen';
 import CategoryEvent from '@/components/categoryEvent/page';
 import AddComments from '@/components/createList/AddComments';
 import CreateListings from '@/components/createList/CreateListings';
@@ -310,6 +311,7 @@ const EventList = () => {
                     {ScreenShowHandle()}
                 </CategoryBody>
             </PageLayout>
+            <EventListingModalScreen showMap={showMap} />
         </>
     )
 }

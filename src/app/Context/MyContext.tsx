@@ -26,7 +26,7 @@ interface ContextProps {
   showContent: boolean;
   appName: any;
   reservationMenu?: boolean;
-  oldName:string;
+  oldName: string;
   setOldName: any;
 }
 
@@ -111,18 +111,17 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 
   const modalClick = (name: string, item?: any, urlImage?: any, openReservation?: any) => {
-    console.log("aaaaaaaaaaaaaaa", name)
     setModalType((prev) => ({
       ...prev,
       [name]: true,
     }));
     setModalNames(name);
-    if(name === "createAccountModal"){
+    if (name === "createAccountModal") {
       setOldName('')
-    } else if(name === "WelcomeBackModal"){
+    } else if (name === "WelcomeBackModal") {
       setOldName('')
-    } 
-    else if(name === "myList"){
+    }
+    else if (name === "myList") {
       setOldName('')
     }
     if (item) {
@@ -175,7 +174,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     showContent,
     appName,
     reservationMenu,
-    oldName, 
+    oldName,
     setOldName
   };
 

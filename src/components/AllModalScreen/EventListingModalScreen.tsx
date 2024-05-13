@@ -10,15 +10,8 @@ interface DashboardSearchContainerProps {
 const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
-  const {
-    modalName,
-    closeModal,
-    modalClick,
-    dataDetails,
-    modalType,
-    dataUrlImage,
-  } = useMyContext();
-
+  const { modalName, closeModal, modalClick, dataDetails, modalType, dataUrlImage } = useMyContext();
+console.log("jflkdklfsljfjlkds", dataDetails)
   return (
     <>
       <EventListingModalLayout
@@ -26,7 +19,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
         onClose={() => closeModal("eventListing")}
         name="eventListing"
         {...{ showMap }}
-        title={dataDetails?.acf?.title}
+        title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
       >
         <EventListingModal
           dataImage={dataUrlImage}
