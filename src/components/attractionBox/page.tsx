@@ -252,7 +252,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                     <div className="restroRating">
                       <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
                       <div style={{ alignItems: "center", display: "flex" }}>
-                        <UtenssilsImage src={utensils} alt="utensils" />
+                        {/* <UtenssilsImage src={utensils} alt="utensils" /> */}
                         <Ratings defaultValue={item.rating} />
                       </div>
                       <p>

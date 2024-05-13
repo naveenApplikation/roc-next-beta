@@ -11,7 +11,7 @@ import CreateListItems from "./CreateList Components/CreateListItems";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-import { utensils } from "@/app/utils/ImagePath";
+
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { sideWidth } from "@/app/utils/date";
 

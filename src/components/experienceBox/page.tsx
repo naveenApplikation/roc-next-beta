@@ -7,7 +7,7 @@ import CommonButton from "@/components/button/CommonButton";
 import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {thumbsup, utensils } from "@/app/utils/ImagePath";
+import {thumbsup } from "@/app/utils/ImagePath";
 
 interface ExperienceBoxProps {
   urlData?: any;
