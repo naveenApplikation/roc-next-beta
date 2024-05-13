@@ -26,6 +26,7 @@ interface CreateListingsProps {
   handleSearch: (value: string) => void;
   data: any[];
   loader?: boolean;
+  UI_Type?: string;
 }
 
 const CreateListingsScreen = styled.div`
@@ -227,6 +228,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   searchQuery,
   data,
   loader,
+  UI_Type,
 }) => {
 
   // const [searchQuery, setSearchQuery] = useState("");
@@ -245,7 +247,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   return (
     <CreateListingsScreen>
       <CreateListItemScrollBox>
-        <CreateListingsHeader homePage={homePage} />
+        <CreateListingsHeader homePage={homePage}{...{UI_Type}} />
         <CreateListingsContent>
           <AddListingsTitle>Add business to your list</AddListingsTitle>
           <SearchInputBox>

@@ -3,9 +3,12 @@
 import React from "react";
 import styled from "styled-components";
 
-interface CreateListingsProps {homePage?:any}
+interface CreateListingsProps {
+    homePage?: any;
+    UI_Type?: string;
+}
 
-const CreateListingHeader =  styled.div`
+const CreateListingHeader = styled.div`
     padding: 24px;
     display: flex;
     flex-direction: row;
@@ -49,10 +52,10 @@ const SaveText = styled.div`
     cursor: pointer;
 `;
 
-const CreateListingsHeader: React.FC<CreateListingsProps> = ({homePage}) => {
-    return(
+const CreateListingsHeader: React.FC<CreateListingsProps> = ({ homePage, UI_Type }) => {
+    return (
         <CreateListingHeader>
-            <CreateListTitle>Create List</CreateListTitle>
+            <CreateListTitle>{UI_Type === "add_list" ? "Add" : "Create"} List</CreateListTitle>
             <CancelText onClick={homePage}>CANCEL</CancelText>
         </CreateListingHeader>
     )

@@ -239,7 +239,7 @@ const EventList = () => {
         if (screenName === "create") {
             return (
                 <CreateListings
-                    ScreenSwitch={() => screenChangeHandle("drag")}
+                    ScreenSwitch={() => screenChangeHandle("Greetings")}
                     homePage={navigateClick}
                     selectedItemIds={selectedItemIds}
                     toggleSelected={toggleSelected}
@@ -247,6 +247,7 @@ const EventList = () => {
                     handleSearch={handleSearch}
                     data={data}
                     loader={loader}
+                    UI_Type = "add_list"
                 />
             );
         } else if (screenName === "drag") {
