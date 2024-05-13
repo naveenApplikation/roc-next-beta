@@ -65,6 +65,16 @@ const StarWrapper = styled.div`
   }
 `;
 
+const MainTitle = styled.p`
+ overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+    margin-top: 8px;
+`
+
 const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls, showContent } = useMyContext();
 
@@ -74,17 +84,14 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/out-out");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/out-out");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -97,8 +104,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data.length ?
-      <>
+    <>
         <MenuDetails
           isOpen={() => menuClick("Out out", true, "out-out")}
           title="Out out"
@@ -145,16 +151,15 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                       />{" "}
                       <p>4.7</p>
                     </div>
-                    <p style={{ fontSize: 14, marginTop: 8 }}>
+                    <MainTitle>
                       {item.acf.title}
-                    </p>
+                    </MainTitle>
                   </div>
                 </StarContainer>
               );
             })}
         </ScrollingMenu>
       </>
-      : ""
   );
 };
 

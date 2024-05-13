@@ -87,17 +87,14 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
-      try {
-        const result = await Instance.get("/cycling");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/cycling");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 

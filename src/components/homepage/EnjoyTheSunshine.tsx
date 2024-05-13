@@ -110,18 +110,15 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/sun-shine");
-        console.log(result, "dsdsdsd");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/sun-shine");
+      console.log(result, "dsdsdsd");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -134,7 +131,6 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data?.length &&
     <>
       <MenuDetails
         isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}

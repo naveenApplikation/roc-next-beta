@@ -70,6 +70,16 @@ object-fit:cover;
 height:100%;
 `;
 
+const MainTitle = styled.p`
+ overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+    margin-top: 8px;
+`
+
 const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls, showContent } = useMyContext();
 
@@ -79,26 +89,23 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/ww-2");
-        if(result?.data?.activity1){
-          const combinedArray = [
-            ...result.data.activity1,
-            ...result.data.activity2,
-          ];
-          setData(combinedArray);
-        } else {
-          setData(result?.data);
+    try {
+      const result = await Instance.get("/ww-2");
+      if(result?.data?.activity1){
+        const combinedArray = [
+          ...result.data.activity1,
+          ...result.data.activity2,
+        ];
+        setData(combinedArray);
+      } else {
+        setData(result?.data);
 
-        }
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
       }
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -111,7 +118,6 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data.length ?
     <>
       <MenuDetails isOpen={() => menuClick("WW2", true, "ww-2")} title="WW2" />
       <ScrollingMenu>
@@ -164,15 +170,15 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     />{" "}
                     <p>{item?.rating}</p>
                   </div>
-                  <p style={{ fontSize: 14, marginTop: 8 }}>
+                  <MainTitle>
                     {item?.data_type === "google" ? item?.name : item?.acf?.title}
-                  </p>
+                  </MainTitle>
                 </div>
               </StarContainer>
             );
           })}
       </ScrollingMenu>
-    </> : ""
+    </>
   );
 };
 

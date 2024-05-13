@@ -66,6 +66,11 @@ const FamilEventText = styled.p`
   font-weight: 400;
   line-height: normal;
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 
 const FamilyEventWrapper = styled.div`
@@ -96,17 +101,14 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/family-events");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/family-events");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -119,56 +121,60 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data.length ?
     <>
-      <MenuDetails
-        isOpen={() => menuClick("Family Events", true, "family-events")}
-        title="Family Events"
-      />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-                <Skeleton
-                  width={80}
-                  height={15}
-                  style={{ marginTop: 8, borderRadius: 6 }}
-                />
-              </div>
-            ))
-          : data.slice(0, 10).map((item, index) => {
-              return (
-                <FamilEventContainer
-                  key={index}
-                  onClick={() =>
-                    modalClick("eventListing", item, filteredUrls[index])
-                  }
-                  style={{ cursor: "pointer" }}>
-                  <FamilyEventWrapper>
-                    <MainImage
-                      src={filteredUrls[index]}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{ borderRadius: 4, maxWidth: "100%",objectFit:'cover' }}
-                    />
-                    <FamilyEventWrapperInside>
-                      <p className="date">
-                        {formatDate(item.acf.event_dates[0].date)}
-                      </p>
-                      <p className="month">
-                        {formatMonth(item.acf.event_dates[0].date)}
-                      </p>
-                    </FamilyEventWrapperInside>
-                  </FamilyEventWrapper>
-                  <FamilEventText>{item.acf.title}</FamilEventText>
-                </FamilEventContainer>
-              );
-            })}
-      </ScrollingMenu>
-    </> : ""
-  );
+    <MenuDetails
+      isOpen={() => menuClick("Family Events", true, "family-events")}
+      title="Family Events"
+    />
+    <ScrollingMenu>
+      {loader
+        ? skeletonItems.map((item, index) => (
+            <div key={index}>
+              <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
+              <Skeleton
+                width={80}
+                height={15}
+                style={{ marginTop: 8, borderRadius: 6 }}
+              />
+            </div>
+          ))
+        : data.slice(0, 10).map((item, index) => {
+            return (
+              <FamilEventContainer
+                key={index}
+                onClick={() =>
+                  modalClick("eventListing", item, filteredUrls[index])
+                }
+                style={{ cursor: "pointer" }}
+              >
+                <FamilyEventWrapper>
+                  <MainImage
+                    src={filteredUrls[index]}
+                    alt=""
+                    width={500}
+                    height={80}
+                    style={{
+                      borderRadius: 4,
+                      maxWidth: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <FamilyEventWrapperInside>
+                    <p className="date">
+                      {formatDate(item.acf.event_dates[0].date)}
+                    </p>
+                    <p className="month">
+                      {formatMonth(item.acf.event_dates[0].date)}
+                    </p>
+                  </FamilyEventWrapperInside>
+                </FamilyEventWrapper>
+                <FamilEventText>{item.acf.title}</FamilEventText>
+              </FamilEventContainer>
+            );
+          })}
+    </ScrollingMenu>
+  </>
+  )
 };
 
 export default FamilyEvent;

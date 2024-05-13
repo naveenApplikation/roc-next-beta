@@ -449,15 +449,6 @@ const ModalContent: React.FC<ModalProps> = ({
                 ) : (
                   <RestDetailTitle>{item?.name}</RestDetailTitle>
                 )}
-                {index == 0 && (
-                  <Image
-                    style={{ cursor: "pointer", height: "auto" }}
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcaret-down.png?alt=media&token=9107ac5a-d4d8-4ae8-b530-38db5abfa29d"
-                    alt="Logo down"
-                    width={10}
-                    height={24}
-                  />
-                )}
               </ResturantDetailsWrapper>
             );
           })}
@@ -611,7 +602,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </WeekTimeArrange>
         ))} */}
         </DatesContainer>
-        <AlsoSeeText>Also see</AlsoSeeText>
+        {/* <AlsoSeeText>Also see</AlsoSeeText>
         <ScrollingMenu>
           {LocalCuisineMenuItem.map((item, index) => {
             return (
@@ -626,7 +617,7 @@ const ModalContent: React.FC<ModalProps> = ({
               </div>
             );
           })}
-        </ScrollingMenu>
+        </ScrollingMenu> */}
         {reservationMenu && (
           <ButtonContainer>
             <CommonButton

@@ -95,7 +95,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
               } */}
             <iframe
               style={{ border: "none" }}
-              src={"https://www.channel103.com/radioplayer/"}
+              src={linkData[appName]}
               height="500px"
               width="100%"
               title={appName}

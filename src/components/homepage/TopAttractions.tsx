@@ -7,7 +7,7 @@ import Image from "next/image";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { skeletonItems } from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
 
 interface DashboardProps {
@@ -43,6 +43,11 @@ const TopAttractionContainer = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;
 
@@ -57,10 +62,10 @@ const TopAttractionprofile = styled.div`
 `;
 
 const ImageTag = styled.img`
-width:100%;
-border-radius:50%;
-object-fit:cover;
-height:100%;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 100%;
 `;
 
 const TopAttractions: React.FC<DashboardProps> = ({
@@ -75,17 +80,14 @@ const TopAttractions: React.FC<DashboardProps> = ({
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/top-attractions");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/top-attractions");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -97,53 +99,72 @@ const TopAttractions: React.FC<DashboardProps> = ({
 
   const filteredUrls = filterUrls(ImageUrlData);
 
-  return (
-    data.length ?
+  return(
     <>
-      <MenuDetails
-        isOpen={() => menuClick("Top Attractions", true, "top-attractions")}
-        title="Top Attractions"
-      />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
+    <MenuDetails
+      isOpen={() => menuClick("Top Attractions", true, "top-attractions")}
+      title="Top Attractions"
+    />
+    <ScrollingMenu>
+      {loader
+        ? skeletonItems.map((item, index) => (
             <div key={index}>
-              <Skeleton width={80} height={80} style={{ borderRadius: "100%" }} />
-              <Skeleton width={80} height={15} style={{ marginTop: 8, borderRadius: 6 }} />
+              <Skeleton
+                width={80}
+                height={80}
+                style={{ borderRadius: "100%" }}
+              />
+              <Skeleton
+                width={80}
+                height={15}
+                style={{ marginTop: 8, borderRadius: 6 }}
+              />
             </div>
           ))
-          : data?.slice(0, 10).map((item, index) => {
+        : data?.slice(0, 10).map((item, index) => {
             return (
               <TopAttractionContainer
                 key={index}
                 style={{ cursor: "pointer" }}
                 onClick={() =>
-                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                  modalClick(
+                    "ModalContent",
+                    item,
+                    item?.data_type === "google"
+                      ? item?.photoUrl
+                      : filteredUrls[index]
+                  )
                 }
               >
                 <TopAttractionprofile>
-                  {
-                    item?.data_type === "google" ?
+                  {item?.data_type === "google" ? (
                     <ImageTag src={item.photoUrl} alt="Image" />
-                    :
+                  ) : (
                     <Image
-                        src={filteredUrls[index]}
-                        alt=""
-                       width={500}
-                        height={80}
-                        style={{ borderRadius:"100%", maxWidth: "100%",objectFit:'cover' }}
-                        // alt=""
-                      />
-
-                  }
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={500}
+                      height={80}
+                      style={{
+                        borderRadius: "100%",
+                        maxWidth: "100%",
+                        objectFit: "cover",
+                      }}
+                      // alt=""
+                    />
+                  )}
                 </TopAttractionprofile>
-                <p>{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
+                <p>
+                  {item?.data_type === "google"
+                    ? item?.name
+                    : item?.acf?.title}
+                </p>
               </TopAttractionContainer>
             );
           })}
-      </ScrollingMenu>
-    </> :""
-  );
+    </ScrollingMenu>
+  </>
+  )
 };
 
 export default TopAttractions;

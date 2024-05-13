@@ -70,6 +70,16 @@ object-fit:cover;
 height:100%;
 `;
 
+const MainTitle = styled.p`
+ overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+    margin-top: 8px;
+`
+
 
 const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls,showContent } = useMyContext();
@@ -80,25 +90,22 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
-      try {
-        const result = await Instance.get("/surfings");
-        if(result?.data?.activity1){
-          const combinedArray = [
-            ...result.data.activity1,
-            ...result.data.activity2,
-          ];
-          setData(combinedArray);
-        } else {
-          setData(result?.data);
-        }
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
+    try {
+      const result = await Instance.get("/surfings");
+      if(result?.data?.activity1){
+        const combinedArray = [
+          ...result.data.activity1,
+          ...result.data.activity2,
+        ];
+        setData(combinedArray);
+      } else {
+        setData(result?.data);
       }
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -111,71 +118,70 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data.length ?
     <>
-      <MenuDetails
-        isOpen={() => menuClick("Surfing", true, "surfings")}
-        title="Surfing"
-      />
-      <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <CommonSkeletonLoader />
-              </div>
-            ))
-          : data?.slice(0, 10).map((item, index) => {
-              return (
-                <StarContainer
-                  key={index}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
-                  }
-                >
-                  <StarWrapper>
-                  {
-                    item?.data_type === "google" ?
-                      <ImageTag src={item.photoUrl} alt="Image" />
-                      :
-                      <Image
-                        src={filteredUrls[index]}
-                        alt=""
-                        width={500}
-                        height={80}
-                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
-                      // alt=""
-                      />
+    <MenuDetails
+      isOpen={() => menuClick("Surfing", true, "surfings")}
+      title="Surfing"
+    />
+    <ScrollingMenu>
+      {loader
+        ? skeletonItems.map((item, index) => (
+            <div key={index}>
+              <CommonSkeletonLoader />
+            </div>
+          ))
+        : data?.slice(0, 10).map((item, index) => {
+            return (
+              <StarContainer
+                key={index}
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                }
+              >
+                <StarWrapper>
+                {
+                  item?.data_type === "google" ?
+                    <ImageTag src={item.photoUrl} alt="Image" />
+                    :
+                    <Image
+                      src={filteredUrls[index]}
+                      alt=""
+                      width={500}
+                      height={80}
+                      style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
+                    // alt=""
+                    />
 
-                  }
-                  </StarWrapper>
-                  <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: 4,
-                        alignItems: "center",
-                      }}
-                    >
-                      <Image
-                        src={
-                          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
-                        }
-                        width={69}
-                        height={12}
-                        alt="right icon"
-                      />{" "}
-                      <p>{item?.rating}</p>
-                    </div>
-                    <p style={{ fontSize: 14, marginTop: 8 }}>
-                    {item?.data_type === "google" ? item?.name : item?.acf?.title}
-                    </p>
+                }
+                </StarWrapper>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 4,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      src={
+                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
+                      }
+                      width={69}
+                      height={12}
+                      alt="right icon"
+                    />{" "}
+                    <p>{item?.rating}</p>
                   </div>
-                </StarContainer>
-              );
-            })}
-      </ScrollingMenu>
-    </> : ""
+                  <MainTitle>
+                  {item?.data_type === "google" ? item?.name : item?.acf?.title}
+                  </MainTitle>
+                </div>
+              </StarContainer>
+            );
+          })}
+    </ScrollingMenu>
+  </>
   );
 };
 

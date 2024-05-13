@@ -6,14 +6,12 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import { skeletonItems } from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
 
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
 }
-
-
 
 const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls, showContent } = useMyContext();
@@ -24,17 +22,14 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if (storedValue) {
-      try {
-        const result = await Instance.get("/beach-life");
-        setData(result.data);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/beach-life");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
@@ -47,52 +42,67 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    data.length ?
-      <>
-        <MenuDetails
-        isOpen={() => menuClick("Beach life", true, "beach-life")}
-        title="Beach life " />
-        <ScrollingMenu>
-          {loader
-            ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <ShopBrachSkeleton />
-              </div>
-            ))
-            : data.slice(0, 10).map((item, index) => {
-              return (
-                <WalkContainer key={index}
-                  onClick={() =>
-                    modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
-                  }>
-                  {
-                    item?.data_type === "google" ?
-                      <ImageTag src={item.photoUrl} alt="Image" />
-                      :
-                      <Image
-                        src={filteredUrls[index]}
-                        alt=""
-                        width={500}
-                        height={80}
-                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover', cursor:'pointer' }}
-                      // alt=""
-                      />
-
-                  }
+    <>
+    <MenuDetails
+      isOpen={() => menuClick("Beach life", true, "beach-life")}
+      title="Beach life "
+    />
+    <ScrollingMenu>
+      {loader
+        ? skeletonItems.map((item, index) => (
+            <div key={index}>
+              <ShopBrachSkeleton />
+            </div>
+          ))
+        : data.slice(0, 10).map((item, index) => {
+            return (
+              <WalkContainer
+                key={index}
+                onClick={() =>
+                  modalClick(
+                    "ModalContent",
+                    item,
+                    item?.data_type === "google"
+                      ? item?.photoUrl
+                      : filteredUrls[index]
+                  )
+                }
+              >
+                {item?.data_type === "google" ? (
+                  <ImageTag src={item.photoUrl} alt="Image" />
+                ) : (
                   <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                    src={filteredUrls[index]}
                     alt=""
-                    width={120}
-                    height={64}
-                    style={{ position: "absolute", bottom: 0, height: 50 }}
+                    width={500}
+                    height={80}
+                    style={{
+                      borderRadius: "4px",
+                      maxWidth: "100%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                    // alt=""
                   />
-                  <p>{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
-                </WalkContainer>
-              );
-            })}
-        </ScrollingMenu>
-      </> : ""
-  );
+                )}
+                <Image
+                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                  alt=""
+                  width={120}
+                  height={64}
+                  style={{ position: "absolute", bottom: 0, height: 50 }}
+                />
+                <p>
+                  {item?.data_type === "google"
+                    ? item?.name
+                    : item?.acf?.title}
+                </p>
+              </WalkContainer>
+            );
+          })}
+    </ScrollingMenu>
+  </>
+  )
 };
 
 export default BeachLife;
@@ -128,6 +138,11 @@ const WalkContainer = styled.div`
     color: white;
     font-size: 14px;
     font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     position: absolute;
     bottom: 8px;
     left: 12px;
@@ -140,9 +155,9 @@ const WalkContainer = styled.div`
 `;
 
 const ImageTag = styled.img`
-width:100%;
-border-radius:50%;
-object-fit:cover;
-height:100%;
-cursor:'pointer';
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 100%;
+  cursor: "pointer";
 `;
