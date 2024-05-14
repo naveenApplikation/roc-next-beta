@@ -65,7 +65,7 @@ const MainContainer = styled.div`
     border-radius: 24px 24px 0px 0px;
     height: auto;
     overflow: hidden;
-    margin-top: 500px;
+    margin-top: 490px;
     z-index: 1;
   }
 `;
@@ -92,7 +92,7 @@ const DashboardMenu = styled.div<{
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-      $showMap ? "calc(100vh - 500px)" : "100vh"};
+    $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 
@@ -133,7 +133,7 @@ export default function Home() {
   //     } catch (error) {
   //       setListData([])
   //       setloader(false)
-  
+
   //     }
   //   }
   // };
@@ -146,12 +146,13 @@ export default function Home() {
       <ShadowWrapper {...{ showContent, setShowContent }}>
         <Container >
           <MainContainer >
-            <PageLayout>
-              <DashboardMenu $showMap={showMap}>
+            <PageLayout >
+              <DashboardMenu $showMap={showMap} >
                 <Header
                   className={showContent ? "shoadow_wrapper_container" : ""}
                   {...{ modalClick, iconClick, showMap }}
                 />
+
                 <Dashboard />
               </DashboardMenu>
             </PageLayout>

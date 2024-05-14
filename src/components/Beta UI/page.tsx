@@ -16,7 +16,7 @@ import {
   instaGram,
   linkedIn,
 } from "@/app/utils/ImagePath";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   facebookURL,
   instagramURL,
@@ -43,15 +43,17 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
 
   const searchParams = useSearchParams();
   const query = searchParams.get("code");
+  const router = useRouter()
 
 
   const fetchDataAsync = async () => {
     setloader(true);
     try {
       const result = await Instance.post("/verifyCode", { code: inputValue });
+      router.push("/")
       localStorage.setItem("hideUI", inputValue.trim());
-      setShowContent(false);
       localStorage.setItem("Token", result.data.data);
+      setShowContent(false);
       console.log("result", result)
       handleApiResponse(true);
     } catch (error: any) {

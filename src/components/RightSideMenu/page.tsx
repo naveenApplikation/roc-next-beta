@@ -114,13 +114,14 @@ const RightMenu = styled.div`
     flex-direction: column;
     height: 500px;
     padding: 16px;
+    padding-bottom: 25px;
     position: fixed;
     top: 0;
     width: 100%;
     right: 0;
-    // background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg_containter______alt.jpg?alt=media&token=f67de953-e63e-478d-ab4f-d80e79b827e2);
-    // background-size:contain;
-    // background-repeat:no-repeat;
+    background-position:50% 50%;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg.jpg?alt=media&token=4e087624-53c1-4826-9930-74c63c902b72);
+    background-size:cover;
   }
 `;
 
