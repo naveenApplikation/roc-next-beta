@@ -112,7 +112,7 @@ const DirectionModal: React.FC = () => {
 
   return (
     <Container>
-      <ScrollingMenu>
+      {/* <ScrollingMenu>
         {data.map((item, index) => (
           <Box
             key={index}
@@ -122,13 +122,12 @@ const DirectionModal: React.FC = () => {
             <p>{item}</p>
           </Box>
         ))}
-      </ScrollingMenu>
+      </ScrollingMenu> */}
       <div style={{ height: "291px" }}></div>
       <div style={{ padding: "0px 24px" }}>
         <CommonButton text="View in maps" />
       </div>
       <div>
-
       {buttonData.map((item,index) => (
         <AdventureOption key={index}>
             <p>{item}</p>
