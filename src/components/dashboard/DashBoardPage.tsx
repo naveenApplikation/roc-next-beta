@@ -44,9 +44,10 @@ const DashBoard = () => {
   const [listData, setListData] = useState<string[]>([]);
   // const [searchQuery, setSearchQuery] = useState("");
   // const [data, setData] = useState<any[]>([]);
-  // const [loader, setLoader] = useState<boolean>(false)
+  const [loader, setloader] = useState(true);
 
   const fetchDataAsync = async () => {
+    setloader(true);
     try {
       const response = await Instance.get("/category?limit=10")
       if (response.status === 200) {
@@ -62,8 +63,10 @@ const DashBoard = () => {
 
       }
     } catch (error) {
+      setloader(false);
       setListData([])
-
+    }finally {
+      setloader(false);
     }
   }
 
@@ -126,12 +129,12 @@ const DashBoard = () => {
       <LocalCusine menuClick={menuClick} modalClick={modalClick} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
-      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
+      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
-      <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} />
+      <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} />
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
       {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> not working */}

@@ -4,11 +4,15 @@ import styled from "styled-components";
 import { community } from "@/app/utils/data";
 import Image from "next/image";
 import CommonButton from "@/components/button/CommonButton";
+import {skeletonItems} from '@/app/utils/date'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
   listData?: any;
+  loader:boolean;
 }
 
 const ScrollingMenu = styled.div`
@@ -49,7 +53,7 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listData }) => {
+const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listData,loader }) => {
 
   return (
     <>
@@ -59,7 +63,14 @@ const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listDat
         title="Trending Lists"
       />
       <ScrollingMenu>
-        {listData.length ? listData.map((item:any, index: any) => {
+      {loader
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <Skeleton width={80} height={80} style={{borderRadius:6}} />
+              </div>
+            ))
+          :
+        listData.length ? listData.map((item:any, index: any) => {
           return (
             <CommunityContainer 
             key={index} 

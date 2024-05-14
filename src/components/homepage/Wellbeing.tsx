@@ -101,7 +101,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   useEffect(() => {
     fetchDataAsync();
-  }, [showContent]);
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
