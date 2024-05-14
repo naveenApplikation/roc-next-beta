@@ -195,23 +195,20 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             </SearchedData>
           ))
         : urlData?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainInsideWrapper
-                  onClick={() =>
-                    modalClick("eventListing", item, filteredUrls[index])
-                  }
-                >
-                  <FamilyEventWrapper>
-                    {item?.data_type === "google" ? (
-                      <ImageTag
-                        src={item.photoUrl}
-                        alt="Image"
-                        onClick={() =>
-                          modalClick("eventListing", item, item.photoUrl)
-                        }
+          return (
+            <SearchedData key={index}>
+              <MainInsideWrapper
+                onClick={() =>
+                  modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                }
+              >
+                <FamilyEventWrapper>
+                  {
+                    item?.data_type === "google" ?
+                      <ImageTag src={item.photoUrl} alt="Image"
+                       
                       />
-                    ) : (
+                     : (
                       <Image
                         // style={{ background: "white" }}
                         src={filteredUrls[index]}

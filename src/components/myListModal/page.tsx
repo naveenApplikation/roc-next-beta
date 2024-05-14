@@ -96,7 +96,7 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
                     <div className="restroRating">
                       <p className="shopName">{item.name}</p>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <Image
+                        {/* <Image
                           src={utensils}
                           style={{
                             width: "13px",
@@ -104,7 +104,7 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
                             marginRight: 8,
                           }}
                           alt="utensils"
-                        />
+                        /> */}
                         <Ratings defaultValue={item.rating} />
                       </div>
                       <p>

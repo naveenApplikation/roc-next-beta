@@ -59,28 +59,28 @@ const EventList = () => {
 
     const [loader, setloader] = useState(true);
 
-    useEffect(() => {
-        const fetchDataAsync = async () => {
-            setloader(true);
-            try {
-                //   const result = await Instance.get(`${search}`);
-                //   if (search == "surfing" || search == "ww2") {
-                //     const combinedArray = [...result.data.activity1, ...result.data.activity2];
-                //     setData(combinedArray);
-                //   } else {
-                //     setData(result.data);
-                //   }
+    // useEffect(() => {
+    //     const fetchDataAsync = async () => {
+    //         setloader(true);
+    //         try {
+    //             //   const result = await Instance.get(`${search}`);
+    //             //   if (search == "surfing" || search == "ww2") {
+    //             //     const combinedArray = [...result.data.activity1, ...result.data.activity2];
+    //             //     setData(combinedArray);
+    //             //   } else {
+    //             //     setData(result.data);
+    //             //   }
 
-            } catch (error: any) {
-                console.log(error.message);
-                setloader(false);
-            } finally {
-                setloader(false);
-            }
-        };
+    //         } catch (error: any) {
+    //             console.log(error.message);
+    //             setloader(false);
+    //         } finally {
+    //             setloader(false);
+    //         }
+    //     };
 
-        fetchDataAsync();
-    }, []);
+    //     fetchDataAsync();
+    // }, []);
 
     const fetchEventDataById = async () => {
         try {
@@ -158,16 +158,16 @@ const EventList = () => {
     const screenChangeHandle = async (name: string) => {
         setScreenName(name);
     };
-    const handleSearch = (value: string) => {
+    const handleChange = (value: string) => {
         setSearchQuery(value);
-        debouncedSearch(value);
     };
+
 
 
     const handleLike = async (id: string, vote: any) => {
         eventData.map(val => {
             if (id === val._id) {
-                if(vote){
+                if (vote) {
                     val.userVoted = false;
                     val.itemVotes = val.itemVotes - 1
                     setEventData([...eventData])
@@ -175,7 +175,7 @@ const EventList = () => {
                     val.userVoted = true;
                     val.itemVotes = val.itemVotes + 1
                     setEventData([...eventData])
-                    
+
                 }
             }
         })
@@ -184,7 +184,7 @@ const EventList = () => {
                 categroryId: categoryId,
                 itemId: id
             })
-            vote ? 
+        vote ?
             toast.error(result?.data?.message)
             :
             toast.success(result?.data?.message)
@@ -206,7 +206,10 @@ const EventList = () => {
             setloader(false);
         }
     };
-    const debouncedSearch = debounce(fetchDataAsync, 300);
+    const handleSearch = () => {
+        fetchDataAsync(searchQuery);
+    };
+
 
     const postHandler = async (name: string) => {
         const param = {
@@ -245,9 +248,10 @@ const EventList = () => {
                     toggleSelected={toggleSelected}
                     searchQuery={searchQuery}
                     handleSearch={handleSearch}
+                    handleChange={handleChange}
                     data={data}
                     loader={loader}
-                    UI_Type = "add_list"
+                    UI_Type="add_list"
                 />
             );
         } else if (screenName === "drag") {
@@ -283,7 +287,7 @@ const EventList = () => {
                     homePage={navigateClick}
                     loader={loader}
                     screenName="Update"
-                    
+
                     // {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
                     {...{ dragData, selectedData }}
                 />

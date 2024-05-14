@@ -16,6 +16,7 @@ import CurrencySign from "../../../assets/images/createListImages/currencySign.p
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import FilterSection from "@/components/filterSection";
+import Skeleton from "react-loading-skeleton";
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -24,10 +25,210 @@ interface CreateListingsProps {
   selectedItemIds: any;
   searchQuery: string;
   handleSearch: (value: string) => void;
+  handleChange?: any;
   data: any[];
   loader?: boolean;
   UI_Type?: string;
 }
+
+
+
+const newFilter = [
+  {
+    _id: "item 1",
+    name: "Chocadyllic",
+    placeName1: "St Helier",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Open ⋅ Closes",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 2",
+    name: "Kalimukti Yoga",
+    placeName1: "From £5",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Outdoore",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 3",
+    name: "Radisson Blu Waterfront Hotel",
+    placeName1: "From £265/night",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "St Helier",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+  {
+    id: "item 4",
+    name: "abrdn",
+    placeName1: "Investment Managers",
+    itemPlaceLogo: "StHelierLogo",
+    status1: "Open ⋅ Closes",
+    timing2: "11 pm",
+    unSelectedBtn: false,
+  },
+];
+
+interface Item {
+  name: any;
+  placeName1: any;
+  itemPlaceLogo: any;
+  status1: any;
+  timing2: any;
+  unSelectedBtn: any;
+  placeName2?: any; // Make it optional
+}
+
+const CreateListings: React.FC<CreateListingsProps> = ({
+  ScreenSwitch,
+  homePage,
+  selectedItemIds,
+  toggleSelected,
+  handleSearch,
+  handleChange,
+  searchQuery,
+  data,
+  loader,
+  UI_Type,
+}) => {
+
+
+  const [skeletonData] = useState(new Array(10).fill(null))
+
+  return (
+    <CreateListingsScreen>
+      <CreateListItemScrollBox>
+        <CreateListingsHeader homePage={homePage}{...{ UI_Type }} />
+        <CreateListingsContent>
+          <AddListingsTitle>Add business to your list</AddListingsTitle>
+          <SearchInputBox>
+            <SearchComponent
+              value={searchQuery}
+              onchange={(e: any) => handleChange(e.target.value)}
+              handleSearch={handleSearch}
+            />
+          </SearchInputBox>
+          {loader ?
+            skeletonData.map((item, index) => (
+              <SearchedData key={index}>
+                <MainWrraper>
+                  <MainInsideWrapper>
+                    <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                    <div className="restroRating">
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    </div>
+                  </MainInsideWrapper>
+                  <div className="likes">
+                    <Skeleton width={16} height={16} />
+                  </div>
+                </MainWrraper>
+              </SearchedData>
+            ))
+
+            :
+            (searchQuery &&
+              data.map((item: any, index: any) => {
+                if (!item._id) {
+                  return null;
+                }
+                const imageList = JSON.parse(item.acf.header_image_data);
+                const image = imageList[0].url;
+
+                return (
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
+                    key={index}>
+                    <ListDataWrraper>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 16,
+                          width: '85%',
+                        }}>
+                        <div style={{ width: 80, height: 80 }}>
+                          <Image
+                            src={image}
+                            width={500}
+                            height={80}
+                            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                            alt="infoCirlce"
+                          />
+                        </div>
+                        <div style={{
+                          display: "flex",
+                          gap: 10,
+                          flexDirection: "column",
+                          maxWidth: 'calc(100% - 30%)'
+                        }}>
+                          <ListDataTittleText>
+                            {item.acf.title}
+                          </ListDataTittleText>
+                          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                            <ListDataInfoText>
+                              {item.acf.aa_rating
+                                ? item.acf.aa_rating.value == "No rating"
+                                  ? ""
+                                  : item.acf.aa_rating.value
+                                : ""}
+                            </ListDataInfoText>
+                            <Image src={commentstar} alt="infoCirlce" />
+                            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+
+                              {
+                                item?.acf?.portal_post_owner_name ? (
+                                  <ListDataInfoText>
+                                    . {item?.acf?.portal_post_owner_name}
+                                  </ListDataInfoText>
+                                ) : null
+                              }
+                              <ListDataInfoText>. {item?.type}</ListDataInfoText>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button onClick={() => toggleSelected(item._id, item)}>
+                        {selectedItemIds.includes(item._id) ? (
+                          <UnselectedBtn>
+                            <Image
+                              style={{ width: "15px", height: "10px" }}
+                              src={UnselectedBtnImg}
+                              alt="UnselectedBtnImg"
+                            // onClick={() => handleToggle(listItemName)}
+                            />
+                          </UnselectedBtn>
+                        ) : (
+                          <SelectedBtn>
+                            <Image
+                              style={{ width: "16px", height: "16px" }}
+                              src={SelectedBtnImg}
+                              alt="SelectedBtnImg"
+                            />
+                          </SelectedBtn>
+                        )}
+                      </button>
+                    </ListDataWrraper>
+                  </div>
+                );
+              }))}
+        </CreateListingsContent>
+      </CreateListItemScrollBox>
+      <CreateListingsFooter
+        continueBtn
+        ScreenSwitch={ScreenSwitch}
+        selectedItem={selectedItemIds.length}
+      />
+    </CreateListingsScreen>
+  );
+};
+
+export default CreateListings;
+
 
 const CreateListingsScreen = styled.div`
   width: 480px;
@@ -170,186 +371,47 @@ const ListDataTime = styled.p`
   letter-spacing: 0.12px;
 `;
 
-const newFilter = [
-  {
-    _id: "item 1",
-    name: "Chocadyllic",
-    placeName1: "St Helier",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Closes",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 2",
-    name: "Kalimukti Yoga",
-    placeName1: "From £5",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Outdoore",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 3",
-    name: "Radisson Blu Waterfront Hotel",
-    placeName1: "From £265/night",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "St Helier",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 4",
-    name: "abrdn",
-    placeName1: "Investment Managers",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Closes",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-];
+const SearchedData = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
 
-interface Item {
-  name: any;
-  placeName1: any;
-  itemPlaceLogo: any;
-  status1: any;
-  timing2: any;
-  unSelectedBtn: any;
-  placeName2?: any; // Make it optional
-}
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
 
-const CreateListings: React.FC<CreateListingsProps> = ({
-  ScreenSwitch,
-  homePage,
-  selectedItemIds,
-  toggleSelected,
-  handleSearch,
-  searchQuery,
-  data,
-  loader,
-  UI_Type,
-}) => {
+const MainWrraper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+`;
 
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
-
-  // const toggleSelected = (itemId: any): void => {
-  //   const selectedIndex: number = selectedItemIds.indexOf(itemId);
-  //   if (selectedIndex === -1) {
-  //     setSelectedItemIds([...selectedItemIds, itemId]);
-  //   } else {
-  //     const updatedSelectedItems: number[] = [...selectedItemIds];
-  //     updatedSelectedItems.splice(selectedIndex, 1);
-  //     setSelectedItemIds(updatedSelectedItems);
-  //   }
-  // };
-  return (
-    <CreateListingsScreen>
-      <CreateListItemScrollBox>
-        <CreateListingsHeader homePage={homePage}{...{UI_Type}} />
-        <CreateListingsContent>
-          <AddListingsTitle>Add business to your list</AddListingsTitle>
-          <SearchInputBox>
-            <SearchComponent
-              value={searchQuery}
-              onchange={(e: any) => handleSearch(e.target.value)}
-            />
-          </SearchInputBox>
-          {loader ? "Loading..." : (searchQuery &&
-            data.map((item: any, index: any) => {
-              if (!item._id) {
-                return null;
-              }
-              const imageList = JSON.parse(item.acf.header_image_data);
-              const image = imageList[0].url;
-
-              return (
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: 16, width:'100%' }}
-                  key={index}>
-                  <ListDataWrraper>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 16,
-                        width:'85%',
-                      }}>
-                      <div style={{ width: 80, height: 80 }}>
-                        <Image
-                          src={image}
-                          width={500}
-                          height={80}
-                          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                          alt="infoCirlce"
-                        />
-                      </div>
-                      <div style={{
-                        display: "flex",
-                        gap: 10,
-                        flexDirection: "column",
-                        maxWidth: 'calc(100% - 30%)'
-                      }}>
-                        <ListDataTittleText>
-                          {item.acf.title}
-                        </ListDataTittleText>
-                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                          <ListDataInfoText>
-                            {item.acf.aa_rating
-                              ? item.acf.aa_rating.value == "No rating"
-                                ? ""
-                                : item.acf.aa_rating.value
-                              : ""}
-                          </ListDataInfoText>
-                          <Image src={commentstar} alt="infoCirlce" />
-                          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
-
-                            {
-                              item.acf.portal_post_owner_name ? (
-                                <ListDataInfoText>
-                                  . {item.acf.portal_post_owner_name}
-                                </ListDataInfoText>
-                              ) : null
-                            }
-                            <ListDataInfoText>. {item.type}</ListDataInfoText>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button onClick={() => toggleSelected(item._id, item)}>
-                      {selectedItemIds.includes(item._id) ? (
-                        <UnselectedBtn>
-                          <Image
-                            style={{ width: "15px", height: "10px" }}
-                            src={UnselectedBtnImg}
-                            alt="UnselectedBtnImg"
-                          // onClick={() => handleToggle(listItemName)}
-                          />
-                        </UnselectedBtn>
-                      ) : (
-                        <SelectedBtn>
-                          <Image
-                            style={{ width: "16px", height: "16px" }}
-                            src={SelectedBtnImg}
-                            alt="SelectedBtnImg"
-                          />
-                        </SelectedBtn>
-                      )}
-                    </button>
-                  </ListDataWrraper>
-                </div>
-              );
-            })) }
-        </CreateListingsContent>
-      </CreateListItemScrollBox>
-      <CreateListingsFooter
-        continueBtn
-        ScreenSwitch={ScreenSwitch}
-        selectedItem={selectedItemIds.length}
-      />
-    </CreateListingsScreen>
-  );
-};
-
-export default CreateListings;
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+`;

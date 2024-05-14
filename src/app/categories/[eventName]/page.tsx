@@ -53,10 +53,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   let urlData: any
   if (params) {
     urlData = (params.eventName).toString().replaceAll("%20", " ")
-  } else if(params){
+  } else if (params) {
     urlData = (params.eventName).toString().replaceAll("%26", " ")
   }
-
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
@@ -85,13 +84,13 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     const fetchDataAsync = async () => {
       setloader(true);
       try {
-        // const result = await Instance.get(`${search}`);
-        // if (search == "surfing" || search == "ww2") {
-        //   const combinedArray = [...result.data.activity1, ...result.data.activity2];
-        //   setData(combinedArray);
-        // } else {
-        //   setData(result.data);
-        // }
+        const result = await Instance.get(`${search}`);
+        if (search == "surfing" || search == "ww2") {
+          const combinedArray = [...result.data.activity1, ...result.data.activity2];
+          setData(combinedArray);
+        } else {
+          setData(result.data);
+        }
 
       } catch (error: any) {
         console.log(error.message);
@@ -136,16 +135,16 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           {categories()}
         </CategoryBody>
       </PageLayout>
-        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
-        <ProfileAccountModalScreen showMap={showMap} />
-        <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
-        <PlacesModalScreen showMap={showMap} />
-        <CalenderBookDatesModalScreen showMap={showMap} />
-        <PlaceOrderOnlineModalScreen showMap={showMap} />
-        <FilterModalScreen showMap={showMap} />
-        <EventListingModalScreen showMap={showMap} />
-        <ActivitiesModalScreen showMap={showMap} />
-        <ViewDirectionModalScreen showMap={showMap} />
+      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      <ProfileAccountModalScreen showMap={showMap} />
+      <ProfileMylistModalScreen {...{ myListtabChange, mylistoptions, myListtabValue, showMap }} />
+      <PlacesModalScreen showMap={showMap} />
+      <CalenderBookDatesModalScreen showMap={showMap} />
+      <PlaceOrderOnlineModalScreen showMap={showMap} />
+      <FilterModalScreen showMap={showMap} />
+      <EventListingModalScreen showMap={showMap} />
+      <ActivitiesModalScreen showMap={showMap} />
+      <ViewDirectionModalScreen showMap={showMap} />
     </>
   );
 };

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import TabPanel from '../tabPanel';
-import Lists from '../search/Lists';
-import FilterSection from '../filterSection';
-import { RestroListData } from '@/app/utils/data';
+
 import Image from 'next/image';
-import { blank, commentstar, thumbsup, utensils } from '@/app/utils/ImagePath';
-import Ratings from '../ratings';
+import { commentstar } from '@/app/utils/ImagePath';
 import SearchInput from "../searchInput/SearchInput";
 import Instance from '@/app/utils/Instance';
-import { debounce } from 'lodash';
 import { useMyContext } from '@/app/Context/MyContext';
+import Skeleton from 'react-loading-skeleton';
 
 interface DashboardSearchContainerProps {
     tabChange: Function,
@@ -19,60 +15,18 @@ interface DashboardSearchContainerProps {
     showMap?: boolean
 }
 
-const InputWrapper = styled.div`
-  display: flex;
-  padding: 0px 40px;
-  gap: 6px;
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-    padding-top: 16px;
-  }
-`;
-const SearchedListContainer = styled.div`
-    padding-bottom: 40px;
-`
-const SearchedData = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #d9d9d9;
-  padding: 10px 0px;
-  p {
-    font-size: 13px;
-    font-weight: 400;
-  }
-  .likes {
-    background-color: #00000014;
-    padding: 8px 16px;
-    border-radius: 16px;
-    text-align: center;
-
-    @media screen and (max-width: 350px) {
-      padding: 6px 12px;
-    }
-  }
-  .shopName {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  p span {
-    color: #2b902b;
-  }
-`;
 
 
 
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tabChange, options, tabValue, showMap }) => {
-    const {modalType} = useMyContext()
+    const { modalType } = useMyContext()
     const [searchQuery, setSearchQuery] = useState("");
     const [data, setData] = useState<any[]>([]);
     const [loader, setLoader] = useState<boolean>(false)
+    const [skeletonData] = useState(new Array(10).fill(null))
 
-    const handleSearch = (value: string) => {
+    const handleChange = (value: string) => {
         setSearchQuery(value);
-        debouncedSearch(value);
     };
     const fetchDataAsync = async (value: string) => {
         setLoader(true);
@@ -88,16 +42,19 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
         }
     };
 
-    const debouncedSearch = debounce(fetchDataAsync, 300);
 
-    useEffect(()=>{
-        if(!modalType.search){
+
+    useEffect(() => {
+        if (!modalType.search) {
             setSearchQuery('')
             setData([])
         }
 
-    },[modalType.search])
+    }, [modalType.search])
 
+    const handleSearch = () => {
+        fetchDataAsync(searchQuery)
+    };
 
     return (
 
@@ -105,77 +62,95 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
             <InputWrapper className="filterInput">
                 <SearchInput
                     value={searchQuery}
-                    onchange={(e: any) => handleSearch(e.target.value)} />
+                    onchange={(e: any) => handleChange(e.target.value)}
+                    handleSearch={handleSearch}
+                    autofocus={true}
+                />
             </InputWrapper>
             <>
                 {/* <FilterSection /> */}
                 <SearchedListContainer>
-                    {loader ? "Loading..." : (searchQuery &&
-                        data.map((item: any, index: any) => {
-                            if (!item._id) {
-                                return null;
-                            }
-                            const imageList = JSON.parse(item.acf.header_image_data);
-                            const image = imageList[0].url;
+                    {
+                        loader ?
 
-                            return (
-                                <div
-                                    style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
-                                    key={index}>
-                                    <ListDataWrraper>
+                            skeletonData.map((item, index) => (
+                                <SearchedData key={index}>
+                                    <MainInsideWrapper>
+                                        <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                                        <div className="restroRating">
+                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                                        </div>
+                                    </MainInsideWrapper>
+                                </SearchedData>
+                            )) : (searchQuery &&
+                                data.length ? data.map((item: any, index: any) => {
+                                    if (!item._id) {
+                                        return null;
+                                    }
+                                    const imageList = JSON.parse(item.acf.header_image_data);
+                                    const image = imageList[0].url;
+                                        console.log("data length", data.length ? "yes" : "no")
+                                    return (
                                         <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: 16,
-                                                width: '85%',
-                                            }}>
-                                            <div style={{ width: 80, height: 80 }}>
-                                                <Image
-                                                    src={image}
-                                                    width={500}
-                                                    height={80}
-                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                                                    alt="infoCirlce"
-                                                />
-                                            </div>
-                                            <div style={{
-                                                display: "flex",
-                                                gap: 10,
-                                                flexDirection: "column",
-                                                maxWidth: 'calc(100% - 30%)'
-                                            }}>
-                                                <ListDataTittleText>
-                                                    {item?.acf?.title}
-                                                </ListDataTittleText>
-                                                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                                                    <ListDataInfoText>
-                                                        {item?.acf?.aa_rating
-                                                            ? item?.acf?.aa_rating?.value == "No rating"
-                                                                ? ""
-                                                                : item?.acf?.aa_rating?.value
-                                                            : ""}
-                                                    </ListDataInfoText>
-                                                    <Image src={commentstar} alt="infoCirlce" />
-                                                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                                            style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
+                                            key={index}>
+                                            <ListDataWrraper>
+                                                <div
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: 16,
+                                                        width: '85%',
+                                                    }}>
+                                                    <div style={{ width: 80, height: 80 }}>
+                                                        <Image
+                                                            src={image}
+                                                            width={500}
+                                                            height={80}
+                                                            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                                                            alt="infoCirlce"
+                                                        />
+                                                    </div>
+                                                    <div style={{
+                                                        display: "flex",
+                                                        gap: 10,
+                                                        flexDirection: "column",
+                                                        maxWidth: 'calc(100% - 30%)'
+                                                    }}>
+                                                        <ListDataTittleText>
+                                                            {item?.acf?.title}
+                                                        </ListDataTittleText>
+                                                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                                                            <ListDataInfoText>
+                                                                {item?.acf?.aa_rating
+                                                                    ? item?.acf?.aa_rating?.value == "No rating"
+                                                                        ? ""
+                                                                        : item?.acf?.aa_rating?.value
+                                                                    : ""}
+                                                            </ListDataInfoText>
+                                                            <Image src={commentstar} alt="infoCirlce" />
+                                                            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
 
-                                                        {
-                                                            item?.acf?.portal_post_owner_name ? (
-                                                                <ListDataInfoText>
-                                                                    . {item?.acf?.portal_post_owner_name}
-                                                                </ListDataInfoText>
-                                                            ) : null
-                                                        }
-                                                        <ListDataInfoText>. {item?.type}</ListDataInfoText>
+                                                                {
+                                                                    item?.acf?.portal_post_owner_name ? (
+                                                                        <ListDataInfoText>
+                                                                            . {item?.acf?.portal_post_owner_name}
+                                                                        </ListDataInfoText>
+                                                                    ) : null
+                                                                }
+                                                                <ListDataInfoText>. {item?.type}</ListDataInfoText>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                    </ListDataWrraper>
-                                </div>
-                            );
-                        }))}
+                                            </ListDataWrraper>
+                                        </div>
+                                    );
+                                }) : <div className="">No data found...</div>)
+                    }
 
                 </SearchedListContainer>
             </>
@@ -288,4 +263,55 @@ const ListDataInfoText = styled.p`
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  padding: 0px 40px;
+  gap: 6px;
+
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+    padding-top: 16px;
+  }
+`;
+const SearchedListContainer = styled.div`
+    padding-bottom: 40px;
+`
+const SearchedData = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
+
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
+
+
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
 `;

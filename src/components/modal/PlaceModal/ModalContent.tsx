@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import DashBoardButton from "@/components/button/DashBoardButton";
@@ -8,6 +8,8 @@ import RatingMenu from "@/components/dashboard/RatingMenu";
 import CommonButton from "@/components/button/CommonButton";
 import Instance from "@/app/utils/Instance";
 import Ratings from "@/components/ratings";
+import { RxCross2 } from "react-icons/rx";
+import { IoMdCheckmark } from "react-icons/io";
 import {
   bookOpen,
   comment,
@@ -24,7 +26,11 @@ import {
 import { setEngine } from "crypto";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
 import { convertTo12HourTime } from "@/app/utils/commanFun";
-import { Spin } from "antd";
+import { Rate, Spin, Tooltip } from "antd";
+import ImageCarousel from "@/components/carousel/imageCarousel";
+import { isOpen } from "@/app/utils/commanFunCom";
+import Link from "next/link";
+import toast from "react-hot-toast";
 
 interface ModalProps {
   onClose: () => void;
@@ -76,6 +82,8 @@ const ViewDirection = styled.div`
   font-weight: 400;
   margin-left: 24px;
   cursor: pointer;
+  margin-bottom: 5px;
+
 `;
 
 const ResturantDetailsWrapper = styled.div`
@@ -141,6 +149,8 @@ const ScrollingMenu = styled.div`
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
+  height: 200px;
+  width:500px;
 `;
 
 const ImageWrraper = styled(Image)`
@@ -196,6 +206,18 @@ const DatesWrapperText = styled.div`
   flex-wrap: wrap;
   gap: 3px;
 `;
+const DatesWrapperTextGoogle = styled.div`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  margin: 16px 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3px;
+`;
 
 const WeekTimeArrange = styled.div`
   display: flex;
@@ -245,6 +267,23 @@ const AddReview = styled.p`
   line-height: 24px; /* 150% */
 `;
 
+const DeliveryContainer = styled.div`
+display: flex;
+gap:5px;
+padding: 5px 0px;
+font-size: 16px;
+margin-top:5px;
+`;
+
+const WebsiteLink = styled(Link)`
+&:hover {
+  text-decoration: underline;
+  text-decoration-color: lightblue;
+  color: lightblue;
+}
+`;
+
+
 const ModalContent: React.FC<ModalProps> = ({
   onClose,
   reservationModal,
@@ -253,37 +292,64 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationMenu,
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const [reviewData, setReviewData] = useState([]);
+
+
   useEffect(() => {
-    console.log("hioo")
     const timer = setTimeout(() => setLoading(true), 1500);
     return () => clearTimeout(timer)
   }, [showApiData?.types, data?.acf?.type])
 
   useEffect(() => {
     setLoading(false)
-    topAttractionMapping(data).then((res: any) => {
-      console.log("ddddddddd")
-      setShowApiData(res)
-    })
+    console.log("respoinse", Object.keys(data).length)
+    if (Object.keys(data).length) {
+      topAttractionMapping(data).then((res: any) => {
+        setShowApiData(res)
+        if(res?.reviews){
+          setReviewData(res?.reviews);
+        }
+      })
+    }
   }, [data?._id, Object.keys(showApiData).length])
+
+  const copylink = (copy: any) => {
+    navigator.clipboard.writeText(copy)
+    toast.success("copy")
+  }
 
   const ResturantDetailData = [
     {
-      name: "Open ⋅ Closes 11 pm",
+      name: data?.data_type === "google" ? isOpen(showApiData?.current_opening_hours?.periods) : "Closed 11:00 pm",
       image: clock,
+      nameValue: data?.data_type === "google" ? showApiData?.current_opening_hours?.periods : "",
     },
     {
-      name: data?.data_type === "google" ? showApiData?.website : data?.acf?.website,
+      name: data?.data_type === "google" ? <WebsiteLink href={showApiData?.website ? showApiData?.website : ""} target="_blank" >{showApiData?.website}</WebsiteLink> : <WebsiteLink href={data?.acf?.website} target="_blank" >{data?.acf?.website}</WebsiteLink>,
       image: globes,
+      nameValue: data?.data_type === "google" ? showApiData?.website : data?.acf?.website,
     },
     {
-      name: data?.data_type === "google" ? showApiData?.formatted_phone_number : data?.acf?.telephone_number?.formatted,
+      name: data?.data_type === "google" ? <Tooltip title={"Copy contact number"} >
+        <span onClick={() => copylink(showApiData?.formatted_phone_number)}>{showApiData?.formatted_phone_number}</span>
+      </Tooltip> : data?.acf?.telephone_number?.formatted,
       image: phoneBlack,
+      nameValue: data?.data_type === "google" ? showApiData?.formatted_phone_number : data?.acf?.telephone_number?.formatted,
     },
     {
-      name: data?.data_type === "google" ? showApiData?.formatted_address : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
+      name: data?.data_type === "google" ? <Tooltip title={"Copy international number"} >
+        <span onClick={() => copylink(showApiData?.international_phone_number)}>{showApiData?.international_phone_number}</span>
+      </Tooltip> : data?.acf?.telephone_number?.formatted,
+      image: phoneBlack,
+      nameValue: data?.data_type === "google" ? showApiData?.international_phone_number : data?.acf?.telephone_number?.formatted,
+    },
+    {
+      name: data?.data_type === "google" ? <Tooltip title={"Copy address"} >
+        <span onClick={() => copylink(showApiData?.formatted_address)}>{showApiData?.formatted_address}</span>
+      </Tooltip> : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
       image: locationDot,
+      nameValue: data?.data_type === "google" ? showApiData?.formatted_address : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
     },
   ];
 
@@ -312,7 +378,6 @@ const ModalContent: React.FC<ModalProps> = ({
   }, [showReview]);
 
   const [loader, setloader] = useState(true);
-  const [reviewData, setReviewData] = useState([]);
   const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
   const MainImage = styled(Image)`
@@ -328,7 +393,7 @@ const ModalContent: React.FC<ModalProps> = ({
         try {
           const ReviewData = await Instance.get(`review/${data?._id}`);
           console.log(ReviewData, "sdsdsds");
-          setReviewData(ReviewData?.data);
+          // setReviewData(ReviewData?.data);
           setReviewShowToggle(false);
         } catch (error: any) {
           console.log(error.message);
@@ -362,7 +427,6 @@ const ModalContent: React.FC<ModalProps> = ({
       setCommentReview("");
       setRating("");
       setShowEdit("");
-      console.log(ReviewData, "sdsdsds");
     } catch (error: any) {
       console.log(error.message);
       setloader(false);
@@ -398,17 +462,27 @@ const ModalContent: React.FC<ModalProps> = ({
     setTextId(id);
   };
 
+  const opningDate = useCallback((val: any) => {
+
+    return (val.map((item: any) => {
+      const [day, time] = item.split(': ');
+      return { day, time };
+    }))
+
+
+  }, [])
+
   return (
-    !loading ? 
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
-      <Spin tip="Loading" size="large" />
-    </div> :
+    !loading ?
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
+        <Spin tip="Loading" size="large" />
+      </div> :
       <Container>
         <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}>{formattedValues()}</p>
         <ResturatContainer>
           <ResturatWrapper>
             {/* <p style={{ fontSize: 16 }}>|</p> */}
-            <OpenRestText>OPEN</OpenRestText>
+            <OpenRestText>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "CLOSE"}</OpenRestText>
           </ResturatWrapper>
           <Ratings
             defaultValue={data?.rating}
@@ -418,30 +492,24 @@ const ModalContent: React.FC<ModalProps> = ({
 
         </ResturatContainer>
         <ItemImageContainer>
-          <ImageWrraper
-            src={
-              dataImage
-                ? dataImage
-                : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-            }
-            alt="Logo"
-            width={500}
-            height={80}
-            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-          />
+          {
+            showApiData?.photos &&
+            <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
+          }
         </ItemImageContainer>
         <ResturantDetailsContainer>
           {ResturantDetailData.map((item, index) => {
-
+            console.log("kdsfjlsdfsl", item.nameValue)
             return (
-              item?.name &&
+              item?.nameValue &&
               <ResturantDetailsWrapper key={index}>
                 {" "}
                 <Image
                   style={{ cursor: "pointer" }}
                   src={item?.image}
                   alt="Logo Outline"
-                />{" "}
+                />
+                {" "}
                 {index == 1 ? (
                   <RestDetailTitleWebsite href={item?.name} target="_blank">
                     {item?.name}
@@ -455,6 +523,45 @@ const ModalContent: React.FC<ModalProps> = ({
           <ViewDirection onClick={() => reservationModal("DirectionModal")}>
             View Directions
           </ViewDirection>
+
+          <hr />
+          <DeliveryContainer>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              {
+                showApiData?.dine_in ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+              }
+              <p>Dine-in</p>
+            </div>
+            <div className="">.</div>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              {
+                showApiData?.delevery ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+              }
+              <p>Delivery</p>
+            </div>
+
+          </DeliveryContainer>
+
+          <hr />
+          <DeliveryContainer>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              {
+                showApiData?.serves_wine ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+              }
+              <p>Wine</p>
+            </div>
+            <div className="">.</div>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              {
+                showApiData?.serves_beer ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+              }
+              <p>Beer</p>
+            </div>
+
+          </DeliveryContainer>
+
+          <hr />
+
         </ResturantDetailsContainer>
         <RestDetailText>{strippedContent}</RestDetailText>
         {/* <MenuButtonContainer>
@@ -476,7 +583,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <Image src={comment} alt="icon" />
             <OpeningTitle>Reviews</OpeningTitle>
           </ReviewWraaper>
-          {reviewData.length ? reviewData.map((item: any, index: any) => (
+          {reviewData.length && reviewData.map((item: any, index: any) => (
             <div key={index}>
               {showEdit === index ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -488,12 +595,12 @@ const ModalContent: React.FC<ModalProps> = ({
                     value={commentReview}
                     onChange={(e) => setCommentReview(e.target.value)}
                   />
-                  {console.log("item", item?._id) as any}
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     <span style={{ fontSize: 14, fontWeight: "bold" }}>
                       Rating:
                     </span>
                     <Ratings
+
                       defaultValue={0}
                       giveRating={giveRating}
                       ratingvalue={rating}
@@ -505,27 +612,47 @@ const ModalContent: React.FC<ModalProps> = ({
                   />
                 </div>
               ) : (
-                <CommentRating
-                  index={index}
-                  id={item?._id}
-                  Titletext="ELCIAS DE FREITAS"
-                  Maintext={item?.comment}
-                  starRating={item?.rating}
-                  like={24}
-                  disLike={7}
-                  handleEdit={handleEdit}
-                />
-              )}
-            </div>
-          )) : ""}
+                // <CommentRating
+                //   index={index}
+                //   id={item?._id}
+                //   Titletext="ELCIAS DE FREITAS"
+                //   Maintext={item?.comment}
+                //   starRating={item?.rating}
+                //   like={24}
+                //   disLike={7}
+                //   handleEdit={handleEdit}
+                // />
 
-          <ReviewWraaper
+                <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    <div>
+                      <img src={item?.profile_photo_url} style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} alt="" />
+                    </div>
+                    <p style={{ fontSize: '16px' }}>{item?.author_name}</p>
+                  </div>
+                  <div className="">
+
+                    <Rate disabled allowHalf defaultValue={item?.rating} /> &nbsp; <span style={{ fontSize: '13px' }}>{item?.relative_time_description}</span>
+                  </div>
+                  <div style={{ width: '100%', fontSize: '14px' }}>
+                    <p>{item?.text}</p>
+                  </div>
+                  <hr />
+                </div>
+              )
+
+              }
+            </div>
+          ))}
+
+          {/* <ReviewWraaper
             style={{ marginBottom: "8px", cursor: "pointer" }}
             onClick={handleButtonClick}
           >
             <Image src={plus} alt="icon" />
             <AddReview>Add Review</AddReview>
-          </ReviewWraaper>
+          </ReviewWraaper> */}
+
           {showReview && (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
@@ -543,6 +670,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   giveRating={giveRating}
                   ratingvalue={rating}
                 />
+
               </div>
               <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
             </div>
@@ -552,15 +680,20 @@ const ModalContent: React.FC<ModalProps> = ({
           <OpeningTitle>Opening</OpeningTitle>
           {
             data?.data_type === "google" ?
-              <DatesWrapperText>
+              <DatesWrapperTextGoogle>
                 {showApiData?.current_opening_hours?.weekday_text &&
-                  showApiData?.current_opening_hours?.weekday_text.map((item: any, index: any) => (
-                    <p key={index}>
-                      {item}
-                      {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "}
+                  opningDate(showApiData?.current_opening_hours?.weekday_text).map((item: any, index: any) => (
+                    <p key={index} style={{ display: 'flex', justifyContent: 'space-around' }}>
+                      <p style={{ width: '90px' }}>
+                        {item?.day}
+                      </p>
+                      <p>
+                        {item?.time}
+                        {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
+                      </p>
                     </p>
                   ))}
-              </DatesWrapperText>
+              </DatesWrapperTextGoogle>
               :
               <DatesWrapperText>
                 {data?.acf?.seasonality &&

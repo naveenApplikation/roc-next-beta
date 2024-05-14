@@ -51,7 +51,8 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
               myListOpen={() => modalClick("myList")}
-              
+
+
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -111,7 +112,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           )}
         </>
       );
-    // } else if (modalName === "WelcomeBackModal" || modalName === "myList") {
+      // } else if (modalName === "WelcomeBackModal" || modalName === "myList") {
     } else if (modalName === "WelcomeBackModal") {
       return (
         <>
@@ -124,7 +125,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         </>
       );
     } else if (modalName === "UpdateMyDetailsModal") {
-      setOldName("WelcomeBackModal")
+      setOldName( loginToken ? "WelcomeBackModal" : "LoginSignupModal")
       return (
         <>
           <UpdateMyDetails
@@ -167,7 +168,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         </>
       );
     } else if (modalName === "ContactUsModal") {
-      setOldName("WelcomeBackModal")
+      setOldName(loginToken ? "WelcomeBackModal" : "LoginSignupModal")
       return (
         <>
           <ContactUs
@@ -194,10 +195,6 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           />
         </>
       );
-    } else if (modalName === "walksModal") {
-      return (
-        <WalksModal />
-      )
     }
   };
 
@@ -225,6 +222,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         {...{ showMap }}
         name=""
         title={
+          (modalName === "LoginSignupModal" &&  loginToken && "Welcome back!") ||
           (modalName === "WelcomeBackModal" && "Welcome back!") ||
           (modalName === "TermsAndConditionModal" && "Terms & Conditions") ||
           (modalName === "createAccountModal" && loginToken && "Welcome back!") ||
@@ -240,7 +238,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
           (modalName === "UpdateMyPreferencesModal" && "Update my preferences")
         }
-        
+
       >
         {showLoginHandle()}
       </CreateAccountModalLayout>

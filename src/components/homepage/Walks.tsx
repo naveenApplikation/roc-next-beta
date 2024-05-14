@@ -122,13 +122,10 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           walkData?.map((item, index) => {
             return (
               <WalkContainer key={index}
-              onClick={() =>
-                modalClick("walksModal" , item)
-              }
+                onClick={() =>
+                  modalClick("walksModal", item)
+                }
               >
-                {/* <WalkContainer key={index} onClick={menuClick}> */}
-
-
                 <Image
                   src={item.icon}
                   alt=""
