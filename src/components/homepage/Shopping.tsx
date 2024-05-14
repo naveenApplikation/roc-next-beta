@@ -7,6 +7,7 @@ import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from "@/app/utils/date";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -127,16 +128,22 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 {/* <WalkContainer key={index} onClick={menuClick}> */}
                 {item?.data_type === "google" ? (
                   item.photoUrl === undefined ?
-                  <ImageTag src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}   width={500}
+                  <Image
+                  src={fallback}
+                  alt=""
+                  width={500}
                   height={80}
                   style={{
                     maxWidth: "100%",
                     objectFit: "cover",
-                  }} alt="Image" /> :
+                  }}
+                  // alt=""
+                />
+                  :
                   <ImageTag src={item.photoUrl} alt="Image" />
                 ) : (
                   <Image
-                    src={filteredUrls[index]}
+                    src={fallback}
                     alt=""
                     width={500}
                     height={80}

@@ -94,12 +94,6 @@ export const topSideMenu = [
     height: 16,
   },
   {
-    name: "parking",
-    image: parking,
-    width: 18,
-    height: 16,
-  },
-  {
     name: "news",
     image: news,
   },
@@ -107,12 +101,6 @@ export const topSideMenu = [
     name: "taxis",
     image: taxi,
     width: 18,
-    height: 16,
-  },
-  {
-    name: "buses",
-    image: van,
-    width: 20,
     height: 16,
   },
   {
@@ -137,6 +125,26 @@ export const topSideMenu = [
     width: 20,
     height: 16,
   },
+  {
+    name: "CycleRoutes",
+    image: radio,
+    width: 20,
+    height: 16,
+  },
+  {
+    name: "parking",
+    image: parking,
+    width: 18,
+    height: 16,
+  },
+  {
+    name: "buses",
+    image: van,
+    width: 20,
+    height: 16,
+  },
+
+
 
 
 ];

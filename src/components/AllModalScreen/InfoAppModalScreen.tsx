@@ -29,6 +29,12 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
 
   const [loader, setloader] = useState(false);
 
+  const formatNameWithSpaces = (name:any) => {
+    // Use a regular expression to split the string into words
+    // and then join them with spaces
+    return name.replace(/([A-Z])/g, ' $1').trim();
+  };
+
   const fetchDataAsync = async () => {
     try {
       setloader(true);
@@ -63,7 +69,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
         onClose={() => closeModal("infoApp")}
         name="infoApp"
         {...{ showMap }}
-        title={appName}
+        title={formatNameWithSpaces(appName)}
       >
         {loader ? (
           <div
@@ -78,7 +84,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
             <Spin tip="Loading" size="large" />
           </div>
         ) : (
-          <>
+          <div style={{padding:20,height:"100%",width:"100%",overflow: 'hidden'}}>
             {/* {
                 frameLoaded ?
                   <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', background: '#2F80ED1F', margin: '25px', padding: '25px', borderRadius: '4px' }}>
@@ -94,13 +100,13 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
                   </iframe>
               } */}
             <iframe
-              style={{ border: "none" }}
+              style={{ border: "none",height:"100%",overflow: 'hidden'}}
               src={linkData[appName]}
               height="500px"
               width="100%"
               title={appName}
             ></iframe>
-          </>
+          </div>
         )}
       </DirectionModalLayout>
     </>

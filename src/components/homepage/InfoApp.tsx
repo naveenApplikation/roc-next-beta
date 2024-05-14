@@ -55,6 +55,14 @@ const InfoApp: React.FC<DashboardProps> = ({
   menuClick,
   showMap,
 }) => {
+
+
+  const formatNameWithSpaces = (name:any) => {
+    // Use a regular expression to split the string into words
+    // and then join them with spaces
+    return name.replace(/([A-Z])/g, ' $1').trim();
+  };
+
   return (
     <>
       <OptionMenu>
@@ -66,7 +74,7 @@ const InfoApp: React.FC<DashboardProps> = ({
               onClick={() => modalClick("infoApp", item.name)}
             >
               <Image src={item.image} alt="right icon" />
-              <Tittle style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{item.name}</Tittle>
+              <Tittle style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{formatNameWithSpaces(item.name)}</Tittle>
             </NormalOption>
           );
         })}
