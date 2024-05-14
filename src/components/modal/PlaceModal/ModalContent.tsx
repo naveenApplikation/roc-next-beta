@@ -253,7 +253,9 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationMenu,
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+
+  
   useEffect(() => {
     console.log("hioo")
     const timer = setTimeout(() => setLoading(true), 1500);
