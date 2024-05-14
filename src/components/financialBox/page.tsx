@@ -1,4 +1,4 @@
-import { RestroListData } from '@/app/utils/data';
+import { RestroListData } from "@/app/utils/data";
 import { blank } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
@@ -112,7 +112,7 @@ const FinancialBox: React.FC<FinancialBoxProps> = (props) => {
       <Directory menuClick={menuClick} modalClick={modalClick} />
       <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
-      <Community menuClick={menuClick} modalClick={modalClick} />
+      {/* <Community menuClick={menuClick} modalClick={modalClick} /> */}
       <BeachLife menuClick={menuClick} modalClick={modalClick} />
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
       <Jerseyisms menuClick={menuClick} modalClick={modalClick} />
