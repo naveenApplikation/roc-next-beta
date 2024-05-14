@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { BackArrow, CloseModal } from "../../app/utils/ImagePath";
+import { BackArrow, CloseModal } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface ModalProps {

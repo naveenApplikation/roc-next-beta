@@ -146,7 +146,7 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
         </PopularListContainer>
         {listData.length ? listData.map((item: any, index) => {
           return (
-            <ListContainer key={index} onClick={() => menuClick(item?.listName, true, item?._id)}>
+            <ListContainer key={index} onClick={() => menuClick(item?.listName, true, item?.categoryId)}>
               <ImageTitleContainer>
                 <Imagecontainer style={{ background: item?.bgColor }}>
                   {item?.image}
