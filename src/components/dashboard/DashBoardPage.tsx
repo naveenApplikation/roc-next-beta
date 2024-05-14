@@ -68,10 +68,8 @@ const DashBoard = () => {
   }
 
   useEffect(() => {
-    if(loginToken){
-      fetchDataAsync()
-    }
-  }, [loginToken])
+    fetchDataAsync()
+  }, [])
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     console.log("item", item, condition, id)
