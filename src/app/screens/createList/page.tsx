@@ -126,12 +126,14 @@ const Page = () => {
     }
   };
 
-  const handleSearch = (value: string) => {
+  const handleChange = (value: string) => {
     setSearchQuery(value);
-    debouncedSearch(value);
+  };
+  const handleSearch = () => {
+    fetchDataAsync(searchQuery)
   };
 
-  console.log("data icon", selectedItemIds);
+
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(false);
 
@@ -149,7 +151,6 @@ const Page = () => {
     }
   };
 
-  const debouncedSearch = debounce(fetchDataAsync, 300);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -161,6 +162,7 @@ const Page = () => {
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
           handleSearch={handleSearch}
+          handleChange={handleChange}
           data={data}
           loader={loader}
         />

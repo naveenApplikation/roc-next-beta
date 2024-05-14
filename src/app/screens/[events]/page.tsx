@@ -158,10 +158,12 @@ const EventList = () => {
     const screenChangeHandle = async (name: string) => {
         setScreenName(name);
     };
-    const handleSearch = (value: string) => {
+    const handleChange = (value: string) => {
+
+        console.log("hdklkfs", value)
         setSearchQuery(value);
-        debouncedSearch(value);
     };
+
 
 
     const handleLike = async (id: string, vote: any) => {
@@ -206,7 +208,10 @@ const EventList = () => {
             setloader(false);
         }
     };
-    const debouncedSearch = debounce(fetchDataAsync, 300);
+    const handleSearch = () => {
+        fetchDataAsync(searchQuery);
+    };
+
 
     const postHandler = async (name: string) => {
         const param = {
@@ -245,6 +250,7 @@ const EventList = () => {
                     toggleSelected={toggleSelected}
                     searchQuery={searchQuery}
                     handleSearch={handleSearch}
+                    handleChange={handleChange}
                     data={data}
                     loader={loader}
                     UI_Type = "add_list"

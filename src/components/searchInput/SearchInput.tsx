@@ -7,7 +7,38 @@ interface SearchComponentProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   value?: any;
   onchange?: any;
+  handleSearch?: any;
+  autofocus?: any;
 }
+
+
+
+const SearchComponent: React.FC<SearchComponentProps> = ({
+  onFocus,
+  value,
+  onchange,
+  handleSearch,
+  autofocus
+}) => {
+
+
+  return (
+    <InputContainer>
+      <SearchInput
+        value={value}
+        onChange={onchange}
+        type="text"
+        placeholder="Search..."
+        onFocus={onFocus}
+        autoFocus={autofocus}
+      />
+      <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+    </InputContainer>
+  );
+};
+
+export default SearchComponent;
+
 
 const InputContainer = styled.div`
   position: relative;
@@ -34,28 +65,3 @@ color:#000;
 const SearchIcon = styled(Image)`
   cursor: pointer;
 `;
-
-const SearchComponent: React.FC<SearchComponentProps> = ({
-  onFocus,
-  value,
-  onchange,
-}) => {
-  const handleSearch = () => {
-    // console.log('Searching...');
-  };
-
-  return (
-    <InputContainer>
-      <SearchInput
-        value={value}
-        onChange={onchange}
-        type="text"
-        placeholder="Search..."
-        onFocus={onFocus}
-      />
-      <SearchIcon src={search} alt="Search" onClick={handleSearch} />
-    </InputContainer>
-  );
-};
-
-export default SearchComponent;
