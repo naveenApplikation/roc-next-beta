@@ -89,7 +89,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   useEffect(() => {
     fetchDataAsync();
-  }, [showContent]);
+  }, []);
 
 
 

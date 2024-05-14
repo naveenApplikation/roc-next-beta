@@ -7,6 +7,8 @@ import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import {skeletonItems} from '@/app/utils/date'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { cycleRouteData, walkData } from "@/app/utils/data";
 
 interface DashboardProps {
@@ -100,7 +102,7 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   useEffect(() => {
     fetchDataAsync();
-  }, [showContent]);
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
@@ -114,7 +116,7 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         {loader
           ? skeletonItems.map((item, index) => (
               <div key={index}>
-                <ShopBrachSkeleton />
+                <Skeleton width={80} height={80} style={{borderRadius:6}} />
               </div>
             ))
           :

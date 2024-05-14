@@ -56,7 +56,7 @@ const Sustainability: React.FC<DashboardProps> = ({
 
   useEffect(() => {
     fetchDataAsync();
-  }, [showContent]);
+  }, []);
 
   const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
