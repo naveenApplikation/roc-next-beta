@@ -181,13 +181,13 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                             <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
 
                               {
-                                item.acf.portal_post_owner_name ? (
+                                item?.acf?.portal_post_owner_name ? (
                                   <ListDataInfoText>
-                                    . {item.acf.portal_post_owner_name}
+                                    . {item?.acf?.portal_post_owner_name}
                                   </ListDataInfoText>
                                 ) : null
                               }
-                              <ListDataInfoText>. {item.type}</ListDataInfoText>
+                              <ListDataInfoText>. {item?.type}</ListDataInfoText>
                             </div>
                           </div>
                         </div>

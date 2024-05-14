@@ -120,7 +120,7 @@ const ModalContent: React.FC<ModalProps> = ({
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "14px" }}>{formattedValues()}</p>
+          <p style={{ fontSize: "14px", textTransform:'capitalize' }}>{formattedValues()}</p>
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
@@ -167,21 +167,7 @@ const ModalContent: React.FC<ModalProps> = ({
         </ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>{strippedContent}</RestDetailText>
-      {/* <AlsoSeeText>More information</AlsoSeeText>
-      <MoreInfo>
-        <p>Home Fixtures:</p>
-        <p>06/01 = Alton</p>
-        <p>13/01 = Hamworthy Recreation</p>
-        <p>20/01 = Redhill</p>
-        <p>27/01 = Balham</p>
-        <p>03/02 = Colliers Wood United</p>
-        <p>24/02 = Camberley Town</p>
-        <p>02/03 = Guildford City</p>
-        <p>09/03 = Sandhurst Town</p>
-        <p>16/03 = Horley Town</p>
-        <p>23/03 = Farnham Town</p>
-        <p>20/04 = Fleet Town</p>
-      </MoreInfo> */}
+
       {data?.acf?.event_dates != "" && (
         <>
           <AlsoSeeText>More dates</AlsoSeeText>
@@ -468,7 +454,6 @@ const ImageWrraper = styled(Image)`
 const BulletPointWrapper = styled.ul`
   list-style-type: disc;
   color: black;
-  padding: 0px 24px 0px 40px;
 
   li {
     color: var(--BODY, #000);

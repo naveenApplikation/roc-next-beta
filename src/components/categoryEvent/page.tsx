@@ -180,16 +180,16 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             <SearchedData key={index}>
               <MainInsideWrapper
                 onClick={() =>
-                  modalClick("eventListing", item, filteredUrls[index])
+                  modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
                 }
               >
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
                       <ImageTag src={item.photoUrl} alt="Image"
-                        onClick={() =>
-                          modalClick("eventListing", item, item.photoUrl)
-                        }
+                        // onClick={() =>
+                        //   modalClick("eventListing", item, item.photoUrl)
+                        // }
                       />
                       :
                       <Image
