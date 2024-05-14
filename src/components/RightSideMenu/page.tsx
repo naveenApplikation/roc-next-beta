@@ -112,9 +112,9 @@ const RightMenu = styled.div`
   @media screen and (max-width: 800px) {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 510px;
     padding: 16px;
-    padding-bottom: 25px;
+    padding-bottom: 35px;
     position: fixed;
     top: 0;
     width: 100%;
