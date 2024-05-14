@@ -211,7 +211,7 @@ const EventBox: React.FC<EventBoxProps> = ({
             );
           })}
 
-      <AddListButton>
+      <AddListButton onClick={() => modalClick("ContactUsModal")}>
         <CommonButton text="Suggest an Event" />
       </AddListButton>
     </SearchedListContainer>

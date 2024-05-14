@@ -22,6 +22,7 @@ import InfoAppScreen from "@/components/AllModalScreen/InfoAppModalScreen";
 import PageLayout from "./pageLayout";
 import Instance from "./utils/Instance";
 import { icons } from "./utils/iconList";
+import WalksModal from "@/components/AllModalScreen/WalksModal";
 
 const Container = styled.div`
   display: flex;
@@ -92,7 +93,7 @@ const DashboardMenu = styled.div<{
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-      $showMap ? "calc(100vh - 500px)" : "100vh"};
+    $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 
@@ -133,7 +134,7 @@ export default function Home() {
   //     } catch (error) {
   //       setListData([])
   //       setloader(false)
-  
+
   //     }
   //   }
   // };
@@ -142,7 +143,7 @@ export default function Home() {
   //   myListtabChange("Created")
   // },[])
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div style={{height:"100vh" , display:"flex" , justifyContent:"center" , alignItems:"center"}}>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
         <Container >
           <MainContainer >
@@ -170,6 +171,7 @@ export default function Home() {
         <ActivitiesModalScreen showMap={showMap} />
         <DirectoryModalScreen showMap={showMap} />
         <ViewDirectionModalScreen showMap={showMap} />
+        <WalksModal />
         <InfoAppScreen {...{ showMap }} />
       </ShadowWrapper>
     </Suspense>
