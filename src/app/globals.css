@@ -107,13 +107,13 @@ body {
 
 @media screen and (max-width: 800px) {
   body {
-    background-size: 120vw 100vh;
-    background-position: right top;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg.jpg?alt=media&token=4e087624-53c1-4826-9930-74c63c902b72);
+    /* background-size: 120vw 100vh; */
+    /* background-position: right top; */
+    /* background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg.jpg?alt=media&token=4e087624-53c1-4826-9930-74c63c902b72); */
     /* background-image: url(../../assets//images/946723516_plemont-bay-jersey.jpg); */
-    background-attachment: fixed;
+    /* background-attachment: fixed;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
   }
 }
 
