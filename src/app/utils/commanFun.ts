@@ -14,3 +14,20 @@ export function convertTo12HourTime(time24Hour: any) {
     return formattedTime;
   }
 }
+
+export function isOpen(periods: any) {
+  const currentDate = new Date();
+  const currentDateString = currentDate.toISOString().split('T')[0]; // Extracting current date in yyyy-mm-dd format
+  const currentTime: any = currentDate.getHours() * 100 + currentDate.getMinutes(); // Extracting current time in HHMM format
+
+  for (const period of periods) {
+    if (period.open.date === currentDateString) {
+      if (parseInt(currentTime) >= parseInt(period.open.time)) {
+        return `Open: ${convertTo12HourTime(period.open.time)} to ${convertTo12HourTime(period.close.time)}`;
+      } else {
+        return `Closed: Opens at ${convertTo12HourTime(period.open.time)}`;
+      }
+    }
+  }
+  return "Closed";
+}
