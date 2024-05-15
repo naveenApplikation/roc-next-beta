@@ -13,7 +13,6 @@ import Shopping from "@/components/homepage/Shopping";
 import Community from "@/components/homepage/Community";
 import BeachLife from "@/components/homepage/BeachLife";
 import Sustainability from "@/components/homepage/Sustainability";
-import Jerseyisms from "@/components/homepage/Jerseyisms";
 import Heritage from "@/components/homepage/Heritage";
 import Walks from "@/components/homepage/Walks";
 import Wellbeing from "@/components/homepage/Wellbeing";
@@ -27,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
+import BetaExploreModal from "../modal/BetaExploreModal";
 
 const LeaveFeedbackButton = styled.div`
   padding-left: 40px;
@@ -149,6 +149,7 @@ const DashBoard = () => {
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
+      {/* <BetaExploreModal /> */}
     </>
   );
 };
