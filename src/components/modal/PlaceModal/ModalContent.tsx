@@ -318,7 +318,7 @@ const ModalContent: React.FC<ModalProps> = ({
         }
       })
     }
-  }, [data?._id, Object.keys(showApiData).length, reviewData.length])
+  }, [data?._id, Object.keys(showApiData).length, reviewData.length, data?.name])
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy)
