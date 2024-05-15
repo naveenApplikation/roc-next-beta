@@ -9,19 +9,19 @@ interface WalksModalProps {
 
 const BetaExploreModal: React.FC<WalksModalProps> = (props) => {
 
-    const { modalName, showMap, closeModal, modalClick, dataDetails, modalType } = useMyContext();
+    const { modalName, showMap, closeModal } = useMyContext();
     const token = window.localStorage.getItem("Token");
-    console.log("token" , token);
-    
+    console.log("token", token);
+
     return (
         <WalkListModal
-            isOpen={false}
+            isOpen={modalName === "betaExploreModal"}
             onClose={() => closeModal("")}
             {...{ showMap }}
-            title={dataDetails.name}
+            title="Welcome to our beta!"
             name="walksModal">
-            <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
-                <p>hello</p>
+            <div style={{ height: "84vh", fontSize: "16px", width: "100%", overflow: 'hidden', padding: "20px" }}>
+                <p>As we fine-tune our features, your feedback is invaluable. While not everything may be fully functional yet, your participation is key in shaping the future of our platform. Thank you for being part of this journey with us.</p>
             </div>
         </WalkListModal>
     );

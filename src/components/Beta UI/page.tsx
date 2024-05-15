@@ -38,7 +38,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
 }) => {
   // const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState<any>("");
-  const { handleApiResponse } = useMyContext();
+  const { handleApiResponse , modalClick ,setModalNames} = useMyContext();
   const [loader, setloader] = useState(false);
 
   const searchParams = useSearchParams();
@@ -53,6 +53,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
       router.push("/")
       localStorage.setItem("hideUI", inputValue.trim());
       localStorage.setItem("Token", result.data.data);
+      setModalNames("betaExploreModal")
       setShowContent(false);
       console.log("result", result)
       handleApiResponse(true);
@@ -78,12 +79,12 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
     AboutRoc: false,
   });
 
-  const modalClick = (name: string) => {
-    setModalType((prev: any) => ({
-      ...prev,
-      [name]: !prev[name] as boolean,
-    }));
-  };
+  // const modalClick = (name: string) => {
+  //   setModalType((prev: any) => ({
+  //     ...prev,
+  //     [name]: !prev[name] as boolean,
+  //   }));
+  // };
 
   const closeModal = (name: string) => {
     setModalType((prev: any) => ({

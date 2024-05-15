@@ -115,7 +115,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
       const newScreenWidthPercentage = (newScreenWidth / referenceWidth) * 100;
       setScreenWidthPercentage(newScreenWidthPercentage);
     };
-
     window.addEventListener("resize", handleResize);
 
     // Cleanup function to remove the event listener when the component unmounts
@@ -146,7 +145,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
           {children}
         </div>
       </StyledModal>
-      {/* <BetaExploreModal /> */}
+      <BetaExploreModal />
     </>
   );
 };

@@ -28,6 +28,8 @@ interface ContextProps {
   reservationMenu?: boolean;
   oldName: string;
   setOldName: any;
+  setModalNames?:any;
+  
 }
 
 // Create a context
@@ -115,6 +117,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       ...prev,
       [name]: true,
     }));
+    if(modalName === 'betaExploreModal'){
+      setModalNames("")
+    }
     setModalNames(name);
     if (name === "createAccountModal") {
       setOldName('')
@@ -175,7 +180,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     appName,
     reservationMenu,
     oldName,
-    setOldName
+    setOldName,
+    setModalNames,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
