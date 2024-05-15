@@ -114,7 +114,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
     } else if (urlData === "Enjoy the sunshine") {
       return <ExperienceBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
-    } else if (urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community") {
+    } else if (urlData == "Trending Lists" || urlData == "Jerseyisms" || urlData == "Community" || urlData == "Shopping" || urlData == "Wellbeing" ) {
       return <TrendingList urlData={search} urlTitle={urlData} />
     } else if (urlData === "categorieList") {
       return <CategorieList />

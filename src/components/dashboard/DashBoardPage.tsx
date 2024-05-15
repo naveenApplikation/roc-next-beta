@@ -46,7 +46,7 @@ const DashBoard = () => {
   // const [data, setData] = useState<any[]>([]);
   const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
+  const fetchDataAsync:any = async () => {
     setloader(true);
     try {
       const response = await Instance.get("/category?limit=10")
