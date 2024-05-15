@@ -54,7 +54,7 @@ const Page = () => {
   const [selectedIcon, setSelectedIcon] = useState<string>("shoppingCart");
   const [categoryType, setCategoryType] = useState<string>("public");
   const [listName, setListName] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [categoryList, setCategoryList] = useState([]);
   const [bgColor, setBgColor] = useState<string>("#eb5757");
@@ -77,34 +77,31 @@ const Page = () => {
     }
   }, [screenName]);
 
-
-
   const postHandler = async (name: string) => {
     setloader(true);
     const param = {
       listName,
       iconName: selectedIcon,
       categoryType: categoryType,
-      categoryList,
+      categoryList: selectedData,
       bgColor,
     };
 
     try {
-      setLoading(true)
+      setLoading(true);
       const result = await Instance.post("/create-category", param);
 
-      console.log("resu", result)
-      if(result?.status === 200){
-
+      console.log("resu", result);
+      if (result?.status === 200) {
         setLoading(false);
         toast.success(result.data.message);
-        setSearchQuery('')
-        setListName("")
-        setCategoryType("public")
-        setSelectedIcon('shoppingCart')
-        setBgColor("#eb5757")
+        setSearchQuery("");
+        setListName("");
+        setCategoryType("public");
+        setSelectedIcon("shoppingCart");
+        setBgColor("#eb5757");
         setScreenName(name);
-      } else{
+      } else {
         setLoading(false);
       }
     } catch (error: any) {
@@ -119,8 +116,8 @@ const Page = () => {
   };
 
   const screenChangeHandle = async (name: string) => {
-    if(name === "Greetings"){
-      postHandler(name)
+    if (name === "Greetings") {
+      postHandler(name);
     } else {
       setScreenName(name);
     }
@@ -130,9 +127,8 @@ const Page = () => {
     setSearchQuery(value);
   };
   const handleSearch = () => {
-    fetchDataAsync(searchQuery)
+    fetchDataAsync(searchQuery);
   };
-
 
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(false);
@@ -151,7 +147,6 @@ const Page = () => {
       setloader(false);
     }
   };
-
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -210,7 +205,7 @@ const Page = () => {
           ScreenSwitch={() => screenChangeHandle("Greetings")}
           preScreen={() => screenChangeHandle("drag")}
           homePage={navigateClick}
-          loader= {loading}
+          loader={loading}
           {...{ dragData, selectedData }}
         />
       );
