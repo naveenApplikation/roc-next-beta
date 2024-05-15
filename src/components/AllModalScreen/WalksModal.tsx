@@ -18,13 +18,15 @@ const WalksModal: React.FC<WalksModalProps> = (props) => {
             {...{ showMap }}
             title={dataDetails.name}
             name="walksModal">
-            <iframe
-                style={{ border: 'none' }}
-                height="500px"
-                width="100%"
-                title={dataDetails.name}
-                src={dataDetails?.url}
-            ></iframe>
+            <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
+                <iframe
+                    style={{ border: 'none' }}
+                    height="100%"
+                    width="100%"
+                    title={dataDetails.name}
+                    src={dataDetails?.url}
+                ></iframe>
+            </div>
         </WalkListModal>
     );
 };

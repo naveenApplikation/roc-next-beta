@@ -7,18 +7,20 @@ import SearchInput from "../searchInput/SearchInput";
 import Instance from '@/app/utils/Instance';
 import { useMyContext } from '@/app/Context/MyContext';
 import Skeleton from 'react-loading-skeleton';
+import ImageCom from '../addList/imageCom';
 
 interface DashboardSearchContainerProps {
     tabChange: Function,
     options: any,
     tabValue: string,
-    showMap?: boolean
+    showMap?: boolean,
+    modalClick?: any
 }
 
 
 
 
-const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tabChange, options, tabValue, showMap }) => {
+const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tabChange, options, tabValue, showMap, modalClick }) => {
     const { modalType } = useMyContext()
     const [searchQuery, setSearchQuery] = useState("");
     const [data, setData] = useState<any[]>([]);
@@ -32,8 +34,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
         setLoader(true);
 
         try {
-            const result = await Instance.get(`/search?title=${value}`);
-            setData(result.data);
+            // const result = await Instance.get(`/search?title=${value}`);
+            const result = await Instance.get(`/search-data?query=${value}`);
+            setData(result?.data?.searchResults);
         } catch (error: any) {
             console.log(error.message);
             setLoader(false);
@@ -86,17 +89,20 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                 </SearchedData>
                             )) : (searchQuery &&
                                 data.length ? data.map((item: any, index: any) => {
-                                    if (!item._id) {
+                                    if (!item.place_id) {
                                         return null;
                                     }
-                                    const imageList = JSON.parse(item.acf.header_image_data);
-                                    const image = imageList[0].url;
-                                        console.log("data length", data.length ? "yes" : "no")
+                                    // const imageList = JSON.parse(item.acf.header_image_data);
+                                    // const image = imageList[0].url;
                                     return (
                                         <div
                                             style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
                                             key={index}>
-                                            <ListDataWrraper>
+                                            <ListDataWrraper
+                                                onClick={() =>
+                                                    modalClick("ModalContent", item, item?.photoUrl)
+                                                }
+                                            >
                                                 <div
                                                     style={{
                                                         display: "flex",
@@ -105,13 +111,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                         width: '85%',
                                                     }}>
                                                     <div style={{ width: 80, height: 80 }}>
-                                                        <Image
-                                                            src={image}
-                                                            width={500}
-                                                            height={80}
-                                                            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                                                            alt="infoCirlce"
-                                                        />
+                                                        <ImageCom imageArr={item?.photos} />
                                                     </div>
                                                     <div style={{
                                                         display: "flex",
@@ -120,7 +120,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                         maxWidth: 'calc(100% - 30%)'
                                                     }}>
                                                         <ListDataTittleText>
-                                                            {item?.acf?.title}
+                                                            {item?.name}
                                                         </ListDataTittleText>
                                                         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                                                             <ListDataInfoText>
@@ -128,10 +128,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                                     ? item?.acf?.aa_rating?.value == "No rating"
                                                                         ? ""
                                                                         : item?.acf?.aa_rating?.value
-                                                                    : ""}
+                                                                    : item?.rating}
                                                             </ListDataInfoText>
                                                             <Image src={commentstar} alt="infoCirlce" />
-                                                            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                                                            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', width: '100%' }}>
 
                                                                 {
                                                                     item?.acf?.portal_post_owner_name ? (
@@ -140,7 +140,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                                         </ListDataInfoText>
                                                                     ) : null
                                                                 }
-                                                                <ListDataInfoText>. {item?.type}</ListDataInfoText>
+                                                                <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -149,7 +149,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                             </ListDataWrraper>
                                         </div>
                                     );
-                                }) : <div className="">No data found...</div>)
+                                }) : "")
                     }
 
                 </SearchedListContainer>
@@ -243,6 +243,7 @@ const ListDataWrraper = styled.div`
   align-items: center;
   padding: 9px 0px;
   position: relative;
+  cursor: pointer;
 `;
 
 const ListDataTittleText = styled.p`
@@ -256,13 +257,21 @@ const ListDataTittleText = styled.p`
     overflow: hidden;
 `;
 
-const ListDataInfoText = styled.p`
+const ListDataInfoText = styled.p.attrs(props => ({
+    className: props.className,
+}))`
   color: rgba(0, 0, 0, 0.48);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
+   &.type_style{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:95%;
+ }
 `;
 
 const InputWrapper = styled.div`

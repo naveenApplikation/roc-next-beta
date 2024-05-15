@@ -5,6 +5,8 @@ import PageLayout from '@/app/pageLayout';
 import Instance from '@/app/utils/Instance';
 import { ApiResponse } from '@/app/utils/types';
 import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen';
+import AddListings from '@/components/addList/AddListing';
+import GreetingList from '@/components/addList/GreetingList';
 import CategoryEvent from '@/components/categoryEvent/page';
 import AddComments from '@/components/createList/AddComments';
 import CreateListings from '@/components/createList/CreateListings';
@@ -156,7 +158,12 @@ const EventList = () => {
     };
 
     const screenChangeHandle = async (name: string) => {
-        setScreenName(name);
+        if(name === "Greetings"){
+            postHandler(name)
+          } else {
+            setScreenName(name);
+          }
+
     };
     const handleChange = (value: string) => {
         setSearchQuery(value);
@@ -197,8 +204,9 @@ const EventList = () => {
         setloader(true);
 
         try {
-            const result = await Instance.get(`/search?title=${value}`);
-            setData(result.data);
+            // const result = await Instance.get(`/search?title=${value}`);
+            const result = await Instance.get(`/search-data?query=${value}`);
+            setData(result.data?.searchResults);
         } catch (error: any) {
             console.log(error.message);
             setloader(false);
@@ -213,6 +221,8 @@ const EventList = () => {
 
     const postHandler = async (name: string) => {
         const param = {
+            main_type: "",
+            categoryName : "",
             categoryList,
         };
         try {
@@ -241,7 +251,7 @@ const EventList = () => {
     const ScreenShowHandle = () => {
         if (screenName === "create") {
             return (
-                <CreateListings
+                <AddListings
                     ScreenSwitch={() => screenChangeHandle("Greetings")}
                     homePage={navigateClick}
                     selectedItemIds={selectedItemIds}
@@ -254,24 +264,6 @@ const EventList = () => {
                     UI_Type="add_list"
                 />
             );
-        } else if (screenName === "drag") {
-            return (
-                <DragInOrder
-                    ScreenSwitch={() => screenChangeHandle("ProductAndCommentInfo")}
-                    preScreen={() => screenChangeHandle("create")}
-                    homePage={navigateClick}
-                    selectedItemIds={selectedItemIds}
-                    {...{ setDragData, selectedData, setSelectedData }}
-                />
-            );
-        } else if (screenName === "AddComments") {
-            return (
-                <AddComments
-                    ScreenSwitch={() => screenChangeHandle("categoryList")}
-                    preScreen={() => screenChangeHandle("categoryList")}
-                    homePage={navigateClick}
-                />
-            );
         } else if (screenName === "categoryList") {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}
@@ -279,22 +271,9 @@ const EventList = () => {
                     handleLike={handleLike} totalVote={totalVote}
                 />
             );
-        } else if (screenName === "ProductAndCommentInfo") {
-            return (
-                <ProductAndCommentInfo
-                    ScreenSwitch={() => postHandler("Greetings")}
-                    preScreen={() => screenChangeHandle("drag")}
-                    homePage={navigateClick}
-                    loader={loader}
-                    screenName="Update"
-
-                    // {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
-                    {...{ dragData, selectedData }}
-                />
-            );
         } else if (screenName === "Greetings") {
             return (
-                <Greetings
+                <GreetingList
                     homePage={navigateClick}
                     preScreen={() => handleCreateNewList("categoryList")}
                 />
@@ -313,7 +292,6 @@ const EventList = () => {
         <>
             <PageLayout>
                 <CategoryBody>
-                    {/* <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader} /> */}
                     {ScreenShowHandle()}
                 </CategoryBody>
             </PageLayout>

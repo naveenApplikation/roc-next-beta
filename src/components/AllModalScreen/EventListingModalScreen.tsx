@@ -12,7 +12,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { modalName, closeModal, modalClick, dataDetails, modalType, dataUrlImage, reservationMenu } = useMyContext();
-  console.log("jflkdklfsljfjlkds", dataUrlImage)
+
   return (
     <>
 
