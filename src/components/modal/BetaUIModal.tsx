@@ -1,11 +1,12 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {CloseModal} from '../../app/utils/ImagePath'
+import { CloseModal } from '../../app/utils/ImagePath'
+import BetaExploreModal from "./BetaExploreModal";
 
 interface SearchModalProps {
   isOpen: boolean;
-  onClose: (name:string) => void;
+  onClose: (name: string) => void;
   children?: ReactNode;
   title: string;
   name: string;
@@ -73,9 +74,9 @@ const StyledModal = styled.div<{
     height: 100%;
 
     bottom: ${({ $isopen }) =>
-      $isopen
-        ? "0%"
-        : "-100%"}; // Position at bottom if open, otherwise off-screen
+    $isopen
+      ? "0%"
+      : "-100%"}; // Position at bottom if open, otherwise off-screen
     transition: bottom 0.8s ease-in-out;
     width: 100%;
     max-width: 100%;
@@ -124,25 +125,29 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
   }, []);
 
   return (
-    <StyledModal
-      $isopen={isOpen}
-      // $showMap={showMap}
-      $screenwidthpercentage={screenWidthPercentage}
-      $screenwidth={screenWidth}
-    >
-      <div className="modal-content">
-        <HeaderContainer>
-          <h4>{title}</h4>
-          <Image
-            style={{ width: 40, height: 40, cursor: "pointer" }}
-            src={CloseModal}
-            alt="Logo Outline"
-            onClick={()=>onClose(name)}
-          />
-        </HeaderContainer>
-        {children}
-      </div>
-    </StyledModal>
+    <>
+
+      <StyledModal
+        $isopen={isOpen}
+        // $showMap={showMap}
+        $screenwidthpercentage={screenWidthPercentage}
+        $screenwidth={screenWidth}
+      >
+        <div className="modal-content">
+          <HeaderContainer>
+            <h4>{title}</h4>
+            <Image
+              style={{ width: 40, height: 40, cursor: "pointer" }}
+              src={CloseModal}
+              alt="Logo Outline"
+              onClick={() => onClose(name)}
+            />
+          </HeaderContainer>
+          {children}
+        </div>
+      </StyledModal>
+      {/* <BetaExploreModal /> */}
+    </>
   );
 };
 

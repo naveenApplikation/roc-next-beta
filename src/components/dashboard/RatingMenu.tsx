@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { banjo } from "@/app/utils/ImagePath";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface MenuProps {
   title?: string;
@@ -28,8 +29,6 @@ const UtensilsDishesImage = styled.div`
 `;
 
 const Title = styled.p`
-  white-space: nowrap;
-  font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -38,7 +37,11 @@ const Title = styled.p`
 `;
 
 const Menutitle = styled.p`
-  font-family: Inter;
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -77,7 +80,7 @@ const RatingMenu: React.FC<MenuProps> = ({
         <>
           <UtensilsDishesImage>
             <MainImage
-              src={headerImage}
+              src={(headerImage == null) ? fallback : headerImage}
               alt=""
               width={500}
               height={80}

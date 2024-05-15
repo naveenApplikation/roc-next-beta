@@ -5,6 +5,7 @@ import PageLayout from '@/app/pageLayout';
 import Instance from '@/app/utils/Instance';
 import { ApiResponse } from '@/app/utils/types';
 import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen';
+import LoginSignupModal from '@/components/LoginSignup/loginSignupModal';
 import AddListings from '@/components/addList/AddListing';
 import GreetingList from '@/components/addList/GreetingList';
 import CategoryEvent from '@/components/categoryEvent/page';
@@ -14,6 +15,7 @@ import DragInOrder from '@/components/createList/DragInOrder';
 import Greetings from '@/components/createList/Greetings';
 import ProductAndCommentInfo from '@/components/createList/ProductAndCommentInfo';
 import { debounce } from 'lodash';
+import CreateAccountModalLayout from "@/components//modal/Modal";
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -28,7 +30,7 @@ type mylisttabs = "Created" | "Contributed";
 
 const EventList = () => {
 
-    const { showMap, filterUrls } = useMyContext()
+    const { showMap, filterUrls, modalClick, closeModal, modalName } = useMyContext()
     const [eventData, setEventData] = useState<ApiResponse[]>([])
     const [eventTitle, setEventTitle] = useState('')
     const [totalVote, setTotalVote] = useState<any>('')
@@ -62,28 +64,7 @@ const EventList = () => {
 
     const [loader, setloader] = useState(true);
 
-    // useEffect(() => {
-    //     const fetchDataAsync = async () => {
-    //         setloader(true);
-    //         try {
-    //             //   const result = await Instance.get(`${search}`);
-    //             //   if (search == "surfing" || search == "ww2") {
-    //             //     const combinedArray = [...result.data.activity1, ...result.data.activity2];
-    //             //     setData(combinedArray);
-    //             //   } else {
-    //             //     setData(result.data);
-    //             //   }
 
-    //         } catch (error: any) {
-    //             console.log(error.message);
-    //             setloader(false);
-    //         } finally {
-    //             setloader(false);
-    //         }
-    //     };
-
-    //     fetchDataAsync();
-    // }, []);
 
     const fetchEventDataById = async () => {
         try {
@@ -123,25 +104,6 @@ const EventList = () => {
     const [data, setData] = useState<ApiResponse[]>([]);
     const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
-    // const [categoryList, setCategoryList] = useState([]);
-
-    // useEffect(() => {
-    //     if (screenName) {
-    //         const newArray: string[] = [];
-
-    //         selectedData.map((val: any) => {
-    //             const newObj: { id: string; type: string } = {
-    //                 id: "",
-    //                 type: "",
-    //             };
-    //             (newObj.id = val?._id),
-    //                 (newObj.type = val?.type),
-    //                 newArray.push(newObj as any);
-    //         });
-
-    //         setCategoryList([...newArray] as any);
-    //     }
-    // }, [screenName]);
 
 
     const toggleSelected = (itemId: number, item: any): void => {
@@ -160,10 +122,16 @@ const EventList = () => {
     };
 
     const screenChangeHandle = async (name: string) => {
-        if (name === "Greetings") {
-            postHandler(name)
+        const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
+        if (loginToken) {
+            if (name === "Greetings") {
+                postHandler(name)
+            } else {
+                setScreenName(name);
+            }
+
         } else {
-            setScreenName(name);
+            modalClick("LoginSignupModal")
         }
 
     };
@@ -172,31 +140,35 @@ const EventList = () => {
     };
 
 
-
     const handleLike = async (id: string, vote: any) => {
-        eventData.map(val => {
-            if (id === val._id) {
-                if (vote) {
-                    val.userVoted = false;
-                    val.itemVotes = val.itemVotes - 1
-                    setEventData([...eventData])
-                } else {
-                    val.userVoted = true;
-                    val.itemVotes = val.itemVotes + 1
-                    setEventData([...eventData])
+        const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
+        if (loginToken) {
+            eventData.map(val => {
+                if (id === val._id) {
+                    if (vote) {
+                        val.userVoted = false;
+                        val.itemVotes = val.itemVotes - 1
+                        setEventData([...eventData])
+                    } else {
+                        val.userVoted = true;
+                        val.itemVotes = val.itemVotes + 1
+                        setEventData([...eventData])
 
+                    }
                 }
-            }
-        })
-        const result = await Instance.post(`/category/${vote ? 'removeVoting' : "addVoting"}`,
-            {
-                categroryId: categoryId,
-                itemId: id
             })
-        vote ?
-            toast.error(result?.data?.message)
-            :
-            toast.success(result?.data?.message)
+            const result = await Instance.post(`/category/${vote ? 'removeVoting' : "addVoting"}`,
+                {
+                    categroryId: categoryId,
+                    itemId: id
+                })
+            vote ?
+                toast.error(result?.data?.message)
+                :
+                toast.success(result?.data?.message)
+        } else {
+            modalClick("LoginSignupModal")
+        }
 
     }
 
@@ -204,9 +176,7 @@ const EventList = () => {
 
     const fetchDataAsync = async (value: string) => {
         setloader(true);
-
         try {
-            // const result = await Instance.get(`/search?title=${value}`);
             const result = await Instance.get(`/search-data?query=${value}`);
             setData(result.data?.searchResults);
         } catch (error: any) {
@@ -227,8 +197,6 @@ const EventList = () => {
             categoryName: eventTitle,
             categoryList: selectedData,
         };
-        // console.log("final data", param, selectedData)
-        // return
         try {
             setloader(false);
             const result = await Instance.put(`/category/${event}`, param);
@@ -268,17 +236,6 @@ const EventList = () => {
             );
 
         }
-        // else if (screenName === "drag") {
-        //     return (
-        //         <DragInOrder
-        //             ScreenSwitch={() => screenChangeHandle("ProductAndCommentInfo")}
-        //             preScreen={() => screenChangeHandle("create")}
-        //             homePage={navigateClick}
-        //             selectedItemIds={selectedItemIds}
-        //             {...{ setDragData, selectedData, setSelectedData }}
-        //         />
-        //     );
-        // } 
         else if (screenName === "AddComments") {
             return (
                 <AddComments
@@ -310,7 +267,11 @@ const EventList = () => {
 
 
 
-
+    const onClick = (name: string) => {
+        if (name === "AddToCreate") {
+            router.push("/screens/createList");
+        }
+    }
 
     return (
         <>
@@ -320,6 +281,23 @@ const EventList = () => {
                 </CategoryBody>
             </PageLayout>
             <EventListingModalScreen showMap={showMap} />
+            <CreateAccountModalLayout
+                isOpen={modalName === "LoginSignupModal" ? true : false}
+                onClose={() => closeModal("createAccountModal")}
+                {...{ showMap }}
+                name=""
+                title={
+                    modalName === "LoginAccountModal" && "Login"
+                }
+            >
+                <LoginSignupModal
+                    isOpen={() => modalClick("ContactUsModal")}
+                    nextModal={() => modalClick("WelcomeBackModal")}
+                    {...{ onClick }}
+                    myListOpen={() => modalClick("TermsAndConditionModal")}
+                />
+            </CreateAccountModalLayout>
+
         </>
     )
 }

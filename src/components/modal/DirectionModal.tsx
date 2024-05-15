@@ -88,7 +88,7 @@ const AdventureOption = styled.div`
   }
 `;
 
-const DirectionModal: React.FC<DirectionModalProps> = ({dataDetails}) => {
+const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
   const [selectedBox, setSelectedBox] = useState<number | null>(0);
   const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(
     null
@@ -96,7 +96,7 @@ const DirectionModal: React.FC<DirectionModalProps> = ({dataDetails}) => {
   const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
     null
   );
-  console.log("dataDetailsdataDetails" , dataDetails)
+  console.log("dataDetailsdataDetails", dataDetails)
 
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);
@@ -115,10 +115,27 @@ const DirectionModal: React.FC<DirectionModalProps> = ({dataDetails}) => {
   const buttonData = ["Taxis", "Buses", "Bike Hire", "Cycling routes", "Car hire"];
 
   const RatingData = ["Any", "3.5", "4.0", "4.5"];
-  const directionClick = () => {
-     
-    window.open(`https://www.google.com/maps?q=${dataDetails?.acf?.map_location?.lat},${dataDetails?.acf?.map_location?.lng}`)
 
+
+  // Encode the title, latitude, and longitude
+
+  // const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}`;
+  const directionClick = () => {
+    const locationTitle = dataDetails?.title?.rendered;
+    let latitude: any
+    let longitude: any
+    let place_id: any
+    if (dataDetails.data_type === "google") {
+      latitude = dataDetails?.geometry?.location?.lat;
+      longitude = dataDetails?.geometry?.location?.lng;
+      place_id = dataDetails?.place_id;
+    } else {
+      latitude = dataDetails?.acf?.map_location?.lat;
+      longitude = dataDetails?.acf?.map_location?.lng;
+      place_id = dataDetails?.acf?.map_location?.place_id;
+    }
+    const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}&@${latitude},${longitude}`;
+    window.open(googleMapsUrl)
   }
 
   return (
