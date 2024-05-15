@@ -255,11 +255,9 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
             {selectedData.length &&
               selectedData.map((item: any, index: any) => {
-                const imageList = JSON.parse(item?.acf?.header_image_data);
-                const image = imageList[0].url;
-                console.log("fksldflsjfls", item?.acf?.portal_post_owner_name);
+                const image = item.photoUrl ? item.photoUrl : "";
                 return (
-                  <ListDataWrraper key={item.id}>
+                  <ListDataWrraper key={item.place_id}>
                     <div style={{ width: 80, height: 80 }}>
                       <Image
                         src={image}
@@ -274,38 +272,21 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
                         display: "flex",
                         gap: 10,
                         flexDirection: "column",
-                      }}>
-                      <ListDataTittleText>
-                        {item?.acf?.title}
-                      </ListDataTittleText>
+                      }}
+                    >
+                      <ListDataTittleText>{item?.name}</ListDataTittleText>
                       <div
                         style={{
                           display: "flex",
                           gap: 10,
                           alignItems: "center",
-                        }}>
+                        }}
+                      >
                         <ListDataInfoText>{item?.rating}</ListDataInfoText>
                         <Image src={commentstar} alt="infoCirlce" />
                         {/* <ListDataInfoText>⋅ {item?.acf?.portal_post_owner_name}</ListDataInfoText> */}
-
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "5px",
-                            flexWrap: "wrap",
-                          }}>
-                          {item.acf.portal_post_owner_name ? (
-                            <div style={{ display: "flex", gap: "5px" }}>
-                              <p>.</p>{" "}
-                              <ListDataInfoText>
-                                {item.acf.portal_post_owner_name}
-                              </ListDataInfoText>
-                            </div>
-                          ) : null}
-                          <ListDataInfoText>. {item.type}</ListDataInfoText>
-                        </div>
                       </div>
-                      <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime>
+                      {/* <ListDataTime>Open ⋅ Closes 11 pm</ListDataTime> */}
                     </div>
                   </ListDataWrraper>
                 );
@@ -333,7 +314,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
         firstBtnText="Go Back"
         ScreenSwitch={ScreenSwitch}
         preScreen={preScreen}
-        secondText={screenName === "Update" ? "Update" :"Post"}
+        secondText={screenName === "Update" ? "Update" : "Post"}
         loader={loader}
       />
     </ListDetailsScreen>

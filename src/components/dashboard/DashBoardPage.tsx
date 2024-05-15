@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
-import BetaExploreModal from "../modal/BetaExploreModal";
+import { ApiResponse } from "@/app/utils/types";
 
 const LeaveFeedbackButton = styled.div`
   padding-left: 40px;
@@ -69,10 +69,6 @@ const DashBoard = () => {
       setloader(false);
     }
   }
-
-  useEffect(() => {
-    fetchDataAsync()
-  }, [])
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     console.log("item", item, condition, id)
@@ -121,31 +117,57 @@ const DashBoard = () => {
     };
   }, []);
 
+  const { filterUrls, showContent } = useMyContext();
+
+  const [data, setData] = useState<ApiResponse[]>([]);
+
+  const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
+
+  const homeGooglefetchDataAsync = async () => {
+    setHomeGoogleLoader(true);
+    try {
+      const result = await Instance.get("/homescreen-google");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setHomeGoogleLoader(false);
+    } finally {
+      setHomeGoogleLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAsync()
+    homeGooglefetchDataAsync();
+  }, []);
+
+  console.log(data,"dadaasasasjdsskx")
+
 
   return (
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
-      <LocalCusine menuClick={menuClick} modalClick={modalClick} />
+      <LocalCusine menuClick={menuClick} modalClick={modalClick} data={data[0]} loader={homeGoogleLoader} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} />
       <Directory menuClick={menuClick} modalClick={modalClick} />
-      <Bars menuClick={menuClick} modalClick={modalClick} />
+      <Bars menuClick={menuClick} modalClick={modalClick} data={data[1]} loader={homeGoogleLoader}  />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
-      <BeachLife menuClick={menuClick} modalClick={modalClick} />
-      <Sustainability menuClick={menuClick} modalClick={modalClick} />
+      <BeachLife menuClick={menuClick} modalClick={modalClick} data={data[2]} loader={homeGoogleLoader}  />
+      <Sustainability menuClick={menuClick} modalClick={modalClick} data={data[3]} loader={homeGoogleLoader} />
       {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> not working */}
-      <Heritage menuClick={menuClick} modalClick={modalClick} />
+      <Heritage menuClick={menuClick} modalClick={modalClick} data={data[4]} loader={homeGoogleLoader} />
       <Walks menuClick={menuClick} modalClick={modalClick} />
       <Wellbeing menuClick={menuClick} modalClick={modalClick} />
       <WW2 menuClick={menuClick} modalClick={modalClick} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
-      <Outout menuClick={menuClick} modalClick={modalClick} />
-      <Surfing menuClick={menuClick} modalClick={modalClick} />
+      <Outout menuClick={menuClick} modalClick={modalClick} data={data[5]} loader={homeGoogleLoader} />
+      <Surfing menuClick={menuClick} modalClick={modalClick} data={data[6]} loader={homeGoogleLoader} />
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
