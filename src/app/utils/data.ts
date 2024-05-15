@@ -80,7 +80,9 @@ import {
   trinity,
   hongue,
   pulente,
+  cycleBlack,
 } from "@/app/utils/ImagePath";
+
 
 export const topSideMenu = [
   {
@@ -127,22 +129,22 @@ export const topSideMenu = [
   },
   {
     name: "CycleRoutes",
-    image: radio,
+    image: cycleBlack,
     width: 20,
     height: 16,
   },
-  {
-    name: "parking",
-    image: parking,
-    width: 18,
-    height: 16,
-  },
-  {
-    name: "buses",
-    image: van,
-    width: 20,
-    height: 16,
-  },
+  // {
+  //   name: "parking",
+  //   image: parking,
+  //   width: 18,
+  //   height: 16,
+  // },
+  // {
+  //   name: "buses",
+  //   image: van,
+  //   width: 20,
+  //   height: 16,
+  // },
 
 
 

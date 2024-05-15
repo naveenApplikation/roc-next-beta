@@ -150,7 +150,7 @@ const ScrollingMenu = styled.div`
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
   height: 200px;
-  width:500px;
+  width:100%;
 `;
 
 const ImageWrraper = styled(Image)`
@@ -282,6 +282,12 @@ const WebsiteLink = styled(Link)`
   color: lightblue;
 }
 `;
+const MainImage = styled(Image)`
+width: 120px !important;
+height: 64px !important;
+border-radius: 6px;
+`;
+
 
 
 const ModalContent: React.FC<ModalProps> = ({
@@ -303,16 +309,16 @@ const ModalContent: React.FC<ModalProps> = ({
 
   useEffect(() => {
     setLoading(false)
-    console.log("respoinse", Object.keys(data).length)
     if (Object.keys(data).length) {
       topAttractionMapping(data).then((res: any) => {
         setShowApiData(res)
-        if(res?.reviews){
+        console.log("respoinse", res)
+        if (res?.reviews) {
           setReviewData(res?.reviews);
         }
       })
     }
-  }, [data?._id, Object.keys(showApiData).length])
+  }, [data?._id, Object.keys(showApiData).length, reviewData.length, data?.name])
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy)
@@ -380,11 +386,6 @@ const ModalContent: React.FC<ModalProps> = ({
   const [loader, setloader] = useState(true);
   const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
-  const MainImage = styled(Image)`
-    width: 120px !important;
-    height: 64px !important;
-    border-radius: 6px;
-  `;
 
   useEffect(() => {
     const getReviewData = async () => {
@@ -392,7 +393,6 @@ const ModalContent: React.FC<ModalProps> = ({
       if (data._id) {
         try {
           const ReviewData = await Instance.get(`review/${data?._id}`);
-          console.log(ReviewData, "sdsdsds");
           // setReviewData(ReviewData?.data);
           setReviewShowToggle(false);
         } catch (error: any) {
@@ -469,16 +469,16 @@ const ModalContent: React.FC<ModalProps> = ({
       return { day, time };
     }))
 
-
   }, [])
-
   return (
-    !loading ?
+    <>
+    {
+      !loading ?
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
         <Spin tip="Loading" size="large" />
       </div> :
       <Container>
-        <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}>{formattedValues()}</p>
+        <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}> {formattedValues()} </p>
         <ResturatContainer>
           <ResturatWrapper>
             {/* <p style={{ fontSize: 16 }}>|</p> */}
@@ -499,7 +499,6 @@ const ModalContent: React.FC<ModalProps> = ({
         </ItemImageContainer>
         <ResturantDetailsContainer>
           {ResturantDetailData.map((item, index) => {
-            console.log("kdsfjlsdfsl", item.nameValue)
             return (
               item?.nameValue &&
               <ResturantDetailsWrapper key={index}>
@@ -518,7 +517,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   <RestDetailTitle>{item?.name}</RestDetailTitle>
                 )}
               </ResturantDetailsWrapper>
-            );
+            )
           })}
           <ViewDirection onClick={() => reservationModal("DirectionModal")}>
             View Directions
@@ -612,17 +611,6 @@ const ModalContent: React.FC<ModalProps> = ({
                   />
                 </div>
               ) : (
-                // <CommentRating
-                //   index={index}
-                //   id={item?._id}
-                //   Titletext="ELCIAS DE FREITAS"
-                //   Maintext={item?.comment}
-                //   starRating={item?.rating}
-                //   like={24}
-                //   disLike={7}
-                //   handleEdit={handleEdit}
-                // />
-
                 <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <div style={{ display: 'flex', gap: '10px' }}>
                     <div>
@@ -735,22 +723,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </WeekTimeArrange>
         ))} */}
         </DatesContainer>
-        {/* <AlsoSeeText>Also see</AlsoSeeText>
-        <ScrollingMenu>
-          {LocalCuisineMenuItem.map((item, index) => {
-            return (
-              <div key={index}>
-                <RatingMenu
-                  title={item?.menuName}
-                  headerImage={item?.headerImage}
-                  menuImageUrl={item?.image}
-                  containerImageUrl={true}
-                  MenutitleDetail={item?.resturantName}
-                />
-              </div>
-            );
-          })}
-        </ScrollingMenu> */}
+
         {reservationMenu && (
           <ButtonContainer>
             <CommonButton
@@ -768,6 +741,10 @@ const ModalContent: React.FC<ModalProps> = ({
           </ButtonContainer>
         )}
       </Container>
+
+    }
+    
+      </>
   );
 };
 

@@ -17,6 +17,7 @@ import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
 import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
+import ImageCom from "../addList/imageCom";
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -132,12 +133,12 @@ const CreateListings: React.FC<CreateListingsProps> = ({
 
             :
             (searchQuery &&
-              data.map((item: any, index: any) => {
-                if (!item._id) {
-                  return null;
-                }
-                const imageList = JSON.parse(item.acf.header_image_data);
-                const image = imageList[0].url;
+              data?.map((item: any, index: any) => {
+                // if (!item._id) {
+                //   return null;
+                // }
+                // const imageList = JSON.parse(item.acf.header_image_data);
+                // const image = imageList[0].url;
 
                 return (
                   <div
@@ -152,13 +153,14 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                           width: '85%',
                         }}>
                         <div style={{ width: 80, height: 80 }}>
-                          <Image
+                          {/* <Image
                             src={image}
                             width={500}
                             height={80}
                             style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                             alt="infoCirlce"
-                          />
+                          /> */}
+                          <ImageCom imageArr= {item?.photos} />
                         </div>
                         <div style={{
                           display: "flex",
@@ -167,15 +169,15 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                           maxWidth: 'calc(100% - 30%)'
                         }}>
                           <ListDataTittleText>
-                            {item.acf.title}
+                            {item?.name}
                           </ListDataTittleText>
                           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                             <ListDataInfoText>
-                              {item.acf.aa_rating
-                                ? item.acf.aa_rating.value == "No rating"
+                              {item?.acf?.aa_rating
+                                ? item?.acf?.aa_rating.value == "No rating"
                                   ? ""
-                                  : item.acf.aa_rating.value
-                                : ""}
+                                  : item?.acf?.aa_rating.value
+                                : item?.rating}
                             </ListDataInfoText>
                             <Image src={commentstar} alt="infoCirlce" />
                             <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
@@ -187,13 +189,13 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                                   </ListDataInfoText>
                                 ) : null
                               }
-                              <ListDataInfoText>. {item?.type}</ListDataInfoText>
+                              <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <button onClick={() => toggleSelected(item._id, item)}>
-                        {selectedItemIds.includes(item._id) ? (
+                      <button onClick={() => toggleSelected(item.place_id, item)}>
+                        {selectedItemIds.includes(item.place_id) ? (
                           <UnselectedBtn>
                             <Image
                               style={{ width: "15px", height: "10px" }}
@@ -315,6 +317,12 @@ const ListDataInfoText = styled.p`
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
+   &.type_style{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:85%;
+ }
 `;
 
 const UnselectedBtn = styled.div`

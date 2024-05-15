@@ -21,14 +21,16 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap })
         {...{ showMap }}
         title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
       >
-        <ModalContent
-          onClose={() => closeModal("ModalContent")}
-          reservationModal={modalClick}
-          dataImage={dataUrlImage}
-          data={dataDetails}
-          reservationMenu={reservationMenu}
-        />
-      </DashBoardModal>
+
+        {dataDetails?.data_type === "google" ?
+          <ModalContent
+            onClose={() => closeModal("ModalContent")}
+            reservationModal={modalClick}
+            dataImage={dataUrlImage}
+            data={dataDetails}
+            reservationMenu={reservationMenu}
+          />: ""}
+      </DashBoardModal> 
     </>
   );
 };

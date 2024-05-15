@@ -141,8 +141,9 @@ const Page = () => {
     setloader(true);
 
     try {
-      const result = await Instance.get(`/search?title=${value}`);
-      setData(result.data);
+      // const result = await Instance.get(`/search?title=${value}`);
+      const result = await Instance.get(`/search-data?query=${value}`);
+      setData(result.data?.searchResults);
     } catch (error: any) {
       console.log(error.message);
       setloader(false);

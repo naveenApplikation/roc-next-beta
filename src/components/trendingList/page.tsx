@@ -106,7 +106,7 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
 
   const fetchDataAsync = async () => {
     try {
-      const response = await Instance.get("/category-item")
+      const response = await Instance.get(`${urlData}`)
       if (response.status === 200) {
         response.data.forEach((list: any) => {
           const matchedIcon = icons.find(icon => icon.name === list.iconName);

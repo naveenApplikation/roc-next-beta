@@ -7,6 +7,8 @@ import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import Image from "next/image";
 import { skeletonItems } from "@/app/utils/date";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface DashboardProps {
   modalClick?: any;
@@ -25,6 +27,28 @@ const ScrollingMenu = styled.div`
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
+  }
+`;
+const CommunityContainer = styled.div`
+  display: flex;
+  width: 80px;
+  padding: 0px 8px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: end;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 80px;
+  border-radius: 8px;
+  background: #bb6bd9;
+
+  p {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
   }
 `;
 
@@ -89,7 +113,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     try {
-      const result = await Instance.get("/well-being");
+      const result = await Instance.get("/wellbeing-lists");
       setData(result.data);
     } catch (error: any) {
       console.log(error.message);
@@ -103,74 +127,98 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     fetchDataAsync();
   }, []);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  // const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
-  const filteredUrls = filterUrls(ImageUrlData);
+  // const filteredUrls = filterUrls(ImageUrlData);
 
   return(
-    <>
-    <MenuDetails
-      isOpen={() => menuClick("Wellbeing", true, "well-being")}
-      title="Wellbeing"
-    />
-    <ScrollingMenu>
-      {loader
-        ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <CommonSkeletonLoader />
-            </div>
-          ))
-        : data?.slice(0, 10).map((item, index) => {
-            return (
-              <StarContainer
-                key={index}
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  modalClick("ModalContent", item, filteredUrls[index])
-                }
-              >
-                <StarWrapper>
-                  <Image
-                    className="StarImageStyle"
-                    src={filteredUrls[index]}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{
-                      borderRadius: 4,
-                      maxWidth: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                  {index == 0 && <p>New</p>}
-                </StarWrapper>
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 4,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      src={
-                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
-                      }
-                      width={69}
-                      height={12}
-                      alt="right icon"
-                    />{" "}
-                    <p>4.7</p>
-                  </div>
-                  <MainTitle>
-                    {item.acf.title}
-                  </MainTitle>
-                </div>
-              </StarContainer>
-            );
-          })}
-    </ScrollingMenu>
-  </>
+  //   <>
+  //   <MenuDetails
+  //     isOpen={() => menuClick("Wellbeing", true, "well-being")}
+  //     title="Wellbeing"
+  //   />
+  //   <ScrollingMenu>
+  //     {loader
+  //       ? skeletonItems.map((item, index) => (
+  //           <div key={index}>
+  //             <CommonSkeletonLoader />
+  //           </div>
+  //         ))
+  //       : data?.slice(0, 10).map((item, index) => {
+  //           return (
+  //             <StarContainer
+  //               key={index}
+  //               style={{ cursor: "pointer" }}
+  //               onClick={() =>
+  //                 modalClick("ModalContent", item, filteredUrls[index])
+  //               }
+  //             >
+  //               <StarWrapper>
+  //                 <Image
+  //                   className="StarImageStyle"
+  //                   src={filteredUrls[index]}
+  //                   alt=""
+  //                   width={500}
+  //                   height={80}
+  //                   style={{
+  //                     borderRadius: 4,
+  //                     maxWidth: "100%",
+  //                     objectFit: "cover",
+  //                   }}
+  //                 />
+  //                 {index == 0 && <p>New</p>}
+  //               </StarWrapper>
+  //               <div>
+  //                 <div
+  //                   style={{
+  //                     display: "flex",
+  //                     gap: 4,
+  //                     alignItems: "center",
+  //                   }}
+  //                 >
+  //                   <Image
+  //                     src={
+  //                       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
+  //                     }
+  //                     width={69}
+  //                     height={12}
+  //                     alt="right icon"
+  //                   />{" "}
+  //                   <p>4.7</p>
+  //                 </div>
+  //                 <MainTitle>
+  //                   {item.acf.title}
+  //                 </MainTitle>
+  //               </div>
+  //             </StarContainer>
+  //           );
+  //         })}
+  //   </ScrollingMenu>
+  // </>
+   <>
+   <MenuDetails isOpen={() => menuClick("Wellbeing", true, "wellbeing-lists")} title="Wellbeing" />
+   <ScrollingMenu>
+   {loader
+       ? skeletonItems.map((item, index) => (
+           <div key={index}>
+             <Skeleton width={80} height={80} style={{borderRadius:6}} />
+           </div>
+         ))
+       :
+       data.length ? data.map((item: any, index: any) => {
+       return (
+         <CommunityContainer
+           key={index}
+           style={{ background: item?.bgColor, cursor:'pointer' }}
+           onClick={() => menuClick(item?.listName, false, item?.categoryId)}
+         >
+           <p>{item?.image}</p>
+           <p>{item?.listName}</p>
+         </CommunityContainer>
+       );
+     }) : ""}
+   </ScrollingMenu>
+ </>
   )
 };
 

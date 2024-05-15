@@ -5,6 +5,8 @@ import PageLayout from '@/app/pageLayout';
 import Instance from '@/app/utils/Instance';
 import { ApiResponse } from '@/app/utils/types';
 import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen';
+import AddListings from '@/components/addList/AddListing';
+import GreetingList from '@/components/addList/GreetingList';
 import CategoryEvent from '@/components/categoryEvent/page';
 import AddComments from '@/components/createList/AddComments';
 import CreateListings from '@/components/createList/CreateListings';
@@ -31,6 +33,7 @@ const EventList = () => {
     const [eventTitle, setEventTitle] = useState('')
     const [totalVote, setTotalVote] = useState<any>('')
     const [categoryId, setCategoryId] = useState('')
+    const [main_type, setMain_type] = useState<string>('')
 
     const searchParams = useSearchParams()
 
@@ -91,6 +94,7 @@ const EventList = () => {
                 setEventTitle(response?.data?.listName)
                 setTotalVote(response?.data?.totalVote)
                 setCategoryId(response?.data?._id)
+                setMain_type(response?.data?.main_type)
                 setloader(false)
             }
         } catch (error) {
@@ -119,25 +123,25 @@ const EventList = () => {
     const [data, setData] = useState<ApiResponse[]>([]);
     const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
+    // const [categoryList, setCategoryList] = useState([]);
 
-    useEffect(() => {
-        if (screenName) {
-            const newArray: string[] = [];
+    // useEffect(() => {
+    //     if (screenName) {
+    //         const newArray: string[] = [];
 
-            selectedData.map((val: any) => {
-                const newObj: { id: string; type: string } = {
-                    id: "",
-                    type: "",
-                };
-                (newObj.id = val?._id),
-                    (newObj.type = val?.type),
-                    newArray.push(newObj as any);
-            });
+    //         selectedData.map((val: any) => {
+    //             const newObj: { id: string; type: string } = {
+    //                 id: "",
+    //                 type: "",
+    //             };
+    //             (newObj.id = val?._id),
+    //                 (newObj.type = val?.type),
+    //                 newArray.push(newObj as any);
+    //         });
 
-            setCategoryList([...newArray] as any);
-        }
-    }, [screenName]);
+    //         setCategoryList([...newArray] as any);
+    //     }
+    // }, [screenName]);
 
 
     const toggleSelected = (itemId: number, item: any): void => {
@@ -156,7 +160,12 @@ const EventList = () => {
     };
 
     const screenChangeHandle = async (name: string) => {
-        setScreenName(name);
+        if (name === "Greetings") {
+            postHandler(name)
+        } else {
+            setScreenName(name);
+        }
+
     };
     const handleChange = (value: string) => {
         setSearchQuery(value);
@@ -197,8 +206,9 @@ const EventList = () => {
         setloader(true);
 
         try {
-            const result = await Instance.get(`/search?title=${value}`);
-            setData(result.data);
+            // const result = await Instance.get(`/search?title=${value}`);
+            const result = await Instance.get(`/search-data?query=${value}`);
+            setData(result.data?.searchResults);
         } catch (error: any) {
             console.log(error.message);
             setloader(false);
@@ -213,8 +223,12 @@ const EventList = () => {
 
     const postHandler = async (name: string) => {
         const param = {
-            categoryList,
+            main_type,
+            categoryName: eventTitle,
+            categoryList: selectedData,
         };
+        // console.log("final data", param, selectedData)
+        // return
         try {
             setloader(false);
             const result = await Instance.put(`/category/${event}`, param);
@@ -226,10 +240,8 @@ const EventList = () => {
             console.log(error.response);
             setloader(false);
             toast.error(error.response.data);
-            // setScreenName(name);
         } finally {
             setloader(false);
-            // setScreenName(name);
         }
     };
 
@@ -241,7 +253,7 @@ const EventList = () => {
     const ScreenShowHandle = () => {
         if (screenName === "create") {
             return (
-                <CreateListings
+                <AddListings
                     ScreenSwitch={() => screenChangeHandle("Greetings")}
                     homePage={navigateClick}
                     selectedItemIds={selectedItemIds}
@@ -254,7 +266,8 @@ const EventList = () => {
                     UI_Type="add_list"
                 />
             );
-        } 
+
+        }
         // else if (screenName === "drag") {
         //     return (
         //         <DragInOrder
@@ -274,6 +287,7 @@ const EventList = () => {
                     homePage={navigateClick}
                 />
             );
+
         } else if (screenName === "categoryList") {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}
@@ -281,22 +295,9 @@ const EventList = () => {
                     handleLike={handleLike} totalVote={totalVote}
                 />
             );
-        } else if (screenName === "ProductAndCommentInfo") {
-            return (
-                <ProductAndCommentInfo
-                    ScreenSwitch={() => postHandler("Greetings")}
-                    preScreen={() => screenChangeHandle("drag")}
-                    homePage={navigateClick}
-                    loader={loader}
-                    screenName="Update"
-
-                    // {...{ dragData, selectedData, listName, categoryType, selectedIcon }}
-                    {...{ dragData, selectedData }}
-                />
-            );
         } else if (screenName === "Greetings") {
             return (
-                <Greetings
+                <GreetingList
                     homePage={navigateClick}
                     preScreen={() => handleCreateNewList("categoryList")}
                 />
@@ -315,7 +316,6 @@ const EventList = () => {
         <>
             <PageLayout>
                 <CategoryBody>
-                    {/* <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader} /> */}
                     {ScreenShowHandle()}
                 </CategoryBody>
             </PageLayout>

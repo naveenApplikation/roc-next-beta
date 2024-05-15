@@ -102,7 +102,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 
   h4 {
     font-size: 24px;

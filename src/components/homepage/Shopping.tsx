@@ -6,7 +6,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import { skeletonItems } from "@/app/utils/date";
+import {skeletonItems} from '@/app/utils/date'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
@@ -61,6 +63,29 @@ const WalkContainer = styled.div`
   }
 `;
 
+const CommunityContainer = styled.div`
+  display: flex;
+  width: 80px;
+  padding: 0px 8px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: end;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 80px;
+  border-radius: 8px;
+  background: #bb6bd9;
+
+  p {
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+  }
+`;
+
 const ImageTag = styled.img`
   width: 100%;
   border-radius: 4px;
@@ -78,7 +103,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const fetchDataAsync = async () => {
     setloader(true);
     try {
-      const result = await Instance.get("/shopsandMarket");
+      const result = await Instance.get("/shopping-lists");
       setData(result.data);
     } catch (error: any) {
       console.log(error.message);
@@ -99,78 +124,30 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
-    <>
-    <MenuDetails
-      isOpen={() => menuClick("Shopping", true, "shopsandMarket")}
-      title="Shopping"
-    />
-    <ScrollingMenu>
-      {loader
-        ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <ShopBrachSkeleton />
-            </div>
-          ))
-        : data.slice(0, 10).map((item, index) => {
-            return (
-              <WalkContainer
-                key={index}
-                onClick={() =>
-                  modalClick(
-                    "ModalContent",
-                    item,
-                    item?.data_type === "google"
-                      ? item?.photoUrl
-                      : filteredUrls[index]
-                  )
-                }
-              >
-                {/* <WalkContainer key={index} onClick={menuClick}> */}
-                {item?.data_type === "google" ? (
-                  item.photoUrl === undefined ?
-                  <Image
-                  src={fallback}
-                  alt=""
-                  width={500}
-                  height={80}
-                  style={{
-                    maxWidth: "100%",
-                    objectFit: "cover",
-                  }}
-                  // alt=""
-                />
-                  :
-                  <ImageTag src={item.photoUrl} alt="Image" />
-                ) : (
-                  <Image
-                    src={fallback}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{
-                      maxWidth: "100%",
-                      objectFit: "cover",
-                    }}
-                    // alt=""
-                  />
-                )}
-                <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
-                  alt=""
-                  width={120}
-                  height={64}
-                  style={{ position: "absolute", bottom: 0, height: 50 }}
-                />
-                <p>
-                  {item?.data_type === "google"
-                    ? item?.name
-                    : item?.acf?.title}
-                </p>
-              </WalkContainer>
-            );
-          })}
-    </ScrollingMenu>
-  </>
+  <>
+  <MenuDetails isOpen={() => menuClick("Shopping", true, "shopping-lists")} title="Shopping" />
+  <ScrollingMenu>
+  {loader
+      ? skeletonItems.map((item, index) => (
+          <div key={index}>
+            <Skeleton width={80} height={80} style={{borderRadius:6}} />
+          </div>
+        ))
+      :
+      data.length ? data.map((item: any, index: any) => {
+      return (
+        <CommunityContainer
+          key={index}
+          style={{ background: item?.bgColor, cursor:'pointer' }}
+          onClick={() => menuClick(item?.listName, false, item?.categoryId)}
+        >
+          <p>{item?.image}</p>
+          <p>{item?.listName}</p>
+        </CommunityContainer>
+      );
+    }) : ""}
+  </ScrollingMenu>
+</>
   )
 };
 
