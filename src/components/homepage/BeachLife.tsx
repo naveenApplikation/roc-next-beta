@@ -11,40 +11,42 @@ import { skeletonItems } from "@/app/utils/date";
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
+  data:any;
+  loader:boolean
 }
 
-const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick,data,loader }) => {
   const { filterUrls, showContent } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/beach-life");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/beach-life");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
-  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
+  // const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
-  const filteredUrls = filterUrls(ImageUrlData);
+  // const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
     <MenuDetails
-      isOpen={() => menuClick("Beach life", true, "beach-life")}
+      isOpen={() => menuClick(data?.listName, false, data?._id)}
       title="Beach life "
     />
     <ScrollingMenu>
@@ -54,7 +56,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               <ShopBrachSkeleton />
             </div>
           ))
-        : data.slice(0, 10).map((item, index) => {
+        : data?.GoogleHomeScreenList.slice(0, 10).map((item:any, index:any) => {
             return (
               <WalkContainer
                 key={index}
@@ -64,7 +66,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     item,
                     item?.data_type === "google"
                       ? item?.photoUrl
-                      : filteredUrls[index]
+                      : item.photoUrl
                   )
                 }
               >
@@ -72,7 +74,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   <ImageTag src={item.photoUrl} alt="Image" />
                 ) : (
                   <Image
-                    src={filteredUrls[index]}
+                    src={item.photoUrl}
                     alt=""
                     width={500}
                     height={80}
@@ -95,7 +97,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 <p>
                   {item?.data_type === "google"
                     ? item?.name
-                    : item?.acf?.title}
+                    : item?.name}
                 </p>
               </WalkContainer>
             );
