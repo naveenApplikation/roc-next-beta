@@ -264,6 +264,28 @@ const EventList = () => {
                     UI_Type="add_list"
                 />
             );
+
+        } 
+        // else if (screenName === "drag") {
+        //     return (
+        //         <DragInOrder
+        //             ScreenSwitch={() => screenChangeHandle("ProductAndCommentInfo")}
+        //             preScreen={() => screenChangeHandle("create")}
+        //             homePage={navigateClick}
+        //             selectedItemIds={selectedItemIds}
+        //             {...{ setDragData, selectedData, setSelectedData }}
+        //         />
+        //     );
+        // } 
+        else if (screenName === "AddComments") {
+            return (
+                <AddComments
+                    ScreenSwitch={() => screenChangeHandle("categoryList")}
+                    preScreen={() => screenChangeHandle("categoryList")}
+                    homePage={navigateClick}
+                />
+            );
+
         } else if (screenName === "categoryList") {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}

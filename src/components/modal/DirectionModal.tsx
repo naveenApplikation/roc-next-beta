@@ -3,6 +3,11 @@ import styled from "styled-components";
 import Image from "next/image";
 import chevronRight from "../../../assets/images/chevron-right.png";
 import CommonButton from "../../components/button/CommonButton";
+import { viewDirectionMap } from "@/app/utils/ImagePath";
+
+interface DirectionModalProps {
+  dataDetails: any
+}
 
 const Container = styled.div`
   display: flex;
@@ -83,7 +88,7 @@ const AdventureOption = styled.div`
   }
 `;
 
-const DirectionModal: React.FC = () => {
+const DirectionModal: React.FC<DirectionModalProps> = ({dataDetails}) => {
   const [selectedBox, setSelectedBox] = useState<number | null>(0);
   const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(
     null
@@ -91,6 +96,7 @@ const DirectionModal: React.FC = () => {
   const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
     null
   );
+  console.log("dataDetailsdataDetails" , dataDetails)
 
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);
@@ -106,9 +112,14 @@ const DirectionModal: React.FC = () => {
 
   const data = ["17min", "1hr53", "38min", "33min"];
 
-  const buttonData = ["Taxis", "Buses","Bike Hire","Cycling routes","Car hire"];
+  const buttonData = ["Taxis", "Buses", "Bike Hire", "Cycling routes", "Car hire"];
 
   const RatingData = ["Any", "3.5", "4.0", "4.5"];
+  const directionClick = () => {
+     
+    window.open(`https://www.google.com/maps?q=${dataDetails?.acf?.map_location?.lat},${dataDetails?.acf?.map_location?.lng}`)
+
+  }
 
   return (
     <Container>
@@ -123,12 +134,15 @@ const DirectionModal: React.FC = () => {
           </Box>
         ))}
       </ScrollingMenu> */}
-      <div style={{ height: "291px" }}></div>
       <div style={{ padding: "0px 24px" }}>
-        <CommonButton text="View in maps" />
+        <CommonButton isOpen={() => directionClick()} text="Open directions in Maps" />
       </div>
+      <div style={{ height: "291px" }}>
+        <Image src={viewDirectionMap} style={{ height: "100%", width: "100%" }} alt="icon" />
+      </div>
+
       <div>
-      {buttonData.map((item,index) => (
+        {/* {buttonData.map((item,index) => (
         <AdventureOption key={index}>
             <p>{item}</p>
             <Image
@@ -137,7 +151,7 @@ const DirectionModal: React.FC = () => {
               alt="icon"
               />
           </AdventureOption>
-      ))}
+      ))} */}
       </div>
     </Container>
   );
