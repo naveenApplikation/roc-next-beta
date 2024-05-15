@@ -157,8 +157,8 @@ const AddListings: React.FC<AddListingsProps> = ({
                                                 </div>
                                             </div>
                                         </div>
-                                        <button onClick={() => toggleSelected(item._id, item)}>
-                                            {selectedItemIds.includes(item._id) ? (
+                                        <button onClick={() => toggleSelected(item.place_id, item)}>
+                                            {selectedItemIds.includes(item.place_id) ? (
                                                 <UnselectedBtn>
                                                     <Image
                                                         style={{ width: "15px", height: "10px" }}

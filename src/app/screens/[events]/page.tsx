@@ -33,6 +33,7 @@ const EventList = () => {
     const [eventTitle, setEventTitle] = useState('')
     const [totalVote, setTotalVote] = useState<any>('')
     const [categoryId, setCategoryId] = useState('')
+    const [main_type, setMain_type] = useState<string>('')
 
     const searchParams = useSearchParams()
 
@@ -93,6 +94,7 @@ const EventList = () => {
                 setEventTitle(response?.data?.listName)
                 setTotalVote(response?.data?.totalVote)
                 setCategoryId(response?.data?._id)
+                setMain_type(response?.data?.main_type)
                 setloader(false)
             }
         } catch (error) {
@@ -121,25 +123,25 @@ const EventList = () => {
     const [data, setData] = useState<ApiResponse[]>([]);
     const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
+    // const [categoryList, setCategoryList] = useState([]);
 
-    useEffect(() => {
-        if (screenName) {
-            const newArray: string[] = [];
+    // useEffect(() => {
+    //     if (screenName) {
+    //         const newArray: string[] = [];
 
-            selectedData.map((val: any) => {
-                const newObj: { id: string; type: string } = {
-                    id: "",
-                    type: "",
-                };
-                (newObj.id = val?._id),
-                    (newObj.type = val?.type),
-                    newArray.push(newObj as any);
-            });
+    //         selectedData.map((val: any) => {
+    //             const newObj: { id: string; type: string } = {
+    //                 id: "",
+    //                 type: "",
+    //             };
+    //             (newObj.id = val?._id),
+    //                 (newObj.type = val?.type),
+    //                 newArray.push(newObj as any);
+    //         });
 
-            setCategoryList([...newArray] as any);
-        }
-    }, [screenName]);
+    //         setCategoryList([...newArray] as any);
+    //     }
+    // }, [screenName]);
 
 
     const toggleSelected = (itemId: number, item: any): void => {
@@ -158,11 +160,11 @@ const EventList = () => {
     };
 
     const screenChangeHandle = async (name: string) => {
-        if(name === "Greetings"){
+        if (name === "Greetings") {
             postHandler(name)
-          } else {
+        } else {
             setScreenName(name);
-          }
+        }
 
     };
     const handleChange = (value: string) => {
@@ -221,10 +223,12 @@ const EventList = () => {
 
     const postHandler = async (name: string) => {
         const param = {
-            main_type: "",
-            categoryName : "",
-            categoryList,
+            main_type,
+            categoryName: eventTitle,
+            categoryList: selectedData,
         };
+        // console.log("final data", param, selectedData)
+        // return
         try {
             setloader(false);
             const result = await Instance.put(`/category/${event}`, param);
@@ -236,10 +240,8 @@ const EventList = () => {
             console.log(error.response);
             setloader(false);
             toast.error(error.response.data);
-            // setScreenName(name);
         } finally {
             setloader(false);
-            // setScreenName(name);
         }
     };
 
@@ -265,7 +267,7 @@ const EventList = () => {
                 />
             );
 
-        } 
+        }
         // else if (screenName === "drag") {
         //     return (
         //         <DragInOrder
