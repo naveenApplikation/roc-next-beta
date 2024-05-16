@@ -96,7 +96,7 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           <SearchIcon src={search} alt="Search" />
         </button>
       </InputButtonWrapper>
-      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      {/* <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} /> */}
       {/* <FilterModalScreen showMap={showMap}  /> */}
     </>
   );

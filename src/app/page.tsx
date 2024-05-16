@@ -23,6 +23,7 @@ import PageLayout from "./pageLayout";
 import Instance from "./utils/Instance";
 import { icons } from "./utils/iconList";
 import WalksModal from "@/components/AllModalScreen/WalksModal";
+import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 
 const Container = styled.div`
   display: flex;
@@ -97,15 +98,17 @@ const DashboardMenu = styled.div<{
   }
 `;
 
+type tabs = "Lists" | "Places";
+
 type mylisttabs = "Created" | "Contributed";
 
 export default function Home() {
   const { modalClick, showMap, iconClick } = useMyContext();
   const [showContent, setShowContent] = useState(false);
-
+  const [tabValue, setTabValue] = useState("Lists");
   const [myListtabValue, setMyListTabValue] = useState("Created");
   // const [listData, setListData] = useState<string[]>([])
-
+  const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
 
   const myListtabChange = async (value: mylisttabs) => {
@@ -142,6 +145,9 @@ export default function Home() {
   // useEffect(()=>{
   //   myListtabChange("Created")
   // },[])
+  const tabChange = (value: tabs) => {
+    setTabValue(value);
+  };
   return (
     <Suspense fallback={<div style={{height:"100vh" , display:"flex" , justifyContent:"center" , alignItems:"center"}}>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
@@ -173,6 +179,7 @@ export default function Home() {
         <DirectoryModalScreen showMap={showMap} />
         <ViewDirectionModalScreen showMap={showMap} />
         <WalksModal />
+        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
         <InfoAppScreen {...{ showMap }} />
       </ShadowWrapper>
     </Suspense>
