@@ -731,7 +731,7 @@ const ModalContent: React.FC<ModalProps> = ({
         ))} */}
             </DatesContainer>
 
-            {reservationMenu && (
+            {reservationMenu ? (
               <ButtonContainer>
                 {
                   reservationTypesFun(showApiData?.types).length &&
@@ -753,7 +753,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   />
                 }
               </ButtonContainer>
-            )}
+            ) : ""}
           </Container>
 
       }

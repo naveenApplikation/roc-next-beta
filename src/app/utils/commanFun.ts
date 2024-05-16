@@ -36,14 +36,22 @@ export function isOpen(periods: any) {
 
 
 export const relatedTypesFun = (types: any[])=>{
+  if(types){
+    return relatedTypes.filter(type => types.includes(type));
+  }else{
+    return []
+  }
   
-  return relatedTypes.filter(type => types.includes(type));
   
   // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
 }
 export const reservationTypesFun = (types: any[])=>{
+  if(types){
+    return reservationTypes.filter(type => types.includes(type));
+  }else{
+    return []
+  }
   
-  return reservationTypes.filter(type => types.includes(type));
-  
+   
   // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
 }

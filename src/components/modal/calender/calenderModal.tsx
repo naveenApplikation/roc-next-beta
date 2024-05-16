@@ -10,6 +10,8 @@ import './index.css'
 import dayjs from 'dayjs';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import PartySize from "@/components/partySize";
+import Image from "next/image";
+import { calender } from "@/app/utils/ImagePath";
 
 
 interface ModalProps {
@@ -191,7 +193,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
     ];
     return (
         <Container>
-            <CalenderModalContainer>
+            {/* <CalenderModalContainer>
                 <Collapse
                     bordered={false}
                     defaultActiveKey={['2']}
@@ -200,7 +202,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
                     items={items}
                     expandIconPosition="end"
                 />
-            </CalenderModalContainer>
+            </CalenderModalContainer> */}
             {/* <CalenderModalContainer>
                 <TimePicker
                     // style={{ width: '100%' }}
@@ -209,8 +211,9 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
                     value={timeVal}
                     format={format} />
             </CalenderModalContainer> */}
+            <Image src={calender} alt="calender" />
 
-            
+
         </Container>
     )
 }
