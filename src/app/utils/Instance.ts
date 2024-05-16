@@ -10,7 +10,6 @@ Instance.interceptors.request.use(
   (config) => {
     const token = window.localStorage.getItem("Token");
     const loginToken = window.localStorage.getItem("loginToken");
-    // const user = getData ? JSON.parse(getData) : null;
     if (token) {
       config.headers["x-auth-token"] = token;
       if (loginToken) {
@@ -18,7 +17,6 @@ Instance.interceptors.request.use(
         config.headers["x-login-token"] = loginToken;
       }
     }
-
     return config;
   },
   (error) => {
@@ -26,11 +24,12 @@ Instance.interceptors.request.use(
   }
 );
 
+// You can remove the response interceptor if it's not needed
+// Or ensure it does not modify headers unnecessarily
 Instance.interceptors.response.use(
-  (config) => {
-    config.headers["x-auth-token"] = "";
-    config.headers["x-login-token"] = "";
-    return config;
+  (response) => {
+    // You can still check for something in response or perform actions
+    return response;
   },
   (error) => {
     return Promise.reject(error);
