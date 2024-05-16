@@ -159,7 +159,6 @@ export default function Home() {
                   className={showContent ? "shoadow_wrapper_container" : ""}
                   {...{ modalClick, iconClick, showMap }}
                 />
-
                 <Dashboard />
               </DashboardMenu>
             </PageLayout>

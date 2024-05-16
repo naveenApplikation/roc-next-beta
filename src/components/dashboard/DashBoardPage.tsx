@@ -41,7 +41,7 @@ const DashBoard = () => {
   const token = window.localStorage.getItem('token')
   const loginToken = window.localStorage.getItem('loginToken')
   const { showMap, modalClick, dataDetails } = useMyContext();
-  const [listData, setListData] = useState<string[]>([]);
+  const [listData, setListData] = useState<any>([]);
   // const [searchQuery, setSearchQuery] = useState("");
   // const [data, setData] = useState<any[]>([]);
   const [loader, setloader] = useState(true);
@@ -140,7 +140,6 @@ const DashBoard = () => {
     homeGooglefetchDataAsync();
   }, []);
 
-
   return (
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
@@ -149,9 +148,9 @@ const DashBoard = () => {
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
-      <TopAttractions menuClick={menuClick} modalClick={modalClick} />
-      <Directory menuClick={menuClick} modalClick={modalClick} />
-      <Bars menuClick={menuClick} modalClick={modalClick} data={data[1]} loader={homeGoogleLoader} {...{ listData }}  />
+      <TopAttractions menuClick={menuClick} modalClick={modalClick} data={data[7]} loader={homeGoogleLoader} />
+      {/* <Directory menuClick={menuClick} modalClick={modalClick} /> */}
+      <Bars menuClick={menuClick} modalClick={modalClick} data={data[1]} loader={homeGoogleLoader} listData={listData[0]?._id}  />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} data={data[2]} loader={homeGoogleLoader}  />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
@@ -160,7 +159,7 @@ const DashBoard = () => {
       <Heritage menuClick={menuClick} modalClick={modalClick} data={data[4]} loader={homeGoogleLoader} />
       <Walks menuClick={menuClick} modalClick={modalClick} />
       <Wellbeing menuClick={menuClick} modalClick={modalClick} />
-      <WW2 menuClick={menuClick} modalClick={modalClick} />
+      {/* <WW2 menuClick={menuClick} modalClick={modalClick} /> */}
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
       <Outout menuClick={menuClick} modalClick={modalClick} data={data[5]} loader={homeGoogleLoader} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />

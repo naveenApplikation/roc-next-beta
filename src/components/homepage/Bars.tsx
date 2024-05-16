@@ -41,7 +41,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,listData })
   const fetchDataAsync = async () => {
     setloader(true);
     try {
-      const result = await Instance.get(`/category/${listData[0]._id}?type=Pubs`);
+      const result = await Instance.get(`/category/${listData}?type=Pubs`);
       setDataPubs(result.data);
     } catch (error: any) {
       console.log(error.message);
@@ -53,7 +53,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,listData })
 
   useEffect(() => {
     fetchDataAsync();
-  }, []);
+  }, [listData]);
 
   console.log(dataPubs,"sajskajskajsk")
 
