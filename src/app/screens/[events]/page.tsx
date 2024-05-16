@@ -22,6 +22,8 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen';
+import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen';
+import ReservationCalenderModal from '@/components/AllModalScreen/reservationCalenderModal';
 
 
 
@@ -97,7 +99,7 @@ const EventList = () => {
     const router = useRouter();
 
     const navigateClick = () => {
-        if(screenName === "Greetings"){
+        if (screenName === "Greetings") {
             setScreenName('categoryList')
             // router.push(`/screens/${events}?categoryID=${event}`);
         } else {
@@ -293,6 +295,7 @@ const EventList = () => {
                 />
             </CreateAccountModalLayout>
             <ProfileAccountModalScreen showMap={showMap} />
+            <ReservationCalenderModal showMap={showMap}/>
 
         </>
     )
