@@ -149,7 +149,7 @@ const DashBoard = () => {
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} data={data[7]} loader={homeGoogleLoader} />
-      <Directory menuClick={menuClick} modalClick={modalClick} />
+      {/* <Directory menuClick={menuClick} modalClick={modalClick} /> */}
       <Bars menuClick={menuClick} modalClick={modalClick} data={data[1]} loader={homeGoogleLoader} listData={listData[0]?._id}  />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} data={data[2]} loader={homeGoogleLoader}  />
