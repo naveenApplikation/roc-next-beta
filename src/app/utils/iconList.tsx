@@ -53,7 +53,45 @@ import { MdSportsEsports } from "react-icons/md";
 import { BsMusicPlayerFill } from "react-icons/bs";
 import { MdLibraryMusic } from "react-icons/md";
 
+import { FaUtensils } from "react-icons/fa6";
+import { FaPeopleLine } from "react-icons/fa6";
+import { LuPopcorn } from "react-icons/lu";
+import { FaFaceSmileBeam } from "react-icons/fa6";
+import { FaHeartPulse } from "react-icons/fa6";
+import { FaRunning } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { FaChild } from "react-icons/fa";
+import { FaDog } from "react-icons/fa6";
+import { FaCalendar } from "react-icons/fa";
+import { FaHotel } from "react-icons/fa6";
+import { FaMoneyBill } from "react-icons/fa";
+import { FaCar } from "react-icons/fa6";
+import { FaPlane } from "react-icons/fa6";
+import { FaBus } from "react-icons/fa6";
+import { FaBriefcase } from "react-icons/fa6";
+import { FaUserTie } from "react-icons/fa6";
 
+
+
+
+// Food & drink	
+// Activities	
+// Entertainment	
+// Hair & Beauty	
+// Health Fitness & Wellbeing	
+// Sports	
+// Home	
+// Kids	
+// Pets	
+// Event Planning	
+// Shopping	
+// Accomodation	
+// Budget	
+// Vehicles	
+// Travel	
+// Transport	
+// Recruitment	
+// Professional Services	
 
 
 
@@ -98,7 +136,7 @@ const displayIcon =  <BsFillDisplayFill style={{fontSize:'40px', borderRadius:'5
 // ************* represent the food
 const appleIcon =  <AiFillApple style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
 const bowlFoodIcon =  <FaBowlFood style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
-const pizzaIcon =  <FaPizzaSlice style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const pizzaIcon =  <FaUtensils style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
 const fullPizzaIcon =  <GiFullPizza style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
 const riceIcon =  <FaBowlRice style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
 const iceCreamIcon =  <IoIosIceCream style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
@@ -126,6 +164,14 @@ const sportCarIcon =  <IoCarSportSharp style={{fontSize:'40px', borderRadius:'50
 const videoGameIcon =  <MdSportsEsports style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
 const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
 const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+
+// const footBallIcon =  <MdSportsFootball style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+// const hockeyIcon =  <MdSportsHockey style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+// const sportCarIcon =  <IoCarSportSharp style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+// const videoGameIcon =  <MdSportsEsports style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+// const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+// const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
 
 

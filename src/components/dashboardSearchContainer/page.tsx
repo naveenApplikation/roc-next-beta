@@ -140,7 +140,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                                         </ListDataInfoText>
                                                                     ) : null
                                                                 }
-                                                                <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText>
+                                                                {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                                                             </div>
                                                         </div>
                                                     </div>

@@ -189,7 +189,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                                   </ListDataInfoText>
                                 ) : null
                               }
-                              <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText>
+                              {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                             </div>
                           </div>
                         </div>
