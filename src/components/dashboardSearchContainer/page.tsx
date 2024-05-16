@@ -67,7 +67,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                     value={searchQuery}
                     onchange={(e: any) => handleChange(e.target.value)}
                     handleSearch={handleSearch}
-                    // autofocus={true}
+                    id="myInput"
                 />
             </InputWrapper>
             <>

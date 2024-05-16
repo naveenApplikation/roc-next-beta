@@ -1,11 +1,11 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {CloseModal} from '../../app/utils/ImagePath'
+import { CloseModal } from '../../app/utils/ImagePath'
 
 interface SearchModalProps {
   isOpen: boolean;
-  onClose: (name:string) => void;
+  onClose: (name: string) => void;
   children?: ReactNode;
   title: string;
   name: string;
@@ -20,7 +20,7 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: auto;
-  width: ${({ $showMap }) =>   ( $showMap ? "480px" : "580px")}; /* Adjust this value as needed */
+  width: ${({ $showMap }) => ($showMap ? "480px" : "580px")}; /* Adjust this value as needed */
   background: #f2f3f3;
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) => $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
@@ -28,14 +28,13 @@ const StyledModal = styled.div<{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  z-index: 1;
+  z-index: 4;
   padding: 24px 0px;
   overflow: auto;
   transform: none;
   left: 0;
     top: auto;
     height: 100%;
-    
     bottom: ${({ $isopen }) =>
     $isopen
       ? "0%"
@@ -112,7 +111,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
-            onClick={()=>onClose(name)}
+            onClick={() => onClose(name)}
           />
         </HeaderContainer>
         {children}
