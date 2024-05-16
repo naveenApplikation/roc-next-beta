@@ -190,7 +190,7 @@ const RightSide = () => {
     homeGooglefetchDataAsync();
   }, []);
 
-  console.log(data,"sasasdata")
+  // console.log(data,"sasasdata")
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
