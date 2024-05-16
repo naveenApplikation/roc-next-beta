@@ -144,9 +144,9 @@ const DashBoard = () => {
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
-      {/* <LocalCusine menuClick={menuClick} modalClick={modalClick} data={data[0]} loader={homeGoogleLoader} /> */}
+      <LocalCusine menuClick={menuClick} modalClick={modalClick} data={data[0]} loader={homeGoogleLoader} />
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
-      {/* <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
+      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} data={data[7]} loader={homeGoogleLoader} />
       <Directory menuClick={menuClick} modalClick={modalClick} />
@@ -154,16 +154,16 @@ const DashBoard = () => {
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} data={data[2]} loader={homeGoogleLoader}  />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
-      <Sustainability menuClick={menuClick} modalClick={modalClick} data={data[3]} loader={homeGoogleLoader} /> */}
+      <Sustainability menuClick={menuClick} modalClick={modalClick} data={data[3]} loader={homeGoogleLoader} />
       {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> not working */}
-      {/* <Heritage menuClick={menuClick} modalClick={modalClick} data={data[4]} loader={homeGoogleLoader} />
+      <Heritage menuClick={menuClick} modalClick={modalClick} data={data[4]} loader={homeGoogleLoader} />
       <Walks menuClick={menuClick} modalClick={modalClick} />
-      <Wellbeing menuClick={menuClick} modalClick={modalClick} /> */}
+      <Wellbeing menuClick={menuClick} modalClick={modalClick} />
       {/* <WW2 menuClick={menuClick} modalClick={modalClick} /> */}
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
-      {/* <Outout menuClick={menuClick} modalClick={modalClick} data={data[5]} loader={homeGoogleLoader} />
+      <Outout menuClick={menuClick} modalClick={modalClick} data={data[5]} loader={homeGoogleLoader} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
-      <Surfing menuClick={menuClick} modalClick={modalClick} data={data[6]} loader={homeGoogleLoader} /> */}
+      <Surfing menuClick={menuClick} modalClick={modalClick} data={data[6]} loader={homeGoogleLoader} />
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>
