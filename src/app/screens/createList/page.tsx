@@ -42,7 +42,12 @@ const Page = () => {
   const router = useRouter();
 
   const navigateClick = () => {
-    router.push("/");
+    if(screenName === "Greetings"){
+      router.push(`/categories/Community?search=category-item`)
+    } else{
+      router.push("/");
+    }
+
   };
 
   const { filterUrls, showContent } = useMyContext();
@@ -108,10 +113,8 @@ const Page = () => {
       console.log(error.response);
       setLoading(false);
       toast.error(error.response.data);
-      // setScreenName(name);
     } finally {
       setLoading(false);
-      // setScreenName(name);
     }
   };
 
