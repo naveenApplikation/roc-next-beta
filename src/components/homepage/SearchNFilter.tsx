@@ -5,7 +5,7 @@ import Image from "next/image";
 import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
-import { filter } from "@/app/utils/ImagePath";
+import { filter, search } from "@/app/utils/ImagePath";
 import Instance from "@/app/utils/Instance";
 import { debounce } from "lodash";
 
@@ -81,14 +81,21 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
   return (
     <>
-      <InputWrapper>
-        <SearchInput
-          onFocus={() => modalClick("search")} />
+      {/* <InputWrapper> */}
+        {/* <SearchInput
+          onFocus={() => modalClick("search")} /> */}
+
         {/* <FilterInput onClick={() => modalClick("modalFilter")}>
           <Image style={{ marginTop: "10px" }} src={filter} alt="Filter icon" />
           <p>Filter</p>
         </FilterInput> */}
-      </InputWrapper>
+      {/* </InputWrapper> */}
+      <InputButtonWrapper>
+        <button onClick={() => modalClick("search")}>
+          <p>Search...</p>
+          <SearchIcon src={search} alt="Search" />
+        </button>
+      </InputButtonWrapper>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
       {/* <FilterModalScreen showMap={showMap}  /> */}
     </>
@@ -96,3 +103,24 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 };
 
 export default SearchNFilter;
+const InputButtonWrapper = styled.div`
+    padding:0px 40px;
+    
+    button{
+      padding: 19px 24px;
+      box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.1);
+      background: white;
+      outline: none;
+      border: none;
+      width: 100%;
+      border-radius: 8px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:18px;
+      font-weight:500;
+    }
+`
+const SearchIcon = styled(Image)`
+  cursor: pointer;
+`;
