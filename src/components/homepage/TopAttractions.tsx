@@ -13,6 +13,8 @@ import { topAttractionMapping } from "@/app/utils/mappingFun";
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
+  data:any;
+  loader:boolean
 }
 
 const ScrollingMenu = styled.div`
@@ -71,38 +73,40 @@ const ImageTag = styled.img`
 const TopAttractions: React.FC<DashboardProps> = ({
   modalClick,
   menuClick,
+  data,
+  loader
 }) => {
   const { filterUrls, showContent } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/top-attractions");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/top-attractions");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
-  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
+  // const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
-  const filteredUrls = filterUrls(ImageUrlData);
+  // const filteredUrls = filterUrls(ImageUrlData);
 
   return(
     <>
     <MenuDetails
-      isOpen={() => menuClick("Top Attractions", true, "top-attractions")}
+      isOpen={() => menuClick(data?.listName, false, data?._id)}
       title="Top Attractions"
     />
     <ScrollingMenu>
@@ -121,7 +125,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
               />
             </div>
           ))
-        : data?.slice(0, 10).map((item, index) => {
+        : data?.GoogleHomeScreenList?.slice(0, 10).map((item:any, index:any) => {
             return (
               <TopAttractionContainer
                 key={index}
@@ -132,7 +136,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     item,
                     item?.data_type === "google"
                       ? item?.photoUrl
-                      : filteredUrls[index]
+                      : item?.photoUrl
                   )
                 }
               >
@@ -141,7 +145,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     <ImageTag src={item.photoUrl} alt="Image" />
                   ) : (
                     <Image
-                      src={filteredUrls[index]}
+                      src={item?.photoUrl}
                       alt=""
                       width={500}
                       height={80}
@@ -157,7 +161,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                 <p>
                   {item?.data_type === "google"
                     ? item?.name
-                    : item?.acf?.title}
+                    : item?.name}
                 </p>
               </TopAttractionContainer>
             );
