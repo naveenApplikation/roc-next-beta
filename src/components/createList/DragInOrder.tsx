@@ -134,8 +134,6 @@ const DragInOrder: React.FC<DragInOrderProps> = ({
     setItems(newItems);
     setSelectedData(newItems);
   };
-
-  console.log("drag list", items);
   return (
     <DragInOrderScreen>
       <ListItemScrollBox>
@@ -158,7 +156,6 @@ const DragInOrder: React.FC<DragInOrderProps> = ({
                     {items.length
                       ? items.map((item: any, index: any) => {
                           const image = item.photoUrl ? item.photoUrl : "";
-                          console.log("item drag", image);
                           return (
                             <Draggable
                               key={item.place_id}

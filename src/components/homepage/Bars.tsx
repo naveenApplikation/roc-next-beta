@@ -11,6 +11,7 @@ import { skeletonItems } from '@/app/utils/date'
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
+  listData?: any;
   data:any;
   loader:boolean
 }
@@ -30,42 +31,37 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,loader }) => {
+const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,listData }) => {
   const { filterUrls, showContent } = useMyContext();
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
+  const [dataPubs, setDataPubs] = useState<any>([]);
 
-  // const [loader, setloader] = useState(true);
+  const [loader, setloader] = useState(true);
 
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   const storedValue = localStorage.getItem("hideUI");
-  //   if (storedValue) {
-  //     try {
-  //       const result = await Instance.get("/bar-pubs");
-  //       setData(result.data);
-  //     } catch (error: any) {
-  //       console.log(error.message);
-  //       setloader(false);
-  //     } finally {
-  //       setloader(false);
-  //     }
-  //   }
-  // };
+  const fetchDataAsync = async () => {
+    setloader(true);
+    try {
+      const result = await Instance.get(`/category/${listData[0]._id}?type=Pubs`);
+      setDataPubs(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
 
-  // const ImageUrlData = data.map((item) => item.acf.header_image_data);
-
-  // const filteredUrls = filterUrls(ImageUrlData);
+  console.log(dataPubs,"sajskajskajsk")
 
   return (
     <>
         <MenuDetails
-          title="Bars"
-          isOpen={() => menuClick(data?.listName, false, data?._id)}
+          title="Pubs"
+          isOpen={() => menuClick(dataPubs?.listName, false, dataPubs?._id)}
         />
         <ScrollingMenu>
           {loader
@@ -74,7 +70,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,loader }) =
                 <CommonSkeletonLoader />
               </div>
             ))
-            :  data?.GoogleHomeScreenList.slice(0, 10).map((item:any, index:any) => (
+            :  dataPubs?.categoryList?.slice(0, 10).map((item:any, index:any) => (
               <div key={index}>
                 <RatingMenu
                   // title={item.name}
