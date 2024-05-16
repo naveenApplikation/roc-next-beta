@@ -159,12 +159,12 @@ const MapWithMenu = () => {
             />
           </HeaderContainer>
           <MapBetaBody>
-            <p style={{ marginBottom: "60px" }} >Coming Soon:</p>
-            {/* <ul>
-              <li>Default to your location</li>
+            <p style={{ marginBottom: "10px" }} >Coming Soon:</p>
+            <ul>
               <li>Filter what’s around you</li>
               <li>Open business profiles in our profile panel</li>
-            </ul> */}
+              <li>View categories</li>
+            </ul>
             <CloseButton onClick={() => iconClick("mapClick")}>
 
               <CommonButton className="map_common_btn" text="Close" />
@@ -196,7 +196,7 @@ const MapBetaBody = styled.div`
       margin-bottom:10px;
     }
     ul{
-      padding-left:45px;
+      padding-left:10px;
       padding-bottom: 30px;
     }
     ul li{

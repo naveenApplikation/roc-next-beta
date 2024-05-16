@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ButtonProps {
   text: string;
@@ -9,6 +10,7 @@ interface ButtonProps {
   imageStyle?: number;
   isOpen?: () => void;
   className?: string;
+  linkNum?: any;
 }
 
 const Container = styled.div`
@@ -42,6 +44,7 @@ const CommonButton: React.FC<ButtonProps> = ({
   text,
   imageStyle,
   className,
+  linkNum,
   isOpen, }) => {
   return (
     <Container className={className ? className : ""} style={{ backgroundColor: bcColor }} onClick={isOpen}>
@@ -52,8 +55,12 @@ const CommonButton: React.FC<ButtonProps> = ({
           alt="icon"
         />
       )}
-
-      <TitleText>{text}</TitleText>
+      {
+        text === "Call" ?
+          <TitleText>{text}</TitleText>
+          :
+          <Link href={`tel:${linkNum}`}>{text}</Link>
+      }
     </Container>
   );
 };

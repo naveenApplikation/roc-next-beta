@@ -157,6 +157,7 @@ import aubinImg from "../../../assets/images/St Aubin.svg"
 import trinityImg from "../../../assets/images/Trinity.svg"
 import walkMaskImg from "../../../assets/images/walkMask.svg"
 import viewDirectionMapImg from "../../../assets/images/viewDirectionMap.svg"
+import CalendarPng from "../../../assets/images/calendarImg.png";
 
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
@@ -317,6 +318,7 @@ export const aubin = aubinImg;
 export const trinity = trinityImg;
 export const walkMask = walkMaskImg;
 export const viewDirectionMap = viewDirectionMapImg;
+export const calendarImg = CalendarPng;
 
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"

@@ -715,3 +715,21 @@ export const cycleRouteData =
 
   ]
 
+
+
+  export const relatedTypes = [
+    "restaurant",
+    "meal_delivery",
+    "meal_takeaway",
+    "bar",
+    "liquor_store",
+    "cafe"
+];
+
+export const reservationTypes = [
+  "restaurant",
+  "cafe",
+  "bar",
+  "night_club",
+  "lodging",
+];

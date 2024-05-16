@@ -25,7 +25,7 @@ import {
 } from "@/app/utils/ImagePath";
 import { setEngine } from "crypto";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
-import { convertTo12HourTime } from "@/app/utils/commanFun";
+import { convertTo12HourTime, relatedTypesFun, reservationTypesFun } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
 import { isOpen } from "@/app/utils/commanFunCom";
@@ -295,7 +295,7 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationModal,
   dataImage,
   data,
-  reservationMenu,
+  reservationMenu = true,
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
@@ -474,98 +474,103 @@ const ModalContent: React.FC<ModalProps> = ({
 
   return (
     <>
-    {
-      !loading ?
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
-        <Spin tip="Loading" size="large" />
-      </div> :
-      <Container>
-        <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}> {formattedValues()} </p>
-        <ResturatContainer>
-          <ResturatWrapper>
-            {/* <p style={{ fontSize: 16 }}>|</p> */}
-            <OpenRestText>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "CLOSE"}</OpenRestText>
-          </ResturatWrapper>
-          <Ratings
-            defaultValue={data?.rating}
-            giveRating={giveRating}
-            ratingvalue={data?.rating}
-          />
+      {
+        !loading ?
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
+            <Spin tip="Loading" size="large" />
+          </div> :
+          <Container>
+            <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}> {formattedValues()} </p>
+            <ResturatContainer>
+              <ResturatWrapper>
+                {/* <p style={{ fontSize: 16 }}>|</p> */}
+                <OpenRestText>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "CLOSE"}</OpenRestText>
+              </ResturatWrapper>
+              <Ratings
+                defaultValue={data?.rating}
+                giveRating={giveRating}
+                ratingvalue={data?.rating}
+              />
 
-        </ResturatContainer>
-        <ItemImageContainer>
-          {
-            showApiData?.photos &&
-            <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
-          }
-        </ItemImageContainer>
-        <ResturantDetailsContainer>
-          {ResturantDetailData.map((item, index) => {
-            return (
-              item?.nameValue &&
-              <ResturantDetailsWrapper key={index}>
-                {" "}
-                <Image
-                  style={{ cursor: "pointer" }}
-                  src={item?.image}
-                  alt="Logo Outline"
-                />
-                {" "}
-                {index == 1 ? (
-                  <RestDetailTitleWebsite href={item?.name} target="_blank">
-                    {item?.name}
-                  </RestDetailTitleWebsite>
-                ) : (
-                  <RestDetailTitle>{item?.name}</RestDetailTitle>
-                )}
-              </ResturantDetailsWrapper>
-            )
-          })}
-          <ViewDirection onClick={() => reservationModal("DirectionModal")}>
-            View Directions
-          </ViewDirection>
-
-          <hr />
-          <DeliveryContainer>
-            <div style={{ display: 'flex', gap: '5px' }}>
+            </ResturatContainer>
+            <ItemImageContainer>
               {
-                showApiData?.dine_in ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                showApiData?.photos &&
+                <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
               }
-              <p>Dine-in</p>
-            </div>
-            <div className="">.</div>
-            <div style={{ display: 'flex', gap: '5px' }}>
+            </ItemImageContainer>
+            <ResturantDetailsContainer>
+              {ResturantDetailData.map((item, index) => {
+                return (
+                  item?.nameValue &&
+                  <ResturantDetailsWrapper key={index}>
+                    {" "}
+                    <Image
+                      style={{ cursor: "pointer" }}
+                      src={item?.image}
+                      alt="Logo Outline"
+                    />
+                    {" "}
+                    {index == 1 ? (
+                      <RestDetailTitleWebsite href={item?.name} target="_blank">
+                        {item?.name}
+                      </RestDetailTitleWebsite>
+                    ) : (
+                      <RestDetailTitle>{item?.name}</RestDetailTitle>
+                    )}
+                  </ResturantDetailsWrapper>
+                )
+              })}
+              <ViewDirection onClick={() => reservationModal("DirectionModal")}>
+                View Directions
+              </ViewDirection>
               {
-                showApiData?.delevery ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                relatedTypesFun(showApiData?.types).length ?
+                  <>
+                    <hr />
+                    <DeliveryContainer>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {
+                          showApiData?.dine_in ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                        }
+                        <p>Dine-in</p>
+                      </div>
+                      <div className="">.</div>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {
+                          showApiData?.delevery ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                        }
+                        <p>Delivery</p>
+                      </div>
+
+                    </DeliveryContainer>
+
+                    <hr />
+                    <DeliveryContainer>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {
+                          showApiData?.serves_wine ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                        }
+                        <p>Wine</p>
+                      </div>
+                      <div className="">.</div>
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        {
+                          showApiData?.serves_beer ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
+                        }
+                        <p>Beer</p>
+                      </div>
+
+                    </DeliveryContainer>
+
+                    <hr />
+                  </>
+                  : ''
               }
-              <p>Delivery</p>
-            </div>
 
-          </DeliveryContainer>
-
-          <hr />
-          <DeliveryContainer>
-            <div style={{ display: 'flex', gap: '5px' }}>
-              {
-                showApiData?.serves_wine ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-              }
-              <p>Wine</p>
-            </div>
-            <div className="">.</div>
-            <div style={{ display: 'flex', gap: '5px' }}>
-              {
-                showApiData?.serves_beer ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-              }
-              <p>Beer</p>
-            </div>
-
-          </DeliveryContainer>
-
-          <hr />
-
-        </ResturantDetailsContainer>
-        <RestDetailText>{strippedContent}</RestDetailText>
-        {/* <MenuButtonContainer>
+            </ResturantDetailsContainer>
+            <RestDetailText>{strippedContent}</RestDetailText>
+            {/* <MenuButtonContainer>
           <DashBoardButton
             text="Special menu"
             bcColor="#E8468F"
@@ -579,14 +584,71 @@ const ModalContent: React.FC<ModalProps> = ({
             imageStyle={27}
           />
         </MenuButtonContainer> */}
-        <ReviewContainer>
-          <ReviewWraaper>
-            <Image src={comment} alt="icon" />
-            <OpeningTitle>Reviews</OpeningTitle>
-          </ReviewWraaper>
-          {reviewData.length && reviewData.map((item: any, index: any) => (
-            <div key={index}>
-              {showEdit === index ? (
+            <ReviewContainer>
+              <ReviewWraaper>
+                <Image src={comment} alt="icon" />
+                <OpeningTitle>Reviews</OpeningTitle>
+              </ReviewWraaper>
+              {reviewData.length && reviewData.map((item: any, index: any) => (
+                <div key={index}>
+                  {showEdit === index ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                      <TextAreaContainer
+                        rows={4}
+                        cols={50}
+                        placeholder="Comments"
+                        value={commentReview}
+                        onChange={(e) => setCommentReview(e.target.value)}
+                      />
+                      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <span style={{ fontSize: 14, fontWeight: "bold" }}>
+                          Rating:
+                        </span>
+                        <Ratings
+
+                          defaultValue={0}
+                          giveRating={giveRating}
+                          ratingvalue={rating}
+                        />
+                      </div>
+                      <CommonButton
+                        text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
+                        isOpen={fetchDataAsync}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <div>
+                          <img src={item?.profile_photo_url} style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} alt="" />
+                        </div>
+                        <p style={{ fontSize: '16px' }}>{item?.author_name}</p>
+                      </div>
+                      <div className="">
+
+                        <Rate disabled allowHalf defaultValue={item?.rating} /> &nbsp; <span style={{ fontSize: '13px' }}>{item?.relative_time_description}</span>
+                      </div>
+                      <div style={{ width: '100%', fontSize: '14px' }}>
+                        <p>{item?.text}</p>
+                      </div>
+                      <hr />
+                    </div>
+                  )
+
+                  }
+                </div>
+              ))}
+
+              {/* <ReviewWraaper
+            style={{ marginBottom: "8px", cursor: "pointer" }}
+            onClick={handleButtonClick}
+          >
+            <Image src={plus} alt="icon" />
+            <AddReview>Add Review</AddReview>
+          </ReviewWraaper> */}
+
+              {showReview && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
                   <TextAreaContainer
@@ -597,125 +659,68 @@ const ModalContent: React.FC<ModalProps> = ({
                     onChange={(e) => setCommentReview(e.target.value)}
                   />
                   <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                      Rating:
-                    </span>
+                    <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
                     <Ratings
-
                       defaultValue={0}
                       giveRating={giveRating}
                       ratingvalue={rating}
                     />
-                  </div>
-                  <CommonButton
-                    text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
-                    isOpen={fetchDataAsync}
-                  />
-                </div>
-              ) : (
-                <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div style={{ display: 'flex', gap: '10px' }}>
-                    <div>
-                      <img src={item?.profile_photo_url} style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} alt="" />
-                    </div>
-                    <p style={{ fontSize: '16px' }}>{item?.author_name}</p>
-                  </div>
-                  <div className="">
 
-                    <Rate disabled allowHalf defaultValue={item?.rating} /> &nbsp; <span style={{ fontSize: '13px' }}>{item?.relative_time_description}</span>
                   </div>
-                  <div style={{ width: '100%', fontSize: '14px' }}>
-                    <p>{item?.text}</p>
-                  </div>
-                  <hr />
+                  <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
                 </div>
-              )
-
+              )}
+            </ReviewContainer>
+            <DatesContainer>
+              <OpeningTitle>Opening</OpeningTitle>
+              {
+                data?.data_type === "google" ?
+                  <DatesWrapperTextGoogle>
+                    {showApiData?.current_opening_hours?.weekday_text &&
+                      opningDate(showApiData?.current_opening_hours?.weekday_text).map((item: any, index: any) => (
+                        <p key={index} style={{ display: 'flex', justifyContent: 'space-around' }}>
+                          <p style={{ width: '90px' }}>
+                            {item?.day}
+                          </p>
+                          <p>
+                            {item?.time}
+                            {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
+                          </p>
+                        </p>
+                      ))}
+                  </DatesWrapperTextGoogle>
+                  :
+                  <DatesWrapperText>
+                    {data?.acf?.seasonality &&
+                      data?.acf?.seasonality.map((item: any, index: any) => (
+                        <p key={index}>
+                          {item?.label}
+                          {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
+                        </p>
+                      ))}
+                  </DatesWrapperText>
               }
-            </div>
-          ))}
 
-          {/* <ReviewWraaper
-            style={{ marginBottom: "8px", cursor: "pointer" }}
-            onClick={handleButtonClick}
-          >
-            <Image src={plus} alt="icon" />
-            <AddReview>Add Review</AddReview>
-          </ReviewWraaper> */}
+              {
+                data?.data_type === "google" ?
 
-          {showReview && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-              <TextAreaContainer
-                rows={4}
-                cols={50}
-                placeholder="Comments"
-                value={commentReview}
-                onChange={(e) => setCommentReview(e.target.value)}
-              />
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
-                <Ratings
-                  defaultValue={0}
-                  giveRating={giveRating}
-                  ratingvalue={rating}
-                />
-
-              </div>
-              <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
-            </div>
-          )}
-        </ReviewContainer>
-        <DatesContainer>
-          <OpeningTitle>Opening</OpeningTitle>
-          {
-            data?.data_type === "google" ?
-              <DatesWrapperTextGoogle>
-                {showApiData?.current_opening_hours?.weekday_text &&
-                  opningDate(showApiData?.current_opening_hours?.weekday_text).map((item: any, index: any) => (
-                    <p key={index} style={{ display: 'flex', justifyContent: 'space-around' }}>
-                      <p style={{ width: '90px' }}>
-                        {item?.day}
-                      </p>
+                  <WeekTimeArrange>
+                    <p>Time:</p>
+                    <p>
+                      {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].open.time)} - {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].close.time)}
+                    </p>
+                  </WeekTimeArrange>
+                  :
+                  daysOfWeek.map((item, index) => (
+                    <WeekTimeArrange key={index}>
+                      <p>{item}:</p>
                       <p>
-                        {item?.time}
-                        {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
+                        {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
                       </p>
-                    </p>
-                  ))}
-              </DatesWrapperTextGoogle>
-              :
-              <DatesWrapperText>
-                {data?.acf?.seasonality &&
-                  data?.acf?.seasonality.map((item: any, index: any) => (
-                    <p key={index}>
-                      {item?.label}
-                      {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
-                    </p>
-                  ))}
-              </DatesWrapperText>
-          }
-
-          {
-            data?.data_type === "google" ?
-
-              <WeekTimeArrange>
-                <p>Time:</p>
-                <p>
-                  {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].open.time)} - {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].close.time)}
-                </p>
-              </WeekTimeArrange>
-              :
-              daysOfWeek.map((item, index) => (
-                <WeekTimeArrange key={index}>
-                  <p>{item}:</p>
-                  <p>
-                    {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
-                  </p>
-                </WeekTimeArrange>
-              ))
-          }
-          {/* 
+                    </WeekTimeArrange>
+                  ))
+              }
+              {/* 
         {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
             <p>{item}:</p>
@@ -724,29 +729,36 @@ const ModalContent: React.FC<ModalProps> = ({
             </p>
           </WeekTimeArrange>
         ))} */}
-        </DatesContainer>
+            </DatesContainer>
 
-        {reservationMenu && (
-          <ButtonContainer>
-            <CommonButton
-              text="Reservation"
-              image={calenderWhiteImg}
-              imageStyle={14}
-              isOpen={() => reservationModal("calenderModal")}
-            />
-            <CommonButton
-              text="Order Online"
-              image={moped}
-              imageStyle={20}
-              isOpen={() => reservationModal("orderOnlineModal")}
-            />
-          </ButtonContainer>
-        )}
-      </Container>
+            {reservationMenu && (
+              <ButtonContainer>
+                {
+                  reservationTypesFun(showApiData?.types).length &&
+                  <CommonButton
+                    text="Reservation"
+                    image={calenderWhiteImg}
+                    imageStyle={14}
+                    isOpen={() => reservationModal("calenderModal")}
+                  />
+                }
+                {
+                  (showApiData?.international_phone_number || showApiData?.formatted_phone_number) &&
+                  <CommonButton
+                    text="Call"
+                    image={moped}
+                    imageStyle={20}
+                    isOpen={() => reservationModal("Call")}
+                    linkNum = {showApiData?.international_phone_number || showApiData?.formatted_phone_number}
+                  />
+                }
+              </ButtonContainer>
+            )}
+          </Container>
 
-    }
-    
-      </>
+      }
+
+    </>
   );
 };
 
