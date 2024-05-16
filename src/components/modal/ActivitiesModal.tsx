@@ -303,7 +303,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       height: 24,
     },
     {
-      name: (data.acf?.address.place_name ||  data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` : "" ,
+      name: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` : "",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
@@ -429,20 +429,20 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       ))}
 
       <AlsoSeeText>Key Features</AlsoSeeText>
-      <BulletPointWrapper>
-      {data.acf?.key_facilities.map((item: any, index: any) => (
+      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+        {data.acf?.key_facilities.map((item: any, index: any) => (
           <li key={index}>{item.label}</li>
         ))}
       </BulletPointWrapper>
       <AlsoSeeText>Accessibility</AlsoSeeText>
-      <BulletPointWrapper>
-      {data.acf?.accessibility.map((item: any, index: any) => (
+      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+        {data.acf?.accessibility.map((item: any, index: any) => (
           <li key={index}>{item.label}</li>
         ))}
       </BulletPointWrapper>
       <AlsoSeeText>Bus Route</AlsoSeeText>
-      <BulletPointWrapper>
-      {data.acf?.bus_routes.map((item: any, index: any) => (
+      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+        {data.acf?.bus_routes.map((item: any, index: any) => (
           <li key={index} style={{ textDecoration: "underline" }}>
             {formatRoute(item.label)}
           </li>
@@ -451,7 +451,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       <DatesContainer>
         <OpeningTitle>Opening</OpeningTitle>
         <DatesWrapperText>
-        {data.acf?.seasonality &&
+          {data.acf?.seasonality &&
             data.acf?.seasonality.map((item: any, index: any) => (
               <p key={index}>
                 {item.label}

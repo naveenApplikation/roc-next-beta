@@ -22,6 +22,7 @@ import {
   globes,
   phoneBlack,
   locationDot,
+  phone,
 } from "@/app/utils/ImagePath";
 import { setEngine } from "crypto";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
@@ -731,29 +732,29 @@ const ModalContent: React.FC<ModalProps> = ({
         ))} */}
             </DatesContainer>
 
-            {reservationMenu && (
+            {reservationMenu ? (
               <ButtonContainer>
                 {
-                  reservationTypesFun(showApiData?.types).length &&
-                  <CommonButton
-                    text="Reservation"
-                    image={calenderWhiteImg}
-                    imageStyle={14}
-                    isOpen={() => reservationModal("calenderModal")}
-                  />
+                  reservationTypesFun(showApiData?.types).length ?
+                    <CommonButton
+                      text="Reservation"
+                      image={calenderWhiteImg}
+                      imageStyle={14}
+                      isOpen={() => reservationModal("calenderModal")}
+                    /> : ""
                 }
                 {
-                  (showApiData?.international_phone_number || showApiData?.formatted_phone_number) &&
-                  <CommonButton
-                    text="Call"
-                    image={moped}
-                    imageStyle={20}
-                    isOpen={() => reservationModal("Call")}
-                    linkNum = {showApiData?.international_phone_number || showApiData?.formatted_phone_number}
-                  />
+                  (showApiData?.international_phone_number || showApiData?.formatted_phone_number) ?
+                    <CommonButton
+                      text="Call"
+                      image={phone}
+                      imageStyle={20}
+                      isOpen={() => reservationModal("Call")}
+                      linkNum={showApiData?.international_phone_number || showApiData?.formatted_phone_number}
+                    /> : ""
                 }
               </ButtonContainer>
-            )}
+            ) : ""}
           </Container>
 
       }

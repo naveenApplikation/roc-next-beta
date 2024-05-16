@@ -57,9 +57,9 @@ const CommonButton: React.FC<ButtonProps> = ({
       )}
       {
         text === "Call" ?
-          <TitleText>{text}</TitleText>
+          <Link style={{color:"white" , fontSize:"16px" , fontWeight:"500"}} href={`tel:${linkNum}`}>{text}</Link>
           :
-          <Link href={`tel:${linkNum}`}>{text}</Link>
+          <TitleText >{text}</TitleText>
       }
     </Container>
   );
