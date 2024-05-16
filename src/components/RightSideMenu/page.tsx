@@ -193,7 +193,6 @@ const RightSide = () => {
   };
 
   const click = (item: any) => {
-    console.log("iiiiiiiii", item)
     if (item.name === "Map") {
       iconClick("mapClick")
     }

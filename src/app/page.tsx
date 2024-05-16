@@ -166,6 +166,7 @@ export default function Home() {
           </MainContainer>
           <RightSideMenu />
         </Container>
+        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
         <ProfileAccountModalScreen showMap={showMap} />
         <ProfileMylistModalScreen
           {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
@@ -179,7 +180,7 @@ export default function Home() {
         <DirectoryModalScreen showMap={showMap} />
         <ViewDirectionModalScreen showMap={showMap} />
         <WalksModal />
-        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+        
         <InfoAppScreen {...{ showMap }} />
       </ShadowWrapper>
     </Suspense>

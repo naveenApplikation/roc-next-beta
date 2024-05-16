@@ -70,7 +70,7 @@ const MapSection = styled.div<{
 
 const SearchFilterSection = styled.div`
   position: absolute;
-  bottom: 105px;
+  bottom: 230px;
   width: 100%;
   overflow: auto;
   display: none;
