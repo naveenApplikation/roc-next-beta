@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { search } from "@/app/utils/ImagePath";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface SearchComponentProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -9,6 +10,7 @@ interface SearchComponentProps {
   onchange?: any;
   handleSearch?: any;
   autofocus?: any;
+  id?: any
 }
 
 
@@ -18,8 +20,33 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   value,
   onchange,
   handleSearch,
-  autofocus
+  autofocus,
+  id
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { modalType } = useMyContext();
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     const inputElement = document.getElementById('myInput');
+  //     if (inputElement) {
+  //       if (modalType.search) {
+  //         inputElement.focus();
+  //       }
+  //     }
+  //   }, 1000);
+
+  //   return () => clearTimeout(timeoutId);
+  // }, [modalType.search]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (modalType.search && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 1000); 
+  
+    return () => clearTimeout(timeoutId);
+  }, [modalType.search]);
 
 
   return (
@@ -30,7 +57,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         type="text"
         placeholder="Search..."
         onFocus={onFocus}
-        // autoFocus={autofocus}
+        id={id}
+        ref={inputRef} 
       />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>

@@ -70,7 +70,7 @@ const MapSection = styled.div<{
 
 const SearchFilterSection = styled.div`
   position: absolute;
-  bottom: 105px;
+  bottom: 230px;
   width: 100%;
   overflow: auto;
   display: none;
@@ -155,16 +155,20 @@ const MapWithMenu = () => {
               style={{ width: 40, height: 40, cursor: "pointer" }}
               src={CloseModal}
               alt="Logo Outline"
+              onClick={() => iconClick("mapClick")}
             />
           </HeaderContainer>
           <MapBetaBody>
-            <p>Coming Soon:</p>
-            <ul>
+            <p style={{ marginBottom: "60px" }} >Coming Soon:</p>
+            {/* <ul>
               <li>Default to your location</li>
               <li>Filter what’s around you</li>
               <li>Open business profiles in our profile panel</li>
-            </ul>
-            <CommonButton className="map_common_btn" text="Close" />
+            </ul> */}
+            <CloseButton onClick={() => iconClick("mapClick")}>
+
+              <CommonButton className="map_common_btn" text="Close" />
+            </CloseButton>
           </MapBetaBody>
         </MapBetaContainer>
       </MapSearch>
@@ -203,7 +207,11 @@ const MapBetaBody = styled.div`
       p{
         margin-bottom:0px;
       }
-      margin-bottom:40px;
+      margin-bottom:20px;
     }
 
 `
+
+const CloseButton = styled.div`
+  padding-top: 5px;
+`;

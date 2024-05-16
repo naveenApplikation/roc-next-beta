@@ -96,7 +96,7 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           <SearchIcon src={search} alt="Search" />
         </button>
       </InputButtonWrapper>
-      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      {/* <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} /> */}
       {/* <FilterModalScreen showMap={showMap}  /> */}
     </>
   );
@@ -105,7 +105,6 @@ const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 export default SearchNFilter;
 const InputButtonWrapper = styled.div`
     padding:0px 40px;
-    
     button{
       padding: 19px 24px;
       box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.1);
@@ -119,6 +118,10 @@ const InputButtonWrapper = styled.div`
       align-items:center;
       font-size:18px;
       font-weight:500;
+    }
+    @media screen and (max-width: 800px) {
+      padding: 0px 16px;
+      padding-top: 16px;
     }
 `
 const SearchIcon = styled(Image)`

@@ -23,7 +23,6 @@ const Page = () => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
   const toggleSelected = (itemId: number, item: any): void => {
-    console.log("klslklkfs", itemId);
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
     if (selectedIndex === -1) {
       setSelectedItemIds([...selectedItemIds, itemId]);
@@ -38,7 +37,6 @@ const Page = () => {
     }
   };
 
-  console.log(selectedData, "asasas");
   const router = useRouter();
 
   const navigateClick = () => {
@@ -95,8 +93,6 @@ const Page = () => {
     try {
       setLoading(true);
       const result = await Instance.post("/create-category", param);
-
-      console.log("resu", result);
       if (result?.status === 200) {
         setLoading(false);
         toast.success(result.data.message);

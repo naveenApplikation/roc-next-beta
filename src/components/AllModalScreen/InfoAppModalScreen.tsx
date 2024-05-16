@@ -59,7 +59,6 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
   useEffect(() => {
     const data = appInfoName.includes(appName);
     setFrameLoaded(data);
-    console.log("datata", data, appName);
   }, [appName]);
 
   return (

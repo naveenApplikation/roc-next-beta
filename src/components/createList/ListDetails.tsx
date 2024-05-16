@@ -179,7 +179,6 @@ const ListDetails: React.FC<ListDetailsProps> = ({
   };
 
   const handleCategoryType = (e: any) => {
-    console.log("category type", e.target.value)
     setCategoryType(e.target.value)
   }
 

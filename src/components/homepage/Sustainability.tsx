@@ -66,8 +66,6 @@ const Sustainability: React.FC<DashboardProps> = ({
 
   // const filteredUrls = filterUrls(ImageUrlData);
 
-  console.log(data,"sasas")
-
   return (
     <>
       <MenuDetails

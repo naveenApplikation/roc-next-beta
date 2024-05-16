@@ -207,7 +207,6 @@ const EventList = () => {
         try {
             setloader(false);
             const result = await Instance.put(`/category/${event}`, param);
-            console.log(result);
             setloader(false);
             toast.success(result.data.message);
             setScreenName(name);

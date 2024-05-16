@@ -61,8 +61,6 @@ const LocalCusine: React.FC<DashboardProps> = ({ modalClick, menuClick,data,load
   //   fetchDataAsync();
   // }, []);
 
-  console.log(data?.GoogleHomeScreenList,"data?.GoogleHomeScreenList")
-
   // const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 
   // const filteredUrls = filterUrls(ImageUrlData,data);

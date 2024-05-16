@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import {
@@ -15,6 +15,11 @@ import {
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
+import Instance from "@/app/utils/Instance";
+import { ApiResponse } from "@/app/utils/types";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { skeletonItems } from "@/app/utils/date";
 
 const RightSideMenuContainer = styled.div`
   display: flex;
@@ -164,36 +169,38 @@ const RightSide = () => {
 
   const router = useRouter();
 
+  const [data, setData] = useState<any>([]);
+
+  const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
+
+  const homeGooglefetchDataAsync = async () => {
+    setHomeGoogleLoader(true);
+    try {
+      const result = await Instance.get("/homescreen-google-right");
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error.message);
+      setHomeGoogleLoader(false);
+    } finally {
+      setHomeGoogleLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    homeGooglefetchDataAsync();
+  }, []);
+
+  console.log(data,"sasasdata")
+
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
-    } else if (item === "directoryList") {
-      router.push("/screens/directoryList");
-    } else if (item === "Shop") {
-      router.push("/screens/wellbeing");
-    } else if (item === "Events") {
-      router.push("/screens/events");
-    } else if (item === "Tours") {
-      router.push("/screens/stays");
-    } else if (item === "Hotels") {
-      router.push("/screens/scaffolding");
-    } else if (item === "Activities") {
-      router.push("/screens/experiences");
-    } else if (item === "Travel") {
-      router.push("/screens/attractions");
-    } else if (item === "Nightlife") {
-      router.push("/screens/financial");
-    } else if (item === "AddToCreate") {
-      router.push("/screens/createList");
-    } else if (item === "CategorieList") {
-      router.push("/screens/categorieList");
-    } else if (item === "TrendingList") {
-      router.push("/screens/trendingList");
+    }  else {
+      router.push(`/screens/${item}?categoryID=${id}`);
     }
   };
 
   const click = (item: any) => {
-    console.log("iiiiiiiii", item)
     if (item.name === "Map") {
       iconClick("mapClick")
     }
@@ -217,21 +224,25 @@ const RightSide = () => {
             onClick={() => iconClick("mapClick")}
           /> */}
           <Hamburger onClick={() => modalClick("LoginSignupModal")} />
-
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
       <RightSideMenuContainer>
-        {rightSideMenu.map((item, index) => {
+        {homeGoogleLoader ? skeletonItems.map((item, index) => (
+            <div key={index}>
+              <Skeleton width={129} height={64} style={{ borderRadius: 6 }} />
+            </div>
+          )) : 
+        rightSideMenu.map((item, index) => {
           return (
             <RightSideMenu
               key={index}
-              onClick={() => {
-                if (item && item.name) {
-                  menuClick(item.name, true, item.url);
-                } else {
-                  // Handle the case where item or item.data or item.data[0].title is null or undefined
-                }
-              }}
+              onClick={() => 
+                menuClick(
+                  index == 3 ? item.name : data[index].listName, 
+                  index == 3 ? true : false, 
+                  index == 3 ? item.url : data[index]._id
+                )
+              }
             >
               <RightSideInsideMenuBox>
                 <Image

@@ -112,7 +112,6 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
     setloader(true);
     try {
       const result = await Instance.get("/sun-shine");
-      console.log(result, "dsdsdsd");
       setData(result.data);
     } catch (error: any) {
       console.log(error.message);

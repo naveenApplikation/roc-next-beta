@@ -123,7 +123,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   return (
     <>
     <MenuDetails
-      isOpen={() => menuClick("Family Events", true, "family-events")}
+      isOpen={() => menuClick("Events", true, "family-events")}
       title="Family Events"
     />
     <ScrollingMenu>

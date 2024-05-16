@@ -110,7 +110,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   const categories = () => {
-    if (urlData === "Family Events") {
+    if (urlData === "Family Events" || urlData === "Events") {
       return <EventBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
     } else if (urlData === "Enjoy the sunshine") {
       return <ExperienceBox urlData={data} urlTitle={urlData} filteredUrls={filteredUrls} loader={loader} />
