@@ -1,3 +1,5 @@
+import { relatedTypes, reservationTypes } from "./data";
+
 export function convertTo12HourTime(time24Hour: any) {
   // Extract hours and minutes from the 24-hour time string
   if (time24Hour) {
@@ -30,4 +32,18 @@ export function isOpen(periods: any) {
     }
   }
   return "Closed";
+}
+
+
+export const relatedTypesFun = (types: any[])=>{
+  
+  return relatedTypes.filter(type => types.includes(type));
+  
+  // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
+}
+export const reservationTypesFun = (types: any[])=>{
+  
+  return reservationTypes.filter(type => types.includes(type));
+  
+  // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
 }

@@ -59,18 +59,19 @@ import { LuPopcorn } from "react-icons/lu";
 import { FaFaceSmileBeam } from "react-icons/fa6";
 import { FaHeartPulse } from "react-icons/fa6";
 import { FaRunning } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
 import { FaChild } from "react-icons/fa";
 import { FaDog } from "react-icons/fa6";
-import { FaCalendar } from "react-icons/fa";
 import { FaHotel } from "react-icons/fa6";
 import { FaMoneyBill } from "react-icons/fa";
-import { FaCar } from "react-icons/fa6";
 import { FaPlane } from "react-icons/fa6";
 import { FaBus } from "react-icons/fa6";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
-
+import { FaPersonSwimming } from "react-icons/fa6";
+import { GiHairStrands } from "react-icons/gi";
+import { GiSonicShoes } from "react-icons/gi";
+import { RiMotorbikeFill } from "react-icons/ri";
+import { BsBank2 } from "react-icons/bs";
 
 
 
@@ -95,7 +96,20 @@ import { FaUserTie } from "react-icons/fa6";
 
 
 
+const bankIcon =  <BsBank2 style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+// const userTieIcon =  <FaUserTie style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+// const swimmingIcon =  <FaPersonSwimming style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+// const barberIcon =  <GiHairStrands style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+// const sonicShoesIcon =  <GiSonicShoes style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+// const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
+
+const briefcaseIcon =  <FaBriefcase style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const userTieIcon =  <FaUserTie style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const swimmingIcon =  <FaPersonSwimming style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const barberIcon =  <GiHairStrands style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const sonicShoesIcon =  <GiSonicShoes style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
 
 const cartIcon =  <PiShoppingCartFill style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
@@ -136,7 +150,7 @@ const displayIcon =  <BsFillDisplayFill style={{fontSize:'40px', borderRadius:'5
 // ************* represent the food
 const appleIcon =  <AiFillApple style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
 const bowlFoodIcon =  <FaBowlFood style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
-const pizzaIcon =  <FaUtensils style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const pizzaIcon =  <FaPizzaSlice style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
 const fullPizzaIcon =  <GiFullPizza style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
 const riceIcon =  <FaBowlRice style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
 const iceCreamIcon =  <IoIosIceCream style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
@@ -165,14 +179,20 @@ const videoGameIcon =  <MdSportsEsports style={{fontSize:'40px', borderRadius:'5
 const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
 const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
+const ChildIcon =  <FaChild style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const dogIcon =  <FaDog style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const hotelIcon =  <FaHotel style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const moneyBillIcon =  <FaMoneyBill style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const planeIcon =  <FaPlane style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const busIcon =  <FaBus style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
-// const footBallIcon =  <MdSportsFootball style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
-// const hockeyIcon =  <MdSportsHockey style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
-// const sportCarIcon =  <IoCarSportSharp style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
-// const videoGameIcon =  <MdSportsEsports style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
-// const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
-// const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
+const ladleIcon =  <FaUtensils style={{fontSize:'40px', borderRadius:'50%', background:'#eb5757', padding:'5px', color:'white'}} />;
+const peopleLineIcon =  <FaPeopleLine style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+const popcornIcon =  <LuPopcorn style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+const FaceSmileBeamIcon =  <FaFaceSmileBeam style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+const HeartPulseIcon =  <FaHeartPulse style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+const RunningIcon =  <FaRunning style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
 
 
 
@@ -502,6 +522,114 @@ export const icons = [
     color:'#4f4f4f',
     name:'musicLibrary',
     image: musicLibraryIcon,
+  },
+  {
+    id: 55,
+    color:'#eb5757',
+    name:'ladle',
+    image: ladleIcon,
+  },
+  {
+    id: 56,
+    color:'#f2c94c',
+    name:'peopleLine',
+    image: peopleLineIcon,
+  },
+  {
+    id: 57,
+    color:'#2f80ed',
+    name:'popcorn',
+    image: popcornIcon,
+  },
+  {
+    id: 58,
+    color:'#f2994a',
+    name:'smileFace',
+    image: FaceSmileBeamIcon,
+  },
+  {
+    id: 59,
+    color:'#27ae60',
+    name:'heartPulse',
+    image: HeartPulseIcon,
+  },
+  {
+    id: 60,
+    color:'#4f4f4f',
+    name:'running',
+    image: RunningIcon,
+  },
+  {
+    id: 61,
+    color:'#eb5757',
+    name:'child',
+    image: ChildIcon,
+  },
+  {
+    id: 62,
+    color:'#f2c94c',
+    name:'plan',
+    image: planeIcon,
+  },
+  {
+    id: 63,
+    color:'#2f80ed',
+    name:'dog',
+    image: dogIcon,
+  },
+  {
+    id: 64,
+    color:'#f2994a',
+    name:'hotel',
+    image: hotelIcon,
+  },
+  {
+    id: 65,
+    color:'#27ae60',
+    name:'bill',
+    image: moneyBillIcon,
+  },
+  {
+    id: 66,
+    color:'#4f4f4f',
+    name:'bus',
+    image: busIcon,
+  },
+  {
+    id: 67,
+    color:'#eb5757',
+    name:'swimming',
+    image: swimmingIcon,
+  },
+  {
+    id: 68,
+    color:'#f2c94c',
+    name:'barbers',
+    image: barberIcon,
+  },
+  {
+    id: 68,
+    color:'#2f80ed',
+    name:'sonicShoes',
+    image: sonicShoesIcon,
+  },
+  {
+    id: 70,
+    color:'#f2994a',
+    name:'moterbike',
+    image: motorbikeIcon,
+  },
+  {
+    id: 71,
+    color:'#27ae60',
+    name:'bank',
+    image: bankIcon,
+  },
+  {
+    id: 72,
+    color:'#4f4f4f',
+    name:'userTie',
+    image: userTieIcon,
   },
 
 ];
