@@ -4,7 +4,6 @@ import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
-import MetaTag from "@/components/Meta/MetaTags";
 
 const inter = Inter({ subsets: ["latin"] });
 

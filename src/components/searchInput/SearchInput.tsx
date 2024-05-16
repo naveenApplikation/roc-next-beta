@@ -10,10 +10,8 @@ interface SearchComponentProps {
   onchange?: any;
   handleSearch?: any;
   autofocus?: any;
-  id?: any
+  id?: any;
 }
-
-
 
 const SearchComponent: React.FC<SearchComponentProps> = ({
   onFocus,
@@ -21,33 +19,18 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   onchange,
   handleSearch,
   autofocus,
-  id
+  id,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { modalType } = useMyContext();
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     const inputElement = document.getElementById('myInput');
-  //     if (inputElement) {
-  //       if (modalType.search) {
-  //         inputElement.focus();
-  //       }
-  //     }
-  //   }, 1000);
-
-  //   return () => clearTimeout(timeoutId);
-  // }, [modalType.search]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (modalType.search && inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, 1000); 
-  
-    return () => clearTimeout(timeoutId);
+    console.log("Attempting to focus:", modalType.search, inputRef.current);
+    if (modalType.search && inputRef.current) {
+      inputRef.current.focus();
+      console.log("Focus method called");
+    }
   }, [modalType.search]);
-
 
   return (
     <InputContainer>
@@ -58,7 +41,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         placeholder="Search..."
         onFocus={onFocus}
         id={id}
-        ref={inputRef} 
+        ref={inputRef}
       />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>
@@ -66,7 +49,6 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 };
 
 export default SearchComponent;
-
 
 const InputContainer = styled.div`
   position: relative;
@@ -84,7 +66,7 @@ const SearchInput = styled.input`
   border: none; /* Remove border */
   background-color: transparent; /* Remove background color */
   font-size: 18px;
-color:#000;
+  color: #000;
   &::placeholder {
     color: #000;
   }
