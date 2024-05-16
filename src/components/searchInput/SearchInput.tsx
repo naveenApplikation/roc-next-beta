@@ -30,7 +30,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         type="text"
         placeholder="Search..."
         onFocus={onFocus}
-        autoFocus={autofocus}
+        // autoFocus={autofocus}
       />
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>

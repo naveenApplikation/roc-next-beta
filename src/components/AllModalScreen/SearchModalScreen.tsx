@@ -16,7 +16,7 @@ const SearchedContainer = styled.div`
   padding: 0px 40px;
   border-radius: 24px 24px 0px 0px;
   transition: 5s;
-  min-height: 100%;
+  height: 100%;
   @media screen and (max-width: 800px) {
     box-shadow: none;
     background-color: transparent;
