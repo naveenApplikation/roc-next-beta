@@ -167,8 +167,6 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
 
-
-  console.log("hiodfodifs", urlData)
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SearchedListContainer>

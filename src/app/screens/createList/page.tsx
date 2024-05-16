@@ -23,7 +23,6 @@ const Page = () => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
   const toggleSelected = (itemId: number, item: any): void => {
-    console.log("klslklkfs", itemId);
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
     if (selectedIndex === -1) {
       setSelectedItemIds([...selectedItemIds, itemId]);
@@ -38,11 +37,15 @@ const Page = () => {
     }
   };
 
-  console.log(selectedData, "asasas");
   const router = useRouter();
 
   const navigateClick = () => {
-    router.push("/");
+    if(screenName === "Greetings"){
+      router.push(`/categories/Community?search=category-item`)
+    } else{
+      router.push("/");
+    }
+
   };
 
   const { filterUrls, showContent } = useMyContext();
@@ -90,8 +93,6 @@ const Page = () => {
     try {
       setLoading(true);
       const result = await Instance.post("/create-category", param);
-
-      console.log("resu", result);
       if (result?.status === 200) {
         setLoading(false);
         toast.success(result.data.message);
@@ -108,10 +109,8 @@ const Page = () => {
       console.log(error.response);
       setLoading(false);
       toast.error(error.response.data);
-      // setScreenName(name);
     } finally {
       setLoading(false);
-      // setScreenName(name);
     }
   };
 

@@ -133,7 +133,6 @@ const Directorylist = () => {
   const router = useRouter();
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
-    console.log("hiiii", item, id);
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {

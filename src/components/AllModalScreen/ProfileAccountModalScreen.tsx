@@ -40,7 +40,6 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       router.push("/screens/createList");
     }
   }
-  console.log("modalName", modalName);
 
   const showLoginHandle = () => {
     if (modalName === "createAccountModal") {

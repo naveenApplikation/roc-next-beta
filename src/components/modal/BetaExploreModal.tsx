@@ -11,7 +11,6 @@ const BetaExploreModal: React.FC<WalksModalProps> = (props) => {
 
     const { modalName, showMap, closeModal } = useMyContext();
     const token = window.localStorage.getItem("Token");
-    console.log("token", token);
 
     return (
         <WalkListModal

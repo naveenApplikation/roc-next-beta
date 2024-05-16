@@ -85,10 +85,10 @@ const EventList = () => {
     }
 
     useEffect(() => {
-        if (event) {
+        if (event || screenName === "Greetings") {
             fetchEventDataById()
         }
-    }, [event])
+    }, [event, screenName])
 
 
     const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
@@ -97,7 +97,13 @@ const EventList = () => {
     const router = useRouter();
 
     const navigateClick = () => {
-        router.push("/");
+        if(screenName === "Greetings"){
+            setScreenName('categoryList')
+            // router.push(`/screens/${events}?categoryID=${event}`);
+        } else {
+
+            router.push(`/`);
+        }
     };
 
     const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
@@ -201,7 +207,6 @@ const EventList = () => {
         try {
             setloader(false);
             const result = await Instance.put(`/category/${event}`, param);
-            console.log(result);
             setloader(false);
             toast.success(result.data.message);
             setScreenName(name);
@@ -235,17 +240,6 @@ const EventList = () => {
                     UI_Type="add_list"
                 />
             );
-
-        }
-        else if (screenName === "AddComments") {
-            return (
-                <AddComments
-                    ScreenSwitch={() => screenChangeHandle("categoryList")}
-                    preScreen={() => screenChangeHandle("categoryList")}
-                    homePage={navigateClick}
-                />
-            );
-
         } else if (screenName === "categoryList") {
             return (
                 <CategoryEvent urlData={eventData} urlTitle={eventTitle} filteredUrls={filteredUrls} loader={loader}

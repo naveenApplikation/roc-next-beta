@@ -96,7 +96,6 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
   const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
     null
   );
-  console.log("dataDetailsdataDetails", dataDetails)
 
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);

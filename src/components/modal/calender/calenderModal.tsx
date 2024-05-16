@@ -127,7 +127,6 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
 
         // Convert the date to UTC format
         const utcDate = originalDate.toISOString();
-        console.log("data", utcDate)
         setValue(value)
     }
 
