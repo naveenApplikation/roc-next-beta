@@ -21,6 +21,7 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
+import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen';
 
 
 
@@ -297,6 +298,7 @@ const EventList = () => {
                     myListOpen={() => modalClick("TermsAndConditionModal")}
                 />
             </CreateAccountModalLayout>
+            <ProfileAccountModalScreen showMap={showMap} />
 
         </>
     )

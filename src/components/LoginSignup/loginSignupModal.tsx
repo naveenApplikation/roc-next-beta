@@ -160,7 +160,7 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
                 <CommonButton
                     bcColor="#2F80ED"
                     text={loader ? "Loading..." : "Create Account"}
-                    isOpen={() => modalClick("LoginAccountModal")}
+                    isOpen={() => modalClick("createAccountModal")}
                 /><CommonButton
                     bcColor="#2F80ED"
                     text={loader ? "Loading..." : "Login"}

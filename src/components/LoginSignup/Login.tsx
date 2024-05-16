@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -6,9 +6,9 @@ import Instance from "@/app/utils/Instance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-interface ModalProps { 
-    previousModal?:any,
-    nextModal?:any,
+interface ModalProps {
+  previousModal?: any,
+  nextModal?: any,
 
 }
 
@@ -44,44 +44,45 @@ export const ErrorMessage = styled.p`
   font-size: 16px;
 `;
 
-const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
+const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
 
   const [loader, setloader] = useState(false);
 
-    const formik = useFormik({
-        initialValues: {
-          email: "",
-          password: "",
-        },
-        validationSchema: Yup.object({
-          email: Yup.string().email("Invalid email format").required("Required!"),
-          password: Yup.string()
-            .min(8, "Minimum 8 characters")
-            .required("Required!"),
-        }),
-        onSubmit: async (values) => {
-          setloader(true)
-          try {
-            const loginData = await Instance.post("sign-in", {
-              email: values.email,
-              password: values.password,
-            });
-            localStorage.setItem("loginToken", loginData.data.token);
-            setloader(false)
-            nextModal()
-          } catch (error: any) {
-            console.log(error.message);
-            setloader(false)
-            // showToast(error.message, "error");
-          } finally {
-            setloader(false)
-          }
-        },
-      });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email format").required("Required!"),
+      password: Yup.string()
+        .min(8, "Minimum 8 characters")
+        .required("Required!"),
+    }),
+    onSubmit: async (values) => {
+      setloader(true)
+      try {
+        const loginData = await Instance.post("sign-in", {
+          email: values.email,
+          password: values.password,
+        });
+        localStorage.setItem("loginToken", loginData.data.token);
+        setloader(false)
+        nextModal()
+      } catch (error: any) {
+        console.log(error.message);
+        setloader(false)
+        // showToast(error.message, "error");
+      } finally {
+        setloader(false)
+      }
+    },
+  });
 
-    return (
-        <MenuModalContent>
-            <MenuAccountInput
+  return (
+    <MenuModalContent>
+      
+      <MenuAccountInput
         title="Email"
         type="text"
         name="email"
@@ -101,11 +102,11 @@ const LoginContent: React.FC<ModalProps> = ({previousModal,nextModal}) => {
       {formik.errors.password && formik.touched.password && (
         <ErrorMessage>{formik.errors.password}</ErrorMessage>
       )}
-            <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
-            <CommonButton bcColor="#2F80ED" text={loader ? "Loading..." : "Login"} imageStyle={0}    isOpen={formik.handleSubmit} />
-            <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
-        </MenuModalContent>
-    );
+      <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
+      <CommonButton bcColor="#2F80ED" text={loader ? "Loading..." : "Login"} imageStyle={0} isOpen={formik.handleSubmit} />
+      <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
+    </MenuModalContent>
+  );
 };
 
 export default LoginContent;
