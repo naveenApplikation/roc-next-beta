@@ -4,7 +4,7 @@ import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
-import MetaTag from "@/components/Meta/MetaTags";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +38,7 @@ export default function RootLayout({
           <Toaster position="top-left" reverseOrder={false} />
           <MyProvider>{children}</MyProvider>
         </StyledComponentsRegistry>
+        <GoogleAnalytics gaId="G-GZWV4V5RKP" />
       </body>
     </html>
   );

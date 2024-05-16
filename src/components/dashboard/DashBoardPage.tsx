@@ -140,6 +140,8 @@ const DashBoard = () => {
     homeGooglefetchDataAsync();
   }, []);
 
+  console.log(data[8],"dssdsd")
+
   return (
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
@@ -161,7 +163,7 @@ const DashBoard = () => {
       <Wellbeing menuClick={menuClick} modalClick={modalClick} />
       {/* <WW2 menuClick={menuClick} modalClick={modalClick} /> */}
       {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
-      <Outout menuClick={menuClick} modalClick={modalClick} data={data[5]} loader={homeGoogleLoader} />
+      <Outout menuClick={menuClick} modalClick={modalClick} data={data[8]} loader={homeGoogleLoader} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick} data={data[6]} loader={homeGoogleLoader} />
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>

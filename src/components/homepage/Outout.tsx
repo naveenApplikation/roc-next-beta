@@ -110,7 +110,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick,data,loader })
     <>
         <MenuDetails
           isOpen={() => menuClick(data?.listName, false, data?._id)}
-          title="Out out"
+          title="Out Out"
         />
         <ScrollingMenu>
           {loader
@@ -119,7 +119,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick,data,loader })
                 <CommonSkeletonLoader />
               </div>
             ))
-            :  data?.GoogleHomeScreenList.slice(0, 10).map((item:any, index:any) => (
+            :  data?.GoogleFoodAndDrinksList.slice(0, 10).map((item:any, index:any) => (
               <div key={index}>
                 <RatingMenu
                   // title={item.name}
