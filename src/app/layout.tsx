@@ -20,6 +20,10 @@ export const metadata: Metadata = {
     images:
       "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
   },
+  openGraph: {
+    images:
+      "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+  },
 };
 
 export default function RootLayout({
