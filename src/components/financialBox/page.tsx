@@ -108,7 +108,7 @@ const FinancialBox: React.FC<FinancialBoxProps> = (props) => {
       <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
       <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
       {/* <TrendingList menuClick={menuClick} modalClick={modalClick} /> */}
-      <TopAttractions menuClick={menuClick} modalClick={modalClick} />
+      {/* <TopAttractions menuClick={menuClick} modalClick={modalClick} /> */}
       <Directory menuClick={menuClick} modalClick={modalClick} />
       {/* <Bars menuClick={menuClick} modalClick={modalClick} />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
