@@ -10,7 +10,6 @@ export function convertTo12HourTime(time24Hour: any) {
 
     // Format the time as HH:MM AM/PM
     const formattedTime = `${hours12}:${minutes} ${period}`;
-
     return formattedTime;
   }
 }
