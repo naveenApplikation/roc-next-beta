@@ -166,21 +166,24 @@ export const rightSideMenu = [
     image: castle,
     width: 25,
     height: 20,
-    url: "todo"
+    url: "todo",
+    id:"6645d5578bf8ac8d2d5bd622"
   },
   {
     name: "Dine",
     image: utensils,
     width: 18,
     height: 20,
-    url: "Dine out"
+    url: "Dine out",
+    id:"66439bfe5e177a8bc6196a38"
   },
   {
     name: "Shop",
     image: shopping,
     width: 23,
     height: 20,
-    url: "Local shops"
+    url: "Local shops",
+    id:"663f71d6cc049eb2b028d9c8"
   },
   {
     name: "Events",
@@ -194,49 +197,56 @@ export const rightSideMenu = [
     image: camera,
     width: 16,
     height: 16,
-    url: "tours"
+    url: "tours",
+    id:"6645d5578bf8ac8d2d5bd626"
   },
   {
     name: "Hotels",
     image: hotel,
     width: 20,
     height: 20,
-    url: "Hotels"
+    url: "Hotels",
+    id:"663f72bc9c9e03a31898b9cc"
   },
   {
     name: "Activities",
     image: personHiking,
     width: 15,
     height: 20,
-    url: "activities"
+    url: "activities",
+    id:"6645d5578bf8ac8d2d5bd628"
   },
   {
     name: "Travel",
     image: compass,
     width: 20,
     height: 20,
-    url: "Travel agents"
+    url: "Travel agents",
+    id:"663f72bd9c9e03a31898b9dc"
   },
   {
     name: "Nightlife",
     image: glass,
     width: 23,
     height: 20,
-    url: "bar-pubs"
+    url: "Nightlife",
+    id:"6645ef914cb7487a15119086"
   },
   {
     name: "Holidays",
     image: holidayDas,
     width: 25,
     height: 20,
-    url: "holiday"
+    url: "holiday",
+    id:"6645d5578bf8ac8d2d5bd62a"
   },
   {
     name: "Beaches",
     image: beachumbrella,
     width: 23,
     height: 20,
-    url: "Beaches"
+    url: "Beaches",
+    id:"6645d5578bf8ac8d2d5bd620"
   },
   {
     name: "All",
@@ -253,7 +263,8 @@ export const rightSideMenuMobile = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcastle.png?alt=media&token=05f28617-9c06-4e6a-80b1-1022a36ff7df",
     width: 25,
     height: 20,
-    url: "todo"
+    url: "todo",
+    id:"6645d5578bf8ac8d2d5bd622"
   },
   {
     name: "Dine",
@@ -261,7 +272,8 @@ export const rightSideMenuMobile = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils.png?alt=media&token=75675b22-33ab-4495-a75e-88e2695e21c6",
     width: 18,
     height: 20,
-    url: "Dine out"
+    url: "Dine out",
+    id:"66439bfe5e177a8bc6196a38"
   },
   {
     name: "Events",

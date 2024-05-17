@@ -43,8 +43,6 @@ const DashBoard = () => {
   const loginToken = window.localStorage.getItem('loginToken')
   const { showMap, modalClick, dataDetails } = useMyContext();
   const [listData, setListData] = useState<any>([]);
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [data, setData] = useState<any[]>([]);
   const [loader, setloader] = useState(true);
 
   const fetchDataAsync:any = async () => {
@@ -76,20 +74,6 @@ const DashBoard = () => {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
       router.push("/screens/directoryList");
-    } else if (item === "Shop") {
-      router.push("/screens/wellbeing");
-    } else if (item === "Category") {
-      // router.push(`/screens/${item}?categoryID=${id}`);
-    } else if (item === "Tours") {
-      router.push("/screens/stays");
-    } else if (item === "Hotels") {
-      router.push("/screens/scaffolding");
-    } else if (item === "Activities") {
-      router.push("/screens/experiences");
-    } else if (item === "Travel") {
-      router.push("/screens/attractions");
-    } else if (item === "Nightlife") {
-      router.push("/screens/financial");
     } else if (item === "AddToCreate") {
       router.push("/screens/createList");
     } else if (item === "CategorieList") {
@@ -117,8 +101,6 @@ const DashBoard = () => {
     };
   }, []);
 
-  const { filterUrls, showContent } = useMyContext();
-
   const [data, setData] = useState<ApiResponse[]>([]);
 
   const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
@@ -141,8 +123,6 @@ const DashBoard = () => {
     homeGooglefetchDataAsync();
   }, []);
 
-  console.log(data[8],"dssdsd")
-
   return (
     <>
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
@@ -153,7 +133,7 @@ const DashBoard = () => {
       <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
       <TopAttractions menuClick={menuClick} modalClick={modalClick} data={data[7]} loader={homeGoogleLoader} />
       {/* <Directory menuClick={menuClick} modalClick={modalClick} /> */}
-      <Bars menuClick={menuClick} modalClick={modalClick} data={data[1]} loader={homeGoogleLoader} listData={listData[0]?._id}  />
+      <Bars menuClick={menuClick} modalClick={modalClick} listData={listData[0]?._id}  />
       <Shopping menuClick={menuClick} modalClick={modalClick} />
       <BeachLife menuClick={menuClick} modalClick={modalClick} data={data[2]} loader={homeGoogleLoader}  />
       <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />

@@ -69,14 +69,17 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   const [loader, setloader] = useState<boolean>(false)
 
   const fetchDataAsync = async () => {
-    try {
-      setloader(true)
-      // const response = await Instance.get("/category?limit=true")
-      const response = await Instance.get("/my-list")
-      
-          const list = [response.data]
-      if (response.status === 200) {
-        list.forEach((list: any) => {
+    const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
+    if(loginToken){
+
+      try {
+        setloader(true)
+        // const response = await Instance.get("/category?limit=true")
+        const response = await Instance.get("/my-list")
+        
+        const list = [response.data]
+        if (response.status === 200) {
+          list.forEach((list: any) => {
           const matchedIcon = icons.find(icon => icon.name === list.iconName);
           if (matchedIcon) {
             list.image = matchedIcon.image;
@@ -90,8 +93,8 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       }
     } catch (error) {
       setListData([])
-      setloader(false)
-
+      setloader(false) 
+    }
     }
   }
 

@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {
-  headerHome,
-  mapIcon,
-  profileWhite,
-  ROCLogoWhite,
-  LogoNew,
-  profileNew,
-  mapNew,
-  Hamburger,
-  profileBrown,
-} from "@/app/utils/ImagePath";
+import { LogoNew, Hamburger, profileBrown } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
-import Instance from "@/app/utils/Instance";
-import { ApiResponse } from "@/app/utils/types";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { skeletonItems } from "@/app/utils/date";
 
 const RightSideMenuContainer = styled.div`
   display: flex;
@@ -169,29 +154,6 @@ const RightSide = () => {
 
   const router = useRouter();
 
-  const [data, setData] = useState<any>([]);
-
-  const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
-
-  const homeGooglefetchDataAsync = async () => {
-    setHomeGoogleLoader(true);
-    try {
-      const result = await Instance.get("/homescreen-google-right");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setHomeGoogleLoader(false);
-    } finally {
-      setHomeGoogleLoader(false);
-    }
-  };
-
-  useEffect(() => {
-    homeGooglefetchDataAsync();
-  }, []);
-
-  // console.log(data,"sasasdata")
-
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -227,81 +189,72 @@ const RightSide = () => {
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
       <RightSideMenuContainer>
-        {homeGoogleLoader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={129} height={64} style={{ borderRadius: 6 }} />
-              </div>
-            ))
-          : rightSideMenu.map((item, index) => {
-              return (
-                <RightSideMenu
-                  key={index}
-                  onClick={() =>
-                    menuClick(
-                      index == 3 ? item.name : data[index].listName,
-                      index == 3 ? true : false,
-                      index == 3 ? item.url : data[index]._id
-                    )
-                  }
-                >
-                  <RightSideInsideMenuBox>
-                    <Image
-                      style={{
-                        width: item.name == "All" ? "22px" : "auto",
-                        height: item.name == "All" ? "auto" : "revert-layer",
-                      }}
-                      src={item.image}
-                      width={item.width}
-                      height={item.height}
-                      alt="icon"
-                    />
-                    <p>{item.name}</p>
-                  </RightSideInsideMenuBox>
-                </RightSideMenu>
-              );
-            })}
+        {rightSideMenu.map((item, index) => {
+          return (
+            <RightSideMenu
+              key={index}
+              onClick={() =>
+                menuClick(
+                  index == 3 ? item.name : item.url,
+                  index == 3 ? true : false,
+                  index == 3 ? item.url : item.id
+                )
+              }
+            >
+              <RightSideInsideMenuBox>
+                <Image
+                  style={{
+                    width: item.name == "All" ? "22px" : "auto",
+                    height: item.name == "All" ? "auto" : "revert-layer",
+                  }}
+                  src={item.image}
+                  width={item.width}
+                  height={item.height}
+                  alt="icon"
+                />
+                <p>{item.name}</p>
+              </RightSideInsideMenuBox>
+            </RightSideMenu>
+          );
+        })}
       </RightSideMenuContainer>
       <MobileViewRightSideMenu>
-        {homeGoogleLoader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={129} height={64} style={{ borderRadius: 6 }} />
-              </div>
-            ))
-          : rightSideMenuMobile.map((item, index) => {
-              return (
-                <RightSideMenu
-                  key={index}
-                  onClick={() => {
-                    if (index == 3) {
-                      click(item);
-                    } else {
-                      menuClick(
-                        index == 2 ? item.name : data[index].listName,
-                        index == 2 ? true : false,
-                        index == 2 ? item.url : data[index]._id
-                      );
-                    }
-                  }}
-                >
-                  <RightSideInsideMenuBox
-                 
-                  >
-                    <Image
-                      src={item.image}
-                      width={item.width}
-                      height={item.height}
-                      alt="icon"
-                    />
-                    <p>{item.name}</p>
-                  </RightSideInsideMenuBox>
-                </RightSideMenu>
-              );
-            })}
+        {rightSideMenuMobile.map((item, index) => {
+          return (
+            <RightSideMenu
+              key={index}
+              onClick={() => {
+                if (index == 3) {
+                  click(item);
+                } else {
+                  menuClick(
+                    index == 2 ? item.name : item.url,
+                    index == 2 ? true : false,
+                    index == 2 ? item.url : item.id
+                  );
+                }
+              }}
+            >
+              <RightSideInsideMenuBox>
+                <Image
+                  src={item.image}
+                  width={item.width}
+                  height={item.height}
+                  alt="icon"
+                />
+                <p>{item.name}</p>
+              </RightSideInsideMenuBox>
+            </RightSideMenu>
+          );
+        })}
       </MobileViewRightSideMenu>
       <AllCategories>
-        <button style={{cursor:"pointer"}} onClick={() => menuClick("Community", true, "category-item")}>All Categories</button>
+        <button
+          style={{ cursor: "pointer" }}
+          onClick={() => menuClick("Community", true, "category-item")}
+        >
+          All Categories
+        </button>
       </AllCategories>
     </RightMenu>
   );
