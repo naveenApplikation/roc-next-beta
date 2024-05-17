@@ -9,6 +9,7 @@ import Image from "next/image";
 import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { wellbeingImg } from "@/app/utils/ImagePath";
 
 interface DashboardProps {
   modalClick?: any;
@@ -212,7 +213,11 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
            style={{ background: item?.bgColor, cursor:'pointer' }}
            onClick={() => menuClick(item?.listName, false, item?.categoryId)}
          >
-           <p>{item?.image}</p>
+           {/* <p>{item?.image}</p> */}
+           <p style={{textAlign:'right'}}>
+
+            <Image src={wellbeingImg} alt="" />
+           </p>
            <p>{item?.listName}</p>
          </CommunityContainer>
        );

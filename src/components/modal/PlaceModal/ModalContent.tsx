@@ -60,8 +60,8 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
-const OpenRestText = styled.p`
-  color: #2b902b;
+const OpenRestText = styled.p<{selected: boolean}>`
+  color:${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -485,7 +485,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <ResturatContainer>
               <ResturatWrapper>
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
-                <OpenRestText>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "CLOSE"}</OpenRestText>
+                <OpenRestText selected = {showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "Closed"}</OpenRestText>
               </ResturatWrapper>
               <Ratings
                 defaultValue={data?.rating}

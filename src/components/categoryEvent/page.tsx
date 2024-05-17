@@ -149,8 +149,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                     {/* <p>{item?.type}</p> */}
                   </DetailContainer>
                   <p>
-                    <span style={{ color: "#2B902B" }}>
-                      {item?.opening_hours?.open_now ? "Open" : "Close"}
+                    <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000" }}>
+                      {item?.opening_hours?.open_now ? "Open" : "Closed"}
                     </span>
                   </p>
                 </div>

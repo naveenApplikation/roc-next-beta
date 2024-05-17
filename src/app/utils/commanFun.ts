@@ -27,11 +27,11 @@ export function isOpen(periods: any) {
       if (parseInt(currentTime) >= parseInt(period.open.time)) {
         return `Open: ${convertTo12HourTime(period.open.time)} to ${convertTo12HourTime(period.close.time)}`;
       } else {
-        return `Closed: Opens at ${convertTo12HourTime(period.open.time)}`;
+        return `Close: Opens at ${convertTo12HourTime(period.open.time)}`;
       }
     }
   }
-  return "Closed";
+  return "Close";
 }
 
 

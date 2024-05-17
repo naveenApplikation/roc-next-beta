@@ -167,6 +167,13 @@ import woomenClothingImage from "../../../assets/images/shoppingListIcon/woomenC
 import greenGlocersImage from "../../../assets/images/shoppingListIcon/greenGlocers.png"
 import sunglassesSesImage from "../../../assets/images/shoppingListIcon/sunglassesSes.png"
 import giftIdeasImage from "../../../assets/images/shoppingListIcon/giftIdeas.png"
+import wallbeings from '../../../assets/images/cart-shopping.png'
+
+
+
+
+
+
 
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
@@ -331,6 +338,8 @@ export const trinity = trinityImg;
 export const walkMask = walkMaskImg;
 export const viewDirectionMap = viewDirectionMapImg;
 export const calendarImg = CalendarPng;
+
+
 export const gardernCenter =  gardernCenterImage
 export const furniture =  furnitureImage
 export const homeware =  homewareImage
@@ -340,6 +349,9 @@ export const woomenClothing =  woomenClothingImage
 export const greenGlocers =  greenGlocersImage
 export const sunglassesSes =  sunglassesSesImage
 export const giftIdeas =  giftIdeasImage
+
+
+export const wellbeingImg = wallbeings
 
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"

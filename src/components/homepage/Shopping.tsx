@@ -10,6 +10,7 @@ import { skeletonItems } from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import fallback from '../../../assets/images/fallbackimage.png'
+import { shoppingImages } from "@/app/utils/data";
 
 interface DashboardProps {
   modalClick?: any;
@@ -104,7 +105,13 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     setloader(true);
     try {
       const result = await Instance.get("/shopping-lists");
-      console.log("soppping", result)
+      result.data.forEach((list: any) => {
+        const matchedIcon = shoppingImages.find(icon => icon.listName === list.listName);
+        if (matchedIcon) {
+          console.log("shopping image ///", matchedIcon.image)
+          list.image = matchedIcon.image;
+        }
+      })
       setData(result.data);
     } catch (error: any) {
       console.log(error.message);
@@ -136,13 +143,17 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           ))
           :
           data.length ? data.map((item: any, index: any) => {
+            console.log("image", item)
             return (
               <CommunityContainer
                 key={index}
                 style={{ background: item?.bgColor, cursor: 'pointer' }}
                 onClick={() => menuClick(item?.listName, false, item?.categoryId)}
               >
-                <p>{item?.image}</p>
+                
+                <p style={{textAlign:'end'}}>
+                  <Image src={item?.image} alt={""} />
+                  </p>
                 <p>{item?.listName}</p>
               </CommunityContainer>
             );

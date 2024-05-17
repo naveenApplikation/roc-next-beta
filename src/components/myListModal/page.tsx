@@ -108,7 +108,7 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
                         <Ratings defaultValue={item.rating} />
                       </div>
                       <p>
-                        <span>Open - Closes</span>
+                        <span>Open - Close</span>
                       </p>
                       <p>Indoors</p>
                     </div>

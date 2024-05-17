@@ -93,7 +93,7 @@ const AddComments: React.FC<DragInOrderProps> = ({
               ratingStarImage={RatingStarImage}
               starRating={4.7}
               thirdLineDetails1
-              status1="Open ⋅ Closes"
+              status1="Open ⋅ Close"
               timing2="11 pm"
               newText
               delivery
@@ -106,7 +106,7 @@ const AddComments: React.FC<DragInOrderProps> = ({
               itemPlaceLogo={StHelierLogo}
               placeName1="St Helier"
               thirdLineDetails1
-              status1="Open ⋅ Closes"
+              status1="Open ⋅ Close"
               timing2="11 pm"
               isOpen={HandleOpen}
             />
