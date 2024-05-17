@@ -273,14 +273,17 @@ const RightSide = () => {
               return (
                 <RightSideMenu
                   key={index}
-                  onClick={() =>
-                    menuClick(
-                      index == 2 ? item.name : data[index].listName,
-                      index == 2 ? true : false,
-                      index == 2 ? item.url : data[index]._id
-                    )
-                  }
-                  // onClick={() => click(item)}
+                  onClick={() => {
+                    if (index == 3) {
+                      click(item);
+                    } else {
+                      menuClick(
+                        index == 2 ? item.name : data[index].listName,
+                        index == 2 ? true : false,
+                        index == 2 ? item.url : data[index]._id
+                      );
+                    }
+                  }}
                 >
                   <RightSideInsideMenuBox
                  
