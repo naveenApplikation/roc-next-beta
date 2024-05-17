@@ -115,8 +115,8 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
     onSubmit: async (values) => {
       setloader(true);
       try {
-        const loginData = await Instance.post("feedback", {
-          userName: values.name,
+        const loginData = await Instance.post("contact-us", {
+          name: values.name,
           email: values.email,
           comments: values.comment,
           prefrence: values.prefrence,
