@@ -108,7 +108,6 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       result.data.forEach((list: any) => {
         const matchedIcon = shoppingImages.find(icon => icon.listName === list.listName);
         if (matchedIcon) {
-          console.log("shopping image ///", matchedIcon.image)
           list.image = matchedIcon.image;
         }
       })
@@ -143,7 +142,6 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           ))
           :
           data.length ? data.map((item: any, index: any) => {
-            console.log("image", item)
             return (
               <CommunityContainer
                 key={index}

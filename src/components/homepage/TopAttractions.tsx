@@ -13,8 +13,6 @@ import { topAttractionMapping } from "@/app/utils/mappingFun";
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
-  data:any;
-  loader:boolean
 }
 
 const ScrollingMenu = styled.div`
@@ -73,35 +71,29 @@ const ImageTag = styled.img`
 const TopAttractions: React.FC<DashboardProps> = ({
   modalClick,
   menuClick,
-  data,
-  loader
 }) => {
   const { filterUrls, showContent } = useMyContext();
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
+  const [data, setData] = useState<any>([]);
 
-  // const [loader, setloader] = useState(true);
+  const [loader, setloader] = useState(true);
 
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/top-attractions");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
+  const fetchDataAsync = async () => {
+    setloader(true);
+    try {
+      const result = await Instance.get("/google/top-attraction");
+      setData(result.data[0]);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
-
-  // const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
-
-  // const filteredUrls = filterUrls(ImageUrlData);
+  useEffect(() => {
+    fetchDataAsync();
+  }, []);
 
   return(
     <>
