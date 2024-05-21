@@ -132,7 +132,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
                 /> */}
               {/* </div> */}
               <ContentInfo>
-                Enter the private invite code or sign up to the waiting list
+              Enter the private invite code or follow us on social to join the waiting list
               </ContentInfo>
               <div>
                 <MenuInputField>
