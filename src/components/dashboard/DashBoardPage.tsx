@@ -141,7 +141,7 @@ const DashBoard = () => {
     homeGooglefetchDataAsync();
   }, []);
 
-  console.log(data[8],"dssdsd")
+  
 
   return (
     <>

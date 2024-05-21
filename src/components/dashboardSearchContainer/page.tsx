@@ -96,12 +96,14 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                     // const image = imageList[0].url;
                                     return (
                                         <div
-                                            style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
+                                            style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%', opacity: item?.data_type ? "1" : ".25" }}
+                                            title={item?.data_type ? "" : "No data available"}
                                             key={index}>
                                             <ListDataWrraper
                                                 onClick={() =>
-                                                    modalClick("ModalContent", item, item?.photoUrl)
+                                                    modalClick("ModalContent", item, item?.photoUrl ? item?.photoUrl : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07")
                                                 }
+                                                selected = {item?.data_type ? true : false}
                                             >
                                                 <div
                                                     style={{
@@ -111,7 +113,19 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                         width: '85%',
                                                     }}>
                                                     <div style={{ width: 80, height: 80 }}>
-                                                        <ImageCom imageArr={item?.photos} />
+                                                        {/* <ImageCom imageArr={item?.photos} /> */}
+                                                        {
+                                                            item?.photos ?
+                                                                <ImageCom imageArr={item?.photos} />
+                                                                :
+                                                                <Image
+                                                                    src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+                                                                    width={500}
+                                                                    height={80}
+                                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                                                                    alt="infoCirlce"
+                                                                />
+                                                        }
                                                     </div>
                                                     <div style={{
                                                         display: "flex",
@@ -235,7 +249,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
 export default DashboardSearchContainer;
 
 
-const ListDataWrraper = styled.div`
+const ListDataWrraper = styled.div <{selected: boolean}>`
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -243,7 +257,7 @@ const ListDataWrraper = styled.div`
   align-items: center;
   padding: 9px 0px;
   position: relative;
-  cursor: pointer;
+  cursor:${props => props.selected ? "pointer" : "not-allowed" };
 `;
 
 const ListDataTittleText = styled.p`

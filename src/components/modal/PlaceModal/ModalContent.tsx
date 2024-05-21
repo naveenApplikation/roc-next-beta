@@ -60,7 +60,7 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
-const OpenRestText = styled.p<{selected: boolean}>`
+const OpenRestText = styled.p<{ selected: boolean }>`
   color:${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
   font-size: 16px;
   font-style: normal;
@@ -471,7 +471,7 @@ const ModalContent: React.FC<ModalProps> = ({
     }))
 
   }, [])
-
+console.log("  dataImage data",   dataImage, data,)
 
   return (
     <>
@@ -485,7 +485,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <ResturatContainer>
               <ResturatWrapper>
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
-                <OpenRestText selected = {showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "Closed"}</OpenRestText>
+                <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "Closed"}</OpenRestText>
               </ResturatWrapper>
               <Ratings
                 defaultValue={data?.rating}
@@ -496,8 +496,14 @@ const ModalContent: React.FC<ModalProps> = ({
             </ResturatContainer>
             <ItemImageContainer>
               {
-                showApiData?.photos &&
-                <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
+                showApiData?.photos ?
+                  <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
+                  :
+                  <img
+                    style={{ cursor: "pointer", width:'100%', height:'200px', objectFit:'scale-down' }}
+                    src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+                    alt="Logo Outline"
+                  />
               }
             </ItemImageContainer>
             <ResturantDetailsContainer>

@@ -30,7 +30,7 @@ const ImageCom: React.FC<ImageComProps> = ({ imageArr }) => {
     }, [])
     return (
         <>
-            <img src={imageData} alt="" style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover", height: '100%' }} />
+            <img src={imageData} alt="" style={{ borderRadius: 4, maxWidth: "100%",width:'100px',  objectFit: "cover", height: '100%' }} />
         </>
     )
 }

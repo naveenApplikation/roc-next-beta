@@ -109,7 +109,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
-                      <ImageTag src={item.photoUrl} alt="Image"
+                      <ImageTag src={item.photoUrl ? item.photoUrl : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"} alt="Image"
 
                       />
                       :

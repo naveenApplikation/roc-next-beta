@@ -160,7 +160,18 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                             style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                             alt="infoCirlce"
                           /> */}
-                          <ImageCom imageArr= {item?.photos} />
+                          {
+                            item?.photos ?
+                              <ImageCom imageArr={item?.photos} />
+                              :
+                              <Image
+                                src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+                                width={500}
+                                height={80}
+                                style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                                alt="infoCirlce"
+                              />
+                          }
                         </div>
                         <div style={{
                           display: "flex",
