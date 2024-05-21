@@ -146,6 +146,7 @@ const DashBoard = () => {
       <Outout menuClick={menuClick} modalClick={modalClick}/>
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       <Surfing menuClick={menuClick} modalClick={modalClick}/>
+      
       <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
         <CommonButton text="Leave feedback" />
       </LeaveFeedbackButton>

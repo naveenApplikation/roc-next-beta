@@ -24,6 +24,7 @@ import styled from 'styled-components';
 import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen';
 import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen';
 import ReservationCalenderModal from '@/components/AllModalScreen/reservationCalenderModal';
+import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen';
 
 
 
@@ -296,6 +297,7 @@ const EventList = () => {
             </CreateAccountModalLayout>
             <ProfileAccountModalScreen showMap={showMap} />
             <ReservationCalenderModal showMap={showMap}/>
+            <ViewDirectionModalScreen showMap={showMap} />
 
         </>
     )

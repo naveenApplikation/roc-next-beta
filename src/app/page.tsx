@@ -181,7 +181,6 @@ export default function Home() {
         <ViewDirectionModalScreen showMap={showMap} />
         <ReservationCalenderModal showMap={showMap}/>
         <WalksModal />
-        
         <InfoAppScreen {...{ showMap }} />
       </ShadowWrapper>
     </Suspense>
