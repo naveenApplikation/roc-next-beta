@@ -117,7 +117,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
               />
             </div>
           ))
-        : data?.GoogleHomeScreenList?.slice(0, 10).map((item:any, index:any) => {
+        : (data.length && data?.GoogleHomeScreenList?.slice(0, 10).map((item:any, index:any) => {
             return (
               <TopAttractionContainer
                 key={index}
@@ -157,7 +157,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                 </p>
               </TopAttractionContainer>
             );
-          })}
+          }))}
     </ScrollingMenu>
   </>
   )
