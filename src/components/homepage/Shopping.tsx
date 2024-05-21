@@ -11,7 +11,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import fallback from '../../../assets/images/fallbackimage.png'
 import { shoppingImages } from "@/app/utils/data";
-import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -153,7 +152,7 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 <p style={{textAlign:'end'}}>
                   <Image src={item?.image} alt={""} />
                   </p>
-                <p className={interMedium.className}>{item?.listName}</p>
+                <p>{item?.listName}</p>
               </CommunityContainer>
             );
           }) : ""}

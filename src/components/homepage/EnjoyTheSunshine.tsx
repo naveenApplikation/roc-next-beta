@@ -9,7 +9,6 @@ import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from "@/app/utils/date";
 import Image from "next/image";
-import { interMedium, inter } from "../../../assets/styles/Font";
 
 interface DashboardProps {
   modalClick?: any;
@@ -189,10 +188,10 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
                         }}
                       />
                     </UtensilsDishesImage>
-                    <Menutitle className={interMedium.className}>
+                    <Menutitle>
                       {item.acf.title}
                     </Menutitle>
-                    <PriceText className={inter.className}>
+                    <PriceText>
                       £ {item.acf.price_from}
                     </PriceText>
                   </ScrollingMenuDishes>

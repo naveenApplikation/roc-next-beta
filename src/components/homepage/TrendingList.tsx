@@ -7,7 +7,6 @@ import CommonButton from "@/components/button/CommonButton";
 import { skeletonItems } from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -89,7 +88,7 @@ const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listDat
               >
                 {/* <Image src={item?.image} alt="right icon" />  */}
                 <p style={{textAlign:"end"}}> {item?.image}</p>
-                <p className={interMedium.className}>{item?.listName}</p>
+                <p>{item?.listName}</p>
               </CommunityContainer>
             );
           }) : ""}

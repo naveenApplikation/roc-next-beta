@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ROC - What's #OnTheROC",
@@ -30,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <StyledComponentsRegistry>
           <Toaster position="top-left" reverseOrder={false} />
           <MyProvider>{children}</MyProvider>
