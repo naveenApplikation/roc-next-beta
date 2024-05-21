@@ -26,7 +26,11 @@ import {
 } from "@/app/utils/ImagePath";
 import { setEngine } from "crypto";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
-import { convertTo12HourTime, relatedTypesFun, reservationTypesFun } from "@/app/utils/commanFun";
+import {
+  convertTo12HourTime,
+  relatedTypesFun,
+  reservationTypesFun,
+} from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
 import { isOpen, isOpenHead } from "@/app/utils/commanFunCom";
@@ -41,8 +45,6 @@ interface ModalProps {
   reservationMenu?: boolean;
 }
 
-
-
 const ModalContent: React.FC<ModalProps> = ({
   onClose,
   reservationModal,
@@ -54,61 +56,116 @@ const ModalContent: React.FC<ModalProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState([]);
 
-
   useEffect(() => {
     const timer = setTimeout(() => setLoading(true), 1500);
-    return () => clearTimeout(timer)
-  }, [showApiData?.types, data?.acf?.type])
+    return () => clearTimeout(timer);
+  }, [showApiData?.types, data?.acf?.type]);
 
   useEffect(() => {
-    setLoading(false)
+    setLoading(false);
     if (Object.keys(data).length) {
       topAttractionMapping(data).then((res: any) => {
-        setShowApiData(res)
-        console.log("respoinse", res)
+        setShowApiData(res);
+        console.log("respoinse", res);
         if (res?.reviews) {
           setReviewData(res?.reviews);
         }
-      })
+      });
     }
-  }, [data?._id, Object.keys(showApiData).length, reviewData.length, data?.name])
+  }, [
+    data?._id,
+    Object.keys(showApiData).length,
+    reviewData.length,
+    data?.name,
+  ]);
 
   const copylink = (copy: any) => {
-    navigator.clipboard.writeText(copy)
-    toast.success("copy")
-  }
+    navigator.clipboard.writeText(copy);
+    toast.success("copy");
+  };
 
   const ResturantDetailData = [
     {
-      name: data?.data_type === "google" ? isOpen(showApiData?.current_opening_hours?.periods) : "Closed 11:00 pm",
+      name:
+        data?.data_type === "google"
+          ? isOpen(showApiData?.current_opening_hours?.periods)
+          : "Closed 11:00 pm",
       image: clock,
-      nameValue: data?.data_type === "google" ? showApiData?.current_opening_hours?.periods : "",
+      nameValue:
+        data?.data_type === "google"
+          ? showApiData?.current_opening_hours?.periods
+          : "",
     },
     {
-      name: data?.data_type === "google" ? <WebsiteLink href={showApiData?.website ? showApiData?.website : ""} target="_blank" >{showApiData?.website}</WebsiteLink> : <WebsiteLink href={data?.acf?.website} target="_blank" >{data?.acf?.website}</WebsiteLink>,
+      name:
+        data?.data_type === "google" ? (
+          <WebsiteLink
+            href={showApiData?.website ? showApiData?.website : ""}
+            target="_blank">
+            {showApiData?.website}
+          </WebsiteLink>
+        ) : (
+          <WebsiteLink href={data?.acf?.website} target="_blank">
+            {data?.acf?.website}
+          </WebsiteLink>
+        ),
       image: globes,
-      nameValue: data?.data_type === "google" ? showApiData?.website : data?.acf?.website,
+      nameValue:
+        data?.data_type === "google"
+          ? showApiData?.website
+          : data?.acf?.website,
     },
     {
-      name: data?.data_type === "google" ? <Tooltip title={"Copy contact number"} >
-        <span onClick={() => copylink(showApiData?.formatted_phone_number)}>{showApiData?.formatted_phone_number}</span>
-      </Tooltip> : data?.acf?.telephone_number?.formatted,
+      name:
+        data?.data_type === "google" ? (
+          <Tooltip title={"Copy contact number"}>
+            <span onClick={() => copylink(showApiData?.formatted_phone_number)}>
+              {showApiData?.formatted_phone_number}
+            </span>
+          </Tooltip>
+        ) : (
+          data?.acf?.telephone_number?.formatted
+        ),
       image: phoneBlack,
-      nameValue: data?.data_type === "google" ? showApiData?.formatted_phone_number : data?.acf?.telephone_number?.formatted,
+      nameValue:
+        data?.data_type === "google"
+          ? showApiData?.formatted_phone_number
+          : data?.acf?.telephone_number?.formatted,
     },
     {
-      name: data?.data_type === "google" ? <Tooltip title={"Copy international number"} >
-        <span onClick={() => copylink(showApiData?.international_phone_number)}>{showApiData?.international_phone_number}</span>
-      </Tooltip> : data?.acf?.telephone_number?.formatted,
+      name:
+        data?.data_type === "google" ? (
+          <Tooltip title={"Copy international number"}>
+            <span
+              onClick={() => copylink(showApiData?.international_phone_number)}>
+              {showApiData?.international_phone_number}
+            </span>
+          </Tooltip>
+        ) : (
+          data?.acf?.telephone_number?.formatted
+        ),
       image: phoneBlack,
-      nameValue: data?.data_type === "google" ? showApiData?.international_phone_number : data?.acf?.telephone_number?.formatted,
+      nameValue:
+        data?.data_type === "google"
+          ? showApiData?.international_phone_number
+          : data?.acf?.telephone_number?.formatted,
     },
     {
-      name: data?.data_type === "google" ? <Tooltip title={"Copy address"} >
-        <span onClick={() => copylink(showApiData?.formatted_address)}>{showApiData?.formatted_address}</span>
-      </Tooltip> : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
+      name:
+        data?.data_type === "google" ? (
+          <Tooltip title={"Copy address"}>
+            <span onClick={() => copylink(showApiData?.formatted_address)}>
+              {showApiData?.formatted_address}
+            </span>
+          </Tooltip>
+        ) : (
+          `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
+        ),
       image: locationDot,
-      nameValue: data?.data_type === "google" ? showApiData?.formatted_address : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
+      nameValue:
+        data?.data_type === "google"
+          ? showApiData?.formatted_address
+          : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
     },
   ];
 
@@ -138,7 +195,6 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const [loader, setloader] = useState(true);
   const [reviewShowToggle, setReviewShowToggle] = useState(false);
-
 
   useEffect(() => {
     const getReviewData = async () => {
@@ -189,11 +245,18 @@ const ModalContent: React.FC<ModalProps> = ({
   };
 
   const formattedValues = () => {
-    const typeData = data?.data_type === "google" ? showApiData?.types : data?.acf?.type
+    const typeData =
+      data?.data_type === "google" ? showApiData?.types : data?.acf?.type;
     if (Array.isArray(typeData)) {
-      return data?.data_type === "google" ? showApiData?.types.map((item: any) => item.replaceAll("_", " ")).join(" | ") : data?.acf?.type.map((item: any) => item?.label).join(" | ");
+      return data?.data_type === "google"
+        ? showApiData?.types
+            .map((item: any) => item.replaceAll("_", " "))
+            .join(" | ")
+        : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
-      return data?.data_type === "google" ? showApiData?.types : data?.acf?.type?.label;
+      return data?.data_type === "google"
+        ? showApiData?.types
+        : data?.acf?.type?.label;
     }
   };
 
@@ -216,61 +279,86 @@ const ModalContent: React.FC<ModalProps> = ({
   };
 
   const opningDate = useCallback((val: any) => {
-
-    return (val.map((item: any) => {
-      const [day, time] = item.split(': ');
+    return val.map((item: any) => {
+      const [day, time] = item.split(": ");
       return { day, time };
-    }))
-
-  }, [])
-console.log("  dataImage data",   dataImage, data,)
+    });
+  }, []);
+  console.log("  dataImage data", dataImage, data);
 
   return (
     <>
-      {
-        !loading ?
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '500px' }}>
-            <Spin tip="Loading" size="large" />
-          </div> :
-          <Container>
-            <p style={{ fontSize: "16px", textTransform: 'capitalize', paddingLeft: '24px', paddingRight: '24px', fontWeight: '700' }}> {formattedValues()} </p>
-            <ResturatContainer>
-              <ResturatWrapper>
-                {/* <p style={{ fontSize: 16 }}>|</p> */}
-                {/* <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText> */}
-                <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{isOpenHead(showApiData?.current_opening_hours?.periods)}</OpenRestText>
-              </ResturatWrapper>
-              <Ratings
-                defaultValue={data?.rating}
-                giveRating={giveRating}
-                ratingvalue={data?.rating}
+      {!loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "500px",
+          }}>
+          <Spin tip="Loading" size="large" />
+        </div>
+      ) : (
+        <Container>
+          <p
+            style={{
+              fontSize: "16px",
+              textTransform: "capitalize",
+              paddingLeft: "24px",
+              paddingRight: "24px",
+              fontWeight: "700",
+            }}>
+            {" "}
+            {formattedValues()}{" "}
+          </p>
+          <ResturatContainer>
+            <ResturatWrapper>
+              {/* <p style={{ fontSize: 16 }}>|</p> */}
+              {/* <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText> */}
+              <OpenRestText
+                selected={showApiData?.current_opening_hours?.open_now}>
+                {isOpenHead(showApiData?.current_opening_hours?.periods)}
+              </OpenRestText>
+            </ResturatWrapper>
+            <Ratings
+              defaultValue={data?.rating}
+              giveRating={giveRating}
+              ratingvalue={data?.rating}
+            />
+          </ResturatContainer>
+          <ItemImageContainer>
+            {showApiData?.photos ? (
+              <ImageCarousel
+                imageArr={showApiData?.photos}
+                imageUrl={dataImage}
               />
-
-            </ResturatContainer>
-            <ItemImageContainer>
-              {
-                showApiData?.photos ?
-                  <ImageCarousel imageArr={showApiData?.photos} imageUrl={dataImage} />
-                  :
-                  <img
-                    style={{ cursor: "pointer", width:'100%', height:'200px', objectFit:'scale-down' }}
-                    src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
-                    alt="Logo Outline"
-                  />
-              }
-            </ItemImageContainer>
-            <ResturantDetailsContainer>
-              {ResturantDetailData.map((item, index) => {
-                return (
-                  item?.nameValue &&
+            ) : (
+              <img
+                style={{
+                  cursor: "pointer",
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "scale-down",
+                }}
+                src={
+                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+                }
+                alt="Logo Outline"
+              />
+            )}
+          </ItemImageContainer>
+          <ResturantDetailsContainer>
+            {ResturantDetailData.map((item, index) => {
+              return (
+                item?.nameValue && (
                   <ResturantDetailsWrapper key={index}>
                     {" "}
                     <Image
                       style={{ cursor: "pointer" }}
                       src={item?.image}
                       alt="Logo Outline"
-                    />
-                    {" "}
+                    />{" "}
                     {index == 1 ? (
                       <RestDetailTitleWebsite href={item?.name} target="_blank">
                         {item?.name}
@@ -280,57 +368,71 @@ console.log("  dataImage data",   dataImage, data,)
                     )}
                   </ResturantDetailsWrapper>
                 )
-              })}
-              <ViewDirection onClick={() => reservationModal("DirectionModal")}>
-                View Directions
-              </ViewDirection>
-              {
-                relatedTypesFun(showApiData?.types).length ?
-                  <>
-                    <hr />
-                    <DeliveryContainer>
-                      <div style={{ display: 'flex', gap: '5px' }}>
-                        {
-                          showApiData?.dine_in ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-                        }
-                        <p>Dine-in</p>
-                      </div>
-                      <div className="">.</div>
-                      <div style={{ display: 'flex', gap: '5px' }}>
-                        {
-                          showApiData?.delevery ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-                        }
-                        <p>Delivery</p>
-                      </div>
+              );
+            })}
+            <ViewDirection onClick={() => reservationModal("DirectionModal")}>
+              View Directions
+            </ViewDirection>
+            {relatedTypesFun(showApiData?.types).length ? (
+              <>
+                <hr />
+                <DeliveryContainer>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    {showApiData?.dine_in ? (
+                      <IoMdCheckmark
+                        style={{ color: "green", fontSize: "19px" }}
+                      />
+                    ) : (
+                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                    )}
+                    <p>Dine-in</p>
+                  </div>
+                  <div className="">.</div>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    {showApiData?.delevery ? (
+                      <IoMdCheckmark
+                        style={{ color: "green", fontSize: "19px" }}
+                      />
+                    ) : (
+                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                    )}
+                    <p>Delivery</p>
+                  </div>
+                </DeliveryContainer>
 
-                    </DeliveryContainer>
+                <hr />
+                <DeliveryContainer>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    {showApiData?.serves_wine ? (
+                      <IoMdCheckmark
+                        style={{ color: "green", fontSize: "19px" }}
+                      />
+                    ) : (
+                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                    )}
+                    <p>Wine</p>
+                  </div>
+                  <div className="">.</div>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    {showApiData?.serves_beer ? (
+                      <IoMdCheckmark
+                        style={{ color: "green", fontSize: "19px" }}
+                      />
+                    ) : (
+                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                    )}
+                    <p>Beer</p>
+                  </div>
+                </DeliveryContainer>
 
-                    <hr />
-                    <DeliveryContainer>
-                      <div style={{ display: 'flex', gap: '5px' }}>
-                        {
-                          showApiData?.serves_wine ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-                        }
-                        <p>Wine</p>
-                      </div>
-                      <div className="">.</div>
-                      <div style={{ display: 'flex', gap: '5px' }}>
-                        {
-                          showApiData?.serves_beer ? <IoMdCheckmark style={{ color: 'green', fontSize: '19px' }} /> : <RxCross2 style={{ color: 'red', fontSize: '19px' }} />
-                        }
-                        <p>Beer</p>
-                      </div>
-
-                    </DeliveryContainer>
-
-                    <hr />
-                  </>
-                  : ''
-              }
-
-            </ResturantDetailsContainer>
-            <RestDetailText>{strippedContent}</RestDetailText>
-            {/* <MenuButtonContainer>
+                <hr />
+              </>
+            ) : (
+              ""
+            )}
+          </ResturantDetailsContainer>
+          <RestDetailText>{strippedContent}</RestDetailText>
+          {/* <MenuButtonContainer>
           <DashBoardButton
             text="Special menu"
             bcColor="#E8468F"
@@ -344,16 +446,24 @@ console.log("  dataImage data",   dataImage, data,)
             imageStyle={27}
           />
         </MenuButtonContainer> */}
-            <ReviewContainer>
-              <ReviewWraaper>
-                <Image src={comment} alt="icon" />
-                <OpeningTitle>Reviews</OpeningTitle>
-              </ReviewWraaper>
-              {reviewData.length && reviewData.map((item: any, index: any) => (
+          <ReviewContainer>
+            <ReviewWraaper>
+              <Image src={comment} alt="icon" />
+              <OpeningTitle>Reviews</OpeningTitle>
+            </ReviewWraaper>
+            {reviewData.length &&
+              reviewData.map((item: any, index: any) => (
                 <div key={index}>
                   {showEdit === index ? (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                      <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                      }}>
+                      <p style={{ fontSize: 14, fontWeight: "bold" }}>
+                        Comment
+                      </p>
                       <TextAreaContainer
                         rows={4}
                         cols={50}
@@ -361,46 +471,74 @@ console.log("  dataImage data",   dataImage, data,)
                         value={commentReview}
                         onChange={(e) => setCommentReview(e.target.value)}
                       />
-                      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 8,
+                          alignItems: "center",
+                        }}>
                         <span style={{ fontSize: 14, fontWeight: "bold" }}>
                           Rating:
                         </span>
                         <Ratings
-
                           defaultValue={0}
                           giveRating={giveRating}
                           ratingvalue={rating}
                         />
                       </div>
                       <CommonButton
-                        text={showEdit === index ? (loader ? "Loading..." : "Submit Review") : "Submit Review"}
+                        text={
+                          showEdit === index
+                            ? loader
+                              ? "Loading..."
+                              : "Submit Review"
+                            : "Submit Review"
+                        }
                         isOpen={fetchDataAsync}
                       />
                     </div>
                   ) : (
-                    <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      <div style={{ display: 'flex', gap: '10px' }}>
+                    <div
+                      style={{
+                        marginTop: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                      }}>
+                      <div style={{ display: "flex", gap: "10px" }}>
                         <div>
-                          <img src={item?.profile_photo_url} style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }} alt="" />
+                          <Image
+                            src={item?.profile_photo_url}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                            }}
+                            width={30}
+                            height={30}
+                            alt=""
+                          />
                         </div>
-                        <p style={{ fontSize: '16px' }}>{item?.author_name}</p>
+                        <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
                       </div>
                       <div className="">
-
-                        <Rate disabled allowHalf defaultValue={item?.rating} /> &nbsp; <span style={{ fontSize: '13px' }}>{item?.relative_time_description}</span>
+                        <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
+                        &nbsp;{" "}
+                        <span style={{ fontSize: "13px" }}>
+                          {item?.relative_time_description}
+                        </span>
                       </div>
-                      <div style={{ width: '100%', fontSize: '14px' }}>
+                      <div style={{ width: "100%", fontSize: "14px" }}>
                         <p>{item?.text}</p>
                       </div>
                       <hr />
                     </div>
-                  )
-
-                  }
+                  )}
                 </div>
               ))}
 
-              {/* <ReviewWraaper
+            {/* <ReviewWraaper
             style={{ marginBottom: "8px", cursor: "pointer" }}
             onClick={handleButtonClick}
           >
@@ -408,79 +546,92 @@ console.log("  dataImage data",   dataImage, data,)
             <AddReview>Add Review</AddReview>
           </ReviewWraaper> */}
 
-              {showReview && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-                  <TextAreaContainer
-                    rows={4}
-                    cols={50}
-                    placeholder="Comments"
-                    value={commentReview}
-                    onChange={(e) => setCommentReview(e.target.value)}
+            {showReview && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                <TextAreaContainer
+                  rows={4}
+                  cols={50}
+                  placeholder="Comments"
+                  value={commentReview}
+                  onChange={(e) => setCommentReview(e.target.value)}
+                />
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <span style={{ fontSize: 14, fontWeight: "bold" }}>
+                    Rating:
+                  </span>
+                  <Ratings
+                    defaultValue={0}
+                    giveRating={giveRating}
+                    ratingvalue={rating}
                   />
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: "bold" }}>Rating:</span>
-                    <Ratings
-                      defaultValue={0}
-                      giveRating={giveRating}
-                      ratingvalue={rating}
-                    />
-
-                  </div>
-                  <CommonButton text={loader ? "Loading..." : "Submit Review"} isOpen={fetchDataAsync} />
                 </div>
-              )}
-            </ReviewContainer>
-            <DatesContainer>
-              <OpeningTitle>Opening</OpeningTitle>
-              {
-                data?.data_type === "google" ?
-                  <DatesWrapperTextGoogle>
-                    {showApiData?.current_opening_hours?.weekday_text &&
-                      opningDate(showApiData?.current_opening_hours?.weekday_text).map((item: any, index: any) => (
-                        <p key={index} style={{ display: 'flex', justifyContent: 'space-around' }}>
-                          <p style={{ width: '90px' }}>
-                            {item?.day}
-                          </p>
-                          <p>
-                            {item?.time}
-                            {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
-                          </p>
-                        </p>
-                      ))}
-                  </DatesWrapperTextGoogle>
-                  :
-                  <DatesWrapperText>
-                    {data?.acf?.seasonality &&
-                      data?.acf?.seasonality.map((item: any, index: any) => (
-                        <p key={index}>
-                          {item?.label}
-                          {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
-                        </p>
-                      ))}
-                  </DatesWrapperText>
-              }
-
-              {
-                data?.data_type === "google" ?
-
-                  <WeekTimeArrange>
-                    <p>Time:</p>
-                    <p>
-                      {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].open.time)} - {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].close.time)}
-                    </p>
-                  </WeekTimeArrange>
-                  :
-                  daysOfWeek.map((item, index) => (
-                    <WeekTimeArrange key={index}>
-                      <p>{item}:</p>
+                <CommonButton
+                  text={loader ? "Loading..." : "Submit Review"}
+                  isOpen={fetchDataAsync}
+                />
+              </div>
+            )}
+          </ReviewContainer>
+          <DatesContainer>
+            <OpeningTitle>Opening</OpeningTitle>
+            {data?.data_type === "google" ? (
+              <DatesWrapperTextGoogle>
+                {showApiData?.current_opening_hours?.weekday_text &&
+                  opningDate(
+                    showApiData?.current_opening_hours?.weekday_text
+                  ).map((item: any, index: any) => (
+                    <p
+                      key={index}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}>
+                      <p style={{ width: "90px" }}>{item?.day}</p>
                       <p>
-                        {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
+                        {item?.time}
+                        {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
                       </p>
-                    </WeekTimeArrange>
-                  ))
-              }
-              {/* 
+                    </p>
+                  ))}
+              </DatesWrapperTextGoogle>
+            ) : (
+              <DatesWrapperText>
+                {data?.acf?.seasonality &&
+                  data?.acf?.seasonality.map((item: any, index: any) => (
+                    <p key={index}>
+                      {item?.label}
+                      {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
+                    </p>
+                  ))}
+              </DatesWrapperText>
+            )}
+
+            {data?.data_type === "google" ? (
+              <WeekTimeArrange>
+                <p>Time:</p>
+                <p>
+                  {convertTo12HourTime(
+                    showApiData?.current_opening_hours?.periods[0].open.time
+                  )}{" "}
+                  -{" "}
+                  {convertTo12HourTime(
+                    showApiData?.current_opening_hours?.periods[0].close.time
+                  )}
+                </p>
+              </WeekTimeArrange>
+            ) : (
+              daysOfWeek.map((item, index) => (
+                <WeekTimeArrange key={index}>
+                  <p>{item}:</p>
+                  <p>
+                    {daysOfWeekTiming[index].opens} -{" "}
+                    {daysOfWeekTiming[index].closes}
+                  </p>
+                </WeekTimeArrange>
+              ))
+            )}
+            {/* 
         {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
             <p>{item}:</p>
@@ -489,41 +640,46 @@ console.log("  dataImage data",   dataImage, data,)
             </p>
           </WeekTimeArrange>
         ))} */}
-            </DatesContainer>
+          </DatesContainer>
 
-            {reservationMenu ? (
-              <ButtonContainer>
-                {
-                  reservationTypesFun(showApiData?.types).length ?
-                    <CommonButton
-                      text="Reservation"
-                      image={calenderWhiteImg}
-                      imageStyle={14}
-                      isOpen={() => reservationModal("calenderModal")}
-                    /> : ""
-                }
-                {
-                  (showApiData?.international_phone_number || showApiData?.formatted_phone_number) ?
-                    <CommonButton
-                      text="Call"
-                      image={phone}
-                      imageStyle={20}
-                      isOpen={() => reservationModal("Call")}
-                      linkNum={showApiData?.international_phone_number || showApiData?.formatted_phone_number}
-                    /> : ""
-                }
-              </ButtonContainer>
-            ) : ""}
-          </Container>
-
-      }
-
+          {reservationMenu ? (
+            <ButtonContainer>
+              {reservationTypesFun(showApiData?.types).length ? (
+                <CommonButton
+                  text="Reservation"
+                  image={calenderWhiteImg}
+                  imageStyle={14}
+                  isOpen={() => reservationModal("calenderModal")}
+                />
+              ) : (
+                ""
+              )}
+              {showApiData?.international_phone_number ||
+              showApiData?.formatted_phone_number ? (
+                <CommonButton
+                  text="Call"
+                  image={phone}
+                  imageStyle={20}
+                  isOpen={() => reservationModal("Call")}
+                  linkNum={
+                    showApiData?.international_phone_number ||
+                    showApiData?.formatted_phone_number
+                  }
+                />
+              ) : (
+                ""
+              )}
+            </ButtonContainer>
+          ) : (
+            ""
+          )}
+        </Container>
+      )}
     </>
   );
 };
 
 export default ModalContent;
-
 
 const Container = styled.div`
   display: flex;
@@ -545,7 +701,7 @@ const ResturatWrapper = styled.div`
 `;
 
 const OpenRestText = styled.p<{ selected: boolean }>`
-  color:${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
+  color: ${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -568,7 +724,6 @@ const ViewDirection = styled.div`
   margin-left: 24px;
   cursor: pointer;
   margin-bottom: 5px;
-
 `;
 
 const ResturantDetailsWrapper = styled.div`
@@ -635,7 +790,7 @@ const ScrollingMenu = styled.div`
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
   height: 200px;
-  width:100%;
+  width: 100%;
 `;
 
 const ImageWrraper = styled(Image)`
@@ -706,7 +861,7 @@ const DatesWrapperTextGoogle = styled.div`
 
 const WeekTimeArrange = styled.div`
   display: flex;
-  gap:10px;
+  gap: 10px;
   align-items: center;
 
   p {
@@ -753,23 +908,22 @@ const AddReview = styled.p`
 `;
 
 const DeliveryContainer = styled.div`
-display: flex;
-gap:5px;
-padding: 5px 0px;
-font-size: 16px;
-margin-top:5px;
+  display: flex;
+  gap: 5px;
+  padding: 5px 0px;
+  font-size: 16px;
+  margin-top: 5px;
 `;
 
 const WebsiteLink = styled(Link)`
-&:hover {
-  text-decoration: underline;
-  text-decoration-color: lightblue;
-  color: lightblue;
-}
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    color: lightblue;
+  }
 `;
 const MainImage = styled(Image)`
-width: 120px !important;
-height: 64px !important;
-border-radius: 6px;
+  width: 120px !important;
+  height: 64px !important;
+  border-radius: 6px;
 `;
-
