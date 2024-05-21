@@ -315,11 +315,11 @@ const ModalContent: React.FC<ModalProps> = ({
           <ResturatContainer>
             <ResturatWrapper>
               {/* <p style={{ fontSize: 16 }}>|</p> */}
-              {/* <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText> */}
-              <OpenRestText
+              <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText>
+              {/* <OpenRestText
                 selected={showApiData?.current_opening_hours?.open_now}>
                 {isOpenHead(showApiData?.current_opening_hours?.periods)}
-              </OpenRestText>
+              </OpenRestText> */}
             </ResturatWrapper>
             <Ratings
               defaultValue={data?.rating}
