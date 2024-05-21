@@ -9,7 +9,6 @@ import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
 import { walkData } from "@/app/utils/data";
 import { walkMask } from "@/app/utils/ImagePath";
-import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -144,7 +143,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   height={64}
                   style={{ position: "absolute", bottom: 0, height: 50 }}
                 />
-                <p className={interMedium.className}>{item?.name}</p>
+                <p>{item?.name}</p>
               </WalkContainer>
             );
           })}

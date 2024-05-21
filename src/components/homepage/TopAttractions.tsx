@@ -9,7 +9,6 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
-import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -118,7 +117,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
               />
             </div>
           ))
-        : (data.length && data?.GoogleHomeScreenList?.slice(0, 10).map((item:any, index:any) => {
+        : (data?.GoogleHomeScreenList?.slice(0, 10).map((item:any, index:any) => {
             return (
               <TopAttractionContainer
                 key={index}
@@ -151,7 +150,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     />
                   )}
                 </TopAttractionprofile>
-                <p className={interMedium.className} >
+                <p>
                   {item?.data_type === "google"
                     ? item?.name
                     : item?.name}

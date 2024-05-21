@@ -33,7 +33,11 @@ import {
 } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
-import { isOpen, isOpenHead } from "@/app/utils/commanFunCom";
+import {
+  getShopStatusMessage,
+  isOpen,
+  isOpenHead,
+} from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -88,8 +92,8 @@ const ModalContent: React.FC<ModalProps> = ({
     {
       name:
         data?.data_type === "google"
-          ? isOpen(showApiData?.current_opening_hours?.periods)
-          : "Closed 11:00 pm",
+          ? getShopStatusMessage(showApiData?.current_opening_hours)
+          : "",
       image: clock,
       nameValue:
         data?.data_type === "google"

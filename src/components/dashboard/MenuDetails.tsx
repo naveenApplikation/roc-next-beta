@@ -39,9 +39,9 @@ const MenuDetails: React.FC<MenuProps> = ({ isOpen, title, hideShowAll }) => {
   return (
     <div>
       <HeadMenu>
-        <MenuTitle className={ProximaNovaRegular.className}>{title}</MenuTitle>
+        <MenuTitle>{title}</MenuTitle>
         {!hideShowAll &&
-          <ViewAllText className={interBold.className} onClick={isOpen}>
+          <ViewAllText onClick={isOpen}>
             View All
           </ViewAllText>}
       </HeadMenu>

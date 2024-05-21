@@ -10,7 +10,6 @@ import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { wellbeingImg } from "@/app/utils/ImagePath";
-import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -219,7 +218,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
 
             <Image src={wellbeingImg} alt="" />
            </p>
-           <p className={interMedium.className}>{item?.listName}</p>
+           <p>{item?.listName}</p>
          </CommunityContainer>
        );
      }) : ""}
