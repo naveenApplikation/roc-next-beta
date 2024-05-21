@@ -38,19 +38,30 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
     const [selectedPlace, setSelectedPlace] = useState<any>({});
     useEffect(() => {
         // if (window.location.pathname.includes("categories")) {
+            console.log("googlegooglegooglegooglegoogle", dataDetails?.geometry)
         setSelectedLat(
-            dataDetails?.acf?.map_location_lat
-                ? +dataDetails?.acf?.map_location_lat
-                : 49.1811261
+            dataDetails?.data_type === "google"
+                ?
+                (
+                    dataDetails?.geometry?.location?.lat
+                )
+                :
+                (dataDetails?.acf?.map_location_lat
+                    ? +dataDetails?.acf?.map_location_lat
+                    : 49.1811261)
         );
         setSelectedLong(
-
-            dataDetails?.acf?.map_location_lng
-                ? +dataDetails?.acf?.map_location_lng
-                : -2.1051429
+            dataDetails?.data_type === "google" ?
+                (
+                    dataDetails?.geometry?.location?.lng
+                )
+                :
+                (dataDetails?.acf?.map_location_lng
+                    ? +dataDetails?.acf?.map_location_lng
+                    : -2.1051429)
         );
         // }
-    }, [(dataDetails?.acf?.map_location_lat), (dataDetails?.acf?.map_location_lng)]);
+    }, [(dataDetails?.acf?.map_location_lat), (dataDetails?.acf?.map_location_lng), (dataDetails?.geometry?.location?.lat), (dataDetails?.geometry?.location?.lng)]);
 
     useEffect(() => {
         setSelectedLat(49.1811261);

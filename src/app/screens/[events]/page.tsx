@@ -278,7 +278,6 @@ const EventList = () => {
                     {ScreenShowHandle()}
                 </CategoryBody>
             </PageLayout>
-            <EventListingModalScreen showMap={showMap} />
             <CreateAccountModalLayout
                 isOpen={modalName === "LoginSignupModal" ? true : false}
                 onClose={() => closeModal("createAccountModal")}
@@ -295,8 +294,9 @@ const EventList = () => {
                     myListOpen={() => modalClick("TermsAndConditionModal")}
                 />
             </CreateAccountModalLayout>
+            <EventListingModalScreen showMap={showMap} />
             <ProfileAccountModalScreen showMap={showMap} />
-            <ReservationCalenderModal showMap={showMap}/>
+            <ReservationCalenderModal showMap={showMap} />
             <ViewDirectionModalScreen showMap={showMap} />
 
         </>

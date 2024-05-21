@@ -133,6 +133,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       if (name === "infoApp") {
         setAppName(item)
       } else {
+        console.log("item menuitem menu", item)
         setReservationMenu(openReservation)
         setDataDetails(item);
         setDataUrlImage(urlImage)

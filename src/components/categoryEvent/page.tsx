@@ -148,11 +148,11 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                     />
                     {/* <p>{item?.type}</p> */}
                   </DetailContainer>
-                  <p>
+                  {/* <p>
                     <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000" }}>
                       {item?.opening_hours?.open_now ? "Open" : "Closed"}
                     </span>
-                  </p>
+                  </p> */}
                 </div>
               </MainInsideWrapper>
               <LikesContainer

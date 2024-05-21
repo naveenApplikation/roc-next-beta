@@ -203,11 +203,11 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                               {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                             </div>
                           </div>
-                          <p>
+                          {/* <p>
                             <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
                               {item?.opening_hours?.open_now ? "Open" : "Closed"}
                             </span>
-                          </p>
+                          </p> */}
 
                         </div>
                       </div>

@@ -253,9 +253,9 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                         {/* <UtenssilsImage src={utensils} alt="utensils" /> */}
                         <Ratings defaultValue={item.rating} />
                       </div>
-                      <p>
+                      {/* <p>
                         <span>Open - Closes 11 pm</span>
-                      </p>
+                      </p> */}
                     </div>
                   </MainInsideWrapper>
                   <div className="likes">

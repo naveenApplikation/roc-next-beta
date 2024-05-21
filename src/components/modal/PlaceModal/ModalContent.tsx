@@ -705,7 +705,7 @@ const ResturatWrapper = styled.div`
 `;
 
 const OpenRestText = styled.p<{ selected: boolean }>`
-  color: ${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
+  color: ${(props) => (props.selected ? "#2b902b" : "#FF0000")};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
