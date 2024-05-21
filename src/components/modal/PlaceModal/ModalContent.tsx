@@ -29,7 +29,7 @@ import { topAttractionMapping } from "@/app/utils/mappingFun";
 import { convertTo12HourTime, relatedTypesFun, reservationTypesFun } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
-import { isOpen } from "@/app/utils/commanFunCom";
+import { isOpen, isOpenHead } from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -40,254 +40,6 @@ interface ModalProps {
   data?: any;
   reservationMenu?: boolean;
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const ResturatContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0px 24px;
-  gap: 10px;
-`;
-
-const ResturatWrapper = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
-`;
-
-const OpenRestText = styled.p<{ selected: boolean }>`
-  color:${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-transform: uppercase;
-`;
-
-const ResturantDetailsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0px 24px;
-`;
-
-const ViewDirection = styled.div`
-  color: #2f80ed;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  margin-left: 24px;
-  cursor: pointer;
-  margin-bottom: 5px;
-
-`;
-
-const ResturantDetailsWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-`;
-
-const RestDetailTitle = styled.p`
-  color: var(--BODY, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-`;
-
-const RestDetailTitleWebsite = styled.a`
-  color: var(--BODY, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  /* text-decoration: underline; */
-  display: block;
-  width: 100%; /* Ensures the link takes up the full width of its container */
-  white-space: nowrap; /* Prevents wrapping of the link text */
-  overflow: hidden; /* Hides any overflowing content */
-  text-overflow: ellipsis;
-`;
-
-const ReviewContainer = styled.div`
-  padding: 8px 16px;
-  background-color: #fff;
-  margin: 0px 24px;
-`;
-
-const ReviewWraaper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-`;
-
-const RestDetailText = styled.p`
-  color: #000;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  padding: 0px 24px;
-`;
-
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 24px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const ItemImageContainer = styled.div`
-  padding: 0px 24px;
-  height: 200px;
-  width:100%;
-`;
-
-const ImageWrraper = styled(Image)`
-  border-radius: 6px;
-  width: 342px;
-  height: 192px;
-  /* width: -webkit-fill-available !important;
-  height: 192px !important; */
-
-  @media screen and (max-width: 1130px) {
-    height: auto;
-    width: -webkit-fill-available;
-  }
-`;
-
-const MenuButtonContainer = styled.div`
-  padding: 0px 24px;
-  display: flex;
-  gap: 16px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  padding: 0px 24px;
-  gap: 8px;
-  position: sticky;
-  bottom: 0px;
-`;
-
-const DatesContainer = styled.div`
-  padding: 16px 16px;
-  margin: 0px 24px;
-  border-radius: 8px;
-  background: var(--White, #fff);
-`;
-
-const OpeningTitle = styled.p`
-  color: var(--BODY, #000);
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const DatesWrapperText = styled.div`
-  color: var(--BODY, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  margin: 16px 0px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-`;
-const DatesWrapperTextGoogle = styled.div`
-  color: var(--BODY, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  margin: 16px 0px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 3px;
-`;
-
-const WeekTimeArrange = styled.div`
-  display: flex;
-  gap:10px;
-  align-items: center;
-
-  p {
-    color: var(--BODY, #000);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-    text-transform: capitalize;
-  }
-`;
-
-const AlsoSeeText = styled.p`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin-left: 24px;
-`;
-
-const TextAreaContainer = styled.textarea`
-  width: 100%;
-  outline: none;
-  background-color: white;
-  height: 160px;
-  border-radius: 8px;
-  padding: 8px 16px;
-  resize: none;
-  &::placeholder {
-    color: black; /* Change the color to your desired color */
-    font-size: 16px;
-    font-family: Inter;
-  }
-`;
-
-const AddReview = styled.p`
-  color: var(--MAIN, #2f80ed);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-`;
-
-const DeliveryContainer = styled.div`
-display: flex;
-gap:5px;
-padding: 5px 0px;
-font-size: 16px;
-margin-top:5px;
-`;
-
-const WebsiteLink = styled(Link)`
-&:hover {
-  text-decoration: underline;
-  text-decoration-color: lightblue;
-  color: lightblue;
-}
-`;
-const MainImage = styled(Image)`
-width: 120px !important;
-height: 64px !important;
-border-radius: 6px;
-`;
 
 
 
@@ -485,7 +237,8 @@ console.log("  dataImage data",   dataImage, data,)
             <ResturatContainer>
               <ResturatWrapper>
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
-                <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "OPEN" : "Closed"}</OpenRestText>
+                {/* <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText> */}
+                <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{isOpenHead(showApiData?.current_opening_hours?.periods)}</OpenRestText>
               </ResturatWrapper>
               <Ratings
                 defaultValue={data?.rating}
@@ -770,3 +523,253 @@ console.log("  dataImage data",   dataImage, data,)
 };
 
 export default ModalContent;
+
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const ResturatContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0px 24px;
+  gap: 10px;
+`;
+
+const ResturatWrapper = styled.div`
+  display: flex;
+  gap: 6px;
+  align-items: center;
+`;
+
+const OpenRestText = styled.p<{ selected: boolean }>`
+  color:${(props) => (props.selected ? "#2b902b" : "#FF0000")} #2b902b;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+`;
+
+const ResturantDetailsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px 24px;
+`;
+
+const ViewDirection = styled.div`
+  color: #2f80ed;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 24px;
+  cursor: pointer;
+  margin-bottom: 5px;
+
+`;
+
+const ResturantDetailsWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
+const RestDetailTitle = styled.p`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+`;
+
+const RestDetailTitleWebsite = styled.a`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  /* text-decoration: underline; */
+  display: block;
+  width: 100%; /* Ensures the link takes up the full width of its container */
+  white-space: nowrap; /* Prevents wrapping of the link text */
+  overflow: hidden; /* Hides any overflowing content */
+  text-overflow: ellipsis;
+`;
+
+const ReviewContainer = styled.div`
+  padding: 8px 16px;
+  background-color: #fff;
+  margin: 0px 24px;
+`;
+
+const ReviewWraaper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+`;
+
+const RestDetailText = styled.p`
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  padding: 0px 24px;
+`;
+
+const ScrollingMenu = styled.div`
+  display: flex;
+  overflow: auto;
+  gap: 8px;
+  padding: 0px 24px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ItemImageContainer = styled.div`
+  padding: 0px 24px;
+  height: 200px;
+  width:100%;
+`;
+
+const ImageWrraper = styled(Image)`
+  border-radius: 6px;
+  width: 342px;
+  height: 192px;
+  /* width: -webkit-fill-available !important;
+  height: 192px !important; */
+
+  @media screen and (max-width: 1130px) {
+    height: auto;
+    width: -webkit-fill-available;
+  }
+`;
+
+const MenuButtonContainer = styled.div`
+  padding: 0px 24px;
+  display: flex;
+  gap: 16px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  padding: 0px 24px;
+  gap: 8px;
+  position: sticky;
+  bottom: 0px;
+`;
+
+const DatesContainer = styled.div`
+  padding: 16px 16px;
+  margin: 0px 24px;
+  border-radius: 8px;
+  background: var(--White, #fff);
+`;
+
+const OpeningTitle = styled.p`
+  color: var(--BODY, #000);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+const DatesWrapperText = styled.div`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  margin: 16px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+`;
+const DatesWrapperTextGoogle = styled.div`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  margin: 16px 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3px;
+`;
+
+const WeekTimeArrange = styled.div`
+  display: flex;
+  gap:10px;
+  align-items: center;
+
+  p {
+    color: var(--BODY, #000);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    text-transform: capitalize;
+  }
+`;
+
+const AlsoSeeText = styled.p`
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 24px;
+`;
+
+const TextAreaContainer = styled.textarea`
+  width: 100%;
+  outline: none;
+  background-color: white;
+  height: 160px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  resize: none;
+  &::placeholder {
+    color: black; /* Change the color to your desired color */
+    font-size: 16px;
+    font-family: Inter;
+  }
+`;
+
+const AddReview = styled.p`
+  color: var(--MAIN, #2f80ed);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+`;
+
+const DeliveryContainer = styled.div`
+display: flex;
+gap:5px;
+padding: 5px 0px;
+font-size: 16px;
+margin-top:5px;
+`;
+
+const WebsiteLink = styled(Link)`
+&:hover {
+  text-decoration: underline;
+  text-decoration-color: lightblue;
+  color: lightblue;
+}
+`;
+const MainImage = styled(Image)`
+width: 120px !important;
+height: 64px !important;
+border-radius: 6px;
+`;
+

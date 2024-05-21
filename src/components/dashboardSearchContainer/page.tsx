@@ -103,7 +103,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                 onClick={() =>
                                                     modalClick("ModalContent", item, item?.photoUrl ? item?.photoUrl : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07")
                                                 }
-                                                selected = {item?.data_type ? true : false}
+                                                selected={item?.data_type ? true : false}
                                             >
                                                 <div
                                                     style={{
@@ -156,7 +156,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                                                                 }
                                                                 {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                                                             </div>
+
                                                         </div>
+                                                        <p>
+                                                            <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
+                                                                {item?.opening_hours?.open_now ? "Open" : "Closed"}
+                                                            </span>
+                                                        </p>
                                                     </div>
                                                 </div>
 
@@ -249,7 +255,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
 export default DashboardSearchContainer;
 
 
-const ListDataWrraper = styled.div <{selected: boolean}>`
+const ListDataWrraper = styled.div <{ selected: boolean }>`
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -257,7 +263,7 @@ const ListDataWrraper = styled.div <{selected: boolean}>`
   align-items: center;
   padding: 9px 0px;
   position: relative;
-  cursor:${props => props.selected ? "pointer" : "not-allowed" };
+  cursor:${props => props.selected ? "pointer" : "not-allowed"};
 `;
 
 const ListDataTittleText = styled.p`

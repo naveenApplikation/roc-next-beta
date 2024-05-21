@@ -16,16 +16,16 @@ import Instance from "@/app/utils/Instance";
 import ImageCom from "./imageCom";
 
 interface AddListingsProps {
-    ScreenSwitch?: Function;
-    homePage: any;
-    toggleSelected: any;
-    selectedItemIds: any;
-    searchQuery: string;
-    handleSearch: (value: string) => void;
-    handleChange?: any;
-    data: any[];
-    loader?: boolean;
-    UI_Type?: string;
+  ScreenSwitch?: Function;
+  homePage: any;
+  toggleSelected: any;
+  selectedItemIds: any;
+  searchQuery: string;
+  handleSearch: (value: string) => void;
+  handleChange?: any;
+  data: any[];
+  loader?: boolean;
+  UI_Type?: string;
 }
 
 
@@ -33,167 +33,172 @@ interface AddListingsProps {
 
 
 interface Item {
-    name: any;
-    placeName1: any;
-    itemPlaceLogo: any;
-    status1: any;
-    timing2: any;
-    unSelectedBtn: any;
-    placeName2?: any; // Make it optional
+  name: any;
+  placeName1: any;
+  itemPlaceLogo: any;
+  status1: any;
+  timing2: any;
+  unSelectedBtn: any;
+  placeName2?: any; // Make it optional
 }
 
 const AddListings: React.FC<AddListingsProps> = ({
-    ScreenSwitch,
-    homePage,
-    selectedItemIds,
-    toggleSelected,
-    handleSearch,
-    handleChange,
-    searchQuery,
-    data,
-    loader,
-    UI_Type,
+  ScreenSwitch,
+  homePage,
+  selectedItemIds,
+  toggleSelected,
+  handleSearch,
+  handleChange,
+  searchQuery,
+  data,
+  loader,
+  UI_Type,
 }) => {
 
 
 
-    const [skeletonData] = useState(new Array(10).fill(null))
+  const [skeletonData] = useState(new Array(10).fill(null))
 
 
 
-    return (
-        <CreateListingsScreen>
-            <CreateListItemScrollBox>
-                <CreateListingsHeader homePage={homePage}{...{ UI_Type }} />
-                <CreateListingsContent>
-                    <AddListingsTitle>Search for businesses you’d like to add to the list</AddListingsTitle>
-                    <SearchInputBox>
-                        <SearchComponent
-                            value={searchQuery}
-                            onchange={(e: any) => handleChange(e.target.value)}
-                            handleSearch={handleSearch}
-                        />
-                    </SearchInputBox>
-                    {loader ?
-                        skeletonData.map((item, index) => (
-                            <SearchedData key={index}>
-                                <MainWrraper>
-                                    <MainInsideWrapper>
-                                        <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                                        <div className="restroRating">
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                        </div>
-                                    </MainInsideWrapper>
-                                    <div className="likes">
-                                        <Skeleton width={16} height={16} />
-                                    </div>
-                                </MainWrraper>
-                            </SearchedData>
-                        ))
+  return (
+    <CreateListingsScreen>
+      <CreateListItemScrollBox>
+        <CreateListingsHeader homePage={homePage}{...{ UI_Type }} />
+        <CreateListingsContent>
+          <AddListingsTitle>Search for businesses you’d like to add to the list</AddListingsTitle>
+          <SearchInputBox>
+            <SearchComponent
+              value={searchQuery}
+              onchange={(e: any) => handleChange(e.target.value)}
+              handleSearch={handleSearch}
+            />
+          </SearchInputBox>
+          {loader ?
+            skeletonData.map((item, index) => (
+              <SearchedData key={index}>
+                <MainWrraper>
+                  <MainInsideWrapper>
+                    <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                    <div className="restroRating">
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                      <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    </div>
+                  </MainInsideWrapper>
+                  <div className="likes">
+                    <Skeleton width={16} height={16} />
+                  </div>
+                </MainWrraper>
+              </SearchedData>
+            ))
 
-                        :
+            :
 
-                        data.map((item: any, index: any) => {
-                            // if (!item._id) {
-                            //     return null;
-                            // }
-                            // const imageList = JSON.parse(item?.acf?.header_image_data);
-                            // const image = imageList[0].url;
+            data.map((item: any, index: any) => {
+              // if (!item._id) {
+              //     return null;
+              // }
+              // const imageList = JSON.parse(item?.acf?.header_image_data);
+              // const image = imageList[0].url;
 
-                            return (
-                                <div
-                                    style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
-                                    key={index}>
-                                    <ListDataWrraper>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: 16,
-                                                width: '85%',
-                                            }}>
-                                            <div style={{ width: 80, height: 80 }}>
-                                                {/* <Image
+              return (
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
+                  key={index}>
+                  <ListDataWrraper>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 16,
+                        width: '85%',
+                      }}>
+                      <div style={{ width: 80, height: 80 }}>
+                        {/* <Image
                                                     src={""}
                                                     width={500}
                                                     height={80}
                                                     style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                                                     alt="infoCirlce"
                                                 /> */}
-                                                <ImageCom imageArr={item?.photos} />
-                                            </div>
-                                            <div style={{
-                                                display: "flex",
-                                                gap: 10,
-                                                flexDirection: "column",
-                                                maxWidth: 'calc(100% - 30%)'
-                                            }}>
-                                                <ListDataTittleText>
-                                                    {item?.name}
-                                                    {/* {item?.acf?.title} */}
-                                                </ListDataTittleText>
-                                                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                                                    <ListDataInfoText>
-                                                        {item?.acf?.aa_rating
-                                                            ? item?.acf?.aa_rating?.value == "No rating"
-                                                                ? ""
-                                                                : item?.acf?.aa_rating?.value
-                                                            : item?.rating}
-                                                    </ListDataInfoText>
-                                                    <Image src={commentstar} alt="infoCirlce" />
-                                                    <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', width:'100%' }}>
+                        <ImageCom imageArr={item?.photos} />
+                      </div>
+                      <div style={{
+                        display: "flex",
+                        gap: 10,
+                        flexDirection: "column",
+                        maxWidth: 'calc(100% - 30%)'
+                      }}>
+                        <ListDataTittleText>
+                          {item?.name}
+                          {/* {item?.acf?.title} */}
+                        </ListDataTittleText>
+                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                          <ListDataInfoText>
+                            {item?.acf?.aa_rating
+                              ? item?.acf?.aa_rating?.value == "No rating"
+                                ? ""
+                                : item?.acf?.aa_rating?.value
+                              : item?.rating}
+                          </ListDataInfoText>
+                          <Image src={commentstar} alt="infoCirlce" />
+                          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', width: '100%' }}>
 
-                                                        {
-                                                            item?.acf?.portal_post_owner_name ? (
-                                                                <ListDataInfoText>
-                                                                    . {item?.acf?.portal_post_owner_name}
-                                                                </ListDataInfoText>
-                                                            ) : null
-                                                        }
-                                                        {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button onClick={() => toggleSelected(item.place_id, item)}>
-                                            {selectedItemIds.includes(item.place_id) ? (
-                                                <UnselectedBtn>
-                                                    <Image
-                                                        style={{ width: "15px", height: "10px" }}
-                                                        src={UnselectedBtnImg}
-                                                        alt="UnselectedBtnImg"
-                                                    // onClick={() => handleToggle(listItemName)}
-                                                    />
-                                                </UnselectedBtn>
-                                            ) : (
-                                                <SelectedBtn>
-                                                    <Image
-                                                        style={{ width: "16px", height: "16px" }}
-                                                        src={SelectedBtnImg}
-                                                        alt="SelectedBtnImg"
-                                                    />
-                                                </SelectedBtn>
-                                            )}
-                                        </button>
-                                    </ListDataWrraper>
-                                </div>
-                            );
-                        })}
-                </CreateListingsContent>
-            </CreateListItemScrollBox>
-            {
-                selectedItemIds.length ?
+                            {
+                              item?.acf?.portal_post_owner_name ? (
+                                <ListDataInfoText>
+                                  . {item?.acf?.portal_post_owner_name}
+                                </ListDataInfoText>
+                              ) : null
+                            }
+                            {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
+                          </div>
+                        </div>
+                        <p>
+                          <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
+                            {item?.opening_hours?.open_now ? "Open" : "Closed"}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                    <button onClick={() => toggleSelected(item.place_id, item)}>
+                      {selectedItemIds.includes(item.place_id) ? (
+                        <UnselectedBtn>
+                          <Image
+                            style={{ width: "15px", height: "10px" }}
+                            src={UnselectedBtnImg}
+                            alt="UnselectedBtnImg"
+                          // onClick={() => handleToggle(listItemName)}
+                          />
+                        </UnselectedBtn>
+                      ) : (
+                        <SelectedBtn>
+                          <Image
+                            style={{ width: "16px", height: "16px" }}
+                            src={SelectedBtnImg}
+                            alt="SelectedBtnImg"
+                          />
+                        </SelectedBtn>
+                      )}
+                    </button>
+                  </ListDataWrraper>
+                </div>
+              );
+            })}
+        </CreateListingsContent>
+      </CreateListItemScrollBox>
+      {
+        selectedItemIds.length ?
 
-                <CreateListingsFooter
-                    continueBtn
-                    ScreenSwitch={ScreenSwitch}
-                    selectedItem={selectedItemIds.length}
-                /> : ""
-            }
-            </CreateListingsScreen>
-    );
+          <CreateListingsFooter
+            continueBtn
+            ScreenSwitch={ScreenSwitch}
+            selectedItem={selectedItemIds.length}
+          /> : ""
+      }
+    </CreateListingsScreen>
+  );
 };
 
 export default AddListings;
@@ -278,8 +283,8 @@ const ListDataTittleText = styled.p`
     overflow: hidden;
 `;
 
-const ListDataInfoText = styled.p.attrs(props=>({
-    className: props.className,
+const ListDataInfoText = styled.p.attrs(props => ({
+  className: props.className,
 }))`
   color: rgba(0, 0, 0, 0.48);
   font-size: 12px;

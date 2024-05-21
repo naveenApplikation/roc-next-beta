@@ -124,8 +124,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                       <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
                     </div>
                   </MainInsideWrapper>
-                  <div className="likes">
-                    <Skeleton width={16} height={16} />
+                  <div className="likes" style={{height:'80px', display:'flex', alignItems:'center'}}>
+                    <Skeleton width={16} height={16} style={{ borderRadius: "50%" }} />
                   </div>
                 </MainWrraper>
               </SearchedData>
@@ -203,6 +203,12 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                               {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                             </div>
                           </div>
+                          <p>
+                            <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
+                              {item?.opening_hours?.open_now ? "Open" : "Closed"}
+                            </span>
+                          </p>
+
                         </div>
                       </div>
                       <button onClick={() => toggleSelected(item.place_id, item)}>
@@ -425,7 +431,7 @@ const MainWrraper = styled.div`
   align-items: center;
   gap: 16px;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
 `;
 
 const MainInsideWrapper = styled.div`

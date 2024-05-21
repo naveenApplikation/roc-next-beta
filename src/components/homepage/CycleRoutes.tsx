@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import {skeletonItems} from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { cycleRouteData, walkData } from "@/app/utils/data";
@@ -69,7 +69,7 @@ const CommunityContainer = styled.div`
   height: 80px;
   border-radius: 8px;
   background: #bb6bd9;
-  cursor:pointer;
+  cursor: pointer;
 
   p {
     color: #fff;
@@ -81,65 +81,57 @@ const CommunityContainer = styled.div`
   }
 `;
 const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+  // const { filterUrls,showContent } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/cycling");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/cycling");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  // const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
-  const filteredUrls = filterUrls(ImageUrlData);
-
+  // const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
       <MenuDetails title="Cycle Routes" hideShowAll={true} />
       <ScrollingMenu>
-        {loader
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{borderRadius:6}} />
-              </div>
-            ))
-          :
-          cycleRouteData.length ? cycleRouteData?.map((item: any, index: any) => {
-            return (
-              <CommunityContainer
-                key={index}
-                style={{ background: item?.color }}
-                onClick={() =>
-                  modalClick("walksModal" , item)
-                }
-              >
-                <Image
-                  src={item?.icon}
-                  alt=""
-                  width={20}
-                  height={20}
-                  style={{ borderRadius: 4 }}
-                />
-                <p>{item?.name}</p>
-              </CommunityContainer>
-            );
-          }) : ""}
+        {cycleRouteData.length
+          ? cycleRouteData?.map((item: any, index: any) => {
+              return (
+                <CommunityContainer
+                  key={index}
+                  style={{ background: item?.color }}
+                  onClick={() => modalClick("walksModal", item)}
+                >
+                  <Image
+                    src={item?.icon}
+                    alt=""
+                    width={20}
+                    height={20}
+                    style={{ borderRadius: 4 }}
+                  />
+                  <p>{item?.name}</p>
+                </CommunityContainer>
+              );
+            })
+          : ""}
       </ScrollingMenu>
     </>
   );

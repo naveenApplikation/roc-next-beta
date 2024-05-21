@@ -12,8 +12,6 @@ interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
   listData?: any;
-  data:any;
-  loader:boolean
 }
 
 const ScrollingMenu = styled.div`
@@ -31,8 +29,7 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,listData }) => {
-  const { filterUrls, showContent } = useMyContext();
+const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
 
   const [dataPubs, setDataPubs] = useState<any>([]);
 
@@ -52,10 +49,10 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,data,listData })
   };
 
   useEffect(() => {
-    fetchDataAsync();
+    if(listData !=undefined){
+      fetchDataAsync();
+    }
   }, [listData]);
-
-  console.log(dataPubs,"sajskajskajsk")
 
   return (
     <>
