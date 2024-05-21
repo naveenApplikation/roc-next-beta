@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { banjo } from "@/app/utils/ImagePath";
-import fallback from '../../../assets/images/fallbackimage.png'
+import fallback from '../../../assets/images/fallbackimage.png';
+import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface MenuProps {
   title?: string;
@@ -42,7 +43,7 @@ const Menutitle = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 14px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -97,10 +98,10 @@ const RatingMenu: React.FC<MenuProps> = ({
                   alt="icon"
                 />
               )}
-              <Title>{title}</Title>
+              <Title className={interMedium.className}>{title}</Title>
             </MenuIconContainer>
           )}
-          <Menutitle>{MenutitleDetail}</Menutitle>
+          <Menutitle className={interMedium.className}>{MenutitleDetail}</Menutitle>
         </>
       )}
     </ScrollingMenuDishes>

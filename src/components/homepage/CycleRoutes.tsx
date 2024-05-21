@@ -10,6 +10,7 @@ import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { cycleRouteData, walkData } from "@/app/utils/data";
+import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -127,7 +128,7 @@ const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     height={20}
                     style={{ borderRadius: 4 }}
                   />
-                  <p>{item?.name}</p>
+                  <p className={interMedium.className}>{item?.name}</p>
                 </CommunityContainer>
               );
             })

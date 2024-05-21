@@ -7,6 +7,7 @@ import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from "@/app/utils/date";
+import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -88,7 +89,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick}) => {
                   height={64}
                   style={{ position: "absolute", bottom: 0, height: 50 }}
                 />
-                <p>
+                <p className={interMedium.className}>
                   {item?.data_type === "google"
                     ? item?.name
                     : item?.name}

@@ -9,6 +9,7 @@ import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from "@/app/utils/date";
 import Image from "next/image";
+import { interMedium, inter } from "../../../assets/styles/Font";
 
 interface DashboardProps {
   modalClick?: any;
@@ -47,7 +48,6 @@ const UtensilsDishesImage = styled.div`
 
 const Title = styled.p`
   white-space: nowrap;
-  font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -56,8 +56,7 @@ const Title = styled.p`
 `;
 
 const Menutitle = styled.p`
-  font-family: Inter;
-  font-size: 14px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -88,15 +87,14 @@ const MainImage = styled(Image)`
 
 const PriceText = styled.p`
   overflow: hidden;
-color: rgba(0, 0, 0, 0.48);
-text-overflow: ellipsis;
-font-family: Inter;
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-top: 8px;
-`
+  color: rgba(0, 0, 0, 0.48);
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 8px;
+`;
 
 const EnjoyTheSunshine: React.FC<DashboardProps> = ({
   modalClick,
@@ -173,22 +171,30 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
                       modalClick("activities", item, filteredUrls[index])
                     }
                   /> */}
-                  <ScrollingMenuDishes  onClick={() => modalClick("activities", item, filteredUrls[index])}>
-                        <UtensilsDishesImage>
-                          <MainImage
-                            src={filteredUrls[index]}
-                            alt=""
-                            width={500}
-                            height={80}
-                            style={{
-                              borderRadius: 4,
-                              maxWidth: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </UtensilsDishesImage>
-                        <Menutitle>{item.acf.title}</Menutitle>
-                        <PriceText>£ {item.acf.price_from}</PriceText>
+                  <ScrollingMenuDishes
+                    onClick={() =>
+                      modalClick("activities", item, filteredUrls[index])
+                    }
+                  >
+                    <UtensilsDishesImage>
+                      <MainImage
+                        src={filteredUrls[index]}
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{
+                          borderRadius: 4,
+                          maxWidth: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </UtensilsDishesImage>
+                    <Menutitle className={interMedium.className}>
+                      {item.acf.title}
+                    </Menutitle>
+                    <PriceText className={inter.className}>
+                      £ {item.acf.price_from}
+                    </PriceText>
                   </ScrollingMenuDishes>
                 </div>
               );

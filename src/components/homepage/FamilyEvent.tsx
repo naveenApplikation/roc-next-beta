@@ -9,6 +9,7 @@ import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
+import {interMedium,interBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -39,7 +40,7 @@ const FamilEventContainer = styled.div`
   flex-shrink: 0;
 
   .date {
-    font-size: 10px;
+    font-size: 17px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -52,7 +53,7 @@ const FamilEventContainer = styled.div`
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
-    background-color: red;
+    background-color: #BA2B2B;;
     width: fit-content;
     color: #fff;
     width: 30px;
@@ -160,15 +161,15 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                     }}
                   />
                   <FamilyEventWrapperInside>
-                    <p className="date">
+                    <p className={`date ${interBold.className}`}>
                       {formatDate(item.acf.event_dates[0].date)}
                     </p>
-                    <p className="month">
+                    <p className={`month ${interMedium.className}`}>
                       {formatMonth(item.acf.event_dates[0].date)}
                     </p>
                   </FamilyEventWrapperInside>
                 </FamilyEventWrapper>
-                <FamilEventText>{item.acf.title}</FamilEventText>
+                <FamilEventText className={interMedium.className}>{item.acf.title}</FamilEventText>
               </FamilEventContainer>
             );
           })}
