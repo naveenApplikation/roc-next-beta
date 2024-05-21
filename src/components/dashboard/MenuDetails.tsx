@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {ProximaNovaRegular,interBold} from '../../../assets/styles/Font'
 
 interface MenuProps {
   title: string;
@@ -27,7 +28,7 @@ const MenuTitle = styled.p`
 `;
 
 const ViewAllText = styled.p`
-  font-size: 1.4rem;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -38,9 +39,9 @@ const MenuDetails: React.FC<MenuProps> = ({ isOpen, title, hideShowAll }) => {
   return (
     <div>
       <HeadMenu>
-        <MenuTitle>{title}</MenuTitle>
+        <MenuTitle className={ProximaNovaRegular.className}>{title}</MenuTitle>
         {!hideShowAll &&
-          <ViewAllText onClick={isOpen}>
+          <ViewAllText className={interBold.className} onClick={isOpen}>
             View All
           </ViewAllText>}
       </HeadMenu>

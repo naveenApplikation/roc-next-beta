@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
+import {inter} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -74,7 +75,7 @@ const InfoApp: React.FC<DashboardProps> = ({
               onClick={() => modalClick("infoApp", item.name)}
             >
               <Image src={item.image} alt="right icon" />
-              <Tittle style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{formatNameWithSpaces(item.name)}</Tittle>
+              <Tittle className={inter.className} style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{formatNameWithSpaces(item.name)}</Tittle>
             </NormalOption>
           );
         })}

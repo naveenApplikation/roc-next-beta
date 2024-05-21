@@ -9,6 +9,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
+import {interMedium,interSemiBold} from '../../../assets/styles/Font'
 
 interface DashboardProps {
   modalClick?: any;
@@ -41,7 +42,7 @@ const TopAttractionContainer = styled.div`
     text-align: center;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -150,7 +151,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     />
                   )}
                 </TopAttractionprofile>
-                <p>
+                <p className={interMedium.className} >
                   {item?.data_type === "google"
                     ? item?.name
                     : item?.name}

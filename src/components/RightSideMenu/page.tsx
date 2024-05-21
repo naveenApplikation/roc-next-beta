@@ -5,6 +5,7 @@ import { LogoNew, Hamburger, profileBrown } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
+import {interMedium,inter,interThin} from '../../../assets/styles/Font'
 
 const RightSideMenuContainer = styled.div`
   display: flex;
@@ -212,7 +213,7 @@ const RightSide = () => {
                   height={item.height}
                   alt="icon"
                 />
-                <p>{item.name}</p>
+                <p className={interMedium.className} >{item.name}</p>
               </RightSideInsideMenuBox>
             </RightSideMenu>
           );
@@ -242,7 +243,7 @@ const RightSide = () => {
                   height={item.height}
                   alt="icon"
                 />
-                <p>{item.name}</p>
+                <p className={interThin.className}>{item.name}</p>
               </RightSideInsideMenuBox>
             </RightSideMenu>
           );
@@ -251,6 +252,7 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
+          className={interMedium.className}
           onClick={() => menuClick("Community", true, "category-item")}
         >
           All Categories

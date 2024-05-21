@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import {inter} from '../../../assets/styles/Font'
 
 interface ButtonProps {
   text: string;
@@ -59,7 +60,7 @@ const CommonButton: React.FC<ButtonProps> = ({
         text === "Call" ?
           <Link style={{color:"white" , fontSize:"16px" , fontWeight:"500"}} href={`tel:${linkNum}`}>{text}</Link>
           :
-          <TitleText >{text}</TitleText>
+          <TitleText className={inter.className}>{text}</TitleText>
       }
     </Container>
   );
