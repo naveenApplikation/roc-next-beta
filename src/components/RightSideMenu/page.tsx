@@ -142,6 +142,11 @@ const AllCategories = styled.div`
     border-radius: 8px;
     padding: 12px 8px;
     color: #fff;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-family: __Inter_aaf875, __Inter_Fallback_aaf875
   }
 
   @media screen and (min-width: 800px) {
