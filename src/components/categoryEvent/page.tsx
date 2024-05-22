@@ -42,14 +42,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
-  // const handleLike = (id: string, index: number) =>{
-  //     if(id === data[index]._id){
-  //             data[index].userVoted = !data[index].voded
-  //             setData([...data])
-  //     }
-
-  //     // setTogg(id)
-  // }
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      router.back();
+    } else {
+      router.replace('/');
+    }
+  }
 
   return (
     <SearchedListContainer>
@@ -64,7 +63,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           style={{ width: 40, height: 40, cursor: "pointer" }}
           src={CloseModal}
           alt="Logo Outline"
-          onClick={() => router.back()}
+          onClick={handleBack}
         // onClick={() => onClose(name)}
         />
       </div>
