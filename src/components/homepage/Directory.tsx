@@ -2,7 +2,7 @@ import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import { DirectoryItem } from "@/app/utils/data";
+import { DirectoryItem } from "@/app/utils/homeIcon";
 
 interface DashboardProps {
   modalClick?: any;
@@ -32,6 +32,7 @@ const DirectoryMenuTitle = styled.p`
   font-weight: 400;
   line-height: normal;
   cursor: pointer;
+  text-transform: capitalize;
 `;
 
 const MainWrapper = styled.div`
@@ -78,41 +79,17 @@ const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         title="Directory"
         isOpen={() => menuClick("directoryList")}
       />
-      {DirectoryItem.map((item, index) => (
+      {DirectoryItem.slice(0, 5).map((item:any, index:any) => (
         <DirectoryWrapper key={index}>
           <FirstMainWraaper>
-            <Image src={item.data[0].image} alt="right icon" />{" "}
-            <DirectoryMenuTitle
-              onClick={() => {
-                if (
-                  item &&
-                  item.data &&
-                  item.data.length > 0 &&
-                  item.data[0].title
-                ) {
-                  menuClick(item.data[0].title, true, item.data[0].url);
-                } else {
-                  // Handle the case where item or item.data or item.data[0].title is null or undefined
-                }
-              }}>
+          {item.data[0].image}
+            <DirectoryMenuTitle onClick={() =>  menuClick(item.data[0].title, true, "Directory")}>
               {item.data[0].title}
             </DirectoryMenuTitle>
           </FirstMainWraaper>
           <MainWrapper>
-            <Image src={item.data[1].image} alt="right icon" />{" "}
-            <DirectoryMenuTitle
-              onClick={() => {
-                if (
-                  item &&
-                  item.data &&
-                  item.data.length > 0 &&
-                  item.data[0].title
-                ) {
-                  menuClick(item.data[1].title, true, item.data[1].url);
-                } else {
-                  // Handle the case where item or item.data or item.data[0].title is null or undefined
-                }
-              }}>
+          {item.data[1].image}
+          <DirectoryMenuTitle onClick={() =>  menuClick(item.data[1].title, true, "Directory")}>
               {item.data[1].title}
             </DirectoryMenuTitle>
           </MainWrapper>

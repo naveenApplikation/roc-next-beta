@@ -67,11 +67,14 @@ import { FaPlane } from "react-icons/fa6";
 import { FaBus } from "react-icons/fa6";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
+import { FaCalendar } from "react-icons/fa";
+import { FaCar } from "react-icons/fa6";
 import { FaPersonSwimming } from "react-icons/fa6";
 import { GiHairStrands } from "react-icons/gi";
 import { GiSonicShoes } from "react-icons/gi";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { BsBank2 } from "react-icons/bs";
+// Home	import { FaHome } from "react-icons/fa";
 
 
 
@@ -104,7 +107,7 @@ const bankIcon =  <BsBank2 style={{fontSize:'30px', borderRadius:'50%', padding:
 // const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 
 
-const briefcaseIcon =  <FaBriefcase style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+
 const userTieIcon =  <FaUserTie style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 const swimmingIcon =  <FaPersonSwimming style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 const barberIcon =  <GiHairStrands style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
@@ -195,7 +198,146 @@ const HeartPulseIcon =  <FaHeartPulse style={{fontSize:'30px', borderRadius:'50%
 const RunningIcon =  <FaRunning style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 
 
+const FoodIcon =  <FaUtensils style={{fontSize:'30px',padding:'5px', color:'black'}} />;
+const ActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px', color:'black'}} />;
+const EntertainmentIcon =  <LuPopcorn style={{fontSize:'30px',padding:'5px', color:'black'}} />;
+const BeautyIcon =  <FaFaceSmileBeam style={{fontSize:'30px',padding:'5px', color:'black'}} />;
+const FitnessIcon =  <FaHeartPulse style={{fontSize:'30px',padding:'5px', color:'black'}} />;
+const SportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const KidIcon =  <FaChild style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const PetsIcon =  <FaDog style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const userCalederIcon =  <FaCalendar style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const shopBagIcon =  <FaShoppingBag style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const AccomodationIcon =  <FaHotel style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const BillIcon =  <FaMoneyBill style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const usercarIcon =  <FaCar style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const TravelIcon =  <FaPlane style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const RoadbusIcon =  <FaBus style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const ServiesIcon =  <FaUserTie style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const briefcaseIcon =  <FaBriefcase style={{fontSize:'30px', padding:'5px', color:'black'}} />;
 
+
+
+export const DirectoryItem:any = [
+  {
+    data: [
+      {
+        image: FoodIcon,
+        title: "Food and Drink",
+        url: "attration"
+      },
+      {
+        image: ActivityIcon,
+        title: "Activities",
+        url: "food-drinks"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: EntertainmentIcon,
+        title: "Entertainment",
+        url: "shopsandMarket"
+      },
+      {
+        image: BeautyIcon,
+        title: "Hair and Beauty",
+        url: "tour"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: FitnessIcon,
+        title: "Health Fitness and Wellbeing	",
+        url: "accommodations"
+      },
+      {
+        image: SportsIcon,
+        title: "Sports",
+        url: "activity"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: KidIcon,
+        title: "Kids",
+        url: "tourOperator"
+      },
+      {
+        image: PetsIcon,
+        title: "Pets",
+        url: "bar-pubs"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: userCalederIcon,
+        title: "Event Planning",
+        url: "holidays"
+      },
+      {
+        image: shopBagIcon,
+        title: "shopping",
+        url: "beaches"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: AccomodationIcon,
+        title: "Accommodation",
+        url: "holidays"
+      },
+      {
+        image: BillIcon,
+        title: "Budget",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: usercarIcon,
+        title: "Vehicles",
+        url: "holidays"
+      },
+      {
+        image: TravelIcon,
+        title: "Travel",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: RoadbusIcon,
+        title: "Transport",
+        url: "holidays"
+      },
+      {
+        image: briefcaseIcon,
+        title: "Recruitment",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: ServiesIcon,
+        title: "Professional Services",
+        url: "holidays"
+      },
+    ],
+  },
+];
 
 
 export const iconsHome = [

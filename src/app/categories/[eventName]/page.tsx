@@ -26,6 +26,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { ApiResponse } from '@/app/utils/types';
 import Instance from "@/app/utils/Instance";
 import PageLayout from '@/app/pageLayout';
+import DirectoryCategories from '@/components/DirectoryScreen/DirectoryCategories'
 
 interface CategoriesPageProps {
   // Define your props here
@@ -99,13 +100,14 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         setloader(false);
       }
     };
-
-    fetchDataAsync();
+    if(search !== "Directory"){
+      fetchDataAsync();
+    }
   }, [search]);
 
   const { showMap, filterUrls } = useMyContext()
 
-  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
+  const ImageUrlData = data?.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -118,8 +120,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       return <TrendingList urlData={search} urlTitle={urlData} />
     } else if (urlData === "categorieList") {
       return <CategorieList />
-    } else if (urlData === "Financial Services") {
-      return <FinancialBox />
+    } else if (search === "Directory") {
+      return <DirectoryCategories urlData={urlData} urlTitle={urlData} />
     } else if (urlData === "Scaffolding") {
       return <ScaffoldingBox />
     } else {

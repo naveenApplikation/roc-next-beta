@@ -14,7 +14,24 @@ import infoCircle from "../../../assets/images/createListImages/chooseIcons/info
 import bin from "../../../assets/images/createListImages/chooseIcons/bin.png";
 import locate from "../../../assets/images/createListImages/chooseIcons/map-placeholder.png";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
-
+import { FaUtensils } from "react-icons/fa6";
+import { FaPeopleLine } from "react-icons/fa6";
+import { LuPopcorn } from "react-icons/lu";
+import { FaFaceSmileBeam } from "react-icons/fa6";
+import { FaHeartPulse } from "react-icons/fa6";
+import { FaRunning } from "react-icons/fa";
+// Home	import { FaHome } from "react-icons/fa";
+import { FaChild } from "react-icons/fa";
+import { FaDog } from "react-icons/fa6";
+import { FaCalendar } from "react-icons/fa";
+import { FaShoppingBag } from "react-icons/fa";
+import { FaHotel } from "react-icons/fa6";
+import { FaMoneyBill } from "react-icons/fa";
+import { FaCar } from "react-icons/fa6";
+import { FaPlane } from "react-icons/fa6";
+import { FaBus } from "react-icons/fa6";
+import { FaBriefcase } from "react-icons/fa6";
+import { FaUserTie } from "react-icons/fa6";
 
 
 
@@ -588,21 +605,28 @@ export const RestroListData = [
 
 
 
+interface DataItem {
+  image: any;
+  // other properties
+}
+
+interface Item {
+  data: DataItem[];
+}
 
 
 
-
-export const DirectoryItem = [
+export const DirectoryItem:any = [
   {
     data: [
       {
-        image: castle,
-        title: "Attractions",
+        image: FaUtensils,
+        title: "Food and drink",
         url: "attration"
       },
       {
-        image: utensil,
-        title: "Food & Drink",
+        image: FaPeopleLine,
+        title: "Activities",
         url: "food-drinks"
       },
     ],
@@ -610,13 +634,13 @@ export const DirectoryItem = [
   {
     data: [
       {
-        image: shopping,
-        title: "Shopping",
+        image: LuPopcorn,
+        title: "Entertainment",
         url: "shopsandMarket"
       },
       {
-        image: camera,
-        title: "Tours",
+        image: FaFaceSmileBeam,
+        title: "Hair and Beauty",
         url: "tour"
       },
     ],
@@ -624,13 +648,13 @@ export const DirectoryItem = [
   {
     data: [
       {
-        image: hotel,
-        title: "Hotels",
+        image: FaHeartPulse,
+        title: "Health Fitness and Wellbeing	",
         url: "accommodations"
       },
       {
-        image: personHiking,
-        title: "Activities",
+        image: FaRunning,
+        title: "Sports",
         url: "activity"
       },
     ],
@@ -638,13 +662,13 @@ export const DirectoryItem = [
   {
     data: [
       {
-        image: compass,
-        title: "Travel",
+        image: FaChild,
+        title: "Kids",
         url: "tourOperator"
       },
       {
-        image: glass,
-        title: "Nightlife",
+        image: FaDog,
+        title: "Pets",
         url: "bar-pubs"
       },
     ],
@@ -652,13 +676,66 @@ export const DirectoryItem = [
   {
     data: [
       {
-        image: holidayDas,
-        title: "Holidays",
+        image: FaCalendar,
+        title: "Event Planning",
         url: "holidays"
       },
       {
-        image: beachumbrella,
-        title: "Beaches",
+        image: FaShoppingBag,
+        title: "Shopping",
+        url: "beaches"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: FaHotel,
+        title: "Accommodation",
+        url: "holidays"
+      },
+      {
+        image: FaMoneyBill,
+        title: "Budget",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: FaCar,
+        title: "Vehicles",
+        url: "holidays"
+      },
+      {
+        image: FaPlane,
+        title: "Travel",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: FaBus,
+        title: "Transport",
+        url: "holidays"
+      },
+      {
+        image: FaBriefcase,
+        title: "Recruitment",
+        url: "beaches"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: FaUserTie,
+        title: "Professional Services",
+        url: "holidays"
+      },
+      {
+        image: FaBriefcase,
+        title: "Recruitment",
         url: "beaches"
       },
     ],
