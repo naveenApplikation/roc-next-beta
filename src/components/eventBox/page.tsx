@@ -8,6 +8,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface EventBoxProps {
   urlData?: any;
@@ -162,7 +163,7 @@ const EventBox: React.FC<EventBoxProps> = ({
                 <MainInsideWrapper>
                   <FamilyEventWrapper>
                     <Image
-                      src={filteredUrls[index]}
+                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       alt=""
                       width={500}
                       height={80}
@@ -173,7 +174,7 @@ const EventBox: React.FC<EventBoxProps> = ({
                         objectFit: "cover",
                       }}
                       onClick={() =>
-                        modalClick("eventListing", item, filteredUrls[index])
+                        modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
                       }
                     />
                     <FamilyEventWrapperInside>

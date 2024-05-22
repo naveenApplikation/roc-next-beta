@@ -9,6 +9,7 @@ import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from "@/app/utils/date";
 import Image from "next/image";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -172,12 +173,12 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
                   /> */}
                   <ScrollingMenuDishes
                     onClick={() =>
-                      modalClick("activities", item, filteredUrls[index])
+                      modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
                     }
                   >
                     <UtensilsDishesImage>
                       <MainImage
-                        src={filteredUrls[index]}
+                        src={filteredUrls[index] ? filteredUrls[index] : fallback}
                         alt=""
                         width={500}
                         height={80}

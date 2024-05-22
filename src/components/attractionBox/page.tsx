@@ -9,6 +9,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { sideWidth } from "@/app/utils/date";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface AttractionBoxProps {
   // Define your props here
@@ -201,13 +202,13 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                 <MainWrraper>
                   <MainInsideWrapper
                     onClick={() =>
-                      modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                      modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : fallback)
                     }
                   >
                     <div style={{ position: "relative" }}>
                       {
                         item?.data_type === "google" ?
-                          <ImageTag src={item.photoUrl} alt="Image"
+                          <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image"
                             // onClick={() =>
                             //   modalClick("ModalContent", item, item.photoUrl)
                             // }
@@ -215,7 +216,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                           :
                           <Image
                             // style={{ background: "white" }}
-                            src={filteredUrls[index]}
+                            src={item.photoUrl ? item.photoUrl : fallback}
                             width={500}
                             height={80}
                             style={{

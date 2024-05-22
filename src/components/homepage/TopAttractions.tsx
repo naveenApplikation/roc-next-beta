@@ -9,6 +9,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
 import { topAttractionMapping } from "@/app/utils/mappingFun";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -128,16 +129,28 @@ const TopAttractions: React.FC<DashboardProps> = ({
                     item,
                     item?.data_type === "google"
                       ? item?.photoUrl
-                      : item?.photoUrl
+                      : item?.photoUrl ? item?.photoUrl : fallback
                   )
                 }
               >
                 <TopAttractionprofile>
                   {item?.data_type === "google" ? (
+                    item.photoUrl == undefined ? <Image
+                    src={fallback}
+                    alt=""
+                    width={500}
+                    height={80}
+                    style={{
+                      borderRadius: "100%",
+                      maxWidth: "100%",
+                      objectFit: "cover",
+                    }}
+                    // alt=""
+                  /> :
                     <ImageTag src={item.photoUrl} alt="Image" />
                   ) : (
                     <Image
-                      src={item?.photoUrl}
+                      src={fallback}
                       alt=""
                       width={500}
                       height={80}

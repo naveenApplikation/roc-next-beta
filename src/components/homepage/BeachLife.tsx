@@ -7,6 +7,7 @@ import Image from "next/image";
 import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from "@/app/utils/date";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -60,15 +61,15 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick}) => {
                     item,
                     item?.data_type === "google"
                       ? item?.photoUrl
-                      : item.photoUrl
+                      : item.photoUrl ? item.photoUrl : fallback
                   )
                 }
               >
                 {item?.data_type === "google" ? (
-                  <ImageTag src={item.photoUrl} alt="Image" />
+                  <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image" />
                 ) : (
                   <Image
-                    src={item.photoUrl}
+                    src={item.photoUrl ? item.photoUrl : fallback}
                     alt=""
                     width={500}
                     height={80}

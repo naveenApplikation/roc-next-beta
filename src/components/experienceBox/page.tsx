@@ -8,6 +8,7 @@ import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { thumbsup } from "@/app/utils/ImagePath";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface ExperienceBoxProps {
   urlData?: any;
@@ -128,7 +129,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                 }}
               >
                 <Image
-                  src={filteredUrls[index]}
+                  src={filteredUrls[index] ? filteredUrls[index] : fallback}
                   width={500}
                   height={80}
                   style={{
@@ -138,7 +139,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                     objectFit: "cover",
                   }}
                   onClick={() =>
-                    modalClick("activities", item, filteredUrls[index])
+                    modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
                   }
                   alt=""
                 />
