@@ -34,7 +34,7 @@ import {
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
 import {
-  getShopStatusMessage,
+  getVenueStatus,
   isOpen,
   isOpenHead,
 } from "@/app/utils/commanFunCom";
@@ -92,7 +92,7 @@ const ModalContent: React.FC<ModalProps> = ({
     {
       name:
         data?.data_type === "google"
-          ? getShopStatusMessage(showApiData?.current_opening_hours)
+          ? getVenueStatus(showApiData?.current_opening_hours)
           : "",
       image: clock,
       nameValue:
@@ -317,14 +317,18 @@ const ModalContent: React.FC<ModalProps> = ({
             {formattedValues()}{" "}
           </p>
           <ResturatContainer>
-            <ResturatWrapper>
-              {/* <p style={{ fontSize: 16 }}>|</p> */}
-              <OpenRestText selected={showApiData?.current_opening_hours?.open_now}>{showApiData?.current_opening_hours?.open_now ? "Open" : "Closed"}</OpenRestText>
-              {/* <OpenRestText
-                selected={showApiData?.current_opening_hours?.open_now}>
-                {isOpenHead(showApiData?.current_opening_hours?.periods)}
-              </OpenRestText> */}
-            </ResturatWrapper>
+            {showApiData?.current_opening_hours?.open_now !== undefined && (
+              <ResturatWrapper>
+                {/* <p style={{ fontSize: 16 }}>|</p> */}
+
+                <OpenRestText
+                  selected={showApiData?.current_opening_hours?.open_now}>
+                  {showApiData?.current_opening_hours?.open_now
+                    ? "Open"
+                    : "Closed"}{" "}
+                </OpenRestText>
+              </ResturatWrapper>
+            )}
             <Ratings
               defaultValue={data?.rating}
               giveRating={giveRating}

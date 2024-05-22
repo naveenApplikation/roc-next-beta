@@ -14,18 +14,6 @@ export function convertTo12HourTime(time24Hour: any) {
   }
 }
 
-type Period = {
-  close: { date: string; day: number; time: string };
-  open: { date: string; day: number; time: string };
-};
-
-type ShopStatus = {
-  open_now: boolean;
-  periods: Period[];
-  special_days: { date: string; exceptional_hours: boolean }[];
-  weekday_text: string[];
-};
-
 const convertTo12HourTimeNew = (time: string): string => {
   const hours = parseInt(time.substring(0, 2));
   const minutes = time.substring(2);
@@ -34,51 +22,103 @@ const convertTo12HourTimeNew = (time: string): string => {
   return `${formattedHours}:${minutes} ${ampm}`;
 };
 
-export function getShopStatusMessage(shopStatus: ShopStatus): JSX.Element {
-  const now = new Date();
-  const currentDay = now.getDay();
-  const currentTime = now.getHours() * 100 + now.getMinutes();
-  if (!shopStatus){
-    return <></>
-  }
-  // Check if the shop is currently open based on open_now flag
-  if (shopStatus.open_now) {
-    // Find the opening period for the current day
-    const openingPeriod = shopStatus.periods.find(
-      (period) => period.open.day === currentDay
+type Period = {
+  close: {
+    date: string;
+    day: number;
+    time: string;
+  };
+  open: {
+    date: string;
+    day: number;
+    time: string;
+  };
+};
+
+type Schedule = {
+  open_now: boolean;
+  periods: Period[];
+  weekday_text: string[];
+};
+
+export function getVenueStatus(schedule: Schedule): JSX.Element {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
+  const currentTime = currentDate.getHours() * 100 + currentDate.getMinutes(); // HHMM format
+ if(!schedule){
+ return <></>
+ }
+  // Helper to format time from HHMM to standard time representation
+  const formatTime = (time: string): string => {
+    const timeInt = parseInt(time, 10);
+    const hours = Math.floor(timeInt / 100);
+    const minutes = timeInt % 100;
+    return `${hours % 12 || 12}:${minutes < 10 ? "0" + minutes : minutes} ${
+      hours < 12 ? "AM" : "PM"
+    }`;
+  };
+
+  // Filter for periods of today, checking for undefined or null
+  const todayPeriods: Period[] = schedule.periods.filter(
+    (period) => period.open.day === currentDay
+  );
+
+  const isNowOpen: boolean = todayPeriods.some(
+    (period) =>
+      currentTime >= parseInt(period.open.time) &&
+      currentTime < parseInt(period.close.time)
+  );
+
+  if (isNowOpen) {
+    const currentPeriod = todayPeriods.find(
+      (period) =>
+        currentTime >= parseInt(period.open.time) &&
+        currentTime < parseInt(period.close.time)
     );
-    if (openingPeriod) {
-      const closeTime = convertTo12HourTimeNew(openingPeriod.close.time);
+    if (currentPeriod) {
       return (
         <div style={{ display: "flex", gap: "5px" }}>
-          <p style={{ color: "green" }}>Open</p> : <p>Closes at {closeTime}</p>
-        </div>
-      );
-    }
-  } else {
-    // Find the next opening period for the current day or the next day if current time is after closing time
-    const nextOpeningPeriod = shopStatus.periods.find((period) => {
-      const closeTime = parseInt(period.close.time);
-      return (
-        (period.open.day === currentDay && closeTime > currentTime) ||
-        period.open.day > currentDay
-      );
-    });
-
-    if (nextOpeningPeriod) {
-      const openTime = convertTo12HourTimeNew(nextOpeningPeriod.open.time);
-      return (
-        <div style={{ display: "flex", gap: "5px" }}>
-          <p style={{ color: "red" }}>Closed</p> : <p>Opens at {openTime}</p>
+          <p style={{ color: "green" }}>Open</p> :{" "}
+          <p>Closes at {formatTime(currentPeriod.close.time)}</p>
         </div>
       );
     }
   }
 
-  // If no appropriate opening period is found, return a default message
+  // Finding the next period assuming periods are sorted by time
+  const nextPeriod =
+    todayPeriods.find((period) => currentTime < parseInt(period.open.time)) ||
+    schedule.periods.find((period) => period.open.day === (currentDay + 1) % 7);
+
+  if (nextPeriod) {
+    if (
+      todayPeriods.length > 1 &&
+      currentTime > parseInt(todayPeriods[0].close.time) &&
+      currentTime < parseInt(todayPeriods[1].open.time)
+    ) {
+      // Handles split timing
+      return (
+        <div style={{ display: "flex", gap: "5px" }}>
+          <p style={{ color: "red" }}>Closed</p> :{" "}
+          <p>
+            Closes at {formatTime(todayPeriods[0].close.time)} - Next opening
+            time at {formatTime(todayPeriods[1].open.time)}
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ display: "flex", gap: "5px" }}>
+          <p style={{ color: "red" }}>Closed</p> :{" "}
+          <p>Opens at {formatTime(nextPeriod.open.time)}</p>
+        </div>
+      );
+    }
+  }
+
   return (
     <div style={{ display: "flex", gap: "5px" }}>
-      <p style={{ color: "red" }}>Closed</p> : <p>Not available</p>
+      <p style={{ color: "red" }}>Closed</p> : <p>No more openings today</p>
     </div>
   );
 }
