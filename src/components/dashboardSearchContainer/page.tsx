@@ -1,191 +1,216 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import Image from 'next/image';
-import { commentstar } from '@/app/utils/ImagePath';
+import Image from "next/image";
+import { commentstar } from "@/app/utils/ImagePath";
 import SearchInput from "../searchInput/SearchInput";
-import Instance from '@/app/utils/Instance';
-import { useMyContext } from '@/app/Context/MyContext';
-import Skeleton from 'react-loading-skeleton';
-import ImageCom from '../addList/imageCom';
+import Instance from "@/app/utils/Instance";
+import { useMyContext } from "@/app/Context/MyContext";
+import Skeleton from "react-loading-skeleton";
+import ImageCom from "../addList/imageCom";
 
 interface DashboardSearchContainerProps {
-    tabChange: Function,
-    options: any,
-    tabValue: string,
-    showMap?: boolean,
-    modalClick?: any
+  tabChange: Function;
+  options: any;
+  tabValue: string;
+  showMap?: boolean;
+  modalClick?: any;
 }
 
+const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
+  tabChange,
+  options,
+  tabValue,
+  showMap,
+  modalClick,
+}) => {
+  const { modalType } = useMyContext();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [data, setData] = useState<any[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [skeletonData] = useState(new Array(10).fill(null));
 
+  const handleChange = (value: string) => {
+    setSearchQuery(value);
+  };
+  const fetchDataAsync = async (value: string) => {
+    setLoader(true);
 
+    try {
+      // const result = await Instance.get(`/search?title=${value}`);
+      const result = await Instance.get(`/search-data?query=${value}`);
+      setData(result?.data?.searchResults);
+    } catch (error: any) {
+      console.log(error.message);
+      setLoader(false);
+    } finally {
+      setLoader(false);
+    }
+  };
 
-const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tabChange, options, tabValue, showMap, modalClick }) => {
-    const { modalType } = useMyContext()
-    const [searchQuery, setSearchQuery] = useState("");
-    const [data, setData] = useState<any[]>([]);
-    const [loader, setLoader] = useState<boolean>(false)
-    const [skeletonData] = useState(new Array(10).fill(null))
+  useEffect(() => {
+    if (!modalType.search) {
+      setSearchQuery("");
+      setData([]);
+    }
+  }, [modalType.search]);
 
-    const handleChange = (value: string) => {
-        setSearchQuery(value);
-    };
-    const fetchDataAsync = async (value: string) => {
-        setLoader(true);
+  const handleSearch = () => {
+    fetchDataAsync(searchQuery);
+  };
 
-        try {
-            // const result = await Instance.get(`/search?title=${value}`);
-            const result = await Instance.get(`/search-data?query=${value}`);
-            setData(result?.data?.searchResults);
-        } catch (error: any) {
-            console.log(error.message);
-            setLoader(false);
-        } finally {
-            setLoader(false);
-        }
-    };
-
-
-
-    useEffect(() => {
-        if (!modalType.search) {
-            setSearchQuery('')
-            setData([])
-        }
-
-    }, [modalType.search])
-
-    const handleSearch = () => {
-        fetchDataAsync(searchQuery)
-    };
-
-    return (
-
-        <>
-            <InputWrapper className="filterInput">
-                <SearchInput
-                    value={searchQuery}
-                    onchange={(e: any) => handleChange(e.target.value)}
-                    handleSearch={handleSearch}
-                    id="myInput"
-                />
-            </InputWrapper>
-            <>
-                {/* <FilterSection /> */}
-                <SearchedListContainer>
-                    {
-                        loader ?
-
-                            skeletonData.map((item, index) => (
-                                <SearchedData key={index}>
-                                    <MainInsideWrapper>
-                                        <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                                        <div className="restroRating">
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                            <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                        </div>
-                                    </MainInsideWrapper>
-                                </SearchedData>
-                            )) : (searchQuery &&
-                                data.length ? data.map((item: any, index: any) => {
-                                    if (!item.place_id) {
-                                        return null;
-                                    }
-                                    // const imageList = JSON.parse(item.acf.header_image_data);
-                                    // const image = imageList[0].url;
-                                    return (
-                                        <div
-                                            style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%', opacity: item?.data_type ? "1" : ".25" }}
-                                            title={item?.data_type ? "" : "No data available"}
-                                            key={index}>
-                                            <ListDataWrraper
-                                                onClick={() =>
-                                                    modalClick("ModalContent", item, item?.photoUrl ? item?.photoUrl : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07")
-                                                }
-                                                selected={item?.data_type ? true : false}
-                                            >
-                                                <div
-                                                    style={{
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                        gap: 16,
-                                                        width: '85%',
-                                                    }}>
-                                                    <div style={{ width: 80, height: 80 }}>
-                                                        {/* <ImageCom imageArr={item?.photos} /> */}
-                                                        {
-                                                            item?.photos ?
-                                                                <ImageCom imageArr={item?.photos} />
-                                                                :
-                                                                <Image
-                                                                    src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
-                                                                    width={500}
-                                                                    height={80}
-                                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                                                                    alt="infoCirlce"
-                                                                />
-                                                        }
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        gap: 10,
-                                                        flexDirection: "column",
-                                                        maxWidth: 'calc(100% - 30%)'
-                                                    }}>
-                                                        <ListDataTittleText>
-                                                            {item?.name}
-                                                        </ListDataTittleText>
-                                                        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                                                            <ListDataInfoText>
-                                                                {item?.acf?.aa_rating
-                                                                    ? item?.acf?.aa_rating?.value == "No rating"
-                                                                        ? ""
-                                                                        : item?.acf?.aa_rating?.value
-                                                                    : item?.rating}
-                                                            </ListDataInfoText>
-                                                            <Image src={commentstar} alt="infoCirlce" />
-                                                            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', width: '100%' }}>
-
-                                                                {
-                                                                    item?.acf?.portal_post_owner_name ? (
-                                                                        <ListDataInfoText>
-                                                                            . {item?.acf?.portal_post_owner_name}
-                                                                        </ListDataInfoText>
-                                                                    ) : null
-                                                                }
-                                                                {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
-                                                            </div>
-
-                                                        </div>
-                                                        {/* <p>
+  return (
+    <>
+      <InputWrapper className="filterInput">
+        <SearchInput
+          value={searchQuery}
+          onchange={(e: any) => handleChange(e.target.value)}
+          handleSearch={handleSearch}
+          id="myInput"
+          homeSearch={true}
+        />
+      </InputWrapper>
+      <>
+        {/* <FilterSection /> */}
+        <SearchedListContainer>
+          {loader
+            ? skeletonData.map((item, index) => (
+                <SearchedData key={index}>
+                  <MainInsideWrapper>
+                    <Skeleton
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <div className="restroRating">
+                      <Skeleton
+                        width={120}
+                        height={15}
+                        style={{ borderRadius: 8 }}
+                      />
+                      <Skeleton
+                        width={120}
+                        height={15}
+                        style={{ borderRadius: 8 }}
+                      />
+                      <Skeleton
+                        width={120}
+                        height={15}
+                        style={{ borderRadius: 8 }}
+                      />
+                    </div>
+                  </MainInsideWrapper>
+                </SearchedData>
+              ))
+            : searchQuery && data.length
+            ? data.map((item: any, index: any) => {
+                if (!item.place_id) {
+                  return null;
+                }
+                // const imageList = JSON.parse(item.acf.header_image_data);
+                // const image = imageList[0].url;
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 16,
+                      width: "100%",
+                      opacity: item?.data_type ? "1" : ".25",
+                    }}
+                    title={item?.data_type ? "" : "No data available"}
+                    key={index}>
+                    <ListDataWrraper
+                      onClick={() =>
+                        modalClick(
+                          "ModalContent",
+                          item,
+                          item?.photoUrl
+                            ? item?.photoUrl
+                            : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+                        )
+                      }
+                      selected={item?.data_type ? true : false}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 16,
+                          width: "85%",
+                        }}>
+                        <div style={{ width: 80, height: 80 }}>
+                          {/* <ImageCom imageArr={item?.photos} /> */}
+                          {item?.photos ? (
+                            <ImageCom imageArr={item?.photos} />
+                          ) : (
+                            <Image
+                              src={
+                                "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+                              }
+                              width={500}
+                              height={80}
+                              style={{
+                                borderRadius: 4,
+                                maxWidth: "100%",
+                                objectFit: "cover",
+                              }}
+                              alt="infoCirlce"
+                            />
+                          )}
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: 10,
+                            flexDirection: "column",
+                            maxWidth: "calc(100% - 30%)",
+                          }}>
+                          <ListDataTittleText>{item?.name}</ListDataTittleText>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 10,
+                              alignItems: "center",
+                            }}>
+                            <ListDataInfoText>
+                              {item?.acf?.aa_rating
+                                ? item?.acf?.aa_rating?.value == "No rating"
+                                  ? ""
+                                  : item?.acf?.aa_rating?.value
+                                : item?.rating}
+                            </ListDataInfoText>
+                            <Image src={commentstar} alt="infoCirlce" />
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "5px",
+                                flexWrap: "wrap",
+                                width: "100%",
+                              }}>
+                              {item?.acf?.portal_post_owner_name ? (
+                                <ListDataInfoText>
+                                  . {item?.acf?.portal_post_owner_name}
+                                </ListDataInfoText>
+                              ) : null}
+                              {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
+                            </div>
+                          </div>
+                          {/* <p>
                                                             <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
                                                                 {item?.opening_hours?.open_now ? "Open" : "Closed"}
                                                             </span>
                                                         </p> */}
-                                                    </div>
-                                                </div>
+                        </div>
+                      </div>
+                    </ListDataWrraper>
+                  </div>
+                );
+              })
+            : ""}
+        </SearchedListContainer>
+      </>
 
-                                            </ListDataWrraper>
-                                        </div>
-                                    );
-                                }) : "")
-                    }
-
-                </SearchedListContainer>
-            </>
-
-
-
-
-
-
-
-
-
-
-
-            {/* <TabPanel
+      {/* <TabPanel
                 defaultValue="Lists"
                 tabChange={tabChange}
                 options={options}
@@ -248,14 +273,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({ tab
                     </SearchedListContainer>
                 </>
             )} */}
-        </>
-    );
+    </>
+  );
 };
 
 export default DashboardSearchContainer;
 
-
-const ListDataWrraper = styled.div <{ selected: boolean }>`
+const ListDataWrraper = styled.div<{ selected: boolean }>`
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -263,7 +287,7 @@ const ListDataWrraper = styled.div <{ selected: boolean }>`
   align-items: center;
   padding: 9px 0px;
   position: relative;
-  cursor:${props => props.selected ? "pointer" : "not-allowed"};
+  cursor: ${(props) => (props.selected ? "pointer" : "not-allowed")};
 `;
 
 const ListDataTittleText = styled.p`
@@ -272,13 +296,13 @@ const ListDataTittleText = styled.p`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
-const ListDataInfoText = styled.p.attrs(props => ({
-    className: props.className,
+const ListDataInfoText = styled.p.attrs((props) => ({
+  className: props.className,
 }))`
   color: rgba(0, 0, 0, 0.48);
   font-size: 12px;
@@ -286,12 +310,12 @@ const ListDataInfoText = styled.p.attrs(props => ({
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
-   &.type_style{
+  &.type_style {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width:95%;
- }
+    width: 95%;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -305,8 +329,8 @@ const InputWrapper = styled.div`
   }
 `;
 const SearchedListContainer = styled.div`
-    padding-bottom: 40px;
-`
+  padding-bottom: 40px;
+`;
 const SearchedData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -336,7 +360,6 @@ const SearchedData = styled.div`
     color: #2b902b;
   }
 `;
-
 
 const MainInsideWrapper = styled.div`
   display: flex;

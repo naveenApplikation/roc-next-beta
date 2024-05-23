@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { search } from "@/app/utils/ImagePath";
@@ -11,6 +11,7 @@ interface SearchComponentProps {
   handleSearch?: any;
   autofocus?: any;
   id?: any;
+  homeSearch?: boolean;
 }
 
 const SearchComponent: React.FC<SearchComponentProps> = ({
@@ -23,14 +24,18 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { modalType } = useMyContext();
+  const [test, settest] = useState(false);
 
   useEffect(() => {
-    console.log("Attempting to focus:", modalType.search, inputRef.current);
-    if (modalType.search && inputRef.current) {
-      inputRef.current.focus();
-      console.log("Focus method called");
+    if (modalType.search) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          settest(true);
+          inputRef.current.focus();
+        }
+      }, 500);
     }
-  }, [modalType.search]);
+  }, [modalType]);
 
   return (
     <InputContainer>
@@ -43,6 +48,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         id={id}
         ref={inputRef}
       />
+
       <SearchIcon src={search} alt="Search" onClick={handleSearch} />
     </InputContainer>
   );
