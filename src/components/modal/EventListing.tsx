@@ -190,7 +190,7 @@ const ModalContent: React.FC<ModalProps> = ({
       {data?.acf?.key_facilities != "" && (
         <>
           <AlsoSeeText>Key Features</AlsoSeeText>
-          <BulletPointWrapper>
+          <BulletPointWrapper style={{marginLeft:40}}>
             {data?.acf?.key_facilities.map((item: any, index: any) => (
               <li key={index}>{item.label}</li>
             ))}
@@ -201,7 +201,7 @@ const ModalContent: React.FC<ModalProps> = ({
       {data?.acf?.accessibility != "" && (
         <>
           <AlsoSeeText>Accessibility</AlsoSeeText>
-          <BulletPointWrapper>
+          <BulletPointWrapper style={{marginLeft:40}}>
             {data?.acf?.accessibility.map((item: any, index: any) => (
               <li key={index}>{item?.label}</li>
             ))}
@@ -212,7 +212,7 @@ const ModalContent: React.FC<ModalProps> = ({
       {data?.acf?.bus_routes != "" && (
         <>
           <AlsoSeeText>Bus Route</AlsoSeeText>
-          <BulletPointWrapper>
+          <BulletPointWrapper style={{marginLeft:40}}>
             {data?.acf?.bus_routes.map((item: any, index: any) => (
               <li key={index} style={{ textDecoration: "underline" }}>
                 {formatRoute(item.label)}

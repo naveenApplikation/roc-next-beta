@@ -10,6 +10,7 @@ import Instance from "@/app/utils/Instance";
 import Ratings from "@/components/ratings";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
+import fallback from "../../../../assets/images/fallbackimage.png";
 import {
   bookOpen,
   comment,
@@ -33,11 +34,7 @@ import {
 } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
-import {
-  getVenueStatus,
-  isOpen,
-  isOpenHead,
-} from "@/app/utils/commanFunCom";
+import { getVenueStatus, isOpen, isOpenHead } from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -105,7 +102,8 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
-            target="_blank">
+            target="_blank"
+          >
             {showApiData?.website}
           </WebsiteLink>
         ) : (
@@ -141,7 +139,8 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <Tooltip title={"Copy international number"}>
             <span
-              onClick={() => copylink(showApiData?.international_phone_number)}>
+              onClick={() => copylink(showApiData?.international_phone_number)}
+            >
               {showApiData?.international_phone_number}
             </span>
           </Tooltip>
@@ -300,7 +299,8 @@ const ModalContent: React.FC<ModalProps> = ({
             alignItems: "center",
             width: "100%",
             height: "500px",
-          }}>
+          }}
+        >
           <Spin tip="Loading" size="large" />
         </div>
       ) : (
@@ -312,7 +312,8 @@ const ModalContent: React.FC<ModalProps> = ({
               paddingLeft: "24px",
               paddingRight: "24px",
               fontWeight: "700",
-            }}>
+            }}
+          >
             {" "}
             {formattedValues()}{" "}
           </p>
@@ -322,7 +323,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
 
                 <OpenRestText
-                  selected={showApiData?.current_opening_hours?.open_now}>
+                  selected={showApiData?.current_opening_hours?.open_now}
+                >
                   {showApiData?.current_opening_hours?.open_now
                     ? "Open"
                     : "Closed"}{" "}
@@ -342,16 +344,14 @@ const ModalContent: React.FC<ModalProps> = ({
                 imageUrl={dataImage}
               />
             ) : (
-              <img
+              <Image
                 style={{
                   cursor: "pointer",
                   width: "100%",
                   height: "200px",
-                  objectFit: "scale-down",
+                  objectFit: "cover",
                 }}
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-                }
+                src={fallback}
                 alt="Logo Outline"
               />
             )}
@@ -462,7 +462,7 @@ const ModalContent: React.FC<ModalProps> = ({
             {reviewData.length &&
               reviewData.map((item: any, index: any) => (
                 <div key={index}>
-                  {showEdit === index ? (
+                  {/* {showEdit === index ? (
                     <div
                       style={{
                         display: "flex",
@@ -506,43 +506,49 @@ const ModalContent: React.FC<ModalProps> = ({
                       />
                     </div>
                   ) : (
-                    <div
-                      style={{
-                        marginTop: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}>
-                      <div style={{ display: "flex", gap: "10px" }}>
-                        <div>
-                          <Image
-                            src={item?.profile_photo_url}
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                            }}
-                            width={30}
-                            height={30}
-                            alt=""
-                          />
-                        </div>
-                        <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
+                   null
+                  )} */}
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <div>
+                        <Image
+                          src={
+                            item.profile_photo_url
+                              ? item.profile_photo_url
+                              : fallback
+                          }
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                          }}
+                          width={30}
+                          height={30}
+                          alt=""
+                        />
                       </div>
-                      <div className="">
-                        <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
-                        &nbsp;{" "}
-                        <span style={{ fontSize: "13px" }}>
-                          {item?.relative_time_description}
-                        </span>
-                      </div>
-                      <div style={{ width: "100%", fontSize: "14px" }}>
-                        <p>{item?.text}</p>
-                      </div>
-                      <hr />
+                      <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
                     </div>
-                  )}
+                    <div className="">
+                      <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
+                      &nbsp;{" "}
+                      <span style={{ fontSize: "13px" }}>
+                        {item?.relative_time_description}
+                      </span>
+                    </div>
+                    <div style={{ width: "100%", fontSize: "14px" }}>
+                      <p>{item?.text}</p>
+                    </div>
+                    <hr />
+                  </div>
                 </div>
               ))}
 
@@ -594,7 +600,8 @@ const ModalContent: React.FC<ModalProps> = ({
                       style={{
                         display: "flex",
                         justifyContent: "space-around",
-                      }}>
+                      }}
+                    >
                       <p style={{ width: "90px" }}>{item?.day}</p>
                       <p>
                         {item?.time}
