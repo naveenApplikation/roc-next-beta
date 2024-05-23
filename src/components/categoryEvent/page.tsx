@@ -109,9 +109,22 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
-                      <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image"
-
-                      />
+                    item.photoUrl ? 
+                      <ImageTag src={item.photoUrl} alt="Image"
+                      /> :
+                      <Image
+                      // style={{ background: "white" }}
+                      src={fallback}
+                      width={500}
+                      height={80}
+                      style={{
+                        borderRadius: 4,
+                        width: "80px",
+                        objectFit: "cover",
+                        cursor: "pointer",
+                      }}
+                      alt=""
+                    />
                       :
                       (
                         <Image
