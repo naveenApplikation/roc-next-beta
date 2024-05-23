@@ -190,7 +190,7 @@ const HeaderContainer = styled.div`
   }
 `;
 const MapBetaBody = styled.div`
-// height:400px;
+ height:50vh;
     p{
       font-size:16px;
       margin-bottom:10px;

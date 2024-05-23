@@ -56,7 +56,9 @@ const CategoryBody = styled.div`
   width: 580px;
 `;
 
-const MainContainer = styled.div`
+const MainContainer = styled.div<{
+  $showMap: boolean;
+}>`
   height: 100vh;
   overflow: auto;
 
@@ -66,7 +68,7 @@ const MainContainer = styled.div`
 
   @media screen and (max-width: 800px) {
     border-radius: 24px 24px 0px 0px;
-    height: auto;
+    height:${({ $showMap }) => ($showMap ? "100vh" : "auto")}; ;
     overflow: hidden;
     margin-top: 490px;
     z-index: 1;
@@ -153,7 +155,7 @@ export default function Home() {
     <Suspense fallback={<div style={{height:"100vh" , display:"flex" , justifyContent:"center" , alignItems:"center"}}>Loading...</div>}>
       <ShadowWrapper {...{ showContent, setShowContent }}>
         <Container >
-          <MainContainer >
+          <MainContainer  $showMap={showMap}>
             <PageLayout >
               <DashboardMenu $showMap={showMap} >
                 <Header
