@@ -21,6 +21,7 @@ const CategoryBody = styled.div`
   position: relative;
   z-index: 1;
   width: ${sideWidth};
+  height: 100vh;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -83,8 +84,8 @@ const Container = styled.div`
   gap: 24px;
   background-color: #f2f3f3;
   width: ${sideWidth};
-  height: 100%;
-  /* height: 100vh; */
+  /* height: 100%; */
+  height: auto;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
