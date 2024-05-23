@@ -161,7 +161,7 @@ const DirectoryCatories: React.FC<TrendingListProps> = ({ urlTitle, urlData }) =
                   src={thumbsup}
                   alt="icon"
                 />
-                <p>{item.votes}</p>
+                <p>{item.voting.length}</p>
               </LikesContainer>
             </ListContainer>
           );
