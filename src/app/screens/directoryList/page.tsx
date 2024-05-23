@@ -85,7 +85,7 @@ const Container = styled.div`
   background-color: #f2f3f3;
   width: ${sideWidth};
   /* height: 100%; */
-  height: auto;
+  height: 100vh;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
