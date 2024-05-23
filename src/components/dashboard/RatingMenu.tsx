@@ -80,7 +80,7 @@ const RatingMenu: React.FC<MenuProps> = ({
         <>
           <UtensilsDishesImage>
             <MainImage
-              src={(headerImage == null) ? fallback : headerImage}
+              src={(headerImage == null || headerImage == undefined) ? fallback : headerImage}
               alt=""
               width={500}
               height={80}

@@ -9,6 +9,7 @@ import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
 import { walkData } from "@/app/utils/data";
 import { walkMask } from "@/app/utils/ImagePath";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -127,7 +128,7 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                 }
               >
                 <Image
-                  src={item.icon}
+                  src={item.icon ? item.icon : fallback}
                   alt=""
                   width={500}
                   height={80}

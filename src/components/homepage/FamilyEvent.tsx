@@ -9,6 +9,7 @@ import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   modalClick?: any;
@@ -143,13 +144,13 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               <FamilEventContainer
                 key={index}
                 onClick={() =>
-                  modalClick("eventListing", item, filteredUrls[index])
+                  modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
                 }
                 style={{ cursor: "pointer" }}
               >
                 <FamilyEventWrapper>
                   <MainImage
-                    src={filteredUrls[index]}
+                    src={filteredUrls[index] ? filteredUrls[index] : fallback}
                     alt=""
                     width={500}
                     height={80}

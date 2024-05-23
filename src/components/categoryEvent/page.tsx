@@ -14,7 +14,8 @@ import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface EventBoxProps {
   urlData?: any;
@@ -102,20 +103,20 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             <SearchedData key={index}>
               <MainInsideWrapper
                 onClick={() =>
-                  modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
+                  modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : fallback)
                 }
               >
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
-                      <ImageTag src={item.photoUrl ? item.photoUrl : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"} alt="Image"
+                      <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image"
 
                       />
                       :
                       (
                         <Image
                           // style={{ background: "white" }}
-                          src={filteredUrls[index]}
+                          src={fallback}
                           width={500}
                           height={80}
                           style={{

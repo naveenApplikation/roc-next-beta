@@ -8,6 +8,7 @@ import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
+import fallback from "../../../assets/images/fallbackimage.png";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -119,34 +120,33 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                       opacity: item?.data_type ? "1" : ".25",
                     }}
                     title={item?.data_type ? "" : "No data available"}
-                    key={index}>
+                    key={index}
+                  >
                     <ListDataWrraper
                       onClick={() =>
                         modalClick(
                           "ModalContent",
                           item,
-                          item?.photoUrl
-                            ? item?.photoUrl
-                            : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+                          item?.photoUrl ? item?.photoUrl : fallback
                         )
                       }
-                      selected={item?.data_type ? true : false}>
+                      selected={item?.data_type ? true : false}
+                    >
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
                           gap: 16,
                           width: "85%",
-                        }}>
+                        }}
+                      >
                         <div style={{ width: 80, height: 80 }}>
                           {/* <ImageCom imageArr={item?.photos} /> */}
                           {item?.photos ? (
                             <ImageCom imageArr={item?.photos} />
                           ) : (
                             <Image
-                              src={
-                                "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-                              }
+                              src={fallback}
                               width={500}
                               height={80}
                               style={{
@@ -164,14 +164,16 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                             gap: 10,
                             flexDirection: "column",
                             maxWidth: "calc(100% - 30%)",
-                          }}>
+                          }}
+                        >
                           <ListDataTittleText>{item?.name}</ListDataTittleText>
                           <div
                             style={{
                               display: "flex",
                               gap: 10,
                               alignItems: "center",
-                            }}>
+                            }}
+                          >
                             <ListDataInfoText>
                               {item?.acf?.aa_rating
                                 ? item?.acf?.aa_rating?.value == "No rating"
@@ -186,7 +188,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                                 gap: "5px",
                                 flexWrap: "wrap",
                                 width: "100%",
-                              }}>
+                              }}
+                            >
                               {item?.acf?.portal_post_owner_name ? (
                                 <ListDataInfoText>
                                   . {item?.acf?.portal_post_owner_name}
