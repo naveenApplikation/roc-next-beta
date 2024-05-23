@@ -51,7 +51,7 @@ const DirectoryWrapper = styled.div`
 `;
 
 const DirectoryMenuTitle = styled.p`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -63,8 +63,12 @@ const MainWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 15px;
+  gap: 10px;
   flex: 1;
+
+  @media screen and (max-width: 420px) {
+    gap: 10px;
+  }
 `;
 
 const FirstMainWraaper = styled(MainWrapper)`
@@ -80,7 +84,7 @@ const Container = styled.div`
   gap: 24px;
   background-color: #f2f3f3;
   width: ${sideWidth};
-  height: 100vh;
+  /* height: 100vh; */
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -177,13 +181,13 @@ const Directorylist = () => {
             <DirectoryWrapper key={index}>
               <FirstMainWraaper>
               {item.data[0].image}
-              <DirectoryMenuTitle onClick={() =>  menuClick(item.data[0].title, true, "Directory")}>
+              <DirectoryMenuTitle onClick={() =>  menuClick(item.data[0].url, true, "Directory")}>
                   {item.data[0].title}
                 </DirectoryMenuTitle>
               </FirstMainWraaper>
               <MainWrapper>
               {item.data[1]?.image}
-              <DirectoryMenuTitle onClick={() =>  menuClick(item.data[1]?.title, true, "Directory")}>
+              <DirectoryMenuTitle onClick={() =>  menuClick(item.data[1]?.url, true, "Directory")}>
                   {item.data[1]?.title}
                 </DirectoryMenuTitle>
               </MainWrapper>

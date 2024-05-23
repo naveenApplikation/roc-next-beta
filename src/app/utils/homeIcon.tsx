@@ -74,7 +74,7 @@ import { GiHairStrands } from "react-icons/gi";
 import { GiSonicShoes } from "react-icons/gi";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { BsBank2 } from "react-icons/bs";
-// Home	import { FaHome } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 
 
 
@@ -198,80 +198,102 @@ const HeartPulseIcon =  <FaHeartPulse style={{fontSize:'30px', borderRadius:'50%
 const RunningIcon =  <FaRunning style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 
 
-const FoodIcon =  <FaUtensils style={{fontSize:'30px',padding:'5px', color:'black'}} />;
-const ActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px', color:'black'}} />;
-const EntertainmentIcon =  <LuPopcorn style={{fontSize:'30px',padding:'5px', color:'black'}} />;
-const BeautyIcon =  <FaFaceSmileBeam style={{fontSize:'30px',padding:'5px', color:'black'}} />;
-const FitnessIcon =  <FaHeartPulse style={{fontSize:'30px',padding:'5px', color:'black'}} />;
-const SportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const KidIcon =  <FaChild style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const PetsIcon =  <FaDog style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const userCalederIcon =  <FaCalendar style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const shopBagIcon =  <FaShoppingBag style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const AccomodationIcon =  <FaHotel style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const BillIcon =  <FaMoneyBill style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const usercarIcon =  <FaCar style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const TravelIcon =  <FaPlane style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const RoadbusIcon =  <FaBus style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const ServiesIcon =  <FaUserTie style={{fontSize:'30px', padding:'5px', color:'black'}} />;
-const briefcaseIcon =  <FaBriefcase style={{fontSize:'30px', padding:'5px', color:'black'}} />;
+const FoodIcon =  <FaUtensils style={{fontSize:'24px',padding:'5px',marginRight:5, color:'black'}} />;
+const ActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px',marginRight:1, color:'black'}} />;
+const EntertainmentIcon =  <LuPopcorn style={{fontSize:'27px',padding:'5px',marginRight:2, color:'black'}} />;
+const BeautyIcon =  <FaFaceSmileBeam style={{fontSize:'26px',padding:'5px',marginRight:3, color:'black'}} />;
+const FitnessIcon =  <FaHeartPulse style={{fontSize:'28px',padding:'5px',marginRight:2, color:'black'}} />;
+const SportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px',marginRight:1, color:'black'}} />;
+const HomeIcon =  <FaHome style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
+const KidIcon =  <FaChild style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
+const PetsIcon =  <FaDog style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
+const userCalederIcon =  <FaCalendar style={{fontSize:'25px', padding:'5px',marginRight:5, color:'black'}} />;
+const shopBagIcon =  <FaShoppingBag style={{fontSize:'26px', padding:'5px',marginRight:5, color:'black'}} />;
+const AccomodationIcon =  <FaHotel style={{fontSize:'25px', padding:'5px',marginRight:5, color:'black'}} />;
+const BillIcon =  <FaMoneyBill style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
+const usercarIcon =  <FaCar style={{fontSize:'26px', padding:'5px',marginRight:4, color:'black'}} />;
+const TravelIcon =  <FaPlane style={{fontSize:'27px', padding:'5px',marginRight:5, color:'black'}} />;
+const RoadbusIcon =  <FaBus style={{fontSize:'28px', padding:'5px',marginRight:2, color:'black'}} />;
+const ServiesIcon =  <FaUserTie style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
+const briefcaseIcon =  <FaBriefcase style={{fontSize:'26px', padding:'5px',marginRight:7, color:'black'}} />;
+const HomeFoodIcon =  <FaUtensils style={{fontSize:'24px',padding:'5px',marginRight:9, color:'black'}} />;
+const HomeEntertainmentIcon =  <LuPopcorn style={{fontSize:'27px',padding:'5px',marginRight:4, color:'black'}} />;
+const HomeActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px',marginRight:2, color:'black'}} />;
+const HomeBeautyIcon =  <FaFaceSmileBeam style={{fontSize:'26px',padding:'5px',marginRight:5, color:'black'}} />;
+const HomeFitnessIcon =  <FaHeartPulse style={{fontSize:'28px',padding:'5px',marginRight:3, color:'black'}} />;
+const HomeSportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px',marginRight:1, color:'black'}} />;
+const HomeKidIcon =  <FaChild style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
+const HomeshopBagIcon =  <FaShoppingBag style={{fontSize:'26px', padding:'5px',marginRight:5, color:'black'}} />;
 
-
-
-export const DirectoryItem:any = [
+export const DirectoryHomepage:any = [
   {
     data: [
       {
-        image: FoodIcon,
+        image: HomeFoodIcon,
         title: "Food and Drink",
-        url: "attration"
+        url: "Food and Drink"
       },
       {
-        image: ActivityIcon,
-        title: "Activities",
-        url: "food-drinks"
-      },
-    ],
-  },
-  {
-    data: [
-      {
-        image: EntertainmentIcon,
+        image: HomeEntertainmentIcon,
         title: "Entertainment",
-        url: "shopsandMarket"
+        url: "Entertainment"
+      },
+   
+    ],
+  },
+  {
+    data: [
+      {
+        image: HomeActivityIcon,
+        title: "Activities",
+        url: "Activities"
       },
       {
-        image: BeautyIcon,
+        image: HomeBeautyIcon,
         title: "Hair and Beauty",
-        url: "tour"
+        url: "Hair and Beauty"
       },
     ],
   },
   {
     data: [
       {
-        image: FitnessIcon,
-        title: "Health Fitness and Wellbeing	",
-        url: "accommodations"
+        image: HomeFitnessIcon,
+        title: "Wellbeing",
+        url: "Health Fitness and Wellbeing"
       },
       {
-        image: SportsIcon,
+        image: HomeSportsIcon,
         title: "Sports",
-        url: "activity"
+        url: "Sports"
       },
     ],
   },
   {
     data: [
       {
-        image: KidIcon,
-        title: "Kids",
-        url: "tourOperator"
+        image: HomeIcon,
+        title: "Home",
+        url: "Home"
       },
+      {
+        image: HomeKidIcon,
+        title: "Kids",
+        url: "Kids"
+      },
+    ],
+  },
+  {
+    data: [
       {
         image: PetsIcon,
         title: "Pets",
-        url: "bar-pubs"
+        url: "Pets"
+      },
+      {
+        image: HomeshopBagIcon,
+        title: "shopping",
+        url: "shopping"
       },
     ],
   },
@@ -280,60 +302,177 @@ export const DirectoryItem:any = [
       {
         image: userCalederIcon,
         title: "Event Planning",
-        url: "holidays"
+        url: "Event Planning"
       },
       {
-        image: shopBagIcon,
-        title: "shopping",
-        url: "beaches"
+        image: AccomodationIcon,
+        title: "Accommodation",
+        url: "Accommodation"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: BillIcon,
+        title: "Budget",
+        url: "Budget"
+      },
+      {
+        image: usercarIcon,
+        title: "Vehicles",
+        url: "Vehicles"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: TravelIcon,
+        title: "Travel",
+        url: "Travel"
+      },
+      {
+        image: RoadbusIcon,
+        title: "Transport",
+        url: "Transport"
+      },
+    ],
+  },{
+    data: [
+      {
+        image: briefcaseIcon,
+        title: "Recruitment",
+        url: "Recruitment"
+      },
+      {
+        image: ServiesIcon,
+        title: "Professional Services",
+        url: "Professional Services"
+      },
+    ],
+  },
+];
+
+export const DirectoryItem:any = [
+  {
+    data: [
+      {
+        image: FoodIcon,
+        title: "Food and Drink",
+        url: "Food and Drink"
+      },
+      {
+        image: ActivityIcon,
+        title: "Activities",
+        url: "Activities"
       },
     ],
   },
   {
     data: [
       {
+        image: EntertainmentIcon,
+        title: "Entertainment",
+        url: "Entertainment"
+      },
+      {
+        image: BeautyIcon,
+        title: "Hair and Beauty",
+        url: "Hair and Beauty"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: FitnessIcon,
+        title: "Wellbeing",
+        url: "Health Fitness and Wellbeing"
+      },
+      {
+        image: SportsIcon,
+        title: "Sports",
+        url: "Sports"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: HomeIcon,
+        title: "Home",
+        url: "Home"
+      },
+      {
+        image: KidIcon,
+        title: "Kids",
+        url: "Kids"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: PetsIcon,
+        title: "Pets",
+        url: "Pets"
+      },
+      {
+        image: userCalederIcon,
+        title: "Event Planning",
+        url: "Event Planning"
+      },
+    ],
+  },
+  {
+    data: [
+      {
+        image: shopBagIcon,
+        title: "shopping",
+        url: "shopping"
+      },
+      {
         image: AccomodationIcon,
         title: "Accommodation",
-        url: "holidays"
+        url: "Accommodation"
       },
+    ],
+  },{
+    data: [
       {
         image: BillIcon,
         title: "Budget",
-        url: "beaches"
+        url: "Budget"
       },
-    ],
-  },{
-    data: [
       {
         image: usercarIcon,
         title: "Vehicles",
-        url: "holidays"
+        url: "Vehicles"
       },
+    ],
+  },{
+    data: [
       {
         image: TravelIcon,
         title: "Travel",
-        url: "beaches"
+        url: "Travel"
       },
-    ],
-  },{
-    data: [
       {
         image: RoadbusIcon,
         title: "Transport",
-        url: "holidays"
-      },
-      {
-        image: briefcaseIcon,
-        title: "Recruitment",
-        url: "beaches"
+        url: "Transport"
       },
     ],
   },{
     data: [
       {
+        image: briefcaseIcon,
+        title: "Recruitment",
+        url: "Recruitment"
+      },
+      {
         image: ServiesIcon,
         title: "Professional Services",
-        url: "holidays"
+        url: "Professional Services"
       },
     ],
   },

@@ -2,7 +2,7 @@ import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import { DirectoryItem } from "@/app/utils/homeIcon";
+import { DirectoryHomepage } from "@/app/utils/homeIcon";
 
 interface DashboardProps {
   modalClick?: any;
@@ -27,7 +27,7 @@ const DirectoryWrapper = styled.div`
 `;
 
 const DirectoryMenuTitle = styled.p`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -79,7 +79,7 @@ const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         title="Directory"
         isOpen={() => menuClick("directoryList")}
       />
-      {DirectoryItem.slice(0, 5).map((item:any, index:any) => (
+      {DirectoryHomepage.slice(0, 5).map((item:any, index:any) => (
         <DirectoryWrapper key={index}>
           <FirstMainWraaper>
           {item.data[0].image}
