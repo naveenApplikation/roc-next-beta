@@ -133,8 +133,10 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
       longitude = dataDetails?.acf?.map_location?.lng;
       place_id = dataDetails?.acf?.map_location?.place_id;
     }
-    const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}&@${latitude},${longitude}`;
-    window.open(googleMapsUrl)
+    const googleMapsUrl =  `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    
+    // const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}&${latitude},${longitude}`;
+    window.open(googleMapsUrl, '_blank')
   }
 
   return (

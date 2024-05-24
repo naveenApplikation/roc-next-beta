@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import { default as withPWA } from "@ducanh2912/next-pwa";
 
 const rewrites = () => {
   return [
@@ -42,6 +43,17 @@ const rewrites = () => {
   ];
 };
 
+
+
+/** @type {import('next').NextConfig} */
+
+
+
+
+
+
+
+
 // const nextConfig = {
 //   output: "export",
 //   reactStrictMode: false,
@@ -63,4 +75,22 @@ const nextConfig = {
   reactStrictMode: false,
 };
 
-export default nextConfig;
+const withPwaConfig = withPWA({
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swcMinify: true,
+  disable: false,
+  dest: "public",
+  fallbacks: {
+    document: "/offline", // if you want to fallback to a custom page rather than /_offline
+  },
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+  // ... other options you like
+});
+
+export default withPwaConfig(nextConfig);
+
+// export default nextConfig;
