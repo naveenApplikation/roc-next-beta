@@ -40,13 +40,12 @@ interface ContextProps {
   setModalNames?: any;
   filterValues?: any;
   setFilterValues?: any;
-  fetchDataAsync?:any;
-  placeData?:any;
-  setPlaceData?:any;
-  placeloader?:any,
-  searchQuery?:any;
-  setSearchQuery?:any;
-
+  fetchDataAsync?: any;
+  placeData?: any;
+  setPlaceData?: any;
+  placeloader?: any;
+  searchQuery?: any;
+  setSearchQuery?: any;
 }
 
 // Create a context
@@ -93,21 +92,32 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [placeloader, setPlaceLoader] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [location, setLocation] = useState<any>({latitude:"",longitude:""})
+  const [location, setLocation] = useState<any>({
+    latitude: "",
+    longitude: "",
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       const { latitude, longitude } = coords;
-      setLocation({ latitude:String(latitude), longitude:String(longitude) });
-  })
-  }, [])
+      setLocation({ latitude: String(latitude), longitude: String(longitude) });
+    });
+  }, []);
 
-  const fetchDataAsync = async (value: string,filterValues:any) => {
+  const fetchDataAsync = async (value: string, filterValues: any) => {
     setPlaceLoader(true);
     try {
-        const url = buildFilterUrl(value,{distance:filterValues.distance=="Any"? "" : filterValues.distance,rating:filterValues.rating=="Any"? "" : filterValues.rating,openingHours:filterValues.openingHours},location)
-        const result = await Instance.get(url);
-        setPlaceData(result?.data.searchResults);
+      const url = buildFilterUrl(
+        value,
+        {
+          distance: filterValues.distance == "Any" ? "" : filterValues.distance,
+          rating: filterValues.rating == "Any" ? "" : filterValues.rating,
+          openingHours: filterValues.openingHours,
+        },
+        location
+      );
+      const result = await Instance.get(url);
+      setPlaceData(result?.data.searchResults);
     } catch (error: any) {
       console.log(error.message);
       setPlaceLoader(false);
@@ -166,7 +176,13 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-    setModalType((prev) => {
+   if(name=='modalFilter'){
+    setModalType((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+   }else{
+ setModalType((prev) => {
       const updatedState = Object.keys(prev).reduce((acc, key) => {
         acc[key] = key === name;
         return acc;
@@ -174,10 +190,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       return updatedState as typeof prev;
     });
-    // setModalType((prev) => ({
-    //   ...prev,
-    //   [name]: true,
-    // }));
+   }
+   
+  
     if (modalName === "betaExploreModal") {
       setModalNames("");
     }
@@ -259,7 +274,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setPlaceData,
     placeloader,
     searchQuery,
-    setSearchQuery
+    setSearchQuery,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

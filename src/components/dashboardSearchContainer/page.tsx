@@ -32,36 +32,44 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   modalClick,
 }) => {
-
-  const { modalType,filterValues,setSearchQuery,searchQuery,fetchDataAsync,placeloader,placeData,setPlaceData } = useMyContext();
+  const {
+    modalType,
+    filterValues,
+    setSearchQuery,
+    searchQuery,
+    fetchDataAsync,
+    placeloader,
+    placeData,
+    setPlaceData,
+  } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
 
   const handleChange = (value: string) => {
     setSearchQuery(value);
-    if(searchQuery.length == 0){
-      setData([])
-      setPlaceData([])
+    if (searchQuery.length == 0) {
+      setData([]);
+      setPlaceData([]);
     }
   };
 
   const fetchDataListAsync = async (value: string) => {
     setLoader(true);
     try {
-        const result = await Instance.get(`/filter/category?query=${value}`);
-        console.log(result,"sdsds")
-        if (result.status === 200) {
-          result.data.list.forEach((list: any) => {
-            const matchedIcon = CategoryIcons.find(
-              (icon) => icon.name === list.iconName
-            );
-            if (matchedIcon) {
-              list.image = matchedIcon.image;
-            }
-          });
-          setData(result?.data);
-        }
+      const result = await Instance.get(`/filter/category?query=${value}`);
+      console.log(result, "sdsds");
+      if (result.status === 200) {
+        result.data.list.forEach((list: any) => {
+          const matchedIcon = CategoryIcons.find(
+            (icon) => icon.name === list.iconName
+          );
+          if (matchedIcon) {
+            list.image = matchedIcon.image;
+          }
+        });
+        setData(result?.data);
+      }
     } catch (error: any) {
       console.log(error.message);
       setLoader(false);
@@ -78,12 +86,16 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   }, [modalType.search]);
 
   const handleSearch = () => {
-    if(tabValue == "Lists"){
+    if (tabValue == "Lists") {
       fetchDataListAsync(searchQuery);
-    }else{
-      fetchDataAsync(searchQuery,filterValues)
+    } else {
+      fetchDataAsync(searchQuery, filterValues);
     }
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [tabValue]);
 
   return (
     <>
@@ -282,8 +294,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                         opacity: item?.data_type ? "1" : ".25",
                       }}
                       title={item?.data_type ? "" : "No data available"}
-                      key={index}
-                    >
+                      key={index}>
                       <ListDataWrraper
                         onClick={() =>
                           modalClick(
@@ -292,16 +303,14 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                             item?.photoUrl ? item?.photoUrl : fallback
                           )
                         }
-                        selected={item?.data_type ? true : false}
-                      >
+                        selected={item?.data_type ? true : false}>
                         <div
                           style={{
                             display: "flex",
                             alignItems: "center",
                             gap: 16,
                             width: "85%",
-                          }}
-                        >
+                          }}>
                           <div style={{ width: 80, height: 80 }}>
                             {item?.photos ? (
                               <ImageCom imageArr={item?.photos} />
@@ -325,8 +334,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                               gap: 10,
                               flexDirection: "column",
                               maxWidth: "calc(100% - 30%)",
-                            }}
-                          >
+                            }}>
                             <ListDataTittleText>
                               {item?.name}
                             </ListDataTittleText>
@@ -335,8 +343,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                                 display: "flex",
                                 gap: 10,
                                 alignItems: "center",
-                              }}
-                            >
+                              }}>
                               <ListDataInfoText>
                                 {item?.acf?.aa_rating
                                   ? item?.acf?.aa_rating?.value == "No rating"
@@ -351,8 +358,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                                   gap: "5px",
                                   flexWrap: "wrap",
                                   width: "100%",
-                                }}
-                              >
+                                }}>
                                 {item?.acf?.portal_post_owner_name ? (
                                   <ListDataInfoText>
                                     . {item?.acf?.portal_post_owner_name}

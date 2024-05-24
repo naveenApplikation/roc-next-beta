@@ -76,7 +76,7 @@ const ModalContent: React.FC<ModalProps> = ({
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
       height: 24,
-      nameValue: data?.acf?.event_dates[0].start_time ? true : false,
+      nameValue: data?.acf?.event_dates?.length  && data?.acf?.event_dates[0].start_time ? true : false,
     },
     {
       name:            
