@@ -2,6 +2,9 @@ import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { phoneBlack } from "@/app/utils/ImagePath";
+import toast from "react-hot-toast";
+import { Tooltip } from "antd";
+import Link from "next/link";
 
 interface ModalProps {
   //   onClose: () => void;
@@ -259,55 +262,97 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     "Saturday:",
     "Sunday:",
   ];
+  console.log("klsjfslkflksf", data)
+  const copylink = (copy: any) => {
+    navigator.clipboard.writeText(copy);
+    toast.success("copy");
+  };
 
   const ActivitiesListData = [
     {
-      name: "March - October",
+      name:
+        <Tooltip title={"Month"}>
+          <span onClick={() => copylink("March - October")}>
+            March - October
+          </span>
+        </Tooltip>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
       width: 14,
       height: 24,
+      nameValue: true,
     },
     {
-      name: "Today: 09:00 - 18:00",
+      name: <Tooltip title={"Time"}>
+        <span onClick={() => copylink("Today: 09:00 - 18:00")}>
+          Today: 09:00 - 18:00
+        </span>
+      </Tooltip>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
       height: 24,
+      nameValue: true,
     },
     {
-      name: `£ ${data.acf?.price_from}`,
+      name:
+        <Tooltip title={"Price"}>
+          <span onClick={() => copylink(data?.acf?.price_to)}>
+            {`£ ${data?.acf?.price_to}`}
+          </span>
+        </Tooltip>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
       width: 10,
       height: 24,
+      nameValue: data?.acf?.price_to ? true : false,
     },
     {
-      name: data.acf?.telephone_number.formatted,
+      name: <Tooltip title={"Phone number"}>
+        <span onClick={() => copylink(data.acf?.telephone_number.formatted)}>
+          {data.acf?.telephone_number.formatted}
+        </span>
+      </Tooltip>,
       image: phoneBlack,
       width: 12,
       height: 24,
+      nameValue: data.acf?.telephone_number.formatted ? true : false,
     },
     {
-      name: data.acf?.email_address,
+      name:
+        <Tooltip title={"Email address"}>
+          <span onClick={() => copylink(data?.acf?.email_address)}>
+            {data?.acf?.email_address}
+          </span>
+        </Tooltip>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
       width: 16,
       height: 24,
+      nameValue: data?.acf?.email_address ? true : false,
     },
     {
-      name: data.acf?.website,
+      name:
+
+        <WebsiteLink href={data?.acf?.website ? data?.acf?.website : ""} target="_blank">
+          {data?.acf?.website}
+        </WebsiteLink>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
       width: 16,
       height: 24,
     },
     {
-      name: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? `${data.acf?.address.place_name}, ${data.acf?.address.address_line_1}, ${data.acf?.address.address_line_2}` : "",
+      name: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? <Tooltip title={"Copy address"}>
+        <span onClick={() => copylink(`${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`)}>
+          {data?.acf?.address.place_name}, {data?.acf?.address.address_line_1}, {data?.acf?.address?.address_line_2},
+        </span>
+      </Tooltip> : "",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
       height: 24,
+      nameValue: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? true : false,
     },
   ];
 
@@ -378,7 +423,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                 />{" "}
               </div>
               {index == 5 ? (
-                <RestDetailTitleWebsite href={item?.name} target="_blank">
+                <RestDetailTitleWebsite >
                   {item?.name}
                 </RestDetailTitleWebsite>
               ) : (
@@ -473,3 +518,11 @@ const ActivitiesModal: React.FC<ModalProps> = ({
 };
 
 export default ActivitiesModal;
+
+const WebsiteLink = styled(Link)`
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: lightblue;
+    color: lightblue;
+  }
+`;

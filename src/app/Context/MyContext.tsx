@@ -122,10 +122,18 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-    setModalType((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
+    setModalType((prev) => {
+      const updatedState = Object.keys(prev).reduce((acc, key) => {
+        acc[key] = key === name;
+        return acc;
+      }, {} as { [key: string]: boolean });
+
+      return updatedState as typeof prev;
+    });
+    // setModalType((prev) => ({
+    //   ...prev,
+    //   [name]: true,
+    // }));
     if (modalName === "betaExploreModal") {
       setModalNames("");
     }
@@ -141,7 +149,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       if (name === "infoApp") {
         setAppName(item);
       } else {
-        console.log("item menuitem menu", item);
         setReservationMenu(openReservation);
         setDataDetails(item);
         setDataUrlImage(urlImage);

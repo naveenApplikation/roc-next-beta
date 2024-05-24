@@ -67,7 +67,6 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Object.keys(data).length) {
       topAttractionMapping(data).then((res: any) => {
         setShowApiData(res);
-        console.log("respoinse", res);
         if (res?.reviews) {
           setReviewData(res?.reviews);
         }
