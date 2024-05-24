@@ -46,7 +46,9 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
   const currentDate = new Date();
   const jerseyOffset = 1 * 60; // Jersey is GMT+1
   const localOffset = currentDate.getTimezoneOffset();
-  const jerseyTime = new Date(currentDate.getTime() + (jerseyOffset + localOffset) * 60000);
+  const jerseyTime = new Date(
+    currentDate.getTime() + (jerseyOffset + localOffset) * 60000
+  );
 
   const currentDay = jerseyTime.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
   const currentTime = jerseyTime.getHours() * 100 + jerseyTime.getMinutes(); // HHMM format
@@ -98,29 +100,12 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
     schedule.periods.find((period) => period.open.day === (currentDay + 1) % 7);
 
   if (nextPeriod) {
-    if (
-      todayPeriods.length > 1 &&
-      currentTime > parseInt(todayPeriods[0].close.time) &&
-      currentTime < parseInt(todayPeriods[1].open.time)
-    ) {
-      // Handles split timing
-      return (
-        <div style={{ display: "flex", gap: "5px" }}>
-          <p style={{ color: "red" }}>Closed</p> :{" "}
-          <p>
-            Closes at {formatTime(todayPeriods[0].close.time)} - Next opening
-            time at {formatTime(todayPeriods[1].open.time)}
-          </p>
-        </div>
-      );
-    } else {
-      return (
-        <div style={{ display: "flex", gap: "5px" }}>
-          <p style={{ color: "red" }}>Closed</p> :{" "}
-          <p>Opens at {formatTime(nextPeriod.open.time)}</p>
-        </div>
-      );
-    }
+    return (
+      <div style={{ display: "flex", gap: "5px" }}>
+        <p style={{ color: "red" }}>Closed</p> :{" "}
+        <p>Opens at {formatTime(nextPeriod.open.time)}</p>
+      </div>
+    );
   }
 
   return (
@@ -129,7 +114,6 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
     </div>
   );
 }
-
 
 export function isOpen(periods: any[]) {
   let value;
