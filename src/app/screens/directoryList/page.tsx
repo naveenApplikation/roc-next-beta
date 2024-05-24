@@ -13,6 +13,13 @@ import { useRouter } from "next/navigation";
 import { sideWidth } from "../../../app/utils/date";
 import PageLayout from "../../../app/pageLayout";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
+import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
+import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderOnlineModalScreen";
+import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
+import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
+import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScreen";
+import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
+import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -204,6 +211,14 @@ const Directorylist = () => {
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
+         <PlacesModalScreen showMap={showMap} />
+        {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
+        <PlaceOrderOnlineModalScreen showMap={showMap} />
+        <EventListingModalScreen showMap={showMap} />
+        <ActivitiesModalScreen showMap={showMap} />
+        <DirectoryModalScreen showMap={showMap} />
+        <ViewDirectionModalScreen showMap={showMap} />
+        <ReservationCalenderModal showMap={showMap}/>
     </PageLayout>
   );
 };

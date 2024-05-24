@@ -185,7 +185,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem,searchQuery }) => {
 
   return (
     <Container>
-      {searchQuery.length ? (
+      {searchQuery && searchItem.length ? (
         <>
           {searchItem.length
             ? searchItem.map((item: any, index:any) => {
@@ -205,7 +205,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem,searchQuery }) => {
                         src={thumbsup}
                         alt="icon"
                       />
-                      <p>{item.voting.length}</p>
+                      <p>{item?.voting?.length}</p>
                     </LikesContainer>
                   </ListContainer>
                 );

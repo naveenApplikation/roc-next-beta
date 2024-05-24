@@ -15,6 +15,7 @@ import TabPanel from "../tabPanel";
 import Ratings from "../ratings";
 import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
+import { buildFilterUrl } from "@/app/utils/filter";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -31,8 +32,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   modalClick,
 }) => {
-  const { modalType } = useMyContext();
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const { modalType,filterValues,setSearchQuery,searchQuery,fetchDataAsync,placeloader,placeData } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
@@ -41,11 +42,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     setSearchQuery(value);
   };
 
-  const fetchDataAsync = async (value: string) => {
+  const fetchDataListAsync = async (value: string) => {
     setLoader(true);
     try {
-      if (tabValue == "Lists") {
-        // const result = await Instance.get(`/search?title=${value}`);
         const result = await Instance.get(`/filter/category?query=${value}`);
         if (result.status === 200) {
           result.data.forEach((list: any) => {
@@ -58,10 +57,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           });
           setData(result?.data);
         }
-      } else {
-        const result = await Instance.get(`/filter/places?place=${value}`);
-        setData(result?.data.searchResults);
-      }
     } catch (error: any) {
       console.log(error.message);
       setLoader(false);
@@ -69,8 +64,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       setLoader(false);
     }
   };
-
-  console.log(data, "dsdsdsds");
 
   useEffect(() => {
     if (!modalType.search) {
@@ -80,8 +73,15 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   }, [modalType.search]);
 
   const handleSearch = () => {
-    fetchDataAsync(searchQuery);
+    if(tabValue == "Lists"){
+      fetchDataListAsync(searchQuery);
+    }else{
+      fetchDataAsync(searchQuery,filterValues)
+    }
   };
+
+  console.log(data,"data")
+ 
 
   return (
     <>
@@ -236,7 +236,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         <>
           <FilterSection />
           <SearchedListContainer>
-            {loader
+            {placeloader
               ? skeletonData.map((item, index) => (
                   <SearchedData key={index}>
                     <MainInsideWrapper>
@@ -265,8 +265,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                     </MainInsideWrapper>
                   </SearchedData>
                 ))
-              : searchQuery && data.length
-              ? data.map((item: any, index: any) => {
+              : searchQuery && placeData.length
+              ? placeData.map((item: any, index: any) => {
                   if (!item.place_id) {
                     return null;
                   }

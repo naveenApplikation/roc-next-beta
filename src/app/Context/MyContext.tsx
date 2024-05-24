@@ -7,6 +7,9 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { CategoryIcons } from "@/app/utils/iconList";
+import { buildFilterUrl } from "@/app/utils/filter";
+import Instance from "@/app/utils/Instance";
 
 // Define types for your state and functions
 interface ModalType {
@@ -35,6 +38,14 @@ interface ContextProps {
   oldName: string;
   setOldName: any;
   setModalNames?: any;
+  filterValues?: any;
+  setFilterValues?: any;
+  fetchDataAsync?:any;
+  placeData?:any;
+  placeloader?:any,
+  searchQuery?:any;
+  setSearchQuery?:any;
+
 }
 
 // Create a context
@@ -44,6 +55,11 @@ const MyContext = createContext<ContextProps | undefined>(undefined);
 const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [modalName, setModalNames] = useState<string>("");
   const [dataDetails, setDataDetails] = useState<DataDetails>({});
+  const [filterValues, setFilterValues] = useState({
+    distance: "",
+    openingHours: false,
+    rating: "",
+  });
   const [showContent, setShowContent] = useState(false);
   const [reservationMenu, setReservationMenu] = useState(false);
   const [dataUrlImage, setDataUrlImage] = useState("");
@@ -71,6 +87,33 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     activities: false,
     infoApp: false,
   });
+
+  const [placeData, setPlaceData] = useState<any[]>([]);
+  const [placeloader, setPlaceLoader] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const [location, setLocation] = useState<any>({latitude:"",longitude:""})
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      const { latitude, longitude } = coords;
+      setLocation({ latitude:String(latitude), longitude:String(longitude) });
+  })
+  }, [])
+
+  const fetchDataAsync = async (value: string,filterValues:any) => {
+    setPlaceLoader(true);
+    try {
+        const url = buildFilterUrl(value,{distance:filterValues.distance=="Any"? "" : filterValues.distance,rating:filterValues.rating=="Any"? "" : filterValues.rating,openingHours:filterValues.openingHours},location)
+        const result = await Instance.get(url);
+        setPlaceData(result?.data.searchResults);
+    } catch (error: any) {
+      console.log(error.message);
+      setPlaceLoader(false);
+    } finally {
+      setPlaceLoader(false);
+    }
+  };
 
   useEffect(() => {
     // Check window width on client-side
@@ -201,6 +244,13 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     oldName,
     setOldName,
     setModalNames,
+    filterValues,
+    setFilterValues,
+    fetchDataAsync,
+    placeData,
+    placeloader,
+    searchQuery,
+    setSearchQuery
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

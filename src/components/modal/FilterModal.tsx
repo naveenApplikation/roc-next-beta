@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import star from "../../../assets/images/star.svg";
-import CommonButton from '../../components/button/CommonButton'
+import CommonButton from '../../components/button/CommonButton';
+import { useMyContext } from "@/app/Context/MyContext";
 
 const Container = styled.div`
   display: flex;
@@ -68,13 +69,12 @@ const ButtonBox = styled.div`
 `;
 
 const FilterModal: React.FC = () => {
+
+  const { setFilterValues,searchQuery,fetchDataAsync,closeModal,filterValues } = useMyContext();
+  
   const [selectedBox, setSelectedBox] = useState<number | null>(0);
-  const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(
-    0
-  );
-  const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
-    0
-  );
+  const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(0);
+  const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(0);
 
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);
@@ -89,10 +89,20 @@ const FilterModal: React.FC = () => {
   };
 
   const data = ["Any", "1KM", "2KM", "4KM", "8KM"];
-
   const buttonData = ["Any", "Open now"];
-
   const RatingData = ["Any", "3.5", "4.0", "4.5"];
+
+  const handleFilterClick = () => {
+    const selectedValues = {
+      distance: data[selectedBox ?? 0],
+      openingHours: selectedButtonBox == 0 ? false : true ,
+      rating: RatingData[selectedRatingBox ?? 0],
+    };
+    setFilterValues(selectedValues)
+    fetchDataAsync(searchQuery,selectedValues)
+    closeModal("modalFilter")
+    // console.log(selectedValues);
+  };
 
   return (
     <Container>
@@ -134,8 +144,8 @@ const FilterModal: React.FC = () => {
           </Box>
         ))}
       </ScrollingMenu>
-      <div style={{padding:"0px 24px"}}>
-      <CommonButton text="Filter" />
+      <div style={{ padding: "0px 24px" }} onClick={handleFilterClick}>
+        <CommonButton text="Filter"  />
       </div>
     </Container>
   );
