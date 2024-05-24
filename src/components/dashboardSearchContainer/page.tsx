@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Image from "next/image";
-import { commentstar } from "@/app/utils/ImagePath";
+import { blank, commentstar, thumbsup, utensils } from "@/app/utils/ImagePath";
 import SearchInput from "../searchInput/SearchInput";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
 import fallback from "../../../assets/images/fallbackimage.png";
+import FilterSection from "../filterSection";
+import { RestroListData } from "@/app/utils/data";
+import TabPanel from "../tabPanel";
+import Ratings from "../ratings";
+import Lists from "../search/Lists";
+import { CategoryIcons } from "@/app/utils/iconList";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -34,13 +40,28 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
+
   const fetchDataAsync = async (value: string) => {
     setLoader(true);
-
     try {
-      // const result = await Instance.get(`/search?title=${value}`);
-      const result = await Instance.get(`/search-data?query=${value}`);
-      setData(result?.data?.searchResults);
+      if (tabValue == "Lists") {
+        // const result = await Instance.get(`/search?title=${value}`);
+        const result = await Instance.get(`/filter/category?query=${value}`);
+        if (result.status === 200) {
+          result.data.forEach((list: any) => {
+            const matchedIcon = CategoryIcons.find(
+              (icon) => icon.name === list.iconName
+            );
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+          });
+          setData(result?.data);
+        }
+      } else {
+        const result = await Instance.get(`/filter/places?place=${value}`);
+        setData(result?.data.searchResults);
+      }
     } catch (error: any) {
       console.log(error.message);
       setLoader(false);
@@ -48,6 +69,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       setLoader(false);
     }
   };
+
+  console.log(data, "dsdsdsds");
 
   useEffect(() => {
     if (!modalType.search) {
@@ -73,7 +96,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       </InputWrapper>
       <>
         {/* <FilterSection /> */}
-        <SearchedListContainer>
+        {/* <SearchedListContainer>
           {loader
             ? skeletonData.map((item, index) => (
                 <SearchedData key={index}>
@@ -108,8 +131,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                 if (!item.place_id) {
                   return null;
                 }
-                // const imageList = JSON.parse(item.acf.header_image_data);
-                // const image = imageList[0].url;
                 return (
                   <div
                     style={{
@@ -141,7 +162,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                         }}
                       >
                         <div style={{ width: 80, height: 80 }}>
-                          {/* <ImageCom imageArr={item?.photos} /> */}
                           {item?.photos ? (
                             <ImageCom imageArr={item?.photos} />
                           ) : (
@@ -195,14 +215,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                                   . {item?.acf?.portal_post_owner_name}
                                 </ListDataInfoText>
                               ) : null}
-                              {/* <ListDataInfoText className="type_style">. {item?.types ? (item?.types[0]) : ""}</ListDataInfoText> */}
                             </div>
                           </div>
-                          {/* <p>
-                                                            <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000", fontSize: '14px', fontWeight: '500' }}>
-                                                                {item?.opening_hours?.open_now ? "Open" : "Closed"}
-                                                            </span>
-                                                        </p> */}
                         </div>
                       </div>
                     </ListDataWrraper>
@@ -210,72 +224,150 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                 );
               })
             : ""}
-        </SearchedListContainer>
+        </SearchedListContainer> */}
       </>
 
-      {/* <TabPanel
-                defaultValue="Lists"
-                tabChange={tabChange}
-                options={options}
-            />
-            {tabValue == "Lists" ? (
-                <>
-                    <Lists />
-                </>
-            ) : (
-                <>
-                    <FilterSection />
-                    <SearchedListContainer>
-                       
-                        {RestroListData.map((item: any, index: any) => {
-                            return (
-                                <SearchedData key={index}>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 16,
-                                        }}
-                                    >
-                                        <Image
-                                            style={{ background: "white" }}
-                                            src={blank}
-                                            alt=""
-                                        />
-                                        <div className="restroRating">
-                                            <p className="shopName">{item.name}</p>
-                                            <div style={{ display: "flex", alignItems: "center" }}>
-                                                <Image
-                                                    src={utensils}
-                                                    style={{
-                                                        width: "13px",
-                                                        height: "13px",
-                                                        marginRight: 8,
-                                                    }}
-                                                    alt="utensils"
-                                                />
-                                                <Ratings defaultValue={item.rating} />
-                                            </div>
-                                            <p>
-                                                <span>Open - Closes</span>
-                                            </p>
-                                            <p>Indoors</p>
-                                        </div>
-                                    </div>
-                                    <div className="likes">
-                                        <Image
-                                            src={thumbsup}
-                                            alt="like"
-                                            style={{ width: "16px", height: "16px" }}
-                                        />
-                                        <p>{item.likeCount}</p>
-                                    </div>
-                                </SearchedData>
-                            );
-                        })}
-                    </SearchedListContainer>
-                </>
-            )} */}
+      <TabPanel defaultValue="Lists" tabChange={tabChange} options={options} />
+      {tabValue == "Lists" ? (
+        <>
+          <Lists searchItem={data} searchQuery={searchQuery} />
+        </>
+      ) : (
+        <>
+          <FilterSection />
+          <SearchedListContainer>
+            {loader
+              ? skeletonData.map((item, index) => (
+                  <SearchedData key={index}>
+                    <MainInsideWrapper>
+                      <Skeleton
+                        width={80}
+                        height={80}
+                        style={{ borderRadius: 8 }}
+                      />
+                      <div className="restroRating">
+                        <Skeleton
+                          width={120}
+                          height={15}
+                          style={{ borderRadius: 8 }}
+                        />
+                        <Skeleton
+                          width={120}
+                          height={15}
+                          style={{ borderRadius: 8 }}
+                        />
+                        <Skeleton
+                          width={120}
+                          height={15}
+                          style={{ borderRadius: 8 }}
+                        />
+                      </div>
+                    </MainInsideWrapper>
+                  </SearchedData>
+                ))
+              : searchQuery && data.length
+              ? data.map((item: any, index: any) => {
+                  if (!item.place_id) {
+                    return null;
+                  }
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 16,
+                        width: "100%",
+                        opacity: item?.data_type ? "1" : ".25",
+                      }}
+                      title={item?.data_type ? "" : "No data available"}
+                      key={index}
+                    >
+                      <ListDataWrraper
+                        onClick={() =>
+                          modalClick(
+                            "ModalContent",
+                            item,
+                            item?.photoUrl ? item?.photoUrl : fallback
+                          )
+                        }
+                        selected={item?.data_type ? true : false}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 16,
+                            width: "85%",
+                          }}
+                        >
+                          <div style={{ width: 80, height: 80 }}>
+                            {item?.photos ? (
+                              <ImageCom imageArr={item?.photos} />
+                            ) : (
+                              <Image
+                                src={fallback}
+                                width={500}
+                                height={80}
+                                style={{
+                                  borderRadius: 4,
+                                  maxWidth: "100%",
+                                  objectFit: "cover",
+                                }}
+                                alt="infoCirlce"
+                              />
+                            )}
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 10,
+                              flexDirection: "column",
+                              maxWidth: "calc(100% - 30%)",
+                            }}
+                          >
+                            <ListDataTittleText>
+                              {item?.name}
+                            </ListDataTittleText>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: 10,
+                                alignItems: "center",
+                              }}
+                            >
+                              <ListDataInfoText>
+                                {item?.acf?.aa_rating
+                                  ? item?.acf?.aa_rating?.value == "No rating"
+                                    ? ""
+                                    : item?.acf?.aa_rating?.value
+                                  : item?.rating}
+                              </ListDataInfoText>
+                              <Image src={commentstar} alt="infoCirlce" />
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "5px",
+                                  flexWrap: "wrap",
+                                  width: "100%",
+                                }}
+                              >
+                                {item?.acf?.portal_post_owner_name ? (
+                                  <ListDataInfoText>
+                                    . {item?.acf?.portal_post_owner_name}
+                                  </ListDataInfoText>
+                                ) : null}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ListDataWrraper>
+                    </div>
+                  );
+                })
+              : ""}
+          </SearchedListContainer>
+        </>
+      )}
     </>
   );
 };

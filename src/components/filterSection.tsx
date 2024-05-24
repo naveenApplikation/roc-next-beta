@@ -67,14 +67,14 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
         style={{ cursor: "pointer" }}
         alt=""
       />
-      <ScrollingMenu>
+      {/* <ScrollingMenu>
         <DropDwons items={SoryByItem} name="Sort by" />
         <FilterButton>Kids</FilterButton>
         <DropDwons items={SoryByItem} name="Price" />
         <FilterButton>Top Rated</FilterButton>
         <FilterButton>Free</FilterButton>
         <FilterButton>Most Like</FilterButton>
-      </ScrollingMenu>
+      </ScrollingMenu> */}
     </FilterContainer>
   );
 };

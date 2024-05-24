@@ -633,3 +633,539 @@ export const icons = [
   },
 
 ];
+
+
+const listbankIcon =  <BsBank2 style={{fontSize:'30px', padding:'5px', color:'#eb5757'}} />;
+// const userTieIcon =  <FaUserTie style={{fontSize:'40px', borderRadius:'50%', background:'#f2c94c', padding:'5px', color:'white'}} />;
+// const swimmingIcon =  <FaPersonSwimming style={{fontSize:'40px', borderRadius:'50%', background:'#2f80ed', padding:'5px', color:'white'}} />;
+// const barberIcon =  <GiHairStrands style={{fontSize:'40px', borderRadius:'50%', background:'#f2994a', padding:'5px', color:'white'}} />;
+// const sonicShoesIcon =  <GiSonicShoes style={{fontSize:'40px', borderRadius:'50%', background:'#27ae60', padding:'5px', color:'white'}} />;
+// const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'40px', borderRadius:'50%', background:'#4f4f4f', padding:'5px', color:'white'}} />;
+
+
+const listbriefcaseIcon =  <FaBriefcase style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listuserTieIcon =  <FaUserTie style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listswimmingIcon =  <FaPersonSwimming style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listbarberIcon =  <GiHairStrands style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listsonicShoesIcon =  <GiSonicShoes style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listmotorbikeIcon =  <RiMotorbikeFill style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+const listcartIcon =  <PiShoppingCartFill style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listcarIcon =  <AiFillCar style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listcustomerServiceIcon =  <AiFillCustomerService style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listbellIcon =  <AiFillBell style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listaudioIcon =  <AiFillAudio style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listalertIcon =  <AiFillAlert style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+const listcameraIcon =  <AiFillCamera style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listcampassIcon =  <AiFillCompass style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listgiftIcon =  <AiFillGift style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listcrownIcon =  <AiFillCrown style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listfireIcon =  <AiFillFire style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listheartIcon =  <AiFillHeart style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+const listcalendarIcon =  <AiFillCalendar style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listcreditCardIcon =  <AiFillCreditCard style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listcontactIcon =  <AiFillContacts style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listmoonIcon =  <AiFillMoon style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listsunIcon =  <AiFillSun style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listtrophyIcon =  <AiFillTrophy style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+const listvideoCameraIcon =  <AiFillVideoCamera style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listsoundIcon =  <AiFillSound style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listrestIcon =  <AiFillRest style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listskinIcon =  <AiFillSkin style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listreadIcon =  <AiFillRead style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listphoneIcon =  <AiFillPhone style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+const listlockIcon =  <AiFillLock style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listhomeIcon =  <AiFillHome style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listhatIcon =  <FaHatCowboy style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listmanIcon =  <IoIosMan style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listwomanIcon =  <IoIosWoman style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listdisplayIcon =  <BsFillDisplayFill style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+// ************* represent the food
+const listappleIcon =  <AiFillApple style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listbowlFoodIcon =  <FaBowlFood style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listpizzaIcon =  <FaPizzaSlice style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listfullPizzaIcon =  <GiFullPizza style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listriceIcon =  <FaBowlRice style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listiceCreamIcon =  <IoIosIceCream style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+const listsolidDrinkIcon =  <BiSolidDrink style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listdrinkFillIcon =  <RiDrinksFill style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listshoppingBagIcon =  <FaShoppingBag style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listshoppingBasketIcon =  <RiShoppingBasketFill style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listtravelDressIcon =  <GiTravelDress style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listmartialArtsIcon =  <MdOutlineSportsMartialArts style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+const listrugbyIcon =  <MdSportsRugby style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listsportHelmatIcon =  <MdSportsMotorsports style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listglubsIcon =  <MdSportsMma style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listkabaddiIcon =  <MdSportsKabaddi style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listbaseBallIcon =  <MdSportsBaseball style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listcricketIcon =  <MdSportsCricket style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+const listfootBallIcon =  <MdSportsFootball style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listhockeyIcon =  <MdSportsHockey style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listsportCarIcon =  <IoCarSportSharp style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listvideoGameIcon =  <MdSportsEsports style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listplayIpodIcon =  <BsMusicPlayerFill style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listmusicLibraryIcon =  <MdLibraryMusic style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+const listChildIcon =  <FaChild style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listdogIcon =  <FaDog style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listhotelIcon =  <FaHotel style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listmoneyBillIcon =  <FaMoneyBill style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listplaneIcon =  <FaPlane style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listbusIcon =  <FaBus style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+const listladleIcon =  <FaUtensils style={{fontSize:'30px',  padding:'5px', color:'#eb5757'}} />;
+const listpeopleLineIcon =  <FaPeopleLine style={{fontSize:'30px',  padding:'5px', color:'#f2c94c'}} />;
+const listpopcornIcon =  <LuPopcorn style={{fontSize:'30px',  padding:'5px', color:'#2f80ed'}} />;
+const listFaceSmileBeamIcon =  <FaFaceSmileBeam style={{fontSize:'30px',  padding:'5px', color:'#f2994a'}} />;
+const listHeartPulseIcon =  <FaHeartPulse style={{fontSize:'30px',  padding:'5px', color:'#27ae60'}} />;
+const listRunningIcon =  <FaRunning style={{fontSize:'30px',  padding:'5px', color:'#4f4f4f'}} />;
+
+
+export const CategoryIcons = [
+  {
+    id: 1,
+    color:'#eb5757',
+    name:'shoppingCart',
+    image: listcartIcon,
+  },
+  {
+    id: 2,
+    color:'#f2c94c',
+    name:'car',
+    image: listcarIcon,
+  },
+  {
+    id: 3,
+    color:'#2f80ed',
+    name:'customerService',
+    image: listcustomerServiceIcon,
+  },
+  {
+    id: 4,
+    color:'#f2994a',
+    name:'bell',
+    image: listbellIcon,
+  },
+  {
+    id: 5,
+    color:'#27ae60',
+    name:'audio',
+    image: listaudioIcon,
+  },
+  {
+    id: 6,
+    color:'#4f4f4f',
+    name:'alert',
+    image: listalertIcon,
+  },
+  {
+    id: 7,
+    color:'#eb5757',
+    name:'camera',
+    image: listcameraIcon,
+  },
+  {
+    id: 8,
+    color:'#f2c94c',
+    name:'campass',
+    image: listcampassIcon,
+  },
+  {
+    id: 9,
+    color:'#2f80ed',
+    name:'gift',
+    image: listgiftIcon,
+  },
+  {
+    id: 10,
+    color:'#f2994a',
+    name:'crown',
+    image: listcrownIcon,
+  },
+  {
+    id: 11,
+    color:'#27ae60',
+    name:'fire',
+    image: listfireIcon,
+  },
+  {
+    id: 12,
+    color:'#4f4f4f',
+    name:'heart',
+    image: listheartIcon,
+  },
+  {
+    id: 13,
+    color:'#eb5757',
+    name:'calendar',
+    image: listcalendarIcon,
+  },
+  {
+    id: 14,
+    color:'#f2c94c',
+    name:'creditCart',
+    image: listcreditCardIcon,
+  },
+  {
+    id: 15,
+    color:'#2f80ed',
+    name:'contact',
+    image: listcontactIcon,
+  },
+  {
+    id: 16,
+    color:'#f2994a',
+    name:'moon',
+    image: listmoonIcon,
+  },
+  {
+    id: 17,
+    color:'#27ae60',
+    name:'sun',
+    image: listsunIcon,
+  },
+  {
+    id: 18,
+    color:'#4f4f4f',
+    name:'trophy',
+    image: listtrophyIcon,
+  },
+  {
+    id: 19,
+    color:'#eb5757',
+    name:'videoCamera',
+    image: listvideoCameraIcon,
+  },
+  {
+    id: 20,
+    color:'#f2c94c',
+    name:'sound',
+    image: listsoundIcon,
+  },
+  {
+    id: 21,
+    color:'#2f80ed',
+    name:'rest',
+    image: listrestIcon,
+  },
+  {
+    id: 22,
+    color:'#f2994a',
+    name:'skin',
+    image: listskinIcon,
+  },
+  {
+    id: 23,
+    color:'#27ae60',
+    name:'read',
+    image: listreadIcon,
+  },
+  {
+    id: 24,
+    color:'#4f4f4f',
+    name:'phone',
+    image: listphoneIcon,
+  },
+  {
+    id: 25,
+    color:'#eb5757',
+    name:'lock',
+    image: listlockIcon,
+  },
+  {
+    id: 26,
+    color:'#f2c94c',
+    name:'home',
+    image: listhomeIcon,
+  },
+  {
+    id: 27,
+    color:'#2f80ed',
+    name:'hat',
+    image: listhatIcon,
+  },
+  {
+    id: 28,
+    color:'#f2994a',
+    name:'man',
+    image: listmanIcon,
+  },
+  {
+    id: 29,
+    color:'#27ae60',
+    name:'woman',
+    image: listwomanIcon,
+  },
+  {
+    id: 30,
+    color:'#4f4f4f',
+    name:'diaplay',
+    image: listdisplayIcon,
+  },
+  {
+    id: 31,
+    color:'#eb5757',
+    name:'apple',
+    image: listappleIcon,
+  },
+  {
+    id: 32,
+    color:'#f2c94c',
+    name:'bowlFood',
+    image: listbowlFoodIcon,
+  },
+  {
+    id: 33,
+    color:'#2f80ed',
+    name:'pizza',
+    image: listpizzaIcon,
+  },
+  {
+    id: 34,
+    color:'#f2994a',
+    name:'fullPizza',
+    image: listfullPizzaIcon,
+  },
+  {
+    id: 35,
+    color:'#27ae60',
+    name:'rice',
+    image: listriceIcon,
+  },
+  {
+    id: 36,
+    color:'#4f4f4f',
+    name:'iceCream',
+    image: listiceCreamIcon,
+  },
+  {
+    id: 37,
+    color:'#eb5757',
+    name:'solidDrink',
+    image: listsolidDrinkIcon,
+  },
+  {
+    id: 38,
+    color:'#f2c94c',
+    name:'drinkFill',
+    image: listdrinkFillIcon,
+  },
+  {
+    id: 39,
+    color:'#2f80ed',
+    name:'shoppingBag',
+    image: listshoppingBagIcon,
+  },
+  {
+    id: 40,
+    color:'#f2994a',
+    name:'shoppingBasket',
+    image: listshoppingBasketIcon,
+  },
+  {
+    id: 41,
+    color:'#27ae60',
+    name:'TravelDress',
+    image: listtravelDressIcon,
+  },
+  {
+    id: 42,
+    color:'#4f4f4f',
+    name:'martialArts',
+    image: listmartialArtsIcon,
+  },
+  {
+    id: 43,
+    color:'#eb5757',
+    name:'rugby',
+    image: listrugbyIcon,
+  },
+  {
+    id: 44,
+    color:'#f2c94c',
+    name:'sportHelmat',
+    image: listsportHelmatIcon,
+  },
+  {
+    id: 45,
+    color:'#2f80ed',
+    name:'glubs',
+    image: listglubsIcon,
+  },
+  {
+    id: 46,
+    color:'#f2994a',
+    name:'kabaddi',
+    image: listkabaddiIcon,
+  },
+  {
+    id: 47,
+    color:'#27ae60',
+    name:'baseBall',
+    image: listbaseBallIcon,
+  },
+  {
+    id: 48,
+    color:'#4f4f4f',
+    name:'cricket',
+    image: listcricketIcon,
+  },
+  {
+    id: 49,
+    color:'#eb5757',
+    name:'footBall',
+    image: listfootBallIcon,
+  },
+  {
+    id: 50,
+    color:'#f2c94c',
+    name:'hockey',
+    image: listhockeyIcon,
+  },
+  {
+    id: 51,
+    color:'#2f80ed',
+    name:'sportCar',
+    image: listsportCarIcon,
+  },
+  {
+    id: 52,
+    color:'#f2994a',
+    name:'videoGame',
+    image: listvideoGameIcon,
+  },
+  {
+    id: 53,
+    color:'#27ae60',
+    name:'PlayIpod',
+    image: listplayIpodIcon,
+  },
+  {
+    id: 54,
+    color:'#4f4f4f',
+    name:'musicLibrary',
+    image: listmusicLibraryIcon,
+  },
+  {
+    id: 55,
+    color:'#eb5757',
+    name:'ladle',
+    image: listladleIcon,
+  },
+  {
+    id: 56,
+    color:'#f2c94c',
+    name:'peopleLine',
+    image: listpeopleLineIcon,
+  },
+  {
+    id: 57,
+    color:'#2f80ed',
+    name:'popcorn',
+    image: listpopcornIcon,
+  },
+  {
+    id: 58,
+    color:'#f2994a',
+    name:'smileFace',
+    image: listFaceSmileBeamIcon,
+  },
+  {
+    id: 59,
+    color:'#27ae60',
+    name:'heartPulse',
+    image: listHeartPulseIcon,
+  },
+  {
+    id: 60,
+    color:'#4f4f4f',
+    name:'running',
+    image: listRunningIcon,
+  },
+  {
+    id: 61,
+    color:'#eb5757',
+    name:'child',
+    image: listChildIcon,
+  },
+  {
+    id: 62,
+    color:'#f2c94c',
+    name:'plan',
+    image: listplaneIcon,
+  },
+  {
+    id: 63,
+    color:'#2f80ed',
+    name:'dog',
+    image: listdogIcon,
+  },
+  {
+    id: 64,
+    color:'#f2994a',
+    name:'hotel',
+    image: listhotelIcon,
+  },
+  {
+    id: 65,
+    color:'#27ae60',
+    name:'bill',
+    image: listmoneyBillIcon,
+  },
+  {
+    id: 66,
+    color:'#4f4f4f',
+    name:'bus',
+    image: listbusIcon,
+  },
+  {
+    id: 67,
+    color:'#eb5757',
+    name:'swimming',
+    image: listswimmingIcon,
+  },
+  {
+    id: 68,
+    color:'#f2c94c',
+    name:'barbers',
+    image: listbarberIcon,
+  },
+  {
+    id: 68,
+    color:'#2f80ed',
+    name:'sonicShoes',
+    image: listsonicShoesIcon,
+  },
+  {
+    id: 70,
+    color:'#f2994a',
+    name:'moterbike',
+    image: listmotorbikeIcon,
+  },
+  {
+    id: 71,
+    color:'#27ae60',
+    name:'bank',
+    image: listbankIcon,
+  },
+  {
+    id: 72,
+    color:'#4f4f4f',
+    name:'userTie',
+    image: listuserTieIcon,
+  },
+
+];

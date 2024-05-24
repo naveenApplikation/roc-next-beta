@@ -12,6 +12,7 @@ import { DirectoryItem } from "@/app/utils/homeIcon";
 import { useRouter } from "next/navigation";
 import { sideWidth } from "../../../app/utils/date";
 import PageLayout from "../../../app/pageLayout";
+import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -198,6 +199,7 @@ const Directorylist = () => {
         {/* <CategorieList /> */}
       </CategoryBody>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      <FilterModalScreen showMap={showMap} />
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}

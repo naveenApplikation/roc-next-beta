@@ -63,6 +63,7 @@ const ImageTitleContainer = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  cursor: pointer;
 
   p {
     color: #000;
@@ -146,8 +147,8 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
         </PopularListContainer>
         {listData.length ? listData.map((item: any, index) => {
           return (
-            <ListContainer key={index} onClick={() => menuClick(item?.listName, true, item?.categoryId)}>
-              <ImageTitleContainer>
+            <ListContainer key={index}>
+              <ImageTitleContainer onClick={() => menuClick(item?.listName, true, item?.categoryId)}>
                 <Imagecontainer style={{ background: item?.bgColor }}>
                   {item?.image}
                 </Imagecontainer>
@@ -164,23 +165,19 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
             </ListContainer>
           );
         }) :
-          skeletonItems.map((item, index) => (
-            <SearchedData key={index}>
-              <MainWrraper>
-                <MainInsideWrapper>
-                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                  <div className="restroRating">
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                  </div>
-                </MainInsideWrapper>
-                <div className="likes">
-                  <Skeleton width={16} height={16} />
+        skeletonItems.map((item, index) => (
+          <SearchedData key={index}>
+            <MainWrraper>
+              <MainInsideWrapper>
+                <Skeleton width={40} height={40} style={{ borderRadius: 100 }} />
+                <div className="restroRating">
+                  <Skeleton width={120} height={14}/>
                 </div>
-              </MainWrraper>
-            </SearchedData>
-          ))
+              </MainInsideWrapper>
+                <Skeleton width={56} height={24} />
+            </MainWrraper>
+          </SearchedData>
+        ))
         }
       </Container>
     </div>
