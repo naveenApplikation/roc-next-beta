@@ -42,12 +42,19 @@ type Schedule = {
 };
 
 export function getVenueStatus(schedule: Schedule): JSX.Element {
+  // Get the current time in Jersey Island (GMT+1)
   const currentDate = new Date();
-  const currentDay = currentDate.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
-  const currentTime = currentDate.getHours() * 100 + currentDate.getMinutes(); // HHMM format
- if(!schedule){
- return <></>
- }
+  const jerseyOffset = 1 * 60; // Jersey is GMT+1
+  const localOffset = currentDate.getTimezoneOffset();
+  const jerseyTime = new Date(currentDate.getTime() + (jerseyOffset + localOffset) * 60000);
+
+  const currentDay = jerseyTime.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
+  const currentTime = jerseyTime.getHours() * 100 + jerseyTime.getMinutes(); // HHMM format
+
+  if (!schedule) {
+    return <></>;
+  }
+
   // Helper to format time from HHMM to standard time representation
   const formatTime = (time: string): string => {
     const timeInt = parseInt(time, 10);
@@ -122,6 +129,7 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
     </div>
   );
 }
+
 
 export function isOpen(periods: any[]) {
   let value;
