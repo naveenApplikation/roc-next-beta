@@ -33,21 +33,26 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   modalClick,
 }) => {
 
-  const { modalType,filterValues,setSearchQuery,searchQuery,fetchDataAsync,placeloader,placeData } = useMyContext();
+  const { modalType,filterValues,setSearchQuery,searchQuery,fetchDataAsync,placeloader,placeData,setPlaceData } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
 
   const handleChange = (value: string) => {
     setSearchQuery(value);
+    if(searchQuery.length == 0){
+      setData([])
+      setPlaceData([])
+    }
   };
 
   const fetchDataListAsync = async (value: string) => {
     setLoader(true);
     try {
         const result = await Instance.get(`/filter/category?query=${value}`);
+        console.log(result,"sdsds")
         if (result.status === 200) {
-          result.data.forEach((list: any) => {
+          result.data.list.forEach((list: any) => {
             const matchedIcon = CategoryIcons.find(
               (icon) => icon.name === list.iconName
             );
@@ -79,9 +84,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       fetchDataAsync(searchQuery,filterValues)
     }
   };
-
-  console.log(data,"data")
- 
 
   return (
     <>

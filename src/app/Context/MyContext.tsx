@@ -42,6 +42,7 @@ interface ContextProps {
   setFilterValues?: any;
   fetchDataAsync?:any;
   placeData?:any;
+  setPlaceData?:any;
   placeloader?:any,
   searchQuery?:any;
   setSearchQuery?:any;
@@ -248,6 +249,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setFilterValues,
     fetchDataAsync,
     placeData,
+    setPlaceData,
     placeloader,
     searchQuery,
     setSearchQuery

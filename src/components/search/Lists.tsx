@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { PopularLists } from "./Data";
-import { thumbsup } from "@/app/utils/ImagePath";
+import { thumbsup, commentstar } from "@/app/utils/ImagePath";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
+import fallback from "../../../assets/images/fallbackimage.png";
+import ImageCom from "../addList/imageCom";
 
 interface listSearchProps {
   searchItem?: any;
@@ -126,6 +128,15 @@ const SearchedData = styled.div`
   }
 `;
 
+const NoResults = styled.p`
+  color: var(--BODY, #000);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 10px;
+`;
+
 const MainWrraper = styled.div`
   display: flex;
   align-items: center;
@@ -139,11 +150,11 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
 `;
 
-const Lists: React.FC<listSearchProps> = ({ searchItem,searchQuery }) => {
+const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
   const [listData, setListData] = useState<string[]>([]);
   const router = useRouter();
 
-  const { closeModal } = useMyContext();
+  const { closeModal,modalClick } = useMyContext();
 
   const fetchDataAsync = async () => {
     try {
@@ -183,105 +194,274 @@ const Lists: React.FC<listSearchProps> = ({ searchItem,searchQuery }) => {
     closeModal("search");
   };
 
+  console.log(searchItem, "searchItem");
+
   return (
-    <Container>
-      {searchQuery && searchItem.length ? (
+    <>
+      {searchItem?.list?.length == 0 ? (
         <>
-          {searchItem.length
-            ? searchItem.map((item: any, index:any) => {
-                return (
-                  <ListContainer key={index}>
-                    <ImageTitleContainer
-                      onClick={() =>
-                        menuClick(item?.listName, false, item?._id)
-                      }
-                    >
-                        {item?.image}
-                      <p>{item?.listName}</p>
-                    </ImageTitleContainer>
-                    <LikesContainer>
-                      <Image
-                        style={{ width: 16, height: "auto" }}
-                        src={thumbsup}
-                        alt="icon"
-                      />
-                      <p>{item?.voting?.length}</p>
-                    </LikesContainer>
-                  </ListContainer>
-                );
-              })
-            : skeletonItems.map((item, index) => (
-                <SearchedData key={index}>
-                  <MainWrraper>
-                    <MainInsideWrapper>
-                      <Skeleton
-                        width={40}
-                        height={40}
-                        style={{ borderRadius: 100 }}
-                      />
-                      <div className="restroRating">
-                        <Skeleton width={120} height={14} />
+          <PopularlistTitle>Lists</PopularlistTitle>
+          <NoResults>No results</NoResults>
+          {searchItem.places && (
+            <SearchedListContainer>
+               <PopularlistTitle style={{marginTop:10}}>Places</PopularlistTitle>
+              {searchQuery && searchItem.places.length
+                ? searchItem.places.map((item: any, index: any) => {
+                    if (!item.place_id) {
+                      return null;
+                    }
+                    return (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 16,
+                          width: "100%",
+                          opacity: item?.data_type ? "1" : ".25",
+                        }}
+                        title={item?.data_type ? "" : "No data available"}
+                        key={index}
+                      >
+                        <ListDataWrraper
+                          onClick={() =>
+                            modalClick(
+                              "ModalContent",
+                              item,
+                              item?.photoUrl ? item?.photoUrl : fallback
+                            )
+                          }
+                          selected={item?.data_type ? true : false}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 16,
+                              width: "85%",
+                            }}
+                          >
+                            <div style={{ width: 80, height: 80 }}>
+                              {item?.photos ? (
+                                <ImageCom imageArr={item?.photos} />
+                              ) : (
+                                <Image
+                                  src={fallback}
+                                  width={500}
+                                  height={80}
+                                  style={{
+                                    borderRadius: 4,
+                                    maxWidth: "100%",
+                                    objectFit: "cover",
+                                  }}
+                                  alt="infoCirlce"
+                                />
+                              )}
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: 10,
+                                flexDirection: "column",
+                                maxWidth: "calc(100% - 30%)",
+                              }}
+                            >
+                              <ListDataTittleText>
+                                {item?.name}
+                              </ListDataTittleText>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: 10,
+                                  alignItems: "center",
+                                }}
+                              >
+                                <ListDataInfoText>
+                                  {item?.acf?.aa_rating
+                                    ? item?.acf?.aa_rating?.value == "No rating"
+                                      ? ""
+                                      : item?.acf?.aa_rating?.value
+                                    : item?.rating}
+                                </ListDataInfoText>
+                                <Image src={commentstar} alt="infoCirlce" />
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    gap: "5px",
+                                    flexWrap: "wrap",
+                                    width: "100%",
+                                  }}
+                                >
+                                  {item?.acf?.portal_post_owner_name ? (
+                                    <ListDataInfoText>
+                                      . {item?.acf?.portal_post_owner_name}
+                                    </ListDataInfoText>
+                                  ) : null}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ListDataWrraper>
                       </div>
-                    </MainInsideWrapper>
-                    <Skeleton width={56} height={24} />
-                  </MainWrraper>
-                </SearchedData>
-              ))}
+                    );
+                  })
+                : ""}
+            </SearchedListContainer>
+          )}
         </>
       ) : (
-        <>
-          <PopularListContainer>
-            <PopularlistTitle>Popular Lists</PopularlistTitle>
-            <p className="view" onClick={ViewAllhandler}>
-              View All
-            </p>
-          </PopularListContainer>
-          {listData.length
-            ? listData.slice(0, 10).map((item: any, index) => {
-                return (
-                  <ListContainer key={index}>
-                    <ImageTitleContainer
-                      onClick={() =>
-                        menuClick(item?.listName, false, item?.categoryId)
-                      }
-                    >
-                      <Imagecontainer style={{ background: item?.bgColor }}>
-                        {item?.image}
-                      </Imagecontainer>
-                      <p>{item?.listName}</p>
-                    </ImageTitleContainer>
-                    <LikesContainer>
-                      <Image
-                        style={{ width: 16, height: "auto" }}
-                        src={thumbsup}
-                        alt="icon"
-                      />
-                      <p>{item.votes}</p>
-                    </LikesContainer>
-                  </ListContainer>
-                );
-              })
-            : skeletonItems.map((item, index) => (
-                <SearchedData key={index}>
-                  <MainWrraper>
-                    <MainInsideWrapper>
-                      <Skeleton
-                        width={40}
-                        height={40}
-                        style={{ borderRadius: 100 }}
-                      />
-                      <div className="restroRating">
-                        <Skeleton width={120} height={14} />
-                      </div>
-                    </MainInsideWrapper>
-                    <Skeleton width={56} height={24} />
-                  </MainWrraper>
-                </SearchedData>
-              ))}
-        </>
+        <Container>
+          {searchQuery && searchItem?.list?.length ? (
+            <>
+              {searchItem?.list?.length
+                ? searchItem?.list.map((item: any, index: any) => {
+                    return (
+                      <ListContainer key={index}>
+                        <ImageTitleContainer
+                          onClick={() =>
+                            menuClick(item?.listName, false, item?._id)
+                          }
+                        >
+                          {item?.image}
+                          <p>{item?.listName}</p>
+                        </ImageTitleContainer>
+                        <LikesContainer>
+                          <Image
+                            style={{ width: 16, height: "auto" }}
+                            src={thumbsup}
+                            alt="icon"
+                          />
+                          <p>{item?.voting?.length}</p>
+                        </LikesContainer>
+                      </ListContainer>
+                    );
+                  })
+                : skeletonItems.map((item, index) => (
+                    <SearchedData key={index}>
+                      <MainWrraper>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={40}
+                            height={40}
+                            style={{ borderRadius: 100 }}
+                          />
+                          <div className="restroRating">
+                            <Skeleton width={120} height={14} />
+                          </div>
+                        </MainInsideWrapper>
+                        <Skeleton width={56} height={24} />
+                      </MainWrraper>
+                    </SearchedData>
+                  ))}
+            </>
+          ) : (
+            <>
+              <PopularListContainer>
+                <PopularlistTitle>Popular Lists</PopularlistTitle>
+                <p className="view" onClick={ViewAllhandler}>
+                  View All
+                </p>
+              </PopularListContainer>
+              {listData.length
+                ? listData.slice(0, 10).map((item: any, index) => {
+                    return (
+                      <ListContainer key={index}>
+                        <ImageTitleContainer
+                          onClick={() =>
+                            menuClick(item?.listName, false, item?.categoryId)
+                          }
+                        >
+                          <Imagecontainer style={{ background: item?.bgColor }}>
+                            {item?.image}
+                          </Imagecontainer>
+                          <p>{item?.listName}</p>
+                        </ImageTitleContainer>
+                        <LikesContainer>
+                          <Image
+                            style={{ width: 16, height: "auto" }}
+                            src={thumbsup}
+                            alt="icon"
+                          />
+                          <p>{item.votes}</p>
+                        </LikesContainer>
+                      </ListContainer>
+                    );
+                  })
+                : skeletonItems.map((item, index) => (
+                    <SearchedData key={index}>
+                      <MainWrraper>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={40}
+                            height={40}
+                            style={{ borderRadius: 100 }}
+                          />
+                          <div className="restroRating">
+                            <Skeleton width={120} height={14} />
+                          </div>
+                        </MainInsideWrapper>
+                        <Skeleton width={56} height={24} />
+                      </MainWrraper>
+                    </SearchedData>
+                  ))}
+            </>
+          )}
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 
 export default Lists;
+
+const ListDataWrraper = styled.div<{ selected: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgb(217, 217, 217);
+  align-items: center;
+  padding: 9px 0px;
+  position: relative;
+  cursor: ${(props) => (props.selected ? "pointer" : "not-allowed")};
+`;
+
+const ListDataTittleText = styled.p`
+  color: var(--BODY, #000);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+const ListDataInfoText = styled.p.attrs((props) => ({
+  className: props.className,
+}))`
+  color: rgba(0, 0, 0, 0.48);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.12px;
+  &.type_style {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 95%;
+  }
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  padding: 0px 40px;
+  gap: 6px;
+
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+    padding-top: 16px;
+  }
+`;
+const SearchedListContainer = styled.div`
+  padding-bottom: 40px;
+`;
