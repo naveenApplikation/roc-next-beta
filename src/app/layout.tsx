@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  manifest:"/manifest.json",
   title: "ROC - What's #OnTheROC",
   description: "Your one-stop-shop for what's #OnTheROC.",
   icons:
