@@ -433,6 +433,7 @@ const InputWrapper = styled.div`
 `;
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;
+  min-height: 50vh;
 `;
 const SearchedData = styled.div`
   display: flex;
