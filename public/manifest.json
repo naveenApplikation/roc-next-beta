@@ -10,17 +10,17 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "/roc-144-144.png",
+      "src": "/apple-touch-icon.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "/roc-192-192.png",
+      "src": "/apple-touch-icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/roc-512-512.png",
+      "src": "/apple-touch-icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
