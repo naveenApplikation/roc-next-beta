@@ -123,7 +123,16 @@ const Modal: React.FC<ModalProps> = ({
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
   const { modalClick, oldName, modalType } = useMyContext()
-
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+    return () => {
+      document.documentElement.style.overflow = 'auto'; // Cleanup on component unmount
+    };
+  }, [isOpen]);
   useEffect(() => {
     const handleResize = () => {
       const referenceWidth = 1200; // You can set your own reference width here

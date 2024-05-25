@@ -97,6 +97,17 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+    return () => {
+      document.documentElement.style.overflow = 'auto'; // Cleanup on component unmount
+    };
+  }, [isOpen]);
+
   return (
     <StyledModal
       $isopen={isOpen}
