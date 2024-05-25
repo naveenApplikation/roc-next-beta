@@ -2,8 +2,8 @@
   "id": "1",
   "name": "ROC - What's #OnTheROC",
   "short_name": "ROC",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#151515",
+  "background_color": "#151515",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
@@ -15,14 +15,19 @@
       "sizes": "144x144"
     },
     {
-      "src": "/apple-touch-icon.png",
+      "src": "/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/apple-touch-icon.png",
+      "src": "/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
     }
   ]
 }
