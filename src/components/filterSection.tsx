@@ -1,6 +1,6 @@
 import { SoryByItem } from "@/app/utils/data";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import DropDwons from "./dropdowns";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -44,6 +44,11 @@ const FilterButton = styled.button`
   background: white;
   padding: 12px;
   min-width: 90px;
+
+  span {
+    margin-left: 10px;
+    font-size: 12px;
+}
 `;
 const FilterContainer = styled.div`
   display: flex;
@@ -57,7 +62,18 @@ const FilterContainer = styled.div`
 `;
 
 const FilterSection: React.FC<FilterSectionProps> = (props) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, modalType, closeModal } = useMyContext();
+  // const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    // setIsOpen(!modalType.modalFilterList);
+    modalClick("modalFilterList")
+    if(modalType.modalFilterList){
+      closeModal("modalFilterList")
+    }
+  };
+
+
 
   return (
     <FilterContainer>
@@ -67,16 +83,51 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
         style={{ cursor: "pointer" }}
         alt=""
       />
-      {/* <ScrollingMenu>
-        <DropDwons items={SoryByItem} name="Sort by" />
-        <FilterButton>Kids</FilterButton>
+      <ScrollingMenu>
+        {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
+        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
+          Parish
+          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
+        </DropdownButton>
+        {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
         <DropDwons items={SoryByItem} name="Price" />
         <FilterButton>Top Rated</FilterButton>
         <FilterButton>Free</FilterButton>
-        <FilterButton>Most Like</FilterButton>
-      </ScrollingMenu> */}
+        <FilterButton>Most Like</FilterButton> */}
+      </ScrollingMenu>
     </FilterContainer>
   );
 };
 
 export default FilterSection;
+
+
+const DropdownButton = styled.button`
+background: #ffffff;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+
+  // &:hover {
+  //   background-color: #0056b3;
+  // }
+
+  &.active {
+    background-color: #d1d1d1;
+  }
+`;
+
+const Caret = styled.span`
+  margin-left: 10px;
+  font-size: 12px;
+  transition: transform 0.3s;
+
+  &.active {
+    transform: rotate(90deg);
+  }
+`;

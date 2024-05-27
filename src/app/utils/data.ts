@@ -184,7 +184,7 @@ export const rightSideMenu = [
     width: 25,
     height: 20,
     url: "todo",
-    id:"6645d5578bf8ac8d2d5bd622"
+    id: "6645d5578bf8ac8d2d5bd622"
   },
   {
     name: "Dine",
@@ -192,7 +192,7 @@ export const rightSideMenu = [
     width: 18,
     height: 20,
     url: "Dine out",
-    id:"66439bfe5e177a8bc6196a38"
+    id: "66439bfe5e177a8bc6196a38"
   },
   {
     name: "Shop",
@@ -200,7 +200,7 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Local shops",
-    id:"663f71d6cc049eb2b028d9c8"
+    id: "663f71d6cc049eb2b028d9c8"
   },
   {
     name: "Events",
@@ -215,7 +215,7 @@ export const rightSideMenu = [
     width: 16,
     height: 16,
     url: "tours",
-    id:"6645d5578bf8ac8d2d5bd626"
+    id: "6645d5578bf8ac8d2d5bd626"
   },
   {
     name: "Hotels",
@@ -223,7 +223,7 @@ export const rightSideMenu = [
     width: 20,
     height: 20,
     url: "Hotels",
-    id:"663f72bc9c9e03a31898b9cc"
+    id: "663f72bc9c9e03a31898b9cc"
   },
   {
     name: "Activities",
@@ -231,7 +231,7 @@ export const rightSideMenu = [
     width: 15,
     height: 20,
     url: "activities",
-    id:"6645d5578bf8ac8d2d5bd628"
+    id: "6645d5578bf8ac8d2d5bd628"
   },
   {
     name: "Travel",
@@ -239,7 +239,7 @@ export const rightSideMenu = [
     width: 20,
     height: 20,
     url: "Travel agents",
-    id:"663f72bd9c9e03a31898b9dc"
+    id: "663f72bd9c9e03a31898b9dc"
   },
   {
     name: "Nightlife",
@@ -247,7 +247,7 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Nightlife",
-    id:"6645ef914cb7487a15119086"
+    id: "6645ef914cb7487a15119086"
   },
   {
     name: "Holidays",
@@ -255,7 +255,7 @@ export const rightSideMenu = [
     width: 25,
     height: 20,
     url: "holiday",
-    id:"6645d5578bf8ac8d2d5bd62a"
+    id: "6645d5578bf8ac8d2d5bd62a"
   },
   {
     name: "Beaches",
@@ -263,7 +263,7 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Beaches",
-    id:"6645d5578bf8ac8d2d5bd620"
+    id: "6645d5578bf8ac8d2d5bd620"
   },
   {
     name: "All",
@@ -281,7 +281,7 @@ export const rightSideMenuMobile = [
     width: 25,
     height: 20,
     url: "todo",
-    id:"6645d5578bf8ac8d2d5bd622"
+    id: "6645d5578bf8ac8d2d5bd622"
   },
   {
     name: "Dine",
@@ -290,7 +290,7 @@ export const rightSideMenuMobile = [
     width: 18,
     height: 20,
     url: "Dine out",
-    id:"66439bfe5e177a8bc6196a38"
+    id: "66439bfe5e177a8bc6196a38"
   },
   {
     name: "Events",
@@ -616,7 +616,7 @@ interface Item {
 
 
 
-export const DirectoryItem:any = [
+export const DirectoryItem: any = [
   {
     data: [
       {
@@ -700,7 +700,7 @@ export const DirectoryItem:any = [
         url: "beaches"
       },
     ],
-  },{
+  }, {
     data: [
       {
         image: FaCar,
@@ -713,7 +713,7 @@ export const DirectoryItem:any = [
         url: "beaches"
       },
     ],
-  },{
+  }, {
     data: [
       {
         image: FaBus,
@@ -726,7 +726,7 @@ export const DirectoryItem:any = [
         url: "beaches"
       },
     ],
-  },{
+  }, {
     data: [
       {
         image: FaUserTie,
@@ -917,4 +917,22 @@ export const shoppingImages = [
     image: woomenClothing,
     listName: "Ladies clothing"
   }
+]
+
+
+export const SearchFilterData = [
+  { id: "100", name: "Any" },
+  { id: "1", name: "Saint Helier" },
+  { id: "2", name: "Saint Clement" },
+  { id: "3", name: "Saint Saviour" },
+  { id: "4", name: "Saint Lawrence" },
+  { id: "5", name: "Saint Ouen" },
+  { id: "6", name: "Saint Mary" },
+  { id: "7", name: "Saint John" },
+  { id: "8", name: "Trinity" },
+  { id: "9", name: "Saint Martin" },
+  { id: "10", name: "Saint Peter" },
+  { id: "11", name: "Saint Brélade" },
+  { id: "12", name: "Grouville" },
+  { id: "13", name: "Jersey" },
 ]

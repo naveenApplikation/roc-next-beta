@@ -18,6 +18,7 @@ const StyledModal = styled.div<{
   $showMap: boolean;
   $screenwidthpercentage: number;
   $screenwidth: number;
+  $modalType: boolean;
 }>`
   position: fixed;
   top: 0;
@@ -29,8 +30,8 @@ const StyledModal = styled.div<{
   max-height: 95vh;
   width: 352px; /* Adjust this value as needed */
   border-radius: 40px;
-  background: #f2f3f3;
-
+  // background: #f2f3f3;
+  background : ${({$modalType}) => ($modalType ? "#ffffff" : "#f2f3f3")};
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) => $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
   backdrop-filter: blur(22px);
@@ -48,7 +49,7 @@ const StyledModal = styled.div<{
   }
 
   .modal-content {
-    background: #f2f3f3;
+    background: ${({$modalType}) => ($modalType ? "#ffffff" : "#f2f3f3")};
     /* display: flex;
     justify-content: space-between;
     align-items: center; */
@@ -157,6 +158,7 @@ const Modal: React.FC<ModalProps> = ({
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
       $screenwidth={screenWidth}
+      $modalType = {modalType.modalFilterList}
     >
       <div className="modal-content">
         <HeaderContainer>

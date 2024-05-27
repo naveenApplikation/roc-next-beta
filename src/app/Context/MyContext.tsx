@@ -86,6 +86,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     eventListing: false,
     activities: false,
     infoApp: false,
+    modalFilterList: false,
   });
 
   const [placeData, setPlaceData] = useState<any[]>([]);
@@ -176,7 +177,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-   if(name=='modalFilter'){
+   if(name=='modalFilter' || name === 'modalFilterList'){
     setModalType((prev) => ({
       ...prev,
       [name]: true,

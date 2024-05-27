@@ -10,19 +10,7 @@ interface DropDwonsProps {
     stylePass?:any
 }
 
-const DropdownText = styled.p`
-font-size:13px;
-font-weight:500;
-display:flex;
-min-width:90px;
-/* padding:12px; */
-gap:8px;
-background:white;
-border-radius:8px;
-justify-content:space-between;
-align-items: center;
 
-`
 
 const DropDwons: React.FC<DropDwonsProps> = ({ items , name ,stylePass}) => {
     return (
@@ -36,3 +24,18 @@ const DropDwons: React.FC<DropDwonsProps> = ({ items , name ,stylePass}) => {
 };
 
 export default DropDwons;
+
+const DropdownText = styled.p`
+font-size:13px;
+font-weight:500;
+display:flex;
+min-width:90px;
+/* padding:12px; */
+gap:8px;
+background:white;
+border-radius:8px;
+justify-content:space-between;
+align-items: center;
+height:30px;
+
+`;
