@@ -119,30 +119,25 @@ const ModalContent: React.FC<ModalProps> = ({
     {
       name:
         data?.data_type === "google" ? (
-          <Tooltip title={"Copy contact number"}>
-            <span onClick={() => copylink(showApiData?.formatted_phone_number)}>
-              {showApiData?.formatted_phone_number}
-            </span>
-          </Tooltip>
-        ) : (
-          data?.acf?.telephone_number?.formatted
-        ),
-      image: phoneBlack,
-      nameValue:
-        data?.data_type === "google"
-          ? showApiData?.formatted_phone_number
-          : data?.acf?.telephone_number?.formatted,
-    },
-    {
-      name:
-        data?.data_type === "google" ? (
-          <Tooltip title={"Copy international number"}>
-            <span
-              onClick={() => copylink(showApiData?.international_phone_number)}
-            >
-              {showApiData?.international_phone_number}
-            </span>
-          </Tooltip>
+          showApiData?.international_phone_number ? (
+            <Tooltip title={"Copy international number"}>
+              <span
+                onClick={() =>
+                  copylink(showApiData?.international_phone_number)
+                }
+              >
+                {showApiData?.international_phone_number}
+              </span>
+            </Tooltip>
+          ) : (
+            <Tooltip title={"Copy contact number"}>
+              <span
+                onClick={() => copylink(showApiData?.formatted_phone_number)}
+              >
+                {showApiData?.formatted_phone_number}
+              </span>
+            </Tooltip>
+          )
         ) : (
           data?.acf?.telephone_number?.formatted
         ),
@@ -150,6 +145,8 @@ const ModalContent: React.FC<ModalProps> = ({
       nameValue:
         data?.data_type === "google"
           ? showApiData?.international_phone_number
+            ? showApiData?.international_phone_number
+            : showApiData?.formatted_phone_number
           : data?.acf?.telephone_number?.formatted,
     },
     {
@@ -453,13 +450,13 @@ const ModalContent: React.FC<ModalProps> = ({
             imageStyle={27}
           />
         </MenuButtonContainer> */}
-          <ReviewContainer>
-            <ReviewWraaper>
-              <Image src={comment} alt="icon" />
-              <OpeningTitle>Reviews</OpeningTitle>
-            </ReviewWraaper>
-            {reviewData.length &&
-              reviewData.map((item: any, index: any) => (
+          {reviewData.length >= 1 && (
+            <ReviewContainer>
+              <ReviewWraaper>
+                <Image src={comment} alt="icon" />
+                <OpeningTitle>Reviews</OpeningTitle>
+              </ReviewWraaper>
+              {reviewData.map((item: any, index: any) => (
                 <div key={index}>
                   {/* {showEdit === index ? (
                     <div
@@ -517,22 +514,33 @@ const ModalContent: React.FC<ModalProps> = ({
                   >
                     <div style={{ display: "flex", gap: "10px" }}>
                       <div>
-                        <Image
-                          src={
-                            item.profile_photo_url
-                              ? item.profile_photo_url
-                              : fallback
-                          }
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                          }}
-                          width={30}
-                          height={30}
-                          alt=""
-                        />
+                        {item.profile_photo_url ? (
+                          <Image
+                            src={item.profile_photo_url}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                            }}
+                            width={30}
+                            height={30}
+                            alt=""
+                          />
+                        ) : (
+                          <Image
+                            src={fallback}
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                            }}
+                            width={30}
+                            height={30}
+                            alt=""
+                          />
+                        )}
                       </div>
                       <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
                     </div>
@@ -551,7 +559,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 </div>
               ))}
 
-            {/* <ReviewWraaper
+              {/* <ReviewWraaper
             style={{ marginBottom: "8px", cursor: "pointer" }}
             onClick={handleButtonClick}
           >
@@ -559,33 +567,38 @@ const ModalContent: React.FC<ModalProps> = ({
             <AddReview>Add Review</AddReview>
           </ReviewWraaper> */}
 
-            {showReview && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-                <TextAreaContainer
-                  rows={4}
-                  cols={50}
-                  placeholder="Comments"
-                  value={commentReview}
-                  onChange={(e) => setCommentReview(e.target.value)}
-                />
-                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                    Rating:
-                  </span>
-                  <Ratings
-                    defaultValue={0}
-                    giveRating={giveRating}
-                    ratingvalue={rating}
+              {showReview && (
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
+                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
+                  <TextAreaContainer
+                    rows={4}
+                    cols={50}
+                    placeholder="Comments"
+                    value={commentReview}
+                    onChange={(e) => setCommentReview(e.target.value)}
+                  />
+                  <div
+                    style={{ display: "flex", gap: 8, alignItems: "center" }}
+                  >
+                    <span style={{ fontSize: 14, fontWeight: "bold" }}>
+                      Rating:
+                    </span>
+                    <Ratings
+                      defaultValue={0}
+                      giveRating={giveRating}
+                      ratingvalue={rating}
+                    />
+                  </div>
+                  <CommonButton
+                    text={loader ? "Loading..." : "Submit Review"}
+                    isOpen={fetchDataAsync}
                   />
                 </div>
-                <CommonButton
-                  text={loader ? "Loading..." : "Submit Review"}
-                  isOpen={fetchDataAsync}
-                />
-              </div>
-            )}
-          </ReviewContainer>
+              )}
+            </ReviewContainer>
+          )}
           <DatesContainer>
             <OpeningTitle>Opening</OpeningTitle>
             {data?.data_type === "google" ? (
@@ -601,11 +614,8 @@ const ModalContent: React.FC<ModalProps> = ({
                         justifyContent: "space-around",
                       }}
                     >
-                      <p style={{ width: "90px" }}>{item?.day}</p>
-                      <p>
-                        {item?.time}
-                        {/* {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "} */}
-                      </p>
+                      <p>{item?.day}</p>
+                      <p>{item?.time}</p>
                     </p>
                   ))}
               </DatesWrapperTextGoogle>
@@ -655,7 +665,6 @@ const ModalContent: React.FC<ModalProps> = ({
           </WeekTimeArrange>
         ))} */}
           </DatesContainer>
-
           {reservationMenu ? (
             <ButtonContainer>
               {reservationTypesFun(showApiData?.types).length ? (
@@ -866,16 +875,19 @@ const DatesWrapperTextGoogle = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
-  margin: 16px 0px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  gap: 3px;
+  /* flex-wrap: wrap;
+  gap: 3px; */
+
+  p{
+    flex: 1;
+  }
 `;
 
 const WeekTimeArrange = styled.div`
   display: flex;
-  gap: 10px;
   align-items: center;
 
   p {
@@ -885,6 +897,7 @@ const WeekTimeArrange = styled.div`
     font-weight: 400;
     line-height: 24px; /* 150% */
     text-transform: capitalize;
+    flex: 1;
   }
 `;
 
