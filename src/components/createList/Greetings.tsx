@@ -101,15 +101,14 @@ const Greetings: React.FC<GreetingsProps> = ({
 }) => {
   return (
     <GreetingsScreen>
-      <GreetingTitle>Thank You!</GreetingTitle>
+      <GreetingTitle>Pending</GreetingTitle>
       <GreetingQuotes>
-        Community is at the heart of what we do, and you’ve just helped fellow
-        islanders and visitors 😊
+      Thank you for contributing. Your list will be available once approved. Thank you 🤩
       </GreetingQuotes>
       <GreetingBtnBox>
-        <ViewListBtn onClick={homePage}>View My List</ViewListBtn>
+        <ViewListBtn onClick={homePage}>View community lists</ViewListBtn>
         <AnotherListBtn onClick={preScreen}>Create Another List...</AnotherListBtn>
-        <BottomText>...become a #ROCgod</BottomText>
+        {/* <BottomText>...become a #ROCgod</BottomText> */}
       </GreetingBtnBox>
     </GreetingsScreen>
   );
