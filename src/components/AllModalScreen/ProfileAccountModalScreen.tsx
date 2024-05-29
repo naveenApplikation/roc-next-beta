@@ -195,6 +195,11 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         </>
       );
     }
+    else if(modalName==="walksModal"){
+      return(
+        <WalksModal />
+      )
+    }
   };
 
   return (
