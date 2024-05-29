@@ -10,35 +10,37 @@ import { SearchFilterData } from "@/app/utils/data";
 
 const FilterListModal: React.FC = () => {
 
-  const { setFilterValues, searchQuery, fetchDataAsync, closeModal, filterValues, modalType } = useMyContext();
+  const {  modalType, setSelectFilter, closeModal } = useMyContext();
 
   const [selectData, setSelectData] = useState<string>("Any");
 
 
 
   const handleCategoryType = (e: any) => {
+    console.log("event", )
     setSelectData(e.target.value)
   }
-
+  
   const handleSave = () => {
-    console.log("data saved")
+    setSelectFilter(selectData)
+    closeModal("modalFilterList")
   }
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
+  // useEffect(() => {
+  //   let timer: NodeJS.Timeout | null = null;
 
-    if (!modalType.modalFilterList) {
-      timer = setTimeout(() => {
-        setSelectData('Any');
-      }, 500);
-    }
+  //   if (!modalType.modalFilterList) {
+  //     timer = setTimeout(() => {
+  //       setSelectData('Any');
+  //     }, 500);
+  //   }
 
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [modalType.modalFilterList]);
+  //   return () => {
+  //     if (timer) {
+  //       clearTimeout(timer);
+  //     }
+  //   };
+  // }, [modalType.modalFilterList]);
   return (
     <Container>
       <ScrollingMenu>

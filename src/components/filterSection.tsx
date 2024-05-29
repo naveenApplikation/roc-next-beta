@@ -10,6 +10,49 @@ interface FilterSectionProps {
   // Define your props here
 }
 
+
+
+const FilterSection: React.FC<FilterSectionProps> = (props) => {
+  const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
+  // const [isOpen, setIsOpen] = useState(false);
+  const [selectValue, setSelectValue] = useState('')
+
+  const toggleDropdown = () => {
+    // setIsOpen(!modalType.modalFilterList);
+    modalClick("modalFilterList")
+    if(modalType.modalFilterList){
+      closeModal("modalFilterList")
+    }
+  };
+
+
+
+  return (
+    <FilterContainer>
+      <Image
+        src={filterSearch}
+        onClick={() => modalClick("modalFilter")}
+        style={{ cursor: "pointer" }}
+        alt=""
+      />
+      <ScrollingMenu>
+        {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
+        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
+          {selectFilter}
+          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
+        </DropdownButton>
+        {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
+        <DropDwons items={SoryByItem} name="Price" />
+        <FilterButton>Top Rated</FilterButton>
+        <FilterButton>Free</FilterButton>
+        <FilterButton>Most Like</FilterButton> */}
+      </ScrollingMenu>
+    </FilterContainer>
+  );
+};
+
+export default FilterSection;
+
 const ScrollingMenu = styled.div`
   display: flex;
   overflow: auto;
@@ -60,48 +103,6 @@ const FilterContainer = styled.div`
     padding: 0px;
   }
 `;
-
-const FilterSection: React.FC<FilterSectionProps> = (props) => {
-  const { modalClick, modalType, closeModal } = useMyContext();
-  // const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    // setIsOpen(!modalType.modalFilterList);
-    modalClick("modalFilterList")
-    if(modalType.modalFilterList){
-      closeModal("modalFilterList")
-    }
-  };
-
-
-
-  return (
-    <FilterContainer>
-      <Image
-        src={filterSearch}
-        onClick={() => modalClick("modalFilter")}
-        style={{ cursor: "pointer" }}
-        alt=""
-      />
-      <ScrollingMenu>
-        {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
-        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
-          Parish
-          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
-        </DropdownButton>
-        {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
-        <DropDwons items={SoryByItem} name="Price" />
-        <FilterButton>Top Rated</FilterButton>
-        <FilterButton>Free</FilterButton>
-        <FilterButton>Most Like</FilterButton> */}
-      </ScrollingMenu>
-    </FilterContainer>
-  );
-};
-
-export default FilterSection;
-
-
 const DropdownButton = styled.button`
 background: #ffffff;
   color: #000000;
