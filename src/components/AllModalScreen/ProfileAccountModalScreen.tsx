@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import LoginSignupModal from "../LoginSignup/loginSignupModal";
 import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";
-import WalksModal from "./WalksModal";
+// import WalksModal from "./WalksModal";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -195,11 +195,6 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
         </>
       );
     }
-    else if(modalName==="walksModal"){
-      return(
-        <WalksModal />
-      )
-    }
   };
 
   return (
@@ -216,7 +211,6 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           modalName === "UpdatePassswordModal" ||
           modalName === "UpdateNameModal" ||
           modalName === "TermsAndConditionModal" ||
-          modalName === "walksModal" ||
           modalName === "myList" ||
           modalName === "ContactUsModal" ||
           modalName === "LoginThankYouDiresctoryModal" ||
