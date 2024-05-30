@@ -58,15 +58,14 @@ const rewrites = () => {
 
 const nextConfig = {
   images: {
-    domains: [
-      "firebasestorage.googleapis.com",
-      "cdn.jersey.com",
-      "lh3.googleusercontent.com",
-      "maps.googleapis.com",
-      "roc.je",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
     ],
-    // formats: ['image/jpeg', 'image/png'],
-    // unoptimized: true,
   },
   reactStrictMode: false,
 };
