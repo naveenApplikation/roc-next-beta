@@ -11,6 +11,7 @@ import CreateListItems from "./CreateList Components/CreateListItems";
 import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
 import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
+import fallbackimage from '../../../assets/images/fallbackimage.png'
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { sideWidth } from "@/app/utils/date";
@@ -155,7 +156,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({
                   >
                     {items.length
                       ? items.map((item: any, index: any) => {
-                          const image = item.photoUrl ? item.photoUrl : "";
+                          const image = item.photoUrl ? item.photoUrl : fallbackimage;
                           return (
                             <Draggable
                               key={item.place_id}

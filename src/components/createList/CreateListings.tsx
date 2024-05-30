@@ -18,6 +18,7 @@ import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImag
 import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
+import fallbackimage from '../../../assets/images/fallbackimage.png'
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -165,7 +166,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                               <ImageCom imageArr={item?.photos} />
                               :
                               <Image
-                                src={"https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"}
+                                src={fallbackimage}
                                 width={500}
                                 height={80}
                                 style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}

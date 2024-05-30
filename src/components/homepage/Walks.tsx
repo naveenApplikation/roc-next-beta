@@ -135,10 +135,8 @@ const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
                   style={{ borderRadius: "8px", maxWidth: "100%", objectFit: 'cover' }}
                 // alt=""
                 />
-
-
                 <Image
-                  src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+                  src={walkMask}
                   alt=""
                   width={120}
                   height={64}

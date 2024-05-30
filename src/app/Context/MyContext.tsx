@@ -89,13 +89,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     activities: false,
     infoApp: false,
     modalFilterList: false,
+    walksModal: false,
     AboutUs: false,
   });
 
   const [placeData, setPlaceData] = useState<any[]>([]);
   const [placeloader, setPlaceLoader] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectFilter, setSelectFilter] = useState("Any")
+  const [selectFilter, setSelectFilter] = useState("Any");
 
   const [location, setLocation] = useState<any>({
     latitude: "",
@@ -122,7 +123,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         location
       );
       const result = await Instance.get(url);
-      console.log("placeDataplaceDataplaceDataplaceDataplaceData ff", result)
+      console.log("placeDataplaceDataplaceDataplaceDataplaceData ff", result);
       setPlaceData(result?.data.searchResults);
     } catch (error: any) {
       console.log(error.message);
@@ -152,13 +153,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const closeModal = (name: string) => {
-    
     setModalType((prev) => ({
       ...prev,
       [name]: false,
     }));
-    if(name === "search"){
-      setSelectFilter("Any")
+    if (name === "search") {
+      setSelectFilter("Any");
     }
     if (modalName === "myList") {
       setModalNames("WelcomeBackModal");
@@ -186,7 +186,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-    if (name == 'modalFilter' || name === 'modalFilterList') {
+    if (name == "modalFilter" || name === "modalFilterList") {
       setModalType((prev) => ({
         ...prev,
         [name]: true,
@@ -198,7 +198,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           [name]: true,
         }));
       } else {
-
         setModalType((prev) => {
           const updatedState = Object.keys(prev).reduce((acc, key) => {
             acc[key] = key === name;
@@ -209,7 +208,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         });
       }
     }
-
 
     if (modalName === "betaExploreModal") {
       setModalNames("");
