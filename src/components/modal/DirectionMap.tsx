@@ -559,7 +559,7 @@ interface GoogleMapCompProps {
 
 const containerStyle = {
     width: "100%",
-    height: "93%",
+    height: "85%",
 };
 
 const center = {
@@ -576,8 +576,6 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
     });
 
     const { location } = useMyContext();
-    const [selectedLat, setSelectedLat] = useState<number>(49.1811261);
-    const [selectedLong, setSelectedLong] = useState<number>(-2.1051429);
     const [zoom, setZoom] = useState(15);
     const mapRef = useRef<any>(null);
     const [map, setMap] = React.useState(null);
@@ -598,80 +596,146 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
 
 
 
-    const handleMapLoad = useCallback((map: any) => {
-        const destination = {
-            lat: latitude,
-            lng: longitude
-        }
-        // Define Jersey Island boundaries
-        const jerseyBounds = new window.google.maps.LatLngBounds(
-            new window.google.maps.LatLng(49.1692, -2.2666),
-            new window.google.maps.LatLng(49.2668, -2.0116)
-        );
+    // const handleMapLoad = useCallback((map: any) => {
+    //     const destination = {
+    //         lat: latitude,
+    //         lng: longitude
+    //     }
+    //     // Define Jersey Island boundaries
+    //     const jerseyBounds = new window.google.maps.LatLngBounds(
+    //         new window.google.maps.LatLng(49.1692, -2.2666),
+    //         new window.google.maps.LatLng(49.2668, -2.0116)
+    //     );
 
-        const checkIfInsideJersey = (location: any) => {
-            return jerseyBounds.contains(new window.google.maps.LatLng(location.lat, location.lng));
-        };
-        mapRef.current = map;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    const userLoc: any = { lat: latitude, lng: longitude };
-                    // setUserLocation(userLoc);
-                    // getTravelTimes(userLoc, center);
+    //     const checkIfInsideJersey = (location: any) => {
+    //         return jerseyBounds.contains(new window.google.maps.LatLng(location.lat, location.lng));
+    //     };
+    //     mapRef.current = map;
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 const { latitude, longitude } = position.coords;
+    //                 const userLoc: any = { lat: latitude, lng: longitude };
+    //                 // setUserLocation(userLoc);
+    //                 // getTravelTimes(userLoc, center);
 
-                    // setUserLocation(userLoc);
-                    const insideJersey = checkIfInsideJersey(userLoc);
-                    console.log('User is inside Jersey:', insideJersey);
-                    if (insideJersey) {
-                        setUserLocation(userLoc);
+    //                 // setUserLocation(userLoc);
+    //                 const insideJersey = checkIfInsideJersey(userLoc);
+    //                 console.log('User is inside Jersey:', insideJersey);
+    //                 if (insideJersey) {
+    //                     setUserLocation(userLoc);
+    //                     setMarkerLocation(destination);
+    //                     getTravelTimes(destination, userLoc);
+    //                 } else {
+    //                     setMarkerLocation(destination);
+    //                     getTravelTimes(destination, center);
+    //                 }
+    //             },
+
+    //             (error) => {
+    //                 console.error('Error getting user location:', error);
+    //             }
+    //         );
+    //     }
+    // }, []);
+
+
+    // const handleMapLoad = useCallback((map: any) => {
+    //     console.log("kfldsfjslfls", map)
+
+    //     // Define Jersey Island boundaries
+    //     const jerseyBounds = new window.google.maps.LatLngBounds(
+    //         new window.google.maps.LatLng(49.1692, -2.2666),
+    //         new window.google.maps.LatLng(49.2668, -2.0116)
+    //     );
+
+    //     const checkIfInsideJersey = (location: any) => {
+    //         return jerseyBounds.contains(new window.google.maps.LatLng(location.lat, location.lng));
+    //     };
+    //     mapRef.current = map;
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 const { latitude, longitude } = position.coords;
+    //                 const userLoc: any = { lat: latitude, lng: longitude };
+    //                 // setUserLocation(userLoc);
+    //                 // getTravelTimes(userLoc, center);
+
+    //                 // setUserLocation(userLoc);
+    //                 const insideJersey = checkIfInsideJersey(userLoc);
+    //                 if (latitude && longitude) {
+    //                     const destination = { lat: latitude, lng: longitude };
+    //                     if(insideJersey){
+    //                         setUserLocation(userLoc);
+    //                         setMarkerLocation(destination);
+    //                         getTravelTimes(userLoc, destination);
+    //                     } else {
+    //                         setMarkerLocation(destination);
+    //                         getTravelTimes(center, destination);
+
+    //                     }
+    //                 }
+    //             },
+
+    //             (error) => {
+    //                 console.error('Error getting user location:', error);
+    //             }
+    //         );
+    //     }
+    // }, [latitude, longitude, location?.latitude, location.longitude]);
+
+
+
+
+    useEffect(() => {
+        const Timer = setTimeout(() => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        if (location?.latitude && location.longitude) {
+                            const jerseyBounds = new window.google.maps.LatLngBounds(
+                                new window.google.maps.LatLng(49.1692, -2.2666),
+                                new window.google.maps.LatLng(49.2668, -2.0116)
+                            );
+
+                            const checkIfInsideJersey = (location: any) => {
+                                return jerseyBounds.contains(new window.google.maps.LatLng(location.lat, location.lng));
+                            };
+                            if (latitude && longitude) {
+                                const destination = { lat: latitude, lng: longitude };
+                                const origin = { lat: location?.latitude, lng: location.longitude };
+                                const insideJersey = checkIfInsideJersey(origin);
+                                if (insideJersey) {
+                                    setMarkerLocation(destination);
+                                    getTravelTimes(origin, destination);
+                                } else {
+                                    setMarkerLocation(destination);
+                                    getTravelTimes(center, destination);
+                                    toast.custom(<div style={{ width: '150px', background: 'white', display: 'flex', gap: '10px', borderRadius: '10px', padding: '10px', boxSizing: 'border-box' }}>
+                                        <TiInfo style={{ fontSize: '14px', color: '#FF5733' }} />
+                                        <div>User is outside Jersey</div>
+                                    </div>)
+
+                                }
+                            }
+                        }
+
+                    },
+                    (error) => {
+                        console.error('Error getting user location:', error);
+                        const destination = { lat: latitude, lng: longitude };
                         setMarkerLocation(destination);
-                        getTravelTimes(destination, userLoc);
-                    } else {
-                        setMarkerLocation(destination);
-                        getTravelTimes(destination, center);
+                        getTravelTimes(center, destination);
+                        toast.custom(<div style={{ width: '150px', background: 'white', display: 'flex', gap: '10px', borderRadius: '10px', padding: '10px', boxSizing: 'border-box' }}>
+                            <TiInfo style={{ fontSize: '14px', color: '#FF5733' }} />
+                            <div>{error?.message}</div>
+                        </div>)
                     }
-                },
-
-                (error) => {
-                    console.error('Error getting user location:', error);
-                }
-            );
-        }
-    }, []);
-
-    useEffect(() => {
-        setSelectedLat(49.1811261);
-        setSelectedLong(-2.1051429);
-    }, [window.location.pathname]);
-
-
-    useEffect(() => {
-        if (location?.latitude && location.longitude) {
-            const jerseyBounds = new window.google.maps.LatLngBounds(
-                new window.google.maps.LatLng(49.1692, -2.2666),
-                new window.google.maps.LatLng(49.2668, -2.0116)
-            );
-    
-            const checkIfInsideJersey = (location: any) => {
-                return jerseyBounds.contains(new window.google.maps.LatLng(location.lat, location.lng));
-            };
-            if (latitude && longitude) {
-                const destination = { lat: latitude, lng: longitude };
-                const origin = { lat: location?.latitude, lng: location.longitude };
-                const insideJersey = checkIfInsideJersey(origin);
-                if(insideJersey){
-                    setMarkerLocation(destination);
-                    getTravelTimes(origin, destination);
-                } else {
-                    setMarkerLocation(destination);
-                    getTravelTimes(center, destination);
-                    
-                }
+                );
             }
-        } 
-    }, [latitude, longitude, location?.latitude, location.longitude]);
+        }, 2000);
+        return () => clearTimeout(Timer);
+    }, [latitude, longitude, location?.latitude, location.longitude, center]);
 
     const onUnmount = React.useCallback(function callback(map: any) {
         setMap(null);
@@ -779,7 +843,7 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
                     mapContainerStyle={containerStyle}
                     onClick={onMapClick}
                     mapContainerClassName="googleMap"
-                    onLoad={handleMapLoad}
+                    // onLoad={handleMapLoad}
                     zoom={zoom}
                     onZoomChanged={handleZoomChanged}
                     onUnmount={onUnmount}

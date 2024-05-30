@@ -14,8 +14,8 @@ interface DirectionModalProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  height:100%;
+  gap: 10px;
+  height:93%;
   width:100%;
 `;
 
@@ -79,7 +79,7 @@ const ButtonBox = styled.div`
 const AdventureOption = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 16px 0px;
+  padding: 10px 0px;
   margin: 0px 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
@@ -169,7 +169,7 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
           </Box>
         ))}
       </ScrollingMenu> */}
-      {
+      {/* {
         (location?.latitude && location.longitude) ?
           <DirectionMapUi {...{ latitude, longitude }} />
           :
@@ -182,20 +182,24 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
             </div>
           </>
 
-      }
+      } */}
+      <DirectionMapUi {...{ latitude, longitude }} />
 
 
-      <div>
-        {/* {buttonData.map((item,index) => (
-        <AdventureOption key={index}>
+      <div style={{ padding: "0px 24px" }}>
+        <CommonButton isOpen={() => directionClick()} text="View in maps" />
+      </div>
+      <div style={{visibility:'hidden'}}>
+        {buttonData.map((item, index) => (
+          <AdventureOption key={index}>
             <p>{item}</p>
             <Image
               src={chevronRight}
               style={{ height: "14px", width: "9px" }}
               alt="icon"
-              />
+            />
           </AdventureOption>
-      ))} */}
+        ))}
       </div>
     </Container>
   );
