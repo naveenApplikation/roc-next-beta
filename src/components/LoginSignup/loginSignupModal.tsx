@@ -15,7 +15,7 @@ import contactUsImg from "../../../assets/images/menuModalsImage/contactUs.png";
 import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.png";
 import listStar from "../../../assets/images/listStar.svg";
 import SocialMedia from "../socialMedia/page";
-import { emails, tnc } from "@/app/utils/ImagePath";
+import { emails, tnc, user } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface ModalProps {
@@ -23,7 +23,103 @@ interface ModalProps {
     nextModal?: any;
     onClick: (name: string) => void;
     myListOpen?: any;
+    isOpenAboutUs?: any;
 }
+
+
+
+const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs }) => {
+    const [loader, setloader] = useState(false);
+    const { modalClick } = useMyContext();
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email("Invalid email format").required("Required!"),
+            password: Yup.string()
+                .min(8, "Minimum 8 characters")
+                .required("Required!"),
+        }),
+        onSubmit: async (values) => {
+            setloader(true);
+            try {
+                const loginData = await Instance.post("sign-up", {
+                    email: values.email,
+                    password: values.password,
+                });
+                localStorage.setItem("loginToken", loginData.data.token);
+                nextModal();
+            } catch (error: any) {
+                console.log(error.message);
+                showToast(error.message, "error");
+                setloader(false);
+            } finally {
+                setloader(false);
+            }
+        },
+    });
+
+    return (
+        <MenuModalContent>
+            <div style={{ display: "flex", gap: "10px" }}>
+                <CommonButton
+                    bcColor="#2F80ED"
+                    text={loader ? "Loading..." : "Create Account"}
+                    isOpen={() => modalClick("createAccountModal")}
+                /><CommonButton
+                    bcColor="#2F80ED"
+                    text={loader ? "Loading..." : "Login"}
+                    isOpen={() => modalClick("LoginAccountModal")}
+                />
+            </div>
+            <div style={{ cursor: "pointer" }} onClick={() => modalClick("LeaveFeedback")}>
+                <MenuOptionList
+                    optionListText
+                    title1="Leave feedback"
+                    menuOptionImg={contactUsImg}
+                    navigaetImg
+                    forwardNavigateImg={navigateImg}
+                />
+            </div>
+            <div style={{ cursor: "pointer" }} onClick={isOpen}>
+                <MenuOptionList
+                    optionListText
+                    title1="Contact us"
+                    menuOptionImg={emails}
+                    navigaetImg
+                    forwardNavigateImg={navigateImg}
+                />
+            </div>
+            <div style={{ cursor: "pointer" }} onClick={isOpenAboutUs}>
+                <MenuOptionList
+                    optionListText
+                    title1="About us"
+                    menuOptionImg={user}
+                    navigaetImg
+                    forwardNavigateImg={navigateImg}
+                />
+            </div>
+            <div style={{ cursor: "pointer" }} onClick={myListOpen}>
+                <MenuOptionList
+                    optionListText
+                    title1="Terms & Conditions"
+                    menuOptionImg={tnc}
+                    navigaetImg
+                    forwardNavigateImg={navigateImg}
+                />
+            </div>
+            <SocialMedia />
+            <UserTermsText1>
+                <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
+            </UserTermsText1>
+        </MenuModalContent>
+    );
+};
+
+export default LoginSignupModal;
+
 
 const MenuModalContent = styled.div`
   display: flex;
@@ -119,86 +215,3 @@ export const ErrorMessage = styled.p`
   margin-bottom: 20px;
   font-size: 16px;
 `;
-
-const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen }) => {
-    const [loader, setloader] = useState(false);
-    const { modalClick } = useMyContext();
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email("Invalid email format").required("Required!"),
-            password: Yup.string()
-                .min(8, "Minimum 8 characters")
-                .required("Required!"),
-        }),
-        onSubmit: async (values) => {
-            setloader(true);
-            try {
-                const loginData = await Instance.post("sign-up", {
-                    email: values.email,
-                    password: values.password,
-                });
-                localStorage.setItem("loginToken", loginData.data.token);
-                nextModal();
-            } catch (error: any) {
-                console.log(error.message);
-                showToast(error.message, "error");
-                setloader(false);
-            } finally {
-                setloader(false);
-            }
-        },
-    });
-
-    return (
-        <MenuModalContent>
-            <div style={{ display: "flex", gap: "10px" }}>
-                <CommonButton
-                    bcColor="#2F80ED"
-                    text={loader ? "Loading..." : "Create Account"}
-                    isOpen={() => modalClick("createAccountModal")}
-                /><CommonButton
-                    bcColor="#2F80ED"
-                    text={loader ? "Loading..." : "Login"}
-                    isOpen={() => modalClick("LoginAccountModal")}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={() => modalClick("LeaveFeedback")}>
-                <MenuOptionList
-                    optionListText
-                    title1="Leave feedback"
-                    menuOptionImg={contactUsImg}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={isOpen}>
-                <MenuOptionList
-                    optionListText
-                    title1="Contact us"
-                    menuOptionImg={emails}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={myListOpen}>
-                <MenuOptionList
-                    optionListText
-                    title1="Terms & Conditions"
-                    menuOptionImg={tnc}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <SocialMedia />
-            <UserTermsText1>
-                <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
-            </UserTermsText1>
-        </MenuModalContent>
-    );
-};
-
-export default LoginSignupModal;

@@ -89,6 +89,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     activities: false,
     infoApp: false,
     modalFilterList: false,
+    AboutUs: false,
   });
 
   const [placeData, setPlaceData] = useState<any[]>([]);

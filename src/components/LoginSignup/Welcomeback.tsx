@@ -8,7 +8,7 @@ import activityImg from "../../../assets/images/menuModalsImage/activity.png";
 import contactUsImg from "../../../assets/images/menuModalsImage/contactUs.png";
 import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.png";
 import listStar from "../../../assets/images/listStar.svg";
-import { Logout } from "@/app/utils/ImagePath";
+import { Logout, blank, user } from "@/app/utils/ImagePath";
 
 interface ModalProps {
   isOpen?: any;
@@ -16,6 +16,7 @@ interface ModalProps {
   myListOpen?: any;
   logoutClick: () => void;
   onClick: (name: string) => void;
+  isOpenAboutUs: any;
 }
 
 const MenuModalContent = styled.div`
@@ -24,7 +25,7 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick }) => {
+const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs }) => {
 
 
   return (
@@ -61,6 +62,15 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           optionListText
           title1="Contact us"
           menuOptionImg={contactUsImg}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div onClick={isOpenAboutUs} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="About us"
+          menuOptionImg={user}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />

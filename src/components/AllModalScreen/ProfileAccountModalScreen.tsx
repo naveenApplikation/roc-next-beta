@@ -17,6 +17,7 @@ import LoginSignupModal from "../LoginSignup/loginSignupModal";
 import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";
 import WalksModal from "./WalksModal";
+import AboutUs from "../LoginSignup/AboutUs";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -49,6 +50,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             <Welcomeback
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
+              isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
 
 
@@ -69,6 +71,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             <Welcomeback
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
+              isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
               {...{ logoutClick, onClick }}
             />
@@ -77,6 +80,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             <LoginSignupModal
               isOpen={() => modalClick("ContactUsModal")}
               nextModal={() => modalClick("WelcomeBackModal")}
+              isOpenAboutUs={() => modalClick("AboutUs")}
               {...{ onClick }}
               myListOpen={() => modalClick("TermsAndConditionModal")}
             />
@@ -100,6 +104,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             <Welcomeback
               isOpen={() => modalClick("UpdateMyDetailsModal")}
               isOpenContact={() => modalClick("ContactUsModal")}
+              isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
               {...{ logoutClick, onClick }}
             />
@@ -118,13 +123,14 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           <Welcomeback
             isOpen={() => modalClick("UpdateMyDetailsModal")}
             isOpenContact={() => modalClick("ContactUsModal")}
+            isOpenAboutUs={() => modalClick("AboutUs")}
             myListOpen={() => modalClick("myList")}
             {...{ logoutClick, onClick }}
           />
         </>
       );
     } else if (modalName === "UpdateMyDetailsModal") {
-      setOldName( loginToken ? "WelcomeBackModal" : "LoginSignupModal")
+      setOldName(loginToken ? "WelcomeBackModal" : "LoginSignupModal")
       return (
         <>
           <UpdateMyDetails
@@ -161,6 +167,16 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       return (
         <>
           <UpdatePasssword
+            isOpen={() => modalClick("WelcomeBackModal")}
+            previousModal={() => modalClick("UpdateMyDetailsModal")}
+          />
+        </>
+      );
+    } else if (modalName === "AboutUs") {
+      setOldName("WelcomeBackModal")
+      return (
+        <>
+          <AboutUs
             isOpen={() => modalClick("WelcomeBackModal")}
             previousModal={() => modalClick("UpdateMyDetailsModal")}
           />
@@ -215,13 +231,14 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           modalName === "myList" ||
           modalName === "ContactUsModal" ||
           modalName === "LoginThankYouDiresctoryModal" ||
-          modalName === "UpdateMyPreferencesModal"
+          modalName === "UpdateMyPreferencesModal" ||
+          modalName === "AboutUs"
         }
         onClose={() => closeModal("createAccountModal")}
         {...{ showMap }}
         name=""
         title={
-          (modalName === "LoginSignupModal" &&  loginToken && "Welcome back!") ||
+          (modalName === "LoginSignupModal" && loginToken && "Welcome back!") ||
           (modalName === "WelcomeBackModal" && "Welcome back!") ||
           (modalName === "TermsAndConditionModal" && "Terms & Conditions") ||
           (modalName === "createAccountModal" && loginToken && "Welcome back!") ||
@@ -235,6 +252,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "myList" && "My Lists") ||
           (modalName === "ContactUsModal" && "Contact us") ||
           (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
+          (modalName === "AboutUs" && "About us") ||
           (modalName === "UpdateMyPreferencesModal" && "Update my preferences")
         }
 
