@@ -87,6 +87,6 @@ const withPwaConfig = withPWA({
   // ... other options you like
 });
 
-export default withPwaConfig(nextConfig);
+export default nextConfig;
 
 // export default nextConfig;
