@@ -10,22 +10,18 @@ interface FilterSectionProps {
   // Define your props here
 }
 
-
-
 const FilterSection: React.FC<FilterSectionProps> = (props) => {
   const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectValue, setSelectValue] = useState('')
+  const [selectValue, setSelectValue] = useState("");
 
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
-    modalClick("modalFilterList")
-    if(modalType.modalFilterList){
-      closeModal("modalFilterList")
+    modalClick("modalFilterList");
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList");
     }
   };
-
-
 
   return (
     <FilterContainer>
@@ -37,9 +33,13 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
       />
       <ScrollingMenu>
         {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
-        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
-          {selectFilter}
-          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
+        <DropdownButton
+          onClick={toggleDropdown}
+          className={modalType.modalFilterList ? "active" : ""}>
+          {"Parish"}
+          <Caret className={modalType.modalFilterList ? "active" : ""}>
+            {modalType.modalFilterList ? "▲" : "▼"}
+          </Caret>
         </DropdownButton>
         {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
         <DropDwons items={SoryByItem} name="Price" />
@@ -91,7 +91,7 @@ const FilterButton = styled.button`
   span {
     margin-left: 10px;
     font-size: 12px;
-}
+  }
 `;
 const FilterContainer = styled.div`
   display: flex;
@@ -104,7 +104,7 @@ const FilterContainer = styled.div`
   }
 `;
 const DropdownButton = styled.button`
-background: #ffffff;
+  background: #ffffff;
   color: #000000;
   padding: 10px 20px;
   border: none;
