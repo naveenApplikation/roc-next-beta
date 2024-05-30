@@ -61,7 +61,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     setLoader(true);
     try {
       const result = await Instance.get(`/filter/category?query=${value}`);
-      console.log(result, "placeDataplaceDataplaceDataplaceDataplaceData");
       if (result.status === 200) {
         result.data.list.forEach((list: any) => {
           const matchedIcon = CategoryIcons.find(
@@ -100,7 +99,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     handleSearch();
   }, [tabValue]);
 
-  console.log("place data place data", placeData)
 
   useEffect(() => {
 
@@ -109,7 +107,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         return val
       } 
     })
-    console.log("place data place data", newData, selectFilter)
     setFilterData(selectFilter === "Any" ? placeData : newData)
   }, [selectFilter, placeData.length])
 

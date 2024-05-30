@@ -48,6 +48,7 @@ interface ContextProps {
   setSearchQuery?: any;
   setSelectFilter?: any;
   selectFilter?: any;
+  location?: any;
 }
 
 // Create a context
@@ -98,14 +99,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [selectFilter, setSelectFilter] = useState("Any")
 
   const [location, setLocation] = useState<any>({
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
   });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       const { latitude, longitude } = coords;
-      setLocation({ latitude: String(latitude), longitude: String(longitude) });
+      setLocation({ latitude: latitude, longitude: longitude});
     });
   }, []);
 
@@ -122,7 +123,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         location
       );
       const result = await Instance.get(url);
-      console.log("placeDataplaceDataplaceDataplaceDataplaceData ff", result)
       setPlaceData(result?.data.searchResults);
     } catch (error: any) {
       console.log(error.message);
@@ -186,6 +186,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
+
     if (name == 'modalFilter' || name === 'modalFilterList') {
       setModalType((prev) => ({
         ...prev,
@@ -295,6 +296,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setSearchQuery,
     setSelectFilter,
     selectFilter,
+    location,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

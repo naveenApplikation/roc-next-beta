@@ -3,6 +3,7 @@ import MapWithMenu from '@/components/RightSideMenu/MapWithMenu';
 import React from 'react'
 import styled from 'styled-components';
 import { useMyContext } from './Context/MyContext';
+import PlacesModalScreen from '@/components/AllModalScreen/PlacesModalScreen';
 
 const Container = styled.div`
         display: flex;
@@ -43,6 +44,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
                 {children}
             </MainContainer>
             {showMap && <MapWithMenu />}
+            <PlacesModalScreen showMap={showMap} />
         </Container>
     )
 }

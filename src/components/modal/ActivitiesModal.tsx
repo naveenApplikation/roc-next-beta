@@ -262,7 +262,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     "Saturday:",
     "Sunday:",
   ];
-  console.log("klsjfslkflksf", data)
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
     toast.success("copy");

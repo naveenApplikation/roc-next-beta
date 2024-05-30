@@ -37,7 +37,6 @@ const ModalContent: React.FC<ModalProps> = ({
   }, [data?._id, Object.keys(showApiData).length])
 
 
-  console.log("klsjfslkflksf", data)
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
     toast.success("copy");
