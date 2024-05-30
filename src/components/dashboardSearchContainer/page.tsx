@@ -41,10 +41,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     placeloader,
     placeData,
     setPlaceData,
+    selectFilter,
+    setSelectFilter,
   } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
+  const [filterData, setFilterData] = useState([]);
 
   const handleChange = (value: string) => {
     setSearchQuery(value);
@@ -58,7 +61,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     setLoader(true);
     try {
       const result = await Instance.get(`/filter/category?query=${value}`);
-      console.log(result, "sdsds");
+      console.log(result, "placeDataplaceDataplaceDataplaceDataplaceData");
       if (result.status === 200) {
         result.data.list.forEach((list: any) => {
           const matchedIcon = CategoryIcons.find(
@@ -97,8 +100,23 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     handleSearch();
   }, [tabValue]);
 
+  console.log("place data place data", placeData)
+
+  useEffect(() => {
+
+    const newData = placeData.filter((val: any) => {
+      if (val?.parishName === selectFilter) {
+        return val
+      } 
+    })
+    console.log("place data place data", newData, selectFilter)
+    setFilterData(selectFilter === "Any" ? placeData : newData)
+  }, [selectFilter, placeData.length])
+
+
   return (
     <>
+
       <InputWrapper className="filterInput">
         <SearchInput
           value={searchQuery}
@@ -252,35 +270,35 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           <SearchedListContainer>
             {placeloader
               ? skeletonData.map((item, index) => (
-                  <SearchedData key={index}>
-                    <MainInsideWrapper>
+                <SearchedData key={index}>
+                  <MainInsideWrapper>
+                    <Skeleton
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <div className="restroRating">
                       <Skeleton
-                        width={80}
-                        height={80}
+                        width={120}
+                        height={15}
                         style={{ borderRadius: 8 }}
                       />
-                      <div className="restroRating">
-                        <Skeleton
-                          width={120}
-                          height={15}
-                          style={{ borderRadius: 8 }}
-                        />
-                        <Skeleton
-                          width={120}
-                          height={15}
-                          style={{ borderRadius: 8 }}
-                        />
-                        <Skeleton
-                          width={120}
-                          height={15}
-                          style={{ borderRadius: 8 }}
-                        />
-                      </div>
-                    </MainInsideWrapper>
-                  </SearchedData>
-                ))
+                      <Skeleton
+                        width={120}
+                        height={15}
+                        style={{ borderRadius: 8 }}
+                      />
+                      <Skeleton
+                        width={120}
+                        height={15}
+                        style={{ borderRadius: 8 }}
+                      />
+                    </div>
+                  </MainInsideWrapper>
+                </SearchedData>
+              ))
               : searchQuery && placeData.length
-              ? placeData.map((item: any, index: any) => {
+                ? filterData.map((item: any, index: any) => {
                   if (!item.place_id) {
                     return null;
                   }
@@ -372,7 +390,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                     </div>
                   );
                 })
-              : ""}
+                : ""}
           </SearchedListContainer>
         </>
       )}

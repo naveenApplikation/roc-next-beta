@@ -1,6 +1,6 @@
 import { SoryByItem } from "@/app/utils/data";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import DropDwons from "./dropdowns";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -9,6 +9,49 @@ import { filterSearch } from "@/app/utils/ImagePath";
 interface FilterSectionProps {
   // Define your props here
 }
+
+
+
+const FilterSection: React.FC<FilterSectionProps> = (props) => {
+  const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
+  // const [isOpen, setIsOpen] = useState(false);
+  const [selectValue, setSelectValue] = useState('')
+
+  const toggleDropdown = () => {
+    // setIsOpen(!modalType.modalFilterList);
+    modalClick("modalFilterList")
+    if(modalType.modalFilterList){
+      closeModal("modalFilterList")
+    }
+  };
+
+
+
+  return (
+    <FilterContainer>
+      <Image
+        src={filterSearch}
+        onClick={() => modalClick("modalFilter")}
+        style={{ cursor: "pointer" }}
+        alt=""
+      />
+      <ScrollingMenu>
+        {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
+        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
+          {selectFilter}
+          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
+        </DropdownButton>
+        {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
+        <DropDwons items={SoryByItem} name="Price" />
+        <FilterButton>Top Rated</FilterButton>
+        <FilterButton>Free</FilterButton>
+        <FilterButton>Most Like</FilterButton> */}
+      </ScrollingMenu>
+    </FilterContainer>
+  );
+};
+
+export default FilterSection;
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -44,6 +87,11 @@ const FilterButton = styled.button`
   background: white;
   padding: 12px;
   min-width: 90px;
+
+  span {
+    margin-left: 10px;
+    font-size: 12px;
+}
 `;
 const FilterContainer = styled.div`
   display: flex;
@@ -55,28 +103,32 @@ const FilterContainer = styled.div`
     padding: 0px;
   }
 `;
+const DropdownButton = styled.button`
+background: #ffffff;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 
-const FilterSection: React.FC<FilterSectionProps> = (props) => {
-  const { modalClick } = useMyContext();
+  // &:hover {
+  //   background-color: #0056b3;
+  // }
 
-  return (
-    <FilterContainer>
-      <Image
-        src={filterSearch}
-        onClick={() => modalClick("modalFilter")}
-        style={{ cursor: "pointer" }}
-        alt=""
-      />
-      {/* <ScrollingMenu>
-        <DropDwons items={SoryByItem} name="Sort by" />
-        <FilterButton>Kids</FilterButton>
-        <DropDwons items={SoryByItem} name="Price" />
-        <FilterButton>Top Rated</FilterButton>
-        <FilterButton>Free</FilterButton>
-        <FilterButton>Most Like</FilterButton>
-      </ScrollingMenu> */}
-    </FilterContainer>
-  );
-};
+  &.active {
+    background-color: #d1d1d1;
+  }
+`;
 
-export default FilterSection;
+const Caret = styled.span`
+  margin-left: 10px;
+  font-size: 12px;
+  transition: transform 0.3s;
+
+  &.active {
+    transform: rotate(90deg);
+  }
+`;

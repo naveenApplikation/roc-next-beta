@@ -46,6 +46,8 @@ interface ContextProps {
   placeloader?: any;
   searchQuery?: any;
   setSearchQuery?: any;
+  setSelectFilter?: any;
+  selectFilter?: any;
 }
 
 // Create a context
@@ -86,11 +88,13 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     eventListing: false,
     activities: false,
     infoApp: false,
+    modalFilterList: false,
   });
 
   const [placeData, setPlaceData] = useState<any[]>([]);
   const [placeloader, setPlaceLoader] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectFilter, setSelectFilter] = useState("Any")
 
   const [location, setLocation] = useState<any>({
     latitude: "",
@@ -117,6 +121,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         location
       );
       const result = await Instance.get(url);
+      console.log("placeDataplaceDataplaceDataplaceDataplaceData ff", result)
       setPlaceData(result?.data.searchResults);
     } catch (error: any) {
       console.log(error.message);
@@ -146,10 +151,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const closeModal = (name: string) => {
+    
     setModalType((prev) => ({
       ...prev,
       [name]: false,
     }));
+    if(name === "search"){
+      setSelectFilter("Any")
+    }
     if (modalName === "myList") {
       setModalNames("WelcomeBackModal");
     } else {
@@ -176,23 +185,31 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-   if(name=='modalFilter'){
-    setModalType((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
-   }else{
- setModalType((prev) => {
-      const updatedState = Object.keys(prev).reduce((acc, key) => {
-        acc[key] = key === name;
-        return acc;
-      }, {} as { [key: string]: boolean });
+    if (name == 'modalFilter' || name === 'modalFilterList') {
+      setModalType((prev) => ({
+        ...prev,
+        [name]: true,
+      }));
+    } else {
+      if (modalType.search) {
+        setModalType((prev) => ({
+          ...prev,
+          [name]: true,
+        }));
+      } else {
 
-      return updatedState as typeof prev;
-    });
-   }
-   
-  
+        setModalType((prev) => {
+          const updatedState = Object.keys(prev).reduce((acc, key) => {
+            acc[key] = key === name;
+            return acc;
+          }, {} as { [key: string]: boolean });
+
+          return updatedState as typeof prev;
+        });
+      }
+    }
+
+
     if (modalName === "betaExploreModal") {
       setModalNames("");
     }
@@ -275,6 +292,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     placeloader,
     searchQuery,
     setSearchQuery,
+    setSelectFilter,
+    selectFilter,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

@@ -25,6 +25,7 @@ import { icons } from "./utils/iconList";
 import WalksModal from "@/components/AllModalScreen/WalksModal";
 import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
+import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalScreen";
 
 const Container = styled.div`
   display: flex;
@@ -174,6 +175,7 @@ export default function Home() {
           {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
         />
         <FilterModalScreen showMap={showMap} />
+        <FilterListModalScreen showMap={showMap} />
         <PlacesModalScreen showMap={showMap} />
         {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
         <PlaceOrderOnlineModalScreen showMap={showMap} />
