@@ -62,6 +62,7 @@ const ModalContent: React.FC<ModalProps> = ({
     return () => clearTimeout(timer);
   }, [showApiData?.types, data?.acf?.type]);
 
+
   useEffect(() => {
     setLoading(false);
     if (Object.keys(data).length) {
@@ -77,6 +78,7 @@ const ModalContent: React.FC<ModalProps> = ({
     Object.keys(showApiData).length,
     reviewData.length,
     data?.name,
+    data?.place_id
   ]);
 
   const copylink = (copy: any) => {
@@ -283,7 +285,7 @@ const ModalContent: React.FC<ModalProps> = ({
       return { day, time };
     });
   }, []);
-  console.log("  dataImage data", dataImage, data);
+
 
   return (
     <>

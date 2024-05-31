@@ -16,6 +16,7 @@ import Ratings from "../ratings";
 import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
+import PlacePage from "../search/placeData";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -61,7 +62,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     setLoader(true);
     try {
       const result = await Instance.get(`/filter/category?query=${value}`);
-      console.log(result, "placeDataplaceDataplaceDataplaceDataplaceData");
       if (result.status === 200) {
         result.data.list.forEach((list: any) => {
           const matchedIcon = CategoryIcons.find(
@@ -100,18 +100,24 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     handleSearch();
   }, [tabValue]);
 
-  console.log("place data place data", placeData)
 
   useEffect(() => {
+    if (searchQuery) {
+      const newData = placeData.filter((val: any) => {
+        if (val?.parishName === selectFilter) {
+          return val
+        }
+      })
+      setFilterData(selectFilter === "Any" ? placeData : newData)
 
-    const newData = placeData.filter((val: any) => {
-      if (val?.parishName === selectFilter) {
-        return val
-      } 
-    })
-    console.log("place data place data", newData, selectFilter)
-    setFilterData(selectFilter === "Any" ? placeData : newData)
+    } else {
+      fetchDataAsync(searchQuery, filterValues, selectFilter);
+      setFilterData(placeData)
+    }
   }, [selectFilter, placeData.length])
+
+
+
 
 
   return (
@@ -267,7 +273,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       ) : (
         <>
           <FilterSection />
-          <SearchedListContainer>
+          <PlacePage {...{ filterData }} />
+          {/* <SearchedListContainer>
             {placeloader
               ? skeletonData.map((item, index) => (
                 <SearchedData key={index}>
@@ -391,7 +398,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                   );
                 })
                 : ""}
-          </SearchedListContainer>
+          </SearchedListContainer> */}
         </>
       )}
     </>

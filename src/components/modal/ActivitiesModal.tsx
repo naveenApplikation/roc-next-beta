@@ -263,7 +263,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     "Saturday:",
     "Sunday:",
   ];
-  console.log("klsjfslkflksf", data);
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
     toast.success("copy");
@@ -343,8 +342,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <WebsiteLink
           href={data?.acf?.website ? data?.acf?.website : ""}
-          target="_blank"
-        >
+          target="_blank">
           {data?.acf?.website}
         </WebsiteLink>
       ),
@@ -364,8 +362,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                 copylink(
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
-              }
-            >
+              }>
               {data?.acf?.address.place_name},{" "}
               {data?.acf?.address.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},

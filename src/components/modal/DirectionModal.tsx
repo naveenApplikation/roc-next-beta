@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import chevronRight from "../../../assets/images/chevron-right.png";
 import CommonButton from "../../components/button/CommonButton";
 import { viewDirectionMap } from "@/app/utils/ImagePath";
+import DirectionMapUi from "./DirectionMap";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DirectionModalProps {
   dataDetails: any
@@ -12,7 +14,9 @@ interface DirectionModalProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 10px;
+  height:93%;
+  width:100%;
 `;
 
 const Title = styled.p`
@@ -75,7 +79,7 @@ const ButtonBox = styled.div`
 const AdventureOption = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 16px 0px;
+  padding: 10px 0px;
   margin: 0px 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
@@ -96,7 +100,9 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
   const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
     null
   );
-
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
+  const { location } = useMyContext();
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);
   };
@@ -133,11 +139,22 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
       longitude = dataDetails?.acf?.map_location?.lng;
       place_id = dataDetails?.acf?.map_location?.place_id;
     }
-    const googleMapsUrl =  `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
-    
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+
     // const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}&${latitude},${longitude}`;
     window.open(googleMapsUrl, '_blank')
   }
+
+  useEffect(() => {
+    console.log("datadetail", dataDetails)
+    if (dataDetails.data_type === "google") {
+      setLatitude(dataDetails?.lat ? dataDetails?.lat : dataDetails?.geometry?.location?.lat)
+      setLongitude(dataDetails?.lng ? dataDetails?.lng : dataDetails?.geometry?.location?.lng)
+    } else {
+      setLatitude(dataDetails?.acf?.map_location?.lat)
+      setLongitude(dataDetails?.acf?.map_location?.lng)
+    }
+  }, [dataDetails?.lat, dataDetails?.acf?.map_location?.lat, dataDetails?.geometry?.location?.lat])
 
   return (
     <Container>
@@ -152,24 +169,37 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
           </Box>
         ))}
       </ScrollingMenu> */}
-      <div style={{ padding: "0px 24px" }}>
-        <CommonButton isOpen={() => directionClick()} text="Open directions in Maps" />
-      </div>
-      <div style={{ height: "291px" }}>
-        <Image src={viewDirectionMap} style={{ height: "100%", width: "100%" }} alt="icon" />
-      </div>
+      {/* {
+        (location?.latitude && location.longitude) ?
+          <DirectionMapUi {...{ latitude, longitude }} />
+          :
+          <>
+            <div style={{ padding: "0px 24px" }}>
+              <CommonButton isOpen={() => directionClick()} text="Open directions in Maps" />
+            </div>
+            <div style={{ height: "291px" }}>
+              <Image src={viewDirectionMap} style={{ height: "100%", width: "100%" }} alt="icon" />
+            </div>
+          </>
 
-      <div>
-        {/* {buttonData.map((item,index) => (
-        <AdventureOption key={index}>
+      } */}
+      <DirectionMapUi {...{ latitude, longitude }} />
+
+
+      <div style={{ padding: "0px 24px" }}>
+        <CommonButton isOpen={() => directionClick()} text="View in maps" />
+      </div>
+      <div style={{visibility:'hidden'}}>
+        {buttonData.map((item, index) => (
+          <AdventureOption key={index}>
             <p>{item}</p>
             <Image
               src={chevronRight}
               style={{ height: "14px", width: "9px" }}
               alt="icon"
-              />
+            />
           </AdventureOption>
-      ))} */}
+        ))}
       </div>
     </Container>
   );
