@@ -106,29 +106,44 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       const { latitude, longitude } = coords;
-      setLocation({ latitude: latitude, longitude: longitude});
+      setLocation({ latitude: latitude, longitude: longitude });
     });
   }, []);
 
   const fetchDataAsync = async (value: string, filterValues: any) => {
-    setPlaceLoader(true);
-    try {
-      const url = buildFilterUrl(
-        value,
-        {
-          distance: filterValues.distance == "Any" ? "" : filterValues.distance,
-          rating: filterValues.rating == "Any" ? "" : filterValues.rating,
-          openingHours: filterValues.openingHours,
-        },
-        location
-      );
-      const result = await Instance.get(url);
-      setPlaceData(result?.data.searchResults);
-    } catch (error: any) {
-      console.log(error.message);
-      setPlaceLoader(false);
-    } finally {
-      setPlaceLoader(false);
+
+    if (value) {
+      setPlaceLoader(true);
+      try {
+        const url = buildFilterUrl(
+          value,
+          {
+            distance: filterValues.distance == "Any" ? "" : filterValues.distance,
+            rating: filterValues.rating == "Any" ? "" : filterValues.rating,
+            openingHours: filterValues.openingHours,
+          },
+          location
+        );
+        const result = await Instance.get(url);
+        setPlaceData(result?.data.searchResults);
+      } catch (error: any) {
+        console.log(error.message);
+        setPlaceLoader(false);
+      } finally {
+        setPlaceLoader(false);
+      }
+    } else if (selectFilter !== "Any") {
+      setPlaceLoader(true);
+      try {
+
+        const result = await Instance.get(`/filter/places?place&parish=${selectFilter}`);
+        setPlaceData(result?.data?.searchResults);
+      } catch (error: any) {
+        console.log(error.message);
+        setPlaceLoader(false);
+      } finally {
+        setPlaceLoader(false);
+      }
     }
   };
 
@@ -152,12 +167,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const closeModal = (name: string) => {
-    
+
     setModalType((prev) => ({
       ...prev,
       [name]: false,
     }));
-    if(name === "search"){
+    if (name === "search") {
       setSelectFilter("Any")
     }
     if (modalName === "myList") {

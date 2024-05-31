@@ -194,7 +194,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
     closeModal("search");
   };
 
-  console.log(searchItem, "searchItem");
+
 
   return (
     <>

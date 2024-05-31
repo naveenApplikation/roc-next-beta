@@ -16,6 +16,7 @@ import Ratings from "../ratings";
 import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
+import PlacePage from "../search/placeData";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -101,14 +102,22 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
 
   useEffect(() => {
+    if (searchQuery) {
+      const newData = placeData.filter((val: any) => {
+        if (val?.parishName === selectFilter) {
+          return val
+        }
+      })
+      setFilterData(selectFilter === "Any" ? placeData : newData)
 
-    const newData = placeData.filter((val: any) => {
-      if (val?.parishName === selectFilter) {
-        return val
-      } 
-    })
-    setFilterData(selectFilter === "Any" ? placeData : newData)
+    } else {
+      fetchDataAsync(searchQuery, filterValues, selectFilter);
+      setFilterData(placeData)
+    }
   }, [selectFilter, placeData.length])
+
+
+
 
 
   return (
@@ -264,7 +273,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       ) : (
         <>
           <FilterSection />
-          <SearchedListContainer>
+          <PlacePage {...{ filterData }} />
+          {/* <SearchedListContainer>
             {placeloader
               ? skeletonData.map((item, index) => (
                 <SearchedData key={index}>
@@ -388,7 +398,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
                   );
                 })
                 : ""}
-          </SearchedListContainer>
+          </SearchedListContainer> */}
         </>
       )}
     </>

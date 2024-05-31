@@ -10,7 +10,7 @@ import { SearchFilterData } from "@/app/utils/data";
 
 const FilterListModal: React.FC = () => {
 
-  const {  modalType, setSelectFilter, closeModal } = useMyContext();
+  const {  modalType, setSelectFilter, closeModal, fetchDataAsync, searchQuery, filterValues, selectFilter } = useMyContext();
 
   const [selectData, setSelectData] = useState<string>("Any");
 
@@ -22,6 +22,7 @@ const FilterListModal: React.FC = () => {
   }
   
   const handleSave = () => {
+    // fetchDataAsync(searchQuery, filterValues, selectFilter);
     setSelectFilter(selectData)
     closeModal("modalFilterList")
   }
