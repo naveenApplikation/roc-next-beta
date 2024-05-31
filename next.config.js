@@ -3,7 +3,6 @@ import { default as withPWA } from "@ducanh2912/next-pwa";
 
 const rewrites = () => {
   return [
-   
     {
       source: "/restaurants",
       destination: "/screens/resturants", // Redirect to the original URL
@@ -43,16 +42,7 @@ const rewrites = () => {
   ];
 };
 
-
-
 /** @type {import('next').NextConfig} */
-
-
-
-
-
-
-
 
 // const nextConfig = {
 //   output: "export",
@@ -68,9 +58,14 @@ const rewrites = () => {
 
 const nextConfig = {
   images: {
-    domains: ['firebasestorage.googleapis.com','cdn.jersey.com','lh3.googleusercontent.com', 'maps.googleapis.com'],
-    // formats: ['image/jpeg', 'image/png'],
-    // unoptimized: true, 
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
+    ],
   },
   reactStrictMode: false,
 };
@@ -91,6 +86,6 @@ const withPwaConfig = withPWA({
   // ... other options you like
 });
 
-export default withPwaConfig(nextConfig);
+export default nextConfig;
 
 // export default nextConfig;
