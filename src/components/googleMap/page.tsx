@@ -24,11 +24,13 @@ const center = {
   lng: -2.1051429,
 };
 
+const ApiKey: string | any = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
   const { dataDetails, modalName, modalClick, location } = useMyContext();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0",
+    // googleMapsApiKey: process.env.GOOGLE_API_KEY,
+    googleMapsApiKey: ApiKey,
   });
 
   const [selectedLat, setSelectedLat] = useState<number>(49.1811261);
@@ -194,7 +196,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
     return;
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0`
+        `https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJPdcAX96sDUgROOBQVMLy6_A&key=${ApiKey}`
       );
       const data = await response.json();
       if (!response.ok) {

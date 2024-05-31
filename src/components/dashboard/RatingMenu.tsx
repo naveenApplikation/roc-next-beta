@@ -80,8 +80,8 @@ const RatingMenu: React.FC<MenuProps> = ({
         <>
           <UtensilsDishesImage>
             <MainImage
-              src={(headerImage == null || headerImage == undefined) ? fallback : headerImage}
-              alt=""
+              src={headerImage ? headerImage : fallback}
+              alt="my image"
               width={500}
               height={80}
               style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
