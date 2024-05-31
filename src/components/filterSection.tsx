@@ -16,7 +16,7 @@ interface FilterSectionProps {
 const FilterSection: React.FC<FilterSectionProps> = () => {
   const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectValue, setSelectValue] = useState('')
+  const [selectValue, setSelectValue] = useState("");
 
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
@@ -26,8 +26,6 @@ const FilterSection: React.FC<FilterSectionProps> = () => {
       closeModal("modalFilterList")
     }
   };
-
-
 
   return (
     <FilterContainer>
@@ -93,7 +91,7 @@ const FilterButton = styled.button`
   span {
     margin-left: 10px;
     font-size: 12px;
-}
+  }
 `;
 const FilterContainer = styled.div`
   display: flex;
@@ -106,7 +104,7 @@ const FilterContainer = styled.div`
   }
 `;
 const DropdownButton = styled.button`
-background: #ffffff;
+  background: #ffffff;
   color: #000000;
   padding: 10px 20px;
   border: none;

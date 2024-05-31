@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { phoneBlack } from "@/app/utils/ImagePath";
+import { phoneBlack, phone } from "@/app/utils/ImagePath";
 import toast from "react-hot-toast";
 import { Tooltip } from "antd";
 import Link from "next/link";
+import CommonButton from "@/components/button/CommonButton";
 
 interface ModalProps {
   //   onClose: () => void;
@@ -269,12 +270,13 @@ const ActivitiesModal: React.FC<ModalProps> = ({
 
   const ActivitiesListData = [
     {
-      name:
+      name: (
         <Tooltip title={"Month"}>
           <span onClick={() => copylink("March - October")}>
             March - October
           </span>
-        </Tooltip>,
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
       width: 14,
@@ -282,11 +284,13 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       nameValue: true,
     },
     {
-      name: <Tooltip title={"Time"}>
-        <span onClick={() => copylink("Today: 09:00 - 18:00")}>
-          Today: 09:00 - 18:00
-        </span>
-      </Tooltip>,
+      name: (
+        <Tooltip title={"Time"}>
+          <span onClick={() => copylink("Today: 09:00 - 18:00")}>
+            Today: 09:00 - 18:00
+          </span>
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
@@ -294,12 +298,13 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       nameValue: true,
     },
     {
-      name:
+      name: (
         <Tooltip title={"Price"}>
           <span onClick={() => copylink(data?.acf?.price_to)}>
             {`£ ${data?.acf?.price_to}`}
           </span>
-        </Tooltip>,
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
       width: 10,
@@ -307,23 +312,26 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       nameValue: data?.acf?.price_to ? true : false,
     },
     {
-      name: <Tooltip title={"Phone number"}>
-        <span onClick={() => copylink(data.acf?.telephone_number.formatted)}>
-          {data.acf?.telephone_number.formatted}
-        </span>
-      </Tooltip>,
+      name: (
+        <Tooltip title={"Phone number"}>
+          <span onClick={() => copylink(data.acf?.telephone_number.formatted)}>
+            {data.acf?.telephone_number.formatted}
+          </span>
+        </Tooltip>
+      ),
       image: phoneBlack,
       width: 12,
       height: 24,
       nameValue: data.acf?.telephone_number.formatted ? true : false,
     },
     {
-      name:
+      name: (
         <Tooltip title={"Email address"}>
           <span onClick={() => copylink(data?.acf?.email_address)}>
             {data?.acf?.email_address}
           </span>
-        </Tooltip>,
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
       width: 16,
@@ -331,27 +339,48 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       nameValue: data?.acf?.email_address ? true : false,
     },
     {
-      name:
-
-        <WebsiteLink href={data?.acf?.website ? data?.acf?.website : ""} target="_blank">
+      name: (
+        <WebsiteLink
+          href={data?.acf?.website ? data?.acf?.website : ""}
+          target="_blank">
           {data?.acf?.website}
-        </WebsiteLink>,
+        </WebsiteLink>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
       width: 16,
       height: 24,
     },
     {
-      name: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? <Tooltip title={"Copy address"}>
-        <span onClick={() => copylink(`${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`)}>
-          {data?.acf?.address.place_name}, {data?.acf?.address.address_line_1}, {data?.acf?.address?.address_line_2},
-        </span>
-      </Tooltip> : "",
+      name:
+        data.acf?.address.place_name ||
+        data.acf?.address.address_line_1 ||
+        data.acf?.address.address_line_2 ? (
+          <Tooltip title={"Copy address"}>
+            <span
+              onClick={() =>
+                copylink(
+                  `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
+                )
+              }>
+              {data?.acf?.address.place_name},{" "}
+              {data?.acf?.address.address_line_1},{" "}
+              {data?.acf?.address?.address_line_2},
+            </span>
+          </Tooltip>
+        ) : (
+          ""
+        ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
       height: 24,
-      nameValue: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? true : false,
+      nameValue:
+        data.acf?.address.place_name ||
+        data.acf?.address.address_line_1 ||
+        data.acf?.address.address_line_2
+          ? true
+          : false,
     },
   ];
 
@@ -405,30 +434,29 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       <ResturantDetailsContainer>
         {ActivitiesListData.map((item, index) => {
           return (
-            item.name &&
-            <ResturantDetailsWrapper key={index}>
-              {" "}
-              <div style={{ width: 20 }}>
-                <Image
-                  style={{
-                    cursor: "pointer",
-                    height: "auto",
-                    width: index === 3 ? "auto" : "revert-layer",
-                  }}
-                  src={item.image}
-                  width={item.width}
-                  height={item.height}
-                  alt="Logo Outline"
-                />{" "}
-              </div>
-              {index == 5 ? (
-                <RestDetailTitleWebsite >
-                  {item?.name}
-                </RestDetailTitleWebsite>
-              ) : (
-                <RestDetailTitle>{item.name}</RestDetailTitle>
-              )}
-            </ResturantDetailsWrapper>
+            item.name && (
+              <ResturantDetailsWrapper key={index}>
+                {" "}
+                <div style={{ width: 20 }}>
+                  <Image
+                    style={{
+                      cursor: "pointer",
+                      height: "auto",
+                      width: index === 3 ? "auto" : "revert-layer",
+                    }}
+                    src={item.image}
+                    width={item.width}
+                    height={item.height}
+                    alt="Logo Outline"
+                  />{" "}
+                </div>
+                {index == 5 ? (
+                  <RestDetailTitleWebsite>{item?.name}</RestDetailTitleWebsite>
+                ) : (
+                  <RestDetailTitle>{item.name}</RestDetailTitle>
+                )}
+              </ResturantDetailsWrapper>
+            )
           );
         })}
         <ViewDirection onClick={() => reservationModal("DirectionModal")}>
@@ -472,37 +500,57 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         </TouristContainer>
       ))}
 
-      <AlsoSeeText>Key Features</AlsoSeeText>
-      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
-        {data.acf?.key_facilities.map((item: any, index: any) => (
-          <li key={index}>{item.label}</li>
-        ))}
-      </BulletPointWrapper>
-      <AlsoSeeText>Accessibility</AlsoSeeText>
-      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
-        {data.acf?.accessibility.map((item: any, index: any) => (
-          <li key={index}>{item.label}</li>
-        ))}
-      </BulletPointWrapper>
-      <AlsoSeeText>Bus Route</AlsoSeeText>
-      <BulletPointWrapper style={{ paddingLeft: "50px" }}>
-        {data.acf?.bus_routes.map((item: any, index: any) => (
-          <li key={index} style={{ textDecoration: "underline" }}>
-            {formatRoute(item.label)}
-          </li>
-        ))}
-      </BulletPointWrapper>
-      <DatesContainer>
-        <OpeningTitle>Opening</OpeningTitle>
-        <DatesWrapperText>
-          {data.acf?.seasonality &&
-            data.acf?.seasonality.map((item: any, index: any) => (
-              <p key={index}>
-                {item.label}
-                {index !== data.acf?.seasonality.length - 1 && ","}{" "}
-              </p>
+      {data.acf?.key_facilities != "" && (
+        <>
+          <AlsoSeeText>Key Features</AlsoSeeText>
+          <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+            {data.acf?.key_facilities.map((item: any, index: any) => (
+              <li key={index}>{item.label}</li>
             ))}
-        </DatesWrapperText>
+          </BulletPointWrapper>
+        </>
+      )}
+
+      {data.acf?.accessibility != "" && (
+        <>
+          {" "}
+          <AlsoSeeText>Accessibility</AlsoSeeText>
+          <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+            {data.acf?.accessibility.map((item: any, index: any) => (
+              <li key={index}>{item.label}</li>
+            ))}
+          </BulletPointWrapper>
+        </>
+      )}
+
+      {data.acf?.bus_routes != "" && (
+        <>
+          <AlsoSeeText>Bus Route</AlsoSeeText>
+          <BulletPointWrapper style={{ paddingLeft: "50px" }}>
+            {data.acf?.bus_routes.map((item: any, index: any) => (
+              <li key={index} style={{ textDecoration: "underline" }}>
+                {formatRoute(item.label)}
+              </li>
+            ))}
+          </BulletPointWrapper>
+        </>
+      )}
+
+      <DatesContainer>
+        {data.acf?.seasonality && (
+          <>
+            <OpeningTitle>Opening</OpeningTitle>
+            <DatesWrapperText>
+              {data.acf?.seasonality.map((item: any, index: any) => (
+                <p key={index}>
+                  {item.label}
+                  {index !== data.acf?.seasonality.length - 1 && ","}{" "}
+                </p>
+              ))}
+            </DatesWrapperText>
+          </>
+        )}
+
         {daysOfWeek.map((item, index) => (
           <WeekTimeArrange key={index}>
             <p>{item}:</p>
@@ -512,6 +560,19 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           </WeekTimeArrange>
         ))}
       </DatesContainer>
+      {data.acf?.telephone_number.formatted ? (
+        <ButtonContainer>
+          <CommonButton
+            text="Call"
+            image={phone}
+            imageStyle={20}
+            isOpen={() => reservationModal("Call")}
+            linkNum={data.acf?.telephone_number.formatted}
+          />
+        </ButtonContainer>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

@@ -13,6 +13,7 @@ import Image from "next/image";
 import CreateListItems from "./CreateList Components/CreateListItems";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import { categoryCreationDate, sideWidth } from "../..//app/utils/date";
+import fallbackimage from '../../../assets/images/fallbackimage.png'
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
@@ -255,7 +256,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
             {selectedData.length &&
               selectedData.map((item: any, index: any) => {
-                const image = item.photoUrl ? item.photoUrl : "";
+                const image = item.photoUrl ? item.photoUrl : fallbackimage;
                 return (
                   <ListDataWrraper key={item.place_id}>
                     <div style={{ width: 80, height: 80 }}>
