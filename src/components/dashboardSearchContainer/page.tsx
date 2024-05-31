@@ -49,6 +49,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
   const [filterData, setFilterData] = useState([]);
+  
+
 
   const handleChange = (value: string) => {
     setSearchQuery(value);
@@ -272,7 +274,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         </>
       ) : (
         <>
-          <FilterSection />
+          <FilterSection  />
           <PlacePage {...{ filterData }} />
           {/* <SearchedListContainer>
             {placeloader

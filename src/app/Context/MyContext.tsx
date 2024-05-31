@@ -112,8 +112,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const fetchDataAsync = async (value: string, filterValues: any) => {
 
+    setPlaceLoader(true);
     if (value) {
-      setPlaceLoader(true);
       try {
         const url = buildFilterUrl(
           value,

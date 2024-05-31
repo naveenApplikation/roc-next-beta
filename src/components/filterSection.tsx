@@ -8,11 +8,12 @@ import { filterSearch } from "@/app/utils/ImagePath";
 
 interface FilterSectionProps {
   // Define your props here
+
 }
 
 
 
-const FilterSection: React.FC<FilterSectionProps> = (props) => {
+const FilterSection: React.FC<FilterSectionProps> = () => {
   const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState('')
@@ -20,6 +21,7 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
     modalClick("modalFilterList")
+    
     if(modalType.modalFilterList){
       closeModal("modalFilterList")
     }
@@ -38,7 +40,7 @@ const FilterSection: React.FC<FilterSectionProps> = (props) => {
       <ScrollingMenu>
         {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
         <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
-          {selectFilter}
+          {selectFilter === "Any" ? "Parish" : selectFilter}
           <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
         </DropdownButton>
         {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
