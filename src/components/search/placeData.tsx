@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { PopularLists } from "./Data";
-import { thumbsup, commentstar, search } from "@/app/utils/ImagePath";
+import {commentstar } from "@/app/utils/ImagePath";
 import Instance from "@/app/utils/Instance";
-import { icons } from "@/app/utils/iconList";
 import Skeleton from "react-loading-skeleton";
-import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";

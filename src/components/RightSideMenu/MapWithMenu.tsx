@@ -15,6 +15,8 @@ import GoogleMapComp from "@/components/googleMap/page";
 import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import CommonButton from "../button/CommonButton";
+import SearchNFilter from "../homepage/SearchNFilter";
+import { useRouter } from "next/navigation";
 
 const RightSideHeadMenu = styled.div`
   display: none;
@@ -70,7 +72,7 @@ const MapSection = styled.div<{
 
 const SearchFilterSection = styled.div`
   position: absolute;
-  bottom: 280px;
+  bottom: 125px;
   width: 100%;
   overflow: auto;
   display: none;
@@ -113,6 +115,25 @@ const MapBetaContainer = styled.div`
 
 const MapWithMenu = () => {
   const { modalClick, showMap, iconClick } = useMyContext();
+  const router = useRouter();
+
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
+    if (condition) {
+      router.push(`/categories/${item}?search=${id}`);
+    } else if (item === "directoryList") {
+      router.push("/screens/directoryList");
+    } else if (item === "AddToCreate") {
+      router.push("/screens/createList");
+    } else if (item === "CategorieList") {
+      router.push("/screens/categorieList");
+    } else if (item === "TrendingList") {
+      router.push("/screens/trendingList");
+    } else if (item === "LeaveFeedback") {
+      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
+    } else {
+      router.push(`/screens/${item}?categoryID=${id}`);
+    }
+  };
 
   return (
     <MapSection $showMap={showMap}>
@@ -149,7 +170,7 @@ const MapWithMenu = () => {
         </InputWrapper> */}
 
         <MapBetaContainer>
-          <HeaderContainer>
+          {/* <HeaderContainer>
             <h4>MAP BETA</h4>
             <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -157,9 +178,10 @@ const MapWithMenu = () => {
               alt="Logo Outline"
               onClick={() => iconClick("mapClick")}
             />
-          </HeaderContainer>
+          </HeaderContainer> */}
           <MapBetaBody>
-            <p style={{ marginBottom: "10px", color: 'black' }} >Coming Soon:</p>
+          <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
+            {/* <p style={{ marginBottom: "10px", color: 'black' }} >Coming Soon:</p>
             <ul>
               <li style={{ color: 'black' }} >Filter what’s around you</li>
               <li style={{ color: 'black' }} >Open business profiles in our profile panel</li>
@@ -167,7 +189,7 @@ const MapWithMenu = () => {
             </ul>
             <CloseButton onClick={() => iconClick("mapClick")}>
               <CommonButton className="map_common_btn" text="Close" />
-            </CloseButton>
+            </CloseButton> */}
           </MapBetaBody>
         </MapBetaContainer>
       </MapSearch>
@@ -190,7 +212,7 @@ const HeaderContainer = styled.div`
   }
 `;
 const MapBetaBody = styled.div`
- height:50vh;
+ height:10vh;
     p{
       font-size:16px;
       margin-bottom:10px;
