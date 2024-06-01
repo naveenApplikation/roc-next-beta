@@ -566,13 +566,13 @@ const center = {
     lat: 49.1811261,
     lng: -2.1051429,
 };
-
+const ApiKey: string | any = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
     latitude, longitude
 }) => {
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyAqHi-MH3gDZ0uCWYJL9w6Bi0iHtO_Kzx0",
+        googleMapsApiKey: ApiKey,
     });
 
     const { location } = useMyContext();
