@@ -68,9 +68,6 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false,
-  images: {
-    unoptimized: false,
-  },
 };
 
 const withPwaConfig = withPWA({
