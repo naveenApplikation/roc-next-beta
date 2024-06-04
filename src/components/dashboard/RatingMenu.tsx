@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { banjo } from "@/app/utils/ImagePath";
-import fallback from '../../../assets/images/fallbackimage.png'
-
+import fallback from "../../../assets/images/fallbackimage.png";
+import "./RatingMenu.css";
 interface MenuProps {
   title?: string;
   MenutitleDetail?: string;
@@ -79,7 +79,8 @@ const RatingMenu: React.FC<MenuProps> = ({
       {containerImageUrl && (
         <>
           <UtensilsDishesImage>
-            <MainImage
+            <Image
+              className="ratingImage"
               src={headerImage ? headerImage : fallback}
               alt="my image"
               width={500}
