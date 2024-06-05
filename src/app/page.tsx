@@ -30,13 +30,13 @@ import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalSc
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  position:relative;
+  position: relative;
 
   @media screen and (max-width: 800px) {
     flex-direction: column-reverse;
   }
-  .left_container{
-    position:relative;
+  .left_container {
+    position: relative;
     z-index: 1;
   }
   .left_container::before {
@@ -48,7 +48,7 @@ const Container = styled.div`
     height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: -1; /* Place the shadow behind the content */
-}
+  }
 `;
 
 const CategoryBody = styled.div`
@@ -69,7 +69,7 @@ const MainContainer = styled.div<{
 
   @media screen and (max-width: 800px) {
     border-radius: 24px 24px 0px 0px;
-    height:${({ $showMap }) => ($showMap ? "100vh" : "auto")}; ;
+    height: ${({ $showMap }) => ($showMap ? "100vh" : "auto")};
     overflow: hidden;
     margin-top: 490px;
     z-index: 1;
@@ -98,7 +98,7 @@ const DashboardMenu = styled.div<{
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-    $showMap ? "calc(100vh - 500px)" : "100vh"};
+      $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 
@@ -117,7 +117,7 @@ export default function Home() {
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
-  }
+  };
   //   if(value === "Created"){
   //     try {
   //       setloader(true)
@@ -153,40 +153,51 @@ export default function Home() {
     setTabValue(value);
   };
   return (
-    <Suspense fallback={<div style={{height:"100vh" , display:"flex" , justifyContent:"center" , alignItems:"center"}}>Loading...</div>}>
-      <ShadowWrapper {...{ showContent, setShowContent }}>
-        <Container >
-          <MainContainer  $showMap={showMap}>
-            <PageLayout >
-              <DashboardMenu $showMap={showMap} >
-                <Header
-                  className={showContent ? "shoadow_wrapper_container" : ""}
-                  {...{ modalClick, iconClick, showMap }}
-                />
-                <Dashboard />
-              </DashboardMenu>
-            </PageLayout>
-          </MainContainer>
-          <RightSideMenu />
-        </Container>
-        <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
-        <ProfileAccountModalScreen showMap={showMap} />
-        <ProfileMylistModalScreen
-          {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
-        />
-        <FilterModalScreen showMap={showMap} />
-        <FilterListModalScreen showMap={showMap} />
-        <PlacesModalScreen showMap={showMap} />
-        {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
-        <PlaceOrderOnlineModalScreen showMap={showMap} />
-        <EventListingModalScreen showMap={showMap} />
-        <ActivitiesModalScreen showMap={showMap} />
-        <DirectoryModalScreen showMap={showMap} />
-        <ViewDirectionModalScreen showMap={showMap} />
-        <ReservationCalenderModal showMap={showMap}/>
-        <WalksModal />
-        <InfoAppScreen {...{ showMap }} />
-      </ShadowWrapper>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          Loading...
+        </div>
+      }>
+      {/* <ShadowWrapper {...{ showContent, setShowContent }}> */}
+      <Container>
+        <MainContainer $showMap={showMap}>
+          <PageLayout>
+            <DashboardMenu $showMap={showMap}>
+              <Header
+                className={showContent ? "shoadow_wrapper_container" : ""}
+                {...{ modalClick, iconClick, showMap }}
+              />
+              <Dashboard />
+            </DashboardMenu>
+          </PageLayout>
+        </MainContainer>
+        <RightSideMenu />
+      </Container>
+      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      <ProfileAccountModalScreen showMap={showMap} />
+      <ProfileMylistModalScreen
+        {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+      />
+      <FilterModalScreen showMap={showMap} />
+      <FilterListModalScreen showMap={showMap} />
+      <PlacesModalScreen showMap={showMap} />
+      {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
+      <PlaceOrderOnlineModalScreen showMap={showMap} />
+      <EventListingModalScreen showMap={showMap} />
+      <ActivitiesModalScreen showMap={showMap} />
+      <DirectoryModalScreen showMap={showMap} />
+      <ViewDirectionModalScreen showMap={showMap} />
+      <ReservationCalenderModal showMap={showMap} />
+      <WalksModal />
+      <InfoAppScreen {...{ showMap }} />
+      {/* </ShadowWrapper> */}
     </Suspense>
   );
 }
