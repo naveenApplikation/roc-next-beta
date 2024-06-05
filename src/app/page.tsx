@@ -26,6 +26,7 @@ import WalksModal from "@/components/AllModalScreen/WalksModal";
 import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalScreen";
+import BetaExploreModal from "@/components/modal/BetaExploreModal";
 
 const Container = styled.div`
   display: flex;
@@ -107,7 +108,7 @@ type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
 
 export default function Home() {
-  const { modalClick, showMap, iconClick } = useMyContext();
+  const { modalClick, showMap, iconClick, setModalNames } = useMyContext();
   const [showContent, setShowContent] = useState(false);
   const [tabValue, setTabValue] = useState("Lists");
   const [myListtabValue, setMyListTabValue] = useState("Created");
@@ -149,6 +150,15 @@ export default function Home() {
   // useEffect(()=>{
   //   myListtabChange("Created")
   // },[])
+
+  useEffect(() => {
+    const intro = localStorage.getItem("intro");
+    if (intro !== "true") {
+      setModalNames("betaExploreModal");
+      setShowContent(false);
+      localStorage.setItem("intro", "true");
+    }
+  }, []);
   const tabChange = (value: tabs) => {
     setTabValue(value);
   };
@@ -196,6 +206,7 @@ export default function Home() {
       <ViewDirectionModalScreen showMap={showMap} />
       <ReservationCalenderModal showMap={showMap} />
       <WalksModal />
+      <BetaExploreModal />
       <InfoAppScreen {...{ showMap }} />
       {/* </ShadowWrapper> */}
     </Suspense>

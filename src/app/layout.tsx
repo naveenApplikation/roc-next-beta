@@ -5,11 +5,12 @@ import StyledComponentsRegistry from "./registry";
 import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  manifest:"/manifest.json",
+  manifest: "/manifest.json",
   title: "ROC - What's #OnTheROC",
   description: "Your one-stop-shop for what's #OnTheROC.",
   icons:
@@ -35,6 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4636767191633754"
+          crossOrigin="anonymous"></Script>
         <StyledComponentsRegistry>
           <Toaster position="top-left" reverseOrder={false} />
           <MyProvider>{children}</MyProvider>

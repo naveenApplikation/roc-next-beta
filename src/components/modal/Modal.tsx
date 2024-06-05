@@ -22,7 +22,8 @@ const StyledModal = styled.div<{
 }>`
   position: fixed;
   top: 0;
-  left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
+  left: ${({ $isopen }) => ($isopen ? "480px" : "-480px")};
+
   transform: translateX(
     ${({ $screenwidthpercentage, $showMap }) => ($showMap ? 20 : -500)}px
   );
@@ -31,9 +32,10 @@ const StyledModal = styled.div<{
   width: 352px; /* Adjust this value as needed */
   border-radius: 40px;
   // background: #f2f3f3;
-  background : ${({$modalType}) => ($modalType ? "#ffffff" : "#f2f3f3")};
+  background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#f2f3f3")};
   background-blend-mode: normal, luminosity;
-  box-shadow: ${({ $isopen }) => $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
+  box-shadow: ${({ $isopen }) =>
+    $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
   backdrop-filter: blur(22px);
   display: flex;
   justify-content: space-between;
@@ -49,7 +51,7 @@ const StyledModal = styled.div<{
   }
 
   .modal-content {
-    background: ${({$modalType}) => ($modalType ? "#ffffff" : "#f2f3f3")};
+    background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#f2f3f3")};
     /* display: flex;
     justify-content: space-between;
     align-items: center; */
@@ -71,8 +73,6 @@ const StyledModal = styled.div<{
     );
   }
 
-
-
   @media screen and (max-width: 1130px) {
     width: ${({ $screenwidth, $showMap }) => ($showMap ? "480px" : "580px")};
     max-width: 100%;
@@ -90,9 +90,9 @@ const StyledModal = styled.div<{
     height: 100%;
 
     bottom: ${({ $isopen }) =>
-    $isopen
-      ? "0%"
-      : "-100%"}; // Position at bottom if open, otherwise off-screen
+      $isopen
+        ? "0%"
+        : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
     transition: bottom 0.8s ease-in-out;
   }
@@ -123,15 +123,15 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
-  const { modalClick, oldName, modalType } = useMyContext()
+  const { modalClick, oldName, modalType } = useMyContext();
   useEffect(() => {
     if (isOpen) {
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflow = "auto";
     }
     return () => {
-      document.documentElement.style.overflow = 'auto'; // Cleanup on component unmount
+      document.documentElement.style.overflow = "auto"; // Cleanup on component unmount
     };
   }, [isOpen]);
   useEffect(() => {
@@ -151,30 +151,30 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, []);
 
-
   return (
     <StyledModal
       $isopen={isOpen}
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
       $screenwidth={screenWidth}
-      $modalType = {modalType.modalFilterList}
-    >
+      $modalType={modalType.modalFilterList}>
       <div className="modal-content">
         <HeaderContainer>
-          {
-            oldName === ""  ? "" :
-          <div onClick={() => modalClick(oldName)} >
-            <BackArrow />
-          </div>
-          }
-          {
-            modalType.myList ? 
+          {oldName === "" ? (
+            ""
+          ) : (
+            <div onClick={() => modalClick(oldName)}>
+              <BackArrow />
+            </div>
+          )}
+          {modalType.myList ? (
             <div onClick={() => onClose(name)}>
               <BackArrow />
-            </div> : ""
-          }
-          <h4 style={{ textTransform: 'capitalize' }}>{title}</h4>
+            </div>
+          ) : (
+            ""
+          )}
+          <h4 style={{ textTransform: "capitalize" }}>{title}</h4>
           <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
@@ -182,7 +182,7 @@ const Modal: React.FC<ModalProps> = ({
             onClick={() => onClose(name)}
           />
         </HeaderContainer>
-        
+
         {children}
       </div>
     </StyledModal>
@@ -190,7 +190,6 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-
 
 // left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
 //   $isopen
