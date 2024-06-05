@@ -39,7 +39,7 @@ const DashBoard = () => {
   const specificSectionRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
-  const loginToken = window.localStorage.getItem('loginToken')
+  // const loginToke = window.localStorage.getItem('loginToken')
   const { showMap, modalClick, dataDetails } = useMyContext();
   const [listData, setListData] = useState<any>([]);
   const [loader, setloader] = useState(true);
