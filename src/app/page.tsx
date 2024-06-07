@@ -151,14 +151,14 @@ export default function Home() {
   //   myListtabChange("Created")
   // },[])
 
-  useEffect(() => {
-    const intro = localStorage.getItem("intro");
-    if (intro !== "true") {
-      setModalNames("betaExploreModal");
-      setShowContent(false);
-      localStorage.setItem("intro", "true");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const intro = localStorage.getItem("intro");
+  //   if (intro !== "true") {
+  //     setModalNames("betaExploreModal");
+  //     setShowContent(false);
+  //     localStorage.setItem("intro", "true");
+  //   }
+  // }, []);
   const tabChange = (value: tabs) => {
     setTabValue(value);
   };
