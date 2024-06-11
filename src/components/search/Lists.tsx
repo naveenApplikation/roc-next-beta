@@ -154,7 +154,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
   const [listData, setListData] = useState<string[]>([]);
   const router = useRouter();
 
-  const { closeModal,modalClick } = useMyContext();
+  const { closeModal, modalClick } = useMyContext();
 
   const fetchDataAsync = async () => {
     try {
@@ -194,8 +194,6 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
     closeModal("search");
   };
 
-
-
   return (
     <>
       {searchItem?.list?.length == 0 ? (
@@ -204,7 +202,9 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
           <NoResults>No results</NoResults>
           {searchItem.places && (
             <SearchedListContainer>
-               <PopularlistTitle style={{marginTop:10}}>Places</PopularlistTitle>
+              <PopularlistTitle style={{ marginTop: 10 }}>
+                Places
+              </PopularlistTitle>
               {searchQuery && searchItem.places.length
                 ? searchItem.places.map((item: any, index: any) => {
                     if (!item.place_id) {
@@ -220,8 +220,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                           opacity: item?.data_type ? "1" : ".25",
                         }}
                         title={item?.data_type ? "" : "No data available"}
-                        key={index}
-                      >
+                        key={index}>
                         <ListDataWrraper
                           onClick={() =>
                             modalClick(
@@ -230,16 +229,14 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                               item?.photoUrl ? item?.photoUrl : fallback
                             )
                           }
-                          selected={item?.data_type ? true : false}
-                        >
+                          selected={item?.data_type ? true : false}>
                           <div
                             style={{
                               display: "flex",
                               alignItems: "center",
                               gap: 16,
                               width: "85%",
-                            }}
-                          >
+                            }}>
                             <div style={{ width: 80, height: 80 }}>
                               {item?.photos ? (
                                 <ImageCom imageArr={item?.photos} />
@@ -263,8 +260,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                                 gap: 10,
                                 flexDirection: "column",
                                 maxWidth: "calc(100% - 30%)",
-                              }}
-                            >
+                              }}>
                               <ListDataTittleText>
                                 {item?.name}
                               </ListDataTittleText>
@@ -273,8 +269,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                                   display: "flex",
                                   gap: 10,
                                   alignItems: "center",
-                                }}
-                              >
+                                }}>
                                 <ListDataInfoText>
                                   {item?.acf?.aa_rating
                                     ? item?.acf?.aa_rating?.value == "No rating"
@@ -289,8 +284,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                                     gap: "5px",
                                     flexWrap: "wrap",
                                     width: "100%",
-                                  }}
-                                >
+                                  }}>
                                   {item?.acf?.portal_post_owner_name ? (
                                     <ListDataInfoText>
                                       . {item?.acf?.portal_post_owner_name}
@@ -298,6 +292,20 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                                   ) : null}
                                 </div>
                               </div>
+                              <p>
+                                <span
+                                  style={{
+                                    color: item?.opening_hours?.open_now
+                                      ? "#2B902B"
+                                      : "#FF0000",
+                                    fontSize: "14px",
+                                    fontWeight: "500",
+                                  }}>
+                                  {item?.opening_hours?.open_now
+                                    ? "Open"
+                                    : "Closed"}
+                                </span>
+                              </p>
                             </div>
                           </div>
                         </ListDataWrraper>
@@ -319,8 +327,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                         <ImageTitleContainer
                           onClick={() =>
                             menuClick(item?.listName, false, item?._id)
-                          }
-                        >
+                          }>
                           {item?.image}
                           <p>{item?.listName}</p>
                         </ImageTitleContainer>
@@ -368,8 +375,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                         <ImageTitleContainer
                           onClick={() =>
                             menuClick(item?.listName, false, item?.categoryId)
-                          }
-                        >
+                          }>
                           <Imagecontainer style={{ background: item?.bgColor }}>
                             {item?.image}
                           </Imagecontainer>
