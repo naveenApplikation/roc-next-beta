@@ -40,24 +40,20 @@ const Sustainability: React.FC<DashboardProps> = ({
 
   const fetchDataAsync = async () => {
     setloader(true);
-    const storedValue = localStorage.getItem("hideUI");
-    if(storedValue){
-      try {
-        const result = await Instance.get("/google/sustainability");
-        setData(result.data[0]);
-      } catch (error: any) {
-        console.log(error.message);
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
+    try {
+      const result = await Instance.get("/google/sustainability");
+      setData(result.data[0]);
+    } catch (error: any) {
+      console.log(error.message);
+      setloader(false);
+    } finally {
+      setloader(false);
     }
   };
 
   useEffect(() => {
     fetchDataAsync();
   }, []);
-
 
   return (
     <>
