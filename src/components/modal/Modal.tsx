@@ -65,13 +65,13 @@ const StyledModal = styled.div<{
     cursor: pointer;
   }
 
-  @media screen and (min-width: 1500px) {
+  /* @media screen and (min-width: 1500px) {
     // left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
     left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
     transform: translateX(
       ${({ $screenwidthpercentage, $showMap }) => ($showMap ? 20 : -500)}px
     );
-  }
+  } */
 
   @media screen and (max-width: 1130px) {
     width: ${({ $screenwidth, $showMap }) => ($showMap ? "480px" : "580px")};
