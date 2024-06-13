@@ -105,7 +105,7 @@ const RightMenu = styled.div`
     height: 510px;
     padding: 16px;
     padding-bottom: 35px;
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     right: 0;
@@ -122,7 +122,7 @@ const MobileViewRightSideMenu = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    z-index: 23;
+    /* z-index: 23; */
   }
 `;
 
@@ -146,7 +146,7 @@ const AllCategories = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    font-family: __Inter_aaf875, __Inter_Fallback_aaf875
+    font-family: __Inter_aaf875, __Inter_Fallback_aaf875;
   }
 
   @media screen and (min-width: 800px) {
@@ -204,8 +204,7 @@ const RightSide = () => {
                   index == 3 ? true : false,
                   index == 3 ? item.url : item.id
                 )
-              }
-            >
+              }>
               <RightSideInsideMenuBox>
                 <Image
                   style={{
@@ -238,8 +237,7 @@ const RightSide = () => {
                     index == 2 ? item.url : item.id
                   );
                 }
-              }}
-            >
+              }}>
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}
@@ -256,8 +254,7 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}
-        >
+          onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button>
       </AllCategories>

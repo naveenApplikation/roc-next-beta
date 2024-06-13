@@ -72,7 +72,7 @@ const MainContainer = styled.div<{
     border-radius: 24px 24px 0px 0px;
     height: ${({ $showMap }) => ($showMap ? "100vh" : "auto")};
     overflow: hidden;
-    margin-top: 490px;
+    /*  margin-top: 490px; */
     z-index: 1;
   }
 `;
