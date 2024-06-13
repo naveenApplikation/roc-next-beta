@@ -727,21 +727,21 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
             const destination = { lat: latitude, lng: longitude };
             setMarkerLocation(destination);
             getTravelTimes(center, destination);
-            toast.custom(
-              <div
-                style={{
-                  width: "150px",
-                  background: "white",
-                  display: "flex",
-                  gap: "10px",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  boxSizing: "border-box",
-                }}>
-                <TiInfo style={{ fontSize: "14px", color: "#FF5733" }} />
-                <div>{error?.message}</div>
-              </div>
-            );
+            // toast.custom(
+            //   <div
+            //     style={{
+            //       width: "150px",
+            //       background: "white",
+            //       display: "flex",
+            //       gap: "10px",
+            //       borderRadius: "10px",
+            //       padding: "10px",
+            //       boxSizing: "border-box",
+            //     }}>
+            //     <TiInfo style={{ fontSize: "14px", color: "#FF5733" }} />
+            //     <div>{error?.message}</div>
+            //   </div>
+            // );
           }
         );
       }
