@@ -315,14 +315,14 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <Tooltip title={"Phone number"}>
           <span onClick={() => copylink(data.acf?.telephone_number.formatted)}>
-            {data.acf?.telephone_number.formatted}
+            {data?.acf?.telephone_number?.formatted}
           </span>
         </Tooltip>
       ),
       image: phoneBlack,
       width: 12,
       height: 24,
-      nameValue: data.acf?.telephone_number.formatted ? true : false,
+      nameValue: data?.acf?.telephone_number?.formatted ? true : false,
     },
     {
       name: (
@@ -353,9 +353,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     },
     {
       name:
-        data.acf?.address.place_name ||
-        data.acf?.address.address_line_1 ||
-        data.acf?.address.address_line_2 ? (
+        data?.acf?.address?.place_name ||
+        data?.acf?.address?.address_line_1 ||
+        data?.acf?.address?.address_line_2 ? (
           <Tooltip title={"Copy address"}>
             <span
               onClick={() =>
@@ -363,8 +363,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
               }>
-              {data?.acf?.address.place_name},{" "}
-              {data?.acf?.address.address_line_1},{" "}
+              {data?.acf?.address?.place_name},{" "}
+              {data?.acf?.address?.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},
             </span>
           </Tooltip>
@@ -376,9 +376,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       width: 12,
       height: 24,
       nameValue:
-        data.acf?.address.place_name ||
-        data.acf?.address.address_line_1 ||
-        data.acf?.address.address_line_2
+        data.acf?.address?.place_name ||
+        data.acf?.address?.address_line_1 ||
+        data.acf?.address?.address_line_2
           ? true
           : false,
     },
@@ -388,7 +388,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     if (Array.isArray(data.acf?.type)) {
       return data.acf?.type.map((item: any) => item.label).join(" | ");
     } else {
-      return data.acf?.type.label;
+      return data?.acf?.type.label;
     }
   };
 
@@ -560,14 +560,14 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           </WeekTimeArrange>
         ))}
       </DatesContainer>
-      {data.acf?.telephone_number.formatted ? (
+      {data?.acf?.telephone_number?.formatted ? (
         <ButtonContainer>
           <CommonButton
             text="Call"
             image={phone}
             imageStyle={20}
             isOpen={() => reservationModal("Call")}
-            linkNum={data.acf?.telephone_number.formatted}
+            linkNum={data?.acf?.telephone_number?.formatted}
           />
         </ButtonContainer>
       ) : (

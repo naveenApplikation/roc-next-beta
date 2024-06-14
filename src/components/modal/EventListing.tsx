@@ -75,15 +75,15 @@ const ModalContent: React.FC<ModalProps> = ({
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
       height: 24,
-      nameValue: data?.acf?.event_dates?.length  && data?.acf?.event_dates[0].start_time ? true : false,
+      nameValue: data?.acf?.event_dates?.length && data?.acf?.event_dates[0].start_time ? true : false,
     },
     {
-      name:            
-      <Tooltip title={"Price"}>
-      <span onClick={() => copylink(data?.acf?.price_to)}>
-        {`£ ${data?.acf?.price_to}`}
-      </span>
-    </Tooltip> ,
+      name:
+        <Tooltip title={"Price"}>
+          <span onClick={() => copylink(data?.acf?.price_to)}>
+            {`£ ${data?.acf?.price_to}`}
+          </span>
+        </Tooltip>,
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
       width: 10,
@@ -178,7 +178,7 @@ const ModalContent: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-        <ImageWrraper
+        {/* <ImageWrraper
           src={
             dataImage
               ? dataImage
@@ -187,6 +187,16 @@ const ModalContent: React.FC<ModalProps> = ({
           alt="Logo"
           width={500}
           height={80}
+          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+        /> */}
+        <img src={
+          dataImage
+            ? dataImage
+            : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+        }
+          alt="Logo"
+          width={500}
+          height={160}
           style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>

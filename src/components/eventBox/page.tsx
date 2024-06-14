@@ -112,6 +112,7 @@ const MainInsideWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  cursor:pointer;
 `;
 
 const EventBox: React.FC<EventBoxProps> = ({
@@ -134,83 +135,88 @@ const EventBox: React.FC<EventBoxProps> = ({
       )} */}
       {loader
         ? skeletonItems.map((item, index) => (
+          <SearchedData key={index}>
+            <MainInsideWrapper>
+              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+              <div className="restroRating">
+                <Skeleton
+                  width={160}
+                  height={17}
+                  style={{ borderRadius: 8 }}
+                />
+                <Skeleton
+                  width={100}
+                  height={14}
+                  style={{ borderRadius: 8 }}
+                />
+                <Skeleton
+                  width={80}
+                  height={13}
+                  style={{ borderRadius: 8 }}
+                />
+              </div>
+            </MainInsideWrapper>
+          </SearchedData>
+        ))
+        : urlData?.map((item: any, index: any) => {
+          return (
             <SearchedData key={index}>
               <MainInsideWrapper>
-                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                <FamilyEventWrapper>
+                  {/* <Image
+                    src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                    alt="filteredUrls[index]"
+                    width={500}
+                    height={80}
+                    style={{
+                      borderRadius: 4,
+                      // maxWidth: "100%",
+                      width: "80px",
+                      objectFit: "cover",
+                    }}
+                    onClick={() =>
+                      modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
+                    }
+                  /> */}
+                  <img src={filteredUrls[index]} alt="image" width={80} height={80} style={{ objectFit: 'cover' }}
+                    onClick={() =>
+                      modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
+                    }
+                  />
+                  <FamilyEventWrapperInside>
+                    <p className="date">
+                      {formatDate(item.acf.event_dates[0].date)}
+                    </p>
+                    <p className="month">
+                      {formatMonth(item.acf.event_dates[0].date)}
+                    </p>
+                  </FamilyEventWrapperInside>
+                </FamilyEventWrapper>
                 <div className="restroRating">
-                  <Skeleton
-                    width={160}
-                    height={17}
-                    style={{ borderRadius: 8 }}
-                  />
-                  <Skeleton
-                    width={100}
-                    height={14}
-                    style={{ borderRadius: 8 }}
-                  />
-                  <Skeleton
-                    width={80}
-                    height={13}
-                    style={{ borderRadius: 8 }}
-                  />
+                  <p className="shopName">{item.acf.title}</p>
+                  <DetailContainer>
+                    <Image
+                      src={locationMark}
+                      style={{
+                        width: "13px",
+                        height: "13px",
+                        marginRight: 8,
+                      }}
+                      alt="utensils"
+                    />
+                    <p>{item?.acf?.parish?.label}</p>
+                  </DetailContainer>
+                  <p>
+                    <span>
+                      {item.acf.event_dates[0].start_time} -{" "}
+                      {item.acf.event_dates[0].end_time}
+                    </span>
+                  </p>
                 </div>
               </MainInsideWrapper>
             </SearchedData>
-          ))
-        : urlData?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainInsideWrapper>
-                  <FamilyEventWrapper>
-                    <Image
-                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{
-                        borderRadius: 4,
-                        // maxWidth: "100%",
-                        width:"80px",
-                        objectFit: "cover",
-                      }}
-                      onClick={() =>
-                        modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-                      }
-                    />
-                    <FamilyEventWrapperInside>
-                      <p className="date">
-                        {formatDate(item.acf.event_dates[0].date)}
-                      </p>
-                      <p className="month">
-                        {formatMonth(item.acf.event_dates[0].date)}
-                      </p>
-                    </FamilyEventWrapperInside>
-                  </FamilyEventWrapper>
-                  <div className="restroRating">
-                    <p className="shopName">{item.acf.title}</p>
-                    <DetailContainer>
-                      <Image
-                        src={locationMark}
-                        style={{
-                          width: "13px",
-                          height: "13px",
-                          marginRight: 8,
-                        }}
-                        alt="utensils"
-                      />
-                      <p>{item.acf.parish.label}</p>
-                    </DetailContainer>
-                    <p>
-                      <span>
-                        {item.acf.event_dates[0].start_time} -{" "}
-                        {item.acf.event_dates[0].end_time}
-                      </span>
-                    </p>
-                  </div>
-                </MainInsideWrapper>
-              </SearchedData>
-            );
-          })}
+          );
+        })}
 
       <AddListButton onClick={() => modalClick("ContactUsModal")}>
         <CommonButton text="Suggest an Event" />

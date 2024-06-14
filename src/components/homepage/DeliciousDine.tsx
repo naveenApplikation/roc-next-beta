@@ -77,13 +77,13 @@ const DeliciousDine: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               return (
                 <div key={index}>
                   <RatingMenu
-                    title={item.acf.parish.label}
+                    title={item?.acf?.parish?.label}
                     menuImageUrl={
                       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils%20(1).png?alt=media&token=6a2790ab-b228-4acd-a03b-013dd47f7d65"
                     }
                     headerImage={filteredUrls[index]}
                     containerImageUrl={true}
-                    MenutitleDetail={item.acf.title}
+                    MenutitleDetail={item?.acf?.title}
                     isOpen={() =>
                       modalClick("ModalContent", item, filteredUrls[index],true)
                     }
