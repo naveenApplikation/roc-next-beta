@@ -17,8 +17,10 @@ const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => 
         try {
             const res = await Instance.post('/google-imageurl', imageArr)
             if (res?.status === 200) {
+                console.log(res.data)
                 setImageData(res?.data)
             }
+
         } catch (error) {
 
         }

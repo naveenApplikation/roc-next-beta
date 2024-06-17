@@ -95,11 +95,8 @@ const MainImage = styled(Image)`
 
 const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls, showContent } = useMyContext();
-
   const [data, setData] = useState<ApiResponse[]>([]);
-
   const [loader, setloader] = useState(true);
-
   const fetchDataAsync = async () => {
     setloader(true);
     try {
@@ -112,7 +109,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       setloader(false);
     }
   };
-
+  
   useEffect(() => {
     fetchDataAsync();
   }, []);

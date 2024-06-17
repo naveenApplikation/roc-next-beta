@@ -180,10 +180,10 @@ export default function Home() {
         <MainContainer $showMap={showMap}>
           <PageLayout>
             <DashboardMenu $showMap={showMap}>
-              <Header
+              {/* <Header
                 className={showContent ? "shoadow_wrapper_container" : ""}
                 {...{ modalClick, iconClick, showMap }}
-              />
+              /> */}
               <Dashboard />
             </DashboardMenu>
           </PageLayout>

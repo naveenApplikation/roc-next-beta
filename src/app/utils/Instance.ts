@@ -1,5 +1,5 @@
+ 
 import axios from "axios";
-
 const Instance = axios.create({
   // baseURL: "https://roc-web-app.uc.r.appspot.com",
   baseURL: "https://beta-dot-roc-app-425011.nw.r.appspot.com",
@@ -10,7 +10,7 @@ Instance.interceptors.request.use(
   (config) => {
     const token = window.localStorage.getItem("Token");
     const loginToken = window.localStorage.getItem("loginToken");
-    if (token) {
+    if(token) {
       config.headers["x-auth-token"] = token;
       if (loginToken) {
         // If loginToken exists, add it to headers

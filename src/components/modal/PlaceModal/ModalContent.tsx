@@ -58,20 +58,41 @@ const ModalContent: React.FC<ModalProps> = ({
   const [reviewData, setReviewData] = useState([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(true), 1500);
+    const timer = setTimeout(() => setLoading(true), 0);
     return () => clearTimeout(timer);
   }, [showApiData?.types, data?.acf?.type]);
 
 
   useEffect(() => {
-    setLoading(false);
+    const getTopAttractionMapping=async(placeId:string)=>{
+          const res = await fetch(
+            `http://localhost:3000/api/event?placeId=${placeId}`
+          );
+          const data=await res.json()
+          console.log(data)
+            setShowApiData(data);
+           if (data?.reviews) {
+             setReviewData(data?.reviews);
+           }
+    }
+  //  setLoading(false);
+ console.log(data?.data_type)
     if (Object.keys(data).length) {
-      topAttractionMapping(data).then((res: any) => {
-        setShowApiData(res);
-        if (res?.reviews) {
-          setReviewData(res?.reviews);
-        }
-      });
+      if(data?.data_type=='google')
+        {
+          console.log("yes")
+          getTopAttractionMapping(data?.place_id) 
+        // topAttractionMapping(data).then((res: any) => {
+        // setShowApiData(res);
+        // if (res?.reviews) {
+        //   setReviewData(res?.reviews);
+        // }
+      
+      // });
+    }else
+    {
+        setShowApiData(data)
+    }
     }
   }, [
     data?._id,

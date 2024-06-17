@@ -1,3 +1,4 @@
+ 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
@@ -31,9 +32,16 @@ const ModalContent: React.FC<ModalProps> = ({
   const [showApiData, setShowApiData] = useState<any>({});
 
   useEffect(() => {
-    topAttractionMapping(data).then((res: any) => {
-      setShowApiData(res)
-    })
+    console.log(data?.place_id)
+    if(data?.data_type=='google')
+      {
+         topAttractionMapping(data).then((res: any) => {
+             setShowApiData(res);
+           });
+      }
+      else{
+           setShowApiData(data)
+      }
   }, [data?._id, Object.keys(showApiData).length])
 
 

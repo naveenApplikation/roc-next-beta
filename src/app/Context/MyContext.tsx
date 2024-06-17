@@ -214,11 +214,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }));
       } else {
         setModalType((prev) => {
+            console.log(name)
           const updatedState = Object.keys(prev).reduce((acc, key) => {
             acc[key] = key === name;
             return acc;
           }, {} as { [key: string]: boolean });
-
+         
           return updatedState as typeof prev;
         });
       }
@@ -281,9 +282,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // };
 
   const filterUrls = (ImageUrlData: any) => {
-    
+    console.log(ImageUrlData)
     const imageUrls: string[] = [];
-    ImageUrlData.forEach((item: any) => {
+    ImageUrlData?.forEach((item: any) => {
         if (item) {
             try {
                 const jsonData = JSON.parse(item);
