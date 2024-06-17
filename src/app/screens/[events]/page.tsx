@@ -40,6 +40,7 @@ const EventList = () => {
     const [totalVote, setTotalVote] = useState<any>('')
     const [categoryId, setCategoryId] = useState('')
     const [main_type, setMain_type] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
 
     const searchParams = useSearchParams()
 
@@ -112,7 +113,6 @@ const EventList = () => {
     const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
     const [selectedData, setSelectedData] = useState<string[]>([]);
     const [data, setData] = useState<ApiResponse[]>([]);
-    const [dragData, setDragData] = useState<string[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
 
 
@@ -208,17 +208,17 @@ const EventList = () => {
             categoryList: selectedData,
         };
         try {
-            setloader(false);
+            setLoading(true);
             const result = await Instance.put(`/category/${event}`, param);
-            setloader(false);
-            toast.success(result.data.message);
+            setLoading(false);
+            toast.success(result?.data?.message);
             setScreenName(name);
         } catch (error: any) {
-            console.log(error.response);
-            setloader(false);
-            toast.error(error.response.data);
+            console.log(error?.response);
+            setLoading(false);
+            toast.error(error?.response?.data);
         } finally {
-            setloader(false);
+            setLoading(false);
         }
     };
 
@@ -240,6 +240,7 @@ const EventList = () => {
                     handleChange={handleChange}
                     data={data}
                     loader={loader}
+                    loading={loading}
                     UI_Type="add_list"
                 />
             );

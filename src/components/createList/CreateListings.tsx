@@ -35,54 +35,7 @@ interface CreateListingsProps {
 
 
 
-const newFilter = [
-  {
-    _id: "item 1",
-    name: "Chocadyllic",
-    placeName1: "St Helier",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Close",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 2",
-    name: "Kalimukti Yoga",
-    placeName1: "From £5",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Outdoore",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 3",
-    name: "Radisson Blu Waterfront Hotel",
-    placeName1: "From £265/night",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "St Helier",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 4",
-    name: "abrdn",
-    placeName1: "Investment Managers",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Close",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-];
 
-interface Item {
-  name: any;
-  placeName1: any;
-  itemPlaceLogo: any;
-  status1: any;
-  timing2: any;
-  unSelectedBtn: any;
-  placeName2?: any; // Make it optional
-}
 
 const CreateListings: React.FC<CreateListingsProps> = ({
   ScreenSwitch,

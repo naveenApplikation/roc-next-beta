@@ -1,32 +1,53 @@
 "use client"
 
-import AttractionBox from '@/components/attractionBox/page';
-import EventBox from '@/components/eventBox/page';
-import ExperienceBox from '@/components/experienceBox/page';
-import TrendingList from '@/components/trendingList/page';
-import FinancialBox from '@/components/financialBox/page';
-import ScaffoldingBox from '@/components/scaffoldingBox/page';
 import { useParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'next/navigation';
-import HeaderScreen from '@/components/header/HeaderScreen'
-import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen'
-import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen'
-import ProfileMylistModalScreen from '@/components/AllModalScreen/ProfileMylistModalScreen'
-import PlacesModalScreen from '@/components/AllModalScreen/PlacesModalScreen'
-import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen'
-import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen'
-import PlaceOrderOnlineModalScreen from '@/components/AllModalScreen/PlaceOrderOnlineModalScreen'
-import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen'
-import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen'
-import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
-import CategorieList from '@/components/categorieList/page';
 import { useMyContext } from "@/app/Context/MyContext";
 import { ApiResponse } from '@/app/utils/types';
 import Instance from "@/app/utils/Instance";
 import PageLayout from '@/app/pageLayout';
-import DirectoryCategories from '@/components/DirectoryScreen/DirectoryCategories'
+import dynamic from 'next/dynamic';
+
+// import AttractionBox from '@/components/attractionBox/page';
+// import EventBox from '@/components/eventBox/page';
+// import ExperienceBox from '@/components/experienceBox/page';
+// import TrendingList from '@/components/trendingList/page';
+// import ScaffoldingBox from '@/components/scaffoldingBox/page';
+// import HeaderScreen from '@/components/header/HeaderScreen'
+// import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen'
+// import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen'
+// import ProfileMylistModalScreen from '@/components/AllModalScreen/ProfileMylistModalScreen'
+// import PlacesModalScreen from '@/components/AllModalScreen/PlacesModalScreen'
+// import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen'
+// import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen'
+// import PlaceOrderOnlineModalScreen from '@/components/AllModalScreen/PlaceOrderOnlineModalScreen'
+// import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen'
+// import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen'
+// import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
+// import CategorieList from '@/components/categorieList/page';
+// import DirectoryCategories from '@/components/DirectoryScreen/DirectoryCategories'
+
+
+const AttractionBox = dynamic(() => import("@/components/attractionBox/page"), { ssr: false })
+const EventBox = dynamic(() => import("@/components/eventBox/page"), { ssr: false })
+const ExperienceBox = dynamic(() => import("@/components/experienceBox/page"), { ssr: false })
+const TrendingList = dynamic(() => import("@/components/trendingList/page"), { ssr: false })
+const ScaffoldingBox = dynamic(() => import("@/components/scaffoldingBox/page"), { ssr: false })
+const HeaderScreen = dynamic(() => import("@/components/header/HeaderScreen"), { ssr: false })
+const SearchModalScreen = dynamic(() => import("@/components/AllModalScreen/SearchModalScreen"), { ssr: false })
+const ProfileAccountModalScreen = dynamic(() => import("@/components/AllModalScreen/ProfileAccountModalScreen"), { ssr: false })
+const ProfileMylistModalScreen = dynamic(() => import("@/components/AllModalScreen/ProfileMylistModalScreen"), { ssr: false })
+const PlacesModalScreen = dynamic(() => import("@/components/AllModalScreen/PlacesModalScreen"), { ssr: false })
+const ViewDirectionModalScreen = dynamic(() => import("@/components/AllModalScreen/ViewDirectionModalScreen"), { ssr: false })
+const CalenderBookDatesModalScreen = dynamic(() => import("@/components/AllModalScreen/CalenderBookDatesModalScreen"), { ssr: false })
+const PlaceOrderOnlineModalScreen = dynamic(() => import("@/components/AllModalScreen/PlaceOrderOnlineModalScreen"), { ssr: false })
+const FilterModalScreen = dynamic(() => import("@/components/AllModalScreen/FilterModalScreen"), { ssr: false })
+const EventListingModalScreen = dynamic(() => import("@/components/AllModalScreen/EventListingModalScreen"), { ssr: false })
+const ActivitiesModalScreen = dynamic(() => import("@/components/AllModalScreen/ActivitiesModalScreen"), { ssr: false })
+const CategorieList = dynamic(() => import("@/components/categorieList/page"), { ssr: false })
+const DirectoryCategories = dynamic(() => import("@/components/DirectoryScreen/DirectoryCategories"), { ssr: false })
 
 interface CategoriesPageProps {
   // Define your props here

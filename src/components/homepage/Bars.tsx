@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Instance from "@/app/utils/Instance";
-import { ApiResponse } from "@/app/utils/types";
-import { useMyContext } from "@/app/Context/MyContext";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import { skeletonItems } from '@/app/utils/date'
@@ -12,6 +10,7 @@ interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
   listData?: any;
+  loader?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -29,7 +28,7 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
+const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick, listData }) => {
 
   const [dataPubs, setDataPubs] = useState<any>([]);
 
@@ -49,13 +48,15 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
   };
 
   useEffect(() => {
-    if(listData !=undefined){
+    if (listData != undefined) {
       fetchDataAsync();
     }
   }, [listData]);
 
   return (
-    <>
+
+    !loader ?
+      <>
         <MenuDetails
           title="Pubs"
           isOpen={() => menuClick(dataPubs?.listName, false, dataPubs?._id)}
@@ -67,19 +68,20 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
                 <CommonSkeletonLoader />
               </div>
             ))
-            :  dataPubs?.categoryList?.slice(0, 10).map((item:any, index:any) => (
+            : dataPubs?.categoryList?.slice(0, 10).map((item: any, index: any) => (
               <div key={index}>
                 <RatingMenu
                   // title={item.name}
                   headerImage={item.photoUrl}
                   containerImageUrl={true}
                   MenutitleDetail={item.name}
-                  isOpen={() => modalClick("ModalContent", item, item.photoUrl,true)}
+                  isOpen={() => modalClick("ModalContent", item, item.photoUrl, true)}
                 />
               </div>
             ))}
         </ScrollingMenu>
-      </>
+      </> : ""
+
   );
 };
 

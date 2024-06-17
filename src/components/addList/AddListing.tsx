@@ -8,10 +8,13 @@ import UnselectedBtnImg from "../../../assets/images/createListImages/check.png"
 import SelectedBtnImg from "../../../assets/images/createListImages/plus-circle.png";
 import SearchComponent from "@/components/searchInput/SearchInput";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 // import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import Skeleton from "react-loading-skeleton";
-import CreateListingsHeader from "../createList/CreateList Components/CreateListsHeader";
-import CreateListingsFooter from "../createList/CreateList Components/CreateListsFooter";
+// import CreateListingsHeader from "../createList/CreateList Components/CreateListsHeader";
+// import CreateListingsFooter from "../createList/CreateList Components/CreateListsFooter";
+const CreateListingsHeader = dynamic(() => import("../createList/CreateList Components/CreateListsHeader"), { ssr: false })
+const CreateListingsFooter = dynamic(() => import("../createList/CreateList Components/CreateListsFooter"), { ssr: false })
 import Instance from "@/app/utils/Instance";
 import ImageCom from "./imageCom";
 
@@ -25,6 +28,7 @@ interface AddListingsProps {
   handleChange?: any;
   data: any[];
   loader?: boolean;
+  loading?: boolean;
   UI_Type?: string;
 }
 
@@ -53,13 +57,10 @@ const AddListings: React.FC<AddListingsProps> = ({
   data,
   loader,
   UI_Type,
+  loading,
 }) => {
 
-
-
   const [skeletonData] = useState(new Array(10).fill(null))
-
-
 
   return (
     <CreateListingsScreen>
@@ -96,11 +97,6 @@ const AddListings: React.FC<AddListingsProps> = ({
             :
 
             data.map((item: any, index: any) => {
-              // if (!item._id) {
-              //     return null;
-              // }
-              // const imageList = JSON.parse(item?.acf?.header_image_data);
-              // const image = imageList[0].url;
 
               return (
                 <div
@@ -116,12 +112,12 @@ const AddListings: React.FC<AddListingsProps> = ({
                       }}>
                       <div style={{ width: 80, height: 80 }}>
                         {/* <Image
-                                                    src={""}
-                                                    width={500}
-                                                    height={80}
-                                                    style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                                                    alt="infoCirlce"
-                                                /> */}
+                               src={""}
+                               width={500}
+                               height={80}
+                               style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                               alt="infoCirlce"
+                             /> */}
                         <ImageCom imageArr={item?.photos} />
                       </div>
                       <div style={{
@@ -132,7 +128,6 @@ const AddListings: React.FC<AddListingsProps> = ({
                       }}>
                         <ListDataTittleText>
                           {item?.name}
-                          {/* {item?.acf?.title} */}
                         </ListDataTittleText>
                         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                           <ListDataInfoText>
@@ -190,9 +185,10 @@ const AddListings: React.FC<AddListingsProps> = ({
       </CreateListItemScrollBox>
       {
         selectedItemIds.length ?
-
           <CreateListingsFooter
-            continueBtn
+            loader={loader}
+            loading={loading}
+            continueBtn = {selectedItemIds.length ? true : false}
             ScreenSwitch={ScreenSwitch}
             selectedItem={selectedItemIds.length}
           /> : ""
@@ -363,6 +359,7 @@ const SearchedData = styled.div`
   gap: 10px;
   border-bottom: 1px solid #d9d9d9;
   padding: 10px 0px;
+  width:90%;
   p {
     font-size: 13px;
     font-weight: 400;

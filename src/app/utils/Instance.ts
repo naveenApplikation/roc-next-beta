@@ -8,15 +8,13 @@ const Instance = axios.create({
 
 Instance.interceptors.request.use(
   (config) => {
-    const token = window.localStorage.getItem("Token");
     const loginToken = window.localStorage.getItem("loginToken");
-    if (token) {
-      config.headers["x-auth-token"] = token;
+
       if (loginToken) {
         // If loginToken exists, add it to headers
         config.headers["x-login-token"] = loginToken;
       }
-    }
+ 
     return config;
   },
   (error) => {

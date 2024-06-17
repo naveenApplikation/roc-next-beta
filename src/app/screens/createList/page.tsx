@@ -81,7 +81,6 @@ const Page = () => {
   }, [screenName]);
 
   const postHandler = async (name: string) => {
-    setloader(true);
     const param = {
       listName,
       iconName: selectedIcon,
