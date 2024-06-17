@@ -1,7 +1,10 @@
+"use client"
+
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import { usePathname, useRouter } from "next/navigation";
+import { useMyContext } from "@/app/Context/MyContext";
 import {
   headerHome,
   profileIconDark,
@@ -13,12 +16,6 @@ import {
 } from "@/app/utils/ImagePath";
 
 interface HeaderProps {
-  setCreateAccountModal?: Function;
-  createAccountModal?: boolean;
-  showMap?: boolean;
-  modalClick: Function;
-  iconClick: Function;
-  className: string
 }
 
 // background-image:url('${homeBg.src}');
@@ -49,7 +46,10 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap, className }) => {
+const Header: React.FC<HeaderProps> = () => {
+
+  const { showMap, modalClick, dataDetails } = useMyContext();
+
   const pathname = usePathname();
   const router = useRouter();
 
