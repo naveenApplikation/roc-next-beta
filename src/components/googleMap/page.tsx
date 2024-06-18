@@ -223,7 +223,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
           handleMapLoad(map);
         }}
         zoom={zoom}
-        onZoomChanged={handleZoomChanged}
+        // onZoomChanged={handleZoomChanged}
         onUnmount={onUnmount}
         options={{
           mapTypeControl: false,

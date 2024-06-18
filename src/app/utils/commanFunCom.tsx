@@ -94,6 +94,7 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
     }
   }
 
+
   // Finding the next period assuming periods are sorted by time
   const nextPeriod =
     todayPeriods.find((period) => currentTime < parseInt(period.open.time)) ||
@@ -144,30 +145,69 @@ export function isOpen(periods: any[]) {
   }
   return value;
 }
-export function isOpenHead(periods: any[]) {
-  let value;
-  if (periods) {
-    const currentDate = new Date();
-    const currentDateString = currentDate.toISOString().split("T")[0]; // Extracting current date in yyyy-mm-dd format
-    const currentTime: any =
-      currentDate.getHours() * 100 + currentDate.getMinutes(); // Extracting current time in HHMM format
-    periods.map((val: any) => {
-      if (val.open.date === currentDateString) {
-        if (parseInt(currentTime) >= parseInt(val.open.time)) {
-          value = (
-            <div style={{ display: "flex", gap: "5px" }}>
-              <p style={{ color: "green" }}>OPEN</p>
-            </div>
-          );
-        } else {
-          value = (
-            <div style={{ display: "flex", gap: "5px" }}>
-              <p style={{ color: "red" }}>CLOSED</p>{" "}
-            </div>
-          );
-        }
-      }
-    });
+export function isOpenHead(schedule: Schedule): JSX.Element {
+  const currentDate = new Date();
+  const jerseyOffset = 1 * 60; // Jersey is GMT+1
+  const localOffset = currentDate.getTimezoneOffset();
+  const jerseyTime = new Date(
+    currentDate.getTime() + (jerseyOffset + localOffset) * 60000
+  );
+
+  const currentDay = jerseyTime.getDay(); // Sunday - 0, Monday - 1, ..., Saturday - 6
+  const currentTime = jerseyTime.getHours() * 100 + jerseyTime.getMinutes(); // HHMM format
+
+  if (!schedule) {
+    return <></>;
   }
-  return value;
+
+
+  // Filter for periods of today, checking for undefined or null
+  const todayPeriods: Period[] = schedule.periods.filter(
+    (period) => period.open.day === currentDay
+  );
+
+  const isNowOpen: boolean = todayPeriods.some(
+    (period) =>
+      currentTime >= parseInt(period.open.time) &&
+      currentTime < parseInt(period.close.time)
+  );
+
+  if (isNowOpen) {
+    const currentPeriod = todayPeriods.find(
+      (period) =>
+        currentTime >= parseInt(period.open.time) &&
+        currentTime < parseInt(period.close.time)
+    );
+    if (currentPeriod) {
+      return (
+        <div style={{ display: "flex", gap: "5px" }}>
+          <p style={{ color: "green", fontSize: "16px" }}>Open</p> 
+          {/* <p>Closes at {formatTime(currentPeriod.close.time)}</p> */}
+        </div>
+      );
+    }
+  }
+
+
+  // Finding the next period assuming periods are sorted by time
+  const nextPeriod =
+    todayPeriods.find((period) => currentTime < parseInt(period.open.time)) ||
+    schedule.periods.find((period) => period.open.day === (currentDay + 1) % 7);
+
+  if (nextPeriod) {
+    return (
+      <div style={{ display: "flex", gap: "5px" }}>
+        <p style={{ color: "red", fontSize: "16px"  }}>Closed</p> :{" "}
+        {/* <p>Opens at {formatTime(nextPeriod.open.time)}</p> */}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: "flex", gap: "5px" }}>
+      <p style={{ color: "red" }}>Closed</p> : <p>No more openings today</p>
+    </div>
+  );
 }
+
+
