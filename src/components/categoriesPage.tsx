@@ -25,7 +25,7 @@ import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalSc
 import CategorieList from "@/components/categorieList/page";
 import { useMyContext } from "@/app/Context/MyContext";
 import { ApiResponse } from "@/app/utils/types";
-import Instance from "@/app/utils/Instance";
+ 
 import PageLayout from "@/app/pageLayout";
 import DirectoryCategories from "@/components/DirectoryScreen/DirectoryCategories";
 
@@ -82,11 +82,11 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(false);
+ 
 
   useEffect(() => {
     const fetchDataAsync = async () => {
-      setloader(false);
+     
       try {
         const result = props.data;
         if (props.searchParams == "surfing" || props.searchParams == "ww2") {
@@ -100,9 +100,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         }
       } catch (error: any) {
         console.log(error.message);
-        setloader(false);
+        
       } finally {
-        setloader(false);
+         
       }
     };
     if (props.searchParams !== "Directory") {
@@ -123,7 +123,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
-          loader={loader}
+          loader={false}
         />
       );
     } else if (urlData === "Enjoy the sunshine") {
@@ -132,30 +132,30 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
-          loader={loader}
+          loader={false}
         />
       );
-    } else if (
-      urlData == "Trending Lists" ||
-      urlData == "Jerseyisms" ||
-      urlData == "Community" ||
-      urlData == "Shopping" ||
-      urlData == "Wellbeing"
-    ) {
-      return <TrendingList urlData={search} urlTitle={urlData} />;
-    } else if (urlData === "categorieList") {
-      return <CategorieList />;
-    } else if (search === "Directory") {
-      return <DirectoryCategories urlData={urlData} urlTitle={urlData} />;
-    } else if (urlData === "Scaffolding") {
-      return <ScaffoldingBox />;
+    // } else if (
+    //   urlData == "Trending Lists" ||
+    //   urlData == "Jerseyisms" ||
+    //   urlData == "Community" ||
+    //   urlData == "Shopping" ||
+    //   urlData == "Wellbeing"
+    // ) {
+    //   return <TrendingList urlData={search} urlTitle={urlData} />;
+    // } else if (urlData === "categorieList") {
+    //   return <CategorieList />;
+    // } else if (search === "Directory") {
+    //   return <DirectoryCategories urlData={urlData} urlTitle={urlData} />;
+    // } else if (urlData === "Scaffolding") {
+    //   return <ScaffoldingBox />;
     } else {
       return (
         <AttractionBox
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
-          loader={loader}
+          loader={false}
         />
       );
     }

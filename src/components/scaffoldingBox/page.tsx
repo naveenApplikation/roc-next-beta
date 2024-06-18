@@ -1,3 +1,4 @@
+'use client'
 import { RestroListData } from '@/app/utils/data';
 import { associate, blank, currency } from '@/app/utils/ImagePath';
 import Image from 'next/image';

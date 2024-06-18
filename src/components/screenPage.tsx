@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import { useMyContext } from "@/app/Context/MyContext";
 import PageLayout from "@/app/pageLayout";
 import Instance from "@/app/utils/Instance";
@@ -31,16 +31,13 @@ interface ScreenPageProps {
   data: any;
 }
 const EventList:React.FC<ScreenPageProps> = (props) => {
-  const { showMap, filterUrls, modalClick, closeModal, modalName } =
-    useMyContext();
+  const { showMap, filterUrls, modalClick, closeModal, modalName } = useMyContext();
   const [eventData, setEventData] = useState<ApiResponse[]>([]);
   const [eventTitle, setEventTitle] = useState("");
   const [totalVote, setTotalVote] = useState<any>("");
   const [categoryId, setCategoryId] = useState("");
   const [main_type, setMain_type] = useState<string>("");
-
-  const searchParams = useSearchParams();
-
+  const searchParams = useSearchParams();  
   const event = searchParams.get("categoryID");
   const { events } = useParams();
 console.log(events)
@@ -65,7 +62,6 @@ console.log(events)
 
   const fetchEventDataById =() => {
     try {
-       
         const response =props.data
         setEventData(response?.categoryList);
         setEventTitle(response?.listName);
@@ -73,7 +69,6 @@ console.log(events)
         setCategoryId(response?._id);
         setMain_type(response?.main_type);
         setloader(false);
-      
     } catch (error) {
       setloader(false);
     }

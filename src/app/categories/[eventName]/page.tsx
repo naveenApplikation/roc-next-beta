@@ -1,5 +1,10 @@
 import { getApi } from "@/app/action"
+ 
+import CategorieList from "@/components/categorieList/page"
 import CategoriesPage from "@/components/categoriesPage"
+import DirectoryCategories from "@/components/DirectoryScreen/DirectoryCategories"
+import TrendingList from "@/components/trendingList/page";
+import ScaffoldingBox from "@/components/scaffoldingBox/page"
 
  
   
@@ -12,9 +17,29 @@ interface Props{
     }
 }
 async function Page({params,searchParams}:Props){
+
+    
         console.log(params)
         console.log(searchParams)
-        const data=await getApi(searchParams.search)
+        const urlData:any=params.eventName.toString().replaceAll("%20", " ");
+        const search:any=searchParams.search
+         
+        if (
+          urlData == "Trending Lists" ||
+          urlData == "Jerseyisms" ||
+          urlData == "Community" ||
+          urlData == "Shopping" ||
+          urlData == "Wellbeing"
+        ) {
+          return <TrendingList urlData={search} urlTitle={urlData} />;
+        } else if (urlData === "categorieList") {
+          return <CategorieList />;
+        } else if (search ==="Directory") {
+          return <DirectoryCategories urlData={urlData} urlTitle={urlData} />;
+        } else if (urlData === "Scaffolding") {
+          return <ScaffoldingBox />;
+        }
+        const data = await getApi(searchParams.search);
         console.log(data)
 
         return <>
@@ -23,8 +48,10 @@ async function Page({params,searchParams}:Props){
 }
 
 const params = [
-  { params: "Enjoy the sunshine"},
+  { params: "Enjoy the sunshine" },
   { params: "Events" },
+  { params: "Food and Drink"},
+  { params: "Trending Lists"},
 ];
 
 

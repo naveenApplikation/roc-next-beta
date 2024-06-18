@@ -11,6 +11,9 @@ import Ratings from "@/components/ratings";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
 import fallback from "../../../../assets/images/fallbackimage.png";
+import useSWR from "swr";
+
+const fetcher = (url:any) => fetch(url).then((res) => res.json());
 import {
   bookOpen,
   comment,
@@ -54,42 +57,53 @@ const ModalContent: React.FC<ModalProps> = ({
   reservationMenu = true,
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState([]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(true), 0);
-    return () => clearTimeout(timer);
-  }, [showApiData?.types, data?.acf?.type]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setLoading(true), 0);
+  //   return () => clearTimeout(timer);
+  // }, [showApiData?.types, data?.acf?.type]);
 
+ const res= useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
+ const topAttraction=res.data
+   
+  console.log(topAttraction)
+  useEffect(()=>{
+       console.log(res.isLoading)
+        //  setLoading(res.isLoading)
 
+            if (!res.error && res.data) {
+              setShowApiData(res.data);
+              setReviewData(res?.data?.reviews)
+            }
+            else
+            {
+                setShowApiData(data)
+            }
+
+  },[res])
   useEffect(() => {
-    const getTopAttractionMapping=async(placeId:string)=>{
-          const res = await fetch(
-            `http://localhost:3000/api/event?placeId=${placeId}`
-          );
-          const data=await res.json()
-          console.log(data)
-            setShowApiData(data);
-           if (data?.reviews) {
-             setReviewData(data?.reviews);
-           }
-    }
+   
+   
+
   //  setLoading(false);
  console.log(data?.data_type)
     if (Object.keys(data).length) {
       if(data?.data_type=='google')
         {
-          console.log("yes")
-          getTopAttractionMapping(data?.place_id) 
-        // topAttractionMapping(data).then((res: any) => {
-        // setShowApiData(res);
-        // if (res?.reviews) {
-        //   setReviewData(res?.reviews);
-        // }
-      
-      // });
-    }else
+          console.log("yes");
+          // getTopAttractionMapping(data?.place_id)
+          // topAttractionMapping(data).then((res: any) => {
+          // setShowApiData(res);
+          // if (res?.reviews) {
+          //   setReviewData(res?.reviews);
+          // }
+
+          // });
+          // setShowApiData(res.data);
+          // setReviewData(res?.data?.reviews)
+        }else
     {
         setShowApiData(data)
     }
@@ -99,7 +113,8 @@ const ModalContent: React.FC<ModalProps> = ({
     Object.keys(showApiData).length,
     reviewData.length,
     data?.name,
-    data?.place_id
+    data?.place_id,
+    res
   ]);
 
   const copylink = (copy: any) => {
@@ -310,7 +325,7 @@ const ModalContent: React.FC<ModalProps> = ({
 
   return (
     <>
-      {!loading ? (
+      {res.isLoading ? (
         <div
           style={{
             display: "flex",

@@ -1,3 +1,4 @@
+import { getImageData } from '@/app/screenPageApi/getImageData';
 import Instance from '@/app/utils/Instance';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -13,9 +14,17 @@ interface ImageCraouselPrope {
 
 const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => {
     const [imageData, setImageData] = useState([])
+    console.log(imageArr)
     const fetchImageData = async () => {
         try {
-            const res = await Instance.post('/google-imageurl', imageArr)
+            const res =await Instance.post('/google-imageurl', imageArr)
+            // const data = await fetch(
+            // "http://localhost:3000/api/imageData",{
+            //   body:imageArr}
+            // );
+            // console.log(data)
+            // setImageData([])
+
             if (res?.status === 200) {
                 console.log(res.data)
                 setImageData(res?.data)
@@ -28,6 +37,7 @@ const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => 
 
     useEffect(() => {
         if (imageArr) {
+            console.log("yes")
             fetchImageData()
         }
     }, [imageArr.length])

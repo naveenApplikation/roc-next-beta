@@ -1,6 +1,4 @@
-"use client"
-
-import React from 'react';
+'use client'
 import styled from 'styled-components';
 import Image from "next/image";
 import { utensil,shopping,hotel,personHiking,castle,holidayDas,beachumbrella,camera, compass ,glass} from "@/app/utils/ImagePath";

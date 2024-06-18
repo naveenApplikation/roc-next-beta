@@ -16,3 +16,13 @@ export async function getData(slug:string,params:string)
         );
         return await res.json();
 }
+
+ 
+
+ export async function getDirectoryCatagories(params: string) {
+     console.log(params);
+   const res = await fetch(
+     `https://beta-dot-roc-app-425011.nw.r.appspot.com/directory?query=${params}`
+   );
+   return await res.json();
+ }
