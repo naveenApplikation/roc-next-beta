@@ -18,6 +18,12 @@ interface listSearchProps {
 
 const Container = styled.div`
   padding-bottom: 20px;
+  max-height: calc(100dvh - 250px);
+  overflow: auto;
+    &::-webkit-scrollbar {
+    display: none;
+  }
+
 `;
 
 const PopularListContainer = styled.div`
@@ -197,7 +203,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
   return (
     <>
       {searchItem?.list?.length == 0 ? (
-        <>
+        <Container>
           <PopularlistTitle>Lists</PopularlistTitle>
           <NoResults>No results</NoResults>
           {searchItem.places && (
@@ -315,7 +321,7 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                 : ""}
             </SearchedListContainer>
           )}
-        </>
+        </Container>
       ) : (
         <Container>
           {searchQuery && searchItem?.list?.length ? (

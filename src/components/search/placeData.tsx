@@ -78,35 +78,35 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                 <SearchedListContainer>
                   {placeloader
                     ? skeletonData.map((item, index) => (
-                        <SearchedData key={index}>
-                          <MainInsideWrapper>
+                      <SearchedData key={index}>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={80}
+                            height={80}
+                            style={{ borderRadius: 8 }}
+                          />
+                          <div className="restroRating">
                             <Skeleton
-                              width={80}
-                              height={80}
+                              width={120}
+                              height={15}
                               style={{ borderRadius: 8 }}
                             />
-                            <div className="restroRating">
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                            </div>
-                          </MainInsideWrapper>
-                        </SearchedData>
-                      ))
+                            <Skeleton
+                              width={120}
+                              height={15}
+                              style={{ borderRadius: 8 }}
+                            />
+                            <Skeleton
+                              width={120}
+                              height={15}
+                              style={{ borderRadius: 8 }}
+                            />
+                          </div>
+                        </MainInsideWrapper>
+                      </SearchedData>
+                    ))
                     : placeData.length
-                    ? filterData.map((item: any, index: any) => {
+                      ? filterData.map((item: any, index: any) => {
                         if (!item.place_id) {
                           return null;
                         }
@@ -192,54 +192,54 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                                         </ListDataInfoText>
                                       ) : null}
                                     </div>
-                                    
+
                                   </div>
                                   <p>
-  <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#FF0000", fontSize: '14px', fontWeight: '500' }}>
-      {item?.opening_hours?.open_now ? "Open" : "Closed"}
-      </span>
-   </p>
+                                    <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#FF0000", fontSize: '14px', fontWeight: '500' }}>
+                                      {item?.opening_hours?.open_now ? "Open" : "Closed"}
+                                    </span>
+                                  </p>
                                 </div>
                               </div>
                             </ListDataWrraper>
                           </div>
                         );
                       })
-                    : ""}
+                      : ""}
                 </SearchedListContainer>
               ) : (
                 <SearchedListContainer>
                   {placeloader
                     ? skeletonData.map((item, index) => (
-                        <SearchedData key={index}>
-                          <MainInsideWrapper>
+                      <SearchedData key={index}>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={80}
+                            height={80}
+                            style={{ borderRadius: 8 }}
+                          />
+                          <div className="restroRating">
                             <Skeleton
-                              width={80}
-                              height={80}
+                              width={120}
+                              height={15}
                               style={{ borderRadius: 8 }}
                             />
-                            <div className="restroRating">
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                              <Skeleton
-                                width={120}
-                                height={15}
-                                style={{ borderRadius: 8 }}
-                              />
-                            </div>
-                          </MainInsideWrapper>
-                        </SearchedData>
-                      ))
+                            <Skeleton
+                              width={120}
+                              height={15}
+                              style={{ borderRadius: 8 }}
+                            />
+                            <Skeleton
+                              width={120}
+                              height={15}
+                              style={{ borderRadius: 8 }}
+                            />
+                          </div>
+                        </MainInsideWrapper>
+                      </SearchedData>
+                    ))
                     : placeData.length
-                    ? filterData.map((item: any, index: any) => {
+                      ? filterData.map((item: any, index: any) => {
                         if (!item.place_id) {
                           return null;
                         }
@@ -326,14 +326,14 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                                       ) : null}
                                     </div>
                                   </div>
-                                  
+
                                 </div>
                               </div>
                             </ListDataWrraper>
                           </div>
                         );
                       })
-                    : ""}
+                      : ""}
                 </SearchedListContainer>
               )}
             </>
@@ -341,54 +341,38 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
             <ScrollingMenu>
               {loader
                 ? skeletonData.map((item, index) => (
-                    <div key={index} style={{ display: "flex", gap: "15px" }}>
-                      <Skeleton
-                        width={80}
-                        height={80}
-                        style={{ borderRadius: "5px" }}
-                      />
-                      <Skeleton
-                        width={80}
-                        height={15}
-                        style={{ marginTop: 8, borderRadius: 6 }}
-                      />
-                    </div>
-                  ))
+                  <div key={index} style={{ display: "flex", gap: "15px" }}>
+                    <Skeleton
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: "5px" }}
+                    />
+                    <Skeleton
+                      width={80}
+                      height={15}
+                      style={{ marginTop: 8, borderRadius: 6 }}
+                    />
+                  </div>
+                ))
                 : topPlace?.slice(0, 10).map((item: any, index: any) => {
-                    return (
-                      <TopAttractionContainer
-                        key={index}
-                        style={{ cursor: "pointer" }}
-                        onClick={() =>
-                          modalClick(
-                            "ModalContent",
-                            item,
-                            item?.data_type === "google"
-                              ? item?.photoUrl
-                              : item?.photoUrl
+                  return (
+                    <TopAttractionContainer
+                      key={index}
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        modalClick(
+                          "ModalContent",
+                          item,
+                          item?.data_type === "google"
+                            ? item?.photoUrl
+                            : item?.photoUrl
                               ? item?.photoUrl
                               : fallback
-                          )
-                        }>
-                        <TopAttractionprofile>
-                          {item?.data_type === "google" ? (
-                            item.photoUrl == undefined ? (
-                              <Image
-                                src={fallback}
-                                alt=""
-                                width={500}
-                                height={80}
-                                style={{
-                                  borderRadius: "100%",
-                                  maxWidth: "100%",
-                                  objectFit: "cover",
-                                }}
-                                // alt=""
-                              />
-                            ) : (
-                              <ImageTag src={item.photoUrl} alt="Image" />
-                            )
-                          ) : (
+                        )
+                      }>
+                      <TopAttractionprofile>
+                        {item?.data_type === "google" ? (
+                          item.photoUrl == undefined ? (
                             <Image
                               src={fallback}
                               alt=""
@@ -399,33 +383,49 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                                 maxWidth: "100%",
                                 objectFit: "cover",
                               }}
-                              // alt=""
+                            // alt=""
                             />
-                          )}
-                        </TopAttractionprofile>
+                          ) : (
+                            <ImageTag src={item.photoUrl} alt="Image" />
+                          )
+                        ) : (
+                          <Image
+                            src={fallback}
+                            alt=""
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: "100%",
+                              maxWidth: "100%",
+                              objectFit: "cover",
+                            }}
+                          // alt=""
+                          />
+                        )}
+                      </TopAttractionprofile>
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: 10,
+                          flexDirection: "column",
+                          maxWidth: "calc(100% - 30%)",
+                        }}>
+                        <ListDataTittleText>{item?.name}</ListDataTittleText>
                         <div
                           style={{
                             display: "flex",
                             gap: 10,
-                            flexDirection: "column",
-                            maxWidth: "calc(100% - 30%)",
+                            alignItems: "center",
                           }}>
-                          <ListDataTittleText>{item?.name}</ListDataTittleText>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: 10,
-                              alignItems: "center",
-                            }}>
-                            <ListDataInfoText style={{ width: "20px" }}>
-                              {item?.rating}
-                            </ListDataInfoText>
-                            <Image src={commentstar} alt="infoCirlce" />
-                          </div>
+                          <ListDataInfoText style={{ width: "20px" }}>
+                            {item?.rating}
+                          </ListDataInfoText>
+                          <Image src={commentstar} alt="infoCirlce" />
                         </div>
-                      </TopAttractionContainer>
-                    );
-                  })}
+                      </div>
+                    </TopAttractionContainer>
+                  );
+                })}
             </ScrollingMenu>
           )}
         </>
@@ -477,7 +477,11 @@ const ListDataInfoText = styled.p.attrs((props) => ({
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;
   padding-top: 20px;
-  min-height: 50vh;
+    max-height: calc(100dvh - 250px);
+  overflow: auto;
+    &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const SearchedData = styled.div`
   display: flex;
@@ -522,7 +526,9 @@ const ScrollingMenu = styled.div`
   flex-direction: column;
   gap: 8px;
 
-  &::-webkit-scrollbar {
+  max-height: calc(100dvh - 285px);
+  overflow: auto;
+    &::-webkit-scrollbar {
     display: none;
   }
 
