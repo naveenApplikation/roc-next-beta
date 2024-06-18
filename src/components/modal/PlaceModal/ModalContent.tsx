@@ -34,7 +34,7 @@ import {
 } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
-import { getVenueStatus, isOpen, isOpenHead } from "@/app/utils/commanFunCom";
+import { getVenueStatus, isOpenHead } from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -128,7 +128,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   copylink(showApiData?.international_phone_number)
                 }
               >
-                {showApiData?.international_phone_number}
+                <Link href={`tel:${showApiData?.international_phone_number}`}>{showApiData?.international_phone_number}</Link>
               </span>
             </Tooltip>
           ) : (
@@ -251,8 +251,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-            .map((item: any) => item.replaceAll("_", " "))
-            .join(" | ")
+          .map((item: any) => item.replaceAll("_", " "))
+          .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -316,17 +316,19 @@ const ModalContent: React.FC<ModalProps> = ({
             {formattedValues()}{" "}
           </p>
           <ResturatContainer>
-            {showApiData?.current_opening_hours?.open_now !== undefined && (
+            {/* {showApiData?.current_opening_hours?.open_now !== undefined && ( */}
+            {showApiData?.current_opening_hours?.periods.length && (
               <ResturatWrapper>
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
 
-                <OpenRestText
+                {/* <OpenRestText
                   selected={showApiData?.current_opening_hours?.open_now}
-                >
-                  {showApiData?.current_opening_hours?.open_now
+                > */}
+                    {isOpenHead(showApiData?.current_opening_hours)}
+                  {/* {showApiData?.current_opening_hours?.open_now
                     ? "Open"
-                    : "Closed"}{" "}
-                </OpenRestText>
+                    : "Closed"}{" "} */}
+                {/* </OpenRestText> */}
               </ResturatWrapper>
             )}
             <Ratings
@@ -680,7 +682,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ""
               )}
               {showApiData?.international_phone_number ||
-              showApiData?.formatted_phone_number ? (
+                showApiData?.formatted_phone_number ? (
                 <CommonButton
                   text="Call"
                   image={phone}
