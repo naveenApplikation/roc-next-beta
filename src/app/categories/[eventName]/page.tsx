@@ -10,25 +10,6 @@ import Instance from "@/app/utils/Instance";
 import PageLayout from '@/app/pageLayout';
 import dynamic from 'next/dynamic';
 
-// import AttractionBox from '@/components/attractionBox/page';
-// import EventBox from '@/components/eventBox/page';
-// import ExperienceBox from '@/components/experienceBox/page';
-// import TrendingList from '@/components/trendingList/page';
-// import ScaffoldingBox from '@/components/scaffoldingBox/page';
-// import HeaderScreen from '@/components/header/HeaderScreen'
-// import SearchModalScreen from '@/components/AllModalScreen/SearchModalScreen'
-// import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen'
-// import ProfileMylistModalScreen from '@/components/AllModalScreen/ProfileMylistModalScreen'
-// import PlacesModalScreen from '@/components/AllModalScreen/PlacesModalScreen'
-// import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen'
-// import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen'
-// import PlaceOrderOnlineModalScreen from '@/components/AllModalScreen/PlaceOrderOnlineModalScreen'
-// import FilterModalScreen from '@/components/AllModalScreen/FilterModalScreen'
-// import EventListingModalScreen from '@/components/AllModalScreen/EventListingModalScreen'
-// import ActivitiesModalScreen from '@/components/AllModalScreen/ActivitiesModalScreen';
-// import CategorieList from '@/components/categorieList/page';
-// import DirectoryCategories from '@/components/DirectoryScreen/DirectoryCategories'
-
 
 const AttractionBox = dynamic(() => import("@/components/attractionBox/page"), { ssr: false })
 const EventBox = dynamic(() => import("@/components/eventBox/page"), { ssr: false })
@@ -52,21 +33,7 @@ const DirectoryCategories = dynamic(() => import("@/components/DirectoryScreen/D
 interface CategoriesPageProps {
   // Define your props here
 }
-const CategoryBody = styled.div`
-position: relative;
- z-index: 1;
- width: 480px;
- height: 100vh;
- overflow: auto;
 
- &::-webkit-scrollbar {
-    display: none;
-  }
-
- @media screen and (max-width: 800px) {
-    width: 100%;
-  }
-`
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
 
@@ -171,4 +138,20 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     </>
   );
 };
-export default CategoriesPage
+export default CategoriesPage;
+
+const CategoryBody = styled.div`
+position: relative;
+ z-index: 1;
+ width: 480px;
+ height: 100vh;
+ overflow: auto;
+
+ &::-webkit-scrollbar {
+    display: none;
+  }
+
+ @media screen and (max-width: 800px) {
+    width: 100%;
+  }
+`;

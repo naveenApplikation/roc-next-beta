@@ -8,28 +8,7 @@ import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
 import { ApiResponse } from "@/app/utils/types";
 import { iconsHome } from "@/app/utils/homeIcon";
-// import SearchNFilter from "@/components/homepage/SearchNFilter";
-// import InfoApp from "@/components/homepage/InfoApp";
-// import LocalCusine from "@/components/homepage/LocalCusine";
-// import FamilyEvent from "@/components/homepage/FamilyEvent";
-// import EnjoyTheSunshine from "@/components/homepage/EnjoyTheSunshine";
-// import TrendingList from "@/components/homepage/TrendingList";
-// import TopAttractions from "@/components/homepage/TopAttractions";
-// import Directory from "@/components/homepage/Directory";
-// import Bars from "@/components/homepage/Bars";
-// import Shopping from "@/components/homepage/Shopping";
-// import Community from "@/components/homepage/Community";
-// import BeachLife from "@/components/homepage/BeachLife";
-// import Sustainability from "@/components/homepage/Sustainability";
-// import Heritage from "@/components/homepage/Heritage";
-// import Walks from "@/components/homepage/Walks";
-// import Wellbeing from "@/components/homepage/Wellbeing";
-// import WW2 from "@/components/homepage/WW2";
-// import CycleRoutes from "@/components/homepage/CycleRoutes";
-// import DeliciousDine from "@/components/homepage/DeliciousDine";
-// import Outout from "@/components/homepage/Outout";
-// import Surfing from "@/components/homepage/Surfing";
-// import CommonButton from "@/components/button/CommonButton";
+
 
 const SearchNFilter = dynamic(() => import("@/components/homepage/SearchNFilter"), { ssr: false })
 const InfoApp = dynamic(() => import("@/components/homepage/InfoApp"), { ssr: false })
@@ -48,7 +27,8 @@ const Heritage = dynamic(() => import("@/components/homepage/Heritage"), { ssr: 
 const Walks = dynamic(() => import("@/components/homepage/Walks"), { ssr: false })
 const Wellbeing = dynamic(() => import("@/components/homepage/Wellbeing"), { ssr: false })
 const WW2 = dynamic(() => import("@/components/homepage/WW2"), { ssr: false })
-const CycleRoutes = dynamic(() => import("@/components/homepage/DeliciousDine"), { ssr: false })
+// const CycleRoutes = dynamic(() => import("@/components/homepage/DeliciousDine"), { ssr: false })
+const CycleRoutes = dynamic(() => import("@/components/homepage/CycleRoutes"), { ssr: false })
 const Outout = dynamic(() => import("@/components/homepage/Outout"), { ssr: false })
 const Surfing = dynamic(() => import("@/components/homepage/Surfing"), { ssr: false })
 const CommonButton = dynamic(() => import("@/components/button/CommonButton"), { ssr: false })
@@ -124,22 +104,22 @@ const DashBoard = () => {
     };
   }, []);
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
+  // const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
 
-  const homeGooglefetchDataAsync = async () => {
-    setHomeGoogleLoader(true);
-    try {
-      const result = await Instance.get("/homescreen-google");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setHomeGoogleLoader(false);
-    } finally {
-      setHomeGoogleLoader(false);
-    }
-  };
+  // const homeGooglefetchDataAsync = async () => {
+  //   setHomeGoogleLoader(true);
+  //   try {
+  //     const result = await Instance.get("/homescreen-google");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setHomeGoogleLoader(false);
+  //   } finally {
+  //     setHomeGoogleLoader(false);
+  //   }
+  // };
 
   useEffect(() => {
     fetchDataAsync()

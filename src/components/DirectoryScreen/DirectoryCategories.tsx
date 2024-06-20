@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { PopularLists, SelectedLists } from "@/components/search/Data";
-import { thumbsup } from "@/app/utils/ImagePath";
+import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
@@ -18,88 +17,7 @@ interface TrendingListProps {
   urlTitle?: string;
 }
 
-const Container = styled.div`
-  padding: 40px;
-  background-color: #f2f3f3;
-  width: ${sideWidth};
-  height: 100%;
-  min-height: 82vh;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    padding: 40px 15px;
-  }
-`;
 
-const PopularListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  .view {
-    color: #000;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-
-const PopularlistTitle = styled.div`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin-bottom: 24px;
-  text-transform: capitalize;
-`;
-
-const ListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 8px 0px;
-  cursor: pointer;
-`;
-
-const ImageTitleContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  p {
-    color: #000;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-`;
-
-const Imagecontainer = styled.div`
-  display: flex;
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 100%;
-  background: #eb5757;
-`;
-
-const LikesContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  p {
-    color: rgba(0, 0, 0, 0.48);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-  }
-`;
 
 const DirectoryCatories: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
   const [listData, setListData] = useState<string[]>([])
@@ -140,11 +58,24 @@ const DirectoryCatories: React.FC<TrendingListProps> = ({ urlTitle, urlData }) =
 
   const skeletonItems = new Array(10).fill(null);
 
+  
+  const handleBack = () => {
+
+    router.push("/");
+  };
+
   return (
     <div>
       <Container>
         <PopularListContainer>
-          <PopularlistTitle>{urlTitle}</PopularlistTitle>
+            <PopularlistTitle>{urlTitle}</PopularlistTitle>
+            <Image
+              style={{ width: 40, height: 40, cursor: "pointer" }}
+              src={CloseModal}
+              alt="Logo Outline"
+              onClick={() => handleBack()}
+            />
+          
         </PopularListContainer>
         {listData.length ? listData.map((item: any, index) => {
           return (
@@ -239,4 +170,86 @@ const MainInsideWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+`;
+const Container = styled.div`
+  padding: 40px;
+  background-color: #f2f3f3;
+  width: ${sideWidth};
+  height: 100%;
+  min-height: 82vh;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 40px 15px;
+  }
+`;
+
+const PopularListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  .view {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+`;
+
+const PopularlistTitle = styled.div`
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 24px;
+  text-transform: capitalize;
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 0px;
+  cursor: pointer;
+`;
+
+const ImageTitleContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  p {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const Imagecontainer = styled.div`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100%;
+  background: #eb5757;
+`;
+
+const LikesContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  p {
+    color: rgba(0, 0, 0, 0.48);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
 `;

@@ -73,6 +73,7 @@ const AddListings: React.FC<AddListingsProps> = ({
               value={searchQuery}
               onchange={(e: any) => handleChange(e.target.value)}
               handleSearch={handleSearch}
+              loader={loader}
             />
           </SearchInputBox>
           {loader ?
@@ -93,9 +94,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                 </MainWrraper>
               </SearchedData>
             ))
-
             :
-
             data.map((item: any, index: any) => {
 
               return (

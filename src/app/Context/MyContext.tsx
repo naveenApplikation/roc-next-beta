@@ -114,6 +114,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const fetchDataAsync = async (value: string, filterValues: any) => {
     if (value) {
       try {
+        setPlaceLoader(true);
         const url = buildFilterUrl(
           value,
           {
@@ -281,33 +282,33 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // };
 
   const filterUrls = (ImageUrlData: any) => {
-    
+
     const imageUrls: string[] = [];
     ImageUrlData.forEach((item: any) => {
-        if (item) {
-            try {
-                const jsonData = JSON.parse(item);
-                const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
+      if (item) {
+        try {
+          const jsonData = JSON.parse(item);
+          const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-                if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
-                    imageUrls.push(url);
-                } else {
-                    imageUrls.push(
-                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-                    ); // Push default image URL if URL is not valid
-                }
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-                imageUrls.push("https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"); // Push default image URL if JSON parsing fails
-            }
-        } else {
+          if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+            imageUrls.push(url);
+          } else {
             imageUrls.push(
-                "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-            ); // Push default image URL if item is undefined
+              "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+            ); // Push default image URL if URL is not valid
+          }
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          imageUrls.push("https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"); // Push default image URL if JSON parsing fails
         }
+      } else {
+        imageUrls.push(
+          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+        ); // Push default image URL if item is undefined
+      }
     });
     return imageUrls;
-};
+  };
 
   const value: ContextProps = {
     modalType,
@@ -340,7 +341,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     location,
   };
 
-  
+
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
 };
 

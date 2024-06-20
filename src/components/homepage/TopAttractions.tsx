@@ -16,58 +16,7 @@ interface DashboardProps {
   menuClick?: any;
 }
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const TopAttractionContainer = styled.div`
-  display: flex;
-  width: 80px;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-
-  p {
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-`;
-
-const TopAttractionprofile = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-
-  background-size: contain;
-`;
-
-const ImageTag = styled.img`
-  width: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  height: 100%;
-`;
 
 const TopAttractions: React.FC<DashboardProps> = ({
   modalClick,
@@ -177,3 +126,56 @@ const TopAttractions: React.FC<DashboardProps> = ({
 };
 
 export default TopAttractions;
+
+const ScrollingMenu = styled.div`
+  display: flex;
+  overflow: auto;
+  gap: 8px;
+  padding: 0px 40px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+  }
+`;
+
+const TopAttractionContainer = styled.div`
+  display: flex;
+  width: 80px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  p {
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+`;
+
+const TopAttractionprofile = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  background-size: contain;
+`;
+
+const ImageTag = styled.img`
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 100%;
+`;

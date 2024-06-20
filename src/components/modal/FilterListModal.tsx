@@ -18,7 +18,7 @@ const FilterListModal: React.FC = () => {
 
   const handleCategoryType = (e: any) => {
     console.log("event", )
-    setSelectData(e.target.value)
+    setSelectData(e)
   }
   
   const handleSave = () => {
@@ -49,8 +49,8 @@ const FilterListModal: React.FC = () => {
           SearchFilterData.map((val, index) => {
             return (
 
-              <CheckBoxContainer key={val.id}>
-                <input type="radio" value={val?.name} checked={selectData === val?.name} onChange={(e) => handleCategoryType(e)} />
+              <CheckBoxContainer  key={val.id} onClick={() => handleCategoryType(val?.name)}>
+                <input type="radio" value={val?.name} checked={selectData === val?.name}/>
                 <p>{val?.name}</p>
               </CheckBoxContainer>
             )
@@ -102,6 +102,7 @@ const CheckBoxContainer = styled.div`
   gap: 10px;
   height: 30px;
   border-bottom : 1px solid #00000040;
+  cursor: pointer;
 
   p {
     font-size: 13px;

@@ -99,7 +99,7 @@ const DashboardMenu = styled.div<{
     display: ${({ $showMap }) => ($showMap ? "none" : "flex")};
     width: 100%;
     min-height: ${({ $showMap }) =>
-      $showMap ? "calc(100vh - 500px)" : "100vh"};
+    $showMap ? "calc(100vh - 500px)" : "100vh"};
   }
 `;
 

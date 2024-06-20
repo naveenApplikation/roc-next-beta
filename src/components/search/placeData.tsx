@@ -57,7 +57,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   return (
     <>
-      {pageLoading ? (
+      {placeloader ? (
         skeletonData.map((item, index) => (
           <SearchedData key={index}>
             <MainInsideWrapper>
@@ -354,7 +354,8 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                     />
                   </div>
                 ))
-                : topPlace?.slice(0, 10).map((item: any, index: any) => {
+                : 
+                topPlace?.slice(0, 10).map((item: any, index: any) => {
                   return (
                     <TopAttractionContainer
                       key={index}

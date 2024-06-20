@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { PopularLists, SelectedLists } from "@/components/search/Data";
-import { thumbsup } from "@/app/utils/ImagePath";
+import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
@@ -18,87 +18,7 @@ interface TrendingListProps {
   urlTitle?: string;
 }
 
-const Container = styled.div`
-  padding: 40px;
-  background-color: #f2f3f3;
-  width: ${sideWidth};
-  height: 100%;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    padding: 40px 15px;
-  }
-`;
 
-const PopularListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  .view {
-    color: #000;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-
-const PopularlistTitle = styled.div`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin-bottom: 24px;
-`;
-
-const ListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 8px 0px;
-  cursor: pointer;
-`;
-
-const ImageTitleContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
-
-  p {
-    color: #000;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-`;
-
-const Imagecontainer = styled.div`
-  display: flex;
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 100%;
-  background: #eb5757;
-`;
-
-const LikesContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  p {
-    color: rgba(0, 0, 0, 0.48);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-  }
-`;
 
 const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
   const [listData, setListData] = useState<string[]>([])
@@ -139,16 +59,31 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
 
   const skeletonItems = new Array(10).fill(null);
 
+
+
+  const handleBack = () => {
+
+    router.push("/");
+  };
+
+
   return (
     <div>
       <Container>
         <PopularListContainer>
-          <PopularlistTitle>{urlTitle}</PopularlistTitle>
+            <PopularlistTitle>{urlTitle}</PopularlistTitle>
+            <Image
+              style={{ width: 40, height: 40, cursor: "pointer" }}
+              src={CloseModal}
+              alt="Logo Outline"
+              onClick={() => handleBack()}
+            />
+          
         </PopularListContainer>
         {listData.length ? listData.map((item: any, index) => {
           return (
-            <ListContainer key={index}>
-              <ImageTitleContainer onClick={() => menuClick(item?.listName, true, item?.categoryId)}>
+            <ListContainer key={index} onClick={() => menuClick(item?.listName, true, item?.categoryId)}>
+              <ImageTitleContainer>
                 <Imagecontainer style={{ background: item?.bgColor }}>
                   {item?.image}
                 </Imagecontainer>
@@ -165,19 +100,19 @@ const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
             </ListContainer>
           );
         }) :
-        skeletonItems.map((item, index) => (
-          <SearchedData key={index}>
-            <MainWrraper>
-              <MainInsideWrapper>
-                <Skeleton width={40} height={40} style={{ borderRadius: 100 }} />
-                <div className="restroRating">
-                  <Skeleton width={120} height={14}/>
-                </div>
-              </MainInsideWrapper>
+          skeletonItems.map((item, index) => (
+            <SearchedData key={index}>
+              <MainWrraper>
+                <MainInsideWrapper>
+                  <Skeleton width={40} height={40} style={{ borderRadius: 100 }} />
+                  <div className="restroRating">
+                    <Skeleton width={120} height={14} />
+                  </div>
+                </MainInsideWrapper>
                 <Skeleton width={56} height={24} />
-            </MainWrraper>
-          </SearchedData>
-        ))
+              </MainWrraper>
+            </SearchedData>
+          ))
         }
       </Container>
     </div>
@@ -234,4 +169,86 @@ const MainInsideWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+`;
+const Container = styled.div`
+  padding: 40px;
+  background-color: #f2f3f3;
+  width: ${sideWidth};
+  height: 100%;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 40px 15px;
+  }
+`;
+
+const PopularListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  .view {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+`;
+
+const PopularlistTitle = styled.div`
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 24px;
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 0px;
+  cursor: pointer;
+`;
+
+const ImageTitleContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  flex: 1;
+
+  p {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const Imagecontainer = styled.div`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100%;
+  background: #eb5757;
+`;
+
+const LikesContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  p {
+    color: rgba(0, 0, 0, 0.48);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
 `;

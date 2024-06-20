@@ -138,6 +138,7 @@ const ListItemScrollBox = styled.div`
 
 const CheckBoxContainer = styled.div`
   background-color: white;
+  cursor: pointer;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -178,8 +179,8 @@ const ListDetails: React.FC<ListDetailsProps> = ({
     setBgColor(color)
   };
 
-  const handleCategoryType = (e: any) => {
-    setCategoryType(e.target.value)
+  const handleCategoryType = (e: string) => {
+    setCategoryType(e)
   }
 
   const handleListName = (e: any)=>{
@@ -200,20 +201,20 @@ const ListDetails: React.FC<ListDetailsProps> = ({
             cols={50}
             placeholder="List description..."
           /> */}
-          <CheckBoxContainer>
-            <input type="radio" value={"public"} checked={categoryType === "public"} onChange={(e) => handleCategoryType(e)} />
+          <CheckBoxContainer onClick={()=>handleCategoryType("public")}>
+            <input type="radio" checked={categoryType === "public"}/>
             <p>Public List</p>
           </CheckBoxContainer>
-          <CheckBoxContainer>
-            <input type="radio" value={"private"} checked={categoryType === "private"} onChange={(e) => handleCategoryType(e)} />
+          <CheckBoxContainer onClick={()=>handleCategoryType("private")}>
+            <input type="radio" checked={categoryType === "private"}/>
             <p>Private List</p>
           </CheckBoxContainer>
           <ListDetailsTitle>Choose an icon</ListDetailsTitle>
           <IconsListScrollBox>
-            {icons.map((icon) => {
+            {icons.map((icon, index) => {
               return (
                 <IconImage
-                  key={icon.id}
+                  key={index}
                   onClick={() => handleIconClick(icon.name, icon.color)}
                   selected={selectedIcon === icon.name}
                 >

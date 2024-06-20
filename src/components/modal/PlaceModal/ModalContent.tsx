@@ -195,26 +195,26 @@ const ModalContent: React.FC<ModalProps> = ({
   }, [showReview]);
 
   const [loader, setloader] = useState(true);
-  const [reviewShowToggle, setReviewShowToggle] = useState(false);
+  // const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
-  useEffect(() => {
-    const getReviewData = async () => {
-      setloader(true);
-      if (data._id) {
-        try {
-          const ReviewData = await Instance.get(`review/${data?._id}`);
-          // setReviewData(ReviewData?.data);
-          setReviewShowToggle(false);
-        } catch (error: any) {
-          console.log(error.message);
-          setloader(false);
-        } finally {
-          setloader(false);
-        }
-      }
-    };
-    getReviewData();
-  }, [data?._id, reviewShowToggle]);
+  // useEffect(() => {
+  //   const getReviewData = async () => {
+  //     setloader(true);
+  //     if (data._id) {
+  //       try {
+  //         const ReviewData = await Instance.get(`review/${data?._id}`);
+  //         // setReviewData(ReviewData?.data);
+  //         setReviewShowToggle(false);
+  //       } catch (error: any) {
+  //         console.log(error.message);
+  //         setloader(false);
+  //       } finally {
+  //         setloader(false);
+  //       }
+  //     }
+  //   };
+  //   getReviewData();
+  // }, [data?._id, reviewShowToggle]);
 
   const fetchDataAsync = async () => {
     setloader(true);
@@ -233,7 +233,7 @@ const ModalContent: React.FC<ModalProps> = ({
           ? await Instance.put(`review/${textId}`, paramUpdate)
           : await Instance.post("review", param);
       setShowReview(false);
-      setReviewShowToggle(true);
+      // setReviewShowToggle(true);
       setCommentReview("");
       setRating("");
       setShowEdit("");

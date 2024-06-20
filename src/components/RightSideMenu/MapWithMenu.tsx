@@ -153,7 +153,7 @@ const MapWithMenu = () => {
           />
           <Image
             style={{ width: "48px", height: "48px" }}
-            src={homeBlack}
+            src={CloseModal}
             alt="Logo Outline"
             onClick={() => iconClick("mapClick")}
           />

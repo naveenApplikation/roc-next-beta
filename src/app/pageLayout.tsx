@@ -37,7 +37,7 @@ interface PageLayoutProps {
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
-    const { modalClick, showMap, iconClick } = useMyContext();
+    const { showMap } = useMyContext();
     return (
         <Container>
             <MainContainer>

@@ -49,7 +49,7 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const Header: React.FC<HeaderProps> = ({ modalClick, iconClick, showMap, className }) => {
+const Header: React.FC<HeaderProps> = ({ modalClick }) => {
   const pathname = usePathname();
   const router = useRouter();
 

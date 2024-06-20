@@ -14,17 +14,17 @@ import CreateListings from '@/components/createList/CreateListings';
 import DragInOrder from '@/components/createList/DragInOrder';
 import Greetings from '@/components/createList/Greetings';
 import ProductAndCommentInfo from '@/components/createList/ProductAndCommentInfo';
-import { debounce } from 'lodash';
 import CreateAccountModalLayout from "@/components//modal/Modal";
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import ProfileAccountModalScreen from '@/components/AllModalScreen/ProfileAccountModalScreen';
 import CalenderBookDatesModalScreen from '@/components/AllModalScreen/CalenderBookDatesModalScreen';
 import ReservationCalenderModal from '@/components/AllModalScreen/reservationCalenderModal';
 import ViewDirectionModalScreen from '@/components/AllModalScreen/ViewDirectionModalScreen';
+import { debounce } from '@/app/utils/debounce';
 
 
 
@@ -139,7 +139,6 @@ const EventList = () => {
             } else {
                 setScreenName(name);
             }
-
         } else {
             modalClick("LoginSignupModal")
         }
@@ -179,7 +178,6 @@ const EventList = () => {
         } else {
             modalClick("LoginSignupModal")
         }
-
     }
 
 
@@ -196,10 +194,23 @@ const EventList = () => {
             setloader(false);
         }
     };
-    const handleSearch = () => {
-        fetchDataAsync(searchQuery);
+    const handleSearch = (q: any) => {
+
+        fetchDataAsync(q);
+
     };
 
+
+    const debouncedSearch = useCallback(
+        debounce((q: string) => {
+            handleSearch(q);
+        }, 800),
+        []
+    );
+
+    useEffect(() => {
+        debouncedSearch(searchQuery);
+    }, [searchQuery, debouncedSearch]);
 
     const postHandler = async (name: string) => {
         const param = {
@@ -226,6 +237,7 @@ const EventList = () => {
         window.location.reload();
         setScreenName(name);
     };
+
 
     const ScreenShowHandle = () => {
         if (screenName === "create") {

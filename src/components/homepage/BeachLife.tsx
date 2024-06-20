@@ -129,6 +129,7 @@ const WalkContainer = styled.div`
   align-items: end;
   flex-direction: column;
   position: relative;
+  cursor: pointer;
 
   justify-content: space-between;
   p {

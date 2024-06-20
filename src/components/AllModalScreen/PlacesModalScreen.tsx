@@ -21,10 +21,7 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap })
         {...{ showMap }}
         title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
       >
-        {/* {
 
-          console.log("datassssssssssdatassssssssss", dataDetails) as any
-        } */}
         {dataDetails?.data_type === "google" ?
           <ModalContent
             onClose={() => closeModal("ModalContent")}

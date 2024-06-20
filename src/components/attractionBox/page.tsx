@@ -1,4 +1,4 @@
-import { thumbsup, utensils } from "@/app/utils/ImagePath";
+import { CloseModal, thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { sideWidth } from "@/app/utils/date";
 import fallback from '../../../assets/images/fallbackimage.png'
+import { useRouter } from "next/navigation";
 
 interface AttractionBoxProps {
   // Define your props here
@@ -19,11 +20,157 @@ interface AttractionBoxProps {
   loader?: boolean;
 }
 
+
+const AttractionBox: React.FC<AttractionBoxProps> = ({
+  urlTitle,
+  urlData,
+  filteredUrls,
+  loader,
+}) => {
+  const { modalClick } = useMyContext();
+  const router = useRouter()
+
+  const skeletonItems = new Array(10).fill(null);
+
+
+  const handleBack = () => {
+
+    router.push("/");
+  };
+
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchedListContainer>
+        <Header className="">
+
+          <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
+          <Image
+            style={{ width: 40, height: 40, cursor: "pointer" }}
+            src={CloseModal}
+            alt="Logo Outline"
+            onClick={() => handleBack()}
+          />
+        </Header>
+
+        {/* <LikeCount>5,281 likes</LikeCount> */}
+        {/* {urlData != 77 && (
+          <div style={{ margin: "24px 0px" }}>
+            <FilterSection />
+          </div>
+        )} */}
+        {loader
+          ? skeletonItems.map((item, index) => (
+            <SearchedData key={index}>
+              <MainWrraper>
+                <MainInsideWrapper>
+                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+                  <div className="restroRating">
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                  </div>
+                </MainInsideWrapper>
+                <div className="likes">
+                  <Skeleton width={16} height={16} />
+                </div>
+              </MainWrraper>
+            </SearchedData>
+          ))
+          : urlData?.map((item: any, index: any) => {
+            return (
+              <SearchedData key={index}>
+                <MainWrraper>
+                  <MainInsideWrapper
+                    onClick={() =>
+                      modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : fallback)
+                    }
+                  >
+                    <div style={{ position: "relative" }}>
+                      {
+                        item?.data_type === "google" ?
+                          <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image"
+                          />
+                          :
+                          <Image
+                            // style={{ background: "white" }}
+                            src={item.photoUrl ? item.photoUrl : fallback}
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: 4,
+                              width: "80px",
+                              objectFit: "cover",
+                              cursor: 'pointer'
+                            }}
+                            alt=""
+                          // onClick={() =>
+                          //   modalClick("ModalContent", item, filteredUrls[index])
+                          // }
+                          />
+                      }
+                      {item.deliverActive && (
+                        <DeliveryContainer>
+                          <Image
+                            src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
+                            width={10}
+                            height={8}
+                            alt=""
+                          />
+                          <p>delivery</p>
+                        </DeliveryContainer>
+                      )}
+                      {item.NewRes && (
+                        <NewResturant>
+                          <p>New</p>
+                        </NewResturant>
+                      )}
+                    </div>
+                    <div className="restroRating">
+                      <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
+                      <div style={{ alignItems: "center", display: "flex" }}>
+                        {/* <UtenssilsImage src={utensils} alt="utensils" /> */}
+                        <Ratings defaultValue={item.rating} />
+                      </div>
+                      {/* <p>
+                        <span>Open - Closes 11 pm</span>
+                      </p> */}
+                    </div>
+                  </MainInsideWrapper>
+                  <div className="likes">
+                    <Image
+                      src={thumbsup}
+                      alt="like"
+                      style={{ width: "16px", height: "16px" }}
+                    />
+                    <p>{item.likeCount}</p>
+                  </div>
+                </MainWrraper>
+              </SearchedData>
+            );
+          })}
+
+        <AddListButton>
+          <CommonButton text="Add to the list" />
+        </AddListButton>
+      </SearchedListContainer>
+    </Suspense>
+  );
+};
+
+export default AttractionBox;
+
+
 const TitleText = styled.p`
   font-size: 24px;
   font-weight: 700;
 `;
+const Header = styled.div`
+display: flex;
+width: 100%;
+justify-content: space-between;
 
+`;
 const SearchedListContainer = styled.div`
   /* padding-bottom: 40px; */
   padding: 40px;
@@ -148,6 +295,7 @@ const MainInsideWrapper = styled.div`
   align-items: center;
   gap: 16px;
   cursor: pointer;
+  flex: 1;
 `;
 
 const ImageTag = styled.img`
@@ -156,128 +304,4 @@ border-radius:4px;
 object-fit:cover;
 height:80px;
 cursor:pointer;
-`
-
-const AttractionBox: React.FC<AttractionBoxProps> = ({
-  urlTitle,
-  urlData,
-  filteredUrls,
-  loader,
-}) => {
-  const { modalClick } = useMyContext();
-
-  const skeletonItems = new Array(10).fill(null);
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SearchedListContainer>
-        <TitleText>{urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}</TitleText>
-        <LikeCount>5,281 likes</LikeCount>
-        {/* {urlData != 77 && (
-          <div style={{ margin: "24px 0px" }}>
-            <FilterSection />
-          </div>
-        )} */}
-        {loader
-          ? skeletonItems.map((item, index) => (
-            <SearchedData key={index}>
-              <MainWrraper>
-                <MainInsideWrapper>
-                  <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                  <div className="restroRating">
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                    <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                  </div>
-                </MainInsideWrapper>
-                <div className="likes">
-                  <Skeleton width={16} height={16} />
-                </div>
-              </MainWrraper>
-            </SearchedData>
-          ))
-          : urlData?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainWrraper>
-                  <MainInsideWrapper
-                    onClick={() =>
-                      modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : fallback)
-                    }
-                  >
-                    <div style={{ position: "relative" }}>
-                      {
-                        item?.data_type === "google" ?
-                          <ImageTag src={item.photoUrl ? item.photoUrl : fallback} alt="Image"
-                            // onClick={() =>
-                            //   modalClick("ModalContent", item, item.photoUrl)
-                            // }
-                          />
-                          :
-                          <Image
-                            // style={{ background: "white" }}
-                            src={item.photoUrl ? item.photoUrl : fallback}
-                            width={500}
-                            height={80}
-                            style={{
-                              borderRadius: 4,
-                              width: "80px",
-                              objectFit: "cover",
-                              cursor: 'pointer'
-                            }}
-                            alt=""
-                            // onClick={() =>
-                            //   modalClick("ModalContent", item, filteredUrls[index])
-                            // }
-                          />
-                      }
-                      {item.deliverActive && (
-                        <DeliveryContainer>
-                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2Fmoped.png?alt=media&token=b898ff9b-8251-4e92-b6b4-532072eb8094"
-                            width={10}
-                            height={8}
-                            alt=""
-                          />
-                          <p>delivery</p>
-                        </DeliveryContainer>
-                      )}
-                      {item.NewRes && (
-                        <NewResturant>
-                          <p>New</p>
-                        </NewResturant>
-                      )}
-                    </div>
-                    <div className="restroRating">
-                      <p className="shopName">{item?.data_type === "google" ? item?.name : item?.acf?.title}</p>
-                      <div style={{ alignItems: "center", display: "flex" }}>
-                        {/* <UtenssilsImage src={utensils} alt="utensils" /> */}
-                        <Ratings defaultValue={item.rating} />
-                      </div>
-                      {/* <p>
-                        <span>Open - Closes 11 pm</span>
-                      </p> */}
-                    </div>
-                  </MainInsideWrapper>
-                  <div className="likes">
-                    <Image
-                      src={thumbsup}
-                      alt="like"
-                      style={{ width: "16px", height: "16px" }}
-                    />
-                    <p>{item.likeCount}</p>
-                  </div>
-                </MainWrraper>
-              </SearchedData>
-            );
-          })}
-
-        <AddListButton>
-          <CommonButton text="Add to the list" />
-        </AddListButton>
-      </SearchedListContainer>
-    </Suspense>
-  );
-};
-
-export default AttractionBox;
+`;
