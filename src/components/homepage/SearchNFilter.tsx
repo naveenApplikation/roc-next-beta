@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import SearchInput from "@/components/searchInput/SearchInput";
@@ -68,8 +70,8 @@ const FilterInput = styled.div`
   }
 `;
 
-const SearchNFilter: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { showMap } = useMyContext();
+const SearchNFilter: React.FC<DashboardProps> = () => {
+  const { showMap, modalClick, dataDetails,menuClick } = useMyContext();
 
   const [tabValue, setTabValue] = useState("Lists");
 

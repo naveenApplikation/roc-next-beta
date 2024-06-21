@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -9,8 +11,8 @@ import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoa
 import {skeletonItems} from '@/app/utils/date'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
+  // menuClick?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -28,32 +30,29 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const Sustainability: React.FC<DashboardProps> = ({
-  modalClick,
-  menuClick,
-}) => {
-  const { filterUrls,showContent } = useMyContext();
+const Sustainability: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<any>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/google/sustainability");
-      setData(result.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/google/sustainability");
+  //     setData(result.data[0]);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   return (
     <>
@@ -62,7 +61,7 @@ const Sustainability: React.FC<DashboardProps> = ({
         isOpen={() => menuClick(data?.listName, false, data?._id)}
       />
       <ScrollingMenu>
-        {loader
+        {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />

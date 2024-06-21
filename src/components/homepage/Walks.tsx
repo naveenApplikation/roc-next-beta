@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -12,7 +14,7 @@ import { walkMask } from "@/app/utils/ImagePath";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
-  modalClick?: any;
+  data?: any;
   menuClick?: any;
 }
 
@@ -81,39 +83,35 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const Walks: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls, showContent } = useMyContext();
+const Walks: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/walks");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/walks");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
-
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
-
-  const filteredUrls = filterUrls(ImageUrlData);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   return (
     <>
       <MenuDetails title="Walks" hideShowAll={true} />
       <ScrollingMenu>
-        {loader
+        {!data
           ? skeletonItems.map((item, index) => (
             <div key={index}>
               <ShopBrachSkeleton />

@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
@@ -30,128 +28,120 @@ import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
 import { ApiResponse } from "@/app/utils/types";
 import { iconsHome } from "@/app/utils/homeIcon";
+import { shoppingImages } from "@/app/utils/data";
+import { getCategory,getApiWithIcon,getData, getApiShoppingWithIcon } from "@/app/action";
+import { walkData } from "@/app/utils/data";
+import LeaveFeedbackButton from '@/components/homepage/LeaveFeedbackButton'
 
-const LeaveFeedbackButton = styled.div`
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 20px;
-`;
+const DashBoard = async() => {
+  // const specificSectionRef = useRef<HTMLDivElement>(null);
 
-const DashBoard = () => {
-  const specificSectionRef = useRef<HTMLDivElement>(null);
-
-  const router = useRouter();
+  // const router = useRouter();
   // const loginToke = window.localStorage.getItem('loginToken')
-  const { showMap, modalClick, dataDetails } = useMyContext();
-  const [listData, setListData] = useState<any>([]);
-  const [loader, setloader] = useState(true);
+  // const { showMap, modalClick, dataDetails } = useMyContext();
+  // const [listData, setListData] = useState<any>([]);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync:any = async () => {
-    setloader(true);
-    try {
-      const response = await Instance.get("/category?limit=10")
-      if (response.status === 200) {
-        response.data.forEach((list: any) => {
-          const matchedIcon = iconsHome.find(icon => icon.name === list.iconName);
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
-          }
-        })
-        setListData(response?.data)
-      } else {
-        setListData([])
+  // const fetchDataAsync:any = async () => {
+  //   setloader(true);
+  //   try {
+  //     const response = await Instance.get("/category?limit=10")
+  //     if (response.status === 200) {
+  //       response.data.forEach((list: any) => {
+  //         const matchedIcon = iconsHome.find(icon => icon.name === list.iconName);
+  //         if (matchedIcon) {
+  //           list.image = matchedIcon.image;
+  //         }
+  //       })
+  //       setListData(response?.data)
+  //     } else {
+  //       setListData([])
 
-      }
-    } catch (error) {
-      setloader(false);
-      setListData([])
-    }finally {
-      setloader(false);
-    }
-  }
+  //     }
+  //   } catch (error) {
+  //     setloader(false);
+  //     setListData([])
+  //   }finally {
+  //     setloader(false);
+  //   }
+  // }
 
-  const menuClick = (item: any, condition?: boolean, id?: any) => {
-    if (condition) {
-      router.push(`/categories/${item}?search=${id}`);
-    } else if (item === "directoryList") {
-      router.push("/screens/directoryList");
-    } else if (item === "AddToCreate") {
-      router.push("/screens/createList");
-    } else if (item === "CategorieList") {
-      router.push("/screens/categorieList");
-    } else if (item === "TrendingList") {
-      router.push("/screens/trendingList");
-    } else if (item === "LeaveFeedback") {
-      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
-    } else {
-      router.push(`/screens/${item}?categoryID=${id}`);
-    }
-  };
+  // const handleClick = (event: MouseEvent) => {
+  //   if (
+  //     specificSectionRef.current &&
+  //     !specificSectionRef.current.contains(event.target as Node)
+  //   ) {
+  //   }
+  // };
+  // useEffect(() => {
+  //   document.body.addEventListener("click", handleClick);
+  //   return () => {
+  //     document.body.removeEventListener("click", handleClick);
+  //   };
+  // }, []);
 
-  const handleClick = (event: MouseEvent) => {
-    if (
-      specificSectionRef.current &&
-      !specificSectionRef.current.contains(event.target as Node)
-    ) {
-    }
-  };
-  useEffect(() => {
-    document.body.addEventListener("click", handleClick);
-    return () => {
-      document.body.removeEventListener("click", handleClick);
-    };
-  }, []);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
 
-  const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
+  // const homeGooglefetchDataAsync = async () => {
+  //   setHomeGoogleLoader(true);
+  //   try {
+  //     const result = await Instance.get("/homescreen-google");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setHomeGoogleLoader(false);
+  //   } finally {
+  //     setHomeGoogleLoader(false);
+  //   }
+  // };
 
-  const homeGooglefetchDataAsync = async () => {
-    setHomeGoogleLoader(true);
-    try {
-      const result = await Instance.get("/homescreen-google");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setHomeGoogleLoader(false);
-    } finally {
-      setHomeGoogleLoader(false);
-    }
-  };
+  // useEffect(() => {
+  //   fetchDataAsync()
+  //   // homeGooglefetchDataAsync();
+  // }, []);
 
-  useEffect(() => {
-    fetchDataAsync()
-    // homeGooglefetchDataAsync();
-  }, []);
-
+  const listData = await getApiWithIcon("category",iconsHome);
+  const LocalCusinedata = await getCategory("google/dine-out");
+  const familyEventdata = await getCategory("family-events");
+  const EnjoyTheSunshinedata = await getCategory("sun-shine");
+  const TopAttractionsdata = await getCategory("google/top-attraction");
+  const bardata = await getData("Pubs",listData[0]?._id);
+ 
+  const beachLifedata = await getCategory("google/beach-life");
+  const sustainabilitydata = await getCategory("google/sustainability");
+  const Heritagedata = await getCategory("google/heritage");
+  const Walksdata = await getCategory("walks");
+  const Wellbeingdata = await getCategory("wellbeing-lists");
+  const Cocktaildata = await getCategory("google/cocktail-bars");
+  const Surfingdata = await getCategory("google/surfing");
+const Shoppingdata = await getApiShoppingWithIcon(
+  "shopping-lists",
+  shoppingImages
+);
   return (
     <>
-      <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
-      <InfoApp menuClick={menuClick} modalClick={modalClick} {...{ showMap }} />
-      <LocalCusine menuClick={menuClick} modalClick={modalClick}/>
-      <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
-      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
-      <TrendingList menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
-      <TopAttractions menuClick={menuClick} modalClick={modalClick}/>
-      <Directory menuClick={menuClick} modalClick={modalClick} />
-      <Bars menuClick={menuClick} modalClick={modalClick} listData={listData[0]?._id}  />
-      <Shopping menuClick={menuClick} modalClick={modalClick} />
-      <BeachLife menuClick={menuClick} modalClick={modalClick} />
-      <Community menuClick={menuClick} modalClick={modalClick} {...{ listData }} loader={loader} />
-      <Sustainability menuClick={menuClick} modalClick={modalClick} />
-      {/* <Jerseyisms menuClick={menuClick} modalClick={modalClick} /> not working */}
-      <Heritage menuClick={menuClick} modalClick={modalClick} />
-      <Walks menuClick={menuClick} modalClick={modalClick} />
-      <Wellbeing menuClick={menuClick} modalClick={modalClick} />
-      {/* <WW2 menuClick={menuClick} modalClick={modalClick} /> */}
-      {/* <DeliciousDine menuClick={menuClick} modalClick={modalClick} /> not working */}
-      <Outout menuClick={menuClick} modalClick={modalClick}/>
-      <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
-      <Surfing menuClick={menuClick} modalClick={modalClick}/>
-      
-      <LeaveFeedbackButton onClick={() => menuClick("LeaveFeedback")}>
-        <CommonButton text="Leave feedback" />
-      </LeaveFeedbackButton>
+      <SearchNFilter  />
+      <InfoApp  />
+      <LocalCusine data={LocalCusinedata} />
+      <FamilyEvent data={familyEventdata} />
+      <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
+      <TrendingList {...{ listData }} />
+      <TopAttractions data={TopAttractionsdata[0]}/>
+      <Directory />
+      <Bars dataPubs={bardata}  />
+      <Shopping {...{ Shoppingdata }} />
+      <BeachLife data={beachLifedata[0]}  />
+      <Community  {...{ listData }} />
+      <Sustainability data={sustainabilitydata[0]} />
+      <Heritage data={Heritagedata[0]}  />
+      <Walks data={Walksdata}   />
+      <Wellbeing data={Wellbeingdata}  />
+      <Outout data={Cocktaildata[0]} />
+      <CycleRoutes  />
+      <Surfing data={Surfingdata[0]} />
+      <LeaveFeedbackButton />
       {/* <BetaExploreModal /> */}
     </>
   );

@@ -105,8 +105,8 @@ const FinancialBox: React.FC<FinancialBoxProps> = (props) => {
       <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
       <InfoApp menuClick={menuClick} modalClick={modalClick} />
       {/* <LocalCusine menuClick={menuClick} modalClick={modalClick} /> */}
-      <FamilyEvent menuClick={menuClick} modalClick={modalClick} />
-      <EnjoyTheSunshine menuClick={menuClick} modalClick={modalClick} />
+      <FamilyEvent   />
+      <EnjoyTheSunshine/>
       {/* <TrendingList menuClick={menuClick} modalClick={modalClick} /> */}
       {/* <TopAttractions menuClick={menuClick} modalClick={modalClick} /> */}
       <Directory menuClick={menuClick} modalClick={modalClick} />
@@ -117,8 +117,8 @@ const FinancialBox: React.FC<FinancialBoxProps> = (props) => {
       <Sustainability menuClick={menuClick} modalClick={modalClick} />
       <Jerseyisms menuClick={menuClick} modalClick={modalClick} />
       <Heritage menuClick={menuClick} modalClick={modalClick} />  */}
-      <Walks menuClick={menuClick} modalClick={modalClick} />
-      <Wellbeing menuClick={menuClick} modalClick={modalClick} />
+      <Walks menuClick={menuClick}   />
+      <Wellbeing menuClick={menuClick} />
       <WW2 menuClick={menuClick} modalClick={modalClick} />
       <CycleRoutes menuClick={menuClick} modalClick={modalClick} />
       <DeliciousDine menuClick={menuClick} modalClick={modalClick} />

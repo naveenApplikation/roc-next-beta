@@ -98,3 +98,24 @@ export const PagelayoutMainContainer = styled.div`
     z-index: 1;
   }
 `;
+
+export const ScrollingMenu = styled.div`
+  display: flex;
+  overflow: auto;
+  gap: 8px;
+  padding: 0px 40px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 800px) {
+    padding: 0px 16px;
+  }
+`;
+
+export const LeaveFeedbackButtonContainer = styled.div`
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 20px;
+`;

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -9,9 +11,7 @@ import RatingMenu from "@/components/dashboard/RatingMenu";
 import { skeletonItems } from '@/app/utils/date'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
-  listData?: any;
+  dataPubs?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -27,30 +27,34 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
+const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
 
-  const [dataPubs, setDataPubs] = useState<any>([]);
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [loader, setloader] = useState(true);
+  console.log(dataPubs,"sdsdsds")
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get(`/category/${listData}?type=Pubs`);
-      setDataPubs(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const [dataPubs, setDataPubs] = useState<any>([]);
 
-  useEffect(() => {
-    if(listData !=undefined){
-      fetchDataAsync();
-    }
-  }, [listData]);
+  // const [loader, setloader] = useState(true);
+
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get(`/category/${listData}?type=Pubs`);
+  //     setDataPubs(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if(listData !=undefined){
+  //     fetchDataAsync();
+  //   }
+  // }, [listData]);
 
   return (
     <>
@@ -59,7 +63,7 @@ const Bars: React.FC<DashboardProps> = ({ modalClick, menuClick,listData }) => {
           isOpen={() => menuClick(dataPubs?.listName, false, dataPubs?._id)}
         />
         <ScrollingMenu>
-          {loader
+          {!dataPubs
             ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />

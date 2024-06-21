@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -7,12 +9,10 @@ import CommonButton from "@/components/button/CommonButton";
 import { skeletonItems } from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
   listData?: any;
-  loader: boolean;
 }
 
 const ScrollingMenu = styled.div`
@@ -53,7 +53,9 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listData, loader }) => {
+const TrendingList: React.FC<DashboardProps> = ({ listData }) => {
+
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
   const clickOnCreate = () => {
     const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
@@ -72,7 +74,7 @@ const TrendingList: React.FC<DashboardProps> = ({ modalClick, menuClick, listDat
       />
       
       <ScrollingMenu>
-        {loader
+        {!listData
           ? skeletonItems.map((item, index) => (
             <div key={index}>
               <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />

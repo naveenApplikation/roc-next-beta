@@ -1,7 +1,10 @@
+"use client"
+
 import React from "react";
 import styled from "styled-components";
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
   modalClick?: any;
@@ -50,12 +53,9 @@ font-weight: 400;
 line-height: normal;
 `
 
-const InfoApp: React.FC<DashboardProps> = ({
-  modalClick,
-  menuClick,
-  showMap,
-}) => {
+const InfoApp: React.FC<DashboardProps> = () => {
 
+  const { showMap, modalClick, dataDetails,menuClick } = useMyContext();
 
   const formatNameWithSpaces = (name:any) => {
     // Use a regular expression to split the string into words

@@ -10,6 +10,8 @@ import React, {
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
 import Instance from "@/app/utils/Instance";
+import { useRouter } from "next/navigation";
+
 
 // Define types for your state and functions
 interface ModalType {
@@ -27,7 +29,8 @@ interface ContextProps {
   dataDetails: DataDetails;
   dataUrlImage: any;
   closeModal: (name: string) => void;
-  modalClick: (name: string, item?: any, urlImage?: any) => void;
+  modalClick: (name: string, item?: any, urlImage?: any,reservationMenu?:any) => void;
+  menuClick: (item: any, condition?: boolean, id?: any) => void;
   iconClick: (name: string) => void;
   mapButtonClick: () => void;
   filterUrls: any;
@@ -111,6 +114,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     });
   }, []);
 
+   const router = useRouter();
+
   const fetchDataAsync = async (value: string, filterValues: any) => {
     if (value) {
       try {
@@ -145,6 +150,24 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       } finally {
         setPlaceLoader(false);
       }
+    }
+  };
+
+  const menuClick = (item: any, condition?: boolean, id?: any) => {
+    if (condition) {
+      router.push(`/categories/${item}?search=${id}`);
+    } else if (item === "directoryList") {
+      router.push("/screens/directoryList");
+    } else if (item === "AddToCreate") {
+      router.push("/screens/createList");
+    } else if (item === "CategorieList") {
+      router.push("/screens/categorieList");
+    } else if (item === "TrendingList") {
+      router.push("/screens/trendingList");
+    } else if (item === "LeaveFeedback") {
+      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
+    } else {
+      router.push(`/screens/${item}?categoryID=${id}`);
     }
   };
 
@@ -317,6 +340,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     dataDetails,
     closeModal,
     modalClick,
+    menuClick,
     iconClick,
     mapButtonClick,
     filterUrls,

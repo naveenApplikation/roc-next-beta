@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -10,33 +12,33 @@ import { skeletonItems } from "@/app/utils/date";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
+  // menuClick?: any;
 }
 
-const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick}) => {
-  const { filterUrls, showContent } = useMyContext();
+const BeachLife: React.FC<DashboardProps> = ({ data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<any>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/google/beach-life");
-      setData(result.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/google/beach-life");
+  //     setData(result.data[0]);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   return (
     <>
@@ -45,7 +47,7 @@ const BeachLife: React.FC<DashboardProps> = ({ modalClick, menuClick}) => {
       title="Beach life "
     />
     <ScrollingMenu>
-      {loader
+      {!data
         ? skeletonItems.map((item, index) => (
             <div key={index}>
               <ShopBrachSkeleton />

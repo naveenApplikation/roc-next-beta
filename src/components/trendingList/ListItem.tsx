@@ -187,6 +187,7 @@ const Container = styled.div`
   background-color: #f2f3f3;
   width: ${sideWidth};
   height: 100%;
+  min-height: 83vh;
   @media screen and (max-width: 800px) {
     width: 100%;
     padding: 40px 15px;

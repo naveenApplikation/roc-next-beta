@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -80,8 +82,8 @@ const CommunityContainer = styled.div`
     width: 100%;
   }
 `;
-const CycleRoutes: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  // const { filterUrls,showContent } = useMyContext();
+const CycleRoutes: React.FC<DashboardProps> = () => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
   // const [data, setData] = useState<ApiResponse[]>([]);
 
