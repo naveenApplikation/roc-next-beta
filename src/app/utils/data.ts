@@ -183,7 +183,7 @@ export const rightSideMenu = [
     image: castle,
     width: 25,
     height: 20,
-    url: "todo",
+    url: "Todo",
     id: "6645d5578bf8ac8d2d5bd622"
   },
   {
