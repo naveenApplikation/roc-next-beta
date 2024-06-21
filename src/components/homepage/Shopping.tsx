@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -13,8 +15,8 @@ import fallback from '../../../assets/images/fallbackimage.png'
 import { shoppingImages } from "@/app/utils/data";
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  Shoppingdata?: any;
+  // menuClick?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -94,39 +96,39 @@ const ImageTag = styled.img`
   height: 100%;
 `;
 
-const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls, showContent } = useMyContext();
+const Shopping: React.FC<DashboardProps> = ({Shoppingdata}) => {
+  const { filterUrls, showContent,menuClick,modalClick } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/shopping-lists");
-      result.data.forEach((list: any) => {
-        const matchedIcon = shoppingImages.find(icon => icon.listName === list.listName);
-        if (matchedIcon) {
-          list.image = matchedIcon.image;
-        }
-      })
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/shopping-lists");
+  //     result.data.forEach((list: any) => {
+  //       const matchedIcon = shoppingImages.find(icon => icon.listName === list.listName);
+  //       if (matchedIcon) {
+  //         list.image = matchedIcon.image;
+  //       }
+  //     })
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
 
 
-  const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
+  const ImageUrlData = Shoppingdata.map((item:any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -134,14 +136,14 @@ const Shopping: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     <>
       <MenuDetails isOpen={() => menuClick("Shopping", true, "shopping-lists")} title="Shopping" />
       <ScrollingMenu>
-        {loader
+        {!Shoppingdata
           ? skeletonItems.map((item, index) => (
             <div key={index}>
               <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
             </div>
           ))
           :
-          data.length ? data.map((item: any, index: any) => {
+          Shoppingdata.length ? Shoppingdata.map((item: any, index: any) => {
             return (
               <CommunityContainer
                 key={index}

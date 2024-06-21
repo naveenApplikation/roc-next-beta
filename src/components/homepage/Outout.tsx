@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -11,8 +13,8 @@ import { skeletonItems } from "@/app/utils/date";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
+  // menuClick?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -76,29 +78,29 @@ const MainTitle = styled.p`
     margin-top: 8px;
 `
 
-const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls, showContent } = useMyContext();
+const Outout: React.FC<DashboardProps> = ({ data }) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<any>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/google/cocktail-bars");
-      setData(result.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/google/cocktail-bars");
+  //     setData(result.data[0]);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   // const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
@@ -111,7 +113,7 @@ const Outout: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
           title="Out Out"
         />
         <ScrollingMenu>
-          {loader
+          {!data
             ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />

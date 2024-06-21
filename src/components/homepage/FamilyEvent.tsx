@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -12,8 +14,7 @@ import { skeletonItems } from "@/app/utils/date";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?:any
 }
 
 const ScrollingMenu = styled.div`
@@ -93,28 +94,28 @@ const MainImage = styled(Image)`
   border-radius: 6px;
 `;
 
-const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls, showContent } = useMyContext();
-  const [data, setData] = useState<ApiResponse[]>([]);
-  const [loader, setloader] = useState(true);
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/family-events");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+const FamilyEvent: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
+  // const [data, setData] = useState<ApiResponse[]>([]);
+  // const [loader, setloader] = useState(true);
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/family-events");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
   
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -125,7 +126,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       title="Family Events"
     />
     <ScrollingMenu>
-      {loader
+      {!data
         ? skeletonItems.map((item, index) => (
             <div key={index}>
               <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
@@ -136,7 +137,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
               />
             </div>
           ))
-        : data.slice(0, 10).map((item, index) => {
+        : data.slice(0, 10).map((item:any, index:any) => {
             return (
               <FamilEventContainer
                 key={index}

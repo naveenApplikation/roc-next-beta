@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -6,12 +8,10 @@ import Image from "next/image";
 import {skeletonItems} from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
   listData?: any;
-  loader:boolean
 }
 
 const ScrollingMenu = styled.div`
@@ -52,12 +52,15 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const Community: React.FC<DashboardProps> = ({ modalClick, menuClick, listData,loader }) => {
+const Community: React.FC<DashboardProps> = ({listData }) => {
+
+  const { filterUrls, modalClick,menuClick } = useMyContext();
+
   return (
     <>
       <MenuDetails isOpen={() => menuClick("Community", true, "category-item")} title="Community Latest" />
       <ScrollingMenu>
-      {loader
+      {!listData
           ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <Skeleton width={80} height={80} style={{borderRadius:6}} />

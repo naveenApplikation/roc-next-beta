@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import Instance from "@/app/utils/Instance";
 import { ApiResponse } from "@/app/utils/types";
@@ -12,8 +14,7 @@ import { topAttractionMapping } from "@/app/utils/mappingFun";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -69,32 +70,31 @@ const ImageTag = styled.img`
   height: 100%;
 `;
 
-const TopAttractions: React.FC<DashboardProps> = ({
-  modalClick,
-  menuClick,
-}) => {
-  const { filterUrls, showContent } = useMyContext();
+const TopAttractions: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<any>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/google/top-attraction");
-      setData(result.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/google/top-attraction");
+  //     setData(result.data[0]);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
+
+  // console.log(data[0],"ssasa")
 
   return(
     <>
@@ -103,7 +103,7 @@ const TopAttractions: React.FC<DashboardProps> = ({
       title="Top Attractions"
     />
     <ScrollingMenu>
-      {loader
+      {!data
         ? skeletonItems.map((item, index) => (
             <div key={index}>
               <Skeleton

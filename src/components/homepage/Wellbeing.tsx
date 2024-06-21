@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -12,7 +14,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { wellbeingImg } from "@/app/utils/ImagePath";
 
 interface DashboardProps {
-  modalClick?: any;
+  data?: any;
   menuClick?: any;
 }
 
@@ -104,29 +106,29 @@ const MainTitle = styled.p`
     margin-top: 8px;
 `
 
-const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls, showContent } = useMyContext();
+const Wellbeing: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/wellbeing-lists");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/wellbeing-lists");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   // const ImageUrlData = data.map((item) => item.acf.header_image_data);
 
@@ -199,7 +201,7 @@ const Wellbeing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
    <>
    <MenuDetails isOpen={() => menuClick("Wellbeing", true, "wellbeing-lists")} title="Wellbeing" />
    <ScrollingMenu>
-   {loader
+   {!data
        ? skeletonItems.map((item, index) => (
            <div key={index}>
              <Skeleton width={80} height={80} style={{borderRadius:6}} />

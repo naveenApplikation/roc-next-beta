@@ -1,4 +1,6 @@
 'use server'
+
+import { iconsHome } from "@/app/utils/homeIcon";
  
 export async function getApi(params:string) {
      const res = await fetch(
@@ -6,6 +8,28 @@ export async function getApi(params:string) {
      );
 
      return await res.json()
+}
+
+export async function getApiWithIcon(params: string,icons:any) {
+  try {
+    const res = await fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com/${params}?limit=10`);
+    const response = await res.json();
+
+    if (res.status === 200) {
+      response.forEach((list: any) => {
+        const matchedIcon = icons.find((icon:any) => icon.name === list.iconName);
+        if (matchedIcon) {
+          list.image = matchedIcon.image;
+        }
+      });
+      return response;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
 }
 
 export async function getData(slug:string,params:string)

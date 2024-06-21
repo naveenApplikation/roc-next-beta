@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import RatingMenu from "@/components/dashboard/RatingMenu";
@@ -12,8 +14,7 @@ import Image from "next/image";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -96,34 +97,31 @@ const PriceText = styled.p`
   margin-top: 8px;
 `;
 
-const EnjoyTheSunshine: React.FC<DashboardProps> = ({
-  modalClick,
-  menuClick,
-}) => {
-  const { filterUrls, showContent } = useMyContext();
+const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<ApiResponse[]>([]);
+  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/sun-shine");
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/sun-shine");
+  //     setData(result.data);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
-  const ImageUrlData = data.map((item) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -150,13 +148,13 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({
         })}
       </ScrollingMenu> */}
       <ScrollingMenu>
-        {loader
+        {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />
               </div>
             ))
-          : data?.slice(0, 10).map((item, index) => {
+          : data?.slice(0, 10).map((item:any, index:any) => {
               return (
                 <div key={index}>
                   {/* <RatingMenu

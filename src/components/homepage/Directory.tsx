@@ -1,8 +1,11 @@
+"use client"
+
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
 import { DirectoryHomepage } from "@/app/utils/homeIcon";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
   modalClick?: any;
@@ -72,7 +75,10 @@ const AddButton = styled.button`
   }
 `;
 
-const DirectoryList: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
+const DirectoryList: React.FC<DashboardProps> = () => {
+
+  const { filterUrls, modalClick,menuClick } = useMyContext();
+
   return (
     <>
       <MenuDetails

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -10,8 +12,8 @@ import {skeletonItems} from '@/app/utils/date';
 import RatingMenu from "@/components/dashboard/RatingMenu";
 
 interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
+  data?: any;
+  // menuClick?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -82,29 +84,29 @@ const MainTitle = styled.p`
 `
 
 
-const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
-  const { filterUrls,showContent } = useMyContext();
+const Surfing: React.FC<DashboardProps> = ({data}) => {
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<any>([]);
 
-  const [loader, setloader] = useState(true);
+  // const [loader, setloader] = useState(true);
 
-  const fetchDataAsync = async () => {
-    setloader(true);
-    try {
-      const result = await Instance.get("/google/surfing");
-      setData(result.data[0]);
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
+  // const fetchDataAsync = async () => {
+  //   setloader(true);
+  //   try {
+  //     const result = await Instance.get("/google/surfing");
+  //     setData(result.data[0]);
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //     setloader(false);
+  //   } finally {
+  //     setloader(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   fetchDataAsync();
+  // }, []);
 
   // const ImageUrlData = data.map((item) => item?.acf?.header_image_data);
 
@@ -117,7 +119,7 @@ const Surfing: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       title="Surfing"
     />
     <ScrollingMenu>
-      {loader
+      {!data
         ? skeletonItems.map((item, index) => (
             <div key={index}>
               <CommonSkeletonLoader />
