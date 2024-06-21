@@ -88,17 +88,31 @@ const Directorylist = () => {
       <CategoryBody>
         <HeaderScreen />
         <Container>
-          <Header className="">
+          {/* <Header className=""> */}
 
-          <TitltCategory> All Categories</TitltCategory>
+            {/* <TitltCategory> All Categories</TitltCategory>
             <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
               src={CloseModal}
               alt="Logo Outline"
               onClick={() => handleBack()}
             />
-          </Header>
-          
+          </Header> */}
+
+          <DirectoryWrapper1 >
+            <FirstMainWraaper >
+              <TitltCategory> All Categories</TitltCategory>
+            </FirstMainWraaper>
+            <MainWrapper1>
+              <Image
+                style={{ width: 40, height: 40, cursor: "pointer" }}
+                src={CloseModal}
+                alt="Logo Outline"
+                onClick={() => handleBack()}
+              />
+            </MainWrapper1>
+          </DirectoryWrapper1>
+
           {DirectoryItem.map((item: any, index: any) => (
             <DirectoryWrapper key={index}>
               <FirstMainWraaper onClick={() => menuClick(item.data[0].url, true, "Directory")}>
@@ -154,12 +168,12 @@ const CategoryBody = styled.div`
     width: 100%;
   }
 `;
-const Header = styled.div`
-display: flex;
-width: 85%;
-justify-content: space-between;
-margin: 20px 40px 0px 40px;
-`;
+// const Header = styled.div`
+// display: flex;
+// width: 85%;
+// justify-content: space-between;
+// margin: 20px 40px 0px 40px;
+// `;
 
 const DirectoryWrapper = styled.div`
   display: flex;
@@ -167,6 +181,23 @@ const DirectoryWrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0px 40px;
   padding-bottom: 17px;
+  gap: 10px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (max-width: 800px) {
+    margin: 0px 16px;
+  }
+`;
+const DirectoryWrapper1 = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 40px;
+  padding-top: 40px;
+  padding-bottom: 10px;
   gap: 10px;
 
   img {
@@ -192,6 +223,18 @@ const MainWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 10px;
+  flex: 1;
+  cursor: pointer;
+
+  @media screen and (max-width: 420px) {
+    gap: 10px;
+  }
+`;
+const MainWrapper1 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   gap: 10px;
   flex: 1;
   cursor: pointer;
@@ -248,6 +291,6 @@ const TitltCategory = styled.p`
   font-weight: bold;
 
   @media screen and (max-width: 800px) {
-    margin-left: 16px;
+    margin-left: 6px;
   }
 `;
