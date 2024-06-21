@@ -37,6 +37,7 @@ export const ListItem:React.FC<Props> = (props) => {
         })
    
   const router = useRouter();
+  
    const skeletonItems = new Array(10).fill(null);
  const { showMap, filterUrls } = useMyContext();
   const menuClick = (item: any, condition?: boolean, id?: any) => {
@@ -72,7 +73,7 @@ export const ListItem:React.FC<Props> = (props) => {
                 <ListContainer key={index}>
                   <ImageTitleContainer
                     onClick={() =>
-                      menuClick(item?.listName, true, item?.categoryId)
+                      menuClick(item?.listName, true, item?.categoryId?item.categoryId:item._id)
                     }
                   >
                     <Imagecontainer style={{ background: item?.bgColor }}>

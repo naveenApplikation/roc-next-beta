@@ -28,6 +28,7 @@ import { ApiResponse } from "@/app/utils/types";
  
 import PageLayout from "@/app/pageLayout";
 import DirectoryCategories from "@/components/DirectoryScreen/DirectoryCategories";
+import { useRouter } from "next/navigation";
 
 interface CategoriesPageProps {
     params:string,
@@ -55,6 +56,11 @@ type mylisttabs = "Created" | "Contributed";
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     console.log(props.data.length)
   const params = useParams<any>();
+  const router=useRouter();
+  
+  useEffect(()=>{
+     router.prefetch("categories/" + props.params);
+  },[])
   let urlData: any;
   if (params) {
     urlData = params.eventName.toString().replaceAll("%20", " ");
@@ -175,12 +181,12 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
       <PlacesModalScreen showMap={showMap} />
-      <CalenderBookDatesModalScreen showMap={showMap} />
-      <PlaceOrderOnlineModalScreen showMap={showMap} />
+      <CalenderBookDatesModalScreen showMap={showMap}/>
+      <PlaceOrderOnlineModalScreen showMap={showMap}/>
       <FilterModalScreen showMap={showMap} />
-      <EventListingModalScreen showMap={showMap} />
-      <ActivitiesModalScreen showMap={showMap} />
-      <ViewDirectionModalScreen showMap={showMap} />
+      <EventListingModalScreen showMap={showMap}/>
+      <ActivitiesModalScreen showMap={showMap}/>
+      <ViewDirectionModalScreen showMap={showMap}/>
     </>
   );
 

@@ -1,3 +1,4 @@
+'use client'
 import { locationMark } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";

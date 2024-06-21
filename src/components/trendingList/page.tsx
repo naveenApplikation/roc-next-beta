@@ -1,5 +1,5 @@
 
-import { getApi} from "@/app/action";
+import { getCategory} from "@/app/action";
 import { ListItem } from "./ListItem";
 interface TrendingListProps {
   urlData?: any;
@@ -7,7 +7,7 @@ interface TrendingListProps {
 }
 
 const TrendingList= async({ urlTitle, urlData }:TrendingListProps) => {
-      const listData = await getApi(urlData)
+      const listData = await getCategory(urlData)
   return (
     <div>
          <ListItem data={listData} urlTitle={urlTitle}></ListItem>

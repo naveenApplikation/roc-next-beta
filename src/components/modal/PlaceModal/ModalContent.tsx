@@ -69,20 +69,19 @@ const ModalContent: React.FC<ModalProps> = ({
  const topAttraction=res.data
    
   console.log(topAttraction)
-  useEffect(()=>{
-       console.log(res.isLoading)
-        //  setLoading(res.isLoading)
 
-            if (!res.error && res.data) {
-              setShowApiData(res.data);
-              setReviewData(res?.data?.reviews)
-            }
-            else
-            {
-                setShowApiData(data)
-            }
-
-  },[res])
+  useEffect(() => {
+    console.log(res.isLoading);
+    
+    if (Object.keys(data).length) {
+         setShowApiData(res.data);
+      if (res?.data?.reviews) {
+        setReviewData(res?.data?.reviews);
+      }
+    } else {
+      setShowApiData(data);
+    }
+  }, [data, res]);
   useEffect(() => {
    
    
@@ -93,7 +92,7 @@ const ModalContent: React.FC<ModalProps> = ({
       if(data?.data_type=='google')
         {
           console.log("yes");
-          // getTopAttractionMapping(data?.place_id)
+         
           // topAttractionMapping(data).then((res: any) => {
           // setShowApiData(res);
           // if (res?.reviews) {
@@ -101,20 +100,19 @@ const ModalContent: React.FC<ModalProps> = ({
           // }
 
           // });
-          // setShowApiData(res.data);
-          // setReviewData(res?.data?.reviews)
+         
         }else
     {
-        setShowApiData(data)
+       // setShowApiData(data)
     }
     }
   }, [
-    data?._id,
-    Object.keys(showApiData).length,
-    reviewData.length,
-    data?.name,
-    data?.place_id,
-    res
+    // data?._id,
+    // Object.keys(showApiData).length,
+    // reviewData.length,
+    // data?.name,
+    // data?.place_id,
+    // res
   ]);
 
   const copylink = (copy: any) => {
@@ -374,7 +372,7 @@ const ModalContent: React.FC<ModalProps> = ({
           <ItemImageContainer>
             {showApiData?.photos ? (
               <ImageCarousel
-                imageArr={showApiData?.photos}
+                imageArr={showApiData?.photoUrl}
                 imageUrl={dataImage}
               />
             ) : (

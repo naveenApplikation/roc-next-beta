@@ -24,7 +24,7 @@ const DirectoryCatories: React.FC<TrendingListProps> = async({
 }) => {
  
    const listData = await getDirectoryCatagories(urlData)
-    console.log("yes")
+    console.log(listData)
   return (
     <>
       <ListItem data={listData} urlTitle={urlTitle}></ListItem>

@@ -1,3 +1,4 @@
+'use client'
 import { thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { Suspense } from "react";

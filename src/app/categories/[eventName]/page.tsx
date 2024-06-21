@@ -1,10 +1,11 @@
-import { getApi } from "@/app/action"
+import { getCategory } from "@/app/action"
  
 import CategorieList from "@/components/categorieList/page"
-import CategoriesPage from "@/components/categoriesPage"
+ 
 import DirectoryCategories from "@/components/DirectoryScreen/DirectoryCategories"
 import TrendingList from "@/components/trendingList/page";
 import ScaffoldingBox from "@/components/scaffoldingBox/page"
+import CategoriesPage from "@/components/CategoriesPage/Page";
 
  
   
@@ -39,7 +40,7 @@ async function Page({params,searchParams}:Props){
         } else if (urlData === "Scaffolding") {
           return <ScaffoldingBox />;
         }
-        const data = await getApi(searchParams.search);
+        const data = await getCategory(searchParams.search);
         console.log(data)
 
         return <>
@@ -47,19 +48,19 @@ async function Page({params,searchParams}:Props){
          </>
 }
 
-const params = [
-  { params: "Enjoy the sunshine" },
-  { params: "Events" },
-  { params: "Food and Drink"},
-  { params: "Trending Lists"},
-];
+// const params = [
+//   { params: "Enjoy the sunshine" },
+//   { params: "Events" },
+//   { params: "Food and Drink"},
+//   { params: "Trending Lists"},
+// ];
 
 
-export async function generateStaticParams()
-{
-       return params.map((item)=>{
-          return {eventName:item.params}
-       })
-}
+// export async function generateStaticParams()
+// {
+//        return params.map((item)=>{
+//           return {eventName:item.params}
+//        })
+// }
 
 export default Page

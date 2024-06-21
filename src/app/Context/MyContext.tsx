@@ -100,8 +100,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [selectFilter, setSelectFilter] = useState("Any");
 
   const [location, setLocation] = useState<any>({
-    latitude: 0,
-    longitude: 0,
+    latitude:0,
+    longitude:0,
   });
 
   useEffect(() => {
@@ -118,8 +118,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           value,
           {
             distance:
-              filterValues.distance == "Any" ? "" : filterValues.distance,
-            rating: filterValues.rating == "Any" ? "" : filterValues.rating,
+              filterValues.distance == "Any" ? "" :filterValues.distance,
+            rating: filterValues.rating == "Any" ? "" :filterValues.rating,
             openingHours: filterValues.openingHours,
           },
           location

@@ -1,3 +1,4 @@
+'use client'
 import { EnjoyShineMenuItem } from "@/app/utils/data";
 import Image from "next/image";
 import React from "react";

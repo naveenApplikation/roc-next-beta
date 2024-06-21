@@ -46,6 +46,8 @@ console.log(events)
   const [tabValue, setTabValue] = useState("Lists");
   // const [showMap, setShowMap] = useState<boolean>(false);
 
+  
+
   const tabChange = (value: tabs) => {
     setTabValue(value);
   };
@@ -74,17 +76,22 @@ console.log(events)
     }
   };
 
+    const router = useRouter();
+  useEffect(()=>{
+       router.prefetch("screens/" + events);
+  },[])
   useEffect(() => {
     if (event || screenName === "Greetings") {
       fetchEventDataById();
     }
+   
   }, [event, screenName]);
 
   const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  const router = useRouter();
 
+  
   const navigateClick = () => {
     if (screenName === "Greetings") {
       setScreenName("categoryList");

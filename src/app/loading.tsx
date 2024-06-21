@@ -1,8 +1,19 @@
 const page=async()=>{
        
-    return <>
-       <p>loading</p>
-    </>
+    return (
+      <>
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          Loading...
+        </div>
+      </>
+    );
 }
 
 export default page

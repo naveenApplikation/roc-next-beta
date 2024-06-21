@@ -13,34 +13,34 @@ interface ImageCraouselPrope {
 }
 
 const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => {
-    const [imageData, setImageData] = useState([])
-    console.log(imageArr)
-    const fetchImageData = async () => {
-        try {
-            const res =await Instance.post('/google-imageurl', imageArr)
-            // const data = await fetch(
-            // "http://localhost:3000/api/imageData",{
-            //   body:imageArr}
-            // );
-            // console.log(data)
-            // setImageData([])
+    // const [imageData, setImageData] = useState([])
+    // console.log(imageArr)
+    // const fetchImageData = async () => {
+    //     try {
+    //         const res =await Instance.post('/google-imageurl', imageArr)
+    //         // const data = await fetch(
+    //         // "http://localhost:3000/api/imageData",{
+    //         //   body:imageArr}
+    //         // );
+    //         // console.log(data)
+    //         // setImageData([])
 
-            if (res?.status === 200) {
-                console.log(res.data)
-                setImageData(res?.data)
-            }
+    //         if (res?.status === 200) {
+    //             console.log(res.data)
+    //             setImageData(res?.data)
+    //         }
 
-        } catch (error) {
+    //     } catch (error) {
 
-        }
-    }
+    //     }
+    // }
 
-    useEffect(() => {
-        if (imageArr) {
-            console.log("yes")
-            fetchImageData()
-        }
-    }, [imageArr.length])
+    // useEffect(() => {
+    //     if (imageArr) {
+    //         console.log("yes")
+    //         fetchImageData()
+    //     }
+    // }, [imageArr.length])
     
     const responsive = {
         desktop: {
@@ -79,7 +79,7 @@ const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => 
             >
 
                 {
-                    imageData.map((val, index) => {
+                    imageArr.map((val:any, index:any) => {
                         return (
                             <div
                                 key={index} className="">
