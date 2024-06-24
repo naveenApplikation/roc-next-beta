@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
 // import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
@@ -8,15 +9,15 @@ import UnselectedBtnImg from "../../../assets/images/createListImages/check.png"
 import SelectedBtnImg from "../../../assets/images/createListImages/plus-circle.png";
 import SearchComponent from "@/components/searchInput/SearchInput";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 // import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import Skeleton from "react-loading-skeleton";
 // import CreateListingsHeader from "../createList/CreateList Components/CreateListsHeader";
 // import CreateListingsFooter from "../createList/CreateList Components/CreateListsFooter";
 const CreateListingsHeader = dynamic(() => import("../createList/CreateList Components/CreateListsHeader"), { ssr: false })
 const CreateListingsFooter = dynamic(() => import("../createList/CreateList Components/CreateListsFooter"), { ssr: false })
-import Instance from "@/app/utils/Instance";
 import ImageCom from "./imageCom";
+
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface AddListingsProps {
   ScreenSwitch?: Function;
@@ -96,7 +97,7 @@ const AddListings: React.FC<AddListingsProps> = ({
             ))
             :
             data.map((item: any, index: any) => {
-
+              console.log("photo url", item?.photos == undefined ? fallback : item?.photos)
               return (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
@@ -117,7 +118,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                                style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                                alt="infoCirlce"
                              /> */}
-                        <ImageCom imageArr={item?.photos} />
+                        <ImageCom imageArr={item?.photos == undefined ? fallback : item?.photos} />
                       </div>
                       <div style={{
                         display: "flex",
@@ -187,7 +188,7 @@ const AddListings: React.FC<AddListingsProps> = ({
           <CreateListingsFooter
             loader={loader}
             loading={loading}
-            continueBtn = {selectedItemIds.length ? true : false}
+            continueBtn={selectedItemIds.length ? true : false}
             ScreenSwitch={ScreenSwitch}
             selectedItem={selectedItemIds.length}
           /> : ""

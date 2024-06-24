@@ -41,6 +41,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
       <SearchedListContainer>
         <Header className="">
           <TitleText>
+
             {urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}
           </TitleText>
           <Image

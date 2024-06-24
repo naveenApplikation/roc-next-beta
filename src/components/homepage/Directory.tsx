@@ -44,6 +44,7 @@ const MainWrapper = styled.div`
   justify-content: flex-start;
   gap: 15px;
   flex: 1;
+  cursor: pointer;
 `;
 
 const FirstMainWraaper = styled(MainWrapper)`
@@ -77,7 +78,7 @@ const AddButton = styled.button`
 
 const DirectoryList: React.FC<DashboardProps> = () => {
 
-  const { filterUrls, modalClick,menuClick } = useMyContext();
+  const { modalClick, menuClick } = useMyContext();
 
   return (
     <>
@@ -85,17 +86,17 @@ const DirectoryList: React.FC<DashboardProps> = () => {
         title="Directory"
         isOpen={() => menuClick("directoryList")}
       />
-      {DirectoryHomepage.slice(0, 5).map((item:any, index:any) => (
+      {DirectoryHomepage.slice(0, 5).map((item: any, index: any) => (
         <DirectoryWrapper key={index}>
-          <FirstMainWraaper>
-          {item.data[0].image}
-            <DirectoryMenuTitle onClick={() =>  menuClick(item.data[0].title, true, "Directory")}>
+          <FirstMainWraaper onClick={() => menuClick(item.data[0].title, true, "Directory")}>
+            {item.data[0].image}
+            <DirectoryMenuTitle>
               {item.data[0].title}
             </DirectoryMenuTitle>
           </FirstMainWraaper>
-          <MainWrapper>
-          {item.data[1].image}
-          <DirectoryMenuTitle onClick={() =>  menuClick(item.data[1].title, true, "Directory")}>
+          <MainWrapper onClick={() => menuClick(item.data[1].title, true, "Directory")}>
+            {item.data[1].image}
+            <DirectoryMenuTitle>
               {item.data[1].title}
             </DirectoryMenuTitle>
           </MainWrapper>

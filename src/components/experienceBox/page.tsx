@@ -1,11 +1,10 @@
-'use client'
-import { EnjoyShineMenuItem } from "@/app/utils/data";
+'use client';
+
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
-import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
@@ -52,11 +51,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      {/* {urlData != 77 && (
-        <div style={{ margin: "24px 0px" }}>
-          <FilterSection />
-        </div>
-      )} */}
+
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>
@@ -85,9 +80,9 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
         : urlData?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}
-            onClick={() =>
-              modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-            }
+              onClick={() =>
+                modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
+              }
             >
               <div
                 style={{
@@ -104,7 +99,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                   height={80}
                   style={{
                     borderRadius: 4,
-                    // maxWidth: "100%",
                     width: "80px",
                     objectFit: "cover",
                   }}
@@ -113,6 +107,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                 />
                 <div className="restroRating">
                   <p className="shopName">{item.acf.title}</p>
+   
                   <PriceAndLabelText>{item.acf.parish.label} ⋅ Activity</PriceAndLabelText>
                   <PriceAndLabelText>{item.acf.price_to || item.acf.price_from ? "£" : ""}{(item.acf.price_from ? item.acf.price_from : "") + ((item.acf.price_to && item.acf.price_from) ? '-' : "") + (item.acf.price_to ? item.acf.price_to : "")}</PriceAndLabelText>
                 </div>
@@ -173,10 +168,6 @@ const SearchedData = styled.div`
   }
 `;
 
-const DetailContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const TitleText = styled.p`
   font-size: 24px;
@@ -194,8 +185,7 @@ const MainInsideWrapper = styled.div`
 `;
 
 const PriceAndLabelText = styled.p`
-  color: rgba(0, 0, 0, 0.48);
-font-size: 1.2rem;
+font-size: 1.5rem;
 font-style: normal;
 font-weight: 400;
 line-height: 16px; /* 133.333% */

@@ -1,38 +1,28 @@
+"use client";
+
 import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 
-import Image from "next/image";
-import { blank, commentstar, thumbsup, utensils } from "@/app/utils/ImagePath";
 import SearchInput from "../searchInput/SearchInput";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
-import Skeleton from "react-loading-skeleton";
-import ImageCom from "../addList/imageCom";
-import fallback from "../../../assets/images/fallbackimage.png";
 import FilterSection from "../filterSection";
-import { RestroListData } from "@/app/utils/data";
 import TabPanel from "../tabPanel";
-import Ratings from "../ratings";
 import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
-import { buildFilterUrl } from "@/app/utils/filter";
 import PlacePage from "../search/placeData";
 import { debounce } from "@/app/utils/debounce";
 
 interface DashboardSearchContainerProps {
-  tabChange: Function;
+  tabChange?: Function;
   options: any;
-  tabValue: string;
+  tabValue?: string;
   showMap?: boolean;
   modalClick?: any;
 }
 
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
-  tabChange,
   options,
-  tabValue,
-  showMap,
-  modalClick,
 }) => {
   const {
     modalType,
@@ -40,18 +30,19 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     setSearchQuery,
     searchQuery,
     fetchDataAsync,
-    placeloader,
     placeData,
     setPlaceData,
     selectFilter,
-    setSelectFilter,
   } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
-  const [skeletonData] = useState(new Array(10).fill(null));
   const [filterData, setFilterData] = useState([]);
 
+  const [tabValue, setTabValue] = useState("Lists");
 
+  const tabChange = (value: any) => {
+    setTabValue(value);
+  };
 
   const handleChange = (value: string) => {
     setSearchQuery(value);
@@ -62,25 +53,27 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   };
 
   const fetchDataListAsync = async (value: string) => {
-    setLoader(true);
-    try {
-      const result = await Instance.get(`/filter/category?query=${value}`);
-      if (result.status === 200) {
-        result.data.list.forEach((list: any) => {
-          const matchedIcon = CategoryIcons.find(
-            (icon) => icon.name === list.iconName
-          );
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
-          }
-        });
-        setData(result?.data);
+    if (tabValue === "Lists") {
+      setLoader(true);
+      try {
+        const result = await Instance.get(`/filter/category?query=${value}`);
+        if (result.status === 200) {
+          result.data.list.forEach((list: any) => {
+            const matchedIcon = CategoryIcons.find(
+              (icon) => icon.name === list.iconName
+            );
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+          });
+          setData(result?.data);
+        }
+      } catch (error: any) {
+        console.log(error.message);
+        setLoader(false);
+      } finally {
+        setLoader(false);
       }
-    } catch (error: any) {
-      console.log(error.message);
-      setLoader(false);
-    } finally {
-      setLoader(false);
     }
   };
 
@@ -91,23 +84,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   }, [modalType.search]);
 
-  // const handleSearch = () => {
-  //   if (tabValue == "Lists") {
-  //     fetchDataListAsync(searchQuery);
-  //   } else {
-  //     fetchDataAsync(searchQuery, filterValues);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   handleSearch();
-  // }, [tabValue]);
 
   const handleSearch = async (q: any) => {
-    if (tabValue === "Lists") {
-      await fetchDataListAsync(q);
-    } else {
+    if (tabValue === "Places") {
       await fetchDataAsync(q, filterValues);
+    } else {
+      await fetchDataListAsync(q);
     }
   };
 
@@ -120,16 +103,17 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   }, [tabValue]);
 
 
+
   const debouncedSearch = useCallback(
     debounce((q: string) => {
-      handleSearch(q);
+      tabValue === "Lists" ? fetchDataListAsync(q) : fetchDataAsync(q, filterValues);
     }, 1000),
-    []
-  );
+    [tabValue]
+  )
 
   useEffect(() => {
     debouncedSearch(searchQuery);
-  }, [searchQuery, debouncedSearch]);
+  }, [searchQuery]);
 
 
   useEffect(() => {
@@ -140,7 +124,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         }
       })
       setFilterData(selectFilter === "Any" ? placeData : newData)
-
     } else {
       fetchDataAsync(searchQuery, filterValues, selectFilter);
       setFilterData(placeData)
@@ -153,7 +136,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
   return (
     <>
-
       <InputWrapper className="filterInput">
         <SearchInput
           value={searchQuery}
@@ -297,7 +279,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         </SearchedListContainer> */}
       </>
 
-      <TabPanel defaultValue="Lists" tabChange={tabChange} options={options} />
+      <TabPanel defaultValue={tabValue} tabChange={tabChange} options={options} />
       {tabValue == "Lists" ? (
         <>
           <Lists searchItem={data} searchQuery={searchQuery} />

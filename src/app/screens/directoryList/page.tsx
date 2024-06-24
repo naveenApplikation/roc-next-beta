@@ -28,7 +28,7 @@ const width = "580";
 
 
 const Directorylist = () => {
-  const { showMap, modalName, modalClick, filterUrls } = useMyContext();
+  const { showMap } = useMyContext();
 
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];

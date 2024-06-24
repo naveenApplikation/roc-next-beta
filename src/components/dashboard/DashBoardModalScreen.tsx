@@ -26,7 +26,7 @@ type mylisttabs = "Created" | "Contributed";
 const DashBoardModalScreen = () => {
   const { modalClick, showMap, iconClick, setModalNames } = useMyContext();
   const [showContent, setShowContent] = useState(false);
-  const [tabValue, setTabValue] = useState("Lists");
+  // const [tabValue, setTabValue] = useState("Lists");
   const [myListtabValue, setMyListTabValue] = useState("Created");
   // const [listData, setListData] = useState<string[]>([])
   const options = ["Lists", "Places"];
@@ -35,13 +35,14 @@ const DashBoardModalScreen = () => {
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
   };
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
+  // const tabChange = (value: tabs) => {
+  //   setTabValue(value);
+  // };
 
   return (
     <>
-      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
+      {/* <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} /> */}
+      <SearchModalScreen {...{  options, showMap }} />
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}

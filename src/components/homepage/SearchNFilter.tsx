@@ -73,11 +73,11 @@ const FilterInput = styled.div`
 const SearchNFilter: React.FC<DashboardProps> = () => {
   const { showMap, modalClick, dataDetails,menuClick } = useMyContext();
 
-  const [tabValue, setTabValue] = useState("Lists");
+  // const [tabValue, setTabValue] = useState("Lists");
 
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
+  // const tabChange = (value: tabs) => {
+  //   setTabValue(value);
+  // };
 
 
 

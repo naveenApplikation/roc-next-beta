@@ -100,26 +100,7 @@ const PriceText = styled.p`
 const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
   const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
 
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/sun-shine");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
 
   const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 

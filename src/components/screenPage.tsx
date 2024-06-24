@@ -9,24 +9,18 @@ import LoginSignupModal from "@/components/LoginSignup/loginSignupModal";
 import AddListings from "@/components/addList/AddListing";
 import GreetingList from "@/components/addList/GreetingList";
 import CategoryEvent from "@/components/categoryEvent/page";
-import AddComments from "@/components/createList/AddComments";
-import CreateListings from "@/components/createList/CreateListings";
-import DragInOrder from "@/components/createList/DragInOrder";
-import Greetings from "@/components/createList/Greetings";
-import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
-import { debounce } from "lodash";
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBookDatesModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
+import { debounce } from "@/app/utils/debounce";
 
-type tabs = "Lists" | "Places";
-type mylisttabs = "Created" | "Contributed";
+
 interface ScreenPageProps {
   data: any;
 }
@@ -40,23 +34,7 @@ const EventList:React.FC<ScreenPageProps> = (props) => {
   const searchParams = useSearchParams();  
   const event = searchParams.get("categoryID");
   const { events } = useParams();
-console.log(events)
-  const options = ["Lists", "Places"];
-  const mylistoptions = ["Created", "Contributed"];
-  const [tabValue, setTabValue] = useState("Lists");
-  // const [showMap, setShowMap] = useState<boolean>(false);
 
-  
-
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
-
-  const [myListtabValue, setMyListTabValue] = useState("Created");
-
-  const myListtabChange = (value: mylisttabs) => {
-    setMyListTabValue(value);
-  };
 
   const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
@@ -104,7 +82,6 @@ console.log(events)
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [data, setData] = useState<ApiResponse[]>([]);
-  const [dragData, setDragData] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const toggleSelected = (itemId: number, item: any): void => {
@@ -216,6 +193,17 @@ console.log(events)
     window.location.reload();
     setScreenName(name);
   };
+
+  const debouncedSearch = useCallback(
+    debounce((q: string) => {
+      fetchDataAsync(q);
+    }, 1000),
+    []
+  )
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+  }, [searchQuery]);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
