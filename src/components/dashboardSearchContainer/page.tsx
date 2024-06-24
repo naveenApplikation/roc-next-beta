@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 
 import Image from "next/image";
@@ -17,6 +17,7 @@ import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
 import PlacePage from "../search/placeData";
+import { debounce } from "@/app/utils/debounce";
 
 interface DashboardSearchContainerProps {
   tabChange: Function;
@@ -49,7 +50,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const [loader, setLoader] = useState<boolean>(false);
   const [skeletonData] = useState(new Array(10).fill(null));
   const [filterData, setFilterData] = useState([]);
-  
+
 
 
   const handleChange = (value: string) => {
@@ -90,17 +91,45 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   }, [modalType.search]);
 
-  const handleSearch = () => {
-    if (tabValue == "Lists") {
+  // const handleSearch = () => {
+  //   if (tabValue == "Lists") {
+  //     fetchDataListAsync(searchQuery);
+  //   } else {
+  //     fetchDataAsync(searchQuery, filterValues);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleSearch();
+  // }, [tabValue]);
+
+  const handleSearch = async (q: any) => {
+    if (tabValue === "Lists") {
+      await fetchDataListAsync(q);
+    } else {
+      await fetchDataAsync(q, filterValues);
+    }
+  };
+
+  useLayoutEffect(() => {
+    if (tabValue === "Lists") {
       fetchDataListAsync(searchQuery);
     } else {
       fetchDataAsync(searchQuery, filterValues);
     }
-  };
+  }, [tabValue]);
+
+
+  const debouncedSearch = useCallback(
+    debounce((q: string) => {
+      handleSearch(q);
+    }, 1000),
+    []
+  );
 
   useEffect(() => {
-    handleSearch();
-  }, [tabValue]);
+    debouncedSearch(searchQuery);
+  }, [searchQuery, debouncedSearch]);
 
 
   useEffect(() => {
@@ -132,6 +161,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           handleSearch={handleSearch}
           id="myInput"
           homeSearch={true}
+          loader={loader}
         />
       </InputWrapper>
       <>
@@ -274,133 +304,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         </>
       ) : (
         <>
-          <FilterSection  />
+          <FilterSection />
           <PlacePage {...{ filterData }} />
-          {/* <SearchedListContainer>
-            {placeloader
-              ? skeletonData.map((item, index) => (
-                <SearchedData key={index}>
-                  <MainInsideWrapper>
-                    <Skeleton
-                      width={80}
-                      height={80}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <div className="restroRating">
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                    </div>
-                  </MainInsideWrapper>
-                </SearchedData>
-              ))
-              : searchQuery && placeData.length
-                ? filterData.map((item: any, index: any) => {
-                  if (!item.place_id) {
-                    return null;
-                  }
-                  return (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 16,
-                        width: "100%",
-                        opacity: item?.data_type ? "1" : ".25",
-                      }}
-                      title={item?.data_type ? "" : "No data available"}
-                      key={index}>
-                      <ListDataWrraper
-                        onClick={() =>
-                          modalClick(
-                            "ModalContent",
-                            item,
-                            item?.photoUrl ? item?.photoUrl : fallback
-                          )
-                        }
-                        selected={item?.data_type ? true : false}>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 16,
-                            width: "85%",
-                          }}>
-                          <div style={{ width: 80, height: 80 }}>
-                            {item?.photos ? (
-                              <ImageCom imageArr={item?.photos} />
-                            ) : (
-                              <Image
-                                src={fallback}
-                                width={500}
-                                height={80}
-                                style={{
-                                  borderRadius: 4,
-                                  maxWidth: "100%",
-                                  objectFit: "cover",
-                                }}
-                                alt="infoCirlce"
-                              />
-                            )}
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: 10,
-                              flexDirection: "column",
-                              maxWidth: "calc(100% - 30%)",
-                            }}>
-                            <ListDataTittleText>
-                              {item?.name}
-                            </ListDataTittleText>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: 10,
-                                alignItems: "center",
-                              }}>
-                              <ListDataInfoText>
-                                {item?.acf?.aa_rating
-                                  ? item?.acf?.aa_rating?.value == "No rating"
-                                    ? ""
-                                    : item?.acf?.aa_rating?.value
-                                  : item?.rating}
-                              </ListDataInfoText>
-                              <Image src={commentstar} alt="infoCirlce" />
-                              <div
-                                style={{
-                                  display: "flex",
-                                  gap: "5px",
-                                  flexWrap: "wrap",
-                                  width: "100%",
-                                }}>
-                                {item?.acf?.portal_post_owner_name ? (
-                                  <ListDataInfoText>
-                                    . {item?.acf?.portal_post_owner_name}
-                                  </ListDataInfoText>
-                                ) : null}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </ListDataWrraper>
-                    </div>
-                  );
-                })
-                : ""}
-          </SearchedListContainer> */}
+
         </>
       )}
     </>

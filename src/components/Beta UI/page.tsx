@@ -55,7 +55,6 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
       localStorage.setItem("Token", result.data.data);
       setModalNames("betaExploreModal")
       setShowContent(false);
-      console.log("result", result)
       handleApiResponse(true);
     } catch (error: any) {
       console.log(error.message);

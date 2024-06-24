@@ -280,7 +280,7 @@ export const rightSideMenuMobile = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcastle.png?alt=media&token=05f28617-9c06-4e6a-80b1-1022a36ff7df",
     width: 25,
     height: 20,
-    url: "todo",
+    url: "Todo",
     id: "6645d5578bf8ac8d2d5bd622"
   },
   {

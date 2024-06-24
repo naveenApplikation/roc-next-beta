@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import info from "../../../../assets/images/info-circle.svg";
-import TextArea from "@/components/button/textArea";
+import { log } from "console";
 
 interface CreateListingsFooterProps {
   continueBtn?: any;
@@ -16,9 +16,84 @@ interface CreateListingsFooterProps {
   secondText?: string;
   selectedItem?: any;
   loader?: boolean;
+  loading?: boolean;
 }
 
-const CreateListingFooter = styled.div`
+
+const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
+  commentOpen,
+  continueBtn,
+  footerBtns,
+  firstBtnText,
+  ChooseIconFooterBtn,
+  Handleclose,
+  ScreenSwitch,
+  preScreen,
+  secondText,
+  selectedItem,
+  loader,
+  loading,
+}) => {
+  return (
+    <CreateListingFooter $loading={loading ? true : false}>
+
+      {continueBtn && (
+        <ContinueBtn onClick={ScreenSwitch}>
+          {
+            loading ? `Loading...` : `Continue with (${selectedItem}) Selected Listing`
+          }
+
+        </ContinueBtn>
+      )}
+      {commentOpen ? (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+            }}>
+            <p style={{ fontSize: 24, fontWeight: "bold" }}>Kyomu</p>
+            <Image
+              // style={{ width: "14px", height: "16px" }}
+              src={info}
+              alt="SelectedBtnImg"
+            />
+          </div>
+          <TextAreaContainer
+            rows={4}
+            cols={50}
+            placeholder="Enter your comment here..."
+          />
+          <FooterBtn2 onClick={Handleclose}>Save comment</FooterBtn2>
+        </div>
+      ) : (
+        footerBtns && (
+          <FooterBtnBox>
+            <FooterBtn1 onClick={preScreen}>{firstBtnText}</FooterBtn1>
+            {loader ? (
+              <FooterBtn2>Loading...</FooterBtn2>
+            ) : (
+              <FooterBtn2 onClick={ScreenSwitch}>{secondText}</FooterBtn2>
+            )}
+          </FooterBtnBox>
+        )
+      )}
+    </CreateListingFooter>
+  );
+};
+
+export default CreateListingsFooter;
+
+
+const CreateListingFooter = styled.div<{ $loading: boolean }>`
   width: 100%;
   /* height: 85px; */
   position: absolute;
@@ -29,7 +104,7 @@ const CreateListingFooter = styled.div`
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-
+  pointer-events: ${({ $loading }) => ($loading ? "none" : "")};
   @media screen and (max-width: 400px) {
     padding: 12px 10px 32px 10px;
   }
@@ -109,70 +184,3 @@ const TextAreaContainer = styled.textarea`
     opacity: 0.48;
   }
 `;
-
-const CreateListingsFooter: React.FC<CreateListingsFooterProps> = ({
-  commentOpen,
-  continueBtn,
-  footerBtns,
-  firstBtnText,
-  ChooseIconFooterBtn,
-  Handleclose,
-  ScreenSwitch,
-  preScreen,
-  secondText,
-  selectedItem,
-  loader,
-}) => {
-  return (
-    <CreateListingFooter>
-      {continueBtn && (
-        <ContinueBtn onClick={ScreenSwitch}>
-          Continue with ({selectedItem}) Selected Listing
-        </ContinueBtn>
-      )}
-      {commentOpen ? (
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}>
-            <p style={{ fontSize: 24, fontWeight: "bold" }}>Kyomu</p>
-            <Image
-              // style={{ width: "14px", height: "16px" }}
-              src={info}
-              alt="SelectedBtnImg"
-            />
-          </div>
-          <TextAreaContainer
-            rows={4}
-            cols={50}
-            placeholder="Enter your comment here..."
-          />
-          <FooterBtn2 onClick={Handleclose}>Save comment</FooterBtn2>
-        </div>
-      ) : (
-        footerBtns && (
-          <FooterBtnBox>
-            <FooterBtn1 onClick={preScreen}>{firstBtnText}</FooterBtn1>
-            {loader ? (
-              <FooterBtn2>Loading...</FooterBtn2>
-            ) : (
-              <FooterBtn2 onClick={ScreenSwitch}>{secondText}</FooterBtn2>
-            )}
-          </FooterBtnBox>
-        )
-      )}
-    </CreateListingFooter>
-  );
-};
-
-export default CreateListingsFooter;

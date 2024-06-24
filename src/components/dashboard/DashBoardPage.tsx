@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
 import LocalCusine from "@/components/homepage/LocalCusine";
@@ -16,24 +15,20 @@ import Sustainability from "@/components/homepage/Sustainability";
 import Heritage from "@/components/homepage/Heritage";
 import Walks from "@/components/homepage/Walks";
 import Wellbeing from "@/components/homepage/Wellbeing";
-import WW2 from "@/components/homepage/WW2";
 import CycleRoutes from "@/components/homepage/CycleRoutes";
-import DeliciousDine from "@/components/homepage/DeliciousDine";
 import Outout from "@/components/homepage/Outout";
 import Surfing from "@/components/homepage/Surfing";
-import CommonButton from "@/components/button/CommonButton";
-import { useRouter } from "next/navigation";
-import { useMyContext } from "@/app/Context/MyContext";
-import Instance from "@/app/utils/Instance";
-import { icons } from "@/app/utils/iconList";
-import { ApiResponse } from "@/app/utils/types";
 import { iconsHome } from "@/app/utils/homeIcon";
 import { shoppingImages } from "@/app/utils/data";
-import { getCategory,getApiWithIcon,getData, getApiShoppingWithIcon } from "@/app/action";
-import { walkData } from "@/app/utils/data";
-import LeaveFeedbackButton from '@/components/homepage/LeaveFeedbackButton'
+import {
+  getCategory,
+  getApiWithIcon,
+  getData,
+  getApiShoppingWithIcon,
+} from "@/app/action";
+import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 
-const DashBoard = async() => {
+const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
 
   // const router = useRouter();
@@ -102,13 +97,13 @@ const DashBoard = async() => {
   //   // homeGooglefetchDataAsync();
   // }, []);
 
-  const listData = await getApiWithIcon("category",iconsHome);
+  const listData = await getApiWithIcon("category", iconsHome);
   const LocalCusinedata = await getCategory("google/dine-out");
   const familyEventdata = await getCategory("family-events");
   const EnjoyTheSunshinedata = await getCategory("sun-shine");
   const TopAttractionsdata = await getCategory("google/top-attraction");
-  const bardata = await getData("Pubs",listData[0]?._id);
- 
+  const bardata = await getData("Pubs", listData[0]?._id);
+
   const beachLifedata = await getCategory("google/beach-life");
   const sustainabilitydata = await getCategory("google/sustainability");
   const Heritagedata = await getCategory("google/heritage");
@@ -116,30 +111,30 @@ const DashBoard = async() => {
   const Wellbeingdata = await getCategory("wellbeing-lists");
   const Cocktaildata = await getCategory("google/cocktail-bars");
   const Surfingdata = await getCategory("google/surfing");
-const Shoppingdata = await getApiShoppingWithIcon(
-  "shopping-lists",
-  shoppingImages
-);
+  const Shoppingdata = await getApiShoppingWithIcon(
+    "shopping-lists",
+    shoppingImages
+  );
   return (
     <>
-      <SearchNFilter  />
-      <InfoApp  />
+      <SearchNFilter />
+      <InfoApp />
       <LocalCusine data={LocalCusinedata} />
       <FamilyEvent data={familyEventdata} />
       <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
       <TrendingList {...{ listData }} />
-      <TopAttractions data={TopAttractionsdata[0]}/>
+      <TopAttractions data={TopAttractionsdata[0]} />
       <Directory />
-      <Bars dataPubs={bardata}  />
+      <Bars dataPubs={bardata} />
       <Shopping {...{ Shoppingdata }} />
-      <BeachLife data={beachLifedata[0]}  />
-      <Community  {...{ listData }} />
+      <BeachLife data={beachLifedata[0]} />
+      <Community {...{ listData }} />
       <Sustainability data={sustainabilitydata[0]} />
-      <Heritage data={Heritagedata[0]}  />
-      <Walks data={Walksdata}   />
-      <Wellbeing data={Wellbeingdata}  />
+      <Heritage data={Heritagedata[0]} />
+      <Walks data={Walksdata} />
+      <Wellbeing data={Wellbeingdata} />
       <Outout data={Cocktaildata[0]} />
-      <CycleRoutes  />
+      <CycleRoutes />
       <Surfing data={Surfingdata[0]} />
       <LeaveFeedbackButton />
       {/* <BetaExploreModal /> */}

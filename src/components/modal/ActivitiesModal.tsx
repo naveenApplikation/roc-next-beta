@@ -328,7 +328,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <Tooltip title={"Email address"}>
           <span onClick={() => copylink(data?.acf?.email_address)}>
-            {data?.acf?.email_address}
+            <a href={`mailto: ${data?.acf?.email_address}`}> {data?.acf?.email_address} </a>
           </span>
         </Tooltip>
       ),
@@ -354,8 +354,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     {
       name:
         data?.acf?.address?.place_name ||
-        data?.acf?.address?.address_line_1 ||
-        data?.acf?.address?.address_line_2 ? (
+          data?.acf?.address?.address_line_1 ||
+          data?.acf?.address?.address_line_2 ? (
           <Tooltip title={"Copy address"}>
             <span
               onClick={() =>
@@ -377,8 +377,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       height: 24,
       nameValue:
         data.acf?.address?.place_name ||
-        data.acf?.address?.address_line_1 ||
-        data.acf?.address?.address_line_2
+          data.acf?.address?.address_line_1 ||
+          data.acf?.address?.address_line_2
           ? true
           : false,
     },

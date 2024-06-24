@@ -12,7 +12,6 @@ import { buildFilterUrl } from "@/app/utils/filter";
 import Instance from "@/app/utils/Instance";
 import { useRouter } from "next/navigation";
 
-
 // Define types for your state and functions
 interface ModalType {
   [key: string]: boolean;
@@ -29,7 +28,12 @@ interface ContextProps {
   dataDetails: DataDetails;
   dataUrlImage: any;
   closeModal: (name: string) => void;
-  modalClick: (name: string, item?: any, urlImage?: any,reservationMenu?:any) => void;
+  modalClick: (
+    name: string,
+    item?: any,
+    urlImage?: any,
+    reservationMenu?: any
+  ) => void;
   menuClick: (item: any, condition?: boolean, id?: any) => void;
   iconClick: (name: string) => void;
   mapButtonClick: () => void;
@@ -103,8 +107,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [selectFilter, setSelectFilter] = useState("Any");
 
   const [location, setLocation] = useState<any>({
-    latitude:0,
-    longitude:0,
+    latitude: 0,
+    longitude: 0,
   });
 
   useEffect(() => {
@@ -114,17 +118,18 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     });
   }, []);
 
-   const router = useRouter();
+  const router = useRouter();
 
   const fetchDataAsync = async (value: string, filterValues: any) => {
     if (value) {
       try {
+        setPlaceLoader(true);
         const url = buildFilterUrl(
           value,
           {
             distance:
-              filterValues.distance == "Any" ? "" :filterValues.distance,
-            rating: filterValues.rating == "Any" ? "" :filterValues.rating,
+              filterValues.distance == "Any" ? "" : filterValues.distance,
+            rating: filterValues.rating == "Any" ? "" : filterValues.rating,
             openingHours: filterValues.openingHours,
           },
           location
@@ -165,7 +170,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     } else if (item === "TrendingList") {
       router.push("/screens/trendingList");
     } else if (item === "LeaveFeedback") {
-      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7")
+      window.open("https://forms.gle/rMb2fNQPgHiSWPBq7");
     } else {
       router.push(`/screens/${item}?categoryID=${id}`);
     }
@@ -237,12 +242,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }));
       } else {
         setModalType((prev) => {
-            console.log(name)
+          console.log(name);
           const updatedState = Object.keys(prev).reduce((acc, key) => {
             acc[key] = key === name;
             return acc;
           }, {} as { [key: string]: boolean });
-         
+
           return updatedState as typeof prev;
         });
       }
@@ -305,33 +310,35 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // };
 
   const filterUrls = (ImageUrlData: any) => {
-    console.log(ImageUrlData)
+    console.log(ImageUrlData);
     const imageUrls: string[] = [];
     ImageUrlData?.forEach((item: any) => {
-        if (item) {
-            try {
-                const jsonData = JSON.parse(item);
-                const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
+      if (item) {
+        try {
+          const jsonData = JSON.parse(item);
+          const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-                if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
-                    imageUrls.push(url);
-                } else {
-                    imageUrls.push(
-                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-                    ); // Push default image URL if URL is not valid
-                }
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-                imageUrls.push("https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"); // Push default image URL if JSON parsing fails
-            }
-        } else {
+          if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+            imageUrls.push(url);
+          } else {
             imageUrls.push(
-                "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-            ); // Push default image URL if item is undefined
+              "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+            ); // Push default image URL if URL is not valid
+          }
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
+          imageUrls.push(
+            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+          ); // Push default image URL if JSON parsing fails
         }
+      } else {
+        imageUrls.push(
+          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+        ); // Push default image URL if item is undefined
+      }
     });
     return imageUrls;
-};
+  };
 
   const value: ContextProps = {
     modalType,
@@ -365,7 +372,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     location,
   };
 
-  
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
 };
 

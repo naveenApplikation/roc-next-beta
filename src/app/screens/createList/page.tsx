@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import AddComments from "@/components/createList/AddComments";
@@ -13,8 +13,8 @@ import PageLayout from "@/app/pageLayout";
 import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
-import { debounce } from "lodash";
 import toast from "react-hot-toast";
+import { debounce } from "@/app/utils/debounce";
 
 const Page = () => {
   const { showMap } = useMyContext();
@@ -40,9 +40,9 @@ const Page = () => {
   const router = useRouter();
 
   const navigateClick = () => {
-    if(screenName === "Greetings"){
+    if (screenName === "Greetings") {
       router.push(`/categories/Community?search=category-item`)
-    } else{
+    } else {
       router.push("/");
     }
 
@@ -81,7 +81,6 @@ const Page = () => {
   }, [screenName]);
 
   const postHandler = async (name: string) => {
-    setloader(true);
     const param = {
       listName,
       iconName: selectedIcon,
@@ -122,13 +121,6 @@ const Page = () => {
     }
   };
 
-  const handleChange = (value: string) => {
-    setSearchQuery(value);
-  };
-  const handleSearch = () => {
-    fetchDataAsync(searchQuery);
-  };
-
   // Debounce for 300 milliseconds
   const [loader, setloader] = useState(false);
 
@@ -136,9 +128,10 @@ const Page = () => {
     setloader(true);
 
     try {
-      // const result = await Instance.get(`/search?title=${value}`);
       const result = await Instance.get(`/search-data?query=${value}`);
-      setData(result.data?.searchResults);
+
+        setData(result.data?.searchResults);
+
     } catch (error: any) {
       console.log(error.message);
       setloader(false);
@@ -146,6 +139,26 @@ const Page = () => {
       setloader(false);
     }
   };
+
+  const handleChange = (value: string) => {
+    setSearchQuery(value);
+  };
+  const handleSearch = async (q: any) => {
+    await fetchDataAsync(q);
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((q: string) => {
+      handleSearch(q);
+    }, 1000),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+  }, [searchQuery, debouncedSearch]);
+
+  console.log("data of create list" , data)
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {

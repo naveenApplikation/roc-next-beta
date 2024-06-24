@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import React from "react";
@@ -15,8 +15,7 @@ import {
   HamburgerDesktop,
 } from "@/app/utils/ImagePath";
 
-interface HeaderProps {
-}
+interface HeaderProps {}
 
 // background-image:url('${homeBg.src}');
 
@@ -47,7 +46,6 @@ const HeaderMapProfileContainer = styled.div`
 `;
 
 const Header: React.FC<HeaderProps> = () => {
-
   const { showMap, modalClick, dataDetails } = useMyContext();
 
   const pathname = usePathname();
@@ -59,7 +57,7 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <>
       {/* <HeadMenu className={className}> */}
-      <HeadMenu >
+      <HeadMenu>
         <Image
           style={{ cursor: "pointer" }}
           src={ROCLogo}
@@ -80,7 +78,9 @@ const Header: React.FC<HeaderProps> = () => {
                 alt="Logo Outline"
                 onClick={() => modalClick("createAccountModal")}
               />
-              <HamburgerDesktop onClick={() => modalClick("LoginSignupModal")} />
+              <HamburgerDesktop
+                onClick={() => modalClick("LoginSignupModal")}
+              />
             </>
           ) : (
             <>

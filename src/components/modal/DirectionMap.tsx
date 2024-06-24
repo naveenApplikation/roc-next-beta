@@ -701,23 +701,6 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
                 } else {
                   setMarkerLocation(destination);
                   getTravelTimes(center, destination);
-                  toast.custom(
-                    <div
-                      style={{
-                        width: "150px",
-                        background: "white",
-                        display: "flex",
-                        gap: "10px",
-                        borderRadius: "10px",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                      }}>
-                      <TiInfo style={{ fontSize: "14px", color: "#FF5733" }} />
-                      <div style={{ color: "#000000" }}>
-                        User is outside Jersey
-                      </div>
-                    </div>
-                  );
                 }
               }
             }

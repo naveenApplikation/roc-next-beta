@@ -1,20 +1,18 @@
-import React from 'react'
-import PageLayoutClient from '@/components/dashboard/PageLayoutClient'
-import {PagelayoutContainer,PagelayoutMainContainer} from '@/app/style'
+import React from "react";
+import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
+import { PagelayoutContainer, PagelayoutMainContainer } from "@/app/style";
 
 interface PageLayoutProps {
-    children: any;
+  children: any;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
-    return (
-        <PagelayoutContainer>
-            <PagelayoutMainContainer>
-                {children}
-            </PagelayoutMainContainer>
-            <PageLayoutClient />
-        </PagelayoutContainer>
-    )
-}
+  return (
+    <PagelayoutContainer>
+      <PagelayoutMainContainer>{children}</PagelayoutMainContainer>
+      <PageLayoutClient />
+    </PagelayoutContainer>
+  );
+};
 
-export default PageLayout
+export default PageLayout;

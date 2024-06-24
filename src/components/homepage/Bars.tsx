@@ -1,14 +1,13 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Instance from "@/app/utils/Instance";
-import { ApiResponse } from "@/app/utils/types";
-import { useMyContext } from "@/app/Context/MyContext";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import RatingMenu from "@/components/dashboard/RatingMenu";
-import { skeletonItems } from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardProps {
   dataPubs?: any;
@@ -28,10 +27,9 @@ const ScrollingMenu = styled.div`
 `;
 
 const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
+  const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  const { filterUrls, modalClick,menuClick } = useMyContext();
-
-  console.log(dataPubs,"sdsdsds")
+  console.log(dataPubs, "sdsdsds");
 
   // const [dataPubs, setDataPubs] = useState<any>([]);
 
@@ -58,30 +56,34 @@ const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
 
   return (
     <>
-        <MenuDetails
-          title="Pubs"
-          isOpen={() => menuClick(dataPubs?.listName, false, dataPubs?._id)}
-        />
-        <ScrollingMenu>
-          {!dataPubs
-            ? skeletonItems.map((item, index) => (
+      <MenuDetails
+        title="Pubs"
+        isOpen={() => menuClick(dataPubs?.listName, false, dataPubs?._id)}
+      />
+      <ScrollingMenu>
+        {!dataPubs
+          ? skeletonItems.map((item, index) => (
               <div key={index}>
                 <CommonSkeletonLoader />
               </div>
             ))
-            :  dataPubs?.categoryList?.slice(0, 10).map((item:any, index:any) => (
-              <div key={index}>
-                <RatingMenu
-                  // title={item.name}
-                  headerImage={item.photoUrl}
-                  containerImageUrl={true}
-                  MenutitleDetail={item.name}
-                  isOpen={() => modalClick("ModalContent", item, item.photoUrl,true)}
-                />
-              </div>
-            ))}
-        </ScrollingMenu>
-      </>
+          : dataPubs?.categoryList
+              ?.slice(0, 10)
+              .map((item: any, index: any) => (
+                <div key={index}>
+                  <RatingMenu
+                    // title={item.name}
+                    headerImage={item.photoUrl}
+                    containerImageUrl={true}
+                    MenutitleDetail={item.name}
+                    isOpen={() =>
+                      modalClick("ModalContent", item, item.photoUrl, true)
+                    }
+                  />
+                </div>
+              ))}
+      </ScrollingMenu>
+    </>
   );
 };
 

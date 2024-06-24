@@ -1,27 +1,21 @@
-
-import { getCategory} from "@/app/action";
+import { getCategory } from "@/app/action";
 import { ListItem } from "./ListItem";
 interface TrendingListProps {
   urlData?: any;
   urlTitle?: string;
 }
 
-const TrendingList= async({ urlTitle, urlData }:TrendingListProps) => {
-      const listData = await getCategory(urlData)
+const TrendingList = async ({ urlTitle, urlData }: TrendingListProps) => {
+  const listData = await getCategory(urlData);
   return (
     <div>
-         <ListItem data={listData} urlTitle={urlTitle}></ListItem>
+      <ListItem data={listData} urlTitle={urlTitle}></ListItem>
     </div>
   );
 };
 
- 
 export default TrendingList;
 
-  
-
-
- 
 // import styled from "styled-components";
 // import Image from "next/image";
 // import { PopularLists, SelectedLists } from "@/components/search/Data";
@@ -31,7 +25,6 @@ export default TrendingList;
 // import { icons } from "@/app/utils/iconList";
 // import Skeleton from "react-loading-skeleton";
 // import { useRouter } from "next/navigation";
- 
 
 // interface TrendingListProps {
 //   urlData?: any;
@@ -120,13 +113,9 @@ export default TrendingList;
 //   }
 // `;
 
-
- 
-
 // const TrendingList: React.FC<TrendingListProps> = ({ urlTitle, urlData }) => {
 //   const [listData, setListData] = useState<string[]>([])
 //   const router = useRouter();
-
 
 //   const fetchDataAsync = async () => {
 //     try {
@@ -208,7 +197,6 @@ export default TrendingList;
 // };
 
 // export default TrendingList;
-
 
 // const SearchedData = styled.div`
 //   display: flex;
