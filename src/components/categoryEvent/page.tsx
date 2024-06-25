@@ -175,9 +175,9 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           );
         })}
 
-      <AddListButton>
+     { urlData && <AddListButton>
         <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>
+      </AddListButton>}
     </SearchedListContainer>
   );
 };
