@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";
+import useSWR from "swr";
 
 interface listSearchProps {
   filterData?: any;
@@ -26,29 +27,20 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
     modalClick,
   } = useMyContext();
 
-  const fetchDataAsyncTopAttraction = async () => {
-    if (searchQuery === "" && selectFilter === "Any") {
-      try {
-        setLoader(true);
-        const result = await Instance.get("/google/top-attraction");
-        setTopPlace(result.data[0]?.GoogleHomeScreenList);
-        setLoader(false);
-        setPlaceData([]);
-      } catch (error: any) {
-        setLoader(false);
-        console.log(error.message);
-      } finally {
-        setLoader(false);
-      }
-    } else {
-      setPageLoading(true);
-      setTopPlace([]);
-    }
-  };
+  const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
+
+  const { data: topPlaceData, error: topPlaceError } = useSWR(
+    searchQuery === "" && selectFilter === "Any" ? '/google/top-attraction' : null,
+    fetcher
+  );
 
   useEffect(() => {
-    fetchDataAsyncTopAttraction();
-  }, [searchQuery, selectFilter]);
+    if (topPlaceData) {
+      setTopPlace(topPlaceData[0]?.GoogleHomeScreenList || []);
+      setPlaceData([]);
+      setLoader(false);
+    }
+  }, [topPlaceData]);
 
   useEffect(() => {
     const Timer = setTimeout(() => setPageLoading(false), 2000);

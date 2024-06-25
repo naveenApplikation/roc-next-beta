@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";
+import useSWR from "swr";
 
 interface listSearchProps {
   searchItem?: any;
@@ -158,34 +159,29 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
 `;
 
+const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
+
 const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
+  const { data: topAttraction, error } = useSWR(`/category-item`, fetcher);
   const [listData, setListData] = useState<string[]>([]);
   const router = useRouter();
-
   const { closeModal, modalClick } = useMyContext();
 
-  const fetchDataAsync = async () => {
-    try {
-      const response = await Instance.get(`/category-item`);
-      if (response.status === 200) {
-        response.data.forEach((list: any) => {
-          const matchedIcon = icons.find((icon) => icon.name === list.iconName);
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
-          }
-        });
-        setListData(response?.data);
-      } else {
-        setListData([]);
-      }
-    } catch (error) {
+  useEffect(() => {
+    if (topAttraction) {
+      topAttraction.forEach((list: any) => {
+        const matchedIcon = icons.find((icon) => icon.name === list.iconName);
+        if (matchedIcon) {
+          list.image = matchedIcon.image;
+        }
+      });
+      setListData(topAttraction);
+    } else {
       setListData([]);
     }
-  };
+  }, [topAttraction]);
 
-  useEffect(() => {
-    fetchDataAsync();
-  }, []);
+  console.log(listData,"ssdsdadad")
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
