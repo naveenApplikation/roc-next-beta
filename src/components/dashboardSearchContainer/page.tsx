@@ -17,7 +17,7 @@ import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
 import PlacePage from "../search/placeData";
-
+ 
 interface DashboardSearchContainerProps {
   tabChange: Function;
   options: any;
@@ -25,7 +25,7 @@ interface DashboardSearchContainerProps {
   showMap?: boolean;
   modalClick?: any;
 }
-
+ 
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   tabChange,
   options,
@@ -59,10 +59,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       setPlaceData([]);
     }
   };
-
+  
   const fetchDataListAsync = async (value: string) => {
     setLoader(true);
-    try {
+    try {     
       const result = await Instance.get(`/filter/category?query=${value}`);
       if (result.status === 200) {
         result.data.list.forEach((list: any) => {
@@ -93,12 +93,14 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const handleSearch = () => {
     if (tabValue == "Lists") {
       fetchDataListAsync(searchQuery);
+      
     } else {
       fetchDataAsync(searchQuery, filterValues);
     }
   };
-
+ 
   useEffect(() => {
+    
     handleSearch();
   }, [tabValue]);
 

@@ -8,7 +8,7 @@ export async function getCategory(params:string) {
 
 export async function getData(slug:string,params:string)
 {
-  
+      
         console.log(params)
         const res = await fetch(
           `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`,

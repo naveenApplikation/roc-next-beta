@@ -140,7 +140,6 @@ console.log(events)
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
-
   const handleLike = async (id: string, vote: any) => {
     const loginToken =
       typeof window !== "undefined"

@@ -66,10 +66,7 @@ const ModalContent: React.FC<ModalProps> = ({
   // }, [showApiData?.types, data?.acf?.type]);
 
  const res= useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
- const topAttraction=res.data
-   
-  console.log(topAttraction)
-
+ 
   useEffect(() => {
     console.log(res.isLoading);
     

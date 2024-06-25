@@ -15,8 +15,8 @@ export async function GET(request: Request) {
        cache:'force-cache'
      }
    );
-  const product=await result.json()
+  const response=await result.json()
    
-  return Response.json(product);
+  return Response.json(response);
 }
  

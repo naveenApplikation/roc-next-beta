@@ -60,11 +60,12 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
         </div>
-        <Image
+        <Image 
           style={{ width: 40, height: 40, cursor: "pointer" }}
           src={CloseModal}
           alt="Logo Outline"
           onClick={handleBack}
+      
         // onClick={() => onClose(name)}
         />
       </div>
@@ -110,7 +111,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                   {
                     item?.data_type === "google" ?
                     item.photoUrl ? 
-                      <ImageTag src={item.photoUrl} alt="Image"
+                      <Image style={{borderRadius:"4px",cursor:"pointer",height:"80px",width:"80px"}} height={80} width={80}  objectFit="cover" priority  src={item.photoUrl} alt="Image" 
                       /> :
                       <Image
                       // style={{ background: "white" }}
