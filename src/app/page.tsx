@@ -7,20 +7,9 @@ import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import { Container, DashboardMenu, MainContainer } from "@/app/style";
 
 export default function Home() {
+  console.log("yes")
   return (
-    <Suspense
-      fallback={
-        <div
-          style={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          Loading...
-        </div>
-      }>
-      {/* <ShadowWrapper {...{ showContent, setShowContent }}> */}
+    <>
       <Container>
         <MainContainer>
           <PageLayout>
@@ -34,6 +23,6 @@ export default function Home() {
       </Container>
       <DashBoardModalScreen />
       {/* </ShadowWrapper> */}
-    </Suspense>
+    </>
   );
 }

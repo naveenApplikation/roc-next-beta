@@ -9,6 +9,12 @@ import LoginSignupModal from "@/components/LoginSignup/loginSignupModal";
 import AddListings from "@/components/addList/AddListing";
 import GreetingList from "@/components/addList/GreetingList";
 import CategoryEvent from "@/components/categoryEvent/page";
+import AddComments from "@/components/createList/AddComments";
+import CreateListings from "@/components/createList/CreateListings";
+import DragInOrder from "@/components/createList/DragInOrder";
+import Greetings from "@/components/createList/Greetings";
+import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
+ 
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -82,6 +88,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [data, setData] = useState<ApiResponse[]>([]);
+  const [dragData, setDragData] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const toggleSelected = (itemId: number, item: any): void => {
@@ -117,7 +124,6 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
-
   const handleLike = async (id: string, vote: any) => {
     const loginToken =
       typeof window !== "undefined"
@@ -217,7 +223,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}
-          loader={loader}
+          loader={false}
           UI_Type="add_list"
         />
       );
