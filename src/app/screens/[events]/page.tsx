@@ -11,10 +11,10 @@ interface Props {
 }
 
 async function Page({ params, searchParams }: Props) {
-  console.log(params);
+   
  
   const data = await getData(params.events, searchParams.categoryID);
-  console.log("screens",data.length)
+  
   return (
     <>
       <EventList data={data}></EventList>

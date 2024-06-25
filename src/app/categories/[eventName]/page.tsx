@@ -16,8 +16,7 @@ interface Props {
   };
 }
 async function Page({ params, searchParams }: Props) {
-  console.log(params,searchParams);
-
+  
   const urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
 
@@ -40,7 +39,7 @@ async function Page({ params, searchParams }: Props) {
   }
   const data = await getCategory(searchParams.search);
    
-   console.log("categories",data.length)
+  
   return (
     <>
       <CategoriesPage
