@@ -14,10 +14,10 @@ import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import Greetings from "@/components/createList/Greetings";
 import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
-import { debounce } from "lodash";
+ 
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";

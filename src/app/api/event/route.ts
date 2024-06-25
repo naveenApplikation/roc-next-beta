@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   
   
    const result = await fetch(
-     `https://beta-dot-roc-app-425011.nw.r.appspot.com/google/place/${searchParams.get('placeId')}`,
+     `${process.env.NEXT_API_URL}/google/place/${searchParams.get('placeId')}`,
      {
        headers: {
          "Content-Type": "application/json",

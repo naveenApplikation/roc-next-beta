@@ -12,9 +12,9 @@ interface Props {
 
 async function Page({ params, searchParams }: Props) {
   console.log(params);
-  console.log(searchParams.categoryID);
+ 
   const data = await getData(params.events, searchParams.categoryID);
-
+  console.log("screens",data.length)
   return (
     <>
       <EventList data={data}></EventList>
@@ -22,12 +22,21 @@ async function Page({ params, searchParams }: Props) {
   );
 }
 
-// const params = [{ params: "Dine out" }, { params: "Pubs" }];
+const params = [
+  "Dine out",
+  "Pubs",
+  "top attraction",
+  "Beach life",
+  "Sustainability",
+  "Heritage",
+  "Cocktail",
+  "Surfing",
+];
 
-// export async function generateStaticParams(){
-//         return params.map((item) => {
-//           return { events: item.params };
-//         });
-// }
+export async function generateStaticParams(){
+        return params.map((params) => {
+          return {events:params };
+        });
+}
 
 export default Page;

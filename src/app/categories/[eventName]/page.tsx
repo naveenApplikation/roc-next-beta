@@ -16,8 +16,8 @@ interface Props {
   };
 }
 async function Page({ params, searchParams }: Props) {
-  console.log(params);
-  console.log(searchParams);
+  console.log(params,searchParams);
+
   const urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
 
@@ -39,8 +39,8 @@ async function Page({ params, searchParams }: Props) {
     return <ScaffoldingBox />;
   }
   const data = await getCategory(searchParams.search);
-  console.log(data);
-
+   
+   console.log("categories",data.length)
   return (
     <>
       <CategoriesPage
@@ -49,6 +49,22 @@ async function Page({ params, searchParams }: Props) {
         data={data}></CategoriesPage>
     </>
   );
+}
+
+ 
+const params = [
+  "Events",
+  "Enjoy the sunshine",
+  "Trending Lists",
+  "Community",
+  "Shopping",
+  "Wellbeing"
+];
+
+export async function generateStaticParams() {
+  return params.map((params) => {
+    return {eventName:params};
+  });
 }
 
 export default Page;

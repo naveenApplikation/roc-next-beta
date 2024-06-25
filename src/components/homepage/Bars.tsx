@@ -29,7 +29,7 @@ const ScrollingMenu = styled.div`
 const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
   const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  console.log(dataPubs, "sdsdsds");
+  
 
   // const [dataPubs, setDataPubs] = useState<any>([]);
 
