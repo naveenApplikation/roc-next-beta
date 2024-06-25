@@ -11,8 +11,6 @@ interface Props {
 }
 
 async function Page({ params, searchParams }: Props) {
-  console.log(params);
-  console.log(searchParams.categoryID);
   const data = await getData(params.events, searchParams.categoryID);
 
   return (
