@@ -10,6 +10,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import fallback from '../../../assets/images/fallbackimage.png'
 import { useRouter } from "next/navigation";
+import { handleFilter } from "@/app/utils/mappingFun";
+import FilterSection from "../filterSection";
 
 interface ExperienceBoxProps {
   urlData?: any;
@@ -26,7 +28,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -34,11 +36,10 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const router = useRouter();
 
   const handleBack = () => {
-
     router.push("/");
   };
 
-
+  const filterDate = handleFilter(urlData, selectFilter)
   return (
     <SearchedListContainer>
       <Header className="">
@@ -51,7 +52,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-
+      <FilterSection />
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>
@@ -77,7 +78,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             </MainInsideWrapper>
           </SearchedData>
         ))
-        : urlData?.map((item: any, index: any) => {
+        : filterDate?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}
               onClick={() =>
@@ -141,6 +142,7 @@ justify-content: space-between;
 const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #f2f3f3;
+  min-height: 100dvh;
 `;
 
 const SearchedData = styled.div`

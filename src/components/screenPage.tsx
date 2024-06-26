@@ -9,6 +9,12 @@ import LoginSignupModal from "@/components/LoginSignup/loginSignupModal";
 import AddListings from "@/components/addList/AddListing";
 import GreetingList from "@/components/addList/GreetingList";
 import CategoryEvent from "@/components/categoryEvent/page";
+import AddComments from "@/components/createList/AddComments";
+import CreateListings from "@/components/createList/CreateListings";
+import DragInOrder from "@/components/createList/DragInOrder";
+import Greetings from "@/components/createList/Greetings";
+import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
+ 
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -26,7 +32,8 @@ interface ScreenPageProps {
   data: any;
 }
 const EventList: React.FC<ScreenPageProps> = (props) => {
-  const { showMap, filterUrls, modalClick, closeModal, modalName } = useMyContext();
+  const { showMap, filterUrls, modalClick, closeModal, modalName } =
+    useMyContext();
   const [eventData, setEventData] = useState<ApiResponse[]>([]);
   const [eventTitle, setEventTitle] = useState("");
   const [totalVote, setTotalVote] = useState<any>("");
@@ -36,40 +43,40 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const event = searchParams.get("categoryID");
   const { events } = useParams();
 
-
   const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
   const [loader, setloader] = useState(false);
+  const [uiRenderLoader, setUiRenderLoader] = useState(true);
 
   const fetchEventDataById = () => {
     try {
-      const response = props.data
+      const response = props.data;
       setEventData(response?.categoryList);
       setEventTitle(response?.listName);
       setTotalVote(response?.totalVote);
       setCategoryId(response?._id);
       setMain_type(response?.main_type);
       setloader(false);
+      setUiRenderLoader(false);
     } catch (error) {
       setloader(false);
+      setUiRenderLoader(false);
     }
   };
 
   const router = useRouter();
   useEffect(() => {
     router.prefetch("screens/" + events);
-  }, [])
+  }, []);
   useEffect(() => {
     if (event || screenName === "Greetings") {
       fetchEventDataById();
     }
-
   }, [event, screenName]);
 
   const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-
 
   const navigateClick = () => {
     if (screenName === "Greetings") {
@@ -83,6 +90,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [data, setData] = useState<ApiResponse[]>([]);
+  const [dragData, setDragData] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const toggleSelected = (itemId: number, item: any): void => {
@@ -122,7 +130,6 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
-
   const handleLike = async (id: string, vote: any) => {
     const loginToken =
       localStorage.getItem("loginToken")
@@ -199,7 +206,8 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   };
 
   const handleCreateNewList = async (name: string) => {
-    window.location.reload();
+    router.refresh();
+    // window.location.reload();
     setScreenName(name);
   };
 
@@ -208,7 +216,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       fetchDataAsync(q);
     }, 1000),
     []
-  )
+  );
 
   useEffect(() => {
     debouncedSearch(searchQuery);
@@ -236,7 +244,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           urlData={eventData}
           urlTitle={eventTitle}
           filteredUrls={filteredUrls}
-          loader={loader}
+          loader={false}
           isOpen={() => screenChangeHandle("create")}
           handleLike={handleLike}
           totalVote={totalVote}
@@ -260,28 +268,31 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
 
   return (
     <>
-      <PageLayout>
-        <CategoryBody>{ScreenShowHandle()}</CategoryBody>
-      </PageLayout>
-      <CreateAccountModalLayout
-        isOpen={modalName === "LoginSignupModal" ? true : false}
-        onClose={() => closeModal("createAccountModal")}
-        {...{ showMap }}
-        name=""
-        title={modalName === "LoginAccountModal" && "Login"}
-      >
-        <LoginSignupModal
-          isOpen={() => modalClick("ContactUsModal")}
-          nextModal={() => modalClick("WelcomeBackModal")}
-          {...{ onClick }}
-          myListOpen={() => modalClick("TermsAndConditionModal")}
-        />
-      </CreateAccountModalLayout>
-      <EventListingModalScreen showMap={showMap} />
-      <ProfileAccountModalScreen showMap={showMap} />
-      <ReservationCalenderModal showMap={showMap} />
-      <ViewDirectionModalScreen showMap={showMap} />
-      <FilterListModalScreen showMap={showMap} />
+      {uiRenderLoader ? null : (
+        <>
+          <PageLayout>
+            <CategoryBody>{ScreenShowHandle()}</CategoryBody>
+          </PageLayout>
+          <CreateAccountModalLayout
+            isOpen={modalName === "LoginSignupModal" ? true : false}
+            onClose={() => closeModal("createAccountModal")}
+            {...{ showMap }}
+            name=""
+            title={modalName === "LoginAccountModal" && "Login"}>
+            <LoginSignupModal
+              isOpen={() => modalClick("ContactUsModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+              {...{ onClick }}
+              myListOpen={() => modalClick("TermsAndConditionModal")}
+            />
+          </CreateAccountModalLayout>
+          <EventListingModalScreen showMap={showMap} />
+          <ProfileAccountModalScreen showMap={showMap} />
+          <ReservationCalenderModal showMap={showMap} />
+          <ViewDirectionModalScreen showMap={showMap} />
+          <FilterListModalScreen showMap={showMap} />
+        </>
+      )}
     </>
   );
 };

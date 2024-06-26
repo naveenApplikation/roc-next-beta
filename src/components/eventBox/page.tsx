@@ -10,6 +10,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
+import FilterSection from "../filterSection";
+import { handleFilter } from "@/app/utils/mappingFun";
 
 interface EventBoxProps {
   urlData?: any;
@@ -24,7 +26,7 @@ const EventBox: React.FC<EventBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -34,8 +36,10 @@ const EventBox: React.FC<EventBoxProps> = ({
     router.push("/");
   };
 
+  const filterDate = handleFilter(urlData, selectFilter)
   return (
     <SearchedListContainer>
+      
       <Header className="">
         <TitleText>{urlTitle}</TitleText>
         <Image
@@ -45,6 +49,7 @@ const EventBox: React.FC<EventBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
+      <FilterSection />
       {/* {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>
           <FilterSection />
@@ -75,7 +80,7 @@ const EventBox: React.FC<EventBoxProps> = ({
               </MainInsideWrapper>
             </SearchedData>
           ))
-        : urlData?.map((item: any, index: any) => {
+        : filterDate?.map((item: any, index: any) => {
             return (
               <SearchedData key={index}>
                 <MainInsideWrapper

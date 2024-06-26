@@ -12,6 +12,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { sideWidth } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
+import { handleFilter } from "@/app/utils/mappingFun";
 
 interface AttractionBoxProps {
   // Define your props here
@@ -27,7 +28,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter } = useMyContext();
   const router = useRouter();
 
   const skeletonItems = new Array(10).fill(null);
@@ -35,7 +36,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
   const handleBack = () => {
     router.push("/");
   };
-
+  const filterDate = handleFilter(urlData, selectFilter)
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SearchedListContainer>
@@ -51,7 +52,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             onClick={() => handleBack()}
           />
         </Header>
-
+        <FilterSection />
         {/* <LikeCount>5,281 likes</LikeCount> */}
         {/* {urlData != 77 && (
           <div style={{ margin: "24px 0px" }}>
@@ -92,7 +93,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                 </MainWrraper>
               </SearchedData>
             ))
-          : urlData?.map((item: any, index: any) => {
+          : filterDate?.map((item: any, index: any) => {
               return (
                 <SearchedData key={index}>
                   <MainWrraper>

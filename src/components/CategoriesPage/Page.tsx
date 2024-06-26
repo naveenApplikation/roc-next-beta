@@ -1,4 +1,4 @@
-
+'use client'
 
 import dynamic from "next/dynamic";
 import { CategoryBody } from "./ServerStyles";
@@ -7,15 +7,20 @@ const EventBox = dynamic(() => import("@/components/eventBox/page"));
 const ExperienceBox = dynamic(() => import("@/components/experienceBox/page"));
 const AttractionBox = dynamic(() => import("@/components/attractionBox/page"));
 const Categories = dynamic(() => import("./Categories"));
+const HeaderScreen = dynamic(() => import("../header/HeaderScreen"));
 import { ApiResponse } from "@/app/utils/types";
 import PageLayout from "@/app/pageLayout";
-const HeaderScreen = dynamic(() => import("../header/HeaderScreen"));
+import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
+import { useMyContext } from "@/app/Context/MyContext";
+
+
 interface CategoriesPageProps {
   params: string,
   searchParams: string,
   data: any
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
+  const { showMap } = useMyContext()
   let urlData: any;
   var data: ApiResponse[]
   urlData = props.params.toString().replaceAll("%20", " ").replaceAll("%26", " ");
@@ -40,7 +45,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         />
       );
     } else if (urlData === "Enjoy the sunshine") {
-          
+
       return (
         <ExperienceBox
           urlData={data}
@@ -69,6 +74,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         </CategoryBody>
       </PageLayout>
       <Categories></Categories>
+      <FilterListModalScreen showMap={showMap} />
     </>
   );
 };

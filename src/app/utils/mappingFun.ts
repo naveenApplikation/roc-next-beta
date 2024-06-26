@@ -21,7 +21,7 @@ export const handleFilter = (arr: any, name: string) => {
     if(!newArr.length){
         return []
     }
-    console.log("hiiiiiiiiiii fun", arr)
+    // console.log("hiiiiiiiiiii fun", arr)
     const newData = newArr.filter((val: any) => {
         if (val?.parishName === name) {
             return val

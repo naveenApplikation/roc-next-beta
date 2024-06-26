@@ -55,9 +55,6 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <TitleText>{urlTitle}</TitleText>
-          {
-            console.log("hiiiiiiiiiii", filterDate) as any
-          }
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
@@ -101,7 +98,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             </MainInsideWrapper>
           </SearchedData>
         ))
-        : urlData?.map((item: any, index: any) => {
+        : filterDate?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}>
               <MainInsideWrapper
@@ -184,9 +181,9 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           );
         })}
 
-      <AddListButton>
+     { urlData && <AddListButton>
         <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>
+      </AddListButton>}
     </SearchedListContainer>
   );
 };
