@@ -12,6 +12,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
 import { useRouter } from 'next/navigation';
 import fallback from '../../../assets/images/fallbackimage.png'
+import FilterSection from "../filterSection";
+import { handleFilter } from "@/app/utils/mappingFun";
 
 interface EventBoxProps {
   urlData?: any;
@@ -33,7 +35,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   handleLike,
   totalVote,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter } = useMyContext();
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
@@ -43,16 +45,23 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     } else {
       router.replace('/');
     }
+    setSelectFilter("Any")
   }
+
+  const filterDate = handleFilter(urlData, selectFilter)
 
   return (
     <SearchedListContainer>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <TitleText>{urlTitle}</TitleText>
+          {
+            console.log("hiiiiiiiiiii", filterDate) as any
+          }
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
+          <FilterSection />
         </div>
         <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -103,22 +112,22 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
-                    item.photoUrl ? 
-                      <ImageTag src={item.photoUrl} alt="Image"
-                      /> :
-                      <Image
-                      // style={{ background: "white" }}
-                      src={fallback}
-                      width={500}
-                      height={80}
-                      style={{
-                        borderRadius: 4,
-                        width: "80px",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                      alt=""
-                    />
+                      item.photoUrl ?
+                        <ImageTag src={item.photoUrl} alt="Image"
+                        /> :
+                        <Image
+                          // style={{ background: "white" }}
+                          src={fallback}
+                          width={500}
+                          height={80}
+                          style={{
+                            borderRadius: 4,
+                            width: "80px",
+                            objectFit: "cover",
+                            cursor: "pointer",
+                          }}
+                          alt=""
+                        />
                       :
                       (
                         <Image

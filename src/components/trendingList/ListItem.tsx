@@ -47,7 +47,7 @@ export const ListItem: React.FC<Props> = (props) => {
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
-  
+
   const tabChange = (value: tabs) => {
     setTabValue(value);
   };
@@ -59,7 +59,7 @@ export const ListItem: React.FC<Props> = (props) => {
   };
 
   const handleBack = () => {
-    router.push("/");
+    router.back();
   };
   return (
     <>

@@ -157,14 +157,13 @@ const AddListings: React.FC<AddListingsProps> = ({
                         </p> */}
                       </div>
                     </div>
-                    <button onClick={() => toggleSelected(item.place_id, item)}>
+                    <div onClick={() => toggleSelected(item.place_id, item)}>
                       {selectedItemIds.includes(item.place_id) ? (
                         <UnselectedBtn>
                           <Image
                             style={{ width: "15px", height: "10px" }}
                             src={UnselectedBtnImg}
                             alt="UnselectedBtnImg"
-                          // onClick={() => handleToggle(listItemName)}
                           />
                         </UnselectedBtn>
                       ) : (
@@ -176,7 +175,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                           />
                         </SelectedBtn>
                       )}
-                    </button>
+                    </div>
                   </ListDataWrraper>
                 </div>
               );
@@ -234,14 +233,7 @@ const AddListingsTitle = styled.div`
   }
 `;
 
-const CreateListOptions = styled.div`
-  width: 100%;
-  height: 33px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-`;
+
 
 const SearchInputBox = styled.div`
   /* margin-right: 24px; */
@@ -264,8 +256,7 @@ const ListDataWrraper = styled.div`
   gap: 10px;
   border-bottom: 1px solid rgb(217, 217, 217);
   align-items: center;
-  padding: 9px 0px;
-  position: relative;
+  padding: 9px  25px 9px 0px;
 `;
 
 const ListDataTittleText = styled.p`
@@ -312,9 +303,9 @@ const UnselectedBtn = styled.div`
   background: #27ae60;
   border-style: none;
   cursor: pointer;
-  position: absolute;
-  right: 24px;
-  top: 10px;
+  // position: absolute;
+  // right: 24px;
+  // top: 10px;
 
   @media screen and (max-width: 400px) {
     right: 10px;
@@ -334,23 +325,15 @@ const SelectedBtn = styled.button`
   background: #2f80ed;
   border-style: none;
   cursor: pointer;
-  position: absolute;
-  right: 24px;
-  top: 10px;
+  // position: absolute;
+  // right: 24px;
+  // top: 10px;
 
   @media screen and (max-width: 400px) {
     right: 10px;
   }
 `;
 
-const ListDataTime = styled.p`
-  color: #2b902b;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px; /* 133.333% */
-  letter-spacing: 0.12px;
-`;
 
 const SearchedData = styled.div`
   display: flex;

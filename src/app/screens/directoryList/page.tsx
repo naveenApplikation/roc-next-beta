@@ -40,7 +40,7 @@ const Directorylist = () => {
   };
 
   const router = useRouter();
-
+console.log("route", router)
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -78,8 +78,7 @@ const Directorylist = () => {
 
 
   const handleBack = () => {
-
-    router.push("/");
+    router.back();
   };
 
 
