@@ -1,16 +1,12 @@
 import {
   ThumbsUPIcon,
   commentstar,
-  locationMark,
-  thumbsup,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import FilterSection from "@/components/filterSection";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
-import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
@@ -32,14 +28,12 @@ interface EventBoxProps {
 const CategoryEvent: React.FC<EventBoxProps> = ({
   urlTitle,
   urlData,
-  filteredUrls,
   loader,
   isOpen,
   handleLike,
   totalVote,
 }) => {
   const { modalClick } = useMyContext();
-  const [togg, setTogg] = useState<string>("");
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
@@ -310,6 +304,7 @@ const FamilyEventWrapperInside = styled.div`
 const TitleText = styled.p`
   font-size: 24px;
   font-weight: 700;
+  text-transform: capitalize;
 `;
 
 const AddListButton = styled.div`
@@ -321,4 +316,5 @@ const MainInsideWrapper = styled.div`
   align-items: center;
   gap: 16px;
   cursor: pointer;
+  flex: 1;
 `;

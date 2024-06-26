@@ -19,6 +19,7 @@ import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
 import fallbackimage from '../../../assets/images/fallbackimage.png'
+import { log } from "console";
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -35,54 +36,7 @@ interface CreateListingsProps {
 
 
 
-const newFilter = [
-  {
-    _id: "item 1",
-    name: "Chocadyllic",
-    placeName1: "St Helier",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Close",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 2",
-    name: "Kalimukti Yoga",
-    placeName1: "From £5",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Outdoore",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 3",
-    name: "Radisson Blu Waterfront Hotel",
-    placeName1: "From £265/night",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "St Helier",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-  {
-    id: "item 4",
-    name: "abrdn",
-    placeName1: "Investment Managers",
-    itemPlaceLogo: "StHelierLogo",
-    status1: "Open ⋅ Close",
-    timing2: "11 pm",
-    unSelectedBtn: false,
-  },
-];
 
-interface Item {
-  name: any;
-  placeName1: any;
-  itemPlaceLogo: any;
-  status1: any;
-  timing2: any;
-  unSelectedBtn: any;
-  placeName2?: any; // Make it optional
-}
 
 const CreateListings: React.FC<CreateListingsProps> = ({
   ScreenSwitch,
@@ -100,6 +54,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
 
   const [skeletonData] = useState(new Array(10).fill(null))
 
+
   return (
     <CreateListingsScreen>
       <CreateListItemScrollBox>
@@ -111,6 +66,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
               value={searchQuery}
               onchange={(e: any) => handleChange(e.target.value)}
               handleSearch={handleSearch}
+              loader={loader}
             />
           </SearchInputBox>
           {loader ?
@@ -125,7 +81,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                       <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
                     </div>
                   </MainInsideWrapper>
-                  <div className="likes" style={{height:'80px', display:'flex', alignItems:'center'}}>
+                  <div className="likes" style={{ height: '80px', display: 'flex', alignItems: 'center' }}>
                     <Skeleton width={16} height={16} style={{ borderRadius: "50%" }} />
                   </div>
                 </MainWrraper>
@@ -133,14 +89,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({
             ))
 
             :
-            (searchQuery &&
-              data?.map((item: any, index: any) => {
-                // if (!item._id) {
-                //   return null;
-                // }
-                // const imageList = JSON.parse(item.acf.header_image_data);
-                // const image = imageList[0].url;
-
+            (
+              data?.map((item: any, index: number) => {
                 return (
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
@@ -154,13 +104,6 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                           width: '85%',
                         }}>
                         <div style={{ width: 80, height: 80 }}>
-                          {/* <Image
-                            src={image}
-                            width={500}
-                            height={80}
-                            style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                            alt="infoCirlce"
-                          /> */}
                           {
                             item?.photos ?
                               <ImageCom imageArr={item?.photos} />

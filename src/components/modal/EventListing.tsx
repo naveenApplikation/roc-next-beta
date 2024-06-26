@@ -102,7 +102,7 @@ const ModalContent: React.FC<ModalProps> = ({
       name:
         <Tooltip title={"Email address"}>
           <span onClick={() => copylink(data?.acf?.email_address)}>
-            {data?.acf?.email_address}
+            <a href={`mailto: ${data?.acf?.email_address}`}> {data?.acf?.email_address} </a>
           </span>
         </Tooltip>,
       image:

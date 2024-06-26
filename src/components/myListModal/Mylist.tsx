@@ -1,39 +1,78 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { PopularLists } from "../search/Data";
 import { thumbsup } from "@/app/utils/ImagePath";
 import { Spin } from "antd";
+import Instance from "@/app/utils/Instance";
 
 interface ListProps {
   listData?: any;
   loader?: any;
 }
 
+
+
+const Lists: React.FC<ListProps> = ({ listData, loader }) => {
+
+  // const getCreatedList = async()=>{
+  //   try {
+  //       const res = await Instance.get(`my-list`)
+  //       console.log("response of created list", res)
+  //   } catch (error) {
+
+  //   }
+  // }
+
+
+  // useEffect(()=>{
+  //   getCreatedList()
+  // },[])
+
+  return (
+    <Container>
+      {loader ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "500px",
+          }}>
+          <Spin tip="Loading" size="large" />
+        </div>
+      ) : (
+        listData?.map((item: any, index: any) => {
+          return (
+            item?.image ?
+              <ListContainer key={index}>
+                <ImageTitleContainer>
+                  <Imagecontainer style={{ background: item?.bgColor }}>
+                    {item?.image}
+                  </Imagecontainer>
+                  <p>{item?.listName}</p>
+                </ImageTitleContainer>
+                <LikesContainer>
+                  <Image
+                    style={{ width: 16, height: "auto" }}
+                    src={thumbsup}
+                    alt="icon"
+                  />
+                  <p>{item?.voting?.length || 0}</p>
+                </LikesContainer>
+              </ListContainer> : <p style={{ fontSize: '16px' }}> No data found</p>
+          );
+        })
+      )}
+    </Container>
+  );
+};
+
+export default Lists;
+
+
 const Container = styled.div`
   padding-bottom: 20px;
-`;
-
-const PopularListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 24px 0px;
-
-  .view {
-    color: #000;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-
-const PopularlistTitle = styled.div`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
 `;
 
 const ListContainer = styled.div`
@@ -82,45 +121,3 @@ const LikesContainer = styled.div`
     line-height: 24px; /* 150% */
   }
 `;
-
-const Lists: React.FC<ListProps> = ({ listData, loader }) => {
-  return (
-    <Container>
-      {loader ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "500px",
-          }}>
-          <Spin tip="Loading" size="large" />
-        </div>
-      ) : (
-        listData?.map((item: any, index: any) => {
-          return (
-            <ListContainer key={index}>
-              <ImageTitleContainer>
-                <Imagecontainer style={{ background: item?.bgColor }}>
-                  {item?.image}
-                </Imagecontainer>
-                <p>{item?.listName}</p>
-              </ImageTitleContainer>
-              <LikesContainer>
-                <Image
-                  style={{ width: 16, height: "auto" }}
-                  src={thumbsup}
-                  alt="icon"
-                />
-                <p>0</p>
-              </LikesContainer>
-            </ListContainer>
-          );
-        })
-      )}
-    </Container>
-  );
-};
-
-export default Lists;

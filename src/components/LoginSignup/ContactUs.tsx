@@ -40,6 +40,7 @@ const TextAreaContainer = styled.textarea`
   height: 160px;
   border-radius: 8px;
   padding: 8px 16px;
+  color: black; 
   resize: none;
   &::placeholder {
     color: black; /* Change the color to your desired color */

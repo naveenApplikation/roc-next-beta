@@ -1,4 +1,3 @@
-
 import { getDirectoryCatagories } from "@/app/action";
 // import React, { useEffect, useState } from "react";
 // import styled from "styled-components";
@@ -12,19 +11,17 @@ import { getDirectoryCatagories } from "@/app/action";
 // import { useRouter } from "next/navigation";
 import { ListItem } from "../trendingList/ListItem";
 
-
 interface TrendingListProps {
   urlData?: any;
   urlTitle?: string;
 }
 
-const DirectoryCatories: React.FC<TrendingListProps> = async({
+const DirectoryCatories: React.FC<TrendingListProps> = async ({
   urlTitle,
   urlData,
 }) => {
- 
-   const listData = await getDirectoryCatagories(urlData)
-    console.log(listData)
+  const listData = await getDirectoryCatagories(urlData);
+  console.log(listData);
   return (
     <>
       <ListItem data={listData} urlTitle={urlTitle}></ListItem>
@@ -221,8 +218,6 @@ export default DirectoryCatories;
 //     line-height: 24px; /* 150% */
 //   }
 // `;
-
-
 
 // const SearchedData = styled.div`
 //   display: flex;

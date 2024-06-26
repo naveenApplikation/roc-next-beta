@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { search } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
+import { Spin } from "antd";
 
 interface SearchComponentProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -12,6 +13,7 @@ interface SearchComponentProps {
   autofocus?: any;
   id?: any;
   homeSearch?: boolean;
+  loader?: boolean;
 }
 
 const SearchComponent: React.FC<SearchComponentProps> = ({
@@ -19,8 +21,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   value,
   onchange,
   handleSearch,
-  autofocus,
   id,
+  loader,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { modalType } = useMyContext();
@@ -48,8 +50,10 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         id={id}
         ref={inputRef}
       />
-
-      <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+      {
+        loader ? <Spin size="small" /> :
+          <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+      }
     </InputContainer>
   );
 };

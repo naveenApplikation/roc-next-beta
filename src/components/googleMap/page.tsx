@@ -97,22 +97,6 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
           if (insideJersey) {
             setUserLocation(userLoc);
           } else {
-            toast.custom(
-              <div
-                style={{
-                  width: "150px",
-                  background: "white",
-                  display: "flex",
-                  gap: "10px",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  boxSizing: "border-box",
-                  color: "#000000",
-                }}>
-                <TiInfo style={{ fontSize: "14px" }} />
-                <div style={{ color: "#000000" }}>User is outside Jersey</div>
-              </div>
-            );
           }
         },
         (error) => {
@@ -223,7 +207,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
           handleMapLoad(map);
         }}
         zoom={zoom}
-        onZoomChanged={handleZoomChanged}
+        // onZoomChanged={handleZoomChanged}
         onUnmount={onUnmount}
         options={{
           mapTypeControl: false,

@@ -63,44 +63,69 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   myListtabValue,
   showMap,
 }) => {
-  const { modalName, closeModal, modalClick, dataDetails, modalType } =
-    useMyContext();
+  const { closeModal, modalType } = useMyContext();
   const [listData, setListData] = useState<string[]>([])
+  const [contributionData, setContributionData] = useState<string[]>([])
   const [loader, setloader] = useState<boolean>(false)
+  const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
 
   const fetchDataAsync = async () => {
-    const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
-    if(loginToken){
-
-      try {
-        setloader(true)
-        // const response = await Instance.get("/category?limit=true")
-        const response = await Instance.get("/my-list")
-        
-        const list = [response.data]
-        if (response.status === 200) {
-          list.forEach((list: any) => {
-          const matchedIcon = icons.find(icon => icon.name === list.iconName);
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
+    if (loginToken) {
+      setloader(true)
+      if (myListtabValue === "Created") {
+        try {
+          // const response = await Instance.get("/category?limit=true")
+          const response = await Instance.get("/my-list")
+          const list = [response.data]
+          if (response.status === 200) {
+            list.forEach((list: any) => {
+              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              if (matchedIcon) {
+                list.image = matchedIcon.image;
+              }
+            })
+            setListData(list)
+            setloader(false)
+          } else {
+            setListData([])
+            setloader(false)
           }
-        })
-        setListData(list)
-        setloader(false)
+        } catch (error) {
+          setListData([])
+          setloader(false)
+        }
+
       } else {
-        setListData([])
-        setloader(false)
+
+        try {
+          const response = await Instance.get("/my-contribution")
+
+
+          const list = response.data
+          if (response.status === 200) {
+            list.forEach((list: any) => {
+              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              if (matchedIcon) {
+                list.image = matchedIcon.image;
+              }
+            })
+            setContributionData(list)
+            setloader(false)
+          } else {
+            setContributionData([])
+            setloader(false)
+          }
+        } catch (error) {
+          setContributionData([])
+          setloader(false)
+        }
       }
-    } catch (error) {
-      setListData([])
-      setloader(false) 
-    }
     }
   }
 
   useEffect(() => {
     fetchDataAsync()
-  }, [])
+  }, [loginToken, myListtabValue])
 
   return (
     <>
@@ -116,8 +141,8 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
               myListtabChange,
               mylistoptions,
               myListtabValue,
-              showMap,
               listData,
+              contributionData,
               loader,
             }}
           />

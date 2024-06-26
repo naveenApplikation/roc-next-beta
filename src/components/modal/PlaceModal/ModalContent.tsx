@@ -37,7 +37,7 @@ import {
 } from "@/app/utils/commanFun";
 import { Rate, Spin, Tooltip } from "antd";
 import ImageCarousel from "@/components/carousel/imageCarousel";
-import { getVenueStatus, isOpen, isOpenHead } from "@/app/utils/commanFunCom";
+import { getVenueStatus, isOpenHead } from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -159,7 +159,7 @@ const ModalContent: React.FC<ModalProps> = ({
                   copylink(showApiData?.international_phone_number)
                 }
               >
-                {showApiData?.international_phone_number}
+                <Link href={`tel:${showApiData?.international_phone_number}`}>{showApiData?.international_phone_number}</Link>
               </span>
             </Tooltip>
           ) : (
@@ -226,26 +226,26 @@ const ModalContent: React.FC<ModalProps> = ({
   }, [showReview]);
 
   const [loader, setloader] = useState(true);
-  const [reviewShowToggle, setReviewShowToggle] = useState(false);
+  // const [reviewShowToggle, setReviewShowToggle] = useState(false);
 
-  useEffect(() => {
-    const getReviewData = async () => {
-      setloader(true);
-      if (data._id) {
-        try {
-          const ReviewData = await Instance.get(`review/${data?._id}`);
-          // setReviewData(ReviewData?.data);
-          setReviewShowToggle(false);
-        } catch (error: any) {
-          console.log(error.message);
-          setloader(false);
-        } finally {
-          setloader(false);
-        }
-      }
-    };
-    getReviewData();
-  }, [data?._id, reviewShowToggle]);
+  // useEffect(() => {
+  //   const getReviewData = async () => {
+  //     setloader(true);
+  //     if (data._id) {
+  //       try {
+  //         const ReviewData = await Instance.get(`review/${data?._id}`);
+  //         // setReviewData(ReviewData?.data);
+  //         setReviewShowToggle(false);
+  //       } catch (error: any) {
+  //         console.log(error.message);
+  //         setloader(false);
+  //       } finally {
+  //         setloader(false);
+  //       }
+  //     }
+  //   };
+  //   getReviewData();
+  // }, [data?._id, reviewShowToggle]);
 
   const fetchDataAsync = async () => {
     setloader(true);
@@ -264,7 +264,7 @@ const ModalContent: React.FC<ModalProps> = ({
           ? await Instance.put(`review/${textId}`, paramUpdate)
           : await Instance.post("review", param);
       setShowReview(false);
-      setReviewShowToggle(true);
+      // setReviewShowToggle(true);
       setCommentReview("");
       setRating("");
       setShowEdit("");
@@ -282,8 +282,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-            .map((item: any) => item.replaceAll("_", " "))
-            .join(" | ")
+          .map((item: any) => item.replaceAll("_", " "))
+          .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -347,17 +347,19 @@ const ModalContent: React.FC<ModalProps> = ({
             {formattedValues()}{" "}
           </p>
           <ResturatContainer>
-            {showApiData?.current_opening_hours?.open_now !== undefined && (
+            {/* {showApiData?.current_opening_hours?.open_now !== undefined && ( */}
+            {showApiData?.current_opening_hours?.periods.length && (
               <ResturatWrapper>
                 {/* <p style={{ fontSize: 16 }}>|</p> */}
 
-                <OpenRestText
+                {/* <OpenRestText
                   selected={showApiData?.current_opening_hours?.open_now}
-                >
-                  {showApiData?.current_opening_hours?.open_now
+                > */}
+                    {isOpenHead(showApiData?.current_opening_hours)}
+                  {/* {showApiData?.current_opening_hours?.open_now
                     ? "Open"
-                    : "Closed"}{" "}
-                </OpenRestText>
+                    : "Closed"}{" "} */}
+                {/* </OpenRestText> */}
               </ResturatWrapper>
             )}
             <Ratings
@@ -711,7 +713,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ""
               )}
               {showApiData?.international_phone_number ||
-              showApiData?.formatted_phone_number ? (
+                showApiData?.formatted_phone_number ? (
                 <CommonButton
                   text="Call"
                   image={phone}
