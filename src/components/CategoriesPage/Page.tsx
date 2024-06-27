@@ -12,6 +12,7 @@ import { ApiResponse } from "@/app/utils/types";
 import PageLayout from "@/app/pageLayout";
 import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
+import FilterModalScreen from "../AllModalScreen/FilterModalScreen";
 
 
 interface CategoriesPageProps {
@@ -75,6 +76,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       </PageLayout>
       <Categories></Categories>
       <FilterListModalScreen showMap={showMap} />
+      <FilterModalScreen showMap={showMap} />
     </>
   );
 };

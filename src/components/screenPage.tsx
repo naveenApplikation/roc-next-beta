@@ -26,6 +26,7 @@ import ReservationCalenderModal from "@/components/AllModalScreen/reservationCal
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
 import { debounce } from "@/app/utils/debounce";
 import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
+import FilterModalScreen from "./AllModalScreen/FilterModalScreen";
 
 
 interface ScreenPageProps {
@@ -291,6 +292,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen showMap={showMap} />
+          <FilterModalScreen showMap={showMap} />
         </>
       )}
     </>
