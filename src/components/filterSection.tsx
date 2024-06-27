@@ -1,19 +1,20 @@
-import { SoryByItem } from "@/app/utils/data";
+"use client";
+
 import Image from "next/image";
 import React, { useState } from "react";
 import styled from "styled-components";
-import DropDwons from "./dropdowns";
 import { useMyContext } from "@/app/Context/MyContext";
 import { filterSearch } from "@/app/utils/ImagePath";
 
 interface FilterSectionProps {
   // Define your props here
+  pageTitle?: string;
 
 }
 
 
 
-const FilterSection: React.FC<FilterSectionProps> = () => {
+const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle }) => {
   const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
   const [selectValue, setSelectValue] = useState("");
@@ -21,20 +22,24 @@ const FilterSection: React.FC<FilterSectionProps> = () => {
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
     modalClick("modalFilterList")
-    
-    if(modalType.modalFilterList){
+
+    if (modalType.modalFilterList) {
       closeModal("modalFilterList")
     }
   };
-
+  console.log("searhc datatata", pageTitle) 
   return (
     <FilterContainer>
-      <Image
-        src={filterSearch}
-        onClick={() => modalClick("modalFilter")}
-        style={{ cursor: "pointer" }}
-        alt=""
-      />
+      {
+        pageTitle === "search" &&
+        <Image
+          src={filterSearch}
+          onClick={() => modalClick("modalFilter")}
+          style={{ cursor: "pointer" }}
+          alt=""
+        />
+      }
+
       <ScrollingMenu>
         {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
         <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>

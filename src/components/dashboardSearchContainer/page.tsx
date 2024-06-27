@@ -286,7 +286,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         </>
       ) : (
         <>
-          <FilterSection />
+          <FilterSection pageTitle="search" />
           <PlacePage {...{ filterData }} />
 
         </>

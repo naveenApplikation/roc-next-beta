@@ -52,7 +52,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      <FilterSection />
+      <FilterSection pageTitle="experienceBox" />
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>

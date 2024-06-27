@@ -76,7 +76,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       </PageLayout>
       <Categories></Categories>
       <FilterListModalScreen showMap={showMap} />
-      <FilterModalScreen showMap={showMap} />
+      {/* <FilterModalScreen showMap={showMap} /> */}
     </>
   );
 };

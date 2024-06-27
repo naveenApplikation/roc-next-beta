@@ -58,7 +58,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
-          <FilterSection />
+          <FilterSection pageTitle = "categoryEvent"  />
         </div>
         <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}

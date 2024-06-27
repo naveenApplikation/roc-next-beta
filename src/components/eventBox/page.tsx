@@ -49,7 +49,7 @@ const EventBox: React.FC<EventBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      <FilterSection />
+      <FilterSection pageTitle="eventBox" />
       {/* {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>
           <FilterSection />

@@ -1,4 +1,5 @@
 "use client";
+
 import { CloseModal, thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { Suspense } from "react";
@@ -52,7 +53,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             onClick={() => handleBack()}
           />
         </Header>
-        <FilterSection />
+        <FilterSection pageTitle = "attractionBox" />
         {/* <LikeCount>5,281 likes</LikeCount> */}
         {/* {urlData != 77 && (
           <div style={{ margin: "24px 0px" }}>

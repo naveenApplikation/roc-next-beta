@@ -292,7 +292,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen showMap={showMap} />
-          <FilterModalScreen showMap={showMap} />
+          {/* <FilterModalScreen showMap={showMap} /> */}
         </>
       )}
     </>
