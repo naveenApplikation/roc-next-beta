@@ -28,7 +28,6 @@ import { debounce } from "@/app/utils/debounce";
 import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
 import FilterModalScreen from "./AllModalScreen/FilterModalScreen";
 
-
 interface ScreenPageProps {
   data: any;
 }
@@ -225,6 +224,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
+      
       return (
         <AddListings
           ScreenSwitch={() => screenChangeHandle("Greetings")}
@@ -235,7 +235,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}
-          loader={loader}
+          loader={false}
           UI_Type="add_list"
         />
       );
