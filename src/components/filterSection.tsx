@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import { filterSearch } from "@/app/utils/ImagePath";
+import { usePathname, useRouter } from "next/navigation";
 
 interface FilterSectionProps {
   // Define your props here
@@ -15,19 +16,24 @@ interface FilterSectionProps {
 
 
 const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle }) => {
-  const { modalClick, modalType, closeModal, selectFilter } = useMyContext();
+  const { modalClick, modalType, closeModal, selectFilter, setSelectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectValue, setSelectValue] = useState("");
+  const pathName = usePathname()
 
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
     modalClick("modalFilterList")
-
     if (modalType.modalFilterList) {
       closeModal("modalFilterList")
     }
   };
-  console.log("searhc datatata", pageTitle) 
+
+  // console.log("pathNamepathName", pathName)
+  useEffect(() => {
+    setSelectFilter("Any")
+  }, [pathName])
+  
+
   return (
     <FilterContainer>
       {

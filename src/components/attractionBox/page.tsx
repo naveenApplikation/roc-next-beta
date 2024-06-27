@@ -29,13 +29,17 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter } = useMyContext();
+  const { modalClick, selectFilter, closeModal, modalType } = useMyContext();
   const router = useRouter();
 
   const skeletonItems = new Array(10).fill(null);
 
   const handleBack = () => {
-    router.push("/");
+    // router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+    }
   };
   const filterDate = handleFilter(urlData, selectFilter)
   return (
@@ -53,7 +57,10 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             onClick={() => handleBack()}
           />
         </Header>
+          
+        <div style={{padding:'10px 0px'}}>
         <FilterSection pageTitle = "attractionBox" />
+        </div>
         {/* <LikeCount>5,281 likes</LikeCount> */}
         {/* {urlData != 77 && (
           <div style={{ margin: "24px 0px" }}>

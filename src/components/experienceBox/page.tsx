@@ -28,7 +28,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -36,7 +36,12 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const router = useRouter();
 
   const handleBack = () => {
-    router.push("/");
+    // router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   };
 
   const filterDate = handleFilter(urlData, selectFilter)
@@ -52,7 +57,10 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
+      <div style={{padding:'10px 0px'}}>
+
       <FilterSection pageTitle="experienceBox" />
+      </div>
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>
@@ -113,14 +121,14 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                   <PriceAndLabelText>{item.acf.price_to || item.acf.price_from ? "£" : ""}{(item.acf.price_from ? item.acf.price_from : "") + ((item.acf.price_to && item.acf.price_from) ? '-' : "") + (item.acf.price_to ? item.acf.price_to : "")}</PriceAndLabelText>
                 </div>
               </div>
-              <div className="likes">
+              {/* <div className="likes">
                 <Image
                   src={thumbsup}
                   alt="like"
                   style={{ width: "16px", height: "16px" }}
                 />
                 <p>{item.likeCount}</p>
-              </div>
+              </div> */}
             </SearchedData>
           );
         })}

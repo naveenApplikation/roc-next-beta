@@ -28,7 +28,7 @@ const width = "580";
 
 
 const Directorylist = () => {
-  const { showMap } = useMyContext();
+  const { showMap, modalType, closeModal } = useMyContext();
 
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
@@ -79,6 +79,9 @@ console.log("route", router)
 
   const handleBack = () => {
     router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+    }
   };
 
 

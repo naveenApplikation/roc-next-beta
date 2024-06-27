@@ -26,14 +26,18 @@ const EventBox: React.FC<EventBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter } = useMyContext();
+  const { modalClick, selectFilter, modalType, closeModal, setSelectFilter } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
   const router = useRouter();
 
   const handleBack = () => {
-    router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   };
 
   const filterDate = handleFilter(urlData, selectFilter)
@@ -49,7 +53,10 @@ const EventBox: React.FC<EventBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
+      <div style={{padding:'10px 0px'}}>
+
       <FilterSection pageTitle="eventBox" />
+      </div>
       {/* {urlData != 77 && (
         <div style={{ margin: "24px 0px" }}>
           <FilterSection />

@@ -35,7 +35,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   handleLike,
   totalVote,
 }) => {
-  const { modalClick, selectFilter, setSelectFilter } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
@@ -45,7 +45,10 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     } else {
       router.replace('/');
     }
-    setSelectFilter("Any")
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   }
 
   const filterDate = handleFilter(urlData, selectFilter)
@@ -58,7 +61,10 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
+          <div style={{padding:'10px 0px'}}>
+
           <FilterSection pageTitle = "categoryEvent"  />
+          </div>
         </div>
         <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}

@@ -38,7 +38,7 @@ export const ListItem: React.FC<Props> = (props) => {
   const router = useRouter();
 
   const skeletonItems = new Array(10).fill(null);
-  const { showMap } = useMyContext();
+  const { showMap, setSelectFilter, modalType, closeModal } = useMyContext();
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition === true) {
       router.push(`/screens/${item}?categoryID=${id}`);
@@ -60,6 +60,10 @@ export const ListItem: React.FC<Props> = (props) => {
 
   const handleBack = () => {
     router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   };
   return (
     <>
