@@ -414,55 +414,87 @@ const ModalContent: React.FC<ModalProps> = ({
             </ViewDirection>
             {relatedTypesFun(showApiData?.types).length ? (
               <>
-                <hr />
-                <DeliveryContainer>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.dine_in ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Dine-in</p>
-                  </div>
-                  <div className="">.</div>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.delevery ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Delivery</p>
-                  </div>
-                </DeliveryContainer>
+                {
+                  (showApiData?.delivery === undefined && showApiData?.dine_in === undefined) ? "" :
+                    <>
+                      <hr />
+                      <DeliveryContainer>
+                        {
+                          showApiData?.dine_in === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.dine_in ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Dine-in</p>
+                            </div>
+                        }
 
-                <hr />
-                <DeliveryContainer>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.serves_wine ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Wine</p>
-                  </div>
-                  <div className="">.</div>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.serves_beer ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Beer</p>
-                  </div>
-                </DeliveryContainer>
+                        {
+                          (showApiData?.delivery !== undefined && showApiData?.dine_in !== undefined) ?
+                            <div className="">.</div> : ""
+                        }
+
+                        {
+                          showApiData?.delivery === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+
+                              {showApiData?.delivery ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Delivery</p>
+                            </div>
+                        }
+                      </DeliveryContainer>
+                    </>
+                }
+
+
+                {
+                  (showApiData?.serves_wine === undefined && showApiData?.serves_beer === undefined) ? "" :
+                    <>
+                      <hr />
+                      <DeliveryContainer>
+                        {
+                          showApiData?.serves_wine === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.serves_wine ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Wine</p>
+                            </div>
+                        }
+                        {
+                          (showApiData?.serves_wine !== undefined && showApiData?.serves_beer !== undefined) ?
+                            <div className="">.</div> : ""
+                        }
+                        {
+                          showApiData?.serves_beer === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.serves_beer ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Beer</p>
+                            </div>
+                        }
+                      </DeliveryContainer>
+                    </>
+                }
 
                 <hr />
               </>
