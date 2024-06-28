@@ -117,7 +117,7 @@ const DashBoard = async () => {
     shoppingImages
   );
   return (
-    <DashboardMenuIn>
+    <>
       <SearchNFilter />
       <InfoApp />
       <LocalCusine data={LocalCusinedata} />
@@ -139,7 +139,7 @@ const DashBoard = async () => {
       <Surfing data={Surfingdata[0]} />
       <LeaveFeedbackButton />
       {/* <BetaExploreModal /> */}
-    </DashboardMenuIn>
+    </>
   );
 };
 export default DashBoard;
