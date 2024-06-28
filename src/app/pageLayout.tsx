@@ -1,6 +1,7 @@
 import React from "react";
 import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
 import { PagelayoutContainer, PagelayoutMainContainer } from "@/app/style";
+import ScrollSet from "@/components/dashboard/ScrollSet";
 
 interface PageLayoutProps {
   children: any;
@@ -9,7 +10,9 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <PagelayoutContainer>
-      <PagelayoutMainContainer>{children}</PagelayoutMainContainer>
+      <ScrollSet>
+       {children}
+      </ScrollSet>
       <PageLayoutClient />
     </PagelayoutContainer>
   );

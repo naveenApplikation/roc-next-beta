@@ -27,6 +27,7 @@ import {
   getApiShoppingWithIcon,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
+import { DashboardMenu, DashboardMenuIn } from "@/app/style";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -116,7 +117,7 @@ const DashBoard = async () => {
     shoppingImages
   );
   return (
-    <>
+    <DashboardMenuIn>
       <SearchNFilter />
       <InfoApp />
       <LocalCusine data={LocalCusinedata} />
@@ -138,7 +139,7 @@ const DashBoard = async () => {
       <Surfing data={Surfingdata[0]} />
       <LeaveFeedbackButton />
       {/* <BetaExploreModal /> */}
-    </>
+    </DashboardMenuIn>
   );
 };
 export default DashBoard;
