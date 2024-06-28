@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { CloseModal } from '../../app/utils/ImagePath'
+import { CloseModal } from "../../app/utils/ImagePath";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -19,11 +19,12 @@ const StyledModal = styled.div<{
   $screenwidth: number;
 }>`
   position: fixed;
-  top: auto;
-  width: ${({ $showMap }) => ($showMap ? "480px" : "580px")}; /* Adjust this value as needed */
+  width: ${({ $showMap }) =>
+    $showMap ? "480px" : "580px"}; /* Adjust this value as needed */
   background: #f2f3f3;
   background-blend-mode: normal, luminosity;
-  box-shadow: ${({ $isopen }) => $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
+  box-shadow: ${({ $isopen }) =>
+    $isopen ? "0px 8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
   backdrop-filter: blur(22px);
   display: flex;
   justify-content: space-between;
@@ -33,13 +34,10 @@ const StyledModal = styled.div<{
   overflow: auto;
   transform: none;
   left: 0;
-    top: auto;
-    height: 100%;
-    bottom: ${({ $isopen }) =>
-    $isopen
-      ? "0%"
-      : "-100%"};
-    transition: bottom 0.8s ease-in-out;
+  top: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
+  height: 100%;
+  transition: top 0.8s ease-in-out;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -76,7 +74,14 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, title, showMap, name }) => {
+const SearchModal: React.FC<SearchModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  showMap,
+  name,
+}) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
 
@@ -99,12 +104,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
 
   useEffect(() => {
     if (isOpen) {
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflow = "auto";
     }
     return () => {
-      document.documentElement.style.overflow = 'auto'; // Cleanup on component unmount
+      document.documentElement.style.overflow = "auto"; // Cleanup on component unmount
     };
   }, [isOpen]);
 
@@ -113,8 +118,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, children, ti
       $isopen={isOpen}
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
-      $screenwidth={screenWidth}
-    >
+      $screenwidth={screenWidth}>
       <div className="modal-content">
         <HeaderContainer>
           <h4>{title}</h4>

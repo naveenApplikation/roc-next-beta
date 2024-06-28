@@ -7,7 +7,6 @@ import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import { Container, DashboardMenu, MainContainer } from "@/app/style";
 
 export default function Home() {
-  console.log("yes")
   return (
     <>
       <Container>
