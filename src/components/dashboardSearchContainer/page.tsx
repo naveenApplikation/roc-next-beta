@@ -119,12 +119,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     } else {
       fetchDataAsync(searchQuery, filterValues);
     }
-  };
+  });
  
-  useEffect(() => {
-    
-    handleSearch();
-  }, [tabValue]);
+ 
 
 
   const debouncedSearch = useCallback(

@@ -24,7 +24,7 @@ import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccoun
 import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBookDatesModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
-import { handleLike } from "@/app/action";
+import { updateLike } from "@/app/action";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -142,40 +142,44 @@ console.log(events)
     setSearchQuery(value);
   };
   console.log(eventData,"eventData")
-  // const handleLike = async (id: string, vote: any) => {
-  //   console.log(eventData,"dddsdsd")
-  //   const loginToken =
-  //     typeof window !== "undefined"
-  //       ? window.localStorage.getItem("loginToken")
-  //       : null;
-  //   if (loginToken) {
-  //     eventData.map((val) => {
-  //       if (id === val._id) {
-  //         if (vote) {
-  //           val.userVoted = false;
-  //           val.itemVotes = val.itemVotes - 1;
-  //           setEventData([...eventData]);
-  //         } else {
-  //           val.userVoted = true;
-  //           val.itemVotes = val.itemVotes + 1;
-  //           setEventData([...eventData]);
-  //         }
-  //       }
-  //     });
-  //     const result = await Instance.post(
-  //       `/category/${vote ? "removeVoting" : "addVoting"}`,
-  //       {
-  //         categroryId: categoryId,
-  //         itemId: id,
-  //       }
-  //     );
-  //     vote
-  //       ? toast.error(result?.data?.message)
-  //       : toast.success(result?.data?.message);
-  //   } else {
-  //     modalClick("LoginSignupModal");
-  //   }
-  // };
+  const handleLike = async (id: string, vote: any) => {
+    console.log(eventData,"dddsdsd")
+    const loginToken =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("loginToken")
+        : null;
+    if (loginToken) {
+      eventData.map((val) => {
+        if (id === val._id) {
+          if (vote) {
+            val.userVoted = false;
+            val.itemVotes = val.itemVotes - 1;
+            setEventData([...eventData]);
+          } else {
+            val.userVoted = true;
+            val.itemVotes = val.itemVotes + 1;
+            setEventData([...eventData]);
+          }
+        }
+      });
+      const result = await updateLike(vote, loginToken, {
+        categoryId: categoryId,
+        itemId: id,
+      });
+      // const result = await Instance.post(
+      //   `/category/${vote ? "removeVoting" : "addVoting"}`,
+      //   {
+      //     categroryId: categoryId,
+      //     itemId: id,
+      //   }
+      // );
+      vote
+        ? toast.error(result?.message)
+        : toast.success(result?.message);
+    } else {
+      modalClick("LoginSignupModal");
+    }
+  };
 
   const fetchDataAsync = async (value: string) => {
     setloader(true);
