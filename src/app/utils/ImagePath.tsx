@@ -169,6 +169,11 @@ import sunglassesSesImage from "../../../assets/images/shoppingListIcon/sunglass
 import giftIdeasImage from "../../../assets/images/shoppingListIcon/giftIdeas.png";
 import wallbeings from "../../../assets/images/cart-shopping.png";
 
+import ScrollTopIcon from '../../../assets/scrollTop.png';
+
+export const ScrollIcon = ScrollTopIcon;
+
+
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
 export const betaHigh = betaHighImg;
