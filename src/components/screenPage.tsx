@@ -165,7 +165,7 @@ console.log(events)
       const result = await updateLike(vote, loginToken, {
         categoryId: categoryId,
         itemId: id,
-      });
+      },events.toString());
       // const result = await Instance.post(
       //   `/category/${vote ? "removeVoting" : "addVoting"}`,
       //   {

@@ -1,13 +1,19 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { Erica_One } from "next/font/google";
 
 export async function getCategory(params: string) {
-  const res = await fetch(`${process.env.NEXT_API_URL}/${params}`,
+
+  if(params=="events" || params=="Trending Lists")
     {
-       next:{revalidate:10}
+        const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
+          next: { revalidate: 1 },
+        });
+
+        return await res.json();
     }
-  );
+  const res = await fetch(`${process.env.NEXT_API_URL}/${params}`);
   return await res.json();
 }
 
@@ -15,18 +21,18 @@ export async function getCategory(params: string) {
 export async function getData(slug:string,params:string)
 {
       
-        console.log(params)
+      
         const res = await fetch(
           `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`,
            {
-             next:{revalidate:2}
+             next:{tags:[slug]}
            }
         );
         return await res.json();
 }
 
-export async function updateLike(vote: any, loginToken: any, data: any) {
-  console.log("assasasask",vote,loginToken,data);
+export async function updateLike(vote: any, loginToken: any, data: any,params:string) {
+   
 
   try {
     const response = await fetch(
@@ -45,17 +51,17 @@ export async function updateLike(vote: any, loginToken: any, data: any) {
     );
     
     const res= await response.json();
-    console.log(res)
+    
     if(!response.ok)
       {
-          throw Error()
+          throw Error("Something went wrong!");
       }
-    console.log(res)
+    
+      revalidateTag(params)
      
     return res as {message:string}
   } catch (error) {
-    console.error("Error updating vote:", error);
-    return { message: "Something went wrong!"}
+    return { message:error as string}
   }
 }
 
