@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import { home, profileIcon, search, ROCLogo, Hamburger, HamburgerDesktop, HamburgerWithoutBG, ScrollIcon } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
-import ScrollTopLayout from "../scrollTopLayout/page";
 
 const HeadMenu = styled.div`
   display: flex;
@@ -48,7 +47,7 @@ const HeaderScreen = () => {
   }
 
   return (
-    <ScrollTopLayout>
+    <>
       <HeadMenu ref={scrollContainerRef}>
         <Image
           style={{ cursor: "pointer" }}
@@ -80,7 +79,7 @@ const HeaderScreen = () => {
           src={ScrollIcon} alt="scroll"
         />
       </HeadMenu>
-    </ScrollTopLayout>
+    </>
   );
 };
 

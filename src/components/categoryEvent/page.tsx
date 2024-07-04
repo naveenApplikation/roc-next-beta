@@ -232,11 +232,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
 
      { urlData && <AddListButton>
         <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>}      <Image
+      </AddListButton>}      
+      <Image
         className="scroll_top_desktop"
         onClick={setScrollTop}
         src={ScrollIcon} alt="scroll"
       />
+
     </SearchedListContainer>
   );
 };

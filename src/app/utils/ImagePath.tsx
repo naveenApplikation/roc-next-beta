@@ -169,7 +169,7 @@ import sunglassesSesImage from "../../../assets/images/shoppingListIcon/sunglass
 import giftIdeasImage from "../../../assets/images/shoppingListIcon/giftIdeas.png";
 import wallbeings from "../../../assets/images/cart-shopping.png";
 
-import ScrollTopIcon from '../../../assets/scrollTop.png';
+import ScrollTopIcon from '../../../assets/topSc.png';
 
 export const ScrollIcon = ScrollTopIcon;
 
