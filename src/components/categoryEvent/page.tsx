@@ -1,9 +1,10 @@
 import {
+  ScrollIcon,
   ThumbsUPIcon,
   commentstar,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -39,6 +40,47 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
+  const scrollContainerRef = useRef<any>();
+
+  const setScrollTop = () => {
+    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: 'smooth' })
+
+  }
+
+  // const [scrollHeight, setScrollHeight] = useState<number>(0);
+
+
+  // const handleScroll = () => {
+  //   // setScrollHeight(scrollContainerRef.current?.scrollTop);
+  //   let scrollll = document.documentElement.scrollTop || document.body.scrollTop
+  //   setScrollHeight(scrollContainerRef.current?.scrollTop);
+  // };
+  // useEffect(() => {
+  //   const scrollTop = sessionStorage.getItem('child_scroll')
+
+  //   if (scrollTop && scrollContainerRef.current) {
+  //     scrollContainerRef.current.scrollTop = parseInt(scrollTop)
+  //   }
+
+  // }, [])
+
+
+  // useEffect(() => {
+  //   const scrollContainer = scrollContainerRef.current;
+  //   if (scrollContainer) {
+  //     scrollContainer.addEventListener("scroll", handleScroll);
+  //   }
+
+  //   if (scrollHeight != 0) {
+  //     sessionStorage.setItem("child_scroll", scrollHeight.toString());
+  //   }
+  //   return () => {
+  //     scrollContainer.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [scrollHeight]);
+
+
+
   const handleBack = () => {
     if (window.history.length > 2) {
       router.back();
@@ -54,7 +96,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   const filterDate = handleFilter(urlData, selectFilter)
 
   return (
-    <SearchedListContainer>
+    <SearchedListContainer ref={scrollContainerRef}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <TitleText>{urlTitle}</TitleText>
@@ -190,7 +232,11 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
 
      { urlData && <AddListButton>
         <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>}
+      </AddListButton>}      <Image
+        className="scroll_top_desktop"
+        onClick={setScrollTop}
+        src={ScrollIcon} alt="scroll"
+      />
     </SearchedListContainer>
   );
 };

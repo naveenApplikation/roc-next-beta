@@ -1,11 +1,12 @@
 'use client'
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
-import { home, profileIcon, search, ROCLogo, Hamburger, HamburgerDesktop, HamburgerWithoutBG } from "@/app/utils/ImagePath";
+import { home, profileIcon, search, ROCLogo, Hamburger, HamburgerDesktop, HamburgerWithoutBG, ScrollIcon } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
+import ScrollTopLayout from "../scrollTopLayout/page";
 
 const HeadMenu = styled.div`
   display: flex;
@@ -39,9 +40,16 @@ const HeaderScreen = () => {
 
   const { modalName, closeModal, modalClick, dataDetails } = useMyContext();
 
+  const scrollContainerRef = useRef<any>();
+
+  const setScrollTop = () => {
+    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: 'smooth' })
+
+  }
+
   return (
-    <div>
-      <HeadMenu>
+    <ScrollTopLayout>
+      <HeadMenu ref={scrollContainerRef}>
         <Image
           style={{ cursor: "pointer" }}
           src={ROCLogo}
@@ -66,8 +74,13 @@ const HeaderScreen = () => {
           />
           <HamburgerWithoutBG onClick={()=>modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
+        <Image
+          className="scroll_top_desktop"
+          onClick={setScrollTop}
+          src={ScrollIcon} alt="scroll"
+        />
       </HeadMenu>
-    </div>
+    </ScrollTopLayout>
   );
 };
 

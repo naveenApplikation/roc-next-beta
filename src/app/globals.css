@@ -170,3 +170,36 @@ span {
 .gm-fullscreen-control{
   right: 95px !important;
 }
+
+.scroll_image {
+  width: 50px;
+  font-size: 18px;
+  height: 45px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1.75rem;
+  left: 85%;
+  z-index: 1993
+}
+
+.scroll_top_desktop{
+  width: 50px;
+  font-size: 18px;
+  height: 45px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1.75rem;
+  left: 90%;
+  z-index: 1993
+}
+
+@media screen and (min-width: 800px) {
+.scroll_image{
+  display: none;
+}
+.scroll_top_desktop{
+  left: 399px
+}
+}
