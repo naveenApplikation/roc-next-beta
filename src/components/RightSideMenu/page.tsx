@@ -102,12 +102,12 @@ const RightMenu = styled.div`
   position: fixed;
   right: 24px;
   @media screen and (max-width: 800px) {
+    position: fixed;
     display: flex;
     flex-direction: column;
     height: 510px;
     padding: 16px;
     padding-bottom: 35px;
-    position: relative;
     top: 0;
     width: 100%;
     right: 0;

@@ -67,7 +67,7 @@ export async function updateLike(vote: any, loginToken: any, data: any,params:st
 
 
 export async function getDirectoryCatagories(params: string) {
-  console.log(params);
+   
   const res = await fetch(
     `${process.env.NEXT_API_URL}/directory?query=${params}`
   );

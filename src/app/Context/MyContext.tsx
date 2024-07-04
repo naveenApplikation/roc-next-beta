@@ -310,7 +310,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // };
 
   const filterUrls = (ImageUrlData: any) => {
-    console.log(ImageUrlData);
     const imageUrls: string[] = [];
     ImageUrlData?.forEach((item: any) => {
       if (item) {

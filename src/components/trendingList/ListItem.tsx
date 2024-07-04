@@ -2,10 +2,9 @@
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { thumbsup } from "@/app/utils/ImagePath";
+import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 import PageLayout from "@/app/pageLayout";
-import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
 import Skeleton from "react-loading-skeleton";
 import HeaderScreen from "@/components/header/HeaderScreen";
@@ -23,23 +22,23 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { useState } from "react";
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
-interface Props{
-     data:any,
-     urlTitle?:string
+interface Props {
+  data: any,
+  urlTitle?: string
 }
-export const ListItem:React.FC<Props> = (props) => {
-     const listData=props.data
-     listData.forEach((list: any) => {
-          const matchedIcon = icons.find(icon => icon.name === list.iconName);
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
-          }
-        })
-   
+export const ListItem: React.FC<Props> = (props) => {
+  const listData = props.data
+  listData.forEach((list: any) => {
+    const matchedIcon = icons.find(icon => icon.name === list.iconName);
+    if (matchedIcon) {
+      list.image = matchedIcon.image;
+    }
+  })
+
   const router = useRouter();
-  
-   const skeletonItems = new Array(10).fill(null);
- const { showMap, filterUrls } = useMyContext();
+
+  const skeletonItems = new Array(10).fill(null);
+  const { showMap, setSelectFilter, modalType, closeModal } = useMyContext();
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition === true) {
       router.push(`/screens/${item}?categoryID=${id}`);
@@ -47,7 +46,8 @@ export const ListItem:React.FC<Props> = (props) => {
   };
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
- const [tabValue, setTabValue] = useState("Lists");
+  const [tabValue, setTabValue] = useState("Lists");
+
   const tabChange = (value: tabs) => {
     setTabValue(value);
   };
@@ -57,60 +57,75 @@ export const ListItem:React.FC<Props> = (props) => {
   const myListtabChange = (value: mylisttabs) => {
     setMyListTabValue(value);
   };
+
+  const handleBack = () => {
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
+  };
   return (
     <>
-     <PageLayout>
+      <PageLayout>
         <CategoryBody>
           <HeaderScreen />
-            <div>
-      <Container>
-        <PopularListContainer>
-          <PopularlistTitle>{props.urlTitle}</PopularlistTitle>
-        </PopularListContainer>
-        {listData.length
-          ? listData.map((item: any, index: any) => {
-              return (
-                <ListContainer key={index}>
-                  <ImageTitleContainer
-                    onClick={() =>
-                      menuClick(item?.listName, true, item?.categoryId?item.categoryId:item._id)
-                    }
-                  >
-                    <Imagecontainer style={{ background: item?.bgColor }}>
-                      {item?.image}
-                    </Imagecontainer>
-                    <p>{item?.listName}</p>
-                  </ImageTitleContainer>
-                  <LikesContainer>
-                    <Image
-                      style={{ width: 16, height: "auto" }}
-                      src={thumbsup}
-                      alt="icon"
-                    />
-                    <p>{item.votes}</p>
-                  </LikesContainer>
-                </ListContainer>
-              );
-            })
-          : skeletonItems.map((item, index) => (
-              <SearchedData key={index}>
-                <MainWrraper>
-                  <MainInsideWrapper>
-                    <Skeleton
-                      width={40}
-                      height={40}
-                      style={{ borderRadius: 100 }}
-                    />
-                    <div className="restroRating">
-                      <Skeleton width={120} height={14} />
-                    </div>
-                  </MainInsideWrapper>
-                  <Skeleton width={56} height={24} />
-                </MainWrraper>
-              </SearchedData>
-            ))}
-      </Container>
-    </div>
+          <div>
+            <Container>
+              <PopularListContainer>
+                <PopularlistTitle>{props.urlTitle}</PopularlistTitle>
+                <Image
+                  style={{ width: 40, height: 40, cursor: "pointer" }}
+                  src={CloseModal}
+                  alt="Logo Outline"
+                  onClick={() => handleBack()}
+                />
+              </PopularListContainer>
+              {listData.length
+                ? listData.map((item: any, index: any) => {
+                  return (
+                    <ListContainer key={index}
+                      onClick={() =>
+                        menuClick(item?.listName, true, item?.categoryId ? item.categoryId : item._id)
+                      }
+                    >
+                      <ImageTitleContainer
+                      >
+                        <Imagecontainer style={{ background: item?.bgColor }}>
+                          {item?.image}
+                        </Imagecontainer>
+                        <p>{item?.listName}</p>
+                      </ImageTitleContainer>
+                      <LikesContainer>
+                        <Image
+                          style={{ width: 16, height: "auto" }}
+                          src={thumbsup}
+                          alt="icon"
+                        />
+                        <p>{item.votes}</p>
+                      </LikesContainer>
+                    </ListContainer>
+                  );
+                })
+                : skeletonItems.map((item, index) => (
+                  <SearchedData key={index}>
+                    <MainWrraper>
+                      <MainInsideWrapper>
+                        <Skeleton
+                          width={40}
+                          height={40}
+                          style={{ borderRadius: 100 }}
+                        />
+                        <div className="restroRating">
+                          <Skeleton width={120} height={14} />
+                        </div>
+                      </MainInsideWrapper>
+                      <Skeleton width={56} height={24} />
+                    </MainWrraper>
+                  </SearchedData>
+                ))}
+            </Container>
+          </div>
         </CategoryBody>
       </PageLayout>
       <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
@@ -126,7 +141,7 @@ export const ListItem:React.FC<Props> = (props) => {
       <ActivitiesModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
     </>
-   
+
   );
 }
 

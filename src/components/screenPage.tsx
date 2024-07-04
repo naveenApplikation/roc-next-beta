@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { useMyContext } from "@/app/Context/MyContext";
 import PageLayout from "@/app/pageLayout";
 import Instance from "@/app/utils/Instance";
@@ -14,10 +14,10 @@ import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import Greetings from "@/components/createList/Greetings";
 import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
-import { debounce } from "lodash";
+ 
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
@@ -25,74 +25,60 @@ import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBo
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
 import { updateLike } from "@/app/action";
+import { debounce } from "@/app/utils/debounce";
+import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
+import FilterModalScreen from "./AllModalScreen/FilterModalScreen";
 
-type tabs = "Lists" | "Places";
-type mylisttabs = "Created" | "Contributed";
 interface ScreenPageProps {
   data: any;
 }
-const EventList:React.FC<ScreenPageProps> = (props) => {
-  const { showMap, filterUrls, modalClick, closeModal, modalName } = useMyContext();
+const EventList: React.FC<ScreenPageProps> = (props) => {
+  const { showMap, filterUrls, modalClick, closeModal, modalName } =
+    useMyContext();
   const [eventData, setEventData] = useState<ApiResponse[]>([]);
   const [eventTitle, setEventTitle] = useState("");
   const [totalVote, setTotalVote] = useState<any>("");
   const [categoryId, setCategoryId] = useState("");
   const [main_type, setMain_type] = useState<string>("");
-  const searchParams = useSearchParams();  
+  const searchParams = useSearchParams();
   const event = searchParams.get("categoryID");
   const { events } = useParams();
-console.log(events)
-  const options = ["Lists", "Places"];
-  const mylistoptions = ["Created", "Contributed"];
-  const [tabValue, setTabValue] = useState("Lists");
-  // const [showMap, setShowMap] = useState<boolean>(false);
-
-  
-
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
-
-  const [myListtabValue, setMyListTabValue] = useState("Created");
-
-  const myListtabChange = (value: mylisttabs) => {
-    setMyListTabValue(value);
-  };
 
   const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
   const [loader, setloader] = useState(false);
+  const [uiRenderLoader, setUiRenderLoader] = useState(true);
 
-  const fetchEventDataById =() => {
+  const fetchEventDataById = () => {
     try {
-        const response =props.data
-        setEventData(response?.categoryList);
-        setEventTitle(response?.listName);
-        setTotalVote(response?.totalVote);
-        setCategoryId(response?._id);
-        setMain_type(response?.main_type);
-        setloader(false);
+      const response = props.data;
+      setEventData(response?.categoryList);
+      setEventTitle(response?.listName);
+      setTotalVote(response?.totalVote);
+      setCategoryId(response?._id);
+      setMain_type(response?.main_type);
+      setloader(false);
+      setUiRenderLoader(false);
     } catch (error) {
       setloader(false);
+      setUiRenderLoader(false);
     }
   };
 
-    const router = useRouter();
-  useEffect(()=>{
-       router.prefetch("screens/" + events);
-  },[])
+  const router = useRouter();
+  useEffect(() => {
+    router.prefetch("screens/" + events);
+  }, []);
   useEffect(() => {
     if (event || screenName === "Greetings") {
       fetchEventDataById();
     }
-   
   }, [event, screenName]);
 
   const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
-  
   const navigateClick = () => {
     if (screenName === "Greetings") {
       setScreenName("categoryList");
@@ -125,9 +111,13 @@ console.log(events)
 
   const screenChangeHandle = async (name: string) => {
     const loginToken =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("loginToken")
+      localStorage.getItem("loginToken")
+        ? localStorage.getItem("loginToken")
         : null;
+    // const loginToken =
+    //   typeof window !== "undefined"
+    //     ? window.localStorage.getItem("loginToken")
+    //     : null;
     if (loginToken) {
       if (name === "Greetings") {
         postHandler(name);
@@ -141,13 +131,16 @@ console.log(events)
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
-  console.log(eventData,"eventData")
   const handleLike = async (id: string, vote: any) => {
     console.log(eventData,"dddsdsd")
     const loginToken =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem("loginToken")
+      localStorage.getItem("loginToken")
+        ? localStorage.getItem("loginToken")
         : null;
+    // const loginToken =
+    //   typeof window !== "undefined"
+    //     ? window.localStorage.getItem("loginToken")
+    //     : null;
     if (loginToken) {
       eventData.map((val) => {
         if (id === val._id) {
@@ -219,12 +212,25 @@ console.log(events)
   };
 
   const handleCreateNewList = async (name: string) => {
-    window.location.reload();
+    router.refresh();
+    // window.location.reload();
     setScreenName(name);
   };
 
+  const debouncedSearch = useCallback(
+    debounce((q: string) => {
+      fetchDataAsync(q);
+    }, 1000),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSearch(searchQuery);
+  }, [searchQuery]);
+
   const ScreenShowHandle = () => {
     if (screenName === "create") {
+      
       return (
         <AddListings
           ScreenSwitch={() => screenChangeHandle("Greetings")}
@@ -235,7 +241,7 @@ console.log(events)
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}
-          loader={loader}
+          loader={false}
           UI_Type="add_list"
         />
       );
@@ -245,7 +251,7 @@ console.log(events)
           urlData={eventData}
           urlTitle={eventTitle}
           filteredUrls={filteredUrls}
-          loader={loader}
+          loader={false}
           isOpen={() => screenChangeHandle("create")}
           handleLike={handleLike}
           totalVote={totalVote}
@@ -269,27 +275,32 @@ console.log(events)
 
   return (
     <>
-      <PageLayout>
-        <CategoryBody>{ScreenShowHandle()}</CategoryBody>
-      </PageLayout>
-      <CreateAccountModalLayout
-        isOpen={modalName === "LoginSignupModal" ? true : false}
-        onClose={() => closeModal("createAccountModal")}
-        {...{ showMap }}
-        name=""
-        title={modalName === "LoginAccountModal" && "Login"}
-      >
-        <LoginSignupModal
-          isOpen={() => modalClick("ContactUsModal")}
-          nextModal={() => modalClick("WelcomeBackModal")}
-          {...{ onClick }}
-          myListOpen={() => modalClick("TermsAndConditionModal")}
-        />
-      </CreateAccountModalLayout>
-      <EventListingModalScreen showMap={showMap} />
-      <ProfileAccountModalScreen showMap={showMap} />
-      <ReservationCalenderModal showMap={showMap} />
-      <ViewDirectionModalScreen showMap={showMap} />
+      {uiRenderLoader ? null : (
+        <>
+          <PageLayout>
+            <CategoryBody>{ScreenShowHandle()}</CategoryBody>
+          </PageLayout>
+          <CreateAccountModalLayout
+            isOpen={modalName === "LoginSignupModal" ? true : false}
+            onClose={() => closeModal("createAccountModal")}
+            {...{ showMap }}
+            name=""
+            title={modalName === "LoginAccountModal" && "Login"}>
+            <LoginSignupModal
+              isOpen={() => modalClick("ContactUsModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+              {...{ onClick }}
+              myListOpen={() => modalClick("TermsAndConditionModal")}
+            />
+          </CreateAccountModalLayout>
+          <EventListingModalScreen showMap={showMap} />
+          <ProfileAccountModalScreen showMap={showMap} />
+          <ReservationCalenderModal showMap={showMap} />
+          <ViewDirectionModalScreen showMap={showMap} />
+          <FilterListModalScreen showMap={showMap} />
+          {/* <FilterModalScreen showMap={showMap} /> */}
+        </>
+      )}
     </>
   );
 };

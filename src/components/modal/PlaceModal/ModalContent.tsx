@@ -13,7 +13,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import fallback from "../../../../assets/images/fallbackimage.png";
 import useSWR from "swr";
 
-const fetcher = (url:any) => fetch(url).then((res) => res.json());
+const fetcher = (url: any) => fetch(url).then((res) => res.json());
 import {
   bookOpen,
   comment,
@@ -69,9 +69,9 @@ const ModalContent: React.FC<ModalProps> = ({
  
   useEffect(() => {
     console.log(res.isLoading);
-    
+
     if (Object.keys(data).length) {
-         setShowApiData(res.data);
+      setShowApiData(res.data);
       if (res?.data?.reviews) {
         setReviewData(res?.data?.reviews);
       }
@@ -79,29 +79,26 @@ const ModalContent: React.FC<ModalProps> = ({
       setShowApiData(data);
     }
   }, [data, res]);
+
+
   useEffect(() => {
-   
-   
-
-  //  setLoading(false);
- console.log(data?.data_type)
+    //  setLoading(false);
+    console.log(data?.data_type)
     if (Object.keys(data).length) {
-      if(data?.data_type=='google')
-        {
-          console.log("yes");
-         
-          // topAttractionMapping(data).then((res: any) => {
-          // setShowApiData(res);
-          // if (res?.reviews) {
-          //   setReviewData(res?.reviews);
-          // }
+      if (data?.data_type == 'google') {
+        console.log("yes");
 
-          // });
-         
-        }else
-    {
-       // setShowApiData(data)
-    }
+        // topAttractionMapping(data).then((res: any) => {
+        // setShowApiData(res);
+        // if (res?.reviews) {
+        //   setReviewData(res?.reviews);
+        // }
+
+        // });
+
+      } else {
+        // setShowApiData(data)
+      }
     }
   }, [
     // data?._id,
@@ -355,8 +352,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 {/* <OpenRestText
                   selected={showApiData?.current_opening_hours?.open_now}
                 > */}
-                    {isOpenHead(showApiData?.current_opening_hours)}
-                  {/* {showApiData?.current_opening_hours?.open_now
+                {isOpenHead(showApiData?.current_opening_hours)}
+                {/* {showApiData?.current_opening_hours?.open_now
                     ? "Open"
                     : "Closed"}{" "} */}
                 {/* </OpenRestText> */}
@@ -414,55 +411,87 @@ const ModalContent: React.FC<ModalProps> = ({
             </ViewDirection>
             {relatedTypesFun(showApiData?.types).length ? (
               <>
-                <hr />
-                <DeliveryContainer>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.dine_in ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Dine-in</p>
-                  </div>
-                  <div className="">.</div>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.delevery ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Delivery</p>
-                  </div>
-                </DeliveryContainer>
+                {
+                  (showApiData?.delivery === undefined && showApiData?.dine_in === undefined) ? "" :
+                    <>
+                      <hr />
+                      <DeliveryContainer>
+                        {
+                          showApiData?.dine_in === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.dine_in ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Dine-in</p>
+                            </div>
+                        }
 
-                <hr />
-                <DeliveryContainer>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.serves_wine ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Wine</p>
-                  </div>
-                  <div className="">.</div>
-                  <div style={{ display: "flex", gap: "5px" }}>
-                    {showApiData?.serves_beer ? (
-                      <IoMdCheckmark
-                        style={{ color: "green", fontSize: "19px" }}
-                      />
-                    ) : (
-                      <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                    )}
-                    <p>Beer</p>
-                  </div>
-                </DeliveryContainer>
+                        {
+                          (showApiData?.delivery !== undefined && showApiData?.dine_in !== undefined) ?
+                            <div className="">.</div> : ""
+                        }
+
+                        {
+                          showApiData?.delivery === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+
+                              {showApiData?.delivery ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Delivery</p>
+                            </div>
+                        }
+                      </DeliveryContainer>
+                    </>
+                }
+
+
+                {
+                  (showApiData?.serves_wine === undefined && showApiData?.serves_beer === undefined) ? "" :
+                    <>
+                      <hr />
+                      <DeliveryContainer>
+                        {
+                          showApiData?.serves_wine === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.serves_wine ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Wine</p>
+                            </div>
+                        }
+                        {
+                          (showApiData?.serves_wine !== undefined && showApiData?.serves_beer !== undefined) ?
+                            <div className="">.</div> : ""
+                        }
+                        {
+                          showApiData?.serves_beer === undefined ? "" :
+                            <div style={{ display: "flex", gap: "5px" }}>
+                              {showApiData?.serves_beer ? (
+                                <IoMdCheckmark
+                                  style={{ color: "green", fontSize: "19px" }}
+                                />
+                              ) : (
+                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
+                              )}
+                              <p>Beer</p>
+                            </div>
+                        }
+                      </DeliveryContainer>
+                    </>
+                }
 
                 <hr />
               </>

@@ -5,9 +5,9 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface SearchContainerProps {
-  tabChange:Function,
+  tabChange?:Function,
   options:any,
-  tabValue:string,
+  tabValue?:string,
   showMap:boolean
 }
 
@@ -56,9 +56,7 @@ const SearchedContainer = styled.div`
 const SearchModalScreen: React.FC<SearchContainerProps> = ({tabChange , options , tabValue , showMap})=> {
 
     const { modalName, closeModal, modalClick, dataDetails, modalType } = useMyContext();
-    const DisplayData = ()=>{
 
-    }
 
   return (
     <>

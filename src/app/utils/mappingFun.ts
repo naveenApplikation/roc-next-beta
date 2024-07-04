@@ -14,6 +14,18 @@ export const topAttractionMapping = async (data: any) => {
     } else {
         return data
     }
+}
 
-
+export const handleFilter = (arr: any, name: string) => {
+    const newArr = [...arr];
+    if(!newArr.length){
+        return []
+    }
+    // console.log("hiiiiiiiiiii fun", arr)
+    const newData = newArr.filter((val: any) => {
+        if (val?.parishName === name) {
+            return val
+        }
+    })
+    return (name === "Any" ? arr : newData)
 }

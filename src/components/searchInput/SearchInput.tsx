@@ -26,16 +26,12 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { modalType } = useMyContext();
-  const [test, settest] = useState(false);
 
   useEffect(() => {
     if (modalType.search) {
-      setTimeout(() => {
-        if (inputRef.current) {
-          settest(true);
-          inputRef.current.focus();
-        }
-      }, 500);
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   }, [modalType]);
 
@@ -50,10 +46,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         id={id}
         ref={inputRef}
       />
-      {
-        loader ? <Spin size="small" /> :
-          <SearchIcon src={search} alt="Search" onClick={handleSearch} />
-      }
+      {loader ? (
+        <Spin size="small" />
+      ) : (
+        <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+      )}
     </InputContainer>
   );
 };

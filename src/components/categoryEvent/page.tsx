@@ -12,6 +12,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
 import { useRouter } from 'next/navigation';
 import fallback from '../../../assets/images/fallbackimage.png'
+import FilterSection from "../filterSection";
+import { handleFilter } from "@/app/utils/mappingFun";
 
 interface EventBoxProps {
   urlData?: any;
@@ -33,7 +35,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   handleLike,
   totalVote,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter()
 
@@ -43,7 +45,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     } else {
       router.replace('/');
     }
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   }
+
+  const filterDate = handleFilter(urlData, selectFilter)
 
   return (
     <SearchedListContainer>
@@ -53,6 +61,10 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
+          <div style={{padding:'10px 0px'}}>
+
+          <FilterSection pageTitle = "categoryEvent"  />
+          </div>
         </div>
         <Image 
           style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -93,7 +105,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             </MainInsideWrapper>
           </SearchedData>
         ))
-        : urlData?.map((item: any, index: any) => {
+        : filterDate?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}>
               <MainInsideWrapper
@@ -104,22 +116,22 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <FamilyEventWrapper>
                   {
                     item?.data_type === "google" ?
-                    item.photoUrl ? 
-                      <Image style={{borderRadius:"4px",cursor:"pointer",height:"80px",width:"80px"}} height={80} width={80}  objectFit="cover" priority  src={item.photoUrl} alt="Image" 
-                      /> :
-                      <Image
-                      // style={{ background: "white" }}
-                      src={fallback}
-                      width={500}
-                      height={80}
-                      style={{
-                        borderRadius: 4,
-                        width: "80px",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                      alt=""
-                    />
+                      item.photoUrl ?
+                        <ImageTag src={item.photoUrl} alt="Image"
+                        /> :
+                        <Image
+                          // style={{ background: "white" }}
+                          src={fallback}
+                          width={500}
+                          height={80}
+                          style={{
+                            borderRadius: 4,
+                            width: "80px",
+                            objectFit: "cover",
+                            cursor: "pointer",
+                          }}
+                          alt=""
+                        />
                       :
                       (
                         <Image
@@ -176,9 +188,9 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           );
         })}
 
-      <AddListButton>
+     { urlData && <AddListButton>
         <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>
+      </AddListButton>}
     </SearchedListContainer>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+
 import { CloseModal, thumbsup, utensils } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { Suspense } from "react";
@@ -12,6 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { sideWidth } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
+import { handleFilter } from "@/app/utils/mappingFun";
 
 interface AttractionBoxProps {
   // Define your props here
@@ -27,20 +29,25 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter, closeModal, modalType } = useMyContext();
   const router = useRouter();
 
   const skeletonItems = new Array(10).fill(null);
 
   const handleBack = () => {
-    router.push("/");
+    // router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+    }
   };
-
+  const filterDate = handleFilter(urlData, selectFilter)
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SearchedListContainer>
         <Header className="">
           <TitleText>
+
             {urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}
           </TitleText>
           <Image
@@ -50,7 +57,10 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             onClick={() => handleBack()}
           />
         </Header>
-
+          
+        <div style={{padding:'10px 0px'}}>
+        <FilterSection pageTitle = "attractionBox" />
+        </div>
         {/* <LikeCount>5,281 likes</LikeCount> */}
         {/* {urlData != 77 && (
           <div style={{ margin: "24px 0px" }}>
@@ -91,7 +101,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                 </MainWrraper>
               </SearchedData>
             ))
-          : urlData?.map((item: any, index: any) => {
+          : filterDate?.map((item: any, index: any) => {
               return (
                 <SearchedData key={index}>
                   <MainWrraper>

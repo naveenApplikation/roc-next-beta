@@ -1,16 +1,17 @@
-'use client'
-import { EnjoyShineMenuItem } from "@/app/utils/data";
+'use client';
+
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
-import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import fallback from '../../../assets/images/fallbackimage.png'
 import { useRouter } from "next/navigation";
+import { handleFilter } from "@/app/utils/mappingFun";
+import FilterSection from "../filterSection";
 
 interface ExperienceBoxProps {
   urlData?: any;
@@ -27,7 +28,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -35,11 +36,15 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const router = useRouter();
 
   const handleBack = () => {
-
-    router.push("/");
+    // router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+      setSelectFilter("Any")
+    }
   };
 
-
+  const filterDate = handleFilter(urlData, selectFilter)
   return (
     <SearchedListContainer>
       <Header className="">
@@ -52,11 +57,10 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      {/* {urlData != 77 && (
-        <div style={{ margin: "24px 0px" }}>
-          <FilterSection />
-        </div>
-      )} */}
+      <div style={{padding:'10px 0px'}}>
+
+      <FilterSection pageTitle="experienceBox" />
+      </div>
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>
@@ -82,12 +86,12 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             </MainInsideWrapper>
           </SearchedData>
         ))
-        : urlData?.map((item: any, index: any) => {
+        : filterDate?.map((item: any, index: any) => {
           return (
             <SearchedData key={index}
-            onClick={() =>
-              modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-            }
+              onClick={() =>
+                modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
+              }
             >
               <div
                 style={{
@@ -104,7 +108,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                   height={80}
                   style={{
                     borderRadius: 4,
-                    // maxWidth: "100%",
                     width: "80px",
                     objectFit: "cover",
                   }}
@@ -113,18 +116,19 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                 />
                 <div className="restroRating">
                   <p className="shopName">{item.acf.title}</p>
+   
                   <PriceAndLabelText>{item.acf.parish.label} ⋅ Activity</PriceAndLabelText>
                   <PriceAndLabelText>{item.acf.price_to || item.acf.price_from ? "£" : ""}{(item.acf.price_from ? item.acf.price_from : "") + ((item.acf.price_to && item.acf.price_from) ? '-' : "") + (item.acf.price_to ? item.acf.price_to : "")}</PriceAndLabelText>
                 </div>
               </div>
-              <div className="likes">
+              {/* <div className="likes">
                 <Image
                   src={thumbsup}
                   alt="like"
                   style={{ width: "16px", height: "16px" }}
                 />
                 <p>{item.likeCount}</p>
-              </div>
+              </div> */}
             </SearchedData>
           );
         })}
@@ -146,6 +150,7 @@ justify-content: space-between;
 const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #f2f3f3;
+  min-height: 100dvh;
 `;
 
 const SearchedData = styled.div`
@@ -173,10 +178,6 @@ const SearchedData = styled.div`
   }
 `;
 
-const DetailContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const TitleText = styled.p`
   font-size: 24px;
@@ -194,8 +195,7 @@ const MainInsideWrapper = styled.div`
 `;
 
 const PriceAndLabelText = styled.p`
-  color: rgba(0, 0, 0, 0.48);
-font-size: 1.2rem;
+font-size: 1.5rem;
 font-style: normal;
 font-weight: 400;
 line-height: 16px; /* 133.333% */

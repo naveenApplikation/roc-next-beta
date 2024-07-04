@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
 // import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
@@ -8,15 +9,15 @@ import UnselectedBtnImg from "../../../assets/images/createListImages/check.png"
 import SelectedBtnImg from "../../../assets/images/createListImages/plus-circle.png";
 import SearchComponent from "@/components/searchInput/SearchInput";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 // import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import Skeleton from "react-loading-skeleton";
 // import CreateListingsHeader from "../createList/CreateList Components/CreateListsHeader";
 // import CreateListingsFooter from "../createList/CreateList Components/CreateListsFooter";
 const CreateListingsHeader = dynamic(() => import("../createList/CreateList Components/CreateListsHeader"), { ssr: false })
 const CreateListingsFooter = dynamic(() => import("../createList/CreateList Components/CreateListsFooter"), { ssr: false })
-import Instance from "@/app/utils/Instance";
 import ImageCom from "./imageCom";
+
+import fallback from '../../../assets/images/fallbackimage.png'
 
 interface AddListingsProps {
   ScreenSwitch?: Function;
@@ -96,7 +97,7 @@ const AddListings: React.FC<AddListingsProps> = ({
             ))
             :
             data.map((item: any, index: any) => {
-
+              console.log("photo url", item?.photos == undefined ? fallback : item?.photos)
               return (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}
@@ -117,7 +118,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                                style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
                                alt="infoCirlce"
                              /> */}
-                        <ImageCom imageArr={item?.photos} />
+                        <ImageCom imageArr={item?.photos == undefined ? fallback : item?.photos} />
                       </div>
                       <div style={{
                         display: "flex",
@@ -156,14 +157,13 @@ const AddListings: React.FC<AddListingsProps> = ({
                         </p> */}
                       </div>
                     </div>
-                    <button onClick={() => toggleSelected(item.place_id, item)}>
+                    <div onClick={() => toggleSelected(item.place_id, item)}>
                       {selectedItemIds.includes(item.place_id) ? (
                         <UnselectedBtn>
                           <Image
                             style={{ width: "15px", height: "10px" }}
                             src={UnselectedBtnImg}
                             alt="UnselectedBtnImg"
-                          // onClick={() => handleToggle(listItemName)}
                           />
                         </UnselectedBtn>
                       ) : (
@@ -175,7 +175,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                           />
                         </SelectedBtn>
                       )}
-                    </button>
+                    </div>
                   </ListDataWrraper>
                 </div>
               );
@@ -187,7 +187,7 @@ const AddListings: React.FC<AddListingsProps> = ({
           <CreateListingsFooter
             loader={loader}
             loading={loading}
-            continueBtn = {selectedItemIds.length ? true : false}
+            continueBtn={selectedItemIds.length ? true : false}
             ScreenSwitch={ScreenSwitch}
             selectedItem={selectedItemIds.length}
           /> : ""
@@ -233,14 +233,7 @@ const AddListingsTitle = styled.div`
   }
 `;
 
-const CreateListOptions = styled.div`
-  width: 100%;
-  height: 33px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-`;
+
 
 const SearchInputBox = styled.div`
   /* margin-right: 24px; */
@@ -263,8 +256,7 @@ const ListDataWrraper = styled.div`
   gap: 10px;
   border-bottom: 1px solid rgb(217, 217, 217);
   align-items: center;
-  padding: 9px 0px;
-  position: relative;
+  padding: 9px  25px 9px 0px;
 `;
 
 const ListDataTittleText = styled.p`
@@ -311,9 +303,9 @@ const UnselectedBtn = styled.div`
   background: #27ae60;
   border-style: none;
   cursor: pointer;
-  position: absolute;
-  right: 24px;
-  top: 10px;
+  // position: absolute;
+  // right: 24px;
+  // top: 10px;
 
   @media screen and (max-width: 400px) {
     right: 10px;
@@ -333,23 +325,15 @@ const SelectedBtn = styled.button`
   background: #2f80ed;
   border-style: none;
   cursor: pointer;
-  position: absolute;
-  right: 24px;
-  top: 10px;
+  // position: absolute;
+  // right: 24px;
+  // top: 10px;
 
   @media screen and (max-width: 400px) {
     right: 10px;
   }
 `;
 
-const ListDataTime = styled.p`
-  color: #2b902b;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px; /* 133.333% */
-  letter-spacing: 0.12px;
-`;
 
 const SearchedData = styled.div`
   display: flex;

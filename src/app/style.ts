@@ -44,7 +44,7 @@ export const MainContainer = styled.div`
     border-radius: 24px 24px 0px 0px;
     height: auto;
     overflow: hidden;
-    /*  margin-top: 490px; */
+     margin-top: 490px;
     z-index: 1;
   }
 `;
@@ -70,6 +70,32 @@ export const DashboardMenu = styled.div`
     min-height: calc(100vh - 500px);
   }
 `;
+
+export const DashboardMenuIn = styled.div`
+  width: 480px;
+  padding-bottom: 0px;
+  background: #f2f3f3;
+  transition: width 0.6s ease; /* Adjust transition timing function and duration */
+  background-blend-mode: normal, luminosity;
+  box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+  transform: translateZ(0); /* Force GPU rendering */
+  backface-visibility: hidden; /* Improve rendering performance */
+  will-change: transform; /* Hint for browser optimizations */
+  .shoadow_wrapper_container {
+    opacity: 0;
+  }
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    min-height: calc(100vh - 500px);
+  }
+`;
+
 
 // Pagelayout style //
 

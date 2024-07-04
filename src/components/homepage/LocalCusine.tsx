@@ -4,17 +4,17 @@ import React from 'react';
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from '@/app/utils/date';
-import {ScrollingMenu} from '@/app/style';
+import { ScrollingMenu } from '@/app/style';
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 
 type YourPageProps = {
-    data?: any;
-  };
+  data?: any;
+};
 
-const DineOut: React.FC<YourPageProps> = ({data}) => {
+const DineOut: React.FC<YourPageProps> = ({ data }) => {
 
-    const { showMap, modalClick,menuClick } = useMyContext();
+  const { showMap, modalClick, menuClick } = useMyContext();
 
   return (
     <>
@@ -30,7 +30,7 @@ const DineOut: React.FC<YourPageProps> = ({data}) => {
                 headerImage={item.photoUrl}
                 containerImageUrl={true}
                 MenutitleDetail={item.name}
-                isOpen={() => modalClick("ModalContent", item, item.photoUrl,true)}
+                isOpen={() => modalClick("ModalContent", item, item.photoUrl, true)}
               />
             </div>
           ))

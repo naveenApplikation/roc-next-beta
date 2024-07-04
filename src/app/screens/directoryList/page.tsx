@@ -28,7 +28,7 @@ const width = "580";
 
 
 const Directorylist = () => {
-  const { showMap, modalName, modalClick, filterUrls } = useMyContext();
+  const { showMap, modalType, closeModal } = useMyContext();
 
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
@@ -40,7 +40,7 @@ const Directorylist = () => {
   };
 
   const router = useRouter();
-
+console.log("route", router)
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -78,8 +78,10 @@ const Directorylist = () => {
 
 
   const handleBack = () => {
-
-    router.push("/");
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+    }
   };
 
 
