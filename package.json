@@ -10,6 +10,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@ducanh2912/next-pwa": "^10.2.7",
     "@next/font": "^14.2.3",
     "@next/third-parties": "^14.2.3",
@@ -55,5 +56,8 @@
     "eslint-config-next": "14.1.0",
     "typescript": "^5",
     "webpack": "^5.91.0"
+  },
+  "resolutions": {
+    "glob": "^9.0.0"
   }
 }

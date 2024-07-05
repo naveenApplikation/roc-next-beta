@@ -83,9 +83,10 @@ const withPwaConfig = withPWA({
   workboxOptions: {
     disableDevLogs: true,
   },
+  staticPageGenerationTimeout: 120,
+  reactStrictMode: true,
   // ... other options you like
 });
-
 
 export default withPwaConfig(nextConfig);
 // export default nextConfig;
