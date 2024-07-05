@@ -41,7 +41,17 @@ type Schedule = {
   weekday_text: string[];
 };
 
-export function getVenueStatus(schedule: Schedule): JSX.Element {
+export function getVenueStatus(
+  schedule: Schedule,
+  Venue?: string
+): JSX.Element {
+  if (Venue && Venue == "Grosnez Castle") {
+    return (
+      <div style={{ display: "flex", gap: "5px" }}>
+        <p style={{ color: "green" }}>Open</p>
+      </div>
+    );
+  }
   // Get the current time in Jersey Island (GMT+1)
   const currentDate = new Date();
   const jerseyOffset = 1 * 60; // Jersey is GMT+1
@@ -93,7 +103,6 @@ export function getVenueStatus(schedule: Schedule): JSX.Element {
       );
     }
   }
-
 
   // Finding the next period assuming periods are sorted by time
   const nextPeriod =
@@ -160,7 +169,6 @@ export function isOpenHead(schedule: Schedule): JSX.Element {
     return <></>;
   }
 
-
   // Filter for periods of today, checking for undefined or null
   const todayPeriods: Period[] = schedule.periods.filter(
     (period) => period.open.day === currentDay
@@ -181,13 +189,12 @@ export function isOpenHead(schedule: Schedule): JSX.Element {
     if (currentPeriod) {
       return (
         <div style={{ display: "flex", gap: "5px" }}>
-          <p style={{ color: "green", fontSize: "16px" }}>Open</p> 
+          <p style={{ color: "green", fontSize: "16px" }}>Open</p>
           {/* <p>Closes at {formatTime(currentPeriod.close.time)}</p> */}
         </div>
       );
     }
   }
-
 
   // Finding the next period assuming periods are sorted by time
   const nextPeriod =
@@ -197,7 +204,7 @@ export function isOpenHead(schedule: Schedule): JSX.Element {
   if (nextPeriod) {
     return (
       <div style={{ display: "flex", gap: "5px" }}>
-        <p style={{ color: "red", fontSize: "16px"  }}>Closed</p> :{" "}
+        <p style={{ color: "red", fontSize: "16px" }}>Closed</p> :{" "}
         {/* <p>Opens at {formatTime(nextPeriod.open.time)}</p> */}
       </div>
     );
@@ -209,5 +216,3 @@ export function isOpenHead(schedule: Schedule): JSX.Element {
     </div>
   );
 }
-
-

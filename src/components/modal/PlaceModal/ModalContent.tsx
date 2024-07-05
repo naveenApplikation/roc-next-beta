@@ -65,8 +65,8 @@ const ModalContent: React.FC<ModalProps> = ({
   //   return () => clearTimeout(timer);
   // }, [showApiData?.types, data?.acf?.type]);
 
- const res= useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
- 
+  const res = useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
+
   useEffect(() => {
     console.log(res.isLoading);
 
@@ -80,34 +80,35 @@ const ModalContent: React.FC<ModalProps> = ({
     }
   }, [data, res]);
 
+  useEffect(
+    () => {
+      //  setLoading(false);
+      console.log(data?.data_type);
+      if (Object.keys(data).length) {
+        if (data?.data_type == "google") {
+          console.log("yes");
 
-  useEffect(() => {
-    //  setLoading(false);
-    console.log(data?.data_type)
-    if (Object.keys(data).length) {
-      if (data?.data_type == 'google') {
-        console.log("yes");
+          // topAttractionMapping(data).then((res: any) => {
+          // setShowApiData(res);
+          // if (res?.reviews) {
+          //   setReviewData(res?.reviews);
+          // }
 
-        // topAttractionMapping(data).then((res: any) => {
-        // setShowApiData(res);
-        // if (res?.reviews) {
-        //   setReviewData(res?.reviews);
-        // }
-
-        // });
-
-      } else {
-        // setShowApiData(data)
+          // });
+        } else {
+          // setShowApiData(data)
+        }
       }
-    }
-  }, [
-    // data?._id,
-    // Object.keys(showApiData).length,
-    // reviewData.length,
-    // data?.name,
-    // data?.place_id,
-    // res
-  ]);
+    },
+    [
+      // data?._id,
+      // Object.keys(showApiData).length,
+      // reviewData.length,
+      // data?.name,
+      // data?.place_id,
+      // res
+    ]
+  );
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
@@ -118,7 +119,10 @@ const ModalContent: React.FC<ModalProps> = ({
     {
       name:
         data?.data_type === "google"
-          ? getVenueStatus(showApiData?.current_opening_hours)
+          ? getVenueStatus(
+              showApiData?.current_opening_hours,
+              showApiData?.name
+            )
           : "",
       image: clock,
       nameValue:
@@ -131,8 +135,7 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
-            target="_blank"
-          >
+            target="_blank">
             {showApiData?.website}
           </WebsiteLink>
         ) : (
@@ -154,16 +157,16 @@ const ModalContent: React.FC<ModalProps> = ({
               <span
                 onClick={() =>
                   copylink(showApiData?.international_phone_number)
-                }
-              >
-                <Link href={`tel:${showApiData?.international_phone_number}`}>{showApiData?.international_phone_number}</Link>
+                }>
+                <Link href={`tel:${showApiData?.international_phone_number}`}>
+                  {showApiData?.international_phone_number}
+                </Link>
               </span>
             </Tooltip>
           ) : (
             <Tooltip title={"Copy contact number"}>
               <span
-                onClick={() => copylink(showApiData?.formatted_phone_number)}
-              >
+                onClick={() => copylink(showApiData?.formatted_phone_number)}>
                 {showApiData?.formatted_phone_number}
               </span>
             </Tooltip>
@@ -279,8 +282,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-          .map((item: any) => item.replaceAll("_", " "))
-          .join(" | ")
+            .map((item: any) => item.replaceAll("_", " "))
+            .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -314,7 +317,6 @@ const ModalContent: React.FC<ModalProps> = ({
     });
   }, []);
 
-
   return (
     <>
       {res.isLoading ? (
@@ -325,8 +327,7 @@ const ModalContent: React.FC<ModalProps> = ({
             alignItems: "center",
             width: "100%",
             height: "500px",
-          }}
-        >
+          }}>
           <Spin tip="Loading" size="large" />
         </div>
       ) : (
@@ -338,8 +339,7 @@ const ModalContent: React.FC<ModalProps> = ({
               paddingLeft: "24px",
               paddingRight: "24px",
               fontWeight: "700",
-            }}
-          >
+            }}>
             {" "}
             {formattedValues()}{" "}
           </p>
@@ -411,87 +411,105 @@ const ModalContent: React.FC<ModalProps> = ({
             </ViewDirection>
             {relatedTypesFun(showApiData?.types).length ? (
               <>
-                {
-                  (showApiData?.delivery === undefined && showApiData?.dine_in === undefined) ? "" :
-                    <>
-                      <hr />
-                      <DeliveryContainer>
-                        {
-                          showApiData?.dine_in === undefined ? "" :
-                            <div style={{ display: "flex", gap: "5px" }}>
-                              {showApiData?.dine_in ? (
-                                <IoMdCheckmark
-                                  style={{ color: "green", fontSize: "19px" }}
-                                />
-                              ) : (
-                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                              )}
-                              <p>Dine-in</p>
-                            </div>
-                        }
+                {showApiData?.delivery === undefined &&
+                showApiData?.dine_in === undefined ? (
+                  ""
+                ) : (
+                  <>
+                    <hr />
+                    <DeliveryContainer>
+                      {showApiData?.dine_in === undefined ? (
+                        ""
+                      ) : (
+                        <div style={{ display: "flex", gap: "5px" }}>
+                          {showApiData?.dine_in ? (
+                            <IoMdCheckmark
+                              style={{ color: "green", fontSize: "19px" }}
+                            />
+                          ) : (
+                            <RxCross2
+                              style={{ color: "red", fontSize: "19px" }}
+                            />
+                          )}
+                          <p>Dine-in</p>
+                        </div>
+                      )}
 
-                        {
-                          (showApiData?.delivery !== undefined && showApiData?.dine_in !== undefined) ?
-                            <div className="">.</div> : ""
-                        }
+                      {showApiData?.delivery !== undefined &&
+                      showApiData?.dine_in !== undefined ? (
+                        <div className="">.</div>
+                      ) : (
+                        ""
+                      )}
 
-                        {
-                          showApiData?.delivery === undefined ? "" :
-                            <div style={{ display: "flex", gap: "5px" }}>
+                      {showApiData?.delivery === undefined ? (
+                        ""
+                      ) : (
+                        <div style={{ display: "flex", gap: "5px" }}>
+                          {showApiData?.delivery ? (
+                            <IoMdCheckmark
+                              style={{ color: "green", fontSize: "19px" }}
+                            />
+                          ) : (
+                            <RxCross2
+                              style={{ color: "red", fontSize: "19px" }}
+                            />
+                          )}
+                          <p>Delivery</p>
+                        </div>
+                      )}
+                    </DeliveryContainer>
+                  </>
+                )}
 
-                              {showApiData?.delivery ? (
-                                <IoMdCheckmark
-                                  style={{ color: "green", fontSize: "19px" }}
-                                />
-                              ) : (
-                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                              )}
-                              <p>Delivery</p>
-                            </div>
-                        }
-                      </DeliveryContainer>
-                    </>
-                }
-
-
-                {
-                  (showApiData?.serves_wine === undefined && showApiData?.serves_beer === undefined) ? "" :
-                    <>
-                      <hr />
-                      <DeliveryContainer>
-                        {
-                          showApiData?.serves_wine === undefined ? "" :
-                            <div style={{ display: "flex", gap: "5px" }}>
-                              {showApiData?.serves_wine ? (
-                                <IoMdCheckmark
-                                  style={{ color: "green", fontSize: "19px" }}
-                                />
-                              ) : (
-                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                              )}
-                              <p>Wine</p>
-                            </div>
-                        }
-                        {
-                          (showApiData?.serves_wine !== undefined && showApiData?.serves_beer !== undefined) ?
-                            <div className="">.</div> : ""
-                        }
-                        {
-                          showApiData?.serves_beer === undefined ? "" :
-                            <div style={{ display: "flex", gap: "5px" }}>
-                              {showApiData?.serves_beer ? (
-                                <IoMdCheckmark
-                                  style={{ color: "green", fontSize: "19px" }}
-                                />
-                              ) : (
-                                <RxCross2 style={{ color: "red", fontSize: "19px" }} />
-                              )}
-                              <p>Beer</p>
-                            </div>
-                        }
-                      </DeliveryContainer>
-                    </>
-                }
+                {showApiData?.serves_wine === undefined &&
+                showApiData?.serves_beer === undefined ? (
+                  ""
+                ) : (
+                  <>
+                    <hr />
+                    <DeliveryContainer>
+                      {showApiData?.serves_wine === undefined ? (
+                        ""
+                      ) : (
+                        <div style={{ display: "flex", gap: "5px" }}>
+                          {showApiData?.serves_wine ? (
+                            <IoMdCheckmark
+                              style={{ color: "green", fontSize: "19px" }}
+                            />
+                          ) : (
+                            <RxCross2
+                              style={{ color: "red", fontSize: "19px" }}
+                            />
+                          )}
+                          <p>Wine</p>
+                        </div>
+                      )}
+                      {showApiData?.serves_wine !== undefined &&
+                      showApiData?.serves_beer !== undefined ? (
+                        <div className="">.</div>
+                      ) : (
+                        ""
+                      )}
+                      {showApiData?.serves_beer === undefined ? (
+                        ""
+                      ) : (
+                        <div style={{ display: "flex", gap: "5px" }}>
+                          {showApiData?.serves_beer ? (
+                            <IoMdCheckmark
+                              style={{ color: "green", fontSize: "19px" }}
+                            />
+                          ) : (
+                            <RxCross2
+                              style={{ color: "red", fontSize: "19px" }}
+                            />
+                          )}
+                          <p>Beer</p>
+                        </div>
+                      )}
+                    </DeliveryContainer>
+                  </>
+                )}
 
                 <hr />
               </>
@@ -574,8 +592,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       display: "flex",
                       flexDirection: "column",
                       gap: "10px",
-                    }}
-                  >
+                    }}>
                     <div style={{ display: "flex", gap: "10px" }}>
                       <div>
                         {item.profile_photo_url ? (
@@ -633,8 +650,7 @@ const ModalContent: React.FC<ModalProps> = ({
 
               {showReview && (
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
-                >
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
                   <TextAreaContainer
                     rows={4}
@@ -644,8 +660,7 @@ const ModalContent: React.FC<ModalProps> = ({
                     onChange={(e) => setCommentReview(e.target.value)}
                   />
                   <div
-                    style={{ display: "flex", gap: 8, alignItems: "center" }}
-                  >
+                    style={{ display: "flex", gap: 8, alignItems: "center" }}>
                     <span style={{ fontSize: 14, fontWeight: "bold" }}>
                       Rating:
                     </span>
@@ -676,8 +691,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       style={{
                         display: "flex",
                         justifyContent: "space-around",
-                      }}
-                    >
+                      }}>
                       <p>{item?.day}</p>
                       <p>{item?.time}</p>
                     </p>
@@ -742,7 +756,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ""
               )}
               {showApiData?.international_phone_number ||
-                showApiData?.formatted_phone_number ? (
+              showApiData?.formatted_phone_number ? (
                 <CommonButton
                   text="Call"
                   image={phone}
@@ -945,7 +959,7 @@ const DatesWrapperTextGoogle = styled.div`
   /* flex-wrap: wrap;
   gap: 3px; */
 
-  p{
+  p {
     flex: 1;
   }
 `;
