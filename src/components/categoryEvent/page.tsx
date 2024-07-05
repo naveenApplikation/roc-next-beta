@@ -1,8 +1,4 @@
-import {
-  ScrollIcon,
-  ThumbsUPIcon,
-  commentstar,
-} from "@/app/utils/ImagePath";
+import { ScrollIcon, ThumbsUPIcon, commentstar } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -11,8 +7,8 @@ import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
-import { useRouter } from 'next/navigation';
-import fallback from '../../../assets/images/fallbackimage.png'
+import { useRouter } from "next/navigation";
+import fallback from "../../../assets/images/fallbackimage.png";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
 
@@ -26,8 +22,6 @@ interface EventBoxProps {
   totalVote?: any;
 }
 
-
-
 const CategoryEvent: React.FC<EventBoxProps> = ({
   urlTitle,
   urlData,
@@ -36,19 +30,18 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   handleLike,
   totalVote,
 }) => {
-  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } =
+    useMyContext();
   const skeletonItems = new Array(10).fill(null);
-  const router = useRouter()
+  const router = useRouter();
 
   const scrollContainerRef = useRef<any>();
 
   const setScrollTop = () => {
-    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: 'smooth' })
-
-  }
+    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
+  };
 
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
-
 
   // const handleScroll = () => {
   //   // setScrollHeight(scrollContainerRef.current?.scrollTop);
@@ -64,7 +57,6 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
 
   // }, [])
 
-
   // useEffect(() => {
   //   const scrollContainer = scrollContainerRef.current;
   //   if (scrollContainer) {
@@ -79,21 +71,19 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   //   };
   // }, [scrollHeight]);
 
-
-
   const handleBack = () => {
     if (window.history.length > 2) {
       router.back();
     } else {
-      router.replace('/');
+      router.replace("/");
     }
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
-      setSelectFilter("Any")
+      closeModal("modalFilterList");
+      setSelectFilter("Any");
     }
-  }
+  };
 
-  const filterDate = handleFilter(urlData, selectFilter)
+  const filterDate = handleFilter(urlData, selectFilter);
 
   return (
     <SearchedListContainer ref={scrollContainerRef}>
@@ -103,18 +93,17 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
-          <div style={{padding:'10px 0px'}}>
-
-          <FilterSection pageTitle = "categoryEvent"  />
+          <div style={{ padding: "10px 0px" }}>
+            <FilterSection pageTitle="categoryEvent" />
           </div>
         </div>
-        <Image 
+        <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}
           src={CloseModal}
           alt="Logo Outline"
           onClick={handleBack}
-      
-        // onClick={() => onClose(name)}
+
+          // onClick={() => onClose(name)}
         />
       </div>
       {/* {urlData != 77 && (
@@ -124,121 +113,124 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             )} */}
       {loader
         ? skeletonItems.map((item, index) => (
-          <SearchedData key={index}>
-            <MainInsideWrapper>
-              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-              <div className="restroRating">
-                <Skeleton
-                  width={160}
-                  height={17}
-                  style={{ borderRadius: 8 }}
-                />
-                <Skeleton
-                  width={100}
-                  height={14}
-                  style={{ borderRadius: 8 }}
-                />
-                <Skeleton
-                  width={80}
-                  height={13}
-                  style={{ borderRadius: 8 }}
-                />
-              </div>
-            </MainInsideWrapper>
-          </SearchedData>
-        ))
-        : filterDate?.map((item: any, index: any) => {
-          return (
             <SearchedData key={index}>
-              <MainInsideWrapper
-                onClick={() =>
-                  modalClick("eventListing", item, item?.data_type === "google" ? item?.photoUrl : fallback)
-                }
-              >
-                <FamilyEventWrapper>
-                  {
-                    item?.data_type === "google" ?
-                      item.photoUrl ?
-                        <ImageTag src={item.photoUrl} alt="Image"
-                        /> :
-                        <Image
-                          // style={{ background: "white" }}
-                          src={fallback}
-                          width={500}
-                          height={80}
-                          style={{
-                            borderRadius: 4,
-                            width: "80px",
-                            objectFit: "cover",
-                            cursor: "pointer",
-                          }}
-                          alt=""
-                        />
-                      :
-                      (
-                        <Image
-                          // style={{ background: "white" }}
-                          src={fallback}
-                          width={500}
-                          height={80}
-                          style={{
-                            borderRadius: 4,
-                            width: "80px",
-                            objectFit: "cover",
-                            cursor: "pointer",
-                          }}
-                          alt=""
-                        />
-                      )}
-                </FamilyEventWrapper>
+              <MainInsideWrapper>
+                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
                 <div className="restroRating">
-                  <p className="shopName">
-                    {item?.data_type === "google"
-                      ? item?.name
-                      : item?.acf?.title}
-                  </p>
-                  <DetailContainer>
-                    <p>{item?.rating} &nbsp;</p>
-                    <Image
-                      src={commentstar}
-                      style={{
-                        width: "13px",
-                        height: "13px",
-                        marginRight: 8,
-                      }}
-                      alt="utensils"
-                    />
-                    {/* <p>{item?.type}</p> */}
-                  </DetailContainer>
-                  {/* <p>
+                  <Skeleton
+                    width={160}
+                    height={17}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={100}
+                    height={14}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={80}
+                    height={13}
+                    style={{ borderRadius: 8 }}
+                  />
+                </div>
+              </MainInsideWrapper>
+            </SearchedData>
+          ))
+        : filterDate?.map((item: any, index: any) => {
+            return (
+              <SearchedData key={index}>
+                <MainInsideWrapper
+                  onClick={() =>
+                    modalClick(
+                      "eventListing",
+                      item,
+                      item?.data_type === "google" ? item?.photoUrl : fallback
+                    )
+                  }>
+                  <FamilyEventWrapper>
+                    {item?.data_type === "google" ? (
+                      item.photoUrl ? (
+                        <ImageTag src={item.photoUrl} alt="Image" />
+                      ) : (
+                        <Image
+                          // style={{ background: "white" }}
+                          src={fallback}
+                          width={500}
+                          height={80}
+                          style={{
+                            borderRadius: 4,
+                            width: "80px",
+                            objectFit: "cover",
+                            cursor: "pointer",
+                          }}
+                          alt=""
+                        />
+                      )
+                    ) : (
+                      <Image
+                        // style={{ background: "white" }}
+                        src={fallback}
+                        width={500}
+                        height={80}
+                        style={{
+                          borderRadius: 4,
+                          width: "80px",
+                          objectFit: "cover",
+                          cursor: "pointer",
+                        }}
+                        alt=""
+                      />
+                    )}
+                  </FamilyEventWrapper>
+                  <div className="restroRating">
+                    <p className="shopName">
+                      {item?.data_type === "google"
+                        ? item?.name
+                        : item?.acf?.title}
+                    </p>
+                    <DetailContainer>
+                      <p>{item?.rating} &nbsp;</p>
+                      <Image
+                        src={commentstar}
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          marginRight: 8,
+                        }}
+                        alt="utensils"
+                      />
+                      {/* <p>{item?.type}</p> */}
+                    </DetailContainer>
+                    {/* <p>
                     <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000" }}>
                       {item?.opening_hours?.open_now ? "Open" : "Closed"}
                     </span>
                   </p> */}
-                </div>
-              </MainInsideWrapper>
-              <LikesContainer
-                selected={item?.userVoted}
-                onClick={() => handleLike(item?._id, item?.userVoted)}
-              >
-                <ThumbsUPIcon
-                  color={item?.userVoted ? "#3b86ed" : "#000000"}
-                />
-                <p>{item?.itemVotes}</p>
-              </LikesContainer>
-            </SearchedData>
-          );
-        })}
+                  </div>
+                </MainInsideWrapper>
+                <LikesContainer
+                  selected={item?.userVoted}
+                  onClick={() => handleLike(item?._id, item?.userVoted)}>
+                  <ThumbsUPIcon
+                    color={item?.userVoted ? "#3b86ed" : "#000000"}
+                  />
+                  {/* <p>{item?.itemVotes ? item.itemVotes : 0}</p> */}
+                </LikesContainer>
+              </SearchedData>
+            );
+          })}
 
-     { urlData && <AddListButton>
-        <CommonButton {...{ isOpen }} text="Add to the list" />
-      </AddListButton>}      
+      {urlData && (
+        <AddListButton>
+          <CommonButton {...{ isOpen }} text="Add to the list" />
+        </AddListButton>
+      )}
       <Image
         className="scroll_top_desktop"
         onClick={setScrollTop}
-        src={ScrollIcon} alt="scroll"
+        src={ScrollIcon}
+        alt="scroll"
       />
-
     </SearchedListContainer>
   );
 };
