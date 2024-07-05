@@ -224,7 +224,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <ThumbsUPIcon
                   color={item?.userVoted ? "#3b86ed" : "#000000"}
                 />
-                <p>{item?.itemVotes}</p>
+                {/* <p>{item?.itemVotes}</p> */}
               </LikesContainer>
             </SearchedData>
           );

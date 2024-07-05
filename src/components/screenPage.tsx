@@ -155,20 +155,18 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           }
         }
       });
-      const result = await updateLike(vote, loginToken, {
-        categoryId: categoryId,
-        itemId: id,
-      },events.toString());
-      // const result = await Instance.post(
-      //   `/category/${vote ? "removeVoting" : "addVoting"}`,
-      //   {
-      //     categroryId: categoryId,
-      //     itemId: id,
-      //   }
-      // );
+      
+      const result = await Instance.post(
+        `/category/${vote ? "removeVoting" : "addVoting"}`,
+        {
+          categroryId: categoryId,
+          itemId: id,
+        }
+      );
       vote
-        ? toast.error(result?.message)
-        : toast.success(result?.message);
+        ? toast.error(result?.data.message)
+        : toast.success(result?.data.message);
+        await updateLike(events.toString());
     } else {
       modalClick("LoginSignupModal");
     }

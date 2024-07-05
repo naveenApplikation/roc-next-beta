@@ -8,7 +8,7 @@ export async function getCategory(params: string) {
   if(params=="events" || params=="Trending Lists")
     {
         const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
-          next: { revalidate: 1 },
+          next: { revalidate: 0 },
         });
 
         return await res.json();
@@ -31,38 +31,12 @@ export async function getData(slug:string,params:string)
         return await res.json();
 }
 
-export async function updateLike(vote: any, loginToken: any, data: any,params:string) {
+export async function updateLike(params:string) {
    
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_API_URL}/category/${
-        vote ? "removeVoting" : "addVoting"
-      }`,
-      {
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Login-Token": loginToken,
-        },
-        
-        body: JSON.stringify({categroryId:data.categoryId,itemId:data.itemId }),
-      }
-    );
-    
-    const res= await response.json();
-    
-    if(!response.ok)
-      {
-          throw Error("Something went wrong!");
-      }
-    
+ 
       revalidateTag(params)
      
-    return res as {message:string}
-  } catch (error) {
-    return { message:error as string}
-  }
+   
 }
 
 
