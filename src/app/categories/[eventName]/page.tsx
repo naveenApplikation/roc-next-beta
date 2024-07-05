@@ -16,11 +16,9 @@ interface Props {
   };
 }
 async function Page({ params, searchParams }: Props) {
-  
   const urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
 
-  
   if (
     urlData == "Trending Lists" ||
     urlData == "Jerseyisms" ||
@@ -28,7 +26,6 @@ async function Page({ params, searchParams }: Props) {
     urlData == "Shopping" ||
     urlData == "Wellbeing"
   ) {
-    
     return <TrendingList urlData={search} urlTitle={urlData} />;
   } else if (urlData === "categorieList") {
     return <CategorieList />;
@@ -38,8 +35,7 @@ async function Page({ params, searchParams }: Props) {
     return <ScaffoldingBox />;
   }
   const data = await getCategory(searchParams.search);
-   
-  
+
   return (
     <>
       <CategoriesPage
@@ -50,19 +46,11 @@ async function Page({ params, searchParams }: Props) {
   );
 }
 
- 
-const params = [
-  "Events",
-  "Enjoy the sunshine",
-  "Trending Lists",
-  "Community",
-  "Shopping",
-  "Wellbeing"
-];
+const params = ["Enjoy the sunshine", "Community", "Shopping", "Wellbeing"];
 
 export async function generateStaticParams() {
   return params.map((params) => {
-    return {eventName:params};
+    return { eventName: params };
   });
 }
 

@@ -4,70 +4,30 @@ import { revalidateTag } from "next/cache";
 import { Erica_One } from "next/font/google";
 
 export async function getCategory(params: string) {
-
-  if(params=="events" || params=="Trending Lists")
-    {
-        const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
-          next: { revalidate: 1 },
-        });
-
-        return await res.json();
-    }
+  if (params == "events" || params == "Trending Lists") {
+    const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
+      next: { revalidate: 0 },
+    });
+    console.log("tes", res);
+    return await res.json();
+  }
   const res = await fetch(`${process.env.NEXT_API_URL}/${params}`);
   return await res.json();
 }
 
- 
-export async function getData(slug:string,params:string)
-{
-      
-      
-        const res = await fetch(
-          `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`,
-           {
-             next:{tags:[slug]}
-           }
-        );
-        return await res.json();
+export async function getData(slug: string, params: string) {
+  const res = await fetch(
+    `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`
+  );
+  console.log("tes1", res);
+  return await res.json();
 }
 
-export async function updateLike(vote: any, loginToken: any, data: any,params:string) {
-   
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_API_URL}/category/${
-        vote ? "removeVoting" : "addVoting"
-      }`,
-      {
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Login-Token": loginToken,
-        },
-        
-        body: JSON.stringify({categroryId:data.categoryId,itemId:data.itemId }),
-      }
-    );
-    
-    const res= await response.json();
-    
-    if(!response.ok)
-      {
-          throw Error("Something went wrong!");
-      }
-    
-      revalidateTag(params)
-     
-    return res as {message:string}
-  } catch (error) {
-    return { message:error as string}
-  }
+export async function updateLike(params: string) {
+  revalidateTag(params);
 }
-
 
 export async function getDirectoryCatagories(params: string) {
-   
   const res = await fetch(
     `${process.env.NEXT_API_URL}/directory?query=${params}`
   );
@@ -119,9 +79,6 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
     return [];
   }
 }
-
-
-
 
 // export async function handleLike(req: any, res: any) {
 //   console.log("assasasask");

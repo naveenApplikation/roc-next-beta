@@ -14,7 +14,7 @@ import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";
 import Greetings from "@/components/createList/Greetings";
 import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
- 
+
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -110,10 +110,9 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   };
 
   const screenChangeHandle = async (name: string) => {
-    const loginToken =
-      localStorage.getItem("loginToken")
-        ? localStorage.getItem("loginToken")
-        : null;
+    const loginToken = localStorage.getItem("loginToken")
+      ? localStorage.getItem("loginToken")
+      : null;
     // const loginToken =
     //   typeof window !== "undefined"
     //     ? window.localStorage.getItem("loginToken")
@@ -132,11 +131,10 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     setSearchQuery(value);
   };
   const handleLike = async (id: string, vote: any) => {
-    console.log(eventData,"dddsdsd")
-    const loginToken =
-      localStorage.getItem("loginToken")
-        ? localStorage.getItem("loginToken")
-        : null;
+    console.log(eventData, "dddsdsd");
+    const loginToken = localStorage.getItem("loginToken")
+      ? localStorage.getItem("loginToken")
+      : null;
     // const loginToken =
     //   typeof window !== "undefined"
     //     ? window.localStorage.getItem("loginToken")
@@ -155,20 +153,25 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           }
         }
       });
-      const result = await updateLike(vote, loginToken, {
-        categoryId: categoryId,
-        itemId: id,
-      },events.toString());
-      // const result = await Instance.post(
-      //   `/category/${vote ? "removeVoting" : "addVoting"}`,
-      //   {
-      //     categroryId: categoryId,
-      //     itemId: id,
-      //   }
-      // );
-      vote
-        ? toast.error(result?.message)
-        : toast.success(result?.message);
+      try {
+        const result = await Instance.post(
+          `/category/${vote ? "removeVoting" : "addVoting"}`,
+          {
+            categroryId: categoryId,
+            itemId: id,
+          }
+        );
+        if (result.status != 200) {
+          throw Error();
+        }
+
+        // await updateLike(events.toString());
+        vote
+          ? toast.error(result?.data.message)
+          : toast.success(result?.data.message);
+      } catch (error) {
+        toast.error("something went wrong try again");
+      }
     } else {
       modalClick("LoginSignupModal");
     }
@@ -230,7 +233,6 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
-      
       return (
         <AddListings
           ScreenSwitch={() => screenChangeHandle("Greetings")}
