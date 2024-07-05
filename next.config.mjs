@@ -9,3 +9,6 @@ const nextConfig = {
 };
 
 export default nextConfig;
+module.exports = {
+  staticPageGenerationTimeout: 180,
+};

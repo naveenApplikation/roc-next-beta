@@ -153,25 +153,18 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           }
         }
       });
-      try {
-        const result = await Instance.post(
-          `/category/${vote ? "removeVoting" : "addVoting"}`,
-          {
-            categroryId: categoryId,
-            itemId: id,
-          }
-        );
-        if (result.status != 200) {
-          throw Error();
-        }
 
-        // await updateLike(events.toString());
-        vote
-          ? toast.error(result?.data.message)
-          : toast.success(result?.data.message);
-      } catch (error) {
-        toast.error("something went wrong try again");
-      }
+      const result = await Instance.post(
+        `/category/${vote ? "removeVoting" : "addVoting"}`,
+        {
+          categroryId: categoryId,
+          itemId: id,
+        }
+      );
+      vote
+        ? toast.error(result?.data.message)
+        : toast.success(result?.data.message);
+      await updateLike(events.toString());
     } else {
       modalClick("LoginSignupModal");
     }

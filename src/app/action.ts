@@ -8,7 +8,7 @@ export async function getCategory(params: string) {
     const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
       next: { revalidate: 0 },
     });
-    console.log("tes", res);
+
     return await res.json();
   }
   const res = await fetch(`${process.env.NEXT_API_URL}/${params}`);

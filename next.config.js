@@ -83,7 +83,7 @@ const withPwaConfig = withPWA({
   workboxOptions: {
     disableDevLogs: true,
   },
-  staticPageGenerationTimeout: 300, // increase the timeout value (in seconds)
+
   reactStrictMode: true,
   // ... other options you like
 });
