@@ -4,23 +4,48 @@ import { revalidateTag } from "next/cache";
 import { Erica_One } from "next/font/google";
 
 export async function getCategory(params: string) {
-  if (params == "events" || params == "Trending Lists") {
-    const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
-      next: { revalidate: 0 },
-    });
+  try {
+    const url = `${process.env.NEXT_API_URL}/${params}`;
+    const options =
+      params === "events" || params === "Trending Lists"
+        ? { next: { revalidate: 0 } }
+        : undefined;
 
-    return await res.json();
+    const res = await fetch(url, options);
+
+    if (!res.ok) {
+      throw new Error(`Network response was not ok: ${res.statusText}`);
+    }
+
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await res.json();
+    } else {
+      throw new Error("Received content is not JSON");
+    }
+  } catch (error) {
+    console.log("test", params);
   }
-  const res = await fetch(`${process.env.NEXT_API_URL}/${params}`);
-  return await res.json();
 }
 
 export async function getData(slug: string, params: string) {
-  const res = await fetch(
-    `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`
-  );
-  console.log("tes1", res);
-  return await res.json();
+  try {
+    const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(`Network response was not ok: ${res.statusText}`);
+    }
+
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await res.json();
+    } else {
+      throw new Error("Received content is not JSON");
+    }
+  } catch (error) {
+    console.log("tes2", params);
+  }
 }
 
 export async function updateLike(params: string) {

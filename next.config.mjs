@@ -5,10 +5,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-
 };
 
 export default nextConfig;
-module.exports = {
-  staticPageGenerationTimeout: 180,
-};
