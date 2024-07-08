@@ -9,22 +9,11 @@ import PageLayout from "@/app/pageLayout";
 import { icons } from "@/app/utils/iconList";
 import Skeleton from "react-loading-skeleton";
 import HeaderScreen from "@/components/header/HeaderScreen";
-import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
-import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
-import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistModalScreen";
-import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
 import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBookDatesModalScreen";
-import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderOnlineModalScreen";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
-import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
-import { useState } from "react";
-
-
-type tabs = "Lists" | "Places";
-type mylisttabs = "Created" | "Contributed";
 
 
 interface Props {
@@ -49,19 +38,6 @@ export const ListItem: React.FC<Props> = (props) => {
     if (condition === true) {
       router.push(`/screens/${item}?categoryID=${id}`);
     }
-  };
-  const options = ["Lists", "Places"];
-  const mylistoptions = ["Created", "Contributed"];
-  const [tabValue, setTabValue] = useState("Lists");
-
-  const tabChange = (value: tabs) => {
-    setTabValue(value);
-  };
-
-  const [myListtabValue, setMyListTabValue] = useState("Created");
-
-  const myListtabChange = (value: mylisttabs) => {
-    setMyListTabValue(value);
   };
 
   const handleBack = () => {
@@ -277,11 +253,6 @@ const LikesContainer = styled.div`
     line-height: 24px; /* 150% */
   }
 `;
-
-
-
-
-//
 
 const CategoryBody = styled.div`
   position: relative;
