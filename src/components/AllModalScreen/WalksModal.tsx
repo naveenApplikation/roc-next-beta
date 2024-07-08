@@ -9,7 +9,7 @@ interface WalksModalProps {
 
 const WalksModal: React.FC<WalksModalProps> = (props) => {
 
-    const { modalName, showMap, closeModal, modalClick, dataDetails, modalType } = useMyContext();
+    const { showMap, closeModal, dataDetails, modalType } = useMyContext();
 
     return (
         <WalkListModal

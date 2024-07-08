@@ -3,10 +3,9 @@ import styled from "styled-components";
 import Image from "next/image";
 import chevronRight from "../../../assets/images/chevron-right.png";
 import CommonButton from "../../components/button/CommonButton";
-import { viewDirectionMap } from "@/app/utils/ImagePath";
+ 
 import DirectionMapUi from "./DirectionMap";
-import { useMyContext } from "@/app/Context/MyContext";
-
+ 
 interface DirectionModalProps {
   dataDetails: any
 }
@@ -18,11 +17,6 @@ const Container = styled.div`
   height:93%;
   width:100%;
 `;
-
-
- 
-
- 
 const AdventureOption = styled.div`
   display: flex;
   justify-content: space-between;
@@ -40,40 +34,23 @@ const AdventureOption = styled.div`
 `;
 
 const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
-   const [selectedBox, setSelectedBox] = useState<number | null>(0);
-  const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(
-    null
-  );
-  const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(
-    null
-  );
+ 
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
  
-  const handleBoxClick = (boxIndex: number) => {
-    setSelectedBox(boxIndex);
-  };
-
-  const handleButtonBoxClick = (boxIndex: number) => {
-    setSelectedButtonBox(boxIndex);
-  };
-
-  const handleBoxRatingClick = (boxIndex: number) => {
-    setSelectedRatingBox(boxIndex);
-  };
-
-  const data = ["17min", "1hr53", "38min", "33min"];
+   
+ 
 
   const buttonData = ["Taxis", "Buses", "Bike Hire", "Cycling routes", "Car hire"];
 
-  const RatingData = ["Any", "3.5", "4.0", "4.5"];
+ 
 
 
   // Encode the title, latitude, and longitude
 
  
   const directionClick = () => {
-    const locationTitle = dataDetails?.title?.rendered;
+    
     let latitude: any
     let longitude: any
     let place_id: any

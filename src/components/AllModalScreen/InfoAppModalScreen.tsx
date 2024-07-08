@@ -21,7 +21,7 @@ const appInfoName = [
 ];
 
 const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
-  const [frameLoaded, setFrameLoaded] = useState<boolean>(false);
+   
 
   const { closeModal,modalType, appName } =
     useMyContext();
@@ -56,11 +56,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
     fetchDataAsync();
   }, [appName]);
 
-  useEffect(() => {
-    const data = appInfoName.includes(appName);
-    setFrameLoaded(data);
-  }, [appName]);
-
+  
   return (
     <>
       <DirectionModalLayout

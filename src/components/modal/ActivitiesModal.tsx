@@ -33,14 +33,7 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
-const OpenRestText = styled.p`
-  color: #2b902b;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-transform: uppercase;
-`;
+ 
 
 const ResturantDetailsContainer = styled.div`
   display: flex;
@@ -108,22 +101,7 @@ const RestDetailText = styled.p`
   padding: 0px 24px;
 `;
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 24px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const MenuButtonContainer = styled.div`
-  padding: 0px 24px;
-  display: flex;
-  gap: 16px;
-`;
+ 
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -142,17 +120,7 @@ const AlsoSeeText = styled.p`
   margin-left: 24px;
 `;
 
-const MoreInfo = styled.div`
-  padding: 0px 24px;
-  p {
-    color: var(--BODY, #000);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-  }
-`;
-
+ 
 const DatesContainer = styled.div`
   margin: 0px 24px;
 `;

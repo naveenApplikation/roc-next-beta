@@ -9,7 +9,7 @@ interface DashboardSearchContainerProps {
 
 const ViewDirectionModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap }) => {
 
-  const { modalName, closeModal, modalClick, dataDetails, modalType } = useMyContext();
+  const { closeModal,dataDetails, modalType } = useMyContext();
 
 
   return (
