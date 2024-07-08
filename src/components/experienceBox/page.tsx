@@ -7,7 +7,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
+import { CloseModal} from "@/app/utils/ImagePath";
 import fallback from '../../../assets/images/fallbackimage.png'
 import { useRouter } from "next/navigation";
 import { handleFilter } from "@/app/utils/mappingFun";
@@ -36,7 +36,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const router = useRouter();
 
   const handleBack = () => {
-    // router.push("/");
     router.back();
     if (modalType.modalFilterList) {
       closeModal("modalFilterList")
@@ -48,7 +47,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   return (
     <SearchedListContainer>
       <Header className="">
-
         <TitleText>{urlTitle}</TitleText>
         <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -58,7 +56,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
         />
       </Header>
       <div style={{padding:'10px 0px'}}>
-
       <FilterSection pageTitle="experienceBox" />
       </div>
       {loader
@@ -121,14 +118,6 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                   <PriceAndLabelText>{item.acf.price_to || item.acf.price_from ? "£" : ""}{(item.acf.price_from ? item.acf.price_from : "") + ((item.acf.price_to && item.acf.price_from) ? '-' : "") + (item.acf.price_to ? item.acf.price_to : "")}</PriceAndLabelText>
                 </div>
               </div>
-              {/* <div className="likes">
-                <Image
-                  src={thumbsup}
-                  alt="like"
-                  style={{ width: "16px", height: "16px" }}
-                />
-                <p>{item.likeCount}</p>
-              </div> */}
             </SearchedData>
           );
         })}
@@ -198,6 +187,6 @@ const PriceAndLabelText = styled.p`
 font-size: 1.5rem;
 font-style: normal;
 font-weight: 400;
-line-height: 16px; /* 133.333% */
+line-height: 16px;
 letter-spacing: 0.12px;
 `;

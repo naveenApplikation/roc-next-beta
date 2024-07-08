@@ -43,7 +43,6 @@ const EventBox: React.FC<EventBoxProps> = ({
   const filterDate = handleFilter(urlData, selectFilter)
   return (
     <SearchedListContainer>
-      
       <Header className="">
         <TitleText>{urlTitle}</TitleText>
         <Image
@@ -57,11 +56,6 @@ const EventBox: React.FC<EventBoxProps> = ({
 
       <FilterSection pageTitle="eventBox" />
       </div>
-      {/* {urlData != 77 && (
-        <div style={{ margin: "24px 0px" }}>
-          <FilterSection />
-        </div>
-      )} */}
       {loader
         ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>
@@ -99,21 +93,6 @@ const EventBox: React.FC<EventBoxProps> = ({
                     )
                   }>
                   <FamilyEventWrapper>
-                    {/* <Image
-                    src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                    alt="filteredUrls[index]"
-                    width={500}
-                    height={80}
-                    style={{
-                      borderRadius: 4,
-                      // maxWidth: "100%",
-                      width: "80px",
-                      objectFit: "cover",
-                    }}
-                    onClick={() =>
-                      modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-                    }
-                  /> */}
                     <img
                       src={filteredUrls[index]}
                       alt="image"
