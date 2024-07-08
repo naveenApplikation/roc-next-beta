@@ -1,23 +1,15 @@
 import React from "react";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
-import LocalCusine from "@/components/homepage/LocalCusine";
 import FamilyEvent from "@/components/homepage/FamilyEvent";
 import EnjoyTheSunshine from "@/components/homepage/EnjoyTheSunshine";
 import TrendingList from "@/components/homepage/TrendingList";
-import TopAttractions from "@/components/homepage/TopAttractions";
 import Directory from "@/components/homepage/Directory";
-import Bars from "@/components/homepage/Bars";
 import Shopping from "@/components/homepage/Shopping";
 import Community from "@/components/homepage/Community";
-import BeachLife from "@/components/homepage/BeachLife";
-import Sustainability from "@/components/homepage/Sustainability";
-import Heritage from "@/components/homepage/Heritage";
 import Walks from "@/components/homepage/Walks";
 import Wellbeing from "@/components/homepage/Wellbeing";
 import CycleRoutes from "@/components/homepage/CycleRoutes";
-import Outout from "@/components/homepage/Outout";
-import Surfing from "@/components/homepage/Surfing";
 import { iconsHome } from "@/app/utils/homeIcon";
 import { shoppingImages } from "@/app/utils/data";
 import {
@@ -27,7 +19,6 @@ import {
   getApiShoppingWithIcon,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
-import { DashboardMenu, DashboardMenuIn } from "@/app/style";
 import ScreenPageComps from "../homepage/ScreenPageComps";
 
 const DashBoard = async () => {
