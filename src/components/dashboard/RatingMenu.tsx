@@ -3,7 +3,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { banjo } from "@/app/utils/ImagePath";
 import fallback from "../../../assets/images/fallbackimage.png";
 import "./RatingMenu.css";
 interface MenuProps {
