@@ -155,7 +155,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
 
                         </div>
                       </div>
-                      <button onClick={() => toggleSelected(item.place_id, item)}>
+                      <div onClick={() => toggleSelected(item.place_id, item)}>
                         {selectedItemIds.includes(item.place_id) ? (
                           <UnselectedBtn>
                             <Image
@@ -174,7 +174,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                             />
                           </SelectedBtn>
                         )}
-                      </button>
+                      </div>
                     </ListDataWrraper>
                   </div>
                 );
