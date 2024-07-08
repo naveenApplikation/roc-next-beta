@@ -12,67 +12,7 @@ interface SearchModalProps {
   showMap: boolean;
 }
 
-const StyledModal = styled.div<{
-  $isopen: boolean;
-  $showMap: boolean;
-  $screenwidthpercentage: number;
-  $screenwidth: number;
-}>`
-  position: fixed;
-  width: ${({ $showMap }) =>
-    $showMap ? "480px" : "580px"}; /* Adjust this value as needed */
-  background: #f2f3f3;
-  background-blend-mode: normal, luminosity;
-  box-shadow: ${({ $isopen }) =>
-    $isopen ? "0px 8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
-  backdrop-filter: blur(22px);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  z-index: 1;
-  padding: 24px 0px;
-  overflow: auto;
-  transform: none;
-  left: 0;
-  top: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
-  height: 100%;
-  transition: top 0.8s ease-in-out;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .modal-content {
-    background: #f2f3f3;
-    width: 100%;
-  }
-
-  .close-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-
-  @media screen and (max-width: 800px) {
-    height: 100%;
-    width: 100%;
-  }
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 24px;
-  margin-bottom: 24px;
-
-  h4 {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
 
 const SearchModal: React.FC<SearchModalProps> = ({
   isOpen,
@@ -136,3 +76,69 @@ const SearchModal: React.FC<SearchModalProps> = ({
 };
 
 export default SearchModal;
+
+
+
+
+
+const StyledModal = styled.div<{
+  $isopen: boolean;
+  $showMap: boolean;
+  $screenwidthpercentage: number;
+  $screenwidth: number;
+}>`
+  position: fixed;
+  width: ${({ $showMap }) =>
+    $showMap ? "480px" : "580px"}; /* Adjust this value as needed */
+  background: #f2f3f3;
+  background-blend-mode: normal, luminosity;
+  box-shadow: ${({ $isopen }) =>
+    $isopen ? "0px 8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
+  backdrop-filter: blur(22px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 1;
+  padding: 24px 0px;
+  overflow: auto;
+  transform: none;
+  left: 0;
+  top: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
+  height: 100%;
+  transition: top 0.8s ease-in-out;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .modal-content {
+    background: #f2f3f3;
+    width: 100%;
+  }
+
+  .close-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 800px) {
+    height: 100%;
+    width: 100%;
+  }
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px;
+  margin-bottom: 24px;
+
+  h4 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+`;

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import SearchModalLayout from "@/components/searchModal/page";
 import DashboardSearchContainer from "@/components/dashboardSearchContainer/page";
 import styled from "styled-components";
@@ -10,6 +10,34 @@ interface SearchContainerProps {
   tabValue?:string,
   showMap:boolean
 }
+
+
+
+const SearchModalScreen: React.FC<SearchContainerProps> = ({tabChange , options , tabValue , showMap})=> {
+
+    const { closeModal, modalClick, modalType } = useMyContext();
+
+
+  return (
+    <>
+       <SearchModalLayout
+          isOpen={modalType.search}
+          onClose={() => closeModal("search")}
+          {...{ showMap }}
+          title="Search"
+          name="search"
+        >
+          <SearchedContainer>
+            <DashboardSearchContainer
+              {...{ tabChange, options, tabValue, showMap, modalClick }}
+            />
+          </SearchedContainer>
+        </SearchModalLayout>
+    </>
+  );
+};
+
+export default SearchModalScreen;
 
 const SearchedContainer = styled.div`
   background-color: #f2f3f3;
@@ -52,29 +80,3 @@ const SearchedContainer = styled.div`
   }
 `;
 
-
-const SearchModalScreen: React.FC<SearchContainerProps> = ({tabChange , options , tabValue , showMap})=> {
-
-    const { modalName, closeModal, modalClick, dataDetails, modalType } = useMyContext();
-
-
-  return (
-    <>
-       <SearchModalLayout
-          isOpen={modalType.search}
-          onClose={() => closeModal("search")}
-          {...{ showMap }}
-          title="Search"
-          name="search"
-        >
-          <SearchedContainer>
-            <DashboardSearchContainer
-              {...{ tabChange, options, tabValue, showMap, modalClick }}
-            />
-          </SearchedContainer>
-        </SearchModalLayout>
-    </>
-  );
-};
-
-export default SearchModalScreen;

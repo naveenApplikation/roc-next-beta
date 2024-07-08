@@ -5,6 +5,93 @@ import star from "../../../assets/images/star.svg";
 import CommonButton from '../../components/button/CommonButton';
 import { useMyContext } from "@/app/Context/MyContext";
 
+
+
+const FilterModal: React.FC = () => {
+
+  const { setFilterValues, searchQuery, fetchDataAsync, closeModal } = useMyContext();
+
+  const [selectedBox, setSelectedBox] = useState<number | null>(0);
+  const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(0);
+  const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(0);
+
+  const handleBoxClick = (boxIndex: number) => {
+    setSelectedBox(boxIndex);
+  };
+
+  const handleButtonBoxClick = (boxIndex: number) => {
+    setSelectedButtonBox(boxIndex);
+  };
+
+  const handleBoxRatingClick = (boxIndex: number) => {
+    setSelectedRatingBox(boxIndex);
+  };
+
+  const data = ["Any", "1KM", "2KM", "4KM", "8KM"];
+  const buttonData = ["Any", "Open now"];
+  const RatingData = ["Any", "3.5", "4.0", "4.5"];
+
+  const handleFilterClick = () => {
+    const selectedValues = {
+      distance: data[selectedBox ?? 0],
+      openingHours: selectedButtonBox == 0 ? false : true,
+      rating: RatingData[selectedRatingBox ?? 0],
+    };
+    setFilterValues(selectedValues)
+    fetchDataAsync(searchQuery, selectedValues)
+    closeModal("modalFilter")
+  };
+
+  return (
+    <Container>
+      <Title>Distance to me</Title>
+      <ScrollingMenu>
+        {data.map((item, index) => (
+          <Box
+            key={index}
+            $isSelected={selectedBox === index}
+            onClick={() => handleBoxClick(index)}
+          >
+            <p>{item}</p>
+          </Box>
+        ))}
+      </ScrollingMenu>
+      <Title>Opening hours</Title>
+      <ButtonBox>
+        {buttonData.map((item, index) => (
+          <Box
+            key={index}
+            $isSelected={selectedButtonBox === index}
+            onClick={() => handleButtonBoxClick(index)}
+            style={{ flex: 1 }}
+          >
+            <p>{item}</p>
+          </Box>
+        ))}
+      </ButtonBox>
+      <Title>Rating</Title>
+      <ScrollingMenu>
+        {RatingData.map((item, index) => (
+          <Box
+            key={index}
+            $isSelected={selectedRatingBox === index}
+            onClick={() => handleBoxRatingClick(index)}
+          >
+            <p>{item}</p>
+            {index >= 1 && <Image src={star} alt="icon" />}
+          </Box>
+        ))}
+      </ScrollingMenu>
+      <div style={{ padding: "0px 24px" }} onClick={handleFilterClick}>
+        <CommonButton text="Filter" />
+      </div>
+    </Container>
+  );
+};
+
+export default FilterModal;
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,88 +154,3 @@ const ButtonBox = styled.div`
   gap: 8px;
   padding: 0px 24px;
 `;
-
-const FilterModal: React.FC = () => {
-
-  const { setFilterValues,searchQuery,fetchDataAsync,closeModal,filterValues } = useMyContext();
-  
-  const [selectedBox, setSelectedBox] = useState<number | null>(0);
-  const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(0);
-  const [selectedRatingBox, setSelectedRatingBox] = useState<number | null>(0);
-
-  const handleBoxClick = (boxIndex: number) => {
-    setSelectedBox(boxIndex);
-  };
-
-  const handleButtonBoxClick = (boxIndex: number) => {
-    setSelectedButtonBox(boxIndex);
-  };
-
-  const handleBoxRatingClick = (boxIndex: number) => {
-    setSelectedRatingBox(boxIndex);
-  };
-
-  const data = ["Any", "1KM", "2KM", "4KM", "8KM"];
-  const buttonData = ["Any", "Open now"];
-  const RatingData = ["Any", "3.5", "4.0", "4.5"];
-
-  const handleFilterClick = () => {
-    const selectedValues = {
-      distance: data[selectedBox ?? 0],
-      openingHours: selectedButtonBox == 0 ? false : true ,
-      rating: RatingData[selectedRatingBox ?? 0],
-    };
-    setFilterValues(selectedValues)
-    fetchDataAsync(searchQuery,selectedValues)
-    closeModal("modalFilter")
-    // console.log(selectedValues);
-  };
-
-  return (
-    <Container>
-      <Title>Distance to me</Title>
-      <ScrollingMenu>
-        {data.map((item, index) => (
-          <Box
-            key={index}
-            $isSelected={selectedBox === index}
-            onClick={() => handleBoxClick(index)}
-          >
-            <p>{item}</p>
-          </Box>
-        ))}
-      </ScrollingMenu>
-      <Title>Opening hours</Title>
-      <ButtonBox>
-        {buttonData.map((item, index) => (
-          <Box
-            key={index}
-            $isSelected={selectedButtonBox === index}
-            onClick={() => handleButtonBoxClick(index)}
-            style={{ flex: 1 }}
-          >
-            <p>{item}</p>
-          </Box>
-        ))}
-      </ButtonBox>
-      <Title>Rating</Title>
-      <ScrollingMenu>
-        {RatingData.map((item, index) => (
-          <Box
-            key={index}
-            $isSelected={selectedRatingBox === index}
-            onClick={() => handleBoxRatingClick(index)}
-          >
-            <p>{item}</p>
-            {index >= 1 && <Image src={star} alt="icon" />}
-          </Box>
-        ))}
-      </ScrollingMenu>
-      <div style={{ padding: "0px 24px" }} onClick={handleFilterClick}>
-        <CommonButton text="Filter"  />
-      </div>
-    </Container>
-  );
-};
-
-export default FilterModal;

@@ -69,7 +69,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           setData(result?.data);
         }
       } catch (error: any) {
-        console.log(error.message);
         setLoader(false);
       } finally {
         setLoader(false);
@@ -100,7 +99,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     } else {
       fetchDataAsync(searchQuery, filterValues);
     }
-  });
+  }, []);
  
  
 
@@ -148,149 +147,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           loader={loader}
         />
       </InputWrapper>
-      <>
-        {/* <FilterSection /> */}
-        {/* <SearchedListContainer>
-          {loader
-            ? skeletonData.map((item, index) => (
-                <SearchedData key={index}>
-                  <MainInsideWrapper>
-                    <Skeleton
-                      width={80}
-                      height={80}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <div className="restroRating">
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                      <Skeleton
-                        width={120}
-                        height={15}
-                        style={{ borderRadius: 8 }}
-                      />
-                    </div>
-                  </MainInsideWrapper>
-                </SearchedData>
-              ))
-            : searchQuery && data.length
-            ? data.map((item: any, index: any) => {
-                if (!item.place_id) {
-                  return null;
-                }
-                return (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 16,
-                      width: "100%",
-                      opacity: item?.data_type ? "1" : ".25",
-                    }}
-                    title={item?.data_type ? "" : "No data available"}
-                    key={index}
-                  >
-                    <ListDataWrraper
-                      onClick={() =>
-                        modalClick(
-                          "ModalContent",
-                          item,
-                          item?.photoUrl ? item?.photoUrl : fallback
-                        )
-                      }
-                      selected={item?.data_type ? true : false}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 16,
-                          width: "85%",
-                        }}
-                      >
-                        <div style={{ width: 80, height: 80 }}>
-                          {item?.photos ? (
-                            <ImageCom imageArr={item?.photos} />
-                          ) : (
-                            <Image
-                              src={fallback}
-                              width={500}
-                              height={80}
-                              style={{
-                                borderRadius: 4,
-                                maxWidth: "100%",
-                                objectFit: "cover",
-                              }}
-                              alt="infoCirlce"
-                            />
-                          )}
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: 10,
-                            flexDirection: "column",
-                            maxWidth: "calc(100% - 30%)",
-                          }}
-                        >
-                          <ListDataTittleText>{item?.name}</ListDataTittleText>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: 10,
-                              alignItems: "center",
-                            }}
-                          >
-                            <ListDataInfoText>
-                              {item?.acf?.aa_rating
-                                ? item?.acf?.aa_rating?.value == "No rating"
-                                  ? ""
-                                  : item?.acf?.aa_rating?.value
-                                : item?.rating}
-                            </ListDataInfoText>
-                            <Image src={commentstar} alt="infoCirlce" />
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: "5px",
-                                flexWrap: "wrap",
-                                width: "100%",
-                              }}
-                            >
-                              {item?.acf?.portal_post_owner_name ? (
-                                <ListDataInfoText>
-                                  . {item?.acf?.portal_post_owner_name}
-                                </ListDataInfoText>
-                              ) : null}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ListDataWrraper>
-                  </div>
-                );
-              })
-            : ""}
-        </SearchedListContainer> */}
-      </>
-
       <TabPanel defaultValue={tabValue} tabChange={tabChange} options={options} />
       {tabValue == "Lists" ? (
-        <>
           <Lists searchItem={data} searchQuery={searchQuery} />
-        </>
       ) : (
         <>
           <FilterSection pageTitle="search" />
           <PlacePage {...{ filterData }} />
-
         </>
       )}
     </>

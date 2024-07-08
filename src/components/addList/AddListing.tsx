@@ -97,7 +97,6 @@ const AddListings: React.FC<AddListingsProps> = ({
             ))
             :
             data.map((item: any, index: any) => {
-              console.log("photo url", item?.photos == undefined ? fallback : item?.photos)
               return (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 16, width: '100%' }}

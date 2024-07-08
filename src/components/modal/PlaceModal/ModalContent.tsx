@@ -1,12 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import DashBoardButton from "@/components/button/DashBoardButton";
-import CommentRating from "@/components/dashboard/CommentRating";
-import { LocalCuisineMenuItem } from "@/app/utils/data";
-import RatingMenu from "@/components/dashboard/RatingMenu";
 import CommonButton from "@/components/button/CommonButton";
-import Instance from "@/app/utils/Instance";
 import Ratings from "@/components/ratings";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdCheckmark } from "react-icons/io";
@@ -15,12 +10,7 @@ import useSWR from "swr";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 import {
-  bookOpen,
   comment,
-  moped,
-  plus,
-  BlackStar,
-  clientLogoImg,
   calenderWhiteImg,
   clock,
   globes,
@@ -28,8 +18,6 @@ import {
   locationDot,
   phone,
 } from "@/app/utils/ImagePath";
-import { setEngine } from "crypto";
-import { topAttractionMapping } from "@/app/utils/mappingFun";
 import {
   convertTo12HourTime,
   relatedTypesFun,
@@ -50,25 +38,19 @@ interface ModalProps {
 }
 
 const ModalContent: React.FC<ModalProps> = ({
-  onClose,
   reservationModal,
   dataImage,
   data,
   reservationMenu = true,
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
-  // const [loading, setLoading] = useState<boolean>(false);
   const [reviewData, setReviewData] = useState([]);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(true), 0);
-  //   return () => clearTimeout(timer);
-  // }, [showApiData?.types, data?.acf?.type]);
+
 
   const res = useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
 
   useEffect(() => {
-    console.log(res.isLoading);
 
     if (Object.keys(data).length) {
       setShowApiData(res.data);
@@ -80,35 +62,7 @@ const ModalContent: React.FC<ModalProps> = ({
     }
   }, [data, res]);
 
-  useEffect(
-    () => {
-      //  setLoading(false);
-      console.log(data?.data_type);
-      if (Object.keys(data).length) {
-        if (data?.data_type == "google") {
-          console.log("yes");
 
-          // topAttractionMapping(data).then((res: any) => {
-          // setShowApiData(res);
-          // if (res?.reviews) {
-          //   setReviewData(res?.reviews);
-          // }
-
-          // });
-        } else {
-          // setShowApiData(data)
-        }
-      }
-    },
-    [
-      // data?._id,
-      // Object.keys(showApiData).length,
-      // reviewData.length,
-      // data?.name,
-      // data?.place_id,
-      // res
-    ]
-  );
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
@@ -120,9 +74,9 @@ const ModalContent: React.FC<ModalProps> = ({
       name:
         data?.data_type === "google"
           ? getVenueStatus(
-              showApiData?.current_opening_hours,
-              showApiData?.name
-            )
+            showApiData?.current_opening_hours,
+            showApiData?.name
+          )
           : "",
       image: clock,
       nameValue:
@@ -201,80 +155,7 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-  const [showReview, setShowReview] = useState(false);
-  const [showEdit, setShowEdit] = useState("");
-  const [commentReview, setCommentReview] = useState("");
-  const [rating, setRating] = useState("");
-  const [textId, setTextId] = useState("");
 
-  // console.log(data.reviews, "ssds");
-
-  const giveRating = (value: any) => {
-    setRating(value);
-  };
-
-  const handleButtonClick = () => {
-    setShowReview(!showReview);
-  };
-
-  useEffect(() => {
-    if (showReview) {
-      setShowEdit("");
-      setCommentReview("");
-      setRating("");
-    }
-  }, [showReview]);
-
-  const [loader, setloader] = useState(true);
-  // const [reviewShowToggle, setReviewShowToggle] = useState(false);
-
-  // useEffect(() => {
-  //   const getReviewData = async () => {
-  //     setloader(true);
-  //     if (data._id) {
-  //       try {
-  //         const ReviewData = await Instance.get(`review/${data?._id}`);
-  //         // setReviewData(ReviewData?.data);
-  //         setReviewShowToggle(false);
-  //       } catch (error: any) {
-  //         console.log(error.message);
-  //         setloader(false);
-  //       } finally {
-  //         setloader(false);
-  //       }
-  //     }
-  //   };
-  //   getReviewData();
-  // }, [data?._id, reviewShowToggle]);
-
-  const fetchDataAsync = async () => {
-    setloader(true);
-    const param = {
-      placeId: data?._id,
-      rating: rating,
-      comment: commentReview,
-    };
-    const paramUpdate = {
-      rating: rating,
-      comment: commentReview,
-    };
-    try {
-      const ReviewData =
-        showEdit !== ""
-          ? await Instance.put(`review/${textId}`, paramUpdate)
-          : await Instance.post("review", param);
-      setShowReview(false);
-      // setReviewShowToggle(true);
-      setCommentReview("");
-      setRating("");
-      setShowEdit("");
-    } catch (error: any) {
-      console.log(error.message);
-      setloader(false);
-    } finally {
-      setloader(false);
-    }
-  };
 
   const formattedValues = () => {
     const typeData =
@@ -282,8 +163,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-            .map((item: any) => item.replaceAll("_", " "))
-            .join(" | ")
+          .map((item: any) => item.replaceAll("_", " "))
+          .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -302,13 +183,7 @@ const ModalContent: React.FC<ModalProps> = ({
     closes: string;
   }[];
 
-  const handleEdit = (index: any, rating: any, text: any, id: any) => {
-    console.log("id", id);
-    setShowEdit(index);
-    setCommentReview(text);
-    setRating(rating);
-    setTextId(id);
-  };
+
 
   const opningDate = useCallback((val: any) => {
     return val.map((item: any) => {
@@ -344,24 +219,13 @@ const ModalContent: React.FC<ModalProps> = ({
             {formattedValues()}{" "}
           </p>
           <ResturatContainer>
-            {/* {showApiData?.current_opening_hours?.open_now !== undefined && ( */}
             {showApiData?.current_opening_hours?.periods.length && (
               <ResturatWrapper>
-                {/* <p style={{ fontSize: 16 }}>|</p> */}
-
-                {/* <OpenRestText
-                  selected={showApiData?.current_opening_hours?.open_now}
-                > */}
                 {isOpenHead(showApiData?.current_opening_hours)}
-                {/* {showApiData?.current_opening_hours?.open_now
-                    ? "Open"
-                    : "Closed"}{" "} */}
-                {/* </OpenRestText> */}
               </ResturatWrapper>
             )}
             <Ratings
               defaultValue={data?.rating}
-              giveRating={giveRating}
               ratingvalue={data?.rating}
             />
           </ResturatContainer>
@@ -412,7 +276,7 @@ const ModalContent: React.FC<ModalProps> = ({
             {relatedTypesFun(showApiData?.types).length ? (
               <>
                 {showApiData?.delivery === undefined &&
-                showApiData?.dine_in === undefined ? (
+                  showApiData?.dine_in === undefined ? (
                   ""
                 ) : (
                   <>
@@ -436,7 +300,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       )}
 
                       {showApiData?.delivery !== undefined &&
-                      showApiData?.dine_in !== undefined ? (
+                        showApiData?.dine_in !== undefined ? (
                         <div className="">.</div>
                       ) : (
                         ""
@@ -463,7 +327,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 )}
 
                 {showApiData?.serves_wine === undefined &&
-                showApiData?.serves_beer === undefined ? (
+                  showApiData?.serves_beer === undefined ? (
                   ""
                 ) : (
                   <>
@@ -486,7 +350,7 @@ const ModalContent: React.FC<ModalProps> = ({
                         </div>
                       )}
                       {showApiData?.serves_wine !== undefined &&
-                      showApiData?.serves_beer !== undefined ? (
+                        showApiData?.serves_beer !== undefined ? (
                         <div className="">.</div>
                       ) : (
                         ""
@@ -518,20 +382,6 @@ const ModalContent: React.FC<ModalProps> = ({
             )}
           </ResturantDetailsContainer>
           <RestDetailText>{strippedContent}</RestDetailText>
-          {/* <MenuButtonContainer>
-          <DashBoardButton
-            text="Special menu"
-            bcColor="#E8468F"
-            image={clientLogoImg}
-            imageStyle={91}
-          />
-          <DashBoardButton
-            text="Normal Menu"
-            bcColor="#2F80ED"
-            image={bookOpen}
-            imageStyle={27}
-          />
-        </MenuButtonContainer> */}
           {reviewData.length >= 1 && (
             <ReviewContainer>
               <ReviewWraaper>
@@ -539,143 +389,63 @@ const ModalContent: React.FC<ModalProps> = ({
                 <OpeningTitle>Reviews</OpeningTitle>
               </ReviewWraaper>
               {reviewData.map((item: any, index: any) => (
-                <div key={index}>
-                  {/* {showEdit === index ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
-                      }}>
-                      <p style={{ fontSize: 14, fontWeight: "bold" }}>
-                        Comment
-                      </p>
-                      <TextAreaContainer
-                        rows={4}
-                        cols={50}
-                        placeholder="Comments"
-                        value={commentReview}
-                        onChange={(e) => setCommentReview(e.target.value)}
-                      />
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: 8,
-                          alignItems: "center",
-                        }}>
-                        <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                          Rating:
-                        </span>
-                        <Ratings
-                          defaultValue={0}
-                          giveRating={giveRating}
-                          ratingvalue={rating}
+
+                <div
+                  key={index}
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <div>
+                      {item.profile_photo_url ? (
+                        <Image
+                          src={item.profile_photo_url}
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                          }}
+                          width={30}
+                          height={30}
+                          alt=""
                         />
-                      </div>
-                      <CommonButton
-                        text={
-                          showEdit === index
-                            ? loader
-                              ? "Loading..."
-                              : "Submit Review"
-                            : "Submit Review"
-                        }
-                        isOpen={fetchDataAsync}
-                      />
+                      ) : (
+                        <Image
+                          src={fallback}
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                          }}
+                          width={30}
+                          height={30}
+                          alt=""
+                        />
+                      )}
                     </div>
-                  ) : (
-                   null
-                  )} */}
-                  <div
-                    style={{
-                      marginTop: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "10px",
-                    }}>
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <div>
-                        {item.profile_photo_url ? (
-                          <Image
-                            src={item.profile_photo_url}
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                            }}
-                            width={30}
-                            height={30}
-                            alt=""
-                          />
-                        ) : (
-                          <Image
-                            src={fallback}
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                            }}
-                            width={30}
-                            height={30}
-                            alt=""
-                          />
-                        )}
-                      </div>
-                      <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
-                    </div>
-                    <div className="">
-                      <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
-                      &nbsp;{" "}
-                      <span style={{ fontSize: "13px" }}>
-                        {item?.relative_time_description}
-                      </span>
-                    </div>
-                    <div style={{ width: "100%", fontSize: "14px" }}>
-                      <p>{item?.text}</p>
-                    </div>
-                    <hr />
+                    <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
                   </div>
+                  <div className="">
+                    <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
+                    &nbsp;{" "}
+                    <span style={{ fontSize: "13px" }}>
+                      {item?.relative_time_description}
+                    </span>
+                  </div>
+                  <div style={{ width: "100%", fontSize: "14px" }}>
+                    <p>{item?.text}</p>
+                  </div>
+                  <hr />
                 </div>
               ))}
 
-              {/* <ReviewWraaper
-            style={{ marginBottom: "8px", cursor: "pointer" }}
-            onClick={handleButtonClick}
-          >
-            <Image src={plus} alt="icon" />
-            <AddReview>Add Review</AddReview>
-          </ReviewWraaper> */}
 
-              {showReview && (
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <p style={{ fontSize: 14, fontWeight: "bold" }}>Comment</p>
-                  <TextAreaContainer
-                    rows={4}
-                    cols={50}
-                    placeholder="Comments"
-                    value={commentReview}
-                    onChange={(e) => setCommentReview(e.target.value)}
-                  />
-                  <div
-                    style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: "bold" }}>
-                      Rating:
-                    </span>
-                    <Ratings
-                      defaultValue={0}
-                      giveRating={giveRating}
-                      ratingvalue={rating}
-                    />
-                  </div>
-                  <CommonButton
-                    text={loader ? "Loading..." : "Submit Review"}
-                    isOpen={fetchDataAsync}
-                  />
-                </div>
-              )}
+              
             </ReviewContainer>
           )}
           <DatesContainer>
@@ -714,11 +484,11 @@ const ModalContent: React.FC<ModalProps> = ({
                 <p>Time:</p>
                 <p>
                   {convertTo12HourTime(
-                    showApiData?.current_opening_hours?.periods[0].open.time
+                    showApiData?.current_opening_hours?.periods[0].open?.time
                   )}{" "}
                   -{" "}
                   {convertTo12HourTime(
-                    showApiData?.current_opening_hours?.periods[0].close.time
+                    showApiData?.current_opening_hours?.periods[0].close?.time
                   )}
                 </p>
               </WeekTimeArrange>
@@ -733,15 +503,6 @@ const ModalContent: React.FC<ModalProps> = ({
                 </WeekTimeArrange>
               ))
             )}
-            {/* 
-        {daysOfWeek.map((item, index) => (
-          <WeekTimeArrange key={index}>
-            <p>{item}:</p>
-            <p>
-              {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
-            </p>
-          </WeekTimeArrange>
-        ))} */}
           </DatesContainer>
           {reservationMenu ? (
             <ButtonContainer>
@@ -756,7 +517,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ""
               )}
               {showApiData?.international_phone_number ||
-              showApiData?.formatted_phone_number ? (
+                showApiData?.formatted_phone_number ? (
                 <CommonButton
                   text="Call"
                   image={phone}
@@ -801,14 +562,7 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
-const OpenRestText = styled.p<{ selected: boolean }>`
-  color: ${(props) => (props.selected ? "#2b902b" : "#FF0000")};
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-transform: capitalize;
-`;
+
 
 const ResturantDetailsContainer = styled.div`
   display: flex;
@@ -877,16 +631,6 @@ const RestDetailText = styled.p`
   padding: 0px 24px;
 `;
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 24px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
@@ -894,24 +638,7 @@ const ItemImageContainer = styled.div`
   width: 100%;
 `;
 
-const ImageWrraper = styled(Image)`
-  border-radius: 6px;
-  width: 342px;
-  height: 192px;
-  /* width: -webkit-fill-available !important;
-  height: 192px !important; */
 
-  @media screen and (max-width: 1130px) {
-    height: auto;
-    width: -webkit-fill-available;
-  }
-`;
-
-const MenuButtonContainer = styled.div`
-  padding: 0px 24px;
-  display: flex;
-  gap: 16px;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -979,38 +706,9 @@ const WeekTimeArrange = styled.div`
   }
 `;
 
-const AlsoSeeText = styled.p`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin-left: 24px;
-`;
 
-const TextAreaContainer = styled.textarea`
-  width: 100%;
-  outline: none;
-  background-color: white;
-  height: 160px;
-  border-radius: 8px;
-  padding: 8px 16px;
-  resize: none;
-  &::placeholder {
-    color: black; /* Change the color to your desired color */
-    font-size: 16px;
-    font-family: Inter;
-  }
-`;
 
-const AddReview = styled.p`
-  color: var(--MAIN, #2f80ed);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-`;
+
 
 const DeliveryContainer = styled.div`
   display: flex;
@@ -1026,9 +724,4 @@ const WebsiteLink = styled(Link)`
     text-decoration-color: lightblue;
     color: lightblue;
   }
-`;
-const MainImage = styled(Image)`
-  width: 120px !important;
-  height: 64px !important;
-  border-radius: 6px;
 `;

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
-import star from "../../../assets/images/star.svg";
 import CommonButton from '../../components/button/CommonButton';
 import { useMyContext } from "@/app/Context/MyContext";
 import { SearchFilterData } from "@/app/utils/data";
@@ -10,43 +8,27 @@ import { SearchFilterData } from "@/app/utils/data";
 
 const FilterListModal: React.FC = () => {
 
-  const {  modalType, setSelectFilter, closeModal, fetchDataAsync, searchQuery, filterValues, selectFilter } = useMyContext();
+  const { setSelectFilter, closeModal } = useMyContext();
 
   const [selectData, setSelectData] = useState<string>("Any");
 
 
 
   const handleCategoryType = (e: any) => {
-    console.log("event", )
     setSelectData(e)
   }
   
   const handleSave = () => {
-    // fetchDataAsync(searchQuery, filterValues, selectFilter);
     setSelectFilter(selectData)
     closeModal("modalFilterList")
   }
 
-  // useEffect(() => {
-  //   let timer: NodeJS.Timeout | null = null;
 
-  //   if (!modalType.modalFilterList) {
-  //     timer = setTimeout(() => {
-  //       setSelectData('Any');
-  //     }, 500);
-  //   }
-
-  //   return () => {
-  //     if (timer) {
-  //       clearTimeout(timer);
-  //     }
-  //   };
-  // }, [modalType.modalFilterList]);
   return (
     <Container>
       <ScrollingMenu>
         {
-          SearchFilterData.map((val, index) => {
+          SearchFilterData.map(val => {
             return (
 
               <CheckBoxContainer  key={val.id} onClick={() => handleCategoryType(val?.name)}>
