@@ -1,8 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import Instance from "@/app/utils/Instance";
-import { ApiResponse } from "@/app/utils/types";
+import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import styled from "styled-components";
 import Image from "next/image";
@@ -10,40 +8,15 @@ import MenuDetails from "@/components/dashboard/MenuDetails";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
-import { topAttractionMapping } from "@/app/utils/mappingFun";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   data?: any;
 }
 
-
-
 const TopAttractions: React.FC<DashboardProps> = ({data}) => {
-  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  // const [data, setData] = useState<any>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/google/top-attraction");
-  //     setData(result.data[0]);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
-
-  // console.log(data[0],"ssasa")
+  const {modalClick,menuClick } = useMyContext();
 
   return(
     <>
@@ -94,7 +67,6 @@ const TopAttractions: React.FC<DashboardProps> = ({data}) => {
                       maxWidth: "100%",
                       objectFit: "cover",
                     }}
-                    // alt=""
                   /> :
                     <ImageTag src={item.photoUrl} alt="Image" />
                   ) : (
@@ -108,7 +80,6 @@ const TopAttractions: React.FC<DashboardProps> = ({data}) => {
                         maxWidth: "100%",
                         objectFit: "cover",
                       }}
-                      // alt=""
                     />
                   )}
                 </TopAttractionprofile>

@@ -1,12 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { ApiResponse } from "@/app/utils/types";
+import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
 import { walkData } from "@/app/utils/data";
@@ -60,52 +58,10 @@ const WalkContainer = styled.div`
   }
 `;
 
-const CommunityContainer = styled.div`
-  display: flex;
-  width: 80px;
-  padding: 0px 8px;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: end;
-  gap: 8px;
-  flex-shrink: 0;
-  height: 80px;
-  border-radius: 8px;
-  background: #bb6bd9;
-
-  p {
-    color: #fff;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 100%;
-  }
-`;
 
 const Walks: React.FC<DashboardProps> = ({data}) => {
-  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/walks");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
+  const {modalClick} = useMyContext();
 
   return (
     <>
@@ -131,7 +87,6 @@ const Walks: React.FC<DashboardProps> = ({data}) => {
                   width={500}
                   height={80}
                   style={{ borderRadius: "8px", maxWidth: "100%", objectFit: 'cover' }}
-                // alt=""
                 />
                 <Image
                   src={walkMask}
@@ -145,26 +100,6 @@ const Walks: React.FC<DashboardProps> = ({data}) => {
             );
           })}
       </ScrollingMenu>
-      {/* <ScrollingMenu>
-        {walkData.length ? walkData?.map((item: any, index: any) => {
-          return (
-            <CommunityContainer
-              key={index}
-              style={{ background: item?.color, cursor:'pointer' }}
-              onClick={() => window.open(item.url)}
-            >
-              <Image
-                src={item.icon}
-                alt=""
-                width={20}
-                height={20}
-                style={{ borderRadius: 4, maxWidth: "100%", objectFit: 'cover'}}
-              />
-              <p>{item?.name}</p>
-            </CommunityContainer>
-          );
-        }) : ""}
-      </ScrollingMenu>  */}
     </>
   );
 };

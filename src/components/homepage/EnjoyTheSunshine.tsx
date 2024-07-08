@@ -1,13 +1,9 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import RatingMenu from "@/components/dashboard/RatingMenu";
 import styled from "styled-components";
-import { EnjoyShineMenuItem } from "@/app/utils/data";
-import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
-import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from "@/app/utils/date";
 import Image from "next/image";
@@ -47,15 +43,6 @@ const UtensilsDishesImage = styled.div`
   align-self: stretch;
 `;
 
-const Title = styled.p`
-  white-space: nowrap;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-`;
-
 const Menutitle = styled.p`
   font-size: 13px;
   font-style: normal;
@@ -63,21 +50,10 @@ const Menutitle = styled.p`
   line-height: normal;
   margin-top: 8px;
   display: block;
-  width: 100%; /* Ensures the link takes up the full width of its container */
-  white-space: nowrap; /* Prevents wrapping of the link text */
-  overflow: hidden; /* Hides any overflowing content */
+  width: 100%; 
+  white-space: nowrap; 
+  overflow: hidden; 
   text-overflow: ellipsis;
-`;
-
-const MenuIconContainer = styled.div`
-  display: flex;
-  gap: 6px;
-  margin-top: 16px;
-`;
-
-const MenuIcon = styled(Image)`
-  /* width: 11px;
-  height: 12px; */
 `;
 
 const MainImage = styled(Image)`
@@ -98,9 +74,8 @@ const PriceText = styled.p`
 `;
 
 const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
+
   const { filterUrls, modalClick,menuClick } = useMyContext();
-
-
 
   const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 
@@ -112,22 +87,6 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
         isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}
         title="Enjoy the sunshine"
       />
-      {/* <ScrollingMenu>
-        {EnjoyShineMenuItem.map((item, index) => {
-          return (
-            <div key={index}>
-              <RatingMenu
-                title={item.menuName}
-                menuImageUrl={item.image}
-                headerImage={item.headerImage}
-                containerImageUrl={true}
-                MenutitleDetail={item.resturantName}
-                isOpen={() => modalClick("activities", item)}
-              />
-            </div>
-          );
-        })}
-      </ScrollingMenu> */}
       <ScrollingMenu>
         {!data
           ? skeletonItems.map((item, index) => (
@@ -138,18 +97,6 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
           : data?.slice(0, 10).map((item:any, index:any) => {
               return (
                 <div key={index}>
-                  {/* <RatingMenu
-                    title={item.acf.parish.label}
-                    menuImageUrl={
-                      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2Frestaurant1.jpg?alt=media&token=c48ad7ce-9020-4dc9-b91f-1c866cb3e836"
-                    }
-                    headerImage={filteredUrls[index]}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.acf.title}
-                    isOpen={() =>
-                      modalClick("activities", item, filteredUrls[index])
-                    }
-                  /> */}
                   <ScrollingMenuDishes
                     onClick={() =>
                       modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)

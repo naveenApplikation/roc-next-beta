@@ -3,7 +3,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { banjo } from "@/app/utils/ImagePath";
 import fallback from "../../../assets/images/fallbackimage.png";
 import "./RatingMenu.css";
 interface MenuProps {
@@ -60,12 +59,6 @@ const MenuIconContainer = styled.div`
 const MenuIcon = styled(Image)`
   /* width: 11px;
   height: 12px; */
-`;
-
-const MainImage = styled(Image)`
-  width: 120px !important;
-  height: 64px !important;
-  border-radius: 6px;
 `;
 
 const RatingMenu: React.FC<MenuProps> = ({

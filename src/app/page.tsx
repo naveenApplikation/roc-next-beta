@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Dashboard from "@/components/dashboard/DashBoardPage";
 import Header from "@/components/header/page";
 import RightSideMenu from "@/components/RightSideMenu/page";
@@ -21,7 +21,6 @@ export default function Home() {
         <RightSideMenu />
       </Container>
       <DashBoardModalScreen />
-      {/* </ShadowWrapper> */}
     </>
   );
 }

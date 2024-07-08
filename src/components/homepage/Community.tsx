@@ -3,8 +3,6 @@
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import { community } from "@/app/utils/data";
-import Image from "next/image";
 import {skeletonItems} from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -54,7 +52,7 @@ const CommunityContainer = styled.div`
 
 const Community: React.FC<DashboardProps> = ({listData }) => {
 
-  const { filterUrls, modalClick,menuClick } = useMyContext();
+  const {menuClick } = useMyContext();
 
   return (
     <>

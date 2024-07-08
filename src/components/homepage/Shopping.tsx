@@ -1,22 +1,16 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { ApiResponse } from "@/app/utils/types";
+import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import Instance from "@/app/utils/Instance";
-import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import fallback from '../../../assets/images/fallbackimage.png'
-import { shoppingImages } from "@/app/utils/data";
 
 interface DashboardProps {
   Shoppingdata?: any;
-  // menuClick?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -31,38 +25,6 @@ const ScrollingMenu = styled.div`
 
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
-  }
-`;
-
-const WalkContainer = styled.div`
-  height: 120px;
-  min-width: 120px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.01);
-  display: flex;
-  align-items: end;
-  flex-direction: column;
-  position: relative;
-
-  justify-content: space-between;
-  p {
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-  }
-  img {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
   }
 `;
 
@@ -89,48 +51,9 @@ const CommunityContainer = styled.div`
   }
 `;
 
-const ImageTag = styled.img`
-  width: 100%;
-  border-radius: 4px;
-  object-fit: cover;
-  height: 100%;
-`;
-
 const Shopping: React.FC<DashboardProps> = ({Shoppingdata}) => {
-  const { filterUrls, showContent,menuClick,modalClick } = useMyContext();
+  const {menuClick } = useMyContext();
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/shopping-lists");
-  //     result.data.forEach((list: any) => {
-  //       const matchedIcon = shoppingImages.find(icon => icon.listName === list.listName);
-  //       if (matchedIcon) {
-  //         list.image = matchedIcon.image;
-  //       }
-  //     })
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
-
-
-
-  const ImageUrlData = Shoppingdata.map((item:any) => item?.acf?.header_image_data);
-
-  const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
