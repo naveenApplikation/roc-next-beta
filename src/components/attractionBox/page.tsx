@@ -1,6 +1,6 @@
 "use client";
 
-import { CloseModal, thumbsup, utensils } from "@/app/utils/ImagePath";
+import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { Suspense } from "react";
 import styled from "styled-components";
