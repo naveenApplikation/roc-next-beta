@@ -23,7 +23,7 @@ const appInfoName = [
 const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
   const [frameLoaded, setFrameLoaded] = useState<boolean>(false);
 
-  const { modalName, closeModal, modalClick, dataDetails, modalType, appName } =
+  const { closeModal,modalType, appName } =
     useMyContext();
   const [linkData, setLinkData] = useState("");
 
@@ -84,20 +84,7 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
           </div>
         ) : (
           <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
-            {/* {
-                frameLoaded ?
-                  <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', background: '#2F80ED1F', margin: '25px', padding: '25px', borderRadius: '4px' }}>
-                    <p style={{ fontSize: '16px', fontWeight: '600' }}>BETA:</p>
-                    <p style={{ fontSize: '16px' }}>The below button will open <span style={{ textTransform: "capitalize" }}>‘{appName}’</span> in an external website. </p>
-                    <p style={{ fontSize: '16px', fontWeight: '600' }}>Make sure to tap the back arrow to head back to ROC.</p>
-                    <LInkBtn href={linkData[appName]} target="_blank">Open to <span style={{ textTransform: "capitalize" , color:"white" }}> {appName} </span></LInkBtn>
-                  </div>
-                  :
-                  <iframe
-                    style={{ border: 'none' }}
-                    src={linkData[appName]} height="500px" width="100%" title={appName}>
-                  </iframe>
-              } */}
+            
             <iframe
               style={{ border: "none", height: "100%", overflow: 'hidden' }}
               src={linkData[appName]}
@@ -115,13 +102,4 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
 
 export default InfoAppScreen;
 
-const LInkBtn = styled.a`
-  margin-top: 20px;
-  text-align: center;
-  /* height: 15px; */
-  background: #2f80ed;
-  padding: 10px;
-  border-radius: 8px;
-  color: white;
-  font-size: 16px;
-`;
+ 

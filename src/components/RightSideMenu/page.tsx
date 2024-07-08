@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { LogoNew, Hamburger, profileBrown } from "@/app/utils/ImagePath";
@@ -35,7 +35,6 @@ const RightSideHeadMenu = styled.div`
   display: none;
 
   @media screen and (max-width: 800px) {
-    /* padding: 0px 16px; */
     padding-top: 24px;
     display: flex;
     justify-content: space-between;
@@ -45,7 +44,6 @@ const RightSideHeadMenu = styled.div`
 
 const HeaderMapProfileContainer = styled.div`
   display: flex;
-  /* align-items:center; */
   gap: 16px;
 `;
 
@@ -73,7 +71,6 @@ const RightSideInsideMenuBox = styled.div`
   }
 
   p {
-    /* font-family: Inter; */
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -124,7 +121,6 @@ const MobileViewRightSideMenu = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    /* z-index: 23; */
   }
 `;
 
@@ -157,7 +153,7 @@ const AllCategories = styled.div`
 `;
 
 const RightSide = () => {
-  const { modalClick, showMap, iconClick } = useMyContext();
+  const { modalClick,iconClick } = useMyContext();
 
   const router = useRouter();
 
@@ -187,11 +183,6 @@ const RightSide = () => {
             alt="Logo Outline"
             onClick={() => modalClick("createAccountModal")}
           />
-          {/* <Image
-            src={showMap ? headerHome : mapNew}
-            alt="Logo Outline"
-            onClick={() => iconClick("mapClick")}
-          /> */}
           <Hamburger onClick={() => modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>

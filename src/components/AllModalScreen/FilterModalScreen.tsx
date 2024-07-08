@@ -4,23 +4,23 @@ import FilterModal from "@/components/modal/FilterModal";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {
-    showMap:boolean
+  showMap: boolean
 }
 
-const FilterModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
+const FilterModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap }) => {
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+  const { closeModal, modalType } = useMyContext();
 
   return (
     <>
       <FilterModalLayout
-          isOpen={modalType.modalFilter}
-          onClose={() => closeModal("modalFilter")}
-          name="modalFilter"
-          {...{ showMap }}
-        >
-          <FilterModal />
-        </FilterModalLayout>
+        isOpen={modalType.modalFilter}
+        onClose={() => closeModal("modalFilter")}
+        name="modalFilter"
+        {...{ showMap }}
+      >
+        <FilterModal />
+      </FilterModalLayout>
     </>
   );
 };

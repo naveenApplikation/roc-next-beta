@@ -1,4 +1,5 @@
 'use client'
+
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -20,12 +21,17 @@ import EventListingModalScreen from "@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import { useState } from "react";
+
+
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
+
+
 interface Props {
   data: any,
   urlTitle?: string
 }
+
 export const ListItem: React.FC<Props> = (props) => {
   const listData = props.data
   listData.forEach((list: any) => {
@@ -128,17 +134,9 @@ export const ListItem: React.FC<Props> = (props) => {
           </div>
         </CategoryBody>
       </PageLayout>
-      <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} />
-      <ProfileAccountModalScreen showMap={showMap} />
-      <ProfileMylistModalScreen
-        {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
-      />
-      <PlacesModalScreen showMap={showMap} />
       <CalenderBookDatesModalScreen showMap={showMap} />
-      <PlaceOrderOnlineModalScreen showMap={showMap} />
       <FilterModalScreen showMap={showMap} />
       <EventListingModalScreen showMap={showMap} />
-      <ActivitiesModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
     </>
 

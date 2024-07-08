@@ -6,12 +6,6 @@ import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
 
-interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
-  showMap?: any;
-}
-
 const ScrollingMenu = styled.div`
   display: flex;
   overflow: auto;
@@ -53,9 +47,9 @@ font-weight: 400;
 line-height: normal;
 `
 
-const InfoApp: React.FC<DashboardProps> = () => {
+const InfoApp = () => {
 
-  const { showMap, modalClick, dataDetails,menuClick } = useMyContext();
+  const {modalClick} = useMyContext();
 
   const formatNameWithSpaces = (name:any) => {
     // Use a regular expression to split the string into words

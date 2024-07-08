@@ -7,7 +7,7 @@ import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistM
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
-import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBookDatesModalScreen";
+ 
 import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderOnlineModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";

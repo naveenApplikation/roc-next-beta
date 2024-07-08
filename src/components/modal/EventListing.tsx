@@ -32,17 +32,10 @@ const ModalContent: React.FC<ModalProps> = ({
   const [showApiData, setShowApiData] = useState<any>({});
 
   useEffect(() => {
-    console.log(data?.place_id)
-    if(data?.data_type=='google')
-      {
-         topAttractionMapping(data).then((res: any) => {
-             setShowApiData(res);
-           });
-      }
-      else{
+    
            setShowApiData(data)
-      }
-  }, [data?._id, Object.keys(showApiData).length])
+    
+  }, [data, data._id])
 
 
   const copylink = (copy: any) => {
@@ -186,18 +179,8 @@ const ModalContent: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-        {/* <ImageWrraper
-          src={
-            dataImage
-              ? dataImage
-              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          }
-          alt="Logo"
-          width={500}
-          height={80}
-          style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-        /> */}
-        <img src={
+       
+        <Image src={
           dataImage
             ? dataImage
             : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
@@ -367,14 +350,7 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
-const OpenRestText = styled.p`
-  color: #2b902b;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-transform: uppercase;
-`;
+ 
 
 const ResturantDetailsContainer = styled.div`
   display: flex;
@@ -406,11 +382,7 @@ const RestDetailTitle = styled.p`
   line-height: 24px; /* 150% */
 `;
 
-const ReviewContainer = styled.div`
-  padding: 8px 16px;
-  background-color: #fff;
-  margin: 0px 24px;
-`;
+ 
 
 const ReviewWraaper = styled.div`
   display: flex;
@@ -427,31 +399,7 @@ const RestDetailText = styled.p`
   line-height: 24px; /* 150% */
   padding: 0px 24px;
 `;
-
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 24px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const MenuButtonContainer = styled.div`
-  padding: 0px 24px;
-  display: flex;
-  gap: 16px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  padding: 0px 24px;
-  gap: 8px;
-  position: sticky;
-  bottom: 0px;
-`;
+ 
 
 const AlsoSeeText = styled.p`
   color: #000;
@@ -461,17 +409,7 @@ const AlsoSeeText = styled.p`
   line-height: normal;
   margin-left: 24px;
 `;
-
-const MoreInfo = styled.div`
-  padding: 0px 24px;
-  p {
-    color: var(--BODY, #000);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-  }
-`;
+ 
 
 const DatesContainer = styled.div`
   padding: 8px 16px;
@@ -510,18 +448,7 @@ const ItemImageContainer = styled.div`
   padding: 0px 24px;
 `;
 
-const ImageWrraper = styled(Image)`
-  border-radius: 6px;
-  width: 342px;
-  height: 192px;
-  /* width: -webkit-fill-available !important;
-  height: 192px !important; */
-
-  @media screen and (max-width: 1130px) {
-    height: auto;
-    width: -webkit-fill-available;
-  }
-`;
+ 
 
 const BulletPointWrapper = styled.ul`
   list-style-type: disc;

@@ -1,13 +1,11 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
-import { ApiResponse } from "@/app/utils/types";
-import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
@@ -36,7 +34,6 @@ const FamilEventContainer = styled.div`
   display: flex;
   width: 80px;
   flex-direction: column;
-  /* justify-content: flex-end; */
   gap: 8px;
   flex-shrink: 0;
 
@@ -95,25 +92,8 @@ const MainImage = styled(Image)`
 `;
 
 const FamilyEvent: React.FC<DashboardProps> = ({data}) => {
-  const { filterUrls, modalClick,menuClick } = useMyContext();
-  // const [data, setData] = useState<ApiResponse[]>([]);
-  // const [loader, setloader] = useState(true);
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/family-events");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
   
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
+  const { filterUrls, modalClick,menuClick } = useMyContext();
 
   const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 

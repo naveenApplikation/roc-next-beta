@@ -182,7 +182,7 @@ const MapWithMenu = () => {
             />
           </HeaderContainer> */}
           <MapBetaBody>
-          <SearchNFilter menuClick={menuClick} modalClick={modalClick} />
+          <SearchNFilter/>
             {/* <p style={{ marginBottom: "10px", color: 'black' }} >Coming Soon:</p>
             <ul>
               <li style={{ color: 'black' }} >Filter what’s around you</li>

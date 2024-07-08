@@ -7,7 +7,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 
 const LeaveFeedbackButton = () => {
 
-    const { filterUrls, modalClick,menuClick } = useMyContext();
+    const {menuClick } = useMyContext();
 
   return (
     <LeaveFeedbackButtonContainer onClick={() => menuClick("LeaveFeedback")}>

@@ -1,44 +1,21 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { ApiResponse } from "@/app/utils/types";
+import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import Instance from "@/app/utils/Instance";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from "@/app/utils/date";
 import fallback from '../../../assets/images/fallbackimage.png'
 
 interface DashboardProps {
   data?: any;
-  // menuClick?: any;
 }
 
 const BeachLife: React.FC<DashboardProps> = ({ data}) => {
-  const { filterUrls, modalClick,menuClick } = useMyContext();
 
-  // const [data, setData] = useState<any>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/google/beach-life");
-  //     setData(result.data[0]);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
+  const {modalClick,menuClick } = useMyContext();
 
   return (
     <>
@@ -81,7 +58,6 @@ const BeachLife: React.FC<DashboardProps> = ({ data}) => {
                       objectFit: "cover",
                       cursor: "pointer",
                     }}
-                    // alt=""
                   />
                 )}
                 <Image

@@ -17,147 +17,7 @@ interface listSearchProps {
   searchQuery?: any;
 }
 
-const Container = styled.div`
-  padding-bottom: 20px;
-  max-height: calc(100dvh - 250px);
-  overflow: auto;
-    &::-webkit-scrollbar {
-    display: none;
-  }
 
-`;
-
-const PopularListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 24px 0px;
-
-  .view {
-    color: #000;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    cursor: pointer;
-  }
-`;
-
-const PopularlistTitle = styled.div`
-  color: #000;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const ListContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 8px 0px;
-`;
-
-const ImageTitleContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  cursor: pointer;
-  flex: 1;
-
-  p {
-    color: #000;
-    text-align: center;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-`;
-
-const Imagecontainer = styled.div`
-  display: flex;
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 100%;
-  background: #eb5757;
-`;
-
-const LikesContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  
-
-  p {
-    color: rgba(0, 0, 0, 0.48);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-  }
-`;
-
-const SearchedData = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #d9d9d9;
-  padding: 10px 0px;
-  p {
-    font-size: 13px;
-    font-weight: 400;
-    @media screen and (max-width: 350px) {
-      font-size: 1.3rem;
-    }
-  }
-  .likes {
-    background-color: #00000014;
-    padding: 8px 16px;
-    border-radius: 16px;
-    text-align: center;
-
-    @media screen and (max-width: 350px) {
-      padding: 6px 12px;
-    }
-  }
-  .shopName {
-    font-size: 16px;
-    font-weight: 600;
-    @media screen and (max-width: 350px) {
-      font-size: 1.6rem;
-    }
-  }
-  p span {
-    color: #2b902b;
-  }
-`;
-
-const NoResults = styled.p`
-  color: var(--BODY, #000);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 10px;
-`;
-
-const MainWrraper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  justify-content: space-between;
-  width: 100%;
-`;
-const MainInsideWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
 
 const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
 
@@ -181,8 +41,6 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
     }
   }, [topAttraction]);
 
-  console.log(listData,"ssdsdadad")
-
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -202,8 +60,6 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
     <>
       {searchItem?.list?.length == 0 ? (
         <Container>
-          {/* <PopularlistTitle>Lists</PopularlistTitle>
-          <NoResults>No results</NoResults> */}
           {searchItem.places && (
             <SearchedListContainer>
               <PopularlistTitle style={{ marginTop: 10 }}>
@@ -222,7 +78,6 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                         gap: 16,
                         width: "100%",
                         opacity: item?.data_type ? "1" : ".25",
-                        
                       }}
                       onClick={() =>
                         modalClick(
@@ -234,13 +89,6 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
                       title={item?.data_type ? "" : "No data available"}
                       key={index}>
                       <ListDataWrraper
-                        // onClick={() =>
-                        //   modalClick(
-                        //     "ModalContent",
-                        //     item,
-                        //     item?.photoUrl ? item?.photoUrl : fallback
-                        //   )
-                        // }
                         selected={item?.data_type ? true : false}>
                         <div
                           style={{
@@ -431,6 +279,141 @@ const Lists: React.FC<listSearchProps> = ({ searchItem, searchQuery }) => {
 
 export default Lists;
 
+
+const Container = styled.div`
+  padding-bottom: 20px;
+  max-height: calc(100dvh - 250px);
+  overflow: auto;
+    &::-webkit-scrollbar {
+    display: none;
+  }
+
+`;
+
+const PopularListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0px;
+
+  .view {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+  }
+`;
+
+const PopularlistTitle = styled.div`
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+const ListContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 0px;
+`;
+
+const ImageTitleContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  flex: 1;
+
+  p {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const Imagecontainer = styled.div`
+  display: flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100%;
+  background: #eb5757;
+`;
+
+const LikesContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  
+
+  p {
+    color: rgba(0, 0, 0, 0.48);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+`;
+
+const SearchedData = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+    @media screen and (max-width: 350px) {
+      font-size: 1.3rem;
+    }
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
+
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+    @media screen and (max-width: 350px) {
+      font-size: 1.6rem;
+    }
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
+
+
+const MainWrraper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+`;
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 const ListDataWrraper = styled.div<{ selected: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -470,16 +453,7 @@ const ListDataInfoText = styled.p.attrs((props) => ({
   }
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  padding: 0px 40px;
-  gap: 6px;
 
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-    padding-top: 16px;
-  }
-`;
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;
 `;

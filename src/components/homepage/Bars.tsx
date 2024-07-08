@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import { skeletonItems } from "@/app/utils/date";
@@ -27,32 +26,8 @@ const ScrollingMenu = styled.div`
 `;
 
 const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
-  const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  
-
-  // const [dataPubs, setDataPubs] = useState<any>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get(`/category/${listData}?type=Pubs`);
-  //     setDataPubs(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if(listData !=undefined){
-  //     fetchDataAsync();
-  //   }
-  // }, [listData]);
+  const {modalClick, menuClick } = useMyContext();
 
   return (
     <>
@@ -72,7 +47,6 @@ const Bars: React.FC<DashboardProps> = ({ dataPubs }) => {
               .map((item: any, index: any) => (
                 <div key={index}>
                   <RatingMenu
-                    // title={item.name}
                     headerImage={item.photoUrl}
                     containerImageUrl={true}
                     MenutitleDetail={item.name}

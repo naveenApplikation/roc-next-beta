@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
 import LocalCusine from "@/components/homepage/LocalCusine";
@@ -33,36 +33,6 @@ import ScreenPageComps from "../homepage/ScreenPageComps";
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
 
-  // const router = useRouter();
-  // const loginToke = window.localStorage.getItem('loginToken')
-  // const { showMap, modalClick, dataDetails } = useMyContext();
-  // const [listData, setListData] = useState<any>([]);
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync:any = async () => {
-  //   setloader(true);
-  //   try {
-  //     const response = await Instance.get("/category?limit=10")
-  //     if (response.status === 200) {
-  //       response.data.forEach((list: any) => {
-  //         const matchedIcon = iconsHome.find(icon => icon.name === list.iconName);
-  //         if (matchedIcon) {
-  //           list.image = matchedIcon.image;
-  //         }
-  //       })
-  //       setListData(response?.data)
-  //     } else {
-  //       setListData([])
-
-  //     }
-  //   } catch (error) {
-  //     setloader(false);
-  //     setListData([])
-  //   }finally {
-  //     setloader(false);
-  //   }
-  // }
-
   // const handleClick = (event: MouseEvent) => {
   //   if (
   //     specificSectionRef.current &&
@@ -70,34 +40,7 @@ const DashBoard = async () => {
   //   ) {
   //   }
   // };
-  // useEffect(() => {
-  //   document.body.addEventListener("click", handleClick);
-  //   return () => {
-  //     document.body.removeEventListener("click", handleClick);
-  //   };
-  // }, []);
 
-  // const [data, setData] = useState<ApiResponse[]>([]);
-
-  // const [homeGoogleLoader, setHomeGoogleLoader] = useState(true);
-
-  // const homeGooglefetchDataAsync = async () => {
-  //   setHomeGoogleLoader(true);
-  //   try {
-  //     const result = await Instance.get("/homescreen-google");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setHomeGoogleLoader(false);
-  //   } finally {
-  //     setHomeGoogleLoader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync()
-  //   // homeGooglefetchDataAsync();
-  // }, []);
 
   const listData = await getApiWithIcon("category", iconsHome);
   const LocalCusinedata = await getCategory("google/dine-out");
@@ -168,9 +111,7 @@ const DashBoard = async () => {
         title="Surfing"
       />
       <LeaveFeedbackButton />
-      {/* <BetaExploreModal /> */}
     </>
   );
 };
 export default DashBoard;
-// export default DashBoard;

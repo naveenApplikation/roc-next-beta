@@ -14,7 +14,7 @@ type YourPageProps = {
 
 const DineOut: React.FC<YourPageProps> = ({ data }) => {
 
-  const { showMap, modalClick, menuClick } = useMyContext();
+  const {modalClick, menuClick } = useMyContext();
 
   return (
     <>

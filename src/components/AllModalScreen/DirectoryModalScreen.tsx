@@ -11,7 +11,7 @@ interface DashboardSearchContainerProps {
 
 const DirectoryModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+    const { modalName, closeModal, modalClick } = useMyContext();
 
     const DirectoryModalHandle = () => {
         if (modalName === "AddDirectoryModal") {

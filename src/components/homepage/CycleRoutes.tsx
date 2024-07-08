@@ -1,22 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
-import { ApiResponse } from "@/app/utils/types";
+import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
-import Instance from "@/app/utils/Instance";
-import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
-import { skeletonItems } from "@/app/utils/date";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { cycleRouteData, walkData } from "@/app/utils/data";
-
-interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
-}
+import { cycleRouteData } from "@/app/utils/data";
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -33,32 +23,6 @@ const ScrollingMenu = styled.div`
   }
 `;
 
-const WalkContainer = styled.div`
-  height: 120px;
-  min-width: 120px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.01);
-  display: flex;
-  align-items: end;
-  flex-direction: column;
-  position: relative;
-
-  justify-content: space-between;
-  p {
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-  }
-  img {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-  }
-`;
 const CommunityContainer = styled.div`
   display: flex;
   width: 80px;
@@ -82,33 +46,9 @@ const CommunityContainer = styled.div`
     width: 100%;
   }
 `;
-const CycleRoutes: React.FC<DashboardProps> = () => {
-  const { filterUrls, modalClick,menuClick } = useMyContext();
-
-  // const [data, setData] = useState<ApiResponse[]>([]);
-
-  // const [loader, setloader] = useState(true);
-
-  // const fetchDataAsync = async () => {
-  //   setloader(true);
-  //   try {
-  //     const result = await Instance.get("/cycling");
-  //     setData(result.data);
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //     setloader(false);
-  //   } finally {
-  //     setloader(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDataAsync();
-  // }, []);
-
-  // const ImageUrlData = data.map((item) => item.acf.header_image_data);
-
-  // const filteredUrls = filterUrls(ImageUrlData);
+const CycleRoutes = () => {
+  
+  const {modalClick } = useMyContext();
 
   return (
     <>

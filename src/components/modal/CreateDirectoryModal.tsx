@@ -18,20 +18,7 @@ const Container = styled.div`
   padding: 0px 24px;
   border-radius:8px;
 `;
-
-const DropdownText = styled.p`
-font-size:13px;
-font-weight:500;
-display:flex;
-min-width:90px;
-/* padding:12px; */
-gap:8px;
-background:white;
-border-radius:8px;
-justify-content:center;
-align-items: center;
-
-`
+ 
 
 const InfoText = styled.p`
   color: var(--BODY, #000);
@@ -48,11 +35,7 @@ const CheckBoxContainer = styled.div`
     border-radius: 8px;
     `;
 
-const stylePass = styled.div`
-      padding: 16px;
-      justify-content: space-between;
-    `
-
+ 
 const CreateDirectoryModal: React.FC<ModalProps> = ({ isOpen }) => {
   return (
     <Container>

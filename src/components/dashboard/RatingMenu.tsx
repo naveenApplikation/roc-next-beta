@@ -61,12 +61,6 @@ const MenuIcon = styled(Image)`
   height: 12px; */
 `;
 
-const MainImage = styled(Image)`
-  width: 120px !important;
-  height: 64px !important;
-  border-radius: 6px;
-`;
-
 const RatingMenu: React.FC<MenuProps> = ({
   containerImageUrl,
   title,

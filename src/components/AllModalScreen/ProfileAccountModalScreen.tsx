@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import CreateAccountModalLayout from "@/components//modal/Modal";
-import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CreateAccountContent from "@/components/LoginSignup/CreateAccount";
 import LoginAccountContent from "@/components/LoginSignup/Login";
@@ -16,9 +15,7 @@ import { useRouter } from "next/navigation";
 import LoginSignupModal from "../LoginSignup/loginSignupModal";
 import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";
-import WalksModal from "./WalksModal";
 import AboutUs from "../LoginSignup/AboutUs";
-// import WalksModal from "./WalksModal";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -32,7 +29,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
 
-  const { modalName, closeModal, modalClick, setOldName, oldName } =
+  const { modalName, closeModal, modalClick, setOldName } =
     useMyContext();
   const router = useRouter();
 
@@ -112,7 +109,6 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           )}
         </>
       );
-      // } else if (modalName === "WelcomeBackModal" || modalName === "myList") {
     } else if (modalName === "WelcomeBackModal") {
       return (
         <>
@@ -236,9 +232,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "LoginSignupModal" && loginToken && "Welcome back!") ||
           (modalName === "WelcomeBackModal" && "Welcome back!") ||
           (modalName === "TermsAndConditionModal" && "Terms & Conditions") ||
-          (modalName === "createAccountModal" &&
-            loginToken &&
-            "Welcome back!") ||
+          (modalName === "createAccountModal" && loginToken && "Welcome back!") ||
           (modalName === "createAccountModal" && "Create an account") ||
           (modalName === "LoginAccountModal" && "Login") ||
           (modalName === "UpdateMyDetailsModal" && "Update my details") ||

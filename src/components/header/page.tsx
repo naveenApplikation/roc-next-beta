@@ -6,22 +6,11 @@ import styled from "styled-components";
 import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
 import {
-  headerHome,
   profileIconDark,
-  mapIconDark,
-  logoOutline,
   ROCLogo,
-  Hamburger,
   HamburgerDesktop,
 } from "@/app/utils/ImagePath";
 
-interface HeaderProps {}
-
-// background-image:url('${homeBg.src}');
-
-// width: 100%;
-// height: 500px;
-// background-size: cover;
 const HeadMenu = styled.div`
   display: flex;
   align-items: center;
@@ -45,8 +34,8 @@ const HeaderMapProfileContainer = styled.div`
   gap: 16px;
 `;
 
-const Header: React.FC<HeaderProps> = () => {
-  const { showMap, modalClick, dataDetails } = useMyContext();
+const Header = () => {
+  const {modalClick } = useMyContext();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -56,7 +45,6 @@ const Header: React.FC<HeaderProps> = () => {
   };
   return (
     <>
-      {/* <HeadMenu className={className}> */}
       <HeadMenu>
         <Image
           style={{ cursor: "pointer" }}
@@ -67,11 +55,6 @@ const Header: React.FC<HeaderProps> = () => {
         <HeaderMapProfileContainer>
           {pathname === "/" ? (
             <>
-              {/* <Image
-                src={showMap ? headerHome : mapIconDark}
-                alt="Logo Outline"
-                onClick={() => iconClick("mapClick")}
-              /> */}
               <Image
                 style={{ cursor: "pointer" }}
                 src={profileIconDark}

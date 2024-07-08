@@ -19,63 +19,10 @@ const Container = styled.div`
   width:100%;
 `;
 
-const Title = styled.p`
-  color: var(--BODY, #000);
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  padding: 0px 24px;
-`;
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 24px;
+ 
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const Box = styled.div<{ $isSelected: boolean }>`
-  display: flex;
-  padding: 12px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  border: ${(props) => (props.$isSelected ? "2px solid" : "none")};
-  background:${(props) => (props.$isSelected ? "#2F80ED" : "rgba(47, 128, 237, 0.08)")};
-  cursor: pointer;
-  border-color: ${(props) => (props.$isSelected ? "#2F80ED" : "black")};
-
-  p {
-    color: ${(props) => (props.$isSelected ? "#fff" : "black")};
-    text-align: center;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  img {
-    margin-left: 3px;
-  }
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 8px;
-  padding: 16px 0px;
-  margin: 0px 24px;
-`;
-
+ 
 const AdventureOption = styled.div`
   display: flex;
   justify-content: space-between;
@@ -93,7 +40,7 @@ const AdventureOption = styled.div`
 `;
 
 const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
-  const [selectedBox, setSelectedBox] = useState<number | null>(0);
+   const [selectedBox, setSelectedBox] = useState<number | null>(0);
   const [selectedButtonBox, setSelectedButtonBox] = useState<number | null>(
     null
   );
@@ -102,7 +49,7 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
   );
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
-  const { location } = useMyContext();
+ 
   const handleBoxClick = (boxIndex: number) => {
     setSelectedBox(boxIndex);
   };
@@ -124,7 +71,7 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
 
   // Encode the title, latitude, and longitude
 
-  // const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}`;
+ 
   const directionClick = () => {
     const locationTitle = dataDetails?.title?.rendered;
     let latitude: any
@@ -141,7 +88,7 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
     }
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 
-    // const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place_id}&${latitude},${longitude}`;
+ 
     window.open(googleMapsUrl, '_blank')
   }
 
@@ -158,31 +105,6 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
 
   return (
     <Container>
-      {/* <ScrollingMenu>
-        {data.map((item, index) => (
-          <Box
-            key={index}
-            $isSelected={selectedBox === index}
-            onClick={() => handleBoxClick(index)}
-          >
-            <p>{item}</p>
-          </Box>
-        ))}
-      </ScrollingMenu> */}
-      {/* {
-        (location?.latitude && location.longitude) ?
-          <DirectionMapUi {...{ latitude, longitude }} />
-          :
-          <>
-            <div style={{ padding: "0px 24px" }}>
-              <CommonButton isOpen={() => directionClick()} text="Open directions in Maps" />
-            </div>
-            <div style={{ height: "291px" }}>
-              <Image src={viewDirectionMap} style={{ height: "100%", width: "100%" }} alt="icon" />
-            </div>
-          </>
-
-      } */}
       <DirectionMapUi {...{ latitude, longitude }} />
 
 

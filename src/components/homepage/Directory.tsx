@@ -3,14 +3,8 @@
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import Image from "next/image";
 import { DirectoryHomepage } from "@/app/utils/homeIcon";
 import { useMyContext } from "@/app/Context/MyContext";
-
-interface DashboardProps {
-  modalClick?: any;
-  menuClick?: any;
-}
 
 const DirectoryWrapper = styled.div`
   display: flex;
@@ -48,10 +42,6 @@ const MainWrapper = styled.div`
 `;
 
 const FirstMainWraaper = styled(MainWrapper)`
-  /* flex: 2; */
-  @media screen and (max-width: 420px) {
-    /* flex: 1; */
-  }
 `;
 
 const AddButton = styled.button`
@@ -76,7 +66,7 @@ const AddButton = styled.button`
   }
 `;
 
-const DirectoryList: React.FC<DashboardProps> = () => {
+const DirectoryList = () => {
 
   const { modalClick, menuClick } = useMyContext();
 
