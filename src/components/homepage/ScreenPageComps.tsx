@@ -85,6 +85,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
                   {item?.data_type === "google" ? (
                     <ImageTag
                       width={500}
+                      height={80}
                       src={item.photoUrl ? item.photoUrl : fallback}
                       alt="Image"
                     />
@@ -152,7 +153,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
                             // alt=""
                           />
                         ) : (
-                          <ImageTag width={500} src={item.photoUrl} alt="Image" />
+                          <ImageTag width={500} height={80} src={item.photoUrl} alt="Image" />
                         )
                       ) : (
                         <Image
