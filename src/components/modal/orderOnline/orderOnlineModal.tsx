@@ -39,7 +39,6 @@ const OrderOnlineModal: React.FC<OrderOnlineModalProps> = ({previousModal}) => {
                 <DashBoardButton
                     text="Order on food.je"
                     bcColor="#2F80ED"
-                    // image={globe}
                 />
                 
             </MenuButtonContainer>

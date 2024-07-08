@@ -24,24 +24,22 @@ type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
 
 const DashBoardModalScreen = () => {
-  const { modalClick, showMap, iconClick, setModalNames } = useMyContext();
-  const [showContent, setShowContent] = useState(false);
-  // const [tabValue, setTabValue] = useState("Lists");
+  const {showMap} = useMyContext();
+ 
+  
   const [myListtabValue, setMyListTabValue] = useState("Created");
-  // const [listData, setListData] = useState<string[]>([])
+ 
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
   };
-  // const tabChange = (value: tabs) => {
-  //   setTabValue(value);
-  // };
+ 
 
   return (
     <>
-      {/* <SearchModalScreen {...{ tabChange, options, tabValue, showMap }} /> */}
+    
       <SearchModalScreen {...{  options, showMap }} />
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
@@ -50,7 +48,7 @@ const DashBoardModalScreen = () => {
       <FilterModalScreen showMap={showMap} />
       <FilterListModalScreen showMap={showMap} />
       <PlacesModalScreen showMap={showMap} />
-      {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
+    
       <PlaceOrderOnlineModalScreen showMap={showMap} />
       <EventListingModalScreen showMap={showMap} />
       <ActivitiesModalScreen showMap={showMap} />

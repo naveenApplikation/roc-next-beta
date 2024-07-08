@@ -9,7 +9,7 @@ interface DashboardSearchContainerProps {
 
 const PlaceOrderOnlineModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
 
-    const { modalName, closeModal, modalClick, dataDetails,modalType } = useMyContext();
+    const {  closeModal, modalClick,modalType } = useMyContext();
 
   return (
     <>

@@ -191,12 +191,4 @@ const Modal: React.FC<ModalProps> = ({
 
 export default Modal;
 
-// left: ${({ $isopen, $screenwidthpercentage, $showMap }) =>
-//   $isopen
-//     ? `${190 -
-//     ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)
-//     }%`
-//     : "0%"};
-// transform: translateX(
-//   -${({ $screenwidthpercentage, $showMap }) => 230 - ($showMap ? $screenwidthpercentage + 10 : $screenwidthpercentage)}%
-// );
+ 
