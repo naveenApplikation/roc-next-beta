@@ -149,7 +149,7 @@ const Page = () => {
 
   const debouncedSearch = useCallback(
     debounce((q: string) => {
-      handleSearch(q);
+      q ? fetchDataAsync(q) : setData([]);
     }, 1000),
     []
   );
@@ -169,6 +169,7 @@ const Page = () => {
           selectedItemIds={selectedItemIds}
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
+          setSearchQuery = {setSearchQuery}
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}

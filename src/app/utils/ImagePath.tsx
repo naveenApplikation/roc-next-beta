@@ -168,6 +168,7 @@ import greenGlocersImage from "../../../assets/images/shoppingListIcon/greenGloc
 import sunglassesSesImage from "../../../assets/images/shoppingListIcon/sunglassesSes.png";
 import giftIdeasImage from "../../../assets/images/shoppingListIcon/giftIdeas.png";
 import wallbeings from "../../../assets/images/cart-shopping.png";
+import clearText from '../../../assets/images/Search/times-circle.png'
 
 import ScrollTopIcon from '../../../assets/topSc.png';
 
@@ -206,6 +207,7 @@ export const castle = castleImg;
 export const location = locationImg;
 export const Store = StoreImg;
 export const calender = calenderImg;
+export const ClearText = clearText;
 
 export const headerHome = headerHomeImg;
 export const mapIconDark = mapIconDarkImg;

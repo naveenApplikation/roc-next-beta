@@ -1,25 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
 import CreateListingsHeader from "./CreateList Components/CreateListsHeader";
 import UnselectedBtnImg from "../../../assets/images/createListImages/check.png";
 import SelectedBtnImg from "../../../assets/images/createListImages/plus-circle.png";
 import SearchComponent from "@/components/searchInput/SearchInput";
-import ListOptions from "./CreateList Components/ListOptions";
 import Image from "next/image";
-import FilterImg from "../../../assets/images/createListImages/filterlist.png";
-import CreateListItems from "./CreateList Components/CreateListItems";
-import StHelierLogo from "../../../assets/images/createListImages/purchaseImage.png";
-import CurrencySign from "../../../assets/images/createListImages/currencySign.png";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
-import RatingStarImage from "../../../assets/images/modalImage/CommentRatingImage.png";
-import FilterSection from "@/components/filterSection";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
 import fallbackimage from '../../../assets/images/fallbackimage.png'
-import { log } from "console";
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -29,6 +21,7 @@ interface CreateListingsProps {
   searchQuery: string;
   handleSearch: (value: string) => void;
   handleChange?: any;
+  setSearchQuery?: any;
   data: any[];
   loader?: boolean;
   UI_Type?: string;
@@ -49,11 +42,20 @@ const CreateListings: React.FC<CreateListingsProps> = ({
   data,
   loader,
   UI_Type,
+  setSearchQuery,
 }) => {
 
 
   const [skeletonData] = useState(new Array(10).fill(null))
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  const handleClearText = () => {
+    setSearchQuery('')
+    if (inputRef.current) {
+      inputRef.current.focus(); // Set focus on the input
+    }
+
+  }
 
   return (
     <CreateListingsScreen>
@@ -66,6 +68,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
               value={searchQuery}
               onchange={(e: any) => handleChange(e.target.value)}
               handleSearch={handleSearch}
+              handleClearText={handleClearText}
               loader={loader}
             />
           </SearchInputBox>

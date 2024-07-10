@@ -207,7 +207,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
 
   const debouncedSearch = useCallback(
     debounce((q: string) => {
-      q ? fetchDataAsync(q) : setData([]);;
+      q ? fetchDataAsync(q) : setData([]);
     }, 1000),
     []
   );
@@ -225,6 +225,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           selectedItemIds={selectedItemIds}
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
+          setSearchQuery = {setSearchQuery}
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}

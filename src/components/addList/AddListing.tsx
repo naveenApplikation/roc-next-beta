@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
@@ -31,6 +31,7 @@ interface AddListingsProps {
   loader?: boolean;
   loading?: boolean;
   UI_Type?: string;
+  setSearchQuery?: any;
 }
 
 
@@ -59,9 +60,20 @@ const AddListings: React.FC<AddListingsProps> = ({
   loader,
   UI_Type,
   loading,
+  setSearchQuery,
 }) => {
 
   const [skeletonData] = useState(new Array(10).fill(null))
+  const inputRef = useRef<HTMLInputElement>(null);
+
+
+  const handleClearText = () => {
+    setSearchQuery('')
+    if (inputRef.current) {
+      inputRef.current.focus(); // Set focus on the input
+    }
+
+  }
 
   return (
     <CreateListingsScreen>
@@ -71,9 +83,11 @@ const AddListings: React.FC<AddListingsProps> = ({
           <AddListingsTitle>Search for businesses you’d like to add to the list</AddListingsTitle>
           <SearchInputBox>
             <SearchComponent
+              inputRef={inputRef}
               value={searchQuery}
               onchange={(e: any) => handleChange(e.target.value)}
               handleSearch={handleSearch}
+              handleClearText={handleClearText}
               loader={loader}
             />
           </SearchInputBox>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { search } from "@/app/utils/ImagePath";
+import { ClearText, search } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { Spin } from "antd";
 
@@ -10,10 +10,12 @@ interface SearchComponentProps {
   value?: any;
   onchange?: any;
   handleSearch?: any;
+  handleClearText?: any;
   autofocus?: any;
   id?: any;
   homeSearch?: boolean;
   loader?: boolean;
+  inputRef?: any;
 }
 
 const SearchComponent: React.FC<SearchComponentProps> = ({
@@ -21,10 +23,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   value,
   onchange,
   handleSearch,
+  handleClearText,
   id,
   loader,
+  inputRef,
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const { modalType } = useMyContext();
 
   useEffect(() => {
@@ -40,7 +43,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
       <SearchInput
         value={value}
         onChange={onchange}
-        type="text"
+        type="search"
+        pattern="search"
         placeholder="Search..."
         onFocus={onFocus}
         id={id}
@@ -49,7 +53,15 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
       {loader ? (
         <Spin size="small" />
       ) : (
-        <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+        <>
+          {
+            value ?
+              <SearchIcon src={ClearText} alt="Search" onClick={handleClearText} />
+              :
+              <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+
+          }
+        </>
       )}
     </InputContainer>
   );
@@ -77,8 +89,15 @@ const SearchInput = styled.input`
   &::placeholder {
     color: #000;
   }
+    
+  &[type="search"]::-webkit-search-cancel-button {
+  display: none;
 `;
 
 const SearchIcon = styled(Image)`
   cursor: pointer;
+  width:25px;
+  height: 25px;
+
+}
 `;
