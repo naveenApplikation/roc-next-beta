@@ -1,30 +1,16 @@
-import { RestroListData } from "@/app/utils/data";
-import { blank } from "@/app/utils/ImagePath";
-import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import InfoApp from "@/components/homepage/InfoApp";
-import LocalCusine from "@/components/homepage/LocalCusine";
 import FamilyEvent from "@/components/homepage/FamilyEvent";
 import EnjoyTheSunshine from "@/components/homepage/EnjoyTheSunshine";
 // import TrendingList from "@/components/homepage/TrendingList";
-import TopAttractions from "@/components/homepage/TopAttractions";
 import Directory from "@/components/homepage/Directory";
-import Bars from "@/components/homepage/Bars";
-import Shopping from "@/components/homepage/Shopping";
-import Community from "@/components/homepage/Community";
-import BeachLife from "@/components/homepage/BeachLife";
-import Sustainability from "@/components/homepage/Sustainability";
-import Jerseyisms from "@/components/homepage/Jerseyisms";
-import Heritage from "@/components/homepage/Heritage";
 import Walks from "@/components/homepage/Walks";
 import Wellbeing from "@/components/homepage/Wellbeing";
 import WW2 from "@/components/homepage/WW2";
 import CycleRoutes from "@/components/homepage/CycleRoutes";
 import DeliciousDine from "@/components/homepage/DeliciousDine";
-import Outout from "@/components/homepage/Outout";
-import Surfing from "@/components/homepage/Surfing";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface FinancialBoxProps {
