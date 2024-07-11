@@ -346,7 +346,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                     />
                   </div>
                 ))
-                : 
+                :
                 topPlace?.slice(0, 10).map((item: any, index: any) => {
                   return (
                     <TopAttractionContainer
@@ -376,7 +376,6 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                                 maxWidth: "100%",
                                 objectFit: "cover",
                               }}
-                            // alt=""
                             />
                           ) : (
                             <ImageTag src={item.photoUrl} alt="Image" />

@@ -12,6 +12,8 @@ import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import PlacePage from "../search/placeData";
 import { debounce } from "@/app/utils/debounce";
+import WhatsOn from "../search/whatsOn";
+import { whatsOnMappingData } from "@/app/utils/mappingFun";
 
 
 interface DashboardSearchContainerProps {
@@ -38,8 +40,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [filterData, setFilterData] = useState([]);
+  const [orignalData, setOrignalData] = useState<any>([])
+  const [whatOnData, setWhatOnData] = useState<any[]>([])
   const inputRef = useRef<HTMLInputElement>(null);
-  const newArray = ["Lists", "What's On"]
+  const [loading, setLoading] = useState<boolean>(false)
 
   const [tabValue, setTabValue] = useState("Lists");
 
@@ -77,6 +81,27 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   };
 
+  const fetchDataWhatsOnAsync = async (value: string) => {
+    setLoader(true);
+    setLoading(true);
+    try {
+      const result = await Instance.get(`/filter/avtivities-events?query=${value}`);
+      if (result.status == 200) {
+        const data: any = whatsOnMappingData(result?.data)
+        setOrignalData(result?.data)
+        setWhatOnData(data);
+        setLoading(false);
+        setLoader(false);
+      }
+    } catch (error: any) {
+      setLoader(false);
+      setLoading(false);
+    } finally {
+      setLoader(false);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!modalType.search) {
       setSearchQuery("");
@@ -89,8 +114,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const handleSearch = async (q: any) => {
     if (tabValue === "Places") {
       await fetchDataAsync(q, filterValues);
-    } else {
+    } else if (tabValue === "Lists") {
       await fetchDataListAsync(q);
+    } else {
+      await fetchDataWhatsOnAsync(q)
     }
   };
 
@@ -105,18 +132,21 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   useLayoutEffect(() => {
     if (tabValue === "Lists") {
       fetchDataListAsync(searchQuery);
-
-    } else {
+    } else if (tabValue === "Places") {
       fetchDataAsync(searchQuery, filterValues);
+    } else {
+      fetchDataWhatsOnAsync(searchQuery)
     }
-  }, []);
+  }, [tabValue]);
 
 
 
 
   const debouncedSearch = useCallback(
     debounce((q: string) => {
-      newArray.includes(tabValue) ? fetchDataListAsync(q) : fetchDataAsync(q, filterValues);
+      tabValue === "Lists" && fetchDataListAsync(q);
+      tabValue === "Places" && fetchDataAsync(q, filterValues);
+      tabValue === "What's On" && fetchDataWhatsOnAsync(q)
     }, 1000),
     [tabValue]
   )
@@ -132,32 +162,39 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
   useEffect(() => {
     if (searchQuery) {
-      const newData = placeData.filter((val: any) => {
-        if (val?.parishName === selectFilter) {
-          return val
-        }
-      })
-      setFilterData(selectFilter === "Any" ? placeData : newData)
+    
+        const newData = placeData.filter((val: any) => {
+          if (val?.parishName === selectFilter) {
+            return val
+          }
+        })
+        setFilterData(selectFilter === "Any" ? placeData : newData)
+      
     } else {
       fetchDataAsync(searchQuery, filterValues, selectFilter);
       setFilterData(placeData)
     }
-  }, [selectFilter, placeData.length])
+  }, [selectFilter, placeData.length, orignalData.length])
 
   function tabComponent() {
-    if (tabValue === "Places") {
+    if (tabValue === "Lists") {
+      return <Lists searchItem={data} searchQuery={searchQuery} />
+
+    } else if (tabValue === "Places") {
       return (
         <>
           <FilterSection pageTitle="search" />
           <PlacePage {...{ filterData }} />
         </>
       )
-      
-    // } else if (tabValue === "Places") {
-      
-    //   return <Lists searchItem={data} searchQuery={searchQuery} />
+      // return <Lists searchItem={data} searchQuery={searchQuery} />
     } else {
-      return <Lists searchItem={data} searchQuery={searchQuery} />
+      return (
+        <>
+          {/* <FilterSection pageTitle="search" /> */}
+          <WhatsOn {...{orignalData, loading }} filterData={whatOnData} />
+        </>
+      )
     }
   }
 

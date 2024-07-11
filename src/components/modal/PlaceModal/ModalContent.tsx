@@ -47,7 +47,6 @@ const ModalContent: React.FC<ModalProps> = ({
   const [reviewData, setReviewData] = useState([]);
 
 
-
   const res = useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
 
   useEffect(() => {
