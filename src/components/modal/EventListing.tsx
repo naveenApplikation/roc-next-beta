@@ -179,7 +179,9 @@ const ModalContent: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-       
+       {
+        console.log("image list", dataImage) as any
+       }
         <Image src={
           dataImage
             ? dataImage

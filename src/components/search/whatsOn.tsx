@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
+import Image from "next/image";
 
 
 interface listSearchProps {
@@ -47,14 +48,27 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, orignalData, loading }
                                     onClick={() =>
                                         modalClick(
                                             "ModalContent",
-                                            orignalData[index],
-                                            item?.data_type === "google"
-                                                ? item?.image
-                                                : fallback
-                                        )
+                                            orignalData[index], item?.image)
                                     }>
                                     <TopAttractionprofile>
-                                        <ImageTag src={item?.image} alt="Image" />
+                                        {
+                                            console.log("imate ddsds",typeof item?.image) as any
+                                        }
+                                        {
+                                            typeof item?.image === "string" ? 
+                                            <ImageTag src={item?.image} alt="Image" />
+                                            :
+                                            <Image
+                                            src={fallback}
+                                            alt=""
+                                            width={500}
+                                            height={80}
+                                            style={{
+                                              maxWidth: "100%",
+                                              objectFit: "cover",
+                                            }}
+                                          />
+                                        }
                                     </TopAttractionprofile>
                                     <div
                                         style={{

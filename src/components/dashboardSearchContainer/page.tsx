@@ -156,6 +156,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       debouncedSearch(searchQuery);
     } else {
       setData([]);
+      setOrignalData([])
+      setWhatOnData([]);
     }
   }, [searchQuery]);
 
