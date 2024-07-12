@@ -52,22 +52,19 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, orignalData, loading }
                                     }>
                                     <TopAttractionprofile>
                                         {
-                                            console.log("imate ddsds",typeof item?.image) as any
-                                        }
-                                        {
-                                            typeof item?.image === "string" ? 
-                                            <ImageTag src={item?.image} alt="Image" />
-                                            :
-                                            <Image
-                                            src={fallback}
-                                            alt=""
-                                            width={500}
-                                            height={80}
-                                            style={{
-                                              maxWidth: "100%",
-                                              objectFit: "cover",
-                                            }}
-                                          />
+                                            typeof item?.image === "string" ?
+                                                <ImageTag src={item?.image} alt="Image" />
+                                                :
+                                                <Image
+                                                    src={fallback}
+                                                    alt=""
+                                                    width={500}
+                                                    height={80}
+                                                    style={{
+                                                        maxWidth: "100%",
+                                                        objectFit: "cover",
+                                                    }}
+                                                />
                                         }
                                     </TopAttractionprofile>
                                     <div

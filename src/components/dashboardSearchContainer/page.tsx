@@ -126,18 +126,21 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     if (inputRef.current) {
       inputRef.current.focus(); // Set focus on the input
     }
+    if(tabValue === "What's On"){
+      fetchDataWhatsOnAsync(searchQuery)
+    }
 
   }
 
   useLayoutEffect(() => {
-    if (tabValue === "Lists") {
+    // if (tabValue === "Lists") {
       fetchDataListAsync(searchQuery);
-    } else if (tabValue === "Places") {
+    // } else if (tabValue === "Places") {
       fetchDataAsync(searchQuery, filterValues);
-    } else {
-      fetchDataWhatsOnAsync(searchQuery)
-    }
-  }, [tabValue]);
+    // } else {
+    // }
+    fetchDataWhatsOnAsync(searchQuery)
+  }, []);
 
 
 
@@ -156,8 +159,6 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       debouncedSearch(searchQuery);
     } else {
       setData([]);
-      setOrignalData([])
-      setWhatOnData([]);
     }
   }, [searchQuery]);
 
@@ -174,9 +175,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       
     } else {
       fetchDataAsync(searchQuery, filterValues, selectFilter);
+      fetchDataWhatsOnAsync(searchQuery)
       setFilterData(placeData)
     }
-  }, [selectFilter, placeData.length, orignalData.length])
+  }, [selectFilter, placeData.length, orignalData.length, ])
 
   function tabComponent() {
     if (tabValue === "Lists") {

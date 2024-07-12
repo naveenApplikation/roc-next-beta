@@ -39,7 +39,9 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
       setTopPlace(topPlaceData[0]?.GoogleHomeScreenList || []);
       setPlaceData([]);
       setLoader(false);
-    }
+    } else [
+      setLoader(true)
+    ]
   }, [topPlaceData]);
 
   useEffect(() => {
