@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import SearchInput from "../searchInput/SearchInput";
@@ -27,16 +27,7 @@ interface DashboardSearchContainerProps {
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   options,
 }) => {
-  const {
-    modalType,
-    filterValues,
-    setSearchQuery,
-    searchQuery,
-    fetchDataAsync,
-    placeData,
-    setPlaceData,
-    selectFilter,
-  } = useMyContext();
+  const { modalType, filterValues, setSearchQuery, searchQuery, fetchDataAsync, placeData, setPlaceData, selectFilter, setSelectFilter } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [filterData, setFilterData] = useState([]);
@@ -48,6 +39,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const [tabValue, setTabValue] = useState("Lists");
 
   const tabChange = (value: any) => {
+    setSelectFilter("Any");
     setTabValue(value);
   };
 
@@ -81,23 +73,19 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   };
 
-  const fetchDataWhatsOnAsync = async (value: string) => {
-    setLoader(true);
+  const fetchDataWhatsOnAsync = async (value: string, selectValue: string) => {
     setLoading(true);
     try {
-      const result = await Instance.get(`/filter/avtivities-events?query=${value}`);
+      const result = await Instance.get(`/filter/avtivities-events?query=${value}&parish=${selectValue}`);
       if (result.status == 200) {
         const data: any = whatsOnMappingData(result?.data)
-        setOrignalData(result?.data)
+        setOrignalData(data)
         setWhatOnData(data);
         setLoading(false);
-        setLoader(false);
       }
     } catch (error: any) {
-      setLoader(false);
       setLoading(false);
     } finally {
-      setLoader(false);
       setLoading(false);
     }
   };
@@ -111,48 +99,37 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
 
 
-  const handleSearch = async (q: any) => {
-    if (tabValue === "Places") {
-      await fetchDataAsync(q, filterValues);
-    } else if (tabValue === "Lists") {
-      await fetchDataListAsync(q);
-    } else {
-      await fetchDataWhatsOnAsync(q)
-    }
-  };
-
-  const handleClearText = () => {
-    setSearchQuery('')
-    if (inputRef.current) {
-      inputRef.current.focus(); // Set focus on the input
-    }
-    if(tabValue === "What's On"){
-      fetchDataWhatsOnAsync(searchQuery)
-    }
-
-  }
-
-  useLayoutEffect(() => {
-    // if (tabValue === "Lists") {
-      fetchDataListAsync(searchQuery);
-    // } else if (tabValue === "Places") {
-      fetchDataAsync(searchQuery, filterValues);
-    // } else {
-    // }
-    fetchDataWhatsOnAsync(searchQuery)
+  useEffect(() => {
+    fetchDataWhatsOnAsync(searchQuery, selectFilter)
   }, []);
 
+  useEffect(() => {
+    if (searchQuery && tabValue === "What's On") {
+      fetchDataWhatsOnAsync(searchQuery, selectFilter)
+    }
+  }, [tabValue]);
+
+
+
+  const debouncingApiFun = (q: string) => {
+    if (tabValue === "Lists") {
+      fetchDataListAsync(q);
+    } else if (tabValue === "Places") {
+      fetchDataAsync(q, filterValues);
+    } else if (tabValue === "What's On") {
+      fetchDataWhatsOnAsync(q, selectFilter)
+    }
+  }
 
 
 
   const debouncedSearch = useCallback(
     debounce((q: string) => {
-      tabValue === "Lists" && fetchDataListAsync(q);
-      tabValue === "Places" && fetchDataAsync(q, filterValues);
-      tabValue === "What's On" && fetchDataWhatsOnAsync(q)
+      debouncingApiFun(q)
     }, 1000),
     [tabValue]
   )
+
 
   useEffect(() => {
     if (searchQuery) {
@@ -165,22 +142,32 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
   useEffect(() => {
     if (searchQuery) {
-    
+      if (tabValue === "What's On") {
+        const newWhatsOnData = orignalData.filter((val: any) => {
+          if (val?.parishName === selectFilter) return val;
+        })
+        setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData)
+      } else if (tabValue === "Places") {
         const newData = placeData.filter((val: any) => {
-          if (val?.parishName === selectFilter) {
-            return val
-          }
+          if (val?.parishName === selectFilter) return val;
         })
         setFilterData(selectFilter === "Any" ? placeData : newData)
-      
+      }
     } else {
-      fetchDataAsync(searchQuery, filterValues, selectFilter);
-      fetchDataWhatsOnAsync(searchQuery)
-      setFilterData(placeData)
+      if (tabValue === "What's On") {
+        fetchDataWhatsOnAsync(searchQuery, selectFilter)
+      } else {
+        fetchDataAsync(searchQuery, filterValues);
+      }
     }
-  }, [selectFilter, placeData.length, orignalData.length, ])
+  }, [selectFilter, whatOnData.length, tabValue])
 
-  function tabComponent() {
+  useEffect(() => {
+    console.log("dlkskfl", placeData)
+    setFilterData(placeData)
+  }, [placeData.length])
+
+  const tabComponent = () => {
     if (tabValue === "Lists") {
       return <Lists searchItem={data} searchQuery={searchQuery} />
 
@@ -191,17 +178,26 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           <PlacePage {...{ filterData }} />
         </>
       )
-      // return <Lists searchItem={data} searchQuery={searchQuery} />
     } else {
       return (
         <>
-          {/* <FilterSection pageTitle="search" /> */}
-          <WhatsOn {...{orignalData, loading }} filterData={whatOnData} />
+          <FilterSection pageTitle="what'sOn" />
+          <WhatsOn {...{ orignalData, loading }} filterData={whatOnData} />
         </>
       )
     }
   }
 
+  const handleClearText = () => {
+    setSearchQuery('')
+    if (inputRef.current) {
+      inputRef.current.focus(); // Set focus on the input
+    }
+    if (tabValue === "What's On") {
+      fetchDataWhatsOnAsync(searchQuery, selectFilter)
+    }
+
+  }
 
 
   return (
@@ -211,7 +207,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           inputRef={inputRef}
           value={searchQuery}
           onchange={(e: any) => handleChange(e.target.value)}
-          handleSearch={handleSearch}
+          // handleSearch={handleSearch}
           handleClearText={handleClearText}
           id="myInput"
           homeSearch={true}

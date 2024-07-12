@@ -29,7 +29,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
 
-  const { data: topPlaceData, error: topPlaceError } = useSWR(
+  const { data: topPlaceData, error: topPlaceError, isLoading } = useSWR(
     searchQuery === "" && selectFilter === "Any" ? '/google/top-attraction' : null,
     fetcher
   );
@@ -39,9 +39,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
       setTopPlace(topPlaceData[0]?.GoogleHomeScreenList || []);
       setPlaceData([]);
       setLoader(false);
-    } else [
-      setLoader(true)
-    ]
+    } 
   }, [topPlaceData]);
 
   useEffect(() => {
@@ -75,7 +73,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                       <SearchedData key={index}>
                         <MainInsideWrapper>
                           <Skeleton
-                            width={80}
+                            width={800}
                             height={80}
                             style={{ borderRadius: 8 }}
                           />

@@ -53,7 +53,7 @@ export const whatsOnMappingData = (arr: any[]): any[] => {
             date: val?.acf?.event_dates_start || "",
             image: val?.data_type === "google" ? val?.photoUrl === null ? fallback : val?.photoUrl : filterUrls(val?.acf?.header_image_data),
             data_type: val?.data_type,
-            // price: ""
+            item: val,
         };
     });
 

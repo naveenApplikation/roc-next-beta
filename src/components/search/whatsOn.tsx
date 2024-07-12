@@ -9,89 +9,88 @@ import Image from "next/image";
 
 
 interface listSearchProps {
-    filterData?: any;
-    orignalData?: any;
-    loading?: boolean;
+  filterData?: any;
+  orignalData?: any;
+  loading?: boolean;
 }
 
 const WhatsOn: React.FC<listSearchProps> = ({ filterData, orignalData, loading }) => {
-    const [skeletonData] = useState(new Array(10).fill(null));
-    const { modalClick } = useMyContext();
+  const [skeletonData] = useState(new Array(10).fill(null));
+  const { modalClick } = useMyContext();
 
 
-    // console.log("orignalDataorignalDataorignalData", filterData, orignalData)
 
 
-    return (
-        <>
-            {loading ? (
-                skeletonData.map((item, index) => (
-                    <SearchedData key={index}>
-                        <MainInsideWrapper>
-                            <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                            <div className="restroRating">
-                                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
-                            </div>
-                        </MainInsideWrapper>
-                    </SearchedData>
-                ))
-            ) : (
-                <ScrollingMenu>
+  return (
+    <>
+      {!filterData.length || loading ? (
+        skeletonData.map((item, index) => (
+          <SearchedData key={index}>
+            <MainInsideWrapper>
+              <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
+              <div className="restroRating">
+                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+                <Skeleton width={120} height={15} style={{ borderRadius: 8 }} />
+              </div>
+            </MainInsideWrapper>
+          </SearchedData>
+        ))
+      ) : (
+        <ScrollingMenu>
+          {
+            filterData?.map((item: any, index: any) => {
+              return (
+                <TopAttractionContainer
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    modalClick(
+                      "ModalContent",
+                      item?.item, item?.image)
+                  }>
+                  <TopAttractionprofile>
                     {
-                        filterData?.map((item: any, index: any) => {
-                            return (
-                                <TopAttractionContainer
-                                    key={index}
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() =>
-                                        modalClick(
-                                            "ModalContent",
-                                            orignalData[index], item?.image)
-                                    }>
-                                    <TopAttractionprofile>
-                                        {
-                                            typeof item?.image === "string" ?
-                                                <ImageTag src={item?.image} alt="Image" />
-                                                :
-                                                <Image
-                                                    src={fallback}
-                                                    alt=""
-                                                    width={500}
-                                                    height={80}
-                                                    style={{
-                                                        maxWidth: "100%",
-                                                        objectFit: "cover",
-                                                    }}
-                                                />
-                                        }
-                                    </TopAttractionprofile>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            gap: 10,
-                                            flexDirection: "column",
-                                            maxWidth: "calc(100% - 30%)",
-                                        }}>
-                                        <ListDataTittleText>{item?.title}</ListDataTittleText>
-
-                                        <ListDataInfoText>
-                                            {item?.type}
-                                        </ListDataInfoText>
-                                        <ListDataInfoText>
-                                            {item?.date}
-                                        </ListDataInfoText>
-                                    </div>
-                                </TopAttractionContainer>
-                            );
-                        })
+                      typeof item?.image === "string" ?
+                        <ImageTag src={item?.image} alt="Image" />
+                        :
+                        <Image
+                          src={fallback}
+                          alt=""
+                          width={500}
+                          height={80}
+                          style={{
+                            maxWidth: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                     }
-                </ScrollingMenu>
+                  </TopAttractionprofile>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 10,
+                      flexDirection: "column",
+                      maxWidth: "calc(100% - 30%)",
+                    }}>
+                    <ListDataTittleText>{item?.title}</ListDataTittleText>
 
-            )}
-        </>
-    );
+                    <ListDataInfoText>
+                      {item?.type}
+                    </ListDataInfoText>
+                    <ListDataInfoText>
+                      {item?.date}
+                    </ListDataInfoText>
+                  </div>
+                </TopAttractionContainer>
+              );
+            })
+          }
+        </ScrollingMenu>
+
+      )}
+    </>
+  );
 };
 
 export default WhatsOn;
