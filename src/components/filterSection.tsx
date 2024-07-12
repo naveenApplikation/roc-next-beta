@@ -10,47 +10,48 @@ import { usePathname, useRouter } from "next/navigation";
 interface FilterSectionProps {
   // Define your props here
   pageTitle?: string;
-
 }
 
-
-
 const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle }) => {
-  const { modalClick, modalType, closeModal, selectFilter, setSelectFilter } = useMyContext();
+  const { modalClick, modalType, closeModal, selectFilter, setSelectFilter } =
+    useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   const toggleDropdown = () => {
     // setIsOpen(!modalType.modalFilterList);
-    modalClick("modalFilterList")
+    modalClick("modalFilterList");
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
+      closeModal("modalFilterList");
     }
   };
 
   // console.log("pathNamepathName", pathName)
   useEffect(() => {
-    setSelectFilter("Any")
-  }, [pathName])
-  
+    setSelectFilter("Any");
+  }, [pathName]);
 
   return (
     <FilterContainer>
-      {
-        pageTitle === "search" &&
+      {pageTitle === "search" && (
         <Image
           src={filterSearch}
           onClick={() => modalClick("modalFilter")}
           style={{ cursor: "pointer" }}
           alt=""
         />
-      }
+      )}
 
       <ScrollingMenu>
         {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
-        <DropdownButton onClick={toggleDropdown} className={modalType.modalFilterList ? 'active' : ''}>
+        <DropdownButton
+          onClick={toggleDropdown}
+          className={modalType.modalFilterList ? "active" : ""}
+        >
           {selectFilter === "Any" ? "Parish" : selectFilter}
-          <Caret className={modalType.modalFilterList ? 'active' : ''}>{modalType.modalFilterList ? '▲' : '▼'}</Caret>
+          <Caret className={modalType.modalFilterList ? "active" : ""}>
+            {modalType.modalFilterList ? "▲" : "▼"}
+          </Caret>
         </DropdownButton>
         {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
         <DropDwons items={SoryByItem} name="Price" />
@@ -118,8 +119,8 @@ const DropdownButton = styled.button`
   background: #ffffff;
   color: #000000;
   padding: 10px 20px;
-  border: none;
   border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
   cursor: pointer;
   font-size: 14px;
   display: flex;

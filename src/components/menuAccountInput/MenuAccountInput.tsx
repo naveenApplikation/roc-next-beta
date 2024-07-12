@@ -17,7 +17,7 @@ const MenuInputField = styled.div`
     padding: 8px 16px;
     display: flex;
     align-items: center;
-    background: var(--White, #FFF);
+    background: var(--White, #f2f2f2);
 `;
 
 const AccountInputText = styled.input`
@@ -29,7 +29,7 @@ const AccountInputText = styled.input`
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-    background: var(--White, #FFF);
+    background: var(--White, #f2f2f2);
 
 
   &::placeholder {

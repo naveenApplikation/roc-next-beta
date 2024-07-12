@@ -36,7 +36,7 @@ const CheckBoxContainer = styled.div`
 const TextAreaContainer = styled.textarea`
   border: none;
   outline: none;
-  background-color: white;
+  background-color: #f2f2f2;
   height: 160px;
   border-radius: 8px;
   padding: 8px 16px;

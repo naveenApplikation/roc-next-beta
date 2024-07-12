@@ -194,7 +194,7 @@ export default AddListings;
 
 const CreateListingsScreen = styled.div`
   width: 480px;
-  background-color: #f2f3f3;
+  background-color: #fff;
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
