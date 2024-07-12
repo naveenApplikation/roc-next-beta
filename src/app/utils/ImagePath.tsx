@@ -147,6 +147,7 @@ import homeBlackImg from "../../../assets/images/homeBlack.svg";
 import profileBrownImg from "../../../assets/images/Home-new-icons/user.svg";
 import MenuIconImg from "../../../assets/images/Home-new-icons/bars.svg";
 import iconbetaimfg from '../../../assets/images/Home-new-icons/icon-beta.svg'
+import iconbetablackimg from '../../../assets/images/Home-new-icons/beta-black.svg'
 import cycleImg from "../../../assets/images/cycle.svg";
 import cycleImgBlack from "../../../assets/images/cycleBlack.svg";
 import familyImg from "../../../assets/images/family.svg";
@@ -326,6 +327,7 @@ export const homeBlack = homeBlackImg;
 export const profileBrown = profileBrownImg;
 export const MenuIcon = MenuIconImg;
 export const iconbeta = iconbetaimfg;
+export const iconbetablack = iconbetablackimg;
 export const cycle = cycleImg;
 export const cycleBlack = cycleImgBlack;
 export const family = familyImg;
