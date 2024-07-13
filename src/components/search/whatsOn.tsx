@@ -10,11 +10,10 @@ import Image from "next/image";
 
 interface listSearchProps {
   filterData?: any;
-  orignalData?: any;
-  loading?: boolean;
+  loader?: boolean;
 }
 
-const WhatsOn: React.FC<listSearchProps> = ({ filterData, orignalData, loading }) => {
+const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const { modalClick } = useMyContext();
 
@@ -23,7 +22,7 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, orignalData, loading }
 
   return (
     <>
-      {!filterData.length || loading ? (
+      {loader ? (
         skeletonData.map((item, index) => (
           <SearchedData key={index}>
             <MainInsideWrapper>

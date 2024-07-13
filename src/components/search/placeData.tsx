@@ -1,8 +1,10 @@
+
+'use client'
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
-import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
@@ -11,9 +13,10 @@ import useSWR from "swr";
 
 interface listSearchProps {
   filterData?: any;
+  setFilterData?: any;
 }
 
-const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
+const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const [topPlace, setTopPlace] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
@@ -39,8 +42,19 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
       setTopPlace(topPlaceData[0]?.GoogleHomeScreenList || []);
       setPlaceData([]);
       setLoader(false);
-    } 
+    }
   }, [topPlaceData]);
+
+
+  // PLACES API CALL - SELECT FILTER VALUE
+  useEffect(() => {
+    if (placeData.length) {
+      setFilterData(placeData)
+    }
+  }, [JSON.stringify(placeData)])
+
+
+
 
   useEffect(() => {
     const Timer = setTimeout(() => setPageLoading(false), 2000);
@@ -49,7 +63,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   return (
     <>
-      {placeloader ? (
+      {placeloader || isLoading ? (
         skeletonData.map((item, index) => (
           <SearchedData key={index}>
             <MainInsideWrapper>
