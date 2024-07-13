@@ -17,7 +17,9 @@ import listStar from "../../../assets/images/listStar.svg";
 import SocialMedia from "../socialMedia/page";
 import { emails, tnc, user } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
-
+import { addAndRomoveToken } from "@/app/action";
+ 
+ 
 interface ModalProps {
     isOpen?: any;
     nextModal?: any;
@@ -31,6 +33,7 @@ interface ModalProps {
 const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs }) => {
     const [loader, setloader] = useState(false);
     const { modalClick } = useMyContext();
+   
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -49,8 +52,12 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
                     email: values.email,
                     password: values.password,
                 });
-                localStorage.setItem("loginToken", loginData.data.token);
+               await addAndRomoveToken(loginData.data.token) 
+                localStorage.setItem("loginToken",loginData.data.token);
+             
                 nextModal();
+           
+                
             } catch (error: any) {
                 console.log(error.message);
                 showToast(error.message, "error");

@@ -1,8 +1,21 @@
 "use server";
-
+import { cookies, headers} from "next/headers";
 import { revalidateTag } from "next/cache";
-import { Erica_One } from "next/font/google";
-
+import next from "next";
+import { cache } from "react";
+ 
+export async function addAndRomoveToken(loginToken?:any)
+{
+    console.log(loginToken,"line7")
+      if(loginToken)
+      {
+      cookies().set('loginToken',loginToken)
+      }
+      else
+      {
+         cookies().delete('loginToken')
+      }
+}
 export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
@@ -10,7 +23,7 @@ export async function getCategory(params: string) {
       params === "events" || params === "Trending Lists"
         ? { next: { revalidate: 0 } }
         : undefined;
-
+  
     const res = await fetch(url, options);
 
     if (!res.ok) {
@@ -30,7 +43,43 @@ export async function getCategory(params: string) {
 
 export async function getData(slug: string, params: string) {
   try {
+
+    
+    const loginToken=cookies().get('loginToken')?.value
+    console.log(loginToken,"line 47")
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
+    const options:any= loginToken
+    ?{
+          headers: {
+            "x-login-token":loginToken ? loginToken.toString() : "",
+          },   
+          next:{tags:[slug],revalidate:30}
+       }
+      : { next: { revalidate:10}}
+    const res = await fetch(url,options);
+
+     
+    if (!res.ok) {
+      throw new Error(`Network response was not ok: ${res.statusText}`);
+    }
+
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await res.json();
+    } else {
+      throw new Error("Received content is not JSON");
+    }
+  } catch (error) {
+    console.log("tes2", params);
+  }
+}
+
+export async function getDataForHome(slug: string, params: string) {
+  try {
+  
+   
+    const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
+   
     const res = await fetch(url);
 
     if (!res.ok) {

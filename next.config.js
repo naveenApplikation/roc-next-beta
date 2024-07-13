@@ -68,7 +68,7 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false,
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout:10000,
 };
 
 const withPwaConfig = withPWA({

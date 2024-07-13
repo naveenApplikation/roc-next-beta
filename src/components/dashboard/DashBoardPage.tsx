@@ -15,8 +15,8 @@ import { shoppingImages } from "@/app/utils/data";
 import {
   getCategory,
   getApiWithIcon,
-  getData,
   getApiShoppingWithIcon,
+  getDataForHome,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
@@ -38,7 +38,7 @@ const DashBoard = async () => {
   const familyEventdata = await getCategory("family-events");
   const EnjoyTheSunshinedata = await getCategory("sun-shine");
   const TopAttractionsdata = await getCategory("google/top-attraction");
-  const bardata = await getData("Pubs", listData[0]?._id);
+  const bardata = await getDataForHome("Pubs", listData[0]?._id);
 
   const beachLifedata = await getCategory("google/beach-life");
   const sustainabilitydata = await getCategory("google/sustainability");

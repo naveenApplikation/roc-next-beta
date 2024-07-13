@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
 import CreateAccountContent from "@/components/LoginSignup/CreateAccount";
@@ -16,6 +16,8 @@ import LoginSignupModal from "../LoginSignup/loginSignupModal";
 import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";
 import AboutUs from "../LoginSignup/AboutUs";
+import { addAndRomoveToken } from "@/app/action";
+ 
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -29,12 +31,25 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
 
+    const addToken=async()=>{
+       await addAndRomoveToken(
+          typeof window !== "undefined"
+            ? window.localStorage.getItem("loginToken")
+            : null
+        );
+    }
+
+
+   useEffect(()=>{
+        addToken()
+   },[loginToken])
   const { modalName, closeModal, modalClick, setOldName } =
     useMyContext();
   const router = useRouter();
-
-  const logoutClick = () => {
+   
+  const logoutClick = async() => {
     localStorage.clear();
+     await addAndRomoveToken();
     window.location.reload();
   };
   const onClick = (name: string) => {
