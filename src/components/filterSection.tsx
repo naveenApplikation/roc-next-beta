@@ -10,18 +10,18 @@ import { usePathname, useRouter } from "next/navigation";
 interface FilterSectionProps {
   // Define your props here
   pageTitle?: string;
+  tabValue?: string;
 
 }
 
 
 
-const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle }) => {
+const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle, tabValue }) => {
   const { modalClick, modalType, closeModal, selectFilter, setSelectFilter } = useMyContext();
   // const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname()
 
   const toggleDropdown = () => {
-    // setIsOpen(!modalType.modalFilterList);
     modalClick("modalFilterList")
     if (modalType.modalFilterList) {
       closeModal("modalFilterList")
@@ -31,7 +31,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({ pageTitle }) => {
   // console.log("pathNamepathName", pathName)
   useEffect(() => {
     setSelectFilter("Any")
-  }, [pathName])
+  }, [pathName, tabValue])
   
 
   return (

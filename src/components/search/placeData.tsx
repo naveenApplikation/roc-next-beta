@@ -1,8 +1,10 @@
+
+'use client'
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { commentstar } from "@/app/utils/ImagePath";
-import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
@@ -11,9 +13,10 @@ import useSWR from "swr";
 
 interface listSearchProps {
   filterData?: any;
+  setFilterData?: any;
 }
 
-const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
+const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const [topPlace, setTopPlace] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
@@ -29,7 +32,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
 
-  const { data: topPlaceData, error: topPlaceError} = useSWR(
+  const { data: topPlaceData, error: topPlaceError, isLoading } = useSWR(
     searchQuery === "" && selectFilter === "Any" ? '/google/top-attraction' : null,
     fetcher
   );
@@ -42,6 +45,17 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
     }
   }, [topPlaceData]);
 
+
+  // PLACES API CALL - SELECT FILTER VALUE
+  useEffect(() => {
+    if (placeData.length) {
+      setFilterData(placeData)
+    }
+  }, [JSON.stringify(placeData)])
+
+
+
+
   useEffect(() => {
     const Timer = setTimeout(() => setPageLoading(false), 2000);
     return () => clearTimeout(Timer);
@@ -49,7 +63,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   return (
     <>
-      {placeloader ? (
+      {placeloader || isLoading ? (
         skeletonData.map((item, index) => (
           <SearchedData key={index}>
             <MainInsideWrapper>
@@ -73,7 +87,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                       <SearchedData key={index}>
                         <MainInsideWrapper>
                           <Skeleton
-                            width={80}
+                            width={800}
                             height={80}
                             style={{ borderRadius: 8 }}
                           />
@@ -346,7 +360,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                     />
                   </div>
                 ))
-                : 
+                :
                 topPlace?.slice(0, 10).map((item: any, index: any) => {
                   return (
                     <TopAttractionContainer
@@ -376,7 +390,6 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
                                 maxWidth: "100%",
                                 objectFit: "cover",
                               }}
-                            // alt=""
                             />
                           ) : (
                             <ImageTag src={item.photoUrl} alt="Image" />

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DashBoardModal from "@/components//modal/Modal";
 import ModalContent from "@/components/modal/PlaceModal/ModalContent";
+import EventListingModal from "@/components/modal/EventListing";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {
@@ -15,7 +16,6 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap })
     <>
       <DashBoardModal
         isOpen={modalType.ModalContent}
-        // isOpen={modalName === "ModalContent" }
         onClose={() => closeModal("ModalContent")}
         name="ModalContent"
         {...{ showMap }}
@@ -29,7 +29,13 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap })
             dataImage={dataUrlImage}
             data={dataDetails}
             reservationMenu={reservationMenu}
-          /> : ""}
+          /> :
+          <EventListingModal
+            dataImage={dataUrlImage}
+            reservationModal={modalClick}
+            data={dataDetails}
+          />
+        }
       </DashBoardModal>
     </>
   );

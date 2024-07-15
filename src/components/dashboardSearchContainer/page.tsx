@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import SearchInput from "../searchInput/SearchInput";
@@ -11,10 +11,11 @@ import TabPanel from "../tabPanel";
 import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import PlacePage from "../search/placeData";
-import { debounce } from "@/app/utils/debounce";
-import useSWR from "swr";
+import { useDebounce } from "@/app/utils/debounce";
+import WhatsOn from "../search/whatsOn";
+import { whatsOnMappingData } from "@/app/utils/mappingFun";
 
- 
+
 interface DashboardSearchContainerProps {
   tabChange?: Function;
   options: any;
@@ -22,29 +23,32 @@ interface DashboardSearchContainerProps {
   showMap?: boolean;
   modalClick?: any;
 }
- 
+
+
+
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   options,
 }) => {
-  const {
-    modalType,
-    filterValues,
-    setSearchQuery,
-    searchQuery,
-    fetchDataAsync,
-    placeData,
-    setPlaceData,
-    selectFilter,
-  } = useMyContext();
+  const { modalType, filterValues, setSearchQuery, searchQuery, fetchDataAsync, placeData, setPlaceData, selectFilter, closeModal } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [filterData, setFilterData] = useState([]);
+  const [orignalData, setOrignalData] = useState<any>([])
+  const [whatOnData, setWhatOnData] = useState<any[]>([])
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [tabValue, setTabValue] = useState("Lists");
+  const debouncedValue = useDebounce<string>(searchQuery, 1000); // 500ms delay
 
   const tabChange = (value: any) => {
     setTabValue(value);
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList")
+    }
   };
+
+
 
   const handleChange = (value: string) => {
     
@@ -54,28 +58,55 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       setPlaceData([]);
     }
   };
+
   
+
   const fetchDataListAsync = async (value: string) => {
-      setLoader(true);
-      try {
-        const result = await Instance.get(`/filter/category?query=${value}`);
-        if (result.status === 200) {
-          result.data.list.forEach((list: any) => {
-            const matchedIcon = CategoryIcons.find(
-              (icon) => icon.name === list.iconName
-            );
-            if (matchedIcon) {
-              list.image = matchedIcon.image;
-            }
-          });
-          setData(result?.data);
-        }
-      } catch (error: any) {
-        setLoader(false);
-      } finally {
+    setLoader(true);
+    try {
+      const result = await Instance.get(`/filter/category?query=${value}`);
+      if (result.status === 200) {
+        result.data.list.forEach((list: any) => {
+          const matchedIcon = CategoryIcons.find(
+            (icon) => icon.name === list.iconName
+          );
+          if (matchedIcon) {
+            list.image = matchedIcon.image;
+          }
+        });
+        setData(result?.data);
+      }
+    } catch (error: any) {
+      setLoader(false);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const fetchDataWhatsOnAsync = async (value: string, selectValue: string) => {
+    setLoader(true);
+    try {
+      const result = await Instance.get(`/filter/avtivities-events?query=${value}&parish=${selectValue}`);
+      if (result.status == 200) {
+        const data: any = whatsOnMappingData(result?.data)
+        setOrignalData(data)
+        setWhatOnData(data);
         setLoader(false);
       }
+    } catch (error: any) {
+      setLoader(false);
+    } finally {
+      setLoader(false);
+    }
   };
+
+  const handleClearText = () => {
+    setSearchQuery('')
+    if (inputRef.current) {
+      inputRef.current.focus(); // Set focus on the input
+    }
+    fetchDataWhatsOnAsync(searchQuery, selectFilter)
+  }
 
   useEffect(() => {
     if (!modalType.search) {
@@ -85,54 +116,122 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   }, [modalType.search]);
 
 
-
-  const handleSearch = async (q: any) => {
-    if (tabValue === "Places") {
-      await fetchDataAsync(q, filterValues);
-    } else {
-      await fetchDataListAsync(q);
-    }
-  };
-
-  useLayoutEffect(() => {
-    if (tabValue === "Lists") {
-      fetchDataListAsync(searchQuery);
-      
-    } else {
-      fetchDataAsync(searchQuery, filterValues);
-    }
-  }, []);
- 
- 
-
-
-
-  const debouncedSearch = useCallback(
-    debounce((q: string) => {
-      tabValue === "Lists" ? fetchDataListAsync(q) : fetchDataAsync(q, filterValues);
-    }, 1000),
-    [tabValue]
-  )
-
+  // FIRST TIME RENDER
   useEffect(() => {
-    debouncedSearch(searchQuery);
-  }, [searchQuery]);
+    fetchDataWhatsOnAsync(searchQuery, selectFilter)
+  }, []);
 
 
+
+
+
+  // Effect to handle debounced value
   useEffect(() => {
     if (searchQuery) {
-      const newData = placeData.filter((val: any) => {
-        if (val?.parishName === selectFilter) {
-          return val
+      if (debouncedValue) {
+        console.log('Debounced Value after 5ms:', debouncedValue);
+        if (tabValue === "Lists") {
+          fetchDataListAsync(debouncedValue);
+        } else if (tabValue === "Places") {
+          fetchDataAsync(debouncedValue, filterValues);
+        } else if (tabValue === "What's On") {
+          fetchDataWhatsOnAsync(debouncedValue, selectFilter)
         }
-      })
-      setFilterData(selectFilter === "Any" ? placeData : newData)
+      }
     } else {
-      fetchDataAsync(searchQuery, filterValues, selectFilter);
-      setFilterData(placeData)
+      setData([]);
     }
-  }, [selectFilter, placeData.length])
+  }, [debouncedValue]);
 
+  // CALL APIs AFTER TAB CHANGE
+  useEffect(() => {
+    if (searchQuery) {
+      if (tabValue === "Lists") {
+        fetchDataListAsync(searchQuery);
+      } else if (tabValue === "Places") {
+        fetchDataAsync(searchQuery, filterValues);
+      } else if (tabValue === "What's On") {
+        fetchDataWhatsOnAsync(searchQuery, selectFilter)
+      }
+
+    } else {
+      setData([]);
+    }
+  }, [tabValue]);
+
+
+
+
+// WHAT'S ON API CALL - SELECT FILTER VALUE
+  useEffect(() => {
+    if (tabValue === "What's On") {
+      if (searchQuery) {
+        const newWhatsOnData = orignalData.filter((val: any) => {
+          if (val?.parishName === selectFilter) return val;
+        })
+        setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData)
+      } else {
+        fetchDataWhatsOnAsync(searchQuery, selectFilter)
+      }
+    }
+  }, [selectFilter])
+
+
+
+// PLACES API CALL - SELECT FILTER VALUE
+  useEffect(() => {
+    if (tabValue === "Places") {
+      if (searchQuery) {
+        const newData = placeData.filter((val: any) => {
+          if (val?.parishName === selectFilter) return val;
+        })
+        setFilterData(selectFilter === "Any" ? placeData : newData)
+      } else {
+        fetchDataAsync(searchQuery, filterValues, selectFilter);
+        // setFilterData(placeData)
+      }
+    }
+  }, [selectFilter])
+
+
+
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     const newData = placeData.filter((val: any) => {
+  //       if (val?.parishName === selectFilter) {
+  //         return val
+  //       }
+  //     })
+  //     setFilterData(selectFilter === "Any" ? placeData : newData)
+  //   } else {
+  //     fetchDataAsync(searchQuery, filterValues, selectFilter);
+  //     setFilterData(placeData)
+  //   }
+  // }, [selectFilter, placeData.length])
+
+
+
+
+
+  function tabComponent() {
+    if (tabValue === "Lists") {
+      return <Lists searchItem={data} searchQuery={searchQuery} />
+    } else if (tabValue === "Places") {
+      return (
+        <>
+          <FilterSection pageTitle="search" {...{ tabValue }} />
+          <PlacePage {...{ filterData, setFilterData }} />
+        </>
+      )
+    } else {
+      return (
+        <>
+          <FilterSection pageTitle="what'sOn" {...{ tabValue }} />
+          <WhatsOn {...{ orignalData, loader }} filterData={whatOnData} />
+        </>
+      )
+    }
+  }
 
 
 
@@ -141,67 +240,25 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     <>
       <InputWrapper className="filterInput">
         <SearchInput
+          inputRef={inputRef}
           value={searchQuery}
           onchange={(e: any) => handleChange(e.target.value)}
-          handleSearch={handleSearch}
+          // handleSearch={handleSearch}
+          handleClearText={handleClearText}
           id="myInput"
           homeSearch={true}
           loader={loader}
         />
       </InputWrapper>
       <TabPanel defaultValue={tabValue} tabChange={tabChange} options={options} />
-      {tabValue == "Lists" ? (
-          <Lists searchItem={data} searchQuery={searchQuery} />
-      ) : (
-        <>
-          <FilterSection pageTitle="search" />
-          <PlacePage {...{ filterData }} />
-        </>
-      )}
+      {tabComponent()}
     </>
   );
 };
 
 export default DashboardSearchContainer;
 
-const ListDataWrraper = styled.div<{ selected: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  border-bottom: 1px solid rgb(217, 217, 217);
-  align-items: center;
-  padding: 9px 0px;
-  position: relative;
-  cursor: ${(props) => (props.selected ? "pointer" : "not-allowed")};
-`;
 
-const ListDataTittleText = styled.p`
-  color: var(--BODY, #000);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-`;
-
-const ListDataInfoText = styled.p.attrs((props) => ({
-  className: props.className,
-}))`
-  color: rgba(0, 0, 0, 0.48);
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px; /* 133.333% */
-  letter-spacing: 0.12px;
-  &.type_style {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 95%;
-  }
-`;
 
 const InputWrapper = styled.div`
   display: flex;
@@ -212,44 +269,4 @@ const InputWrapper = styled.div`
     padding: 0px 16px;
     padding-top: 16px;
   }
-`;
-const SearchedListContainer = styled.div`
-  padding-bottom: 40px;
-  min-height: 50vh;
-`;
-const SearchedData = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #d9d9d9;
-  padding: 10px 0px;
-  p {
-    font-size: 13px;
-    font-weight: 400;
-  }
-  .likes {
-    background-color: #00000014;
-    padding: 8px 16px;
-    border-radius: 16px;
-    text-align: center;
-
-    @media screen and (max-width: 350px) {
-      padding: 6px 12px;
-    }
-  }
-  .shopName {
-    font-size: 16px;
-    font-weight: 600;
-  }
-  p span {
-    color: #2b902b;
-  }
-`;
-
-const MainInsideWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  cursor: pointer;
 `;

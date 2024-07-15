@@ -179,7 +179,7 @@ const ModalContent: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-       
+
         <Image src={
           dataImage
             ? dataImage

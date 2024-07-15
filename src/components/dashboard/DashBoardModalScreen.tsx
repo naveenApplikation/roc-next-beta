@@ -19,7 +19,7 @@ import ReservationCalenderModal from "@/components/AllModalScreen/reservationCal
 import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalScreen";
 import BetaExploreModal from "@/components/modal/BetaExploreModal";
 
-type tabs = "Lists" | "Places";
+
 
 type mylisttabs = "Created" | "Contributed";
 
@@ -29,7 +29,7 @@ const DashBoardModalScreen = () => {
   
   const [myListtabValue, setMyListTabValue] = useState("Created");
  
-  const options = ["Lists", "Places"];
+  const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
 
   const myListtabChange = async (value: mylisttabs) => {

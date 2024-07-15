@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CommonButton from '../../components/button/CommonButton';
 import { useMyContext } from "@/app/Context/MyContext";
@@ -7,9 +7,7 @@ import { SearchFilterData } from "@/app/utils/data";
 
 
 const FilterListModal: React.FC = () => {
-
-  const { setSelectFilter, closeModal } = useMyContext();
-
+  const { setSelectFilter, closeModal, selectFilter } = useMyContext();
   const [selectData, setSelectData] = useState<string>("Any");
 
 
@@ -17,12 +15,18 @@ const FilterListModal: React.FC = () => {
   const handleCategoryType = (e: any) => {
     setSelectData(e)
   }
-  
+
   const handleSave = () => {
     setSelectFilter(selectData)
     closeModal("modalFilterList")
   }
 
+  
+  useEffect(() => {
+    if (selectFilter === "Any") {
+      setSelectData("Any")
+    }
+  }, [selectFilter])
 
   return (
     <Container>
@@ -31,8 +35,8 @@ const FilterListModal: React.FC = () => {
           SearchFilterData.map(val => {
             return (
 
-              <CheckBoxContainer  key={val.id} onClick={() => handleCategoryType(val?.name)}>
-                <input type="radio" value={val?.name} checked={selectData === val?.name}/>
+              <CheckBoxContainer key={val.id} onClick={() => handleCategoryType(val?.name)}>
+                <input type="radio" value={val?.name} checked={selectData === val?.name} />
                 <p>{val?.name}</p>
               </CheckBoxContainer>
             )
