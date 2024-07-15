@@ -46,6 +46,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
   const [loader, setloader] = useState(false);
+  const [likeLoader,setLikeLoader]=useState<string>("")
   const [uiRenderLoader, setUiRenderLoader] = useState(true);
 
   const fetchEventDataById = () => {
@@ -75,7 +76,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       fetchEventDataById();
     }
   }, [event, screenName]);
-
+  
   const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
@@ -125,12 +126,16 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     setSearchQuery(value);
   };
 
-  
+  console.log(likeLoader)
   const handleLike = async (id: string, vote: any) => {
+    console.log(id)
+    
+       console.log("before", likeLoader);
     const loginToken = localStorage.getItem("loginToken")
       ? localStorage.getItem("loginToken")
       : null;
     if (loginToken) {
+        setLikeLoader(id);
       eventData.map((val) => {
         if (id === val._id) {
           if (vote) {
@@ -144,7 +149,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           }
         }
       });
-
+      
       const result = await Instance.post(
         `/category/${vote ? "removeVoting" : "addVoting"}`,
         {
@@ -152,10 +157,13 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           itemId: id,
         }
       );
+       setLikeLoader("")
+      console.log("after",likeLoader)
       vote
         ? toast.error(result?.data.message)
         : toast.success(result?.data.message);
       await updateLike(events.toString());
+      
     } else {
       modalClick("LoginSignupModal");
     }
@@ -238,7 +246,8 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           urlData={eventData}
           urlTitle={eventTitle}
           filteredUrls={filteredUrls}
-          loader={false}
+          loader={loader}
+          likeLoader={likeLoader}
           isOpen={() => screenChangeHandle("create")}
           handleLike={handleLike}
           totalVote={totalVote}

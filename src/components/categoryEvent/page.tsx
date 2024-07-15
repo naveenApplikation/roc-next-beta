@@ -8,15 +8,18 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
 import { useRouter } from "next/navigation";
+import { Spin } from "antd";
 import fallback from "../../../assets/images/fallbackimage.png";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
+import { FaSpinner } from "react-icons/fa6";
 
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
+  likeLoader:string
   isOpen?: any;
   handleLike?: any;
   totalVote?: any;
@@ -26,6 +29,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   urlTitle,
   urlData,
   loader,
+  likeLoader,
   isOpen,
   handleLike,
   totalVote,
@@ -146,7 +150,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       item,
                       item?.data_type === "google" ? item?.photoUrl : fallback
                     )
-                  }>
+                  }
+                >
                   <FamilyEventWrapper>
                     {item?.data_type === "google" ? (
                       item.photoUrl ? (
@@ -210,11 +215,20 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 </MainInsideWrapper>
                 <LikesContainer
                   selected={item?.userVoted}
-                  onClick={() => handleLike(item?._id, item?.userVoted)}>
-                  <ThumbsUPIcon
-                    color={item?.userVoted ? "#3b86ed" : "#000000"}
-                  />
-                  <p>{item?.itemVotes ? item.itemVotes : 0}</p>
+
+                  onClick={() =>{if(!likeLoader){ handleLike(item?._id, item?.userVoted)}}}
+                >
+                  {likeLoader==item?._id?(
+                    <Spin tip="Loading" size="small" />
+                  ) : (
+                    <>
+                    
+                      <ThumbsUPIcon
+                        color={likeLoader && likeLoader!=item?.id?"gray":item?.userVoted ? "#3b86ed" : "#000000"}
+                      />
+                      <p>{item?.itemVotes ? item.itemVotes : 0}</p>
+                    </>
+                  )}
                 </LikesContainer>
               </SearchedData>
             );
@@ -247,6 +261,7 @@ const LikesContainer = styled.div<{ selected: boolean }>`
   background-color: ${(props) => (props.selected ? "#3B86ED29" : "#00000014")};
   border-radius: 15px;
   justify-content: center;
+  
 
   p {
     color: ${(props) => (props.selected ? "#3b86ed" : "")};

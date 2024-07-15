@@ -6,7 +6,7 @@ import { cache } from "react";
  
 export async function addAndRomoveToken(loginToken?:any)
 {
-    console.log(loginToken,"line7")
+    // console.log(loginToken,"line7")
       if(loginToken)
       {
       cookies().set('loginToken',loginToken)
@@ -46,16 +46,16 @@ export async function getData(slug: string, params: string) {
 
     
     const loginToken=cookies().get('loginToken')?.value
-    console.log(loginToken,"line 47")
+    // console.log(loginToken,"line 49")
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
     const options:any= loginToken
     ?{
           headers: {
             "x-login-token":loginToken ? loginToken.toString() : "",
           },   
-          next:{tags:[slug],revalidate:30}
+          next:{tags:[slug],revalidate:1}
        }
-      : { next: { revalidate:10}}
+      : { next: { revalidate:1}}
     const res = await fetch(url,options);
 
      
@@ -70,14 +70,12 @@ export async function getData(slug: string, params: string) {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.log("tes2", params);
+    console.log("test3", params);
   }
 }
 
 export async function getDataForHome(slug: string, params: string) {
   try {
-  
-   
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
    
     const res = await fetch(url);

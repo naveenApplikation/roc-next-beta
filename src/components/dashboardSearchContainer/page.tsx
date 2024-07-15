@@ -12,6 +12,7 @@ import Lists from "../search/Lists";
 import { CategoryIcons } from "@/app/utils/iconList";
 import PlacePage from "../search/placeData";
 import { debounce } from "@/app/utils/debounce";
+import useSWR from "swr";
 
  
 interface DashboardSearchContainerProps {
@@ -46,6 +47,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   };
 
   const handleChange = (value: string) => {
+    
     setSearchQuery(value);
     if (searchQuery.length == 0) {
       setData([]);

@@ -29,7 +29,7 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData }) => {
 
   const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
 
-  const { data: topPlaceData, error: topPlaceError } = useSWR(
+  const { data: topPlaceData, error: topPlaceError} = useSWR(
     searchQuery === "" && selectFilter === "Any" ? '/google/top-attraction' : null,
     fetcher
   );
