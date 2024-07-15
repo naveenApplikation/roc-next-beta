@@ -118,7 +118,7 @@ export const PagelayoutMainContainer = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    border-radius: 24px 24px 0px 0px;
+    /* border-radius: 24px 24px 0px 0px; */
     height: auto;
     overflow: hidden;
     z-index: 1;
