@@ -32,7 +32,7 @@ const StyledModal = styled.div<{
   width: 352px; /* Adjust this value as needed */
   border-radius: 40px;
   // background: #f2f3f3;
-  background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#f2f3f3")};
+  background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#fff")};
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) =>
     $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
@@ -51,7 +51,7 @@ const StyledModal = styled.div<{
   }
 
   .modal-content {
-    background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#f2f3f3")};
+    background: ${({ $modalType }) => ($modalType ? "#ffffff" : "#fff")};
     /* display: flex;
     justify-content: space-between;
     align-items: center; */

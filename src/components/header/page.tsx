@@ -9,6 +9,7 @@ import {
   profileIconDark,
   ROCLogo,
   HamburgerDesktop,
+  iconbetablack
 } from "@/app/utils/ImagePath";
 
 const HeadMenu = styled.div`
@@ -55,6 +56,13 @@ const Header = () => {
         <HeaderMapProfileContainer>
           {pathname === "/" ? (
             <>
+              <Image
+            src={iconbetablack}
+            width={48}
+            height={48}
+            alt="Logo Outline"
+            // onClick={() => modalClick("createAccountModal")}
+            />
               <Image
                 style={{ cursor: "pointer" }}
                 src={profileIconDark}

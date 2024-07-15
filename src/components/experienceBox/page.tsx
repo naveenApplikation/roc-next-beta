@@ -138,7 +138,7 @@ justify-content: space-between;
 `;
 const SearchedListContainer = styled.div`
   padding: 40px;
-  background-color: #f2f3f3;
+  background-color: #fff;
   min-height: 100dvh;
 `;
 

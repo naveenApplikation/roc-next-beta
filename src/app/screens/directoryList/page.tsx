@@ -257,7 +257,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background-color: #f2f3f3;
+  background-color: #fff;
   width: ${sideWidth};
   /* height: 100%; */
   height: 100vh;
