@@ -28,7 +28,7 @@ const InputButtonWrapper = styled.div`
   padding: 0px 40px;
   button {
     padding: 19px 24px;
-    box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.1);
+    box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.5);
     background: white;
     outline: none;
     border: none;

@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import SearchInput from "../searchInput/SearchInput";
 import Instance from "@/app/utils/Instance";
 import { useMyContext } from "@/app/Context/MyContext";
 import FilterSection from "../filterSection";
@@ -14,7 +13,7 @@ import PlacePage from "../search/placeData";
 import { useDebounce } from "@/app/utils/debounce";
 import WhatsOn from "../search/whatsOn";
 import { whatsOnMappingData } from "@/app/utils/mappingFun";
-
+import SearchComponent from "../searchInput/SearchInput";
 
 interface DashboardSearchContainerProps {
   tabChange?: Function;
@@ -24,17 +23,25 @@ interface DashboardSearchContainerProps {
   modalClick?: any;
 }
 
-
-
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   options,
 }) => {
-  const { modalType, filterValues, setSearchQuery, searchQuery, fetchDataAsync, placeData, setPlaceData, selectFilter, closeModal } = useMyContext();
+  const {
+    modalType,
+    filterValues,
+    setSearchQuery,
+    searchQuery,
+    fetchDataAsync,
+    placeData,
+    setPlaceData,
+    selectFilter,
+    closeModal,
+  } = useMyContext();
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [filterData, setFilterData] = useState([]);
-  const [orignalData, setOrignalData] = useState<any>([])
-  const [whatOnData, setWhatOnData] = useState<any[]>([])
+  const [orignalData, setOrignalData] = useState<any>([]);
+  const [whatOnData, setWhatOnData] = useState<any[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,14 +51,11 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const tabChange = (value: any) => {
     setTabValue(value);
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
+      closeModal("modalFilterList");
     }
   };
 
-
-
   const handleChange = (value: string) => {
-    
     setSearchQuery(value);
     if (searchQuery.length == 0) {
       setData([]);
@@ -59,37 +63,39 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   };
 
-  
-
   const fetchDataListAsync = async (value: string) => {
-    setLoader(true);
-    try {
-      const result = await Instance.get(`/filter/category?query=${value}`);
-      if (result.status === 200) {
-        result.data.list.forEach((list: any) => {
-          const matchedIcon = CategoryIcons.find(
-            (icon) => icon.name === list.iconName
-          );
-          if (matchedIcon) {
-            list.image = matchedIcon.image;
-          }
-        });
-        setData(result?.data);
+    if (value !== "") {
+      setLoader(true);
+      try {
+        const result = await Instance.get(`/filter/category?query=${value}`);
+        if (result.status === 200) {
+          result.data.list.forEach((list: any) => {
+            const matchedIcon = CategoryIcons.find(
+              (icon) => icon.name === list.iconName
+            );
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+          });
+          setData(result?.data);
+        }
+      } catch (error: any) {
+        setLoader(false);
+      } finally {
+        setLoader(false);
       }
-    } catch (error: any) {
-      setLoader(false);
-    } finally {
-      setLoader(false);
     }
   };
 
   const fetchDataWhatsOnAsync = async (value: string, selectValue: string) => {
     setLoader(true);
     try {
-      const result = await Instance.get(`/filter/avtivities-events?query=${value}&parish=${selectValue}`);
+      const result = await Instance.get(
+        `/filter/avtivities-events?query=${value}&parish=${selectValue}`
+      );
       if (result.status == 200) {
-        const data: any = whatsOnMappingData(result?.data)
-        setOrignalData(data)
+        const data: any = whatsOnMappingData(result?.data);
+        setOrignalData(data);
         setWhatOnData(data);
         setLoader(false);
       }
@@ -101,12 +107,14 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   };
 
   const handleClearText = () => {
-    setSearchQuery('')
+    setSearchQuery("");
     if (inputRef.current) {
       inputRef.current.focus(); // Set focus on the input
     }
-    fetchDataWhatsOnAsync(searchQuery, selectFilter)
-  }
+    if (tabValue === "What's On") {
+      fetchDataWhatsOnAsync(searchQuery, selectFilter);
+    }
+  };
 
   useEffect(() => {
     if (!modalType.search) {
@@ -115,27 +123,22 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
     }
   }, [modalType.search]);
 
-
   // FIRST TIME RENDER
   useEffect(() => {
-    fetchDataWhatsOnAsync(searchQuery, selectFilter)
+    fetchDataWhatsOnAsync(searchQuery, selectFilter);
   }, []);
-
-
-
-
 
   // Effect to handle debounced value
   useEffect(() => {
     if (searchQuery) {
       if (debouncedValue) {
-        console.log('Debounced Value after 5ms:', debouncedValue);
+        console.log("Debounced Value after 5ms:", debouncedValue);
         if (tabValue === "Lists") {
           fetchDataListAsync(debouncedValue);
         } else if (tabValue === "Places") {
           fetchDataAsync(debouncedValue, filterValues);
         } else if (tabValue === "What's On") {
-          fetchDataWhatsOnAsync(debouncedValue, selectFilter)
+          fetchDataWhatsOnAsync(debouncedValue, selectFilter);
         }
       }
     } else {
@@ -151,49 +154,41 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       } else if (tabValue === "Places") {
         fetchDataAsync(searchQuery, filterValues);
       } else if (tabValue === "What's On") {
-        fetchDataWhatsOnAsync(searchQuery, selectFilter)
+        fetchDataWhatsOnAsync(searchQuery, selectFilter);
       }
-
     } else {
       setData([]);
     }
   }, [tabValue]);
 
-
-
-
-// WHAT'S ON API CALL - SELECT FILTER VALUE
+  // WHAT'S ON API CALL - SELECT FILTER VALUE
   useEffect(() => {
     if (tabValue === "What's On") {
       if (searchQuery) {
         const newWhatsOnData = orignalData.filter((val: any) => {
           if (val?.parishName === selectFilter) return val;
-        })
-        setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData)
+        });
+        setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData);
       } else {
-        fetchDataWhatsOnAsync(searchQuery, selectFilter)
+        fetchDataWhatsOnAsync(searchQuery, selectFilter);
       }
     }
-  }, [selectFilter])
+  }, [selectFilter]);
 
-
-
-// PLACES API CALL - SELECT FILTER VALUE
+  // PLACES API CALL - SELECT FILTER VALUE
   useEffect(() => {
     if (tabValue === "Places") {
       if (searchQuery) {
         const newData = placeData.filter((val: any) => {
           if (val?.parishName === selectFilter) return val;
-        })
-        setFilterData(selectFilter === "Any" ? placeData : newData)
+        });
+        setFilterData(selectFilter === "Any" ? placeData : newData);
       } else {
         fetchDataAsync(searchQuery, filterValues, selectFilter);
         // setFilterData(placeData)
       }
     }
-  }, [selectFilter])
-
-
+  }, [selectFilter]);
 
   // useEffect(() => {
   //   if (searchQuery) {
@@ -209,37 +204,30 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   //   }
   // }, [selectFilter, placeData.length])
 
-
-
-
-
   function tabComponent() {
     if (tabValue === "Lists") {
-      return <Lists searchItem={data} searchQuery={searchQuery} />
+      return <Lists searchItem={data} searchQuery={searchQuery} />;
     } else if (tabValue === "Places") {
       return (
         <>
           <FilterSection pageTitle="search" {...{ tabValue }} />
           <PlacePage {...{ filterData, setFilterData }} />
         </>
-      )
+      );
     } else {
       return (
         <>
           <FilterSection pageTitle="what'sOn" {...{ tabValue }} />
           <WhatsOn {...{ orignalData, loader }} filterData={whatOnData} />
         </>
-      )
+      );
     }
   }
-
-
-
 
   return (
     <>
       <InputWrapper className="filterInput">
-        <SearchInput
+        <SearchComponent
           inputRef={inputRef}
           value={searchQuery}
           onchange={(e: any) => handleChange(e.target.value)}
@@ -250,15 +238,17 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
           loader={loader}
         />
       </InputWrapper>
-      <TabPanel defaultValue={tabValue} tabChange={tabChange} options={options} />
+      <TabPanel
+        defaultValue={tabValue}
+        tabChange={tabChange}
+        options={options}
+      />
       {tabComponent()}
     </>
   );
 };
 
 export default DashboardSearchContainer;
-
-
 
 const InputWrapper = styled.div`
   display: flex;

@@ -173,7 +173,7 @@ const MainInsideWrapper = styled.div`
 
 const Container = styled.div`
   padding: 40px;
-  background-color: #f2f3f3;
+  background-color: #fff;
   width: ${sideWidth};
   height: 100%;
   min-height: 83vh;

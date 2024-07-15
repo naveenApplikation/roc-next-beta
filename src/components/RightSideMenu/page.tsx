@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { LogoNew, Hamburger, profileBrown } from "@/app/utils/ImagePath";
+import { LogoNew, Hamburger, profileBrown,MenuIcon,iconbeta } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next/navigation";
@@ -109,7 +109,7 @@ const RightMenu = styled.div`
     width: 100%;
     right: 0;
     background-position: 50% 50%;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/bg.jpg?alt=media&token=4e087624-53c1-4826-9930-74c63c902b72);
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2Fbg040724.jpg?alt=media&token=5d24bd8d-6cf3-43b6-8494-e9a0ea04c4bc);
     background-size: cover;
   }
 `;
@@ -152,6 +152,17 @@ const AllCategories = styled.div`
   }
 `;
 
+const ImageContainer = styled.div`
+  width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(1px);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
 const RightSide = () => {
   const { modalClick,iconClick } = useMyContext();
 
@@ -176,14 +187,32 @@ const RightSide = () => {
       <RightSideHeadMenu>
         <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
         <HeaderMapProfileContainer>
-          <Image
-            src={profileBrown}
+        <Image
+            src={iconbeta}
             width={48}
             height={48}
             alt="Logo Outline"
+            // onClick={() => modalClick("createAccountModal")}
+            />
+          <ImageContainer>
+          <Image
+            src={profileBrown}
+            width={20}
+            height={17.5}
+            alt="Logo Outline"
             onClick={() => modalClick("createAccountModal")}
-          />
-          <Hamburger onClick={() => modalClick("LoginSignupModal")} />
+            />
+            </ImageContainer>
+            <ImageContainer>
+          <Image
+            src={MenuIcon}
+            width={20}
+            height={17.5}
+            alt="Logo Outline"
+            onClick={() => modalClick("createAccountModal")}
+            />
+            </ImageContainer>
+          {/* <Hamburger onClick={() => modalClick("LoginSignupModal")} /> */}
         </HeaderMapProfileContainer>
       </RightSideHeadMenu>
       <RightSideMenuContainer>

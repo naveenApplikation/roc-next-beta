@@ -90,7 +90,7 @@ const StyledModal = styled.div<{
   position: fixed;
   width: ${({ $showMap }) =>
     $showMap ? "480px" : "580px"}; /* Adjust this value as needed */
-  background: #f2f3f3;
+  background: #fff;
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) =>
     $isopen ? "0px 8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
@@ -112,7 +112,7 @@ const StyledModal = styled.div<{
   }
 
   .modal-content {
-    background: #f2f3f3;
+    background: #fff;
     width: 100%;
   }
 

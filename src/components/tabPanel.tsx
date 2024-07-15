@@ -15,7 +15,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ defaultValue, tabChange, options })
         <CustomSegmented
 
             defaultValue={defaultValue}
-            style={{ marginBottom: 8 }}
+            style={{ marginBottom: 16,marginTop:16 }}
             onChange={(value: any) => tabChange(value)}
             options={options}
             block
@@ -35,7 +35,7 @@ const CustomSegmented = styled(Segmented)`
     right: 0;
     top: 25%;
     bottom: 25%;
-    width: 1px;
+    /* width: 1px; */
     background-color: rgba(60, 60, 67, 0.36);
 }
 
@@ -46,7 +46,7 @@ const CustomSegmented = styled(Segmented)`
     left: 0;
     top: 25%;
     bottom: 25%;
-    width: 1px;
+    /* width: 1px; */
     background-color: rgba(60, 60, 67, 0.36);
 }
 

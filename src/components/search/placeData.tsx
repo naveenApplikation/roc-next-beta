@@ -527,7 +527,7 @@ const MainInsideWrapper = styled.div`
 `;
 
 const ScrollingMenu = styled.div`
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -539,7 +539,7 @@ const ScrollingMenu = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    padding: 0px 16px;
+    /* padding: 0px 16px; */
   }
 `;
 

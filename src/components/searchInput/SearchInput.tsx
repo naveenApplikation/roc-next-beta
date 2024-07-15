@@ -30,6 +30,13 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 }) => {
   const { modalType } = useMyContext();
 
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      // You can customize the key condition if needed
+      inputRef.current.blur(); // This will remove focus and close the keyboard
+    }
+  };
+
   useEffect(() => {
     if (modalType.search) {
       if (inputRef.current) {
@@ -44,9 +51,10 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         value={value}
         onChange={onchange}
         type="search"
-        title = "search"
         placeholder="Search..."
+        enterKeyHint="search"
         onFocus={onFocus}
+        onKeyDown={handleKeyDown}
         id={id}
         ref={inputRef}
       />
@@ -54,13 +62,15 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         <Spin size="small" />
       ) : (
         <>
-          {
-            value ?
-              <SearchIcon src={ClearText} alt="Search" onClick={handleClearText} />
-              :
-              <SearchIcon src={search} alt="Search" onClick={handleSearch} />
-
-          }
+          {value ? (
+            <SearchIcon
+              src={ClearText}
+              alt="Search"
+              onClick={handleClearText}
+            />
+          ) : (
+            <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+          )}
         </>
       )}
     </InputContainer>

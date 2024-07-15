@@ -206,7 +206,7 @@ const Header = styled.div`
 const SearchedListContainer = styled.div`
   /* padding-bottom: 40px; */
   padding: 40px;
-  background-color: #f2f3f3;
+  background-color: #fff;
   width: ${sideWidth};
   min-height: 100vh;
   @media screen and (max-width: 800px) {
