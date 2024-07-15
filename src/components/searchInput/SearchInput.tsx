@@ -44,7 +44,6 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         value={value}
         onChange={onchange}
         type="search"
-        title = "search"
         placeholder="Search..."
         onFocus={onFocus}
         id={id}
@@ -54,13 +53,15 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         <Spin size="small" />
       ) : (
         <>
-          {
-            value ?
-              <SearchIcon src={ClearText} alt="Search" onClick={handleClearText} />
-              :
-              <SearchIcon src={search} alt="Search" onClick={handleSearch} />
-
-          }
+          {value ? (
+            <SearchIcon
+              src={ClearText}
+              alt="Search"
+              onClick={handleClearText}
+            />
+          ) : (
+            <SearchIcon src={search} alt="Search" onClick={handleSearch} />
+          )}
         </>
       )}
     </InputContainer>
