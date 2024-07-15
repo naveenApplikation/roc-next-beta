@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import { filterSearch } from "@/app/utils/ImagePath";
 import { usePathname, useRouter } from "next/navigation";
+import caret from '../../assets/images/caret-down.svg'
 
 interface FilterSectionProps {
   // Define your props here
@@ -52,7 +53,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
           className={modalType.modalFilterList ? "active" : ""}>
           {selectFilter === "Any" ? "Parish" : selectFilter}
           <Caret className={modalType.modalFilterList ? "active" : ""}>
-            {modalType.modalFilterList ? "▲" : "▼"}
+            {modalType.modalFilterList ? <Image src={caret} alt="infoCirlce" /> :  <Image src={caret} alt="infoCirlce" />}
           </Caret>
         </DropdownButton>
         {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>
@@ -120,7 +121,7 @@ const FilterContainer = styled.div`
 const DropdownButton = styled.button`
   background: #ffffff;
   color: #000000;
-  padding: 10px 20px;
+  padding: 6px 8px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.16);
   cursor: pointer;
@@ -143,6 +144,6 @@ const Caret = styled.span`
   transition: transform 0.3s;
 
   &.active {
-    transform: rotate(90deg);
+    transform: rotate(-90deg);
   }
 `;
