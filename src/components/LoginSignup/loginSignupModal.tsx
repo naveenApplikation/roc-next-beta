@@ -18,6 +18,7 @@ import SocialMedia from "../socialMedia/page";
 import { emails, tnc, user } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { addAndRomoveToken } from "@/app/action";
+import { usePathname } from "next/navigation";
  
  
 interface ModalProps {
@@ -33,7 +34,7 @@ interface ModalProps {
 const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs }) => {
     const [loader, setloader] = useState(false);
     const { modalClick } = useMyContext();
-   
+      const pathname = usePathname();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -54,8 +55,15 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
                 });
                await addAndRomoveToken(loginData.data.token) 
                 localStorage.setItem("loginToken",loginData.data.token);
-             
+                console.log(pathname)
+                  if (pathname.includes("screens")) {
+                    window.location.reload();
+                  }
+                  else
+                  {
                 nextModal();
+                  }
+                
            
                 
             } catch (error: any) {

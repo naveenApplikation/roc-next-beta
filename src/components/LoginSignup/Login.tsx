@@ -5,6 +5,8 @@ import CommonButton from "@/components/button/CommonButton";
 import Instance from "@/app/utils/Instance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { addAndRomoveToken } from "@/app/action";
+import { usePathname } from "next/navigation";
 
 interface ModalProps {
   previousModal?: any,
@@ -47,7 +49,7 @@ export const ErrorMessage = styled.p`
 const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
 
   const [loader, setloader] = useState(false);
-
+   const pathname = usePathname();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -66,9 +68,16 @@ const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
           email: values.email,
           password: values.password,
         });
-        localStorage.setItem("loginToken", loginData.data.token);
-        setloader(false)
-        nextModal()
+         localStorage.setItem("loginToken", loginData.data.token);
+         setloader(false)
+         console.log(pathname);
+         await addAndRomoveToken(loginData.data.token); 
+        if (pathname.includes("screens")) {
+          window.location.reload();
+        }
+        else{
+          nextModal()
+        }
       } catch (error: any) {
         console.log(error.message);
         setloader(false)
