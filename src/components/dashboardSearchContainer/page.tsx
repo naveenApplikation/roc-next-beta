@@ -170,6 +170,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         });
         setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData);
       } else {
+        setWhatOnData(selectFilter === "Any" ? orignalData : []);
         fetchDataWhatsOnAsync(searchQuery, selectFilter);
       }
     }
