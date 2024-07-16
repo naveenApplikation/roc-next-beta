@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+  background-color: #ffffff;
 
   @media screen and (max-width: 800px) {
     flex-direction: column-reverse;
