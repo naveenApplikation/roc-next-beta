@@ -1,12 +1,9 @@
-
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import Image from "next/image";
-
 
 interface listSearchProps {
   filterData?: any;
@@ -16,9 +13,6 @@ interface listSearchProps {
 const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const { modalClick } = useMyContext();
-
-
-
 
   return (
     <>
@@ -37,64 +31,52 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
         ))
       ) : (
         <ScrollingMenu>
-          {
-            filterData?.map((item: any, index: any) => {
-              return (
-                <TopAttractionContainer
-                  key={index}
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    modalClick(
-                      "ModalContent",
-                      item?.item, item?.image)
-                  }>
-                  <TopAttractionprofile>
-                    {
-                      typeof item?.image === "string" ?
-                        <ImageTag src={item?.image} alt="Image" />
-                        :
-                        <Image
-                          src={fallback}
-                          alt=""
-                          width={500}
-                          height={80}
-                          style={{
-                            maxWidth: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                    }
-                  </TopAttractionprofile>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      flexDirection: "column",
-                      maxWidth: "calc(100% - 30%)",
-                    }}>
-                    <ListDataTittleText>{item?.title}</ListDataTittleText>
+          {filterData?.map((item: any, index: any) => {
+            return (
+              <TopAttractionContainer
+                key={index}
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  modalClick("ModalContent", item?.item, item?.image)
+                }>
+                <TopAttractionprofile>
+                  {typeof item?.image === "string" ? (
+                    <ImageTag src={item?.image} alt="Image" />
+                  ) : (
+                    <Image
+                      src={fallback}
+                      alt=""
+                      width={500}
+                      height={80}
+                      style={{
+                        maxWidth: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+                </TopAttractionprofile>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    flexDirection: "column",
+                    maxWidth: "calc(100% - 30%)",
+                  }}>
+                  <ListDataTittleText>{item?.title}</ListDataTittleText>
 
-                    <ListDataInfoText>
-                      {item?.type}
-                    </ListDataInfoText>
-                    <ListDataInfoText>
-                      {item?.date}
-                    </ListDataInfoText>
-                  </div>
-                </TopAttractionContainer>
-              );
-            })
-          }
+                  <ListDataInfoText>{item?.type}</ListDataInfoText>
+                  <ListDataInfoText>{item?.date}</ListDataInfoText>
+                </div>
+              </TopAttractionContainer>
+            );
+          })}
         </ScrollingMenu>
-
       )}
     </>
   );
 };
 
 export default WhatsOn;
-
-
 
 const ListDataTittleText = styled.p`
   color: var(--BODY, #000);
@@ -114,9 +96,7 @@ const ListDataInfoText = styled.p`
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
-
 `;
-
 
 const SearchedData = styled.div`
   display: flex;
@@ -163,12 +143,12 @@ const ScrollingMenu = styled.div`
 
   max-height: calc(100dvh - 285px);
   overflow: auto;
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 
   @media screen and (max-width: 800px) {
-    padding: 0px 16px;
+    padding: 0px 0px;
   }
 `;
 
