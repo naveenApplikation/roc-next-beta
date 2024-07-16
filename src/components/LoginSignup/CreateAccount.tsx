@@ -6,6 +6,8 @@ import Instance from "@/app/utils/Instance";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { showToast } from "@/components/toast/ShowToast";
+import { addAndRomoveToken } from "@/app/action";
+import { usePathname } from "next/navigation";
 
 interface ModalProps {
   isOpen?: any;
@@ -109,7 +111,7 @@ export const ErrorMessage = styled.p`
 
 const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
   const [loader, setloader] = useState(false);
-
+   const pathname = usePathname();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -129,8 +131,15 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
           password: values.password,
         });
         localStorage.setItem("loginToken", loginData.data.token);
-        console.log(loginData);
-        nextModal();
+        await addAndRomoveToken(loginData.data.token); 
+        console.log(pathname)
+        if(pathname.includes('screens'))
+        {
+           window.location.reload()
+        }
+        else{     
+           nextModal()
+        }
       } catch (error: any) {
         console.log(error.message);
         showToast(error.message, "error");
