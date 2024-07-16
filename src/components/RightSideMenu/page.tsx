@@ -102,7 +102,7 @@ const RightMenu = styled.div`
     position: fixed;
     display: flex;
     flex-direction: column;
-    height: 510px;
+    height: 100vh;
     padding: 16px;
     padding-bottom: 35px;
     top: 0;
@@ -144,7 +144,6 @@ const AllCategories = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    font-family: __Inter_aaf875, __Inter_Fallback_aaf875;
   }
 
   @media screen and (min-width: 800px) {
@@ -244,6 +243,7 @@ const RightSide = () => {
           );
         })}
       </RightSideMenuContainer>
+      <div style={{flex:0.7}}>
       <MobileViewRightSideMenu>
         {rightSideMenuMobile.map((item, index) => {
           return (
@@ -280,6 +280,7 @@ const RightSide = () => {
           All Categories
         </button>
       </AllCategories>
+      </div>
     </RightMenu>
   );
 };
