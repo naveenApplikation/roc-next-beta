@@ -146,7 +146,7 @@ const AllCategories = styled.div`
     line-height: normal;
   }
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 801px) {
     display: none;
   }
 `;
