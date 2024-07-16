@@ -41,11 +41,12 @@ export const MainContainer = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    border-radius: 24px 24px 0px 0px;
+    border-radius: 24px 24px 0px 0px !important;
     height: auto;
     overflow: hidden;
     margin-top: 470px;
     z-index: 1;
+    background-color: white !important;
   }
 `;
 
