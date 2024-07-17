@@ -7,7 +7,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { CloseModal} from "@/app/utils/ImagePath";
+import { CloseModal,share,bookmark} from "@/app/utils/ImagePath";
 import fallback from '../../../assets/images/fallbackimage.png'
 import { useRouter } from "next/navigation";
 import { handleFilter } from "@/app/utils/mappingFun";
@@ -55,9 +55,23 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      <div style={{padding:'10px 0px'}}>
-      <FilterSection pageTitle="experienceBox" />
-      </div>
+      <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+            <FilterSection pageTitle="categoryEvent" />
+            <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
+            <ImageContainer>
+            <Image
+              src={bookmark}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            <ImageContainer>
+            <Image
+              src={share}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            </div>
+          </div>
       {loader
         ? skeletonItems.map((item, index) => (
           <SearchedData key={index}>
@@ -189,4 +203,14 @@ font-style: normal;
 font-weight: 400;
 line-height: 16px;
 letter-spacing: 0.12px;
+`;
+
+const ImageContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

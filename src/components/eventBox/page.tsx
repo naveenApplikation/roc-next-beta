@@ -1,5 +1,5 @@
 "use client";
-import { CloseModal, locationMark } from "@/app/utils/ImagePath";
+import { CloseModal, locationMark,bookmark,share } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -26,7 +26,8 @@ const EventBox: React.FC<EventBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter, modalType, closeModal, setSelectFilter } = useMyContext();
+  const { modalClick, selectFilter, modalType, closeModal, setSelectFilter } =
+    useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -35,12 +36,12 @@ const EventBox: React.FC<EventBoxProps> = ({
   const handleBack = () => {
     router.back();
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
-      setSelectFilter("Any")
+      closeModal("modalFilterList");
+      setSelectFilter("Any");
     }
   };
 
-  const filterDate = handleFilter(urlData, selectFilter)
+  const filterDate = handleFilter(urlData, selectFilter);
   return (
     <SearchedListContainer>
       <Header className="">
@@ -52,10 +53,23 @@ const EventBox: React.FC<EventBoxProps> = ({
           onClick={() => handleBack()}
         />
       </Header>
-      <div style={{padding:'10px 0px'}}>
-
-      <FilterSection pageTitle="eventBox" />
-      </div>
+      <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+            <FilterSection pageTitle="categoryEvent" />
+            <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
+            <ImageContainer>
+            <Image
+              src={bookmark}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            <ImageContainer>
+            <Image
+              src={share}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            </div>
+          </div>
       {loader
         ? skeletonItems.map((item, index) => (
             <SearchedData key={index}>
@@ -91,7 +105,8 @@ const EventBox: React.FC<EventBoxProps> = ({
                       item,
                       filteredUrls[index] ? filteredUrls[index] : fallback
                     )
-                  }>
+                  }
+                >
                   <FamilyEventWrapper>
                     <img
                       src={filteredUrls[index]}
@@ -244,4 +259,14 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
   cursor: pointer;
   flex: 1;
+`;
+
+const ImageContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

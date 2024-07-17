@@ -1,4 +1,4 @@
-import { ScrollIcon, ThumbsUPIcon, commentstar } from "@/app/utils/ImagePath";
+import { ScrollIcon, ThumbsUPIcon, commentstar,share,bookmark } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -91,25 +91,39 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
 
   return (
     <SearchedListContainer ref={scrollContainerRef}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
+      <div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
           <TitleText>{urlTitle}</TitleText>
-          <LikeCount>
-            {totalVote} {urlTitle ? "likes" : ""}
-          </LikeCount>
-          <div style={{ padding: "10px 0px" }}>
-            <FilterSection pageTitle="categoryEvent" />
-          </div>
-        </div>
-        <Image
+          <Image
           style={{ width: 40, height: 40, cursor: "pointer" }}
           src={CloseModal}
           alt="Logo Outline"
           onClick={handleBack}
-
           // onClick={() => onClose(name)}
         />
       </div>
+          <LikeCount>
+            {totalVote} {urlTitle ? "likes" : ""}
+          </LikeCount>
+          <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+            <FilterSection pageTitle="categoryEvent" />
+            <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
+            <ImageContainer>
+            <Image
+              src={bookmark}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            <ImageContainer>
+            <Image
+              src={share}
+              alt="Logo Outline"
+            />
+            </ImageContainer>
+            </div>
+          </div>
+        </div>
+       
       {/* {urlData != 77 && (
                 <div style={{ margin: "24px 0px" }}>
                     <FilterSection />
@@ -357,6 +371,16 @@ const FamilyEventWrapper = styled.div`
     width: 30px;
     border-radius: 0px 0px 4px 4px;
   }
+`;
+
+const ImageContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const FamilyEventWrapperInside = styled.div`

@@ -175,6 +175,8 @@ import wallbeings from "../../../assets/images/cart-shopping.png";
 import clearText from '../../../assets/images/Search/times-circle.png'
 
 import ScrollTopIcon from '../../../assets/topSc.png';
+import shareImg from '../../../assets/images/Home-new-icons/share.svg'
+import bookmarkImg from '../../../assets/images/Home-new-icons/bookmark.svg'
 
 export const ScrollIcon = ScrollTopIcon;
 
@@ -356,6 +358,8 @@ export const sunglassesSes = sunglassesSesImage;
 export const giftIdeas = giftIdeasImage;
 
 export const wellbeingImg = wallbeings;
+export const share = shareImg;
+export const bookmark = bookmarkImg;
 
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
