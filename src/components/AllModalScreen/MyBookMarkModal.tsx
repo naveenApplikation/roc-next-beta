@@ -112,7 +112,7 @@ export default MyBookMarkModal;
 
 
 const SearchedContainer = styled.div`
-  background-color: #f2f3f3;
+  background-color: #fff;
   padding: 0px 40px;
   border-radius: 24px 24px 0px 0px;
   transition: 5s;
