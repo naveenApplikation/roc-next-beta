@@ -152,6 +152,67 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
   }
 }
 
+export async function addAndRemoveBookmark(categoryId:string)
+{
+  console.log(categoryId,157,"action.ts")
+     const loginToken = cookies().get("loginToken")?.value;
+     try{
+      const res = await fetch(
+        `${process.env.NEXT_API_URL}/bookmark/${categoryId}`,
+        {
+          method: "PUT",
+          headers: {
+            "x-login-token": loginToken ? loginToken.toString() : "",
+          },
+        }
+      );
+
+      if(!res.ok)
+      {
+         throw Error(res.status.toString())
+      }
+
+      return true
+    }
+    catch(error)
+    {
+         return error
+    }
+
+
+    
+
+      
+
+}
+
+export async function getBookMark()
+{
+         const loginToken = cookies().get("loginToken")?.value;
+         try {
+           const res = await fetch(
+             `${process.env.NEXT_API_URL}/bookmark`,
+             {
+              
+               headers: {
+                 "x-login-token": loginToken ? loginToken.toString() : "",
+               },
+               next:{revalidate:0}
+             }
+           );
+
+           if (!res.ok) {
+             throw Error(res.status.toString());
+           }
+
+           return await res.json();
+         } catch (error) {
+           return error;
+         }
+
+
+}
+
 // export async function handleLike(req: any, res: any) {
 //   console.log("assasasask");
 //   if (req.method !== "POST") {

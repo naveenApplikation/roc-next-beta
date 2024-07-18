@@ -56,6 +56,8 @@ interface ContextProps {
   setSelectFilter?: any;
   selectFilter?: any;
   location?: any;
+  socialShare?: any;
+  handleSocialShare?: any;
 }
 
 // Create a context
@@ -280,8 +282,19 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       }));
     }
   };
-
  
+   const [socialShare,setSocialShare]=useState(false);
+   const handleSocialShare=(value?:any)=>{
+    console.log(socialShare)
+    if(value)
+    {
+       console.log("assadas",291)
+       setSocialShare(false)
+    }
+    else{
+       setSocialShare(!socialShare)
+    }
+   }
   const filterUrls = (ImageUrlData: any) => {
     const imageUrls: string[] = [];
     ImageUrlData?.forEach((item: any) => {
@@ -342,6 +355,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setSelectFilter,
     selectFilter,
     location,
+    socialShare,
+    handleSocialShare
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

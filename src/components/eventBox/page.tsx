@@ -40,6 +40,19 @@ const EventBox: React.FC<EventBoxProps> = ({
       setSelectFilter("Any");
     }
   };
+  // const [isBookmark, setBookmark] = useState(false);
+  // const handleBookMark = async () => {
+  //   console.log(categoryId, token, 119);
+  //   if (token) {
+  //     console.log("yes");
+  //     const res = await addAndRemoveBookmark(categoryId);
+  //     if (res) {
+  //       setBookmark(true);
+  //     }
+  //   } else {
+  //     modalClick("LoginSignupModal");
+  //   }
+  // };
 
   const filterDate = handleFilter(urlData, selectFilter);
   return (

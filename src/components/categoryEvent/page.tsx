@@ -1,4 +1,4 @@
-import { ScrollIcon, ThumbsUPIcon, commentstar,share,bookmark } from "@/app/utils/ImagePath";
+import { ScrollIcon, ThumbsUPIcon, commentstar,share,bookmark,bookmarkActive} from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -13,8 +13,14 @@ import fallback from "../../../assets/images/fallbackimage.png";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
 import { FaSpinner } from "react-icons/fa6";
+import ShareFeature from "../ShareFeature";
+import useSWR from "swr";
+import { addAndRemoveBookmark, getBookMark } from "@/app/action";
 
 interface EventBoxProps {
+  categoryId?:any
+  params?:any,
+  bookmark?:any
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
@@ -23,7 +29,9 @@ interface EventBoxProps {
   isOpen?: any;
   handleLike?: any;
   totalVote?: any;
+  
 }
+
 
 const CategoryEvent: React.FC<EventBoxProps> = ({
   urlTitle,
@@ -33,18 +41,53 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   isOpen,
   handleLike,
   totalVote,
+  categoryId,
+  params
 }) => {
-  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } =
+  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal,handleSocialShare,socialShare } =
     useMyContext();
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter();
 
   const scrollContainerRef = useRef<any>();
-
+  
   const setScrollTop = () => {
     scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
   };
+  const token=localStorage.getItem('loginToken')
+  const fetcher = (url: string) =>
+    fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`, {
+      headers: { "x-login-token":token?token:""},
+    }).then((res) => res.json());
 
+    //  const fetchBookmark=async()=>{
+    //        const data=await getBookMark()
+    //        console.log(data,"61")
+    //        const category = params.toString().replaceAll("%20", " ").replaceAll("%26", " ");
+    //        console.log(category,66)
+    //        if(data)
+    //        {
+    //           console.log(69,data.bookmarks)
+    //           data.bookmarks.forEach((item:any)=>{
+    //                console.log(item.listName, item.listName.toString().includes(category));
+    //                if(item.listName.includes(category))
+    //                {
+    //                   console.log(item.listName,73)
+    //                   setBookmark(true)
+                       
+    //                }
+    //           })
+            
+    //        }
+    //  }
+    
+   useEffect(()=>{
+        
+         if(token)
+         {
+             setBookmark(bookmark)
+         }
+   },[token])
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   // const handleScroll = () => {
@@ -87,89 +130,164 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     }
   };
 
-  const filterDate = handleFilter(urlData, selectFilter);
+  const handleShare=()=>{
+     console.log(socialShare);
+     if(!socialShare)
+     {
+      console.log(socialShare)
+       handleSocialShare() 
+     }
+  }
+ 
 
+  const filterDate = handleFilter(urlData, selectFilter);
+    const {data,isLoading,isValidating}=useSWR(`/bookmark`, fetcher);
+    if(data)
+    {
+       console.log(data)
+    }
+    const [isBookmark,setBookmark]=useState(false)
+    const handleBookMark=async()=>{
+           console.log(categoryId,token,119)
+           if(token && !isBookmark)
+           {
+            console.log("yes")
+            const res=await addAndRemoveBookmark(categoryId);
+            if(res)
+            {
+                setBookmark(true)
+            }
+          }
+          else
+          {
+               modalClick("LoginSignupModal");
+          }
+    }
   return (
-    <SearchedListContainer ref={scrollContainerRef}>
-      <div>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <TitleText>{urlTitle}</TitleText>
-          <Image
-          style={{ width: 40, height: 40, cursor: "pointer" }}
-          src={CloseModal}
-          alt="Logo Outline"
-          onClick={handleBack}
-          // onClick={() => onClose(name)}
-        />
-      </div>
+    <>
+      <SearchedListContainer ref={scrollContainerRef}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <TitleText>{urlTitle}</TitleText>
+            <Image
+              style={{ width: 40, height: 40, cursor: "pointer" }}
+              src={CloseModal}
+              alt="Logo Outline"
+              onClick={handleBack}
+              // onClick={() => onClose(name)}
+            />
+          </div>
           <LikeCount>
             {totalVote} {urlTitle ? "likes" : ""}
           </LikeCount>
-          <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
+          <div
+            style={{
+              padding: "10px 0px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <FilterSection pageTitle="categoryEvent" />
-            <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
-            <ImageContainer>
-            <Image
-              src={bookmark}
-              alt="Logo Outline"
-            />
-            </ImageContainer>
-            <ImageContainer>
-            <Image
-              src={share}
-              alt="Logo Outline"
-            />
-            </ImageContainer>
+            <div
+              style={{
+                padding: "10px 0px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              <ImageContainer selected={isBookmark} onClick={handleBookMark}>
+                {isBookmark?<Image
+                  src={bookmarkActive}
+                  style={{ color: "red" }}
+                  alt="Logo Outline"
+                />:
+                <Image
+                  src={bookmark}
+                  style={{ color: "red" }}
+                  alt="Logo Outline"
+                />}
+              </ImageContainer>
+              <ImageContainer selected={false} onClick={handleShare}>
+                <Image src={share} alt="Logo Outline" />
+              </ImageContainer>
             </div>
           </div>
         </div>
-       
-      {/* {urlData != 77 && (
+
+        {/* {urlData != 77 && (
                 <div style={{ margin: "24px 0px" }}>
                     <FilterSection />
                 </div>
             )} */}
-      {loader
-        ? skeletonItems.map((item, index) => (
-            <SearchedData key={index}>
-              <MainInsideWrapper>
-                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                <div className="restroRating">
-                  <Skeleton
-                    width={160}
-                    height={17}
-                    style={{ borderRadius: 8 }}
-                  />
-                  <Skeleton
-                    width={100}
-                    height={14}
-                    style={{ borderRadius: 8 }}
-                  />
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <SearchedData key={index}>
+                <MainInsideWrapper>
                   <Skeleton
                     width={80}
-                    height={13}
+                    height={80}
                     style={{ borderRadius: 8 }}
                   />
-                </div>
-              </MainInsideWrapper>
-            </SearchedData>
-          ))
-        : filterDate?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainInsideWrapper
-                  onClick={() =>
-                    modalClick(
-                      "eventListing",
-                      item,
-                      item?.data_type === "google" ? item?.photoUrl : fallback
-                    )
-                  }
-                >
-                  <FamilyEventWrapper>
-                    {item?.data_type === "google" ? (
-                      item.photoUrl ? (
-                        <ImageTag src={item.photoUrl} alt="Image" />
+                  <div className="restroRating">
+                    <Skeleton
+                      width={160}
+                      height={17}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={100}
+                      height={14}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={80}
+                      height={13}
+                      style={{ borderRadius: 8 }}
+                    />
+                  </div>
+                </MainInsideWrapper>
+              </SearchedData>
+            ))
+          : filterDate?.map((item: any, index: any) => {
+              return (
+                <SearchedData key={index}>
+                  <MainInsideWrapper
+                    onClick={() =>
+                      modalClick(
+                        "eventListing",
+                        item,
+                        item?.data_type === "google" ? item?.photoUrl : fallback
+                      )
+                    }
+                  >
+                    <FamilyEventWrapper>
+                      {item?.data_type === "google" ? (
+                        item.photoUrl ? (
+                          <ImageTag src={item.photoUrl} alt="Image" />
+                        ) : (
+                          <Image
+                            // style={{ background: "white" }}
+                            src={fallback}
+                            width={500}
+                            height={80}
+                            style={{
+                              borderRadius: 4,
+                              width: "80px",
+                              objectFit: "cover",
+                              cursor: "pointer",
+                            }}
+                            alt=""
+                          />
+                        )
                       ) : (
                         <Image
                           // style={{ background: "white" }}
@@ -184,82 +302,76 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                           }}
                           alt=""
                         />
-                      )
-                    ) : (
-                      <Image
-                        // style={{ background: "white" }}
-                        src={fallback}
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: 4,
-                          width: "80px",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                        }}
-                        alt=""
-                      />
-                    )}
-                  </FamilyEventWrapper>
-                  <div className="restroRating">
-                    <p className="shopName">
-                      {item?.data_type === "google"
-                        ? item?.name
-                        : item?.acf?.title}
-                    </p>
-                    <DetailContainer>
-                      <p>{item?.rating} &nbsp;</p>
-                      <Image
-                        src={commentstar}
-                        style={{
-                          width: "13px",
-                          height: "13px",
-                          marginRight: 8,
-                        }}
-                        alt="utensils"
-                      />
-                      {/* <p>{item?.type}</p> */}
-                    </DetailContainer>
-                    {/* <p>
+                      )}
+                    </FamilyEventWrapper>
+                    <div className="restroRating">
+                      <p className="shopName">
+                        {item?.data_type === "google"
+                          ? item?.name
+                          : item?.acf?.title}
+                      </p>
+                      <DetailContainer>
+                        <p>{item?.rating} &nbsp;</p>
+                        <Image
+                          src={commentstar}
+                          style={{
+                            width: "13px",
+                            height: "13px",
+                            marginRight: 8,
+                          }}
+                          alt="utensils"
+                        />
+                        {/* <p>{item?.type}</p> */}
+                      </DetailContainer>
+                      {/* <p>
                     <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#ff0000" }}>
                       {item?.opening_hours?.open_now ? "Open" : "Closed"}
                     </span>
                   </p> */}
-                  </div>
-                </MainInsideWrapper>
-                <LikesContainer
-                  selected={item?.userVoted}
+                    </div>
+                  </MainInsideWrapper>
+                  <LikesContainer
+                    selected={item?.userVoted}
+                    onClick={() => {
+                      if (!likeLoader) {
+                        handleLike(item?._id, item?.userVoted);
+                      }
+                    }}
+                  >
+                    {likeLoader == item?._id ? (
+                      <Spin tip="Loading" size="small" />
+                    ) : (
+                      <>
+                        <ThumbsUPIcon
+                          color={
+                            likeLoader && likeLoader != item?.id
+                              ? "gray"
+                              : item?.userVoted
+                              ? "#3b86ed"
+                              : "#000000"
+                          }
+                        />
+                        <p>{item?.itemVotes ? item.itemVotes : 0}</p>
+                      </>
+                    )}
+                  </LikesContainer>
+                </SearchedData>
+              );
+            })}
 
-                  onClick={() =>{if(!likeLoader){ handleLike(item?._id, item?.userVoted)}}}
-                >
-                  {likeLoader==item?._id?(
-                    <Spin tip="Loading" size="small" />
-                  ) : (
-                    <>
-                    
-                      <ThumbsUPIcon
-                        color={likeLoader && likeLoader!=item?.id?"gray":item?.userVoted ? "#3b86ed" : "#000000"}
-                      />
-                      <p>{item?.itemVotes ? item.itemVotes : 0}</p>
-                    </>
-                  )}
-                </LikesContainer>
-              </SearchedData>
-            );
-          })}
-
-      {urlData && (
-        <AddListButton>
-          <CommonButton {...{ isOpen }} text="Add to the list" />
-        </AddListButton>
-      )}
-      <Image
-        className="scroll_top_desktop"
-        onClick={setScrollTop}
-        src={ScrollIcon}
-        alt="scroll"
-      />
-    </SearchedListContainer>
+        {urlData && (
+          <AddListButton>
+            <CommonButton {...{ isOpen }} text="Add to the list" />
+          </AddListButton>
+        )}
+        <Image
+          className="scroll_top_desktop"
+          onClick={setScrollTop}
+          src={ScrollIcon}
+          alt="scroll"
+        />
+      </SearchedListContainer>
+    </>
   );
 };
 
@@ -373,10 +485,10 @@ const FamilyEventWrapper = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ selected: boolean }>`
   width: 40px;
   height: 40px;
-  background: rgba(0, 0, 0, 0.08);
+  background:${(props) => (props.selected ? "#3B86ED29" : " rgba(0, 0, 0, 0.08)")};
   border-radius: 100%;
   display: flex;
   justify-content: center;
