@@ -93,6 +93,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     DirectionModal: false,
     search: false,
     myList: false,
+    myBookmark: false,
     eventListing: false,
     activities: false,
     infoApp: false,
@@ -203,7 +204,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (name === "search") {
       setSelectFilter("Any");
     }
-    if (modalName === "myList") {
+    if (modalName === "myList" || modalName === "myBookmark") {
       setModalNames("WelcomeBackModal");
     } else {
       setModalNames("");
@@ -262,6 +263,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     } else if (name === "WelcomeBackModal") {
       setOldName("");
     } else if (name === "myList") {
+      setOldName("");
+    }
+    else if (name === "myBookmark") {
       setOldName("");
     }
     if (item) {

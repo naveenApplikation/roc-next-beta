@@ -68,6 +68,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenContact={() => modalClick("ContactUsModal")}
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
+              myBookmarkOpen={() => modalClick("myBookmark")}
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -87,6 +88,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenContact={() => modalClick("ContactUsModal")}
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
+              myBookmarkOpen={() => modalClick("myBookmark")}
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -114,6 +116,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenContact={() => modalClick("ContactUsModal")}
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
+              myBookmarkOpen={() => modalClick("myBookmark")}
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -132,6 +135,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             isOpenContact={() => modalClick("ContactUsModal")}
             isOpenAboutUs={() => modalClick("AboutUs")}
             myListOpen={() => modalClick("myList")}
+            myBookmarkOpen={() => modalClick("myBookmark")}
             {...{ logoutClick, onClick }}
           />
         </>
@@ -235,6 +239,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           modalName === "UpdateNameModal" ||
           modalName === "TermsAndConditionModal" ||
           modalName === "myList" ||
+          modalName === "myBookmark" ||
           modalName === "ContactUsModal" ||
           modalName === "LoginThankYouDiresctoryModal" ||
           modalName === "UpdateMyPreferencesModal" ||
@@ -256,6 +261,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "LeaveFeedback" && "Feedback") ||
           (modalName === "UpdatePassswordModal" && "Update my password") ||
           (modalName === "myList" && "My Lists") ||
+          (modalName === "myBookmark" && "My Bookmarks") ||
           (modalName === "ContactUsModal" && "Contact us") ||
           (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
           (modalName === "AboutUs" && "About us") ||

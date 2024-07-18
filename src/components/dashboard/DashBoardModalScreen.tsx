@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistModalScreen";
+import MyBookMarkModal from "@/components/AllModalScreen/MyBookMarkModal";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
@@ -22,18 +23,25 @@ import BetaExploreModal from "@/components/modal/BetaExploreModal";
 
 
 type mylisttabs = "Created" | "Contributed";
+type myBookmarktabs = "Lists" | "Events";
 
 const DashBoardModalScreen = () => {
   const {showMap} = useMyContext();
  
   
   const [myListtabValue, setMyListTabValue] = useState("Created");
+  const [myBookMarkState, setMyBookMarkState] = useState("Lists");
  
   const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
+  const myBookmarkoptions = ["Lists", "Events"];
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
+  };
+
+  const myBookmarktabChange = async (value: myBookmarktabs) => {
+    setMyBookMarkState(value);
   };
  
 
@@ -44,6 +52,9 @@ const DashBoardModalScreen = () => {
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+      />
+        <MyBookMarkModal
+        {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
       <FilterModalScreen showMap={showMap} />
       <FilterListModalScreen showMap={showMap} />
