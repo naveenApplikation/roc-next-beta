@@ -20,7 +20,7 @@ import { addAndRemoveBookmark, getBookMark } from "@/app/action";
 interface EventBoxProps {
   categoryId?:any
   params?:any,
-  bookmark?:any
+  bookMark?:any
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
@@ -42,7 +42,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   handleLike,
   totalVote,
   categoryId,
-  params
+  params,
+  bookMark
 }) => {
   const { modalClick, selectFilter, setSelectFilter, modalType, closeModal,handleSocialShare,socialShare } =
     useMyContext();
@@ -60,34 +61,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       headers: { "x-login-token":token?token:""},
     }).then((res) => res.json());
 
-    //  const fetchBookmark=async()=>{
-    //        const data=await getBookMark()
-    //        console.log(data,"61")
-    //        const category = params.toString().replaceAll("%20", " ").replaceAll("%26", " ");
-    //        console.log(category,66)
-    //        if(data)
-    //        {
-    //           console.log(69,data.bookmarks)
-    //           data.bookmarks.forEach((item:any)=>{
-    //                console.log(item.listName, item.listName.toString().includes(category));
-    //                if(item.listName.includes(category))
-    //                {
-    //                   console.log(item.listName,73)
-    //                   setBookmark(true)
-                       
-    //                }
-    //           })
-            
-    //        }
-    //  }
-    
+   
    useEffect(()=>{
         
-         if(token)
-         {
-             setBookmark(bookmark)
-         }
-   },[token])
+             console.log(bookMark,88)
+             setBookmark(bookMark)
+         
+   },[bookMark])
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   // const handleScroll = () => {

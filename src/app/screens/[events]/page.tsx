@@ -32,7 +32,7 @@ async function Page({ params, searchParams }: Props) {
        }
      });
   }
-  
+  console.log(bookmark,"page 35")
   return (
     <>
       <EventList data={data} bookmarkValue={bookmark}></EventList>

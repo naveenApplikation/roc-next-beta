@@ -250,7 +250,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
         <CategoryEvent
           categoryId={event}
           params={events}
-          bookmark={props.bookmarkValue}
+          bookMark={props.bookmarkValue}
           urlData={eventData}
           urlTitle={eventTitle}
           filteredUrls={filteredUrls}

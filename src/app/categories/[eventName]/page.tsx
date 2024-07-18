@@ -6,6 +6,7 @@ import DirectoryCategories from "@/components/DirectoryScreen/DirectoryCategorie
 import TrendingList from "@/components/trendingList/page";
 import ScaffoldingBox from "@/components/scaffoldingBox/page";
 import CategoriesPage from "@/components/CategoriesPage/Page";
+import { ResolvingMetadata, Metadata } from "next";
 
 interface Props {
   params: {
@@ -53,5 +54,25 @@ export async function generateStaticParams() {
     return { eventName: params };
   });
 }
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const listName = params.eventName
+    .toString()
+    .replaceAll("%20", " ")
+    .replaceAll("%26", " ");
+  return {
+    title: listName,
+    description: `Your ultimate guide to ${listName} in Jersey as voted by the community`,
+    openGraph: {
+      images:
+        "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+    },
+  };
+}
+
+
 
 export default Page;

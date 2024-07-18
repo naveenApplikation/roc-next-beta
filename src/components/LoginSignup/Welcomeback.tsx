@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MenuOptionList from "@/components/menuOptionList/MenuOptionList";
 import createListImg from "../../../assets/images/menuModalsImage/createList.png";
+import Mybookmark from "../../../assets/images/Home-new-icons/Mybookmark.svg";
 import updateDetailsImg from "../../../assets/images/menuModalsImage/profile.png";
 import savedImg from "../../../assets/images/menuModalsImage/saved.png";
 import activityImg from "../../../assets/images/menuModalsImage/activity.png";
@@ -14,6 +15,7 @@ interface ModalProps {
   isOpen?: any;
   isOpenContact?: any;
   myListOpen?: any;
+  myBookmarkOpen?: any;
   logoutClick: () => void;
   onClick: (name: string) => void;
   isOpenAboutUs: any;
@@ -25,7 +27,7 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs }) => {
+const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs,myBookmarkOpen }) => {
 
 
   return (
@@ -39,11 +41,11 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div style={{ cursor: "pointer" }} onClick={isOpen}>
+      <div style={{ cursor: "pointer" }} onClick={myBookmarkOpen}>
         <MenuOptionList
           optionListText
-          title1="Update my details"
-          menuOptionImg={updateDetailsImg}
+          title1="My Bookmarks"
+          menuOptionImg={Mybookmark}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
@@ -53,6 +55,15 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           optionListText
           title1="My lists"
           menuOptionImg={listStar}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }} onClick={isOpen}>
+        <MenuOptionList
+          optionListText
+          title1="Update my details"
+          menuOptionImg={updateDetailsImg}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
