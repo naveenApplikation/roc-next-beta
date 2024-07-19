@@ -53,7 +53,7 @@ export async function getData(slug: string, params: string) {
           headers: {
             "x-login-token":loginToken ? loginToken.toString() : "",
           },   
-          next:{tags:[slug],revalidate:1}
+          next:{tags:[slug],revalidate:0}
        }
       : { next: { revalidate:1}}
     const res = await fetch(url,options);

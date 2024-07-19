@@ -27,12 +27,12 @@ async function Page({ params, searchParams }: Props) {
        .replaceAll("%26", " ");
       res.bookmarks.forEach((item: any) => {
        if (item.listName.includes(category)) {
-         console.log(item.listName, 73);
+        
           bookmark=true;
        }
      });
   }
-  console.log(bookmark,"page 35")
+  
   return (
     <>
       <EventList data={data} bookmarkValue={bookmark}></EventList>

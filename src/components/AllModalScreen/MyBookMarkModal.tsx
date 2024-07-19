@@ -31,10 +31,10 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   const fetchDataAsync = async () => {
     if (loginToken) {
       setloader(true)
-      if (myBookMarkState === "Created") {
+      if (myBookMarkState === "Lists") {
         try {
-          const response = await Instance.get("/my-list")
-          const list = [response.data]
+          const response = await Instance.get("/bookmark")
+          const list = response.data.bookmarks
           if (response.status === 200) {
             list.forEach((list: any) => {
               const matchedIcon = icons.find(icon => icon.name === list.iconName);

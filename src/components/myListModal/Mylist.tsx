@@ -42,6 +42,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
           <Spin tip="Loading" size="large" />
         </div>
       ) : (
+        listData?.length==0?<p style={{ fontSize: '16px' }}> No Bookmarks</p>:
         listData?.map((item: any, index: any) => {
           return (
             item?.image ?
@@ -60,7 +61,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
                   />
                   <p>{item?.voting?.length || 0}</p>
                 </LikesContainer>
-              </ListContainer> : <p style={{ fontSize: '16px' }}> No data found</p>
+              </ListContainer> :<p style={{ fontSize: '16px' }}> No data found</p>
           );
         })
       )}

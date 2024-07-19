@@ -131,14 +131,14 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
            console.log(categoryId,token,119)
            if(token && !isBookmark)
            {
-            console.log("yes")
+            
             const res=await addAndRemoveBookmark(categoryId);
             if(res)
             {
                 setBookmark(true)
             }
           }
-          else
+          else if(!token)
           {
                modalClick("LoginSignupModal");
           }

@@ -26,8 +26,15 @@ const EventBox: React.FC<EventBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter, modalType, closeModal, setSelectFilter } =
-    useMyContext();
+  const {
+    modalClick,
+    selectFilter,
+    modalType,
+    closeModal,
+    setSelectFilter,
+    handleSocialShare,
+    socialShare,
+  } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -54,6 +61,14 @@ const EventBox: React.FC<EventBoxProps> = ({
   //   }
   // };
 
+  const handleShare = () => {
+    console.log(socialShare);
+    if (!socialShare) {
+      console.log(socialShare);
+      handleSocialShare();
+    }
+  };
+
   const filterDate = handleFilter(urlData, selectFilter);
   return (
     <SearchedListContainer>
@@ -69,13 +84,13 @@ const EventBox: React.FC<EventBoxProps> = ({
       <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
             <FilterSection pageTitle="categoryEvent" />
             <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
-            <ImageContainer>
+            {/* <ImageContainer>
             <Image
               src={bookmark}
               alt="Logo Outline"
             />
-            </ImageContainer>
-            <ImageContainer>
+            </ImageContainer> */}
+            <ImageContainer onClick={handleShare}>
             <Image
               src={share}
               alt="Logo Outline"

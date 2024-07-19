@@ -35,13 +35,13 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
       />
       {myBookMarkState == "Lists" ? (
         <>
-          {/* <Lists {...{ listData, loader }} /> */}
-          <h1>lists</h1>
+          <Lists {...{ listData, loader }} />
+          {/* <h1>lists</h1> */}
         </>
       ) : (
         <>
         {/* <Lists {...{ loader }} listData={contributionData}/> */}
-        <h1>eevnts</h1>
+        <h1>events</h1>
           {/* <FilterSection /> */}
           {/* <SearchedListContainer>
             {contributionData.map((item: any, index: any) => {

@@ -12,6 +12,7 @@ import { ApiResponse } from "@/app/utils/types";
 import PageLayout from "@/app/pageLayout";
 import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
+import SocialShareModal from "../modal/SocialShareModal";
 
 
 interface CategoriesPageProps {
@@ -20,7 +21,7 @@ interface CategoriesPageProps {
   data: any
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap } = useMyContext()
+  const { showMap,socialShare,handleSocialShare } = useMyContext()
   let urlData: any;
   var data: ApiResponse[]
   urlData = props.params.toString().replaceAll("%20", " ").replaceAll("%26", " ");
@@ -75,6 +76,11 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       </PageLayout>
       <Categories></Categories>
       <FilterListModalScreen showMap={showMap} />
+      <SocialShareModal
+        showMap={showMap}
+        isOpen={socialShare}
+        onClose={handleSocialShare}
+      ></SocialShareModal>
     </>
   );
 };

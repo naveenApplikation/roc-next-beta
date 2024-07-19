@@ -1,8 +1,5 @@
 import React, { ReactNode, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Image from "next/image";
-import { BackArrow, CloseModal } from "@/app/utils/ImagePath";
-import { useMyContext } from "@/app/Context/MyContext";
 import ShareFeature from "../ShareFeature";
 
 interface ModalProps {
@@ -131,11 +128,8 @@ const SocialShareModal: React.FC<ModalProps> = ({
   }, []);
 
   return (
-    <StyledModal
-      $isopen={isOpen}
-      $showMap={showMap} 
-    >
-      <ShareFeature></ShareFeature>
+    <StyledModal $isopen={isOpen} $showMap={showMap}>
+      <ShareFeature screenWidth={screenWidth}></ShareFeature>
     </StyledModal>
   );
 };
