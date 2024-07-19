@@ -87,7 +87,7 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
       ) : (
         <>
         {/* <Lists {...{ loader }} listData={contributionData}/> */}
-        <h1>events</h1>
+        {/* <h1>events</h1> */}
           {/* <Lists {...{ loader }} listData={contributionData}/> */}
         
           {/* <FilterSection /> */}

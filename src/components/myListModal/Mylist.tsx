@@ -5,6 +5,8 @@ import { thumbsup } from "@/app/utils/ImagePath";
 import { Spin } from "antd";
 import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/navigation";
+import { useMyContext } from "@/app/Context/MyContext";
 interface ListProps {
   listData?: any;
   loader?: any;
@@ -14,7 +16,9 @@ interface ListProps {
 
 const Lists: React.FC<ListProps> = ({ listData, loader }) => {
 const skeletonItems = new Array(10).fill(null);
-
+  const router=useRouter()
+  const { menuClick } = useMyContext();
+  
   // const getCreatedList = async()=>{
   //   try {
   //       const res = await Instance.get(`my-list`)
@@ -28,7 +32,9 @@ const skeletonItems = new Array(10).fill(null);
   // useEffect(()=>{
   //   getCreatedList()
   // },[])
-
+  const handleNavigate=(category:string,id:string)=>{
+      menuClick(category, false, id);
+  }
   return (
     <Container>
       {loader ? (
@@ -54,7 +60,7 @@ const skeletonItems = new Array(10).fill(null);
         listData?.map((item: any, index: any) => {
           return (
             item?.image ?
-              <ListContainer key={index}>
+              <ListContainer key={index} onClick={()=>{handleNavigate(item?.listName,item?._id)}}>
                 <ImageTitleContainer>
                   <Imagecontainer style={{ background: item?.bgColor }}>
                     {item?.image}
@@ -89,6 +95,7 @@ const ListContainer = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding: 8px 0px;
+  cursor:pointer;
 `;
 
 const ImageTitleContainer = styled.div`

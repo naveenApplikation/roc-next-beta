@@ -43,7 +43,7 @@ const CustomSegmented = styled(Segmented)`
   /* Add shorter left border to the last item */
   .ant-segmented-item:last-child:not(.ant-segmented-item-selected)
     > .ant-segmented-item-label::before {
-    content: "";
+     
     position: absolute;
     left: 0px;
     top: 25%;
