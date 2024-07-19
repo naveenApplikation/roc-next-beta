@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { thumbsup } from "@/app/utils/ImagePath";
 import { Spin } from "antd";
 import Instance from "@/app/utils/Instance";
-
+import Skeleton from "react-loading-skeleton";
 interface ListProps {
   listData?: any;
   loader?: any;
@@ -13,6 +13,7 @@ interface ListProps {
 
 
 const Lists: React.FC<ListProps> = ({ listData, loader }) => {
+const skeletonItems = new Array(10).fill(null);
 
   // const getCreatedList = async()=>{
   //   try {
@@ -31,17 +32,25 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
   return (
     <Container>
       {loader ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "500px",
-          }}>
-          <Spin tip="Loading" size="large" />
-        </div>
-      ) : (
+            skeletonItems.map((item, index) => (
+                    <SearchedData key={index}>
+                      <MainWrraper>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={40}
+                            height={40}
+                            style={{ borderRadius: 100 }}
+                          />
+                          <div className="restroRating">
+                            <Skeleton width={120} height={14} />
+                          </div>
+                        </MainInsideWrapper>
+                        <Skeleton width={56} height={24} />
+                      </MainWrraper>
+                    </SearchedData>
+                  )))
+       : (
+        listData?.length==0?<p style={{ fontSize: '16px' }}> No Bookmarks</p>:
         listData?.map((item: any, index: any) => {
           return (
             item?.image ?
@@ -60,7 +69,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
                   />
                   <p>{item?.voting?.length || 0}</p>
                 </LikesContainer>
-              </ListContainer> : <p style={{ fontSize: '16px' }}> No data found</p>
+              </ListContainer> :<p style={{ fontSize: '16px' }}> No data found</p>
           );
         })
       )}
@@ -121,3 +130,55 @@ const LikesContainer = styled.div`
     line-height: 24px; /* 150% */
   }
 `;
+
+
+const SearchedData = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 10px 0px;
+  p {
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .likes {
+    background-color: #00000014;
+    padding: 8px 16px;
+    border-radius: 16px;
+    text-align: center;
+
+    @media screen and (max-width: 350px) {
+      padding: 6px 12px;
+    }
+  }
+  .shopName {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p span {
+    color: #2b902b;
+  }
+`;
+
+const MainWrraper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+`;
+const MainInsideWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+ 
+
+ 
+ 
+
+ 
+ 

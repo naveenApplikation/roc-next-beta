@@ -33,10 +33,11 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
       setloader(true)
       if (myBookMarkState === "Lists") {
         try {
-          const response = await Instance.get("/category-item")
-          const list = [response.data]
+          const response = await Instance.get("/bookmark")
+          const list = response.data.bookmarks
+          console.log(list)
           if (response.status === 200) {
-            list[0].forEach((list: any) => {
+            list.forEach((list: any) => {
               const matchedIcon = icons.find(icon => icon.name === list.iconName);
               if (matchedIcon) {
                 list.image = matchedIcon.image;

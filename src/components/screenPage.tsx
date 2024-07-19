@@ -21,12 +21,16 @@ import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionM
 import { updateLike } from "@/app/action";
 import { debounce } from "@/app/utils/debounce";
 import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
+import ShareFeature from "./ShareFeature";
+import SocialShareModal from "./modal/SocialShareModal";
+import { bookmark } from "@/app/utils/ImagePath";
 
 interface ScreenPageProps {
   data: any;
+  bookmarkValue?:any
 }
 const EventList: React.FC<ScreenPageProps> = (props) => {
-  const { showMap, filterUrls, modalClick, closeModal, modalName } =
+  const { showMap, filterUrls, modalClick, closeModal, modalName,socialShare,handleSocialShare } =
     useMyContext();
   const [eventData, setEventData] = useState<ApiResponse[]>([]);
   const [eventTitle, setEventTitle] = useState("");
@@ -244,6 +248,9 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     } else if (screenName === "categoryList") {
       return (
         <CategoryEvent
+          categoryId={event}
+          params={events}
+          bookMark={props.bookmarkValue}
           urlData={eventData}
           urlTitle={eventTitle}
           filteredUrls={filteredUrls}
@@ -295,6 +302,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen showMap={showMap} />
+          <SocialShareModal showMap={showMap} isOpen={socialShare} onClose={handleSocialShare}></SocialShareModal>
           {/* <FilterModalScreen showMap={showMap} /> */}
         </>
       )}

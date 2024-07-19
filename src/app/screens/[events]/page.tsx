@@ -1,6 +1,7 @@
-import { getData } from "@/app/action";
+import { getBookMark, getData } from "@/app/action";
 import EventList from "@/components/screenPage";
-
+import { Metadata, ResolvingMetadata } from "next";
+import { cookies } from "next/headers";
 interface Props {
   params: {
     events: string;
@@ -12,10 +13,29 @@ interface Props {
 
 async function Page({ params, searchParams }: Props) {
   const data = await getData(params.events, searchParams.categoryID);
+ 
+  const token=cookies().get('loginToken')?.value
+  console.log(token)
+  let bookmark=false
+  if(token)
+  {
 
+    const res=await getBookMark();
+     const category = params.events
+       .toString()
+       .replaceAll("%20", " ")
+       .replaceAll("%26", " ");
+      res.bookmarks.forEach((item: any) => {
+       if (item.listName.includes(category)) {
+        
+          bookmark=true;
+       }
+     });
+  }
+  
   return (
     <>
-      <EventList data={data}></EventList>
+      <EventList data={data} bookmarkValue={bookmark}></EventList>
     </>
   );
 }
@@ -37,4 +57,20 @@ async function Page({ params, searchParams }: Props) {
 //   });
 // }
 
+export async function generateMetadata(
+  { params}: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+   const listName=params.events.toString().replaceAll("%20", " ").replaceAll("%26", " ");
+   return {
+     title:listName,
+     description: `Your ultimate guide to ${listName} in Jersey as voted by the community`,
+     openGraph: {
+       images:
+         "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+     },
+     
+   };
+}
 export default Page;

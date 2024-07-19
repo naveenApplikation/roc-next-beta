@@ -53,7 +53,7 @@ export async function getData(slug: string, params: string) {
           headers: {
             "x-login-token":loginToken ? loginToken.toString() : "",
           },   
-          next:{tags:[slug],revalidate:1}
+          next:{tags:[slug],revalidate:0}
        }
       : { next: { revalidate:1}}
     const res = await fetch(url,options);
@@ -150,6 +150,67 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
     console.error("Error fetching data:", error);
     return [];
   }
+}
+
+export async function addAndRemoveBookmark(categoryId:string)
+{
+  console.log(categoryId,157,"action.ts")
+     const loginToken = cookies().get("loginToken")?.value;
+     try{
+      const res = await fetch(
+        `${process.env.NEXT_API_URL}/bookmark/${categoryId}`,
+        {
+          method: "PUT",
+          headers: {
+            "x-login-token": loginToken ? loginToken.toString() : "",
+          },
+        }
+      );
+
+      if(!res.ok)
+      {
+         throw Error(res.status.toString())
+      }
+
+      return true
+    }
+    catch(error)
+    {
+         return error
+    }
+
+
+    
+
+      
+
+}
+
+export async function getBookMark()
+{
+         const loginToken = cookies().get("loginToken")?.value;
+         try {
+           const res = await fetch(
+             `${process.env.NEXT_API_URL}/bookmark`,
+             {
+              
+               headers: {
+                 "x-login-token": loginToken ? loginToken.toString() : "",
+               },
+               next:{revalidate:0}
+             }
+           );
+
+           if (!res.ok) {
+             throw Error(res.status.toString());
+           }
+
+           return await res.json();
+         } catch (error) {
+           return error;
+         }
+
+
 }
 
 // export async function handleLike(req: any, res: any) {

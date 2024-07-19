@@ -3,6 +3,7 @@ import EventListingModalLayout from "@/components//modal/Modal";
 import EventListingModal from "@/components/modal/EventListing";
 import { useMyContext } from "@/app/Context/MyContext";
 import ModalContent from "../modal/PlaceModal/ModalContent";
+import ShareFeature from "../ShareFeature";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -39,7 +40,9 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
               data={dataDetails}
             />
         }
+         
       </EventListingModalLayout>
+
     </>
   );
 };

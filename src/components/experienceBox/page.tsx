@@ -28,7 +28,15 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   filteredUrls,
   loader,
 }) => {
-  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal } = useMyContext();
+  const {
+    modalClick,
+    selectFilter,
+    setSelectFilter,
+    modalType,
+    closeModal,
+    handleSocialShare,
+    socialShare,
+  } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
 
@@ -42,7 +50,26 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       setSelectFilter("Any")
     }
   };
-
+  // const [isBookmark, setBookmark] = useState(false);
+  // const handleBookMark = async () => {
+  //   console.log(categoryId, token, 119);
+  //   if (token) {
+  //     console.log("yes");
+  //     const res = await addAndRemoveBookmark(categoryId);
+  //     if (res) {
+  //       setBookmark(true);
+  //     }
+  //   } else {
+  //     modalClick("LoginSignupModal");
+  //   }
+  // };
+const handleShare = () => {
+  console.log(socialShare);
+  if (!socialShare) {
+    console.log(socialShare);
+    handleSocialShare();
+  }
+};
   const filterDate = handleFilter(urlData, selectFilter)
   return (
     <SearchedListContainer>
@@ -58,13 +85,13 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
             <FilterSection pageTitle="categoryEvent" />
             <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
-            <ImageContainer>
+            {/* <ImageContainer>
             <Image
               src={bookmark}
               alt="Logo Outline"
             />
-            </ImageContainer>
-            <ImageContainer>
+            </ImageContainer> */}
+            <ImageContainer onClick={handleShare}>
             <Image
               src={share}
               alt="Logo Outline"
