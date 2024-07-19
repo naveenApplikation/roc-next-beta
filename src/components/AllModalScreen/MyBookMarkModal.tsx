@@ -31,12 +31,12 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   const fetchDataAsync = async () => {
     if (loginToken) {
       setloader(true)
-      if (myBookMarkState === "Created") {
+      if (myBookMarkState === "Lists") {
         try {
-          const response = await Instance.get("/my-list")
+          const response = await Instance.get("/category-item")
           const list = [response.data]
           if (response.status === 200) {
-            list.forEach((list: any) => {
+            list[0].forEach((list: any) => {
               const matchedIcon = icons.find(icon => icon.name === list.iconName);
               if (matchedIcon) {
                 list.image = matchedIcon.image;
@@ -78,6 +78,8 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
       }
     }
   }
+
+  console.log(listData,"sdsds")
 
   useEffect(() => {
     fetchDataAsync()
