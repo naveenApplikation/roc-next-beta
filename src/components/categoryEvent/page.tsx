@@ -56,11 +56,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
   };
   const token=localStorage.getItem('loginToken')
-  const fetcher = (url: string) =>
-    fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`, {
-      headers: { "x-login-token":token?token:""},
-    }).then((res) => res.json());
-
+   
    
    useEffect(()=>{
         
@@ -121,11 +117,6 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
  
 
   const filterDate = handleFilter(urlData, selectFilter);
-    const {data,isLoading,isValidating}=useSWR(`/bookmark`, fetcher);
-    if(data)
-    {
-       console.log(data)
-    }
     const [bookmarkLoader,setBookmarkLoader]=useState(false)
     const [isBookmark,setBookmark]=useState(false)
     const handleBookMark=async()=>{

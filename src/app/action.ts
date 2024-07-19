@@ -169,6 +169,7 @@ export async function addAndRemoveBookmark(categoryId:string)
 
       if(!res.ok)
       {
+        console.log(res)
          throw Error(res.status.toString())
       }
 
@@ -176,7 +177,7 @@ export async function addAndRemoveBookmark(categoryId:string)
     }
     catch(error)
     {
-         return error
+         return false
     }
 
 
