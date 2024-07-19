@@ -53,6 +53,12 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const [likeLoader,setLikeLoader]=useState<string>("")
   const [uiRenderLoader, setUiRenderLoader] = useState(true);
 
+  useEffect(()=>{
+    closeModal("createAccountModal")
+    closeModal("myList")
+    closeModal("myBookmark")
+  },[])
+
   const fetchEventDataById = () => {
     try {
       setloader(true)
