@@ -226,6 +226,8 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
 
   useEffect(()=>{
     closeModal("createAccountModal")
+    closeModal("myList")
+    closeModal("myBookmark")
   },[])
 
   return (
