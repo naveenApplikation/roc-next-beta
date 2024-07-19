@@ -224,6 +224,10 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
     }
   };
 
+  useEffect(()=>{
+    closeModal("createAccountModal")
+  },[])
+
   return (
     <>
       <CreateAccountModalLayout

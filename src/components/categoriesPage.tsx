@@ -15,6 +15,7 @@ import HeaderScreen from "@/components/header/HeaderScreen";
 import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ProfileMylistModalScreen from "@/components/AllModalScreen/ProfileMylistModalScreen";
+import MyBookMarkModal from "@/components/AllModalScreen/MyBookMarkModal";
 import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
 import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBookDatesModalScreen";
@@ -52,6 +53,7 @@ const CategoryBody = styled.div`
 `;
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
+type myBookmarktabs = "Lists" | "Events";
 
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     console.log(props.data.length)
@@ -70,6 +72,14 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
+
+  const [myBookMarkState, setMyBookMarkState] = useState("Lists");
+ 
+  const myBookmarkoptions = ["Lists", "Events"];
+
+  const myBookmarktabChange = async (value: myBookmarktabs) => {
+    setMyBookMarkState(value);
+  };
   // const [showMap, setShowMap] = useState<boolean>(false);
 
   const tabChange = (value: tabs) => {
@@ -179,6 +189,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+      />
+         <MyBookMarkModal
+        {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
       <PlacesModalScreen showMap={showMap} />
       <CalenderBookDatesModalScreen showMap={showMap}/>

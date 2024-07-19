@@ -5,6 +5,7 @@ import HeaderScreen from "../../../components/header/HeaderScreen";
 import SearchModalScreen from "../../../components/AllModalScreen/SearchModalScreen";
 import ProfileAccountModalScreen from "../../../components/AllModalScreen/ProfileAccountModalScreen";
 import ProfileMylistModalScreen from "../../../components/AllModalScreen/ProfileMylistModalScreen";
+import MyBookMarkModal from "@/components/AllModalScreen/MyBookMarkModal";
 import { useMyContext } from "../../../app/Context/MyContext";
 import styled from "styled-components";
 import Image from "next/image";
@@ -24,6 +25,7 @@ import { CloseModal } from "@/app/utils/ImagePath";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
+type myBookmarktabs = "Lists" | "Events";
 const width = "580";
 
 
@@ -33,6 +35,14 @@ const Directorylist = () => {
   const options = ["Lists", "Places"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
+
+   const [myBookMarkState, setMyBookMarkState] = useState("Lists");
+ 
+  const myBookmarkoptions = ["Lists", "Events"];
+
+  const myBookmarktabChange = async (value: myBookmarktabs) => {
+    setMyBookMarkState(value);
+  };
   // const [showMap, setShowMap] = useState<boolean>(false);
 
   const tabChange = (value: tabs) => {
@@ -139,6 +149,9 @@ console.log("route", router)
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
+      />
+         <MyBookMarkModal
+        {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
       <PlacesModalScreen showMap={showMap} />
       {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
