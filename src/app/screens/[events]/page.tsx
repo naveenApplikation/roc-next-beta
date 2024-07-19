@@ -25,7 +25,7 @@ async function Page({ params, searchParams }: Props) {
        .toString()
        .replaceAll("%20", " ")
        .replaceAll("%26", " ");
-      res.bookmarks.forEach((item: any) => {
+      res.bookmarks?.forEach((item: any) => {
        if (item.listName.includes(category)) {
         
           bookmark=true;
