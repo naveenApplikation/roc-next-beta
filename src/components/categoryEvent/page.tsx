@@ -16,6 +16,7 @@ import { FaSpinner } from "react-icons/fa6";
 import ShareFeature from "../ShareFeature";
 import useSWR from "swr";
 import { addAndRemoveBookmark, getBookMark } from "@/app/action";
+import ScrollList from '@/components/scrollList/ScrollList'
 
 interface EventBoxProps {
   categoryId?:any
@@ -356,6 +357,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           alt="scroll"
         />
       </SearchedListContainer>
+        {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
     </>
   );
 };
@@ -514,4 +516,8 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
   cursor: pointer;
   flex: 1;
+`;
+
+const ScrollMain = styled.div`
+  background: rgba(255, 255, 255, 0.3);
 `;
