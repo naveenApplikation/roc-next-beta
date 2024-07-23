@@ -487,6 +487,7 @@ const ImageContainer = styled.div<{ selected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const FamilyEventWrapperInside = styled.div`

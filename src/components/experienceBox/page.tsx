@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import React from "react";
@@ -7,21 +7,19 @@ import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { CloseModal,share,bookmark} from "@/app/utils/ImagePath";
-import fallback from '../../../assets/images/fallbackimage.png'
+import { CloseModal, share, bookmark } from "@/app/utils/ImagePath";
+import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
 import { handleFilter } from "@/app/utils/mappingFun";
 import FilterSection from "../filterSection";
 
 interface ExperienceBoxProps {
-  isShare?:any,
+  isShare?: any;
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
 }
-
-
 
 const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   isShare,
@@ -46,8 +44,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const handleBack = () => {
     router.back();
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
-      setSelectFilter("Any")
+      closeModal("modalFilterList");
+      setSelectFilter("Any");
     }
   };
   // const [isBookmark, setBookmark] = useState(false);
@@ -63,14 +61,14 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   //     modalClick("LoginSignupModal");
   //   }
   // };
-const handleShare = () => {
-  console.log(socialShare);
-  if (!socialShare) {
+  const handleShare = () => {
     console.log(socialShare);
-    handleSocialShare();
-  }
-};
-  const filterDate = handleFilter(urlData, selectFilter)
+    if (!socialShare) {
+      console.log(socialShare);
+      handleSocialShare();
+    }
+  };
+  const filterDate = handleFilter(urlData, selectFilter);
   return (
     <>
       <Backdrop></Backdrop>
@@ -90,8 +88,7 @@ const handleShare = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
+          }}>
           <FilterSection pageTitle="categoryEvent" />
           <div
             style={{
@@ -100,8 +97,7 @@ const handleShare = () => {
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
+            }}>
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -152,8 +148,7 @@ const handleShare = () => {
                       item,
                       filteredUrls[index] ? filteredUrls[index] : fallback
                     )
-                  }
-                >
+                  }>
                   <div
                     style={{
                       display: "flex",
@@ -161,8 +156,7 @@ const handleShare = () => {
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}
-                  >
+                    }}>
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}
@@ -203,22 +197,20 @@ const handleShare = () => {
 
 export default ExperienceBox;
 
-
- const Backdrop = styled.div`
+const Backdrop = styled.div`
   @media screen and (max-width: 800px) {
-   background-color: gray;
-   position: fixed;
-   bottom: 100%;
-   inset: 0px;
-   opacity: 0.5;
-}
- `;
-
+    background-color: gray;
+    position: fixed;
+    bottom: 100%;
+    inset: 0px;
+    opacity: 0.5;
+  }
+`;
 
 const Header = styled.div`
-display: flex;
-width: 100%;
-justify-content: space-between;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;
 const SearchedListContainer = styled.div`
   padding: 40px;
@@ -234,7 +226,7 @@ const SearchedData = styled.div`
   border-bottom: 1px solid #d9d9d9;
   padding: 10px 0px;
   cursor: pointer;
-  
+
   .likes {
     background-color: #00000014;
     padding: 8px 16px;
@@ -250,7 +242,6 @@ const SearchedData = styled.div`
     font-weight: 600;
   }
 `;
-
 
 const TitleText = styled.p`
   font-size: 24px;
@@ -268,11 +259,11 @@ const MainInsideWrapper = styled.div`
 `;
 
 const PriceAndLabelText = styled.p`
-font-size: 1.5rem;
-font-style: normal;
-font-weight: 400;
-line-height: 16px;
-letter-spacing: 0.12px;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.12px;
 `;
 
 const ImageContainer = styled.div`
@@ -283,4 +274,5 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
