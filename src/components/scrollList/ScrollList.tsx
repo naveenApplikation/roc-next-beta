@@ -18,7 +18,7 @@ const ScrollList: React.FC<ScrollListPage> = ({background,data}) => {
         <MainWrapper>
         {Test.map((item)=>{
             return(
-                <Wrapper style={{background:background}}>
+                <Wrapper key={item} style={{background:background}}>
                 <p>{item}</p>
               </Wrapper>
             )
