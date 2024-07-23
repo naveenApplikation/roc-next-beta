@@ -1,4 +1,11 @@
-import { ScrollIcon, ThumbsUPIcon, commentstar,share,bookmark,bookmarkActive} from "@/app/utils/ImagePath";
+import {
+  ScrollIcon,
+  ThumbsUPIcon,
+  commentstar,
+  share,
+  bookmark,
+  bookmarkActive,
+} from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -16,23 +23,22 @@ import { FaSpinner } from "react-icons/fa6";
 import ShareFeature from "../ShareFeature";
 import useSWR from "swr";
 import { addAndRemoveBookmark, getBookMark } from "@/app/action";
-import ScrollList from '@/components/scrollList/ScrollList'
+import ScrollList from "@/components/scrollList/ScrollList";
 
 interface EventBoxProps {
-  categoryId?:any
-  params?:any,
-  bookMark?:any
+  categoryId?: any;
+  params?: any;
+  bookMark?: any;
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
-  likeLoader:string
+  likeLoader: string;
   isOpen?: any;
   handleLike?: any;
   totalVote?: any;
-  isShare?:any
+  isShare?: any;
 }
-
 
 const CategoryEvent: React.FC<EventBoxProps> = ({
   isShare,
@@ -45,27 +51,31 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   totalVote,
   categoryId,
   params,
-  bookMark
+  bookMark,
 }) => {
-  const { modalClick, selectFilter, setSelectFilter, modalType, closeModal,handleSocialShare,socialShare } =
-    useMyContext();
+  const {
+    modalClick,
+    selectFilter,
+    setSelectFilter,
+    modalType,
+    closeModal,
+    handleSocialShare,
+    socialShare,
+  } = useMyContext();
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter();
 
   const scrollContainerRef = useRef<any>();
-  
+
   const setScrollTop = () => {
     scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
   };
-  const token=localStorage.getItem('loginToken')
-   
-   
-   useEffect(()=>{
-        
-             console.log(bookMark,88)
-             setBookmark(bookMark)
-         
-   },[bookMark])
+  const token = localStorage.getItem("loginToken");
+
+  useEffect(() => {
+    console.log(bookMark, 88);
+    setBookmark(bookMark);
+  }, [bookMark]);
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   // const handleScroll = () => {
@@ -108,41 +118,32 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     }
   };
 
-  const handleShare=()=>{
-     console.log(socialShare);
-     if(!socialShare)
-     {
-      console.log(socialShare)
-       handleSocialShare() 
-     }
-  }
- 
+  const handleShare = () => {
+    console.log(socialShare);
+    if (!socialShare) {
+      console.log(socialShare);
+      handleSocialShare();
+    }
+  };
 
   const filterDate = handleFilter(urlData, selectFilter);
-    const [bookmarkLoader,setBookmarkLoader]=useState(false)
-    const [isBookmark,setBookmark]=useState(false)
-    const handleBookMark=async()=>{
-          
-           if(token)
-           {
-             setBookmarkLoader(true)  
-            const res=await addAndRemoveBookmark(categoryId);
-        
-            if(res)
-            {
-                setBookmark(!isBookmark)
-                setBookmarkLoader(false);
-            }
-            else
-            {
-               setBookmarkLoader(false)
-            }
-          }
-          else if(!token)
-          {
-               modalClick("LoginSignupModal");
-          }
+  const [bookmarkLoader, setBookmarkLoader] = useState(false);
+  const [isBookmark, setBookmark] = useState(false);
+  const handleBookMark = async () => {
+    if (token) {
+      setBookmarkLoader(true);
+      const res = await addAndRemoveBookmark(categoryId);
+
+      if (res) {
+        setBookmark(!isBookmark);
+        setBookmarkLoader(false);
+      } else {
+        setBookmarkLoader(false);
+      }
+    } else if (!token) {
+      modalClick("LoginSignupModal");
     }
+  };
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -153,8 +154,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}
-          >
+            }}>
             <TitleText>{urlTitle}</TitleText>
             <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -173,8 +173,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}
-          >
+            }}>
             <FilterSection pageTitle="categoryEvent" />
             <div
               style={{
@@ -183,8 +182,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: 8,
-              }}
-            >
+              }}>
               <ImageContainer selected={isBookmark} onClick={handleBookMark}>
                 {bookmarkLoader ? (
                   <Spin tip="Loading" size="small" />
@@ -253,8 +251,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                         item,
                         item?.data_type === "google" ? item?.photoUrl : fallback
                       )
-                    }
-                  >
+                    }>
                     <FamilyEventWrapper>
                       {item?.data_type === "google" ? (
                         item.photoUrl ? (
@@ -322,8 +319,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       if (!likeLoader) {
                         handleLike(item?._id, item?.userVoted);
                       }
-                    }}
-                  >
+                    }}>
                     {likeLoader == item?._id ? (
                       <Spin tip="Loading" size="small" />
                     ) : (
@@ -357,35 +353,36 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           alt="scroll"
         />
       </SearchedListContainer>
-        {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
+      {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
     </>
   );
 };
 
 export default CategoryEvent;
 
-
- const Backdrop = styled.div`
+const Backdrop = styled.div`
   @media screen and (max-width: 800px) {
-   background-color:gray;
-   position: fixed;
-   bottom: 100%;
-   inset: 0px;
-   opacity: 0.5;
-}
- `;
+    background-color: gray;
+    position: fixed;
+    bottom: 100%;
+    inset: 0px;
+    opacity: 0.5;
+  }
+`;
 const LikesContainer = styled.div<{ selected: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  min-width: 70px;
-  row-gap:5px;
-  height: 60px;
+
+  row-gap: 5px;
+
   background-color: ${(props) => (props.selected ? "#3B86ED29" : "#00000014")};
   border-radius: 15px;
   justify-content: center;
-
+  padding: 8px 16px 8px 16px;
+  min-height: 53px;
+  min-width: 56px;
   p {
     color: ${(props) => (props.selected ? "#3b86ed" : "")};
     font-size: 16px;
@@ -448,9 +445,9 @@ const DetailContainer = styled.div`
 `;
 const MonthText = styled.p`
   background: crimson;
-  font-size:10px;
-  color:white;
-  width:max-content;
+  font-size: 10px;
+  color: white;
+  width: max-content;
   padding: 3px 8px;
 `;
 
@@ -477,14 +474,15 @@ const FamilyEventWrapper = styled.div`
     width: fit-content;
     color: #fff;
     width: 30px;
-    border-radius:0px 0px 4px 4px;
+    border-radius: 0px 0px 4px 4px;
   }
 `;
 
 const ImageContainer = styled.div<{ selected: boolean }>`
   width: 40px;
   height: 40px;
-  background:${(props) => (props.selected ? "#3B86ED29" : " rgba(0, 0, 0, 0.08)")};
+  background: ${(props) =>
+    props.selected ? "#3B86ED29" : " rgba(0, 0, 0, 0.08)"};
   border-radius: 100%;
   display: flex;
   justify-content: center;
