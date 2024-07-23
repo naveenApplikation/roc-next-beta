@@ -1,5 +1,10 @@
 "use client";
-import { CloseModal, locationMark,bookmark,share } from "@/app/utils/ImagePath";
+import {
+  CloseModal,
+  locationMark,
+  bookmark,
+  share,
+} from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
@@ -13,7 +18,7 @@ import { useRouter } from "next/navigation";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
 interface EventBoxProps {
-  isShare?:any
+  isShare?: any;
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
@@ -71,21 +76,35 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   const filterDate = handleFilter(urlData, selectFilter);
-  return <>
-    {isShare && <Backdrop></Backdrop>}
-    <SearchedListContainer>
-      <Header className="">
-        <TitleText>{urlTitle}</TitleText>
-        <Image
-          style={{ width: 40, height: 40, cursor: "pointer" }}
-          src={CloseModal}
-          alt="Logo Outline"
-          onClick={() => handleBack()}
-        />
-      </Header>
-      <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center" }}>
-            <FilterSection pageTitle="categoryEvent" />
-            <div style={{ padding: "10px 0px", display:"flex",justifyContent:"space-between",alignItems:"center",gap:8 }}>
+  return (
+    <>
+      {isShare && <Backdrop></Backdrop>}
+      <SearchedListContainer>
+        <Header className="">
+          <TitleText>{urlTitle}</TitleText>
+          <Image
+            style={{ width: 40, height: 40, cursor: "pointer" }}
+            src={CloseModal}
+            alt="Logo Outline"
+            onClick={() => handleBack()}
+          />
+        </Header>
+        <div
+          style={{
+            padding: "10px 0px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}>
+          <FilterSection pageTitle="categoryEvent" />
+          <div
+            style={{
+              padding: "10px 0px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 8,
+            }}>
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -93,113 +112,114 @@ const EventBox: React.FC<EventBoxProps> = ({
             />
             </ImageContainer> */}
             <ImageContainer onClick={handleShare}>
-            <Image
-              src={share}
-              alt="Logo Outline"
-            />
+              <Image src={share} alt="Logo Outline" />
             </ImageContainer>
-            </div>
           </div>
-      {loader
-        ? skeletonItems.map((item, index) => (
-            <SearchedData key={index}>
-              <MainInsideWrapper>
-                <Skeleton width={80} height={80} style={{ borderRadius: 8 }} />
-                <div className="restroRating">
-                  <Skeleton
-                    width={160}
-                    height={17}
-                    style={{ borderRadius: 8 }}
-                  />
-                  <Skeleton
-                    width={100}
-                    height={14}
-                    style={{ borderRadius: 8 }}
-                  />
+        </div>
+        {loader
+          ? skeletonItems.map((item, index) => (
+              <SearchedData key={index}>
+                <MainInsideWrapper>
                   <Skeleton
                     width={80}
-                    height={13}
+                    height={80}
                     style={{ borderRadius: 8 }}
                   />
-                </div>
-              </MainInsideWrapper>
-            </SearchedData>
-          ))
-        : filterDate?.map((item: any, index: any) => {
-            return (
-              <SearchedData key={index}>
-                <MainInsideWrapper
-                  onClick={() =>
-                    modalClick(
-                      "eventListing",
-                      item,
-                      filteredUrls[index] ? filteredUrls[index] : fallback
-                    )
-                  }
-                >
-                  <FamilyEventWrapper>
-                    <img
-                      src={filteredUrls[index]}
-                      alt="image"
-                      width={80}
-                      height={80}
-                      style={{ objectFit: "cover" }}
-                    />
-                    <FamilyEventWrapperInside>
-                      <p className="date">
-                        {formatDate(item.acf.event_dates[0].date)}
-                      </p>
-                      <p className="month">
-                        {formatMonth(item.acf.event_dates[0].date)}
-                      </p>
-                    </FamilyEventWrapperInside>
-                  </FamilyEventWrapper>
                   <div className="restroRating">
-                    <p className="shopName">{item.acf.title}</p>
-                    <DetailContainer>
-                      {item?.acf?.parish?.label ? (
-                        <Image
-                          src={locationMark}
-                          style={{
-                            width: "13px",
-                            height: "13px",
-                            marginRight: 8,
-                          }}
-                          alt="utensils"
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <p>{item?.acf?.parish?.label}</p>
-                    </DetailContainer>
-                    <p>
-                      <span>
-                        {item.acf.event_dates[0].start_time} -{" "}
-                        {item.acf.event_dates[0].end_time}
-                      </span>
-                    </p>
+                    <Skeleton
+                      width={160}
+                      height={17}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={100}
+                      height={14}
+                      style={{ borderRadius: 8 }}
+                    />
+                    <Skeleton
+                      width={80}
+                      height={13}
+                      style={{ borderRadius: 8 }}
+                    />
                   </div>
                 </MainInsideWrapper>
               </SearchedData>
-            );
-          })}
+            ))
+          : filterDate?.map((item: any, index: any) => {
+              return (
+                <SearchedData key={index}>
+                  <MainInsideWrapper
+                    onClick={() =>
+                      modalClick(
+                        "eventListing",
+                        item,
+                        filteredUrls[index] ? filteredUrls[index] : fallback
+                      )
+                    }>
+                    <FamilyEventWrapper>
+                      <img
+                        src={filteredUrls[index]}
+                        alt="image"
+                        width={80}
+                        height={80}
+                        style={{ objectFit: "cover" }}
+                      />
+                      <FamilyEventWrapperInside>
+                        <p className="date">
+                          {formatDate(item.acf.event_dates[0].date)}
+                        </p>
+                        <p className="month">
+                          {formatMonth(item.acf.event_dates[0].date)}
+                        </p>
+                      </FamilyEventWrapperInside>
+                    </FamilyEventWrapper>
+                    <div className="restroRating">
+                      <p className="shopName">{item.acf.title}</p>
+                      <DetailContainer>
+                        {item?.acf?.parish?.label ? (
+                          <Image
+                            src={locationMark}
+                            style={{
+                              width: "13px",
+                              height: "13px",
+                              marginRight: 8,
+                            }}
+                            alt="utensils"
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <p>{item?.acf?.parish?.label}</p>
+                      </DetailContainer>
+                      <p>
+                        <span>
+                          {item.acf.event_dates[0].start_time} -{" "}
+                          {item.acf.event_dates[0].end_time}
+                        </span>
+                      </p>
+                    </div>
+                  </MainInsideWrapper>
+                </SearchedData>
+              );
+            })}
 
-      <AddListButton onClick={() => modalClick("ContactUsModal")}>
-        <CommonButton text="Suggest an Event" />
-      </AddListButton>
-    </SearchedListContainer>
-  </>
+        <AddListButton onClick={() => modalClick("ContactUsModal")}>
+          <CommonButton text="Suggest an Event" />
+        </AddListButton>
+      </SearchedListContainer>
+    </>
+  );
 };
 
- const Backdrop = styled.div`
+const Backdrop = styled.div`
   @media screen and (max-width: 800px) {
-   background-color: gray;
-   position: fixed;
-   bottom: 100%;
-   inset: 0px;
-   opacity: 0.5;
-}
- `;
+    background-color: gray;
+    position: fixed;
+    bottom: 100%;
+    inset: 0px;
+    opacity: 0.5;
+  }
+`;
 
 export default EventBox;
 
@@ -309,4 +329,5 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
