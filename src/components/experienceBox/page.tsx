@@ -73,7 +73,7 @@ const handleShare = () => {
   const filterDate = handleFilter(urlData, selectFilter)
   return (
     <>
-      <Backdrop></Backdrop>
+      {isShare && <Backdrop></Backdrop>}
       <SearchedListContainer>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>

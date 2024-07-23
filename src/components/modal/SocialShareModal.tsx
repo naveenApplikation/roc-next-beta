@@ -65,7 +65,7 @@ const StyledModal = styled.div<{
     transform: none;
     background-color:"red";
     z-index: 1;
-    max-height: 40vh;
+    max-height: 30vh;
     margin: 0px; /* Center the modal horizontally */
     border-radius: 0px;
   }
