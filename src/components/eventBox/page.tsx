@@ -12,8 +12,8 @@ import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
-
 interface EventBoxProps {
+  isShare?:any
   urlData?: any;
   urlTitle?: string;
   filteredUrls?: any;
@@ -21,6 +21,7 @@ interface EventBoxProps {
 }
 
 const EventBox: React.FC<EventBoxProps> = ({
+  isShare,
   urlTitle,
   urlData,
   filteredUrls,
@@ -70,7 +71,8 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   const filterDate = handleFilter(urlData, selectFilter);
-  return (
+  return <>
+    {isShare && <Backdrop></Backdrop>}
     <SearchedListContainer>
       <Header className="">
         <TitleText>{urlTitle}</TitleText>
@@ -186,8 +188,18 @@ const EventBox: React.FC<EventBoxProps> = ({
         <CommonButton text="Suggest an Event" />
       </AddListButton>
     </SearchedListContainer>
-  );
+  </>
 };
+
+ const Backdrop = styled.div`
+  @media screen and (max-width: 800px) {
+   background-color: gray;
+   position: fixed;
+   bottom: 100%;
+   inset: 0px;
+   opacity: 0.5;
+}
+ `;
 
 export default EventBox;
 

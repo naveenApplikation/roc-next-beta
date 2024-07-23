@@ -29,11 +29,12 @@ interface EventBoxProps {
   isOpen?: any;
   handleLike?: any;
   totalVote?: any;
-  
+  isShare?:any
 }
 
 
 const CategoryEvent: React.FC<EventBoxProps> = ({
+  isShare,
   urlTitle,
   urlData,
   loader,
@@ -143,6 +144,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     }
   return (
     <>
+      {isShare && <Backdrop></Backdrop>}
       <SearchedListContainer ref={scrollContainerRef}>
         <div>
           <div
@@ -183,17 +185,21 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               }}
             >
               <ImageContainer selected={isBookmark} onClick={handleBookMark}>
-                 {bookmarkLoader ? 
-                      <Spin tip="Loading" size="small"/>:isBookmark?<Image
-                  src={bookmarkActive}
-                  style={{ color: "red" }}
-                  alt="Logo Outline"
-                />:
-                <Image
-                  src={bookmark}
-                  style={{ color: "red" }}
-                  alt="Logo Outline"
-                />}
+                {bookmarkLoader ? (
+                  <Spin tip="Loading" size="small" />
+                ) : isBookmark ? (
+                  <Image
+                    src={bookmarkActive}
+                    style={{ color: "red" }}
+                    alt="Logo Outline"
+                  />
+                ) : (
+                  <Image
+                    src={bookmark}
+                    style={{ color: "red" }}
+                    alt="Logo Outline"
+                  />
+                )}
               </ImageContainer>
               <ImageContainer selected={false} onClick={handleShare}>
                 <Image src={share} alt="Logo Outline" />
@@ -356,24 +362,34 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
 
 export default CategoryEvent;
 
+
+ const Backdrop = styled.div`
+  @media screen and (max-width: 800px) {
+   background-color:gray;
+   position: fixed;
+   bottom: 100%;
+   inset: 0px;
+   opacity: 0.5;
+}
+ `;
 const LikesContainer = styled.div<{ selected: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   cursor: pointer;
   min-width: 70px;
+  row-gap:5px;
   height: 60px;
   background-color: ${(props) => (props.selected ? "#3B86ED29" : "#00000014")};
   border-radius: 15px;
   justify-content: center;
-  
 
   p {
     color: ${(props) => (props.selected ? "#3b86ed" : "")};
     font-size: 16px;
     font-style: normal;
     font-weight: ${(props) => (props.selected ? "600" : "400")};
-    line-height: 24px; /* 150% */
+    // line-height: 24px; /* 150% */
   }
 `;
 
@@ -430,9 +446,9 @@ const DetailContainer = styled.div`
 `;
 const MonthText = styled.p`
   background: crimson;
-  font-size: 10px;
-  color: white;
-  width: max-content;
+  font-size:10px;
+  color:white;
+  width:max-content;
   padding: 3px 8px;
 `;
 
@@ -441,7 +457,6 @@ const FamilyEventWrapper = styled.div`
   flex-direction: column;
   position: relative;
   width: 80px;
-
   .date {
     font-size: 17px;
     font-style: normal;
@@ -460,7 +475,7 @@ const FamilyEventWrapper = styled.div`
     width: fit-content;
     color: #fff;
     width: 30px;
-    border-radius: 0px 0px 4px 4px;
+    border-radius:0px 0px 4px 4px;
   }
 `;
 

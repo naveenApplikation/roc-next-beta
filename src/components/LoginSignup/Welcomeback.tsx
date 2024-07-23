@@ -8,6 +8,7 @@ import savedImg from "../../../assets/images/menuModalsImage/saved.png";
 import activityImg from "../../../assets/images/menuModalsImage/activity.png";
 import contactUsImg from "../../../assets/images/menuModalsImage/contactUs.png";
 import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.png";
+import { information } from "@/app/utils/ImagePath";
 import listStar from "../../../assets/images/listStar.svg";
 import { Logout, blank, user } from "@/app/utils/ImagePath";
 
@@ -19,6 +20,7 @@ interface ModalProps {
   logoutClick: () => void;
   onClick: (name: string) => void;
   isOpenAboutUs: any;
+  isPrivacyPolicy:any
 }
 
 const MenuModalContent = styled.div`
@@ -27,8 +29,9 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs,myBookmarkOpen }) => {
-
+const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs,myBookmarkOpen,isPrivacyPolicy }) => {
+ 
+   
 
   return (
     <MenuModalContent>
@@ -86,6 +89,15 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           forwardNavigateImg={navigateImg}
         />
       </div>
+      <div onClick={isPrivacyPolicy} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Privacy Policy"
+          menuOptionImg={information}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
       <div onClick={isOpenContact} style={{ cursor: "pointer" }}>
         <MenuOptionList
           optionListText
@@ -108,12 +120,8 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
         comingSoon
       />
       <div onClick={logoutClick} style={{ cursor: "pointer" }}>
-        <MenuOptionList
-          optionListText
-          title1="Logout"
-          menuOptionImg={Logout}
-        />
-      </div >
+        <MenuOptionList optionListText title1="Logout" menuOptionImg={Logout} />
+      </div>
     </MenuModalContent>
   );
 };

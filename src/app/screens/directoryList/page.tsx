@@ -22,6 +22,7 @@ import DirectoryModalScreen from "@/components/AllModalScreen/DirectoryModalScre
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import { CloseModal } from "@/app/utils/ImagePath";
+import PrivacyPolicy from "@/components/homepage/PrivacyAndPolicyModal/page";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -153,6 +154,7 @@ console.log("route", router)
          <MyBookMarkModal
         {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
+      <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
       <PlacesModalScreen showMap={showMap} />
       {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
       <PlaceOrderOnlineModalScreen showMap={showMap} />

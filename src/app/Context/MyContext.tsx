@@ -96,6 +96,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     search: false,
     myList: false,
     myBookmark: false,
+    privacyPolicy:false,
     eventListing: false,
     activities: false,
     infoApp: false,
@@ -162,6 +163,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
+
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
@@ -206,7 +208,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (name === "search") {
       setSelectFilter("Any");
     }
-    if (modalName === "myList" || modalName === "myBookmark") {
+    if (modalName === "myList" || modalName === "myBookmark" || modalName=="privacyPolicy") {
       setModalNames("WelcomeBackModal");
     } else {
       setModalNames("");
@@ -232,6 +234,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
+
+    
     if (name == "modalFilter" || name === "modalFilterList") {
       setModalType((prev) => ({
         ...prev,
@@ -266,8 +270,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       setOldName("");
     } else if (name === "myList") {
       setOldName("");
-    }
-    else if (name === "myBookmark") {
+    } else if (name === "myBookmark") {
+      setOldName("");
+    } else if (name === "privacyPolicy") {
       setOldName("");
     }
     if (item) {

@@ -16,6 +16,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import PageLayout from "@/app/pageLayout";
 import { useParams, useRouter } from "next/navigation";
 import styled from 'styled-components';
+import PrivacyPolicy from '../homepage/PrivacyAndPolicyModal/page';
  
 interface Props{
     children:any
@@ -68,6 +69,7 @@ const Categories= () => {
          <MyBookMarkModal
         {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
+      <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
       <PlacesModalScreen showMap={showMap} />
       <CalenderBookDatesModalScreen showMap={showMap}/>
       <PlaceOrderOnlineModalScreen showMap={showMap}/>

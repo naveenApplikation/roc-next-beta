@@ -19,53 +19,51 @@ const Container = styled.div`
   padding: 24px 15px;
 
   .makeStyles-copyContainer-5 {
-      height: 50px;
+    height: 50px;
   }
   @media screen and (max-width: 400px) {
     gap: 18px;
   }
 
   @media screen and (max-width: 400px) {
-    .makeStyles-copyUrl-6 {
-      font-size: 11px;
-    }
+    
     .makeStyles-copyContainer-5 {
       height: 40px;
     }
   }
 `;
 
-const GlobalStyle = styled.span`
-   ::-webkit-scrollbar {
+const GlobalStyle = styled.div`
+  ::-webkit-scrollbar {
     display: none;
   }
-    p{
-      color:blue
-    }
-      width:inherit;
   
+  div{
+   color:black;
+   @media screen and (max-width: 400px) {
+       font-size:12px; 
+  }
+}
+  width: inherit;
 `;
 
 const ShareFeature:React.FC<Props>=({screenWidth})=>{
 
   const style = {
     root: {
-      background: "black",
-      borderRadius: 3,
-      border: 0,
+     
+      border: "none",
       color: "white",
       padding: "0px",
       display: "flex",
     },
     copyContainer: {
-      border: "1px solid blue",
-      background: "rgb(0,0,0,0.7)",
-      height:"40px"
-    },
-    title: {
-      color: "aquamarine",
-      fontStyle: "italic",
-    },
+      border:"1px solid #eaebeb",
+      backgroundColor: "#eaebeb",
+      height: "40px",
+      color: "black",
+      borderRadius:"5px"
+    }
   };
 
     

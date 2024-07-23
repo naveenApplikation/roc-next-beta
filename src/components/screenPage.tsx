@@ -254,6 +254,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     } else if (screenName === "categoryList") {
       return (
         <CategoryEvent
+          isShare={socialShare}
           categoryId={event}
           params={events}
           bookMark={props.bookmarkValue}

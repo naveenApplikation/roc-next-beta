@@ -30,8 +30,8 @@ const StyledModal = styled.div<{
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) =>
     $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
-  // backdrop-filter: blur(22px);
-  background-color:black;   
+  //  backdrop-filter: blur(22px);
+  background-color:white;   
   margin: 16px auto;
   transition: left 0.8s ease-in-out;
   z-index: 0;
@@ -73,7 +73,7 @@ const StyledModal = styled.div<{
   @media screen and (max-width: 800px) {
     left: 0;
     top: auto;
-    height: 60%;
+    height: 30%;
     border-top-left-radius:10px;
       border-top-right-radius:10px;
     bottom: ${({ $isopen }) =>
@@ -84,8 +84,6 @@ const StyledModal = styled.div<{
     transition: bottom 0.8s ease-in-out;
   }
 `;
-
- 
 
 const SocialShareModal: React.FC<ModalProps> = ({
   isOpen,
@@ -100,8 +98,6 @@ const SocialShareModal: React.FC<ModalProps> = ({
   useEffect(() => {
  
     if (isOpen) {
-
-         
       document.documentElement.style.overflow = "hidden";
     } else {
       document.documentElement.style.overflow = "auto";
@@ -128,9 +124,11 @@ const SocialShareModal: React.FC<ModalProps> = ({
   }, []);
 
   return (
-    <StyledModal $isopen={isOpen} $showMap={showMap}>
-      <ShareFeature screenWidth={screenWidth}></ShareFeature>
-    </StyledModal>
+    <>
+      <StyledModal $isopen={isOpen} $showMap={showMap}>
+        <ShareFeature screenWidth={screenWidth}></ShareFeature>
+      </StyledModal>
+    </>
   );
 };
 

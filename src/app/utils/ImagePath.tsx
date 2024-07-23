@@ -178,6 +178,7 @@ import ScrollTopIcon from '../../../assets/topSc.png';
 import shareImg from '../../../assets/images/Home-new-icons/share.svg'
 import bookmarkImg from '../../../assets/images/Home-new-icons/bookmark.svg'
 import bookmarkActiveImg from '../../../assets/images/Home-new-icons/bookmark-active.svg'
+import informationIcon from "../../../assets/images/Home-new-icons/information.svg";
 export const ScrollIcon = ScrollTopIcon;
 export const NewLogoRoc = NewLogoRocImg;
 export const ROCLogoWhite = ROCLogoWhiteImg;
@@ -359,6 +360,8 @@ export const wellbeingImg = wallbeings;
 export const share = shareImg;
 export const bookmark = bookmarkImg;
 export const bookmarkActive=bookmarkActiveImg
+export const information=informationIcon
+
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
 // import hongueImg from "../../../assets/images/La Hougue Bie.svg"

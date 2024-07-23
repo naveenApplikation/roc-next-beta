@@ -40,6 +40,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     if (props.searchParams === "Family Events" || props.params === "Events") {
       return (
         <EventBox
+         isShare={socialShare}
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
@@ -49,6 +50,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
       return (
         <ExperienceBox
+          isShare={socialShare}
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
@@ -60,7 +62,6 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           urlData={data}
           urlTitle={urlData}
           filteredUrls={filteredUrls}
-
         />
       );
     }

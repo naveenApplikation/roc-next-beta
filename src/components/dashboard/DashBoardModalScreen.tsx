@@ -19,6 +19,7 @@ import SearchModalScreen from "@/components/AllModalScreen/SearchModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalScreen";
 import BetaExploreModal from "@/components/modal/BetaExploreModal";
+import PrivacyPolicy from "../homepage/PrivacyAndPolicyModal/page";
 
 
 
@@ -56,6 +57,7 @@ const DashBoardModalScreen = () => {
         <MyBookMarkModal
         {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
+       <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
       <FilterModalScreen showMap={showMap} />
       <FilterListModalScreen showMap={showMap} />
       <PlacesModalScreen showMap={showMap} />
