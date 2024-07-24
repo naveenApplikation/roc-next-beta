@@ -71,6 +71,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const filterDate = handleFilter(urlData, selectFilter);
   return (
     <>
+      {isShare && <Backdrop></Backdrop>}
       <SearchedListContainer>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>
