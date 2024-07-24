@@ -53,7 +53,7 @@ export const MainContainer = styled.div`
 
 export const DashboardMenu = styled.div`
   width: 480px;
-  padding-bottom: 0px;
+  padding-bottom: 120px;
   background: #fff;
   transition: width 0.6s ease; /* Adjust transition timing function and duration */
   background-blend-mode: normal, luminosity;

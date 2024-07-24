@@ -17,6 +17,7 @@ import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
+import CustomBanner from "../AdComponent/CustomBanner";
 interface EventBoxProps {
   isShare?: any;
   urlData?: any;
@@ -207,6 +208,7 @@ const EventBox: React.FC<EventBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
+      <CustomBanner />
     </>
   );
 };
@@ -233,6 +235,7 @@ const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #fff;
   min-height: 100vh;
+  padding-bottom: 130px;
 `;
 
 const SearchedData = styled.div`

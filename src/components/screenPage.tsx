@@ -27,11 +27,18 @@ import { bookmark } from "@/app/utils/ImagePath";
 
 interface ScreenPageProps {
   data: any;
-  bookmarkValue?:any
+  bookmarkValue?: any;
 }
 const EventList: React.FC<ScreenPageProps> = (props) => {
-  const { showMap, filterUrls, modalClick, closeModal, modalName,socialShare,handleSocialShare } =
-    useMyContext();
+  const {
+    showMap,
+    filterUrls,
+    modalClick,
+    closeModal,
+    modalName,
+    socialShare,
+    handleSocialShare,
+  } = useMyContext();
   const [eventData, setEventData] = useState<ApiResponse[]>([]);
   const [eventTitle, setEventTitle] = useState("");
   const [totalVote, setTotalVote] = useState<any>("");
@@ -50,18 +57,18 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const [screenName, setScreenName] = useState("categoryList"); // Set default screen
 
   const [loader, setloader] = useState(false);
-  const [likeLoader,setLikeLoader]=useState<string>("")
+  const [likeLoader, setLikeLoader] = useState<string>("");
   const [uiRenderLoader, setUiRenderLoader] = useState(true);
 
-  useEffect(()=>{
-    closeModal("createAccountModal")
-    closeModal("myList")
-    closeModal("myBookmark")
-  },[])
+  useEffect(() => {
+    closeModal("createAccountModal");
+    closeModal("myList");
+    closeModal("myBookmark");
+  }, []);
 
   const fetchEventDataById = () => {
     try {
-      setloader(true)
+      setloader(true);
       const response = props.data;
       setEventData(response?.categoryList);
       setEventTitle(response?.listName);
@@ -86,7 +93,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       fetchEventDataById();
     }
   }, [event, screenName]);
-  
+
   const ImageUrlData = eventData.map((item) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
@@ -98,8 +105,6 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       router.push(`/`);
     }
   };
-
-
 
   const toggleSelected = (itemId: number, item: any): void => {
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -131,21 +136,20 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     }
   };
 
-
   const handleChange = (value: string) => {
     setSearchQuery(value);
   };
 
-  console.log(likeLoader)
+  console.log(likeLoader);
   const handleLike = async (id: string, vote: any) => {
-    console.log(id)
-    
-       console.log("before", likeLoader);
+    console.log(id);
+
+    console.log("before", likeLoader);
     const loginToken = localStorage.getItem("loginToken")
       ? localStorage.getItem("loginToken")
       : null;
     if (loginToken) {
-        setLikeLoader(id);
+      setLikeLoader(id);
       eventData.map((val) => {
         if (id === val._id) {
           if (vote) {
@@ -159,7 +163,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           }
         }
       });
-      
+
       const result = await Instance.post(
         `/category/${vote ? "removeVoting" : "addVoting"}`,
         {
@@ -167,35 +171,31 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           itemId: id,
         }
       );
-       setLikeLoader("")
-      console.log("after",likeLoader)
+      setLikeLoader("");
+      console.log("after", likeLoader);
       vote
         ? toast.error(result?.data.message)
         : toast.success(result?.data.message);
       await updateLike(events.toString());
-      
     } else {
       modalClick("LoginSignupModal");
     }
   };
 
   const fetchDataAsync = async (value: string) => {
-    
-      setloader(true);
-      try {
-        const result = await Instance.get(`/search-data?query=${value}`);
-        setData(result?.data?.searchResults);
-      } catch (error: any) {
-        setloader(false);
-      } finally {
-        setloader(false);
-      }
-
+    setloader(true);
+    try {
+      const result = await Instance.get(`/search-data?query=${value}`);
+      setData(result?.data?.searchResults);
+    } catch (error: any) {
+      setloader(false);
+    } finally {
+      setloader(false);
+    }
   };
 
   const handleSearch = async () => {
-
-   searchQuery ? await fetchDataAsync(searchQuery) : setData([]);
+    searchQuery ? await fetchDataAsync(searchQuery) : setData([]);
   };
 
   const postHandler = async (name: string) => {
@@ -219,7 +219,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   };
 
   const handleCreateNewList = async (name: string) => {
-    window.reload()
+    window.reload();
     setScreenName(name);
   };
 
@@ -243,7 +243,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           selectedItemIds={selectedItemIds}
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
-          setSearchQuery = {setSearchQuery}
+          setSearchQuery={setSearchQuery}
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}
@@ -309,7 +309,10 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen showMap={showMap} />
-          <SocialShareModal showMap={showMap} isOpen={socialShare} onClose={handleSocialShare}></SocialShareModal>
+          <SocialShareModal
+            showMap={showMap}
+            isOpen={socialShare}
+            onClose={handleSocialShare}></SocialShareModal>
           {/* <FilterModalScreen showMap={showMap} /> */}
         </>
       )}
@@ -334,4 +337,3 @@ const CategoryBody = styled.div`
     width: 100%;
   }
 `;
-

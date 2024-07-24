@@ -24,6 +24,7 @@ import ShareFeature from "../ShareFeature";
 import useSWR from "swr";
 import { addAndRemoveBookmark, getBookMark } from "@/app/action";
 import ScrollList from "@/components/scrollList/ScrollList";
+import CustomBanner from "../AdComponent/CustomBanner";
 
 interface EventBoxProps {
   categoryId?: any;
@@ -354,6 +355,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
         />
       </SearchedListContainer>
       {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
+      <CustomBanner />
     </>
   );
 };
@@ -410,6 +412,7 @@ const SearchedListContainer = styled.div`
   padding: 40px;
   background-color: #fff;
   min-height: 100vh;
+  padding-bottom: 150px;
 `;
 
 const SearchedData = styled.div`

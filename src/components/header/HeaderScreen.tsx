@@ -1,11 +1,21 @@
-'use client'
+"use client";
 import React, { useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useMyContext } from "@/app/Context/MyContext";
-import { home, profileIcon, search, ROCLogo, Hamburger, HamburgerDesktop, HamburgerWithoutBG, ScrollIcon } from "@/app/utils/ImagePath";
+import {
+  home,
+  profileIcon,
+  search,
+  ROCLogo,
+  Hamburger,
+  HamburgerDesktop,
+  HamburgerWithoutBG,
+  ScrollIcon,
+} from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
+import CustomBanner from "../AdComponent/CustomBanner";
 
 const HeadMenu = styled.div`
   display: flex;
@@ -42,9 +52,8 @@ const HeaderScreen = () => {
   const scrollContainerRef = useRef<any>();
 
   const setScrollTop = () => {
-    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: 'smooth' })
-
-  }
+    scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -71,12 +80,13 @@ const HeaderScreen = () => {
             alt="Logo Outline"
             onClick={navigateClick}
           />
-          <HamburgerWithoutBG onClick={()=>modalClick("LoginSignupModal")} />
+          <HamburgerWithoutBG onClick={() => modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
         <Image
           className="scroll_top_desktop"
           onClick={setScrollTop}
-          src={ScrollIcon} alt="scroll"
+          src={ScrollIcon}
+          alt="scroll"
         />
       </HeadMenu>
     </>

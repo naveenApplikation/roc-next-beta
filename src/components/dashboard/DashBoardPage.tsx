@@ -20,6 +20,7 @@ import {
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
+import CustomBanner from "../AdComponent/CustomBanner";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -31,7 +32,6 @@ const DashBoard = async () => {
   //   ) {
   //   }
   // };
-
 
   const listData = await getApiWithIcon("category", iconsHome);
   const LocalCusinedata = await getCategory("google/dine-out");
@@ -56,52 +56,32 @@ const DashBoard = async () => {
       <SearchNFilter />
       <InfoApp />
       {/* <LocalCusine data={LocalCusinedata} /> */}
-      <ScreenPageComps
-        data={LocalCusinedata}
-        title="Dine Out"
-      />
+      <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
       <FamilyEvent data={familyEventdata} />
       <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
       <TrendingList {...{ listData }} />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
-      <ScreenPageComps
-        data={TopAttractionsdata[0]}
-        title="Top Attractions"
-      />
+      <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
       <Directory />
       {/* <Bars dataPubs={bardata} /> */}/
       <ScreenPageComps data={bardata} title="Pubs" />
       <Shopping {...{ Shoppingdata }} />
       {/* <BeachLife data={beachLifedata[0]} /> */}
-      <ScreenPageComps
-        data={beachLifedata[0]}
-        title="Beach life "
-      />
+      <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       <Community {...{ listData }} />
       {/* <Sustainability data={sustainabilitydata[0]} /> */}
-      <ScreenPageComps
-        data={sustainabilitydata[0]}
-        title="Sustainability"
-      />
+      <ScreenPageComps data={sustainabilitydata[0]} title="Sustainability" />
       {/* <Heritage data={Heritagedata[0]} /> */}
-      <ScreenPageComps
-        data={Heritagedata[0]}
-        title="Heritage"
-      />
+      <ScreenPageComps data={Heritagedata[0]} title="Heritage" />
       <Walks data={Walksdata} />
       <Wellbeing data={Wellbeingdata} />
       {/* <Outout data={Cocktaildata[0]} /> */}
-      <ScreenPageComps
-        data={Cocktaildata[0]}
-        title="Out Out"
-      />
+      <ScreenPageComps data={Cocktaildata[0]} title="Out Out" />
       <CycleRoutes />
       {/* <Surfing data={Surfingdata[0]} /> */}
-      <ScreenPageComps
-        data={Surfingdata[0]}
-        title="Surfing"
-      />
+      <ScreenPageComps data={Surfingdata[0]} title="Surfing" />
       <LeaveFeedbackButton />
+      <CustomBanner />
     </>
   );
 };
