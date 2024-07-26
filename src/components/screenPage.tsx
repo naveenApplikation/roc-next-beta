@@ -140,11 +140,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     setSearchQuery(value);
   };
 
-  console.log(likeLoader);
   const handleLike = async (id: string, vote: any) => {
-    console.log(id);
-
-    console.log("before", likeLoader);
     const loginToken = localStorage.getItem("loginToken")
       ? localStorage.getItem("loginToken")
       : null;
@@ -172,7 +168,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
         }
       );
       setLikeLoader("");
-      console.log("after", likeLoader);
+
       vote
         ? toast.error(result?.data.message)
         : toast.success(result?.data.message);
@@ -296,12 +292,14 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
             onClose={() => closeModal("createAccountModal")}
             {...{ showMap }}
             name=""
-            title={modalName === "LoginAccountModal" && "Login"}>
+            title={modalName === "LoginAccountModal" && "Login"}
+          >
             <LoginSignupModal
               isOpen={() => modalClick("ContactUsModal")}
               nextModal={() => modalClick("WelcomeBackModal")}
               {...{ onClick }}
               myListOpen={() => modalClick("TermsAndConditionModal")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
             />
           </CreateAccountModalLayout>
           <EventListingModalScreen showMap={showMap} />
@@ -312,7 +310,8 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <SocialShareModal
             showMap={showMap}
             isOpen={socialShare}
-            onClose={handleSocialShare}></SocialShareModal>
+            onClose={handleSocialShare}
+          ></SocialShareModal>
           {/* <FilterModalScreen showMap={showMap} /> */}
         </>
       )}

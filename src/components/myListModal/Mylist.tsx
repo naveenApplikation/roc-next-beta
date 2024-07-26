@@ -12,13 +12,11 @@ interface ListProps {
   loader?: any;
 }
 
-
-
 const Lists: React.FC<ListProps> = ({ listData, loader }) => {
-const skeletonItems = new Array(10).fill(null);
-  const router=useRouter()
+  const skeletonItems = new Array(10).fill(null);
+  const router = useRouter();
   const { menuClick } = useMyContext();
-  
+
   // const getCreatedList = async()=>{
   //   try {
   //       const res = await Instance.get(`my-list`)
@@ -28,42 +26,48 @@ const skeletonItems = new Array(10).fill(null);
   //   }
   // }
 
-
   // useEffect(()=>{
   //   getCreatedList()
   // },[])
-  const handleNavigate=(category:string,id:string)=>{
-      menuClick(category, false, id);
-  }
+  const handleNavigate = (category: string, id: string) => {
+    menuClick(category, false, id);
+  };
   return (
     <Container>
       {loader ? (
-            skeletonItems.map((item, index) => (
-                    <SearchedData key={index}>
-                      <MainWrraper>
-                        <MainInsideWrapper>
-                          <Skeleton
-                            width={40}
-                            height={40}
-                            style={{ borderRadius: 100 }}
-                          />
-                          <div className="restroRating">
-                            <Skeleton width={120} height={14} />
-                          </div>
-                        </MainInsideWrapper>
-                        <Skeleton width={56} height={24} />
-                      </MainWrraper>
-                    </SearchedData>
-                  )))
-       : (
-        listData?.length==0?<p style={{ fontSize: '16px' }}> No Bookmarks</p>:
+        skeletonItems.map((item, index) => (
+          <SearchedData key={index}>
+            <MainWrraper>
+              <MainInsideWrapper>
+                <Skeleton
+                  width={40}
+                  height={40}
+                  style={{ borderRadius: 100 }}
+                />
+                <div className="restroRating">
+                  <Skeleton width={120} height={14} />
+                </div>
+              </MainInsideWrapper>
+              <Skeleton width={56} height={24} />
+            </MainWrraper>
+          </SearchedData>
+        ))
+      ) : listData?.length == 0 ? (
+        <p style={{ fontSize: "16px" }}> No Bookmarks</p>
+      ) : (
         listData?.map((item: any, index: any) => {
           return (
-            item?.image ?
-              <ListContainer key={index} onClick={()=>{handleNavigate(item?.listName,item?._id)}}>
+            // item.image ?
+            item ? (
+              <ListContainer
+                key={index}
+                onClick={() => {
+                  handleNavigate(item?.listName, item?._id);
+                }}
+              >
                 <ImageTitleContainer>
                   <Imagecontainer style={{ background: item?.bgColor }}>
-                    {item?.image}
+                    {item ? item.image : ""}
                   </Imagecontainer>
                   <p>{item?.listName}</p>
                 </ImageTitleContainer>
@@ -75,7 +79,10 @@ const skeletonItems = new Array(10).fill(null);
                   />
                   <p>{item?.voting?.length || 0}</p>
                 </LikesContainer>
-              </ListContainer> :<p style={{ fontSize: '16px' }}> No data found</p>
+              </ListContainer>
+            ) : (
+              <p style={{ fontSize: "16px" }}> No data found</p>
+            )
           );
         })
       )}
@@ -84,7 +91,6 @@ const skeletonItems = new Array(10).fill(null);
 };
 
 export default Lists;
-
 
 const Container = styled.div`
   padding-bottom: 20px;
@@ -95,7 +101,7 @@ const ListContainer = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding: 8px 0px;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const ImageTitleContainer = styled.div`
@@ -137,7 +143,6 @@ const LikesContainer = styled.div`
     line-height: 24px; /* 150% */
   }
 `;
-
 
 const SearchedData = styled.div`
   display: flex;
@@ -181,11 +186,3 @@ const MainInsideWrapper = styled.div`
   align-items: center;
   gap: 16px;
 `;
-
- 
-
- 
- 
-
- 
- 

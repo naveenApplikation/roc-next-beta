@@ -6,7 +6,9 @@ import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
-
+import NextTopLoader from "nextjs-toploader";
+import ProgressBar from "@/components/ProgressBar";
+import ProgressBarProvider from "@/components/ProgressBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -36,13 +38,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <NextTopLoader
+          color="#2299DD"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={true}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+        /> */}
+
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4636767191633754"
-          crossOrigin="anonymous"></Script>
+          crossOrigin="anonymous"
+        ></Script>
+
         <StyledComponentsRegistry>
           <Toaster position="top-left" reverseOrder={false} />
-          <MyProvider>{children}</MyProvider>
+          <MyProvider>
+            <ProgressBarProvider>{children}</ProgressBarProvider>
+          </MyProvider>
         </StyledComponentsRegistry>
         <GoogleAnalytics gaId="G-GZWV4V5RKP" />
       </body>

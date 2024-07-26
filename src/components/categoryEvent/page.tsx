@@ -71,10 +71,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   const setScrollTop = () => {
     scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
   };
-  const token = localStorage.getItem("loginToken");
+  const token =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("loginToken")
+      : null;
 
   useEffect(() => {
-    console.log(bookMark, 88);
+    
     setBookmark(bookMark);
   }, [bookMark]);
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
@@ -120,9 +123,9 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   };
 
   const handleShare = () => {
-    console.log(socialShare);
+    
     if (!socialShare) {
-      console.log(socialShare);
+    
       handleSocialShare();
     }
   };
@@ -133,7 +136,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   const handleBookMark = async () => {
     if (token) {
       setBookmarkLoader(true);
-      const res = await addAndRemoveBookmark(categoryId);
+      const res = await addAndRemoveBookmark("bookmark", categoryId);
 
       if (res) {
         setBookmark(!isBookmark);
@@ -155,7 +158,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}>
+            }}
+          >
             <TitleText>{urlTitle}</TitleText>
             <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -174,7 +178,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}>
+            }}
+          >
             <FilterSection pageTitle="categoryEvent" />
             <div
               style={{
@@ -183,7 +188,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: 8,
-              }}>
+              }}
+            >
               <ImageContainer selected={isBookmark} onClick={handleBookMark}>
                 {bookmarkLoader ? (
                   <Spin tip="Loading" size="small" />
@@ -252,7 +258,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                         item,
                         item?.data_type === "google" ? item?.photoUrl : fallback
                       )
-                    }>
+                    }
+                  >
                     <FamilyEventWrapper>
                       {item?.data_type === "google" ? (
                         item.photoUrl ? (
@@ -320,7 +327,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       if (!likeLoader) {
                         handleLike(item?._id, item?.userVoted);
                       }
-                    }}>
+                    }}
+                  >
                     {likeLoader == item?._id ? (
                       <Spin tip="Loading" size="small" />
                     ) : (

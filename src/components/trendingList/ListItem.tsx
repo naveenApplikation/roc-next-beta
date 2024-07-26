@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
@@ -15,20 +15,19 @@ import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 
-
 interface Props {
-  data: any,
-  urlTitle?: string
+  data: any;
+  urlTitle?: string;
 }
 
 export const ListItem: React.FC<Props> = (props) => {
-  const listData = props.data
+  const listData = props.data;
   listData.forEach((list: any) => {
-    const matchedIcon = icons.find(icon => icon.name === list.iconName);
+    const matchedIcon = icons.find((icon) => icon.name === list.iconName);
     if (matchedIcon) {
       list.image = matchedIcon.image;
     }
-  })
+  });
 
   const router = useRouter();
 
@@ -36,15 +35,23 @@ export const ListItem: React.FC<Props> = (props) => {
   const { showMap, setSelectFilter, modalType, closeModal } = useMyContext();
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition === true) {
-      router.push(`/screens/${item}?categoryID=${id}`);
+      if (props.urlTitle == "Event List" || props.urlTitle == "Activity List") {
+        router.push(
+          `/categories/${
+            props.urlTitle == "Event List" ? "event-list" : "activity-list"
+          }?search=${id}`
+        );
+      } else {
+        router.push(`/screens/${item}?categoryID=${id}`);
+      }
     }
   };
 
   const handleBack = () => {
     router.back();
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
-      setSelectFilter("Any")
+      closeModal("modalFilterList");
+      setSelectFilter("Any");
     }
   };
   return (
@@ -65,47 +72,51 @@ export const ListItem: React.FC<Props> = (props) => {
               </PopularListContainer>
               {listData.length
                 ? listData.map((item: any, index: any) => {
-                  return (
-                    <ListContainer key={index}
-                      onClick={() =>
-                        menuClick(item?.listName, true, item?.categoryId ? item.categoryId : item._id)
-                      }
-                    >
-                      <ImageTitleContainer
+                    return (
+                      <ListContainer
+                        key={index}
+                        onClick={() =>
+                          menuClick(
+                            item?.listName,
+                            true,
+                            item?.categoryId ? item.categoryId : item._id
+                          )
+                        }
                       >
-                        <Imagecontainer style={{ background: item?.bgColor }}>
-                          {item?.image}
-                        </Imagecontainer>
-                        <p>{item?.listName}</p>
-                      </ImageTitleContainer>
-                      <LikesContainer>
-                        <Image
-                          style={{ width: 16, height: "auto" }}
-                          src={thumbsup}
-                          alt="icon"
-                        />
-                        <p>{item.votes}</p>
-                      </LikesContainer>
-                    </ListContainer>
-                  );
-                })
+                        <ImageTitleContainer>
+                          <Imagecontainer style={{ background: item?.bgColor }}>
+                            {item?.image}
+                          </Imagecontainer>
+                          <p>{item?.listName}</p>
+                        </ImageTitleContainer>
+                        <LikesContainer>
+                          <Image
+                            style={{ width: 16, height: "auto" }}
+                            src={thumbsup}
+                            alt="icon"
+                          />
+                          <p>{item.votes}</p>
+                        </LikesContainer>
+                      </ListContainer>
+                    );
+                  })
                 : skeletonItems.map((item, index) => (
-                  <SearchedData key={index}>
-                    <MainWrraper>
-                      <MainInsideWrapper>
-                        <Skeleton
-                          width={40}
-                          height={40}
-                          style={{ borderRadius: 100 }}
-                        />
-                        <div className="restroRating">
-                          <Skeleton width={120} height={14} />
-                        </div>
-                      </MainInsideWrapper>
-                      <Skeleton width={56} height={24} />
-                    </MainWrraper>
-                  </SearchedData>
-                ))}
+                    <SearchedData key={index}>
+                      <MainWrraper>
+                        <MainInsideWrapper>
+                          <Skeleton
+                            width={40}
+                            height={40}
+                            style={{ borderRadius: 100 }}
+                          />
+                          <div className="restroRating">
+                            <Skeleton width={120} height={14} />
+                          </div>
+                        </MainInsideWrapper>
+                        <Skeleton width={56} height={24} />
+                      </MainWrraper>
+                    </SearchedData>
+                  ))}
             </Container>
           </div>
         </CategoryBody>
@@ -115,11 +126,8 @@ export const ListItem: React.FC<Props> = (props) => {
       <EventListingModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
     </>
-
   );
-}
-
-
+};
 
 const SearchedData = styled.div`
   display: flex;
@@ -169,7 +177,6 @@ const MainInsideWrapper = styled.div`
   align-items: center;
   gap: 16px;
 `;
-
 
 const Container = styled.div`
   padding: 40px;

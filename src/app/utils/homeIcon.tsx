@@ -76,169 +76,908 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { BsBank2 } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 
+// Food & drink
+// Activities
+// Entertainment
+// Hair & Beauty
+// Health Fitness & Wellbeing
+// Sports
+// Home
+// Kids
+// Pets
+// Event Planning
+// Shopping
+// Accomodation
+// Budget
+// Vehicles
+// Travel
+// Transport
+// Recruitment
+// Professional Services
 
-
-// Food & drink	
-// Activities	
-// Entertainment	
-// Hair & Beauty	
-// Health Fitness & Wellbeing	
-// Sports	
-// Home	
-// Kids	
-// Pets	
-// Event Planning	
-// Shopping	
-// Accomodation	
-// Budget	
-// Vehicles	
-// Travel	
-// Transport	
-// Recruitment	
-// Professional Services	
-
-
-
-const bankIcon =  <BsBank2 style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const bankIcon = (
+  <BsBank2
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 // const userTieIcon =  <FaUserTie style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 // const swimmingIcon =  <FaPersonSwimming style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 // const barberIcon =  <GiHairStrands style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 // const sonicShoesIcon =  <GiSonicShoes style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 // const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
 
+const userTieIcon = (
+  <FaUserTie
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const swimmingIcon = (
+  <FaPersonSwimming
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const barberIcon = (
+  <GiHairStrands
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const sonicShoesIcon = (
+  <GiSonicShoes
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const motorbikeIcon = (
+  <RiMotorbikeFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
+const cartIcon = (
+  <PiShoppingCartFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const carIcon = (
+  <AiFillCar
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const customerServiceIcon = (
+  <AiFillCustomerService
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const bellIcon = (
+  <AiFillBell
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const audioIcon = (
+  <AiFillAudio
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const alertIcon = (
+  <AiFillAlert
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const userTieIcon =  <FaUserTie style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const swimmingIcon =  <FaPersonSwimming style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const barberIcon =  <GiHairStrands style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const sonicShoesIcon =  <GiSonicShoes style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const motorbikeIcon =  <RiMotorbikeFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const cameraIcon = (
+  <AiFillCamera
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const campassIcon = (
+  <AiFillCompass
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const giftIcon = (
+  <AiFillGift
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const crownIcon = (
+  <AiFillCrown
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const fireIcon = (
+  <AiFillFire
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const heartIcon = (
+  <AiFillHeart
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
+const calendarIcon = (
+  <AiFillCalendar
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const creditCardIcon = (
+  <AiFillCreditCard
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const contactIcon = (
+  <AiFillContacts
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const moonIcon = (
+  <AiFillMoon
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const sunIcon = (
+  <AiFillSun
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const trophyIcon = (
+  <AiFillTrophy
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const cartIcon =  <PiShoppingCartFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const carIcon =  <AiFillCar style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const customerServiceIcon =  <AiFillCustomerService style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const bellIcon =  <AiFillBell style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const audioIcon =  <AiFillAudio style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const alertIcon =  <AiFillAlert style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const videoCameraIcon = (
+  <AiFillVideoCamera
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const soundIcon = (
+  <AiFillSound
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const restIcon = (
+  <AiFillRest
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const skinIcon = (
+  <AiFillSkin
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const readIcon = (
+  <AiFillRead
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const phoneIcon = (
+  <AiFillPhone
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const cameraIcon =  <AiFillCamera style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const campassIcon =  <AiFillCompass style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const giftIcon =  <AiFillGift style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const crownIcon =  <AiFillCrown style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const fireIcon =  <AiFillFire style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const heartIcon =  <AiFillHeart style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-
-const calendarIcon =  <AiFillCalendar style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const creditCardIcon =  <AiFillCreditCard style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const contactIcon =  <AiFillContacts style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const moonIcon =  <AiFillMoon style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const sunIcon =  <AiFillSun style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const trophyIcon =  <AiFillTrophy style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-
-const videoCameraIcon =  <AiFillVideoCamera style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const soundIcon =  <AiFillSound style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const restIcon =  <AiFillRest style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const skinIcon =  <AiFillSkin style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const readIcon =  <AiFillRead style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const phoneIcon =  <AiFillPhone style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-
-const lockIcon =  <AiFillLock style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const homeIcon =  <AiFillHome style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const hatIcon =  <FaHatCowboy style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const manIcon =  <IoIosMan style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const womanIcon =  <IoIosWoman style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const displayIcon =  <BsFillDisplayFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const lockIcon = (
+  <AiFillLock
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const homeIcon = (
+  <AiFillHome
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const hatIcon = (
+  <FaHatCowboy
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const manIcon = (
+  <IoIosMan
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const womanIcon = (
+  <IoIosWoman
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const displayIcon = (
+  <BsFillDisplayFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
 // ************* represent the food
-const appleIcon =  <AiFillApple style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const bowlFoodIcon =  <FaBowlFood style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const pizzaIcon =  <FaPizzaSlice style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const fullPizzaIcon =  <GiFullPizza style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const riceIcon =  <FaBowlRice style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const iceCreamIcon =  <IoIosIceCream style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const appleIcon = (
+  <AiFillApple
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const bowlFoodIcon = (
+  <FaBowlFood
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const pizzaIcon = (
+  <FaPizzaSlice
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const fullPizzaIcon = (
+  <GiFullPizza
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const riceIcon = (
+  <FaBowlRice
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const iceCreamIcon = (
+  <IoIosIceCream
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
+const solidDrinkIcon = (
+  <BiSolidDrink
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const drinkFillIcon = (
+  <RiDrinksFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const shoppingBagIcon = (
+  <FaShoppingBag
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const shoppingBasketIcon = (
+  <RiShoppingBasketFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const travelDressIcon = (
+  <GiTravelDress
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const martialArtsIcon = (
+  <MdOutlineSportsMartialArts
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const solidDrinkIcon =  <BiSolidDrink style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const drinkFillIcon =  <RiDrinksFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const shoppingBagIcon =  <FaShoppingBag style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const shoppingBasketIcon =  <RiShoppingBasketFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const travelDressIcon =  <GiTravelDress style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const martialArtsIcon =  <MdOutlineSportsMartialArts style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const rugbyIcon = (
+  <MdSportsRugby
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const sportHelmatIcon = (
+  <MdSportsMotorsports
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const glubsIcon = (
+  <MdSportsMma
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const kabaddiIcon = (
+  <MdSportsKabaddi
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const baseBallIcon = (
+  <MdSportsBaseball
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const cricketIcon = (
+  <MdSportsCricket
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
+const footBallIcon = (
+  <MdSportsFootball
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const hockeyIcon = (
+  <MdSportsHockey
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const sportCarIcon = (
+  <IoCarSportSharp
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const videoGameIcon = (
+  <MdSportsEsports
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const playIpodIcon = (
+  <BsMusicPlayerFill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const musicLibraryIcon = (
+  <MdLibraryMusic
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const rugbyIcon =  <MdSportsRugby style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const sportHelmatIcon =  <MdSportsMotorsports style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const glubsIcon =  <MdSportsMma style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const kabaddiIcon =  <MdSportsKabaddi style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const baseBallIcon =  <MdSportsBaseball style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const cricketIcon =  <MdSportsCricket style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const ChildIcon = (
+  <FaChild
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const dogIcon = (
+  <FaDog
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const hotelIcon = (
+  <FaHotel
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const moneyBillIcon = (
+  <FaMoneyBill
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const planeIcon = (
+  <FaPlane
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const busIcon = (
+  <FaBus
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
+const ladleIcon = (
+  <FaUtensils
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const peopleLineIcon = (
+  <FaPeopleLine
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const popcornIcon = (
+  <LuPopcorn
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const FaceSmileBeamIcon = (
+  <FaFaceSmileBeam
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const HeartPulseIcon = (
+  <FaHeartPulse
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
+const RunningIcon = (
+  <FaRunning
+    style={{
+      fontSize: "30px",
+      borderRadius: "50%",
+      padding: "5px",
+      color: "white",
+    }}
+  />
+);
 
-const footBallIcon =  <MdSportsFootball style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const hockeyIcon =  <MdSportsHockey style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const sportCarIcon =  <IoCarSportSharp style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const videoGameIcon =  <MdSportsEsports style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const playIpodIcon =  <BsMusicPlayerFill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const musicLibraryIcon =  <MdLibraryMusic style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
+const FoodIcon = (
+  <FaUtensils
+    style={{ fontSize: "24px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const ActivityIcon = (
+  <FaPeopleLine
+    style={{ fontSize: "30px", padding: "5px", marginRight: 1, color: "black" }}
+  />
+);
+const EntertainmentIcon = (
+  <LuPopcorn
+    style={{ fontSize: "27px", padding: "5px", marginRight: 2, color: "black" }}
+  />
+);
+const BeautyIcon = (
+  <FaFaceSmileBeam
+    style={{ fontSize: "26px", padding: "5px", marginRight: 3, color: "black" }}
+  />
+);
+const FitnessIcon = (
+  <FaHeartPulse
+    style={{ fontSize: "28px", padding: "5px", marginRight: 2, color: "black" }}
+  />
+);
+const SportsIcon = (
+  <FaRunning
+    style={{ fontSize: "30px", padding: "5px", marginRight: 1, color: "black" }}
+  />
+);
+const HomeIcon = (
+  <FaHome
+    style={{ fontSize: "28px", padding: "5px", marginRight: 3, color: "black" }}
+  />
+);
+const KidIcon = (
+  <FaChild
+    style={{ fontSize: "28px", padding: "5px", marginRight: 3, color: "black" }}
+  />
+);
+const PetsIcon = (
+  <FaDog
+    style={{ fontSize: "28px", padding: "5px", marginRight: 4, color: "black" }}
+  />
+);
+const userCalederIcon = (
+  <FaCalendar
+    style={{ fontSize: "25px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const shopBagIcon = (
+  <FaShoppingBag
+    style={{ fontSize: "26px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const AccomodationIcon = (
+  <FaHotel
+    style={{ fontSize: "25px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const BillIcon = (
+  <FaMoneyBill
+    style={{ fontSize: "28px", padding: "5px", marginRight: 4, color: "black" }}
+  />
+);
+const usercarIcon = (
+  <FaCar
+    style={{ fontSize: "26px", padding: "5px", marginRight: 4, color: "black" }}
+  />
+);
+const TravelIcon = (
+  <FaPlane
+    style={{ fontSize: "27px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const RoadbusIcon = (
+  <FaBus
+    style={{ fontSize: "28px", padding: "5px", marginRight: 2, color: "black" }}
+  />
+);
+const ServiesIcon = (
+  <FaUserTie
+    style={{ fontSize: "28px", padding: "5px", marginRight: 3, color: "black" }}
+  />
+);
+const briefcaseIcon = (
+  <FaBriefcase
+    style={{ fontSize: "26px", padding: "5px", marginRight: 7, color: "black" }}
+  />
+);
+const HomeFoodIcon = (
+  <FaUtensils
+    style={{ fontSize: "24px", padding: "5px", marginRight: 9, color: "black" }}
+  />
+);
+const HomeEntertainmentIcon = (
+  <LuPopcorn
+    style={{ fontSize: "27px", padding: "5px", marginRight: 4, color: "black" }}
+  />
+);
+const HomeActivityIcon = (
+  <FaPeopleLine
+    style={{ fontSize: "30px", padding: "5px", marginRight: 2, color: "black" }}
+  />
+);
+const HomeBeautyIcon = (
+  <FaFaceSmileBeam
+    style={{ fontSize: "26px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
+const HomeFitnessIcon = (
+  <FaHeartPulse
+    style={{ fontSize: "28px", padding: "5px", marginRight: 3, color: "black" }}
+  />
+);
+const HomeSportsIcon = (
+  <FaRunning
+    style={{ fontSize: "30px", padding: "5px", marginRight: 1, color: "black" }}
+  />
+);
+const HomeKidIcon = (
+  <FaChild
+    style={{ fontSize: "28px", padding: "5px", marginRight: 4, color: "black" }}
+  />
+);
+const HomeshopBagIcon = (
+  <FaShoppingBag
+    style={{ fontSize: "26px", padding: "5px", marginRight: 5, color: "black" }}
+  />
+);
 
-const ChildIcon =  <FaChild style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const dogIcon =  <FaDog style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const hotelIcon =  <FaHotel style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const moneyBillIcon =  <FaMoneyBill style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const planeIcon =  <FaPlane style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const busIcon =  <FaBus style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-
-
-const ladleIcon =  <FaUtensils style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const peopleLineIcon =  <FaPeopleLine style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const popcornIcon =  <LuPopcorn style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const FaceSmileBeamIcon =  <FaFaceSmileBeam style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const HeartPulseIcon =  <FaHeartPulse style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-const RunningIcon =  <FaRunning style={{fontSize:'30px', borderRadius:'50%', padding:'5px', color:'white'}} />;
-
-
-const FoodIcon =  <FaUtensils style={{fontSize:'24px',padding:'5px',marginRight:5, color:'black'}} />;
-const ActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px',marginRight:1, color:'black'}} />;
-const EntertainmentIcon =  <LuPopcorn style={{fontSize:'27px',padding:'5px',marginRight:2, color:'black'}} />;
-const BeautyIcon =  <FaFaceSmileBeam style={{fontSize:'26px',padding:'5px',marginRight:3, color:'black'}} />;
-const FitnessIcon =  <FaHeartPulse style={{fontSize:'28px',padding:'5px',marginRight:2, color:'black'}} />;
-const SportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px',marginRight:1, color:'black'}} />;
-const HomeIcon =  <FaHome style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
-const KidIcon =  <FaChild style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
-const PetsIcon =  <FaDog style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
-const userCalederIcon =  <FaCalendar style={{fontSize:'25px', padding:'5px',marginRight:5, color:'black'}} />;
-const shopBagIcon =  <FaShoppingBag style={{fontSize:'26px', padding:'5px',marginRight:5, color:'black'}} />;
-const AccomodationIcon =  <FaHotel style={{fontSize:'25px', padding:'5px',marginRight:5, color:'black'}} />;
-const BillIcon =  <FaMoneyBill style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
-const usercarIcon =  <FaCar style={{fontSize:'26px', padding:'5px',marginRight:4, color:'black'}} />;
-const TravelIcon =  <FaPlane style={{fontSize:'27px', padding:'5px',marginRight:5, color:'black'}} />;
-const RoadbusIcon =  <FaBus style={{fontSize:'28px', padding:'5px',marginRight:2, color:'black'}} />;
-const ServiesIcon =  <FaUserTie style={{fontSize:'28px', padding:'5px',marginRight:3, color:'black'}} />;
-const briefcaseIcon =  <FaBriefcase style={{fontSize:'26px', padding:'5px',marginRight:7, color:'black'}} />;
-const HomeFoodIcon =  <FaUtensils style={{fontSize:'24px',padding:'5px',marginRight:9, color:'black'}} />;
-const HomeEntertainmentIcon =  <LuPopcorn style={{fontSize:'27px',padding:'5px',marginRight:4, color:'black'}} />;
-const HomeActivityIcon =  <FaPeopleLine style={{fontSize:'30px',padding:'5px',marginRight:2, color:'black'}} />;
-const HomeBeautyIcon =  <FaFaceSmileBeam style={{fontSize:'26px',padding:'5px',marginRight:5, color:'black'}} />;
-const HomeFitnessIcon =  <FaHeartPulse style={{fontSize:'28px',padding:'5px',marginRight:3, color:'black'}} />;
-const HomeSportsIcon =  <FaRunning style={{fontSize:'30px', padding:'5px',marginRight:1, color:'black'}} />;
-const HomeKidIcon =  <FaChild style={{fontSize:'28px', padding:'5px',marginRight:4, color:'black'}} />;
-const HomeshopBagIcon =  <FaShoppingBag style={{fontSize:'26px', padding:'5px',marginRight:5, color:'black'}} />;
-
-export const DirectoryHomepage:any = [
+export const DirectoryHomepage: any = [
   {
     data: [
       {
         image: HomeFoodIcon,
         title: "Food and Drink",
-        url: "Food and Drink"
+        url: "Food and Drink",
       },
       {
         image: HomeEntertainmentIcon,
         title: "Entertainment",
-        url: "Entertainment"
+        url: "Entertainment",
       },
-   
     ],
   },
   {
@@ -246,12 +985,12 @@ export const DirectoryHomepage:any = [
       {
         image: HomeActivityIcon,
         title: "Activities",
-        url: "Activities"
+        url: "Activities",
       },
       {
         image: HomeBeautyIcon,
         title: "Hair and Beauty",
-        url: "Hair and Beauty"
+        url: "Hair and Beauty",
       },
     ],
   },
@@ -260,12 +999,12 @@ export const DirectoryHomepage:any = [
       {
         image: HomeFitnessIcon,
         title: "Wellbeing",
-        url: "Health Fitness and Wellbeing"
+        url: "Health Fitness and Wellbeing",
       },
       {
         image: HomeSportsIcon,
         title: "Sports",
-        url: "Sports"
+        url: "Sports",
       },
     ],
   },
@@ -274,12 +1013,12 @@ export const DirectoryHomepage:any = [
       {
         image: HomeIcon,
         title: "Home",
-        url: "Home"
+        url: "Home",
       },
       {
         image: HomeKidIcon,
         title: "Kids",
-        url: "Kids"
+        url: "Kids",
       },
     ],
   },
@@ -288,12 +1027,12 @@ export const DirectoryHomepage:any = [
       {
         image: PetsIcon,
         title: "Pets",
-        url: "Pets"
+        url: "Pets",
       },
       {
         image: HomeshopBagIcon,
         title: "shopping",
-        url: "shopping"
+        url: "shopping",
       },
     ],
   },
@@ -302,68 +1041,71 @@ export const DirectoryHomepage:any = [
       {
         image: userCalederIcon,
         title: "Event Planning",
-        url: "Event Planning"
+        url: "Event Planning",
       },
       {
         image: AccomodationIcon,
         title: "Accommodation",
-        url: "Accommodation"
+        url: "Accommodation",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: BillIcon,
         title: "Budget",
-        url: "Budget"
+        url: "Budget",
       },
       {
         image: usercarIcon,
         title: "Vehicles",
-        url: "Vehicles"
+        url: "Vehicles",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: TravelIcon,
         title: "Travel",
-        url: "Travel"
+        url: "Travel",
       },
       {
         image: RoadbusIcon,
         title: "Transport",
-        url: "Transport"
+        url: "Transport",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: briefcaseIcon,
         title: "Recruitment",
-        url: "Recruitment"
+        url: "Recruitment",
       },
       {
         image: ServiesIcon,
         title: "Professional Services",
-        url: "Professional Services"
+        url: "Professional Services",
       },
     ],
   },
 ];
 
-export const DirectoryItem:any = [
+export const DirectoryItem: any = [
   {
     data: [
       {
         image: FoodIcon,
         title: "Food and Drink",
-        url: "Food and Drink"
+        url: "Food and Drink",
       },
       {
         image: ActivityIcon,
         title: "Activities",
-        url: "Activities"
+        url: "Activities",
       },
     ],
   },
@@ -372,12 +1114,12 @@ export const DirectoryItem:any = [
       {
         image: EntertainmentIcon,
         title: "Entertainment",
-        url: "Entertainment"
+        url: "Entertainment",
       },
       {
         image: BeautyIcon,
         title: "Hair and Beauty",
-        url: "Hair and Beauty"
+        url: "Hair and Beauty",
       },
     ],
   },
@@ -386,12 +1128,12 @@ export const DirectoryItem:any = [
       {
         image: FitnessIcon,
         title: "Wellbeing",
-        url: "Health Fitness and Wellbeing"
+        url: "Health Fitness and Wellbeing",
       },
       {
         image: SportsIcon,
         title: "Sports",
-        url: "Sports"
+        url: "Sports",
       },
     ],
   },
@@ -400,12 +1142,12 @@ export const DirectoryItem:any = [
       {
         image: HomeIcon,
         title: "Home",
-        url: "Home"
+        url: "Home",
       },
       {
         image: KidIcon,
         title: "Kids",
-        url: "Kids"
+        url: "Kids",
       },
     ],
   },
@@ -414,12 +1156,12 @@ export const DirectoryItem:any = [
       {
         image: PetsIcon,
         title: "Pets",
-        url: "Pets"
+        url: "Pets",
       },
       {
         image: userCalederIcon,
         title: "Event Planning",
-        url: "Event Planning"
+        url: "Event Planning",
       },
     ],
   },
@@ -428,489 +1170,518 @@ export const DirectoryItem:any = [
       {
         image: shopBagIcon,
         title: "shopping",
-        url: "shopping"
+        url: "shopping",
       },
       {
         image: AccomodationIcon,
         title: "Accommodation",
-        url: "Accommodation"
+        url: "Accommodation",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: BillIcon,
         title: "Budget",
-        url: "Budget"
+        url: "Budget",
       },
       {
         image: usercarIcon,
         title: "Vehicles",
-        url: "Vehicles"
+        url: "Vehicles",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: TravelIcon,
         title: "Travel",
-        url: "Travel"
+        url: "Travel",
       },
       {
         image: RoadbusIcon,
         title: "Transport",
-        url: "Transport"
+        url: "Transport",
       },
     ],
-  },{
+  },
+  {
     data: [
       {
         image: briefcaseIcon,
         title: "Recruitment",
-        url: "Recruitment"
+        url: "Recruitment",
       },
       {
         image: ServiesIcon,
         title: "Professional Services",
-        url: "Professional Services"
+        url: "Professional Services",
       },
     ],
   },
 ];
 
-
 export const iconsHome = [
   {
     id: 1,
-    color:'#eb5757',
-    name:'shoppingCart',
+    color: "#eb5757",
+    name: "shoppingCart",
     image: cartIcon,
   },
   {
     id: 2,
-    color:'#f2c94c',
-    name:'car',
+    color: "#f2c94c",
+    name: "car",
     image: carIcon,
   },
   {
     id: 3,
-    color:'#2f80ed',
-    name:'customerService',
+    color: "#2f80ed",
+    name: "customerService",
     image: customerServiceIcon,
   },
   {
     id: 4,
-    color:'#f2994a',
-    name:'bell',
+    color: "#f2994a",
+    name: "bell",
     image: bellIcon,
   },
   {
     id: 5,
-    color:'#27ae60',
-    name:'audio',
+    color: "#27ae60",
+    name: "audio",
     image: audioIcon,
   },
   {
     id: 6,
-    color:'#4f4f4f',
-    name:'alert',
+    color: "#4f4f4f",
+    name: "alert",
     image: alertIcon,
   },
   {
     id: 7,
-    color:'#eb5757',
-    name:'camera',
+    color: "#eb5757",
+    name: "camera",
     image: cameraIcon,
   },
   {
     id: 8,
-    color:'#f2c94c',
-    name:'campass',
+    color: "#f2c94c",
+    name: "campass",
     image: campassIcon,
   },
   {
     id: 9,
-    color:'#2f80ed',
-    name:'gift',
+    color: "#2f80ed",
+    name: "gift",
     image: giftIcon,
   },
   {
     id: 10,
-    color:'#f2994a',
-    name:'crown',
+    color: "#f2994a",
+    name: "crown",
     image: crownIcon,
   },
   {
     id: 11,
-    color:'#27ae60',
-    name:'fire',
+    color: "#27ae60",
+    name: "fire",
     image: fireIcon,
   },
   {
     id: 12,
-    color:'#4f4f4f',
-    name:'heart',
+    color: "#4f4f4f",
+    name: "heart",
     image: heartIcon,
   },
   {
     id: 13,
-    color:'#eb5757',
-    name:'calendar',
+    color: "#eb5757",
+    name: "calendar",
     image: calendarIcon,
   },
   {
     id: 14,
-    color:'#f2c94c',
-    name:'creditCart',
+    color: "#f2c94c",
+    name: "creditCart",
     image: creditCardIcon,
   },
   {
     id: 15,
-    color:'#2f80ed',
-    name:'contact',
+    color: "#2f80ed",
+    name: "contact",
     image: contactIcon,
   },
   {
     id: 16,
-    color:'#f2994a',
-    name:'moon',
+    color: "#f2994a",
+    name: "moon",
     image: moonIcon,
   },
   {
     id: 17,
-    color:'#27ae60',
-    name:'sun',
+    color: "#27ae60",
+    name: "sun",
     image: sunIcon,
   },
   {
     id: 18,
-    color:'#4f4f4f',
-    name:'trophy',
+    color: "#4f4f4f",
+    name: "trophy",
     image: trophyIcon,
   },
   {
     id: 19,
-    color:'#eb5757',
-    name:'videoCamera',
+    color: "#eb5757",
+    name: "videoCamera",
     image: videoCameraIcon,
   },
   {
     id: 20,
-    color:'#f2c94c',
-    name:'sound',
+    color: "#f2c94c",
+    name: "sound",
     image: soundIcon,
   },
   {
     id: 21,
-    color:'#2f80ed',
-    name:'rest',
+    color: "#2f80ed",
+    name: "rest",
     image: restIcon,
   },
   {
     id: 22,
-    color:'#f2994a',
-    name:'skin',
+    color: "#f2994a",
+    name: "skin",
     image: skinIcon,
   },
   {
     id: 23,
-    color:'#27ae60',
-    name:'read',
+    color: "#27ae60",
+    name: "read",
     image: readIcon,
   },
   {
     id: 24,
-    color:'#4f4f4f',
-    name:'phone',
+    color: "#4f4f4f",
+    name: "phone",
     image: phoneIcon,
   },
   {
     id: 25,
-    color:'#eb5757',
-    name:'lock',
+    color: "#eb5757",
+    name: "lock",
     image: lockIcon,
   },
   {
     id: 26,
-    color:'#f2c94c',
-    name:'home',
+    color: "#f2c94c",
+    name: "home",
     image: homeIcon,
   },
   {
     id: 27,
-    color:'#2f80ed',
-    name:'hat',
+    color: "#2f80ed",
+    name: "hat",
     image: hatIcon,
   },
   {
     id: 28,
-    color:'#f2994a',
-    name:'man',
+    color: "#f2994a",
+    name: "man",
     image: manIcon,
   },
   {
     id: 29,
-    color:'#27ae60',
-    name:'woman',
+    color: "#27ae60",
+    name: "woman",
     image: womanIcon,
   },
   {
     id: 30,
-    color:'#4f4f4f',
-    name:'diaplay',
+    color: "#4f4f4f",
+    name: "diaplay",
     image: displayIcon,
   },
   {
     id: 31,
-    color:'#eb5757',
-    name:'apple',
+    color: "#eb5757",
+    name: "apple",
     image: appleIcon,
   },
   {
     id: 32,
-    color:'#f2c94c',
-    name:'bowlFood',
+    color: "#f2c94c",
+    name: "bowlFood",
     image: bowlFoodIcon,
   },
   {
     id: 33,
-    color:'#2f80ed',
-    name:'pizza',
+    color: "#2f80ed",
+    name: "pizza",
     image: pizzaIcon,
   },
   {
     id: 34,
-    color:'#f2994a',
-    name:'fullPizza',
+    color: "#f2994a",
+    name: "fullPizza",
     image: fullPizzaIcon,
   },
   {
     id: 35,
-    color:'#27ae60',
-    name:'rice',
+    color: "#27ae60",
+    name: "rice",
     image: riceIcon,
   },
   {
     id: 36,
-    color:'#4f4f4f',
-    name:'iceCream',
+    color: "#4f4f4f",
+    name: "iceCream",
     image: iceCreamIcon,
   },
   {
     id: 37,
-    color:'#eb5757',
-    name:'solidDrink',
+    color: "#eb5757",
+    name: "solidDrink",
     image: solidDrinkIcon,
   },
   {
     id: 38,
-    color:'#f2c94c',
-    name:'drinkFill',
+    color: "#f2c94c",
+    name: "drinkFill",
     image: drinkFillIcon,
   },
   {
     id: 39,
-    color:'#2f80ed',
-    name:'shoppingBag',
+    color: "#2f80ed",
+    name: "shoppingBag",
     image: shoppingBagIcon,
   },
   {
     id: 40,
-    color:'#f2994a',
-    name:'shoppingBasket',
+    color: "#f2994a",
+    name: "shoppingBasket",
     image: shoppingBasketIcon,
   },
   {
     id: 41,
-    color:'#27ae60',
-    name:'TravelDress',
+    color: "#27ae60",
+    name: "TravelDress",
     image: travelDressIcon,
   },
   {
     id: 42,
-    color:'#4f4f4f',
-    name:'martialArts',
+    color: "#4f4f4f",
+    name: "martialArts",
     image: martialArtsIcon,
   },
   {
     id: 43,
-    color:'#eb5757',
-    name:'rugby',
+    color: "#eb5757",
+    name: "rugby",
     image: rugbyIcon,
   },
   {
     id: 44,
-    color:'#f2c94c',
-    name:'sportHelmat',
+    color: "#f2c94c",
+    name: "sportHelmat",
     image: sportHelmatIcon,
   },
   {
     id: 45,
-    color:'#2f80ed',
-    name:'glubs',
+    color: "#2f80ed",
+    name: "glubs",
     image: glubsIcon,
   },
   {
     id: 46,
-    color:'#f2994a',
-    name:'kabaddi',
+    color: "#f2994a",
+    name: "kabaddi",
     image: kabaddiIcon,
   },
   {
     id: 47,
-    color:'#27ae60',
-    name:'baseBall',
+    color: "#27ae60",
+    name: "baseBall",
     image: baseBallIcon,
   },
   {
     id: 48,
-    color:'#4f4f4f',
-    name:'cricket',
+    color: "#4f4f4f",
+    name: "cricket",
     image: cricketIcon,
   },
   {
     id: 49,
-    color:'#eb5757',
-    name:'footBall',
+    color: "#eb5757",
+    name: "footBall",
     image: footBallIcon,
   },
   {
     id: 50,
-    color:'#f2c94c',
-    name:'hockey',
+    color: "#f2c94c",
+    name: "hockey",
     image: hockeyIcon,
   },
   {
     id: 51,
-    color:'#2f80ed',
-    name:'sportCar',
+    color: "#2f80ed",
+    name: "sportCar",
     image: sportCarIcon,
   },
   {
     id: 52,
-    color:'#f2994a',
-    name:'videoGame',
+    color: "#f2994a",
+    name: "videoGame",
     image: videoGameIcon,
   },
   {
     id: 53,
-    color:'#27ae60',
-    name:'PlayIpod',
+    color: "#27ae60",
+    name: "PlayIpod",
     image: playIpodIcon,
   },
   {
     id: 54,
-    color:'#4f4f4f',
-    name:'musicLibrary',
+    color: "#4f4f4f",
+    name: "musicLibrary",
     image: musicLibraryIcon,
   },
   {
     id: 55,
-    color:'#eb5757',
-    name:'ladle',
+    color: "#eb5757",
+    name: "ladle",
     image: ladleIcon,
   },
   {
     id: 56,
-    color:'#f2c94c',
-    name:'peopleLine',
+    color: "#f2c94c",
+    name: "peopleLine",
     image: peopleLineIcon,
   },
   {
     id: 57,
-    color:'#2f80ed',
-    name:'popcorn',
+    color: "#2f80ed",
+    name: "popcorn",
     image: popcornIcon,
   },
   {
     id: 58,
-    color:'#f2994a',
-    name:'smileFace',
+    color: "#f2994a",
+    name: "smileFace",
     image: FaceSmileBeamIcon,
   },
   {
     id: 59,
-    color:'#27ae60',
-    name:'heartPulse',
+    color: "#27ae60",
+    name: "heartPulse",
     image: HeartPulseIcon,
   },
   {
     id: 60,
-    color:'#4f4f4f',
-    name:'running',
+    color: "#4f4f4f",
+    name: "running",
     image: RunningIcon,
   },
   {
     id: 61,
-    color:'#eb5757',
-    name:'child',
+    color: "#eb5757",
+    name: "child",
     image: ChildIcon,
   },
   {
     id: 62,
-    color:'#f2c94c',
-    name:'plan',
+    color: "#f2c94c",
+    name: "plan",
     image: planeIcon,
   },
   {
     id: 63,
-    color:'#2f80ed',
-    name:'dog',
+    color: "#2f80ed",
+    name: "dog",
     image: dogIcon,
   },
   {
     id: 64,
-    color:'#f2994a',
-    name:'hotel',
+    color: "#f2994a",
+    name: "hotel",
     image: hotelIcon,
   },
   {
     id: 65,
-    color:'#27ae60',
-    name:'bill',
+    color: "#27ae60",
+    name: "bill",
     image: moneyBillIcon,
   },
   {
     id: 66,
-    color:'#4f4f4f',
-    name:'bus',
+    color: "#4f4f4f",
+    name: "bus",
     image: busIcon,
   },
   {
     id: 67,
-    color:'#eb5757',
-    name:'swimming',
+    color: "#eb5757",
+    name: "swimming",
     image: swimmingIcon,
   },
   {
     id: 68,
-    color:'#f2c94c',
-    name:'barbers',
+    color: "#f2c94c",
+    name: "barbers",
     image: barberIcon,
   },
   {
     id: 68,
-    color:'#2f80ed',
-    name:'sonicShoes',
+    color: "#2f80ed",
+    name: "sonicShoes",
     image: sonicShoesIcon,
   },
   {
     id: 70,
-    color:'#f2994a',
-    name:'moterbike',
+    color: "#f2994a",
+    name: "moterbike",
     image: motorbikeIcon,
   },
   {
     id: 71,
-    color:'#27ae60',
-    name:'bank',
+    color: "#27ae60",
+    name: "bank",
     image: bankIcon,
   },
   {
     id: 72,
-    color:'#4f4f4f',
-    name:'userTie',
+    color: "#4f4f4f",
+    name: "userTie",
     image: userTieIcon,
   },
+];
 
+export const eventsByDate = [
+  {
+    name: "Today",
+    color: "#EB5757",
+    icon: calendarIcon,
+  },
+  {
+    name: "Tomorrow",
+    color: "#ED7055",
+    icon: calendarIcon,
+  },
+  {
+    name: "Weekend",
+    color: "#EE8253",
+    icon: calendarIcon,
+  },
+  {
+    name: "Next Week",
+    color: "#EF9351",
+    icon: calendarIcon,
+  },
+  {
+    name: "Next Month",
+    color: "#F0A54F",
+    icon: calendarIcon,
+  },
 ];

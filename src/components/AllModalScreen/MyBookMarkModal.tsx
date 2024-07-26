@@ -14,8 +14,6 @@ interface DashboardSearchContainerProps {
   listData?: any;
 }
 
-
-
 const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   myBookmarktabChange,
   myBookmarkoptions,
@@ -23,68 +21,96 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { closeModal, modalType } = useMyContext();
-  const [listData, setListData] = useState<string[]>([])
-  const [contributionData, setContributionData] = useState<string[]>([])
-  const [loader, setloader] = useState<boolean>(false)
-  const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
+  const [listData, setListData] = useState<string[]>([]);
+  const [eventData, setEventData] = useState<string[]>([]);
+  const [activityData, setActivityData] = useState<string[]>([]);
+  const [loader, setloader] = useState<boolean>(false);
+  const loginToken =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("loginToken")
+      : null;
 
   const fetchDataAsync = async () => {
     if (loginToken) {
-      setloader(true)
+      setloader(true);
       if (myBookMarkState === "Lists") {
         try {
-          const response = await Instance.get("/bookmark")
-          const list = response.data.bookmarks
-          console.log(list)
+          const response = await Instance.get("/bookmark");
+          const list = response.data.bookmarks;
+
           if (response.status === 200) {
             list.forEach((list: any) => {
-              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              const matchedIcon = icons.find(
+                (icon) => icon.name === list.iconName
+              );
               if (matchedIcon) {
                 list.image = matchedIcon.image;
               }
-            })
-            setListData(list)
-            setloader(false)
+            });
+            setListData(list);
+            setloader(false);
           } else {
-            setListData([])
-            setloader(false)
+            setListData([]);
+            setloader(false);
           }
         } catch (error) {
-          setListData([])
-          setloader(false)
+          setListData([]);
+          setloader(false);
         }
-
-      } else {
-
+      } else if (myBookMarkState === "Events") {
         try {
-          const response = await Instance.get("/my-contribution")
-          const list = response.data
+          const response = await Instance.get("/event-bookmark");
+          const list = response.data.bookmark;
           if (response.status === 200) {
             list.forEach((list: any) => {
-              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              const matchedIcon = icons.find(
+                (icon) => icon.name === list.iconName
+              );
               if (matchedIcon) {
                 list.image = matchedIcon.image;
               }
-            })
-            setContributionData(list)
-            setloader(false)
+            });
+
+            setEventData(list);
+            setloader(false);
           } else {
-            setContributionData([])
-            setloader(false)
+            setEventData([]);
+            setloader(false);
           }
         } catch (error) {
-          setContributionData([])
-          setloader(false)
+          setEventData([]);
+          setloader(false);
+        }
+      } else {
+        try {
+          const response = await Instance.get("/activity-bookmark");
+          const list = response.data.bookmark;
+          if (response.status === 200) {
+            list.forEach((list: any) => {
+              const matchedIcon = icons.find(
+                (icon) => icon.name === list.iconName
+              );
+              if (matchedIcon) {
+                list.image = matchedIcon.image;
+              }
+            });
+            setActivityData(list);
+            setloader(false);
+          } else {
+            setActivityData([]);
+            setloader(false);
+          }
+        } catch (error) {
+          setActivityData([]);
+          setloader(false);
         }
       }
     }
-  }
-
-  console.log(listData,"sdsds")
+  };
 
   useEffect(() => {
-    fetchDataAsync()
-  }, [loginToken, myBookMarkState])
+    fetchDataAsync();
+  }, [myBookMarkState]);
 
   return (
     <>
@@ -93,7 +119,8 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
         onClose={() => closeModal("myBookmark")}
         {...{ showMap }}
         title="My Bookmarks"
-        name="myBookmarkModal">
+        name="myBookmarkModal"
+      >
         <SearchedContainer>
           <MyBookmark
             {...{
@@ -101,7 +128,8 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
               myBookmarkoptions,
               myBookMarkState,
               listData,
-              contributionData,
+              eventData,
+              activityData,
               loader,
             }}
           />
@@ -112,7 +140,6 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
 };
 
 export default MyBookMarkModal;
-
 
 const SearchedContainer = styled.div`
   background-color: #fff;
@@ -154,4 +181,3 @@ const SearchedContainer = styled.div`
     font-weight: 600;
   }
 `;
-

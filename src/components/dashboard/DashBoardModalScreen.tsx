@@ -35,7 +35,7 @@ const DashBoardModalScreen = () => {
  
   const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
-  const myBookmarkoptions = ["Lists", "Events"];
+  const myBookmarkoptions = ["Lists", "Events","Activities"];
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);

@@ -1,4 +1,4 @@
-import { getCategory } from "@/app/action";
+import { getBookMark, getCategory } from "@/app/action";
 
 import CategorieList from "@/components/categorieList/page";
 
@@ -7,6 +7,7 @@ import TrendingList from "@/components/trendingList/page";
 import ScaffoldingBox from "@/components/scaffoldingBox/page";
 import CategoriesPage from "@/components/CategoriesPage/Page";
 import { ResolvingMetadata, Metadata } from "next";
+import { cookies } from "next/headers";
 
 interface Props {
   params: {
@@ -17,7 +18,7 @@ interface Props {
   };
 }
 async function Page({ params, searchParams }: Props) {
-  const urlData: any = params.eventName.toString().replaceAll("%20", " ");
+  let urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
 
   if (
@@ -25,7 +26,9 @@ async function Page({ params, searchParams }: Props) {
     urlData == "Jerseyisms" ||
     urlData == "Community" ||
     urlData == "Shopping" ||
-    urlData == "Wellbeing"
+    urlData == "Wellbeing" ||
+    urlData == "Event List" ||
+    urlData == "Activity List"
   ) {
     return <TrendingList urlData={search} urlTitle={urlData} />;
   } else if (urlData === "categorieList") {
@@ -35,25 +38,55 @@ async function Page({ params, searchParams }: Props) {
   } else if (urlData === "Scaffolding") {
     return <ScaffoldingBox />;
   }
-  const data = await getCategory(searchParams.search);
+  let data, title;
+  let bookmark = false;
+  if (search == "sun-shine" || search == "events") {
+    data = await getCategory(searchParams.search);
+  } else if (params.eventName == "EventsByDate") {
+    data = await getCategory(
+      "filter-events?query=" + searchParams.search.toLowerCase()
+    );
+  } else {
+    const response = await getCategory(`${urlData}/` + searchParams.search);
+    data = response.data;
+
+    const token = cookies().get("loginToken")?.value;
+    title = response?.listName;
+    if (token) {
+      const res = await getBookMark(
+        urlData == "event-list" ? "event-bookmark" : "activity-bookmark"
+      );
+
+      const category = response?.listName;
+
+      res.bookmark?.forEach((item: any) => {
+        if (item.listName.includes(category)) {
+          bookmark = true;
+        }
+      });
+    }
+  }
 
   return (
     <>
       <CategoriesPage
         params={params.eventName}
+        title={title}
         searchParams={searchParams.search}
-        data={data}></CategoriesPage>
+        bookmarkValue={bookmark}
+        data={data}
+      ></CategoriesPage>
     </>
   );
 }
 
-const params = ["Enjoy the sunshine", "Community", "Shopping", "Wellbeing"];
+// const params = ["Enjoy the sunshine", "Community", "Shopping", "Wellbeing"];
 
-export async function generateStaticParams() {
-  return params.map((params) => {
-    return { eventName: params };
-  });
-}
+// export async function generateStaticParams() {
+//   return params.map((params) => {
+//     return { eventName: params };
+//   });
+// }
 
 export async function generateMetadata(
   { params }: Props,
@@ -72,7 +105,5 @@ export async function generateMetadata(
     },
   };
 }
-
-
 
 export default Page;

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
@@ -12,6 +12,7 @@ import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
 import { handleFilter } from "@/app/utils/mappingFun";
 import FilterSection from "../filterSection";
+// import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
   isShare?: any;
@@ -48,12 +49,13 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       setSelectFilter("Any");
     }
   };
+  // const token = localStorage.getItem("loginToken");
   // const [isBookmark, setBookmark] = useState(false);
   // const handleBookMark = async () => {
-  //   console.log(categoryId, token, 119);
+
   //   if (token) {
   //     console.log("yes");
-  //     const res = await addAndRemoveBookmark(categoryId);
+  //     const res = await addAndRemoveBookmark("scs");
   //     if (res) {
   //       setBookmark(true);
   //     }
@@ -62,9 +64,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   //   }
   // };
   const handleShare = () => {
-    console.log(socialShare);
     if (!socialShare) {
-      console.log(socialShare);
       handleSocialShare();
     }
   };
@@ -88,7 +88,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
+          }}
+        >
           <FilterSection pageTitle="categoryEvent" />
           <div
             style={{
@@ -97,7 +98,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}>
+            }}
+          >
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -148,7 +150,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       item,
                       filteredUrls[index] ? filteredUrls[index] : fallback
                     )
-                  }>
+                  }
+                >
                   <div
                     style={{
                       display: "flex",
@@ -156,7 +159,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}>
+                    }}
+                  >
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}

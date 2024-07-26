@@ -19,19 +19,21 @@ import { emails, tnc, user } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { addAndRomoveToken } from "@/app/action";
 import { usePathname } from "next/navigation";
+import { information } from "@/app/utils/ImagePath";
  
  
 interface ModalProps {
-    isOpen?: any;
-    nextModal?: any;
-    onClick: (name: string) => void;
-    myListOpen?: any;
-    isOpenAboutUs?: any;
+  isOpen?: any;
+  nextModal?: any;
+  onClick: (name: string) => void;
+  myListOpen?: any;
+  isOpenAboutUs?: any;
+  isPrivacyPolicy?: any;
 }
 
 
 
-const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs }) => {
+const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs,isPrivacyPolicy }) => {
     const [loader, setloader] = useState(false);
     const { modalClick } = useMyContext();
       const pathname = usePathname();
@@ -77,59 +79,72 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
     });
 
     return (
-        <MenuModalContent>
-            <div style={{ display: "flex", gap: "10px" }}>
-                <CommonButton
-                    bcColor="#2F80ED"
-                    text={loader ? "Loading..." : "Create Account"}
-                    isOpen={() => modalClick("createAccountModal")}
-                /><CommonButton
-                    bcColor="#2F80ED"
-                    text={loader ? "Loading..." : "Login"}
-                    isOpen={() => modalClick("LoginAccountModal")}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={() => modalClick("LeaveFeedback")}>
-                <MenuOptionList
-                    optionListText
-                    title1="Leave feedback"
-                    menuOptionImg={contactUsImg}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={isOpen}>
-                <MenuOptionList
-                    optionListText
-                    title1="Contact us"
-                    menuOptionImg={emails}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={isOpenAboutUs}>
-                <MenuOptionList
-                    optionListText
-                    title1="About us"
-                    menuOptionImg={user}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <div style={{ cursor: "pointer" }} onClick={myListOpen}>
-                <MenuOptionList
-                    optionListText
-                    title1="Terms & Conditions"
-                    menuOptionImg={tnc}
-                    navigaetImg
-                    forwardNavigateImg={navigateImg}
-                />
-            </div>
-            <SocialMedia />
-            <UserTermsText1>
-                <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
-            </UserTermsText1>
-        </MenuModalContent>
+      <MenuModalContent>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <CommonButton
+            bcColor="#2F80ED"
+            text={loader ? "Loading..." : "Create Account"}
+            isOpen={() => modalClick("createAccountModal")}
+          />
+          <CommonButton
+            bcColor="#2F80ED"
+            text={loader ? "Loading..." : "Login"}
+            isOpen={() => modalClick("LoginAccountModal")}
+          />
+        </div>
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => modalClick("LeaveFeedback")}
+        >
+          <MenuOptionList
+            optionListText
+            title1="Leave feedback"
+            menuOptionImg={contactUsImg}
+            navigaetImg
+            forwardNavigateImg={navigateImg}
+          />
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={isOpen}>
+          <MenuOptionList
+            optionListText
+            title1="Contact us"
+            menuOptionImg={emails}
+            navigaetImg
+            forwardNavigateImg={navigateImg}
+          />
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={isOpenAboutUs}>
+          <MenuOptionList
+            optionListText
+            title1="About us"
+            menuOptionImg={user}
+            navigaetImg
+            forwardNavigateImg={navigateImg}
+          />
+        </div>
+        <div style={{ cursor: "pointer" }} onClick={myListOpen}>
+          <MenuOptionList
+            optionListText
+            title1="Terms & Conditions"
+            menuOptionImg={tnc}
+            navigaetImg
+            forwardNavigateImg={navigateImg}
+          />
+        </div>
+        <div onClick={isPrivacyPolicy} style={{ cursor: "pointer" }}>
+          <MenuOptionList
+            optionListText
+            title1="Privacy Policy"
+            menuOptionImg={information}
+            navigaetImg
+            forwardNavigateImg={navigateImg}
+          />
+        </div>
+        <SocialMedia />
+        <UserTermsText1>
+          <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
+        </UserTermsText1>
+      </MenuModalContent>
     );
 };
 

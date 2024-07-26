@@ -1,9 +1,12 @@
-'use client'
+"use client";
 
 import dynamic from "next/dynamic";
 import { CategoryBody } from "./ServerStyles";
 // client Component:
 const EventBox = dynamic(() => import("@/components/eventBox/page"));
+const ActivityBox = dynamic(
+  () => import("@/components/dashboard/activityBox/page")
+);
 const ExperienceBox = dynamic(() => import("@/components/experienceBox/page"));
 const AttractionBox = dynamic(() => import("@/components/attractionBox/page"));
 const Categories = dynamic(() => import("./Categories"));
@@ -13,46 +16,65 @@ import PageLayout from "@/app/pageLayout";
 import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import SocialShareModal from "../modal/SocialShareModal";
-
+import { bookmark } from "@/app/utils/ImagePath";
 
 interface CategoriesPageProps {
-  params: string,
-  searchParams: string,
-  data: any
+  params: string;
+  title?: string;
+  searchParams: string;
+  bookmarkValue: boolean;
+  data: any;
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap,socialShare,handleSocialShare } = useMyContext()
+  const { showMap, socialShare, handleSocialShare } = useMyContext();
   let urlData: any;
-  var data: ApiResponse[]
-  urlData = props.params.toString().replaceAll("%20", " ").replaceAll("%26", " ");
-  data = props.data
+  var data: ApiResponse[];
+  urlData = props.params
+    .toString()
+    .replaceAll("%20", " ")
+    .replaceAll("%26", " ");
+  data = props.data;
   if (props.searchParams == "surfing" || props.searchParams == "ww2") {
-    const combinedArray = [
-      ...props.data.activity1,
-      ...props.data.activity2,
-    ];
-    data = combinedArray
-
+    const combinedArray = [...props.data.activity1, ...props.data.activity2];
+    data = combinedArray;
   }
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
   const filteredUrls = filterUrls(ImageUrlData);
+  console.log(filteredUrls);
+  console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
-    if (props.searchParams === "Family Events" || props.params === "Events") {
+    if (props.params === "event-list" || props.params == "Events") {
       return (
         <EventBox
-         isShare={socialShare}
+          isShare={socialShare}
           urlData={data}
-          urlTitle={urlData}
+          bookmarkState={props.bookmarkValue}
+          categoryId={props.searchParams}
+          urlTitle={props.title}
           filteredUrls={filteredUrls}
         />
       );
-    } else if (urlData === "Enjoy the sunshine") {
-
+    } else if (props.params == "activity-list") {
+      return (
+        <ActivityBox
+          isShare={socialShare}
+          urlData={data}
+          bookmarkState={props.bookmarkValue}
+          categoryId={props.searchParams}
+          urlTitle={props.title}
+          filteredUrls={filteredUrls}
+        />
+      );
+    } else if (urlData === "Enjoy the sunshine" || urlData === "EventsByDate") {
+      let title = props.params;
+      if (urlData === "EventsByDate") {
+        title = props.searchParams.toString().replaceAll("%20", " ");
+      }
       return (
         <ExperienceBox
           isShare={socialShare}
           urlData={data}
-          urlTitle={urlData}
+          urlTitle={title}
           filteredUrls={filteredUrls}
         />
       );

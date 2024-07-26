@@ -14,14 +14,16 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import fallback from "../../../assets/images/fallbackimage.png";
+import fallback from "../../../../assets/images/fallbackimage.png";
 import { useRouter } from "next/navigation";
-import FilterSection from "../filterSection";
+
 import { handleFilter } from "@/app/utils/mappingFun";
-import CustomBanner from "../AdComponent/CustomBanner";
+
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
-interface EventBoxProps {
+import CustomBanner from "@/components/AdComponent/CustomBanner";
+import FilterSection from "@/components/filterSection";
+interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
   bookmarkState: boolean;
@@ -31,7 +33,7 @@ interface EventBoxProps {
   loader?: boolean;
 }
 
-const EventBox: React.FC<EventBoxProps> = ({
+const ActivityBox: React.FC<ActivityBoxProps> = ({
   isShare,
   urlTitle,
   urlData,
@@ -51,14 +53,10 @@ const EventBox: React.FC<EventBoxProps> = ({
   } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
-  const token =
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("loginToken")
-      : null;
-  
+
   const router = useRouter();
+
   useEffect(() => {
-   
     setBookmark(bookmarkState);
   }, [bookmarkState]);
   const handleBack = () => {
@@ -68,14 +66,17 @@ const EventBox: React.FC<EventBoxProps> = ({
       setSelectFilter("Any");
     }
   };
-
+  const token =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("loginToken")
+      : null;
   const [isBookmark, setBookmark] = useState(false);
   const [bookmarkLoader, setBookmarkLoader] = useState(false);
   const handleBookMark = async () => {
     if (token) {
       setBookmarkLoader(true);
-      const res = await addAndRemoveBookmark("event-bookmark", categoryId);
- 
+      const res = await addAndRemoveBookmark("activity-bookmark", categoryId);
+
       if (res) {
         setBookmark(!isBookmark);
         setBookmarkLoader(false);
@@ -88,15 +89,13 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   const handleShare = () => {
-    
     if (!socialShare) {
-    
       handleSocialShare();
     }
   };
 
   const filterDate = handleFilter(urlData, selectFilter);
-  
+
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
@@ -193,12 +192,16 @@ const EventBox: React.FC<EventBoxProps> = ({
                     }
                   >
                     <FamilyEventWrapper>
-                      <img
+                      <Image
                         src={filteredUrls[index]}
                         alt="image"
-                        width={80}
+                        width={500}
                         height={80}
-                        style={{ objectFit: "cover" }}
+                        style={{
+                          borderRadius: 4,
+                          width: "80px",
+                          objectFit: "cover",
+                        }}
                       />
                       <FamilyEventWrapperInside>
                         <p className="date">
@@ -262,7 +265,7 @@ const Backdrop = styled.div`
   }
 `;
 
-export default EventBox;
+export default ActivityBox;
 
 const Header = styled.div`
   display: flex;

@@ -1,7 +1,9 @@
 import React, { ReactNode, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import ShareFeature from "../ShareFeature";
 
+import dynamic from "next/dynamic";
+import { constants } from "fs/promises";
+const ShareFeature = dynamic(() => import("../ShareFeature"), { ssr: false });
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -11,38 +13,31 @@ interface ModalProps {
 const StyledModal = styled.div<{
   $isopen: boolean;
   $showMap: boolean;
- 
- 
 }>`
   position: fixed;
   top: 0;
-  left: ${({ $isopen }) => ($isopen ? "480px" : "-480px")};
-
-  transform: translateX(
-    ${({$showMap }) => ($showMap ? 20 : -500)}px
-  );
+  left: ${({ $isopen }) => ($isopen ? "480px" : "-520px")};
+  transform: translateX(${({ $showMap }) => ($showMap ? 20 : -500)}px);
   bottom: 0%;
-  max-height:25%;
+  max-height: 25%;
   width: 500px; /* Adjust this value as needed */
   border-radius: 10px;
   // background: #f2f3f3;
-   
+
   background-blend-mode: normal, luminosity;
   box-shadow: ${({ $isopen }) =>
     $isopen ? "0px -8px 40px 0px rgba(0, 0, 0, 0.25)" : "none"};
   //  backdrop-filter: blur(22px);
-  background-color:white;   
+  background-color: white;
   margin: 16px auto;
   transition: left 0.8s ease-in-out;
   z-index: 0;
-   
+
   overflow: auto;
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-   
 
   .close-button {
     margin-top: 10px;
@@ -54,16 +49,16 @@ const StyledModal = styled.div<{
     // left: ${({ $isopen }) => ($isopen ? "65%" : "0%")};
     left: ${({ $isopen }) => ($isopen ? "480px" : "0%")};
     transform: translateX(
-      ${({  $showMap }) => ($showMap ? 20 : -500)}px
+      ${({ $showMap }) => ($showMap ? 20 : -500)}px
     );
   } */
 
   @media screen and (max-width: 1130px) {
     width: ${({ $showMap }) => ($showMap ? "480px" : "580px")};
     max-width: 100%;
-    left: ${({ $isopen}) => ($isopen ? "0%" : "-100%")};
+    left: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
     transform: none;
-    background-color:"red";
+    background-color: "red";
     z-index: 1;
     max-height: 30vh;
     margin: 0px; /* Center the modal horizontally */
@@ -74,8 +69,8 @@ const StyledModal = styled.div<{
     left: 0;
     top: auto;
     height: 30%;
-    border-top-left-radius:10px;
-      border-top-right-radius:10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     bottom: ${({ $isopen }) =>
       $isopen
         ? "0%"
@@ -89,14 +84,11 @@ const SocialShareModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   showMap,
- 
 }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
-  
- 
+
   useEffect(() => {
- 
     if (isOpen) {
       document.documentElement.style.overflow = "hidden";
     } else {
@@ -133,4 +125,3 @@ const SocialShareModal: React.FC<ModalProps> = ({
 };
 
 export default SocialShareModal;
- 

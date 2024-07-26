@@ -1,29 +1,25 @@
 "use server";
-import { cookies, headers} from "next/headers";
+import { cookies, headers } from "next/headers";
 import { revalidateTag } from "next/cache";
 import next from "next";
 import { cache } from "react";
- 
-export async function addAndRomoveToken(loginToken?:any)
-{
-    // console.log(loginToken,"line7")
-      if(loginToken)
-      {
-      cookies().set('loginToken',loginToken)
-      }
-      else
-      {
-         cookies().delete('loginToken')
-      }
+
+export async function addAndRomoveToken(loginToken?: any) {
+  // console.log(loginToken,"line7")
+  if (loginToken) {
+    cookies().set("loginToken", loginToken);
+  } else {
+    cookies().delete("loginToken");
+  }
 }
 export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
     const options =
       params === "events" || params === "Trending Lists"
-        ? { next: { revalidate: 0 } }
+        ? { next: { revalidate: 1} }
         : undefined;
-  
+
     const res = await fetch(url, options);
 
     if (!res.ok) {
@@ -43,22 +39,19 @@ export async function getCategory(params: string) {
 
 export async function getData(slug: string, params: string) {
   try {
-
-    
-    const loginToken=cookies().get('loginToken')?.value
+    const loginToken = cookies().get("loginToken")?.value;
     // console.log(loginToken,"line 49")
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-    const options:any= loginToken
-    ?{
+    const options: any = loginToken
+      ? {
           headers: {
-            "x-login-token":loginToken ? loginToken.toString() : "",
-          },   
-          next:{tags:[slug],revalidate:0}
-       }
-      : { next: { revalidate:1}}
-    const res = await fetch(url,options);
+            "x-login-token": loginToken ? loginToken.toString() : "",
+          },
+          next: { tags: [slug], revalidate: 0 },
+        }
+      : { next: { revalidate: 1 } };
+    const res = await fetch(url, options);
 
-     
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
     }
@@ -77,7 +70,7 @@ export async function getData(slug: string, params: string) {
 export async function getDataForHome(slug: string, params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-   
+
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -152,66 +145,49 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
   }
 }
 
-export async function addAndRemoveBookmark(categoryId:string)
-{
-  console.log(categoryId,157,"action.ts")
-     const loginToken = cookies().get("loginToken")?.value;
-     try{
-      const res = await fetch(
-        `${process.env.NEXT_API_URL}/bookmark/${categoryId}`,
-        {
-          method: "PUT",
-          headers: {
-            "x-login-token": loginToken ? loginToken.toString() : "",
-          },
-        }
-      );
-
-      if(!res.ok)
+export async function addAndRemoveBookmark(params: string, categoryId: string) {
+  console.log(categoryId, 157, "action.ts");
+  const loginToken = cookies().get("loginToken")?.value;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_API_URL}/${params}/${categoryId}`,
       {
-        console.log(res)
-         throw Error(res.status.toString())
+        method: "PUT",
+        headers: {
+          "x-login-token": loginToken ? loginToken.toString() : "",
+        },
       }
+    );
 
-      return true
+    if (!res.ok) {
+      console.log(res);
+      throw Error(res.status.toString());
     }
-    catch(error)
-    {
-         return false
-    }
 
-
-    
-
-      
-
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
-export async function getBookMark()
-{
-         const loginToken = cookies().get("loginToken")?.value;
-         try {
-           const res = await fetch(
-             `${process.env.NEXT_API_URL}/bookmark`,
-             {
-              
-               headers: {
-                 "x-login-token": loginToken ? loginToken.toString() : "",
-               },
-               next:{revalidate:0}
-             }
-           );
+export async function getBookMark(params: string) {
+  const loginToken = cookies().get("loginToken")?.value;
+  try {
+    const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
+      headers: {
+        "x-login-token": loginToken ? loginToken.toString() : "",
+      },
+      next: { revalidate: 0 },
+    });
 
-           if (!res.ok) {
-             throw Error(res.status.toString());
-           }
+    if (!res.ok) {
+      throw Error(res.status.toString());
+    }
 
-           return await res.json();
-         } catch (error) {
-           return error;
-         }
-
-
+    return await res.json();
+  } catch (error) {
+    return error;
+  }
 }
 
 // export async function handleLike(req: any, res: any) {

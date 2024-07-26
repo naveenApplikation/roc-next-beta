@@ -17,7 +17,6 @@ import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";
 import AboutUs from "../LoginSignup/AboutUs";
 import { addAndRomoveToken } from "@/app/action";
- 
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -31,25 +30,23 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
 
-    const addToken=async()=>{
-       await addAndRomoveToken(
-          typeof window !== "undefined"
-            ? window.localStorage.getItem("loginToken")
-            : null
-        );
-    }
+  const addToken = async () => {
+    await addAndRomoveToken(
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("loginToken")
+        : null
+    );
+  };
 
-
-   useEffect(()=>{
-        addToken()
-   },[loginToken])
-  const { modalName, closeModal, modalClick, setOldName } =
-    useMyContext();
+  useEffect(() => {
+    addToken();
+  }, [loginToken]);
+  const { modalName, closeModal, modalClick, setOldName } = useMyContext();
   const router = useRouter();
-   
-  const logoutClick = async() => {
+
+  const logoutClick = async () => {
     localStorage.clear();
-     await addAndRomoveToken();
+    await addAndRomoveToken();
     window.location.reload();
   };
   const onClick = (name: string) => {
@@ -69,13 +66,15 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
               myBookmarkOpen={() => modalClick("myBookmark")}
-              isPrivacyPolicy={()=>modalClick("privacyPolicy")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
               {...{ logoutClick, onClick }}
             />
           ) : (
             <CreateAccountContent
               isOpen={() => modalClick("LoginAccountModal")}
               nextModal={() => modalClick("WelcomeBackModal")}
+              myListOpen={() => modalClick("TermsAndConditionModal")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
             />
           )}
         </>
@@ -90,7 +89,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
               myBookmarkOpen={() => modalClick("myBookmark")}
-              isPrivacyPolicy={()=>modalClick("privacyPolicy")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -100,6 +99,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenAboutUs={() => modalClick("AboutUs")}
               {...{ onClick }}
               myListOpen={() => modalClick("TermsAndConditionModal")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
             />
           )}
         </>
@@ -119,7 +119,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
               isOpenAboutUs={() => modalClick("AboutUs")}
               myListOpen={() => modalClick("myList")}
               myBookmarkOpen={() => modalClick("myBookmark")}
-              isPrivacyPolicy={()=>modalClick("privacyPolicy")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
               {...{ logoutClick, onClick }}
             />
           ) : (
@@ -139,7 +139,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
             isOpenAboutUs={() => modalClick("AboutUs")}
             myListOpen={() => modalClick("myList")}
             myBookmarkOpen={() => modalClick("myBookmark")}
-            isPrivacyPolicy={()=>modalClick("privacyPolicy")}
+            isPrivacyPolicy={() => modalClick("privacyPolicy")}
             {...{ logoutClick, onClick }}
           />
         </>
@@ -228,12 +228,11 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
     }
   };
 
-  useEffect(()=>{
-    closeModal("createAccountModal")
-    closeModal("myList")
-    closeModal("myBookmark")
-
-  },[])
+  useEffect(() => {
+    closeModal("createAccountModal");
+    closeModal("myList");
+    closeModal("myBookmark");
+  }, []);
 
   return (
     <>
@@ -251,7 +250,7 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           modalName === "TermsAndConditionModal" ||
           modalName === "myList" ||
           modalName === "myBookmark" ||
-          modalName=="privacyPolicy" ||
+          modalName == "privacyPolicy" ||
           modalName === "ContactUsModal" ||
           modalName === "LoginThankYouDiresctoryModal" ||
           modalName === "UpdateMyPreferencesModal" ||
@@ -264,7 +263,9 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "LoginSignupModal" && loginToken && "Welcome back!") ||
           (modalName === "WelcomeBackModal" && "Welcome back!") ||
           (modalName === "TermsAndConditionModal" && "Terms & Conditions") ||
-          (modalName === "createAccountModal" && loginToken && "Welcome back!") ||
+          (modalName === "createAccountModal" &&
+            loginToken &&
+            "Welcome back!") ||
           (modalName === "createAccountModal" && "Create an account") ||
           (modalName === "LoginAccountModal" && "Login") ||
           (modalName === "UpdateMyDetailsModal" && "Update my details") ||
@@ -274,12 +275,13 @@ const ProfileAccountModalScreen: React.FC<DashboardSearchContainerProps> = ({
           (modalName === "UpdatePassswordModal" && "Update my password") ||
           (modalName === "myList" && "My Lists") ||
           (modalName === "myBookmark" && "My Bookmarks") ||
-          (modalName=== "privacyPolicy") ||
+          modalName === "privacyPolicy" ||
           (modalName === "ContactUsModal" && "Contact us") ||
           (modalName === "LoginThankYouDiresctoryModal" && "Thank you") ||
           (modalName === "AboutUs" && "About us") ||
           (modalName === "UpdateMyPreferencesModal" && "Update my preferences")
-        }>
+        }
+      >
         {showLoginHandle()}
       </CreateAccountModalLayout>
     </>

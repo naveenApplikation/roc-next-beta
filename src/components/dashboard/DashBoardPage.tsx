@@ -21,6 +21,8 @@ import {
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
 import CustomBanner from "../AdComponent/CustomBanner";
+import CategoriesComps from "../homepage/CategoriesComps";
+import EventsByDate from "../homepage/EventsByDate";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -51,6 +53,8 @@ const DashBoard = async () => {
     "shopping-lists",
     shoppingImages
   );
+  const eventsCategories = await getApiWithIcon("event-list", iconsHome);
+  const activities = await getApiWithIcon("activity-list", iconsHome);
   return (
     <>
       <SearchNFilter />
@@ -59,6 +63,7 @@ const DashBoard = async () => {
       <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
       <FamilyEvent data={familyEventdata} />
       <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
+      <EventsByDate></EventsByDate>
       <TrendingList {...{ listData }} />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
       <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
@@ -66,6 +71,18 @@ const DashBoard = async () => {
       {/* <Bars dataPubs={bardata} /> */}/
       <ScreenPageComps data={bardata} title="Pubs" />
       <Shopping {...{ Shoppingdata }} />
+      <CategoriesComps
+        data={eventsCategories}
+        type="event-list"
+        name="Event List"
+        title="Event Categories"
+      />
+      <CategoriesComps
+        data={activities}
+        type="activity-list"
+        name="Activity List"
+        title="Activity"
+      />
       {/* <BeachLife data={beachLifedata[0]} /> */}
       <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       <Community {...{ listData }} />

@@ -15,10 +15,10 @@ async function Page({ params, searchParams }: Props) {
   const data = await getData(params.events, searchParams.categoryID);
 
   const token = cookies().get("loginToken")?.value;
-  console.log(token);
+
   let bookmark = false;
   if (token) {
-    const res = await getBookMark();
+    const res = await getBookMark("bookmark");
     const category = params.events
       .toString()
       .replaceAll("%20", " ")

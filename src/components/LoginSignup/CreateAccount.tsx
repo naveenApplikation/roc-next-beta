@@ -12,6 +12,8 @@ import { usePathname } from "next/navigation";
 interface ModalProps {
   isOpen?: any;
   nextModal?: any;
+  myListOpen?: any;
+  isPrivacyPolicy?: any;
 }
 
 const MenuModalContent = styled.div`
@@ -42,18 +44,19 @@ const ReceiveOffersText = styled.div`
 `;
 
 const UserTermsText1 = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 2px;
   color: var(--BODY, #000);
-  text-align: center;
+  // text-align: center;
   // font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 19px;
+  // font-size: 16px;
+  // font-style: normal;
+  // font-weight: 400;
+  // line-height: 19px;
 `;
 
 const UserTermsText2 = styled.div`
@@ -62,11 +65,27 @@ const UserTermsText2 = styled.div`
   align-items: center;
   color: var(--BODY, #000);
   text-align: center;
-  font-size: 16px;
+  font-size: 15px;
+  font-style: normal;
+  line-height: 19px;
+  padding-top: 3px;
+  border-bottom: 2px solid #000000;
+`;
+const UserPolicy = styled.div`
+  display: grid;
+  grid-column: 1 / span 2;
+  height: 19px;
+  color: var(--BODY, #000);
+  justify-content: center;
+  padding-top: 3px;
+`;
+const Text = styled.div`
+  font-size: 15px;
   font-style: normal;
   font-weight: 500;
   line-height: 19px;
-  padding-top: 3px;
+  width: max-content;
+  cursor: pointer;
   border-bottom: 2px solid #000000;
 `;
 
@@ -109,9 +128,15 @@ export const ErrorMessage = styled.p`
   font-size: 16px;
 `;
 
-const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
+const CreateAccountContent: React.FC<ModalProps> = ({
+  isOpen,
+  nextModal,
+  isPrivacyPolicy,
+  myListOpen,
+}) => {
   const [loader, setloader] = useState(false);
-   const pathname = usePathname();
+  const pathname = usePathname();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -131,14 +156,12 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
           password: values.password,
         });
         localStorage.setItem("loginToken", loginData.data.token);
-        await addAndRomoveToken(loginData.data.token); 
-        console.log(pathname)
-        if(pathname.includes('screens'))
-        {
-           window.location.reload()
-        }
-        else{     
-           nextModal()
+        await addAndRomoveToken(loginData.data.token);
+        console.log(pathname);
+        if (pathname.includes("screens")) {
+          window.location.reload();
+        } else {
+          nextModal();
         }
       } catch (error: any) {
         console.log(error.message);
@@ -186,8 +209,14 @@ const CreateAccountContent: React.FC<ModalProps> = ({ isOpen, nextModal }) => {
         isOpen={formik.handleSubmit}
       />
       <UserTermsText1>
-        By continuing, I agree to the{" "}
-        <UserTermsText2>User Terms</UserTermsText2>
+        <UserTermsText2 style={{ border: "none" }}>
+          By continuing, I agree to the&#xA0;
+          <Text onClick={myListOpen}>User Terms</Text>
+        </UserTermsText2>
+        <Text style={{ border: "none", paddingTop: "3px" }}>&</Text>
+        <UserPolicy>
+          <Text onClick={isPrivacyPolicy}>Privacy Policy</Text>
+        </UserPolicy>
       </UserTermsText1>
       <UserLoginText onClick={isOpen}>Already a user? Login</UserLoginText>
     </MenuModalContent>

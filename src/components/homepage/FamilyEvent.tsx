@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
@@ -9,10 +9,10 @@ import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
-import fallback from '../../../assets/images/fallbackimage.png'
+import fallback from "../../../assets/images/fallbackimage.png";
 
 interface DashboardProps {
-  data?:any
+  data?: any;
 }
 
 const ScrollingMenu = styled.div`
@@ -51,7 +51,7 @@ const FamilEventContainer = styled.div`
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
-    background-color: #BA2B2B;
+    background-color: #ba2b2b;
     width: fit-content;
     color: #fff;
     width: 30px;
@@ -91,69 +91,72 @@ const MainImage = styled(Image)`
   border-radius: 6px;
 `;
 
-const FamilyEvent: React.FC<DashboardProps> = ({data}) => {
-  
-  const { filterUrls, modalClick,menuClick } = useMyContext();
+const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
+  const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
   return (
     <>
-    <MenuDetails
-      isOpen={() => menuClick("Events", true, "family-events")}
-      title="Family Events"
-    />
-    <ScrollingMenu>
-      {!data
-        ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-              <Skeleton
-                width={80}
-                height={15}
-                style={{ marginTop: 8, borderRadius: 6 }}
-              />
-            </div>
-          ))
-        : data.slice(0, 10).map((item:any, index:any) => {
-            return (
-              <FamilEventContainer
-                key={index}
-                onClick={() =>
-                  modalClick("eventListing", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-                }
-                style={{ cursor: "pointer" }}
-              >
-                <FamilyEventWrapper>
-                  <MainImage
-                    src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                    alt=""
-                    width={500}
-                    height={80}
-                    style={{
-                      borderRadius: 4,
-                      maxWidth: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <FamilyEventWrapperInside>
-                    <p className="date">
-                      {formatDate(item.acf.event_dates[0].date)}
-                    </p>
-                    <p className="month">
-                      {formatMonth(item.acf.event_dates[0].date)}
-                    </p>
-                  </FamilyEventWrapperInside>
-                </FamilyEventWrapper>
-                <FamilEventText>{item.acf.title}</FamilEventText>
-              </FamilEventContainer>
-            );
-          })}
-    </ScrollingMenu>
-  </>
-  )
+      <MenuDetails
+        isOpen={() => menuClick("event-list", true, "669ecfbf9a4bf462b63f3840")}
+        title="Upcoming Events"
+      />
+      <ScrollingMenu>
+        {!data
+          ? skeletonItems.map((item, index) => (
+              <div key={index}>
+                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
+                <Skeleton
+                  width={80}
+                  height={15}
+                  style={{ marginTop: 8, borderRadius: 6 }}
+                />
+              </div>
+            ))
+          : data.slice(0, 10).map((item: any, index: any) => {
+              return (
+                <FamilEventContainer
+                  key={index}
+                  onClick={() =>
+                    modalClick(
+                      "eventListing",
+                      item,
+                      filteredUrls[index] ? filteredUrls[index] : fallback
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <FamilyEventWrapper>
+                    <MainImage
+                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                      alt=""
+                      width={500}
+                      height={80}
+                      style={{
+                        borderRadius: 4,
+                        maxWidth: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <FamilyEventWrapperInside>
+                      <p className="date">
+                        {formatDate(item.acf.event_dates[0].date)}
+                      </p>
+                      <p className="month">
+                        {formatMonth(item.acf.event_dates[0].date)}
+                      </p>
+                    </FamilyEventWrapperInside>
+                  </FamilyEventWrapper>
+                  <FamilEventText>{item.acf.title}</FamilEventText>
+                </FamilEventContainer>
+              );
+            })}
+      </ScrollingMenu>
+    </>
+  );
 };
 
 export default FamilyEvent;
