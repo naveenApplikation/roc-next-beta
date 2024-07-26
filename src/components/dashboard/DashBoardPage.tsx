@@ -60,13 +60,13 @@ const DashBoard = async () => {
       <SearchNFilter />
       <InfoApp />
       {/* <LocalCusine data={LocalCusinedata} /> */}
-      <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
       <FamilyEvent data={familyEventdata} />
+      <TrendingList {...{ listData }} />
+      <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
       <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
       <EventsByDate></EventsByDate>
-      <TrendingList {...{ listData }} />
+      <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
-      <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
       <Directory />
       {/* <Bars dataPubs={bardata} /> */}/
       <ScreenPageComps data={bardata} title="Pubs" />
@@ -84,7 +84,6 @@ const DashBoard = async () => {
         title="Activity"
       />
       {/* <BeachLife data={beachLifedata[0]} /> */}
-      <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       <Community {...{ listData }} />
       {/* <Sustainability data={sustainabilitydata[0]} /> */}
       <ScreenPageComps data={sustainabilitydata[0]} title="Sustainability" />
@@ -97,6 +96,7 @@ const DashBoard = async () => {
       <CycleRoutes />
       {/* <Surfing data={Surfingdata[0]} /> */}
       <ScreenPageComps data={Surfingdata[0]} title="Surfing" />
+      <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
       <LeaveFeedbackButton />
       <CustomBanner />
     </>
