@@ -12,7 +12,7 @@ import {
 } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 const RightSideMenuContainer = styled.div`
   display: flex;

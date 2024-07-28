@@ -28,8 +28,6 @@
     "next-nprogress-bar": "^2.3.13",
     "next-share": "^0.27.0",
     "nextjs-google-adsense": "^1.0.0",
-    "nextjs-progressbar": "^0.0.16",
-    "nextjs-toploader": "^1.6.12",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-calendar": "^4.8.0",

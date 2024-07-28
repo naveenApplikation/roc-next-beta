@@ -7,7 +7,7 @@ import AddComments from "@/components/createList/AddComments";
 import ListDetails from "@/components/createList/ListDetails";
 import Greetings from "@/components/createList/Greetings";
 import ProductAndCommentInfo from "@/components/createList/ProductAndCommentInfo";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import MapWithMenu from "@/components/RightSideMenu/MapWithMenu";
 import PageLayout from "@/app/pageLayout";
 import { ApiResponse } from "@/app/utils/types";
@@ -41,11 +41,10 @@ const Page = () => {
 
   const navigateClick = () => {
     if (screenName === "Greetings") {
-      router.push(`/categories/Community?search=category-item`)
+      router.push(`/categories/Community?search=category-item`);
     } else {
       router.push("/");
     }
-
   };
 
   const { filterUrls, showContent } = useMyContext();
@@ -130,8 +129,7 @@ const Page = () => {
     try {
       const result = await Instance.get(`/search-data?query=${value}`);
 
-        setData(result.data?.searchResults);
-
+      setData(result.data?.searchResults);
     } catch (error: any) {
       console.log(error.message);
       setloader(false);
@@ -158,7 +156,7 @@ const Page = () => {
     debouncedSearch(searchQuery);
   }, [searchQuery, debouncedSearch]);
 
-  console.log("data of create list" , data)
+  console.log("data of create list", data);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -169,7 +167,7 @@ const Page = () => {
           selectedItemIds={selectedItemIds}
           toggleSelected={toggleSelected}
           searchQuery={searchQuery}
-          setSearchQuery = {setSearchQuery}
+          setSearchQuery={setSearchQuery}
           handleSearch={handleSearch}
           handleChange={handleChange}
           data={data}

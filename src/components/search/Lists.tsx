@@ -6,7 +6,7 @@ import { thumbsup, commentstar } from "@/app/utils/ImagePath";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
 import Skeleton from "react-loading-skeleton";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";

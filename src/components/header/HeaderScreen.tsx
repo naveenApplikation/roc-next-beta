@@ -2,7 +2,8 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
 import {
   home,

@@ -16,7 +16,8 @@ import {
   instaGram,
   linkedIn,
 } from "@/app/utils/ImagePath";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import {
   facebookURL,
   instagramURL,

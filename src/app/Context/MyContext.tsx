@@ -10,7 +10,7 @@ import React, {
 import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
 import Instance from "@/app/utils/Instance";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 // Define types for your state and functions
 interface ModalType {
@@ -96,7 +96,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     search: false,
     myList: false,
     myBookmark: false,
-    privacyPolicy:false,
+    privacyPolicy: false,
     eventListing: false,
     activities: false,
     infoApp: false,
@@ -163,7 +163,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
-
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
     } else if (item === "directoryList") {
@@ -208,7 +207,11 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (name === "search") {
       setSelectFilter("Any");
     }
-    if (modalName === "myList" || modalName === "myBookmark" || modalName=="privacyPolicy") {
+    if (
+      modalName === "myList" ||
+      modalName === "myBookmark" ||
+      modalName == "privacyPolicy"
+    ) {
       setModalNames("WelcomeBackModal");
     } else {
       setModalNames("");
@@ -234,8 +237,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     urlImage?: any,
     openReservation?: any
   ) => {
-
-    
     if (name == "modalFilter" || name === "modalFilterList") {
       setModalType((prev) => ({
         ...prev,
@@ -291,19 +292,17 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       }));
     }
   };
- 
-   const [socialShare,setSocialShare]=useState(false);
-   const handleSocialShare=(value?:any)=>{
-    console.log(socialShare)
-    if(value)
-    {
-       console.log("assadas",291)
-       setSocialShare(false)
+
+  const [socialShare, setSocialShare] = useState(false);
+  const handleSocialShare = (value?: any) => {
+    console.log(socialShare);
+    if (value) {
+      console.log("assadas", 291);
+      setSocialShare(false);
+    } else {
+      setSocialShare(!socialShare);
     }
-    else{
-       setSocialShare(!socialShare)
-    }
-   }
+  };
   const filterUrls = (ImageUrlData: any) => {
     const imageUrls: string[] = [];
     ImageUrlData?.forEach((item: any) => {
@@ -365,7 +364,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     selectFilter,
     location,
     socialShare,
-    handleSocialShare
+    handleSocialShare,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

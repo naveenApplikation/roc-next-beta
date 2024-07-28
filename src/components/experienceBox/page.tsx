@@ -9,7 +9,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal, share, bookmark } from "@/app/utils/ImagePath";
 import fallback from "../../../assets/images/fallbackimage.png";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { handleFilter } from "@/app/utils/mappingFun";
 import FilterSection from "../filterSection";
 // import { addAndRemoveBookmark } from "@/app/action";

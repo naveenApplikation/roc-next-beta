@@ -6,9 +6,8 @@ import { MyProvider } from "@/app/Context/MyContext";
 import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
-import NextTopLoader from "nextjs-toploader";
-import ProgressBar from "@/components/ProgressBar";
 import ProgressBarProvider from "@/components/ProgressBar";
+ 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -37,18 +36,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+          integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
       <body className={inter.className}>
-        {/* <NextTopLoader
-          color="#2299DD"
-          initialPosition={0.08}
-          crawlSpeed={200}
-          height={3}
-          crawl={true}
-          showSpinner={true}
-          easing="ease"
-          speed={200}
-          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
-        /> */}
+       
 
         <Script
           async
@@ -56,11 +54,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         ></Script>
 
+        <ProgressBarProvider></ProgressBarProvider>
         <StyledComponentsRegistry>
           <Toaster position="top-left" reverseOrder={false} />
-          <MyProvider>
-            <ProgressBarProvider>{children}</ProgressBarProvider>
-          </MyProvider>
+          <MyProvider>{children}</MyProvider>
         </StyledComponentsRegistry>
         <GoogleAnalytics gaId="G-GZWV4V5RKP" />
       </body>

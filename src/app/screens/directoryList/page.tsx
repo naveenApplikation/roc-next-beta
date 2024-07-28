@@ -10,7 +10,7 @@ import { useMyContext } from "../../../app/Context/MyContext";
 import styled from "styled-components";
 import Image from "next/image";
 import { DirectoryItem } from "@/app/utils/homeIcon";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { sideWidth } from "../../../app/utils/date";
 import PageLayout from "../../../app/pageLayout";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";

@@ -11,7 +11,7 @@ import ContactUs from "@/components/LoginSignup/ContactUs";
 import UpdateMyPreferences from "@/components/LoginSignup/UpdateMyPreferences";
 import Welcomeback from "@/components/LoginSignup/Welcomeback";
 import ThankYouDiresctoryModal from "@/components/modal/ThankYouDiresctoryModal";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import LoginSignupModal from "../LoginSignup/loginSignupModal";
 import TermsAndConditionModal from "../LoginSignup/termsAndConditionModal/page";
 import FeedbackModal from "../LoginSignup/FeedbackModal";

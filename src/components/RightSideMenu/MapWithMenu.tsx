@@ -18,7 +18,7 @@ import MapNavigator from "@/components/mapNavigator/page";
 import SearchInput from "../../components/searchInput/SearchInput";
 import CommonButton from "../button/CommonButton";
 import SearchNFilter from "../homepage/SearchNFilter";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 const RightSideHeadMenu = styled.div`
   display: none;

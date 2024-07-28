@@ -1,5 +1,5 @@
 "use  client";
-import React, { forwardRef, use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -10,8 +10,6 @@ import {
   LinkedinShareButton,
   RedditShareButton,
   LinkedinIcon,
-  PinterestIcon,
-  PinterestShareButton,
   RedditIcon,
   TwitterIcon,
   TwitterShareButton,
@@ -77,10 +75,9 @@ const ShareFeature: React.FC<Props> = ({ screenWidth }) => {
       borderRadius: "5px",
     },
   };
-  const ref = useRef() as any;
-  ref.current = window.location.href.toString();
-  console.log(ref.current, "share feature", "82");
-  const url = window.location.href.toString();
+
+  const url =
+    typeof window !== "undefined" ? window.location.href.toString() : "";
   const element = useRef<HTMLDivElement>(null);
   const { handleSocialShare } = useMyContext();
   const [shareButtonsize, setSize] = useState(40);

@@ -14,7 +14,8 @@ import EventListingModalScreen from "@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import PageLayout from "@/app/pageLayout";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import styled from "styled-components";
 import PrivacyPolicy from "../homepage/PrivacyAndPolicyModal/page";
 

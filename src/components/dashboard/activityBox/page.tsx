@@ -15,7 +15,7 @@ import { formatMonth, formatDate } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import fallback from "../../../../assets/images/fallbackimage.png";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 import { handleFilter } from "@/app/utils/mappingFun";
 

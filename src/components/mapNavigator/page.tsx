@@ -1,7 +1,7 @@
 import { useMyContext } from '@/app/Context/MyContext';
 import { Store, calender, castle, location, utensils } from '@/app/utils/ImagePath';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next-nprogress-bar";
 import React from 'react';
 import styled from 'styled-components';
 

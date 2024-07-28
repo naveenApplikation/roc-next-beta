@@ -66,7 +66,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         />
       );
     } else if (urlData === "Enjoy the sunshine" || urlData === "EventsByDate") {
-      let title = props.params;
+      let title = urlData;
       if (urlData === "EventsByDate") {
         title = props.searchParams.toString().replaceAll("%20", " ");
       }

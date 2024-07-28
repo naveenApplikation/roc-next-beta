@@ -5,7 +5,7 @@ import { thumbsup } from "@/app/utils/ImagePath";
 import { Spin } from "antd";
 import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
 interface ListProps {
   listData?: any;

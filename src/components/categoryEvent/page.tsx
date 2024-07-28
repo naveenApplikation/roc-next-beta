@@ -14,7 +14,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CloseModal } from "@/app/utils/ImagePath";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import { Spin } from "antd";
 import fallback from "../../../assets/images/fallbackimage.png";
 import FilterSection from "../filterSection";

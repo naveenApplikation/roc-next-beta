@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 import Image from "next/image";
 import { CloseModal, thumbsup } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
