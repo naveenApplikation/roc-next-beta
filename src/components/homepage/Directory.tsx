@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
@@ -41,8 +41,7 @@ const MainWrapper = styled.div`
   cursor: pointer;
 `;
 
-const FirstMainWraaper = styled(MainWrapper)`
-`;
+const FirstMainWraaper = styled(MainWrapper)``;
 
 const AddButton = styled.button`
   display: flex;
@@ -67,7 +66,6 @@ const AddButton = styled.button`
 `;
 
 const DirectoryList = () => {
-
   const { modalClick, menuClick } = useMyContext();
 
   return (
@@ -78,17 +76,15 @@ const DirectoryList = () => {
       />
       {DirectoryHomepage.slice(0, 5).map((item: any, index: any) => (
         <DirectoryWrapper key={index}>
-          <FirstMainWraaper onClick={() => menuClick(item.data[0].title, true, "Directory")}>
+          <FirstMainWraaper
+            onClick={() => menuClick(item.data[0].url, true, "Directory")}>
             {item.data[0].image}
-            <DirectoryMenuTitle>
-              {item.data[0].title}
-            </DirectoryMenuTitle>
+            <DirectoryMenuTitle>{item.data[0].title}</DirectoryMenuTitle>
           </FirstMainWraaper>
-          <MainWrapper onClick={() => menuClick(item.data[1].title, true, "Directory")}>
+          <MainWrapper
+            onClick={() => menuClick(item.data[1].url, true, "Directory")}>
             {item.data[1].image}
-            <DirectoryMenuTitle>
-              {item.data[1].title}
-            </DirectoryMenuTitle>
+            <DirectoryMenuTitle>{item.data[1].title}</DirectoryMenuTitle>
           </MainWrapper>
         </DirectoryWrapper>
       ))}
