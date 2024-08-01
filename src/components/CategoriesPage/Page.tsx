@@ -24,9 +24,11 @@ interface CategoriesPageProps {
   searchParams: string;
   bookmarkValue: boolean;
   data: any;
+  modal?: any;
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap, socialShare, handleSocialShare } = useMyContext();
+  const { showMap, socialShare, handleSocialShare} =
+    useMyContext();
   let urlData: any;
   var data: ApiResponse[];
   urlData = props.params
@@ -38,7 +40,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     const combinedArray = [...props.data.activity1, ...props.data.activity2];
     data = combinedArray;
   }
+
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
+
   const filteredUrls = filterUrls(ImageUrlData);
   console.log(filteredUrls);
   console.log(props.params, 42, props.params == "activity-list");
@@ -48,6 +52,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         <EventBox
           isShare={socialShare}
           urlData={data}
+          modal={props.modal}
           bookmarkState={props.bookmarkValue}
           categoryId={props.searchParams}
           urlTitle={props.title}
@@ -63,6 +68,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           categoryId={props.searchParams}
           urlTitle={props.title}
           filteredUrls={filteredUrls}
+          modal={props.modal}
         />
       );
     } else if (urlData === "Enjoy the sunshine" || urlData === "EventsByDate") {
@@ -76,6 +82,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           urlData={data}
           urlTitle={title}
           filteredUrls={filteredUrls}
+          modal={props.modal}
         />
       );
     } else {

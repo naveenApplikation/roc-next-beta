@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
@@ -12,6 +12,7 @@ import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next-nprogress-bar";
 import { handleFilter } from "@/app/utils/mappingFun";
 import FilterSection from "../filterSection";
+import { useParams, useSearchParams } from "next/navigation";
 // import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
@@ -20,6 +21,7 @@ interface ExperienceBoxProps {
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
+  modal?: any;
 }
 
 const ExperienceBox: React.FC<ExperienceBoxProps> = ({
@@ -28,6 +30,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   urlData,
   filteredUrls,
   loader,
+  modal,
 }) => {
   const {
     modalClick,
@@ -41,7 +44,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
 
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter();
-
+  const params = useParams();
+  const search = useSearchParams();
   const handleBack = () => {
     router.back();
     if (modalType.modalFilterList) {
@@ -69,6 +73,36 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
     }
   };
   const filterDate = handleFilter(urlData, selectFilter);
+  let dataTraverse = filterDate;
+  const handlemodal = (id: any) => {
+    let temp,
+      index = 0;
+    dataTraverse.forEach((element: any, position: any) => {
+      if (element._id === id) {
+        index = position;
+        temp = element;
+      }
+    });
+
+    modalClick(
+      "activities",
+      temp,
+      filteredUrls[index] ? filteredUrls[index] : fallback
+    );
+  };
+  useEffect(() => {
+    if (modal) {
+      handlemodal(modal);
+    }
+  }, [modal]);
+  const handlemodalView = (item: any, pos: any) => {
+    console.log(item._id);
+    router.replace(
+      `/categories/${params.eventName}?search=${search.get("search")}&modal=${
+        item._id
+      }`
+    );
+  };
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -144,13 +178,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               return (
                 <SearchedData
                   key={index}
-                  onClick={() =>
-                    modalClick(
-                      "activities",
-                      item,
-                      filteredUrls[index] ? filteredUrls[index] : fallback
-                    )
-                  }
+                  onClick={() => handlemodalView(item, index)}
                 >
                   <div
                     style={{

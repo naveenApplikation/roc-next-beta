@@ -16,11 +16,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next-nprogress-bar";
+
 import FilterSection from "../filterSection";
 import { handleFilter } from "@/app/utils/mappingFun";
 import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
+import { useParams } from "next/navigation";
 interface EventBoxProps {
   isShare?: any;
   urlData?: any;
@@ -29,6 +31,7 @@ interface EventBoxProps {
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
+  modal?: any;
 }
 
 const EventBox: React.FC<EventBoxProps> = ({
@@ -39,6 +42,7 @@ const EventBox: React.FC<EventBoxProps> = ({
   filteredUrls,
   bookmarkState,
   loader,
+  modal,
 }) => {
   const {
     modalClick,
@@ -55,14 +59,15 @@ const EventBox: React.FC<EventBoxProps> = ({
     typeof window !== "undefined"
       ? window.localStorage.getItem("loginToken")
       : null;
-  
+
   const router = useRouter();
+  const params = useParams();
   useEffect(() => {
-   
     setBookmark(bookmarkState);
   }, [bookmarkState]);
   const handleBack = () => {
     router.back();
+
     if (modalType.modalFilterList) {
       closeModal("modalFilterList");
       setSelectFilter("Any");
@@ -75,7 +80,7 @@ const EventBox: React.FC<EventBoxProps> = ({
     if (token) {
       setBookmarkLoader(true);
       const res = await addAndRemoveBookmark("event-bookmark", categoryId);
- 
+
       if (res) {
         setBookmark(!isBookmark);
         setBookmarkLoader(false);
@@ -88,15 +93,40 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   const handleShare = () => {
-    
     if (!socialShare) {
-    
       handleSocialShare();
     }
   };
 
   const filterDate = handleFilter(urlData, selectFilter);
-  
+
+  let dataTraverse = filterDate;
+  const handlemodal = (id: any) => {
+    let temp,
+      index = 0;
+    dataTraverse.forEach((element: any, position: any) => {
+      if (element._id === id) {
+        index = position;
+        temp = element;
+      }
+    });
+    modalClick(
+      "eventListing",
+      temp,
+      filteredUrls[index] ? filteredUrls[index] : fallback
+    );
+  };
+  useEffect(() => {
+    if (modal) {
+      handlemodal(modal);
+    }
+  }, [modal]);
+  const handlemodalView = (item: any, pos: any) => {
+    console.log(item._id);
+    router.replace(
+      `/categories/${params.eventName}?search=${categoryId}&modal=${item._id}`
+    );
+  };
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
@@ -184,13 +214,9 @@ const EventBox: React.FC<EventBoxProps> = ({
               return (
                 <SearchedData key={index}>
                   <MainInsideWrapper
-                    onClick={() =>
-                      modalClick(
-                        "eventListing",
-                        item,
-                        filteredUrls[index] ? filteredUrls[index] : fallback
-                      )
-                    }
+                    onClick={() => {
+                      handlemodalView(item, index);
+                    }}
                   >
                     <FamilyEventWrapper>
                       <img

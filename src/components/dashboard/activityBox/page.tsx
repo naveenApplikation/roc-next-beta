@@ -31,6 +31,7 @@ interface ActivityBoxProps {
   urlTitle?: string;
   filteredUrls?: any;
   loader?: boolean;
+  modal?: any;
 }
 
 const ActivityBox: React.FC<ActivityBoxProps> = ({
@@ -41,6 +42,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   filteredUrls,
   bookmarkState,
   loader,
+  modal,
 }) => {
   const {
     modalClick,
@@ -95,6 +97,34 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   };
 
   const filterDate = handleFilter(urlData, selectFilter);
+  let dataTraverse = filterDate;
+  const handlemodal = (id: any) => {
+    let temp,
+      index = 0;
+    dataTraverse.forEach((element: any, position: any) => {
+      if (element._id === id) {
+        index = position;
+        temp = element;
+      }
+    });
+    modalClick(
+      "eventListing",
+      temp,
+      filteredUrls[index] ? filteredUrls[index] : fallback
+    );
+  };
+  useEffect(() => {
+    if (modal) {
+      handlemodal(modal);
+    }
+  }, [modal]);
+
+  const handlemodalView = (item: any, pos: any) => {
+    console.log(item._id);
+    router.replace(
+      `/categories/activity-list?search=${categoryId}&modal=${item._id}`
+    );
+  };
 
   return (
     <>
@@ -183,13 +213,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               return (
                 <SearchedData key={index}>
                   <MainInsideWrapper
-                    onClick={() =>
-                      modalClick(
-                        "eventListing",
-                        item,
-                        filteredUrls[index] ? filteredUrls[index] : fallback
-                      )
-                    }
+                    onClick={() => handlemodalView(item, index)}
                   >
                     <FamilyEventWrapper>
                       <Image

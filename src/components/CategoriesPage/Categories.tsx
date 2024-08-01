@@ -14,7 +14,7 @@ import EventListingModalScreen from "@/components/AllModalScreen/EventListingMod
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import PageLayout from "@/app/pageLayout";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import styled from "styled-components";
 import PrivacyPolicy from "../homepage/PrivacyAndPolicyModal/page";
@@ -30,6 +30,7 @@ const Categories = () => {
   const { showMap } = useMyContext();
   const router = useRouter();
   const params = useParams();
+  const search = useSearchParams();
   useEffect(() => {
     router.prefetch("categories/" + params);
   }, []);
@@ -76,8 +77,16 @@ const Categories = () => {
       <CalenderBookDatesModalScreen showMap={showMap} />
       <PlaceOrderOnlineModalScreen showMap={showMap} />
       <FilterModalScreen showMap={showMap} />
-      <EventListingModalScreen showMap={showMap} />
-      <ActivitiesModalScreen showMap={showMap} />
+      <EventListingModalScreen
+        showMap={showMap}
+        params={params}
+        searchQuery={search}
+      />
+      <ActivitiesModalScreen
+        showMap={showMap}
+        params={params}
+        searchQuery={search}
+      />
       <ViewDirectionModalScreen showMap={showMap} />
     </>
   );

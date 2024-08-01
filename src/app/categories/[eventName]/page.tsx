@@ -15,12 +15,13 @@ interface Props {
   };
   searchParams: {
     search: string;
+    modal: string;
   };
 }
 async function Page({ params, searchParams }: Props) {
   let urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
-
+ 
   if (
     urlData == "Trending Lists" ||
     urlData == "Jerseyisms" ||
@@ -73,6 +74,7 @@ async function Page({ params, searchParams }: Props) {
         params={params.eventName}
         title={title}
         searchParams={searchParams.search}
+        modal={searchParams.modal}
         bookmarkValue={bookmark}
         data={data}
       ></CategoriesPage>
