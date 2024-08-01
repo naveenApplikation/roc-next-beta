@@ -5,7 +5,7 @@ import RightSideMenu from "@/components/RightSideMenu/page";
 import PageLayout from "./pageLayout";
 import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import { Container, DashboardMenu, MainContainer } from "@/app/style";
-
+export const maxDuration = 300;
 export default function Home() {
   return (
     <>

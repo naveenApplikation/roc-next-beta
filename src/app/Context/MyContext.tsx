@@ -207,11 +207,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (name === "search") {
       setSelectFilter("Any");
     }
-    if (
-      modalName === "myList" ||
-      modalName === "myBookmark" ||
-      modalName == "privacyPolicy"
-    ) {
+    if (modalName === "myList" || modalName === "myBookmark") {
       setModalNames("WelcomeBackModal");
     } else {
       setModalNames("");
