@@ -46,13 +46,13 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const router = useRouter();
   const params = useParams();
   const search = useSearchParams();
-  const handleBack = () => {
-    router.back();
-    if (modalType.modalFilterList) {
-      closeModal("modalFilterList");
-      setSelectFilter("Any");
-    }
-  };
+  // const handleBack = () => {
+  //   router.back();
+  //   if (modalType.modalFilterList) {
+  //     closeModal("modalFilterList");
+  //     setSelectFilter("Any");
+  //   }
+  // };
   // const token = localStorage.getItem("loginToken");
   // const [isBookmark, setBookmark] = useState(false);
   // const handleBookMark = async () => {
@@ -109,22 +109,12 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       <SearchedListContainer>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>
-          <Image
+          {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
             onClick={() => handleBack()}
-          />
-        </Header>
-        <div
-          style={{
-            padding: "10px 0px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <FilterSection pageTitle="categoryEvent" />
+          /> */}
           <div
             style={{
               padding: "10px 0px",
@@ -144,7 +134,18 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               <Image src={share} alt="Logo Outline" />
             </ImageContainer>
           </div>
+        </Header>
+        <div
+          style={{
+            padding: "10px 0px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <FilterSection pageTitle="categoryEvent" />
         </div>
+
         {loader
           ? skeletonItems.map((item, index) => (
               <SearchedData key={index}>
@@ -243,9 +244,10 @@ const Header = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 `;
 const SearchedListContainer = styled.div`
-  padding: 40px;
+  padding: 25px;
   background-color: #fff;
   min-height: 100dvh;
 `;

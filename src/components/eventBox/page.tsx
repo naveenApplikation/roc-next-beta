@@ -23,6 +23,8 @@ import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
 import { useParams } from "next/navigation";
+import ScrollList from "../scrollList/ScrollList";
+import { events } from "@/app/utils/data";
 interface EventBoxProps {
   isShare?: any;
   urlData?: any;
@@ -65,14 +67,14 @@ const EventBox: React.FC<EventBoxProps> = ({
   useEffect(() => {
     setBookmark(bookmarkState);
   }, [bookmarkState]);
-  const handleBack = () => {
-    router.back();
+  // const handleBack = () => {
+  //   router.back();
 
-    if (modalType.modalFilterList) {
-      closeModal("modalFilterList");
-      setSelectFilter("Any");
-    }
-  };
+  //   if (modalType.modalFilterList) {
+  //     closeModal("modalFilterList");
+  //     setSelectFilter("Any");
+  //   }
+  // };
 
   const [isBookmark, setBookmark] = useState(false);
   const [bookmarkLoader, setBookmarkLoader] = useState(false);
@@ -127,28 +129,22 @@ const EventBox: React.FC<EventBoxProps> = ({
       `/categories/${params.eventName}?search=${categoryId}&modal=${item._id}`
     );
   };
+  const filteredData = events.filter((item) => {
+    return item.listName.toLowerCase() != urlTitle?.toLowerCase();
+  });
+  console.log(urlTitle);
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
       <SearchedListContainer>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>
-          <Image
+          {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
             onClick={() => handleBack()}
-          />
-        </Header>
-        <div
-          style={{
-            padding: "10px 0px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <FilterSection pageTitle="categoryEvent" />
+          /> */}
           <div
             style={{
               padding: "10px 0px",
@@ -180,6 +176,16 @@ const EventBox: React.FC<EventBoxProps> = ({
               <Image src={share} alt="Logo Outline" />
             </ImageContainer>
           </div>
+        </Header>
+        <div
+          style={{
+            padding: "10px 0px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
           ? skeletonItems.map((item, index) => (
@@ -273,7 +279,11 @@ const EventBox: React.FC<EventBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <CustomBanner />
+
+      {urlTitle && (
+        <ScrollList background={"#EB5757"} data={filteredData}></ScrollList>
+      )}
+      {/* <CustomBanner /> */}
     </>
   );
 };
@@ -294,10 +304,11 @@ const Header = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const SearchedListContainer = styled.div`
-  padding: 40px;
+  padding: 25px;
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 130px;

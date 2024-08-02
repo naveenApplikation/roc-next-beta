@@ -24,6 +24,7 @@ import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
 import ShareFeature from "./ShareFeature";
 import SocialShareModal from "./modal/SocialShareModal";
 import { bookmark } from "@/app/utils/ImagePath";
+import HeaderScreen from "./header/HeaderScreen";
 
 interface ScreenPageProps {
   data: any;
@@ -285,6 +286,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       {uiRenderLoader ? null : (
         <>
           <PageLayout>
+            <HeaderScreen></HeaderScreen>
             <CategoryBody>{ScreenShowHandle()}</CategoryBody>
           </PageLayout>
           <CreateAccountModalLayout

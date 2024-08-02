@@ -77,7 +77,6 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       : null;
 
   useEffect(() => {
-    
     setBookmark(bookMark);
   }, [bookMark]);
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
@@ -110,22 +109,20 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   //   };
   // }, [scrollHeight]);
 
-  const handleBack = () => {
-    if (window.history.length > 2) {
-      router.back();
-    } else {
-      router.replace("/");
-    }
-    if (modalType.modalFilterList) {
-      closeModal("modalFilterList");
-      setSelectFilter("Any");
-    }
-  };
+  // const handleBack = () => {
+  //   if (window.history.length > 2) {
+  //     router.back();
+  //   } else {
+  //     router.replace("/");
+  //   }
+  //   if (modalType.modalFilterList) {
+  //     closeModal("modalFilterList");
+  //     setSelectFilter("Any");
+  //   }
+  // };
 
   const handleShare = () => {
-    
     if (!socialShare) {
-    
       handleSocialShare();
     }
   };
@@ -161,26 +158,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
             }}
           >
             <TitleText>{urlTitle}</TitleText>
-            <Image
+            {/* <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
               src={CloseModal}
               alt="Logo Outline"
               onClick={handleBack}
               // onClick={() => onClose(name)}
-            />
-          </div>
-          <LikeCount>
-            {totalVote} {urlTitle ? "likes" : ""}
-          </LikeCount>
-          <div
-            style={{
-              padding: "10px 0px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <FilterSection pageTitle="categoryEvent" />
+            /> */}
             <div
               style={{
                 padding: "10px 0px",
@@ -211,6 +195,19 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 <Image src={share} alt="Logo Outline" />
               </ImageContainer>
             </div>
+          </div>
+          {/* <LikeCount>
+            {totalVote} {urlTitle ? "likes" : ""}
+          </LikeCount> */}
+          <div
+            style={{
+              padding: "10px 0px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <FilterSection pageTitle="categoryEvent" />
           </div>
         </div>
 
@@ -302,7 +299,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                           : item?.acf?.title}
                       </p>
                       <DetailContainer>
-                        <p>{item?.rating} &nbsp;</p>
+                        <p style={{ color: "gray" }}>{item?.rating} &nbsp;</p>
                         <Image
                           src={commentstar}
                           style={{
@@ -312,6 +309,11 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                           }}
                           alt="utensils"
                         />
+
+                        <p style={{ color: "gray" }}>
+                          <sup>.&nbsp;</sup>
+                        </p>
+                        <p style={{ color: "gray" }}>{item?.parishName}</p>
                         {/* <p>{item?.type}</p> */}
                       </DetailContainer>
                       {/* <p>
@@ -417,7 +419,7 @@ const ImageTag = styled.img`
 `;
 
 const SearchedListContainer = styled.div`
-  padding: 40px;
+  padding: 25px;
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 150px;
