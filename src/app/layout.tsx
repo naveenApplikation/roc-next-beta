@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import ProgressBarProvider from "@/components/ProgressBar";
- 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -46,13 +46,16 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-       
-
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4636767191633754"
-          crossOrigin="anonymous"
-        ></Script>
+          crossOrigin="anonymous"></Script>
+
+        <Script
+          type="text/javascript"
+          src="https://biosites.ai/js/green-meter.js"
+          defer
+          async></Script>
 
         <ProgressBarProvider></ProgressBarProvider>
         <StyledComponentsRegistry>
