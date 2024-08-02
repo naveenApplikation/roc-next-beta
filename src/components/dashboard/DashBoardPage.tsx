@@ -81,7 +81,7 @@ const DashBoard = async () => {
         data={activities}
         type="activity-list"
         name="Activity List"
-        title="Activity"
+        title="Activity Categories"
       />
       {/* <BeachLife data={beachLifedata[0]} /> */}
       <Community {...{ listData }} />
