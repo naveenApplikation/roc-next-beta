@@ -14,6 +14,7 @@ import {
   HamburgerDesktop,
   HamburgerWithoutBG,
   ScrollIcon,
+  backArrow,
 } from "@/app/utils/ImagePath";
 import { sideWidth } from "@/app/utils/date";
 import CustomBanner from "../AdComponent/CustomBanner";
@@ -22,13 +23,13 @@ const HeadMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 40px;
+  // padding: 0px 40px;
   padding-top: 64px;
   padding-bottom: 16px;
   background-color: #fdfdfd;
   width: ${sideWidth};
   @media screen and (max-width: 800px) {
-    padding: 0px 16px;
+    // padding: 0px 16px;
     padding-top: 40px;
     padding-bottom: 16px;
     width: 100%;
@@ -39,6 +40,7 @@ const HeaderMapProfileContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+  padding: 0px 16px;
 `;
 
 const HeaderScreen = () => {
@@ -48,25 +50,50 @@ const HeaderScreen = () => {
     router.push("/");
   };
 
-  const { modalName, closeModal, modalClick, dataDetails } = useMyContext();
+  const {
+    modalName,
+    closeModal,
+    modalClick,
+    dataDetails,
+    modalType,
+    setSelectFilter,
+  } = useMyContext();
 
   const scrollContainerRef = useRef<any>();
 
   const setScrollTop = () => {
     scrollContainerRef.current.scrollIntoView({ top: 0, behavior: "smooth" });
   };
-
+  const handleBack = () => {
+    router.back();
+    if (modalType.modalFilterList) {
+      closeModal("modalFilterList");
+      setSelectFilter("Any");
+    }
+  };
   return (
     <>
       <HeadMenu ref={scrollContainerRef}>
-        <Image
-          style={{ cursor: "pointer" }}
-          src={ROCLogo}
-          width={117}
-          height={48}
-          alt="Logo Outline"
-          onClick={navigateClick}
-        />
+        <div
+          style={{ display: "flex", alignItems: "center", columnGap: "5px" }}
+        >
+          <Image
+            width={47}
+            height={26}
+            src={backArrow}
+            alt="back arrow"
+            style={{ paddingTop: "2px", cursor: "pointer" }}
+            onClick={handleBack}
+          ></Image>
+          <Image
+            style={{ cursor: "pointer" }}
+            src={ROCLogo}
+            width={117}
+            height={48}
+            alt="Logo Outline"
+            onClick={navigateClick}
+          />
+        </div>
         <HeaderMapProfileContainer>
           <Image
             style={{ cursor: "pointer" }}

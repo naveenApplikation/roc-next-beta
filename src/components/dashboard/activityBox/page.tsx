@@ -23,6 +23,8 @@ import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
 import CustomBanner from "@/components/AdComponent/CustomBanner";
 import FilterSection from "@/components/filterSection";
+import { activities } from "@/app/utils/data";
+import ScrollList from "@/components/scrollList/ScrollList";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -61,13 +63,13 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   useEffect(() => {
     setBookmark(bookmarkState);
   }, [bookmarkState]);
-  const handleBack = () => {
-    router.back();
-    if (modalType.modalFilterList) {
-      closeModal("modalFilterList");
-      setSelectFilter("Any");
-    }
-  };
+  // const handleBack = () => {
+  //   router.back();
+  //   if (modalType.modalFilterList) {
+  //     closeModal("modalFilterList");
+  //     setSelectFilter("Any");
+  //   }
+  // };
   const token =
     typeof window !== "undefined"
       ? window.localStorage.getItem("loginToken")
@@ -126,28 +128,23 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
     );
   };
 
+  const filteredData = activities.filter((item) => {
+    return item.listName.toLowerCase() != urlTitle?.toLowerCase();
+  });
+  console.log(filteredData);
+
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
       <SearchedListContainer>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>
-          <Image
+          {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
             onClick={() => handleBack()}
-          />
-        </Header>
-        <div
-          style={{
-            padding: "10px 0px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <FilterSection pageTitle="categoryEvent" />
+          /> */}
           <div
             style={{
               padding: "10px 0px",
@@ -179,6 +176,17 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               <Image src={share} alt="Logo Outline" />
             </ImageContainer>
           </div>
+        </Header>
+
+        <div
+          style={{
+            padding: "10px 0px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
           ? skeletonItems.map((item, index) => (
@@ -274,7 +282,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <CustomBanner />
+      <ScrollList data={filteredData} background={"#F2994A"}></ScrollList>
+      {/* <CustomBanner /> */}
     </>
   );
 };
@@ -295,10 +304,11 @@ const Header = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const SearchedListContainer = styled.div`
-  padding: 40px;
+  padding: 25px;
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 130px;

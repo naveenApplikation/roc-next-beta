@@ -33,17 +33,6 @@ import { FaBus } from "react-icons/fa6";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
 
-
-
-
-
-
-
-
-
-
-
-
 import {
   utensils,
   utensil,
@@ -109,7 +98,6 @@ import {
   greenGlocers,
 } from "@/app/utils/ImagePath";
 
-
 export const topSideMenu = [
   {
     name: "weather",
@@ -171,10 +159,6 @@ export const topSideMenu = [
   //   width: 20,
   //   height: 16,
   // },
-
-
-
-
 ];
 
 export const rightSideMenu = [
@@ -184,7 +168,7 @@ export const rightSideMenu = [
     width: 25,
     height: 20,
     url: "Todo",
-    id: "6645d5578bf8ac8d2d5bd622"
+    id: "6645d5578bf8ac8d2d5bd622",
   },
   {
     name: "Dine",
@@ -192,7 +176,7 @@ export const rightSideMenu = [
     width: 18,
     height: 20,
     url: "Dine out",
-    id: "66439bfe5e177a8bc6196a38"
+    id: "66439bfe5e177a8bc6196a38",
   },
   {
     name: "Shop",
@@ -200,14 +184,14 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Local shops",
-    id: "663f71d6cc049eb2b028d9c8"
+    id: "663f71d6cc049eb2b028d9c8",
   },
   {
     name: "Events",
     image: event,
     width: 18,
     height: 20,
-    url: "events"
+    url: "events",
   },
   {
     name: "Tours",
@@ -215,7 +199,7 @@ export const rightSideMenu = [
     width: 16,
     height: 16,
     url: "tours",
-    id: "6645d5578bf8ac8d2d5bd626"
+    id: "6645d5578bf8ac8d2d5bd626",
   },
   {
     name: "Hotels",
@@ -223,7 +207,7 @@ export const rightSideMenu = [
     width: 20,
     height: 20,
     url: "Hotels",
-    id: "663f72bc9c9e03a31898b9cc"
+    id: "663f72bc9c9e03a31898b9cc",
   },
   {
     name: "Activities",
@@ -231,7 +215,7 @@ export const rightSideMenu = [
     width: 15,
     height: 20,
     url: "activities",
-    id: "6645d5578bf8ac8d2d5bd628"
+    id: "6645d5578bf8ac8d2d5bd628",
   },
   {
     name: "Travel",
@@ -239,7 +223,7 @@ export const rightSideMenu = [
     width: 20,
     height: 20,
     url: "Travel agents",
-    id: "663f72bd9c9e03a31898b9dc"
+    id: "663f72bd9c9e03a31898b9dc",
   },
   {
     name: "Nightlife",
@@ -247,7 +231,7 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Nightlife",
-    id: "6645ef914cb7487a15119086"
+    id: "6645ef914cb7487a15119086",
   },
   {
     name: "Holidays",
@@ -255,7 +239,7 @@ export const rightSideMenu = [
     width: 25,
     height: 20,
     url: "holiday",
-    id: "6645d5578bf8ac8d2d5bd62a"
+    id: "6645d5578bf8ac8d2d5bd62a",
   },
   {
     name: "Beaches",
@@ -263,7 +247,7 @@ export const rightSideMenu = [
     width: 23,
     height: 20,
     url: "Beaches",
-    id: "6645d5578bf8ac8d2d5bd620"
+    id: "6645d5578bf8ac8d2d5bd620",
   },
   {
     name: "All",
@@ -281,7 +265,7 @@ export const rightSideMenuMobile = [
     width: 25,
     height: 20,
     url: "Todo",
-    id: "6645d5578bf8ac8d2d5bd622"
+    id: "6645d5578bf8ac8d2d5bd622",
   },
   {
     name: "Dine",
@@ -290,7 +274,7 @@ export const rightSideMenuMobile = [
     width: 18,
     height: 20,
     url: "Dine out",
-    id: "66439bfe5e177a8bc6196a38"
+    id: "66439bfe5e177a8bc6196a38",
   },
   {
     name: "Events",
@@ -298,7 +282,7 @@ export const rightSideMenuMobile = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcalendar.png?alt=media&token=232e231d-db2b-4571-b388-7d92fbb532c7",
     width: 18,
     height: 20,
-    url: "events"
+    url: "events",
   },
   {
     name: "Map",
@@ -525,7 +509,6 @@ export const ActivitiesListData = [
   },
 ];
 
-
 export const ResturantDetailData = [
   {
     name: "Open ⋅ Closes 11 pm",
@@ -602,9 +585,6 @@ export const RestroListData = [
   },
 ];
 
-
-
-
 interface DataItem {
   image: any;
   // other properties
@@ -614,20 +594,18 @@ interface Item {
   data: DataItem[];
 }
 
-
-
 export const DirectoryItem: any = [
   {
     data: [
       {
         image: FaUtensils,
         title: "Food and drink",
-        url: "attration"
+        url: "attration",
       },
       {
         image: FaPeopleLine,
         title: "Activities",
-        url: "food-drinks"
+        url: "food-drinks",
       },
     ],
   },
@@ -636,12 +614,12 @@ export const DirectoryItem: any = [
       {
         image: LuPopcorn,
         title: "Entertainment",
-        url: "shopsandMarket"
+        url: "shopsandMarket",
       },
       {
         image: FaFaceSmileBeam,
         title: "Hair and Beauty",
-        url: "tour"
+        url: "tour",
       },
     ],
   },
@@ -650,12 +628,12 @@ export const DirectoryItem: any = [
       {
         image: FaHeartPulse,
         title: "Health Fitness and Wellbeing	",
-        url: "accommodations"
+        url: "accommodations",
       },
       {
         image: FaRunning,
         title: "Sports",
-        url: "activity"
+        url: "activity",
       },
     ],
   },
@@ -664,12 +642,12 @@ export const DirectoryItem: any = [
       {
         image: FaChild,
         title: "Kids",
-        url: "tourOperator"
+        url: "tourOperator",
       },
       {
         image: FaDog,
         title: "Pets",
-        url: "bar-pubs"
+        url: "bar-pubs",
       },
     ],
   },
@@ -678,12 +656,12 @@ export const DirectoryItem: any = [
       {
         image: FaCalendar,
         title: "Event Planning",
-        url: "holidays"
+        url: "holidays",
       },
       {
         image: FaShoppingBag,
         title: "Shopping",
-        url: "beaches"
+        url: "beaches",
       },
     ],
   },
@@ -692,131 +670,129 @@ export const DirectoryItem: any = [
       {
         image: FaHotel,
         title: "Accommodation",
-        url: "holidays"
+        url: "holidays",
       },
       {
         image: FaMoneyBill,
         title: "Budget",
-        url: "beaches"
+        url: "beaches",
       },
     ],
-  }, {
+  },
+  {
     data: [
       {
         image: FaCar,
         title: "Vehicles",
-        url: "holidays"
+        url: "holidays",
       },
       {
         image: FaPlane,
         title: "Travel",
-        url: "beaches"
+        url: "beaches",
       },
     ],
-  }, {
+  },
+  {
     data: [
       {
         image: FaBus,
         title: "Transport",
-        url: "holidays"
+        url: "holidays",
       },
       {
         image: FaBriefcase,
         title: "Recruitment",
-        url: "beaches"
+        url: "beaches",
       },
     ],
-  }, {
+  },
+  {
     data: [
       {
         image: FaUserTie,
         title: "Professional Services",
-        url: "holidays"
+        url: "holidays",
       },
       {
         image: FaBriefcase,
         title: "Recruitment",
-        url: "beaches"
+        url: "beaches",
       },
     ],
   },
 ];
 
-export const walkData =
-  [
-    {
-      name: "Gorey",
-      color: "#BB6BD9",
-      icon: gorey,
-      url: "https://hub.roc.je/walks/gorey-walk"
-    },
-    {
-      name: "St Aubin",
-      color: "#56CCF2",
-      icon: aubin,
-      url: "https://hub.roc.je/walks/st-aubin-walk"
-    },
-    {
-      name: "Archirondel",
-      color: "#EB5757",
-      icon: archirondel,
-      url: "https://hub.roc.je/walks/archirondel-walk"
-    },
-    {
-      name: "Trinity",
-      color: "#27AE60",
-      icon: trinity,
-      url: "https://hub.roc.je/walks/trinity-walk"
-    },
-    {
-      name: "La Hougue Bie",
-      color: "#F2994A",
-      icon: hongue,
-      url: "https://hub.roc.je/walks/la-Hougue-bie-walk"
-    },
-    {
-      name: "La Pulente",
-      color: "#F2994A",
-      icon: pulente,
-      url: "https://hub.roc.je/walks/la-pulente-walk"
-    },
-  ]
-export const cycleRouteData =
-  [
-    {
-      name: "Easy",
-      color: "#56CCF2",
-      icon: family,
-      url: "https://hub.roc.je/cycle/cycle-routes-easy"
-    },
-    {
-      name: "Medium",
-      color: "#BB6BD9",
-      icon: cycle,
-      url: "https://hub.roc.je/cycle/cycle-routes-medium"
-    },
-    {
-      name: "Difficult",
-      color: "#EB5757",
-      icon: pro,
-      url: "https://hub.roc.je/cycle/cycle-routes-difficult"
-    },
-    {
-      name: "Cycling safety",
-      color: "#F2994A",
-      icon: shield,
-      url: "https://hub.roc.je/cycle/cycling-safety"
-    },
-    {
-      name: "Cycle hire",
-      color: "#27AE60",
-      icon: cycle,
-      url: "https://www.jersey.com/things-to-do/outdoor-activities/cycle-hire/"
-    },
-
-  ]
-
-
+export const walkData = [
+  {
+    name: "Gorey",
+    color: "#BB6BD9",
+    icon: gorey,
+    url: "https://hub.roc.je/walks/gorey-walk",
+  },
+  {
+    name: "St Aubin",
+    color: "#56CCF2",
+    icon: aubin,
+    url: "https://hub.roc.je/walks/st-aubin-walk",
+  },
+  {
+    name: "Archirondel",
+    color: "#EB5757",
+    icon: archirondel,
+    url: "https://hub.roc.je/walks/archirondel-walk",
+  },
+  {
+    name: "Trinity",
+    color: "#27AE60",
+    icon: trinity,
+    url: "https://hub.roc.je/walks/trinity-walk",
+  },
+  {
+    name: "La Hougue Bie",
+    color: "#F2994A",
+    icon: hongue,
+    url: "https://hub.roc.je/walks/la-Hougue-bie-walk",
+  },
+  {
+    name: "La Pulente",
+    color: "#F2994A",
+    icon: pulente,
+    url: "https://hub.roc.je/walks/la-pulente-walk",
+  },
+];
+export const cycleRouteData = [
+  {
+    name: "Easy",
+    color: "#56CCF2",
+    icon: family,
+    url: "https://hub.roc.je/cycle/cycle-routes-easy",
+  },
+  {
+    name: "Medium",
+    color: "#BB6BD9",
+    icon: cycle,
+    url: "https://hub.roc.je/cycle/cycle-routes-medium",
+  },
+  {
+    name: "Difficult",
+    color: "#EB5757",
+    icon: pro,
+    url: "https://hub.roc.je/cycle/cycle-routes-difficult",
+  },
+  {
+    name: "Cycling safety",
+    color: "#F2994A",
+    icon: shield,
+    url: "https://hub.roc.je/cycle/cycling-safety",
+  },
+  {
+    name: "Cycle hire",
+    color: "#27AE60",
+    icon: cycle,
+    url: "https://www.jersey.com/things-to-do/outdoor-activities/cycle-hire/",
+  },
+];
 
 export const relatedTypes = [
   "restaurant",
@@ -824,7 +800,7 @@ export const relatedTypes = [
   "meal_takeaway",
   "bar",
   "liquor_store",
-  "cafe"
+  "cafe",
 ];
 
 export const reservationTypes = [
@@ -843,7 +819,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d5cc049eb2b028d9be",
     image: gardernCenter,
-    listName: "Garden Centres"
+    listName: "Garden Centres",
   },
   {
     votes: 4,
@@ -852,7 +828,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9c8",
     image: localShops,
-    listName: "Local shops"
+    listName: "Local shops",
   },
   {
     votes: 3,
@@ -861,7 +837,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9c5",
     image: homeware,
-    listName: "Homeware"
+    listName: "Homeware",
   },
   {
     votes: 3,
@@ -870,7 +846,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9cc",
     image: mensClothing,
-    listName: "Mens clothing"
+    listName: "Mens clothing",
   },
   {
     votes: 2,
@@ -879,7 +855,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9d2",
     image: giftIdeas,
-    listName: "Gift ideas"
+    listName: "Gift ideas",
   },
   {
     votes: 2,
@@ -888,7 +864,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9c2",
     image: furniture,
-    listName: "Furniture"
+    listName: "Furniture",
   },
   {
     votes: 0,
@@ -897,7 +873,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9d8",
     image: sunglassesSes,
-    listName: "Sunglasses"
+    listName: "Sunglasses",
   },
   {
     votes: 0,
@@ -906,7 +882,7 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9e4",
     image: greenGlocers,
-    listName: "Green Grocers"
+    listName: "Green Grocers",
   },
   {
     votes: 0,
@@ -915,10 +891,9 @@ export const shoppingImages = [
     status: "Approved",
     categoryId: "663f71d6cc049eb2b028d9cf",
     image: woomenClothing,
-    listName: "Ladies clothing"
-  }
-]
-
+    listName: "Ladies clothing",
+  },
+];
 
 export const SearchFilterData = [
   { id: "100", name: "Any" },
@@ -935,4 +910,134 @@ export const SearchFilterData = [
   { id: "11", name: "Saint Brélade" },
   { id: "12", name: "Grouville" },
   { id: "13", name: "Jersey" },
-]
+];
+
+export const events: { id: string; listName: string }[] = [
+  {
+    id: "669ecfbf9a4bf462b63f37f7",
+    listName: "Arts & Cultural",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f3840",
+    listName: "Family Friendly",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f3896",
+    listName: "Festivals",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f38c5",
+    listName: "Food & Drink",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f38d2",
+    listName: "Health & Wellbeing",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f38de",
+    listName: "History & Heritage",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f38ec",
+    listName: "Music",
+  },
+  {
+    id: "669ecfbf9a4bf462b63f38f9",
+    listName: "Outdoor",
+  },
+  {
+    id: "669ecfc09a4bf462b63f391e",
+    listName: "Participant",
+  },
+  {
+    id: "669ecfc09a4bf462b63f392b",
+    listName: "Seasonal",
+  },
+  {
+    id: "669ecfc09a4bf462b63f3935",
+    listName: "Spectator",
+  },
+  {
+    id: "669ecfc09a4bf462b63f394c",
+    listName: "Sports",
+  },
+];
+
+export const activities = [
+  {
+    id: "669f5b7f9a4bf462b6a29c73",
+    listName: "Active & Adrenaline",
+  },
+  {
+    id: "669f5b809a4bf462b6a29d92",
+    listName: "Beaches",
+  },
+  {
+    id: "669f5b829a4bf462b6a29eca",
+    listName: "Boat",
+  },
+  {
+    id: "669f5b829a4bf462b6a29edb",
+    listName: "Car Hire Driving",
+  },
+  {
+    id: "669f5b829a4bf462b6a29ee6",
+    listName: "Cycling",
+  },
+  {
+    id: "669f5b829a4bf462b6a29f11",
+    listName: "Equipment Hire",
+  },
+  {
+    id: "669f5b829a4bf462b6a29f61",
+    listName: "Family",
+  },
+  {
+    id: "669f5b829a4bf462b6a29f6e",
+    listName: "Fishing Charters",
+  },
+  {
+    id: "669f5b839a4bf462b6a29fa6",
+    listName: "Fitness & Leisure",
+  },
+  {
+    id: "669f5b839a4bf462b6a29fbe",
+    listName: "Food & Drink",
+  },
+  {
+    id: "669f5b839a4bf462b6a29fca",
+    listName: "Golf",
+  },
+  {
+    id: "669f5b839a4bf462b6a29fd7",
+    listName: "History & Culture",
+  },
+  {
+    id: "669f5b839a4bf462b6a2a05a",
+    listName: "Indoor Sports",
+  },
+  {
+    id: "669f5b839a4bf462b6a2a078",
+    listName: "Outdoor Sports",
+  },
+  {
+    id: "669f5b849a4bf462b6a2a0aa",
+    listName: "Nature & Wildlife",
+  },
+  {
+    id: "669f5b849a4bf462b6a2a0c1",
+    listName: "Spa & Health",
+  },
+  {
+    id: "669f5b849a4bf462b6a2a0d4",
+    listName: "Swimming",
+  },
+  {
+    id: "669f5b849a4bf462b6a2a0fa",
+    listName: "Walking",
+  },
+  {
+    id: "669f5b849a4bf462b6a2a12e",
+    listName: "Water Sports",
+  },
+];

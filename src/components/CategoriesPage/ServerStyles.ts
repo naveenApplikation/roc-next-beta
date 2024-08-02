@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import styled from "styled-components";
 
 export const CategoryBody = styled.div`
@@ -7,7 +7,7 @@ export const CategoryBody = styled.div`
   width: 480px;
   height: 100vh;
   overflow: auto;
-
+  background-color: white;
   &::-webkit-scrollbar {
     display: none;
   }
