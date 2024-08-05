@@ -87,12 +87,18 @@ const YearSelect = styled.select`
 `;
 
 const Calendar = () => {
-  const { filterSelection, closeModal } = useMyContext();
+  const { filterSelection, closeModal, eventFilters } = useMyContext();
   const [startDate, setStartDate] = useState("" as any);
   const [endDate, setEndDate] = useState("" as any);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-
+  useEffect(() => {
+    if (eventFilters.date) {
+      const date = eventFilters.date.split("-");
+      setStartDate(new Date(date[0]));
+      setEndDate(date[1] ? new Date(date[1]) : "");
+    }
+  }, [eventFilters.date]);
   const startOfMonth = new Date(currentYear, currentMonth, 1);
   const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
 
