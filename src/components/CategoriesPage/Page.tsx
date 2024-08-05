@@ -18,6 +18,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import SocialShareModal from "../modal/SocialShareModal";
 import { bookmark } from "@/app/utils/ImagePath";
 import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvents/Page";
+import { useEffect } from "react";
 
 interface CategoriesPageProps {
   params: string;
@@ -28,7 +29,8 @@ interface CategoriesPageProps {
   modal?: any;
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap, socialShare, handleSocialShare } = useMyContext();
+  const { showMap, socialShare, handleSocialShare, resetFilters } =
+    useMyContext();
   let urlData: any;
   var data: ApiResponse[];
   urlData = props.params
@@ -41,6 +43,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     data = combinedArray;
   }
 
+  useEffect(() => {
+    resetFilters();
+  }, [props.searchParams]);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);

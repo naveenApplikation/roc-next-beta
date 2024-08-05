@@ -87,7 +87,7 @@ const YearSelect = styled.select`
 `;
 
 const Calendar = () => {
-  const { filterSelection } = useMyContext();
+  const { filterSelection, closeModal } = useMyContext();
   const [startDate, setStartDate] = useState("" as any);
   const [endDate, setEndDate] = useState("" as any);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -207,6 +207,7 @@ const Calendar = () => {
               setEndDate(null);
               filterSelection("date", "");
               handleTodayClick();
+              closeModal("filterOption");
             }}
           >
             Clear
@@ -220,14 +221,15 @@ const Calendar = () => {
           position: "sticky",
           bottom: "0px",
         }}
-        onClick={() =>
+        onClick={() => {
           filterSelection(
             "date",
             `${startDate ? startDate.toDateString() : ""} - ${
               endDate ? endDate.toDateString() : startDate
             }`
-          )
-        }
+          );
+          closeModal("filterOption");
+        }}
       >
         <CommonButton text="Apply Filter" />
       </div>

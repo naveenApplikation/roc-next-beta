@@ -11,8 +11,10 @@ import { CloseModal, share, bookmark } from "@/app/utils/ImagePath";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next-nprogress-bar";
 import { handleFilter } from "@/app/utils/mappingFun";
-import FilterSection from "../filterSection";
+
 import { useParams, useSearchParams } from "next/navigation";
+import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
+import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 // import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
@@ -40,6 +42,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
     closeModal,
     handleSocialShare,
     socialShare,
+    eventFilters,
   } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
@@ -72,8 +75,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       handleSocialShare();
     }
   };
-  const filterDate = handleFilter(urlData, selectFilter);
-  let dataTraverse = filterDate;
+  let filterData = handleFilter(urlData, selectFilter);
+  let dataTraverse = filterData;
   const handlemodal = (id: any) => {
     let temp,
       index = 0;
@@ -103,6 +106,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
       }`
     );
   };
+
+  filterData = filterEvents(filterData, eventFilters);
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -175,7 +180,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                 </MainInsideWrapper>
               </SearchedData>
             ))
-          : filterDate?.map((item: any, index: any) => {
+          : filterData?.map((item: any, index: any) => {
               return (
                 <SearchedData
                   key={index}

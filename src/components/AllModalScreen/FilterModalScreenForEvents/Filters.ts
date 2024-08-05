@@ -25,9 +25,18 @@ export function filterEvents(events: any, filters: any) {
     const locationMatch =
       filters.location.length === 0 ||
       filters.location.includes("Any") ||
-      filters.location.some((loc: any) =>
-        event.acf.location?.some((eLoc: any) => eLoc.value === loc)
-      );
+      filters.location.some((loc: any) => {
+        if (typeof event.acf.parish === "string") {
+          return false;
+        } else if (event.acf.parish && event.acf.parish.label) {
+          console.log(event.acf.parish.label);
+          console.log(
+            event.acf.parish.label.includes(loc.replace("Saint", ""))
+          );
+          return event.acf.parish.label.includes(loc.replace("Saint", ""));
+        }
+        return false;
+      });
 
     // Check if the event is free
     const freeMatch =
@@ -111,20 +120,18 @@ export function filterEvents(events: any, filters: any) {
     const areasMatch =
       filters.area?.length === 0 ||
       filters.area?.some((area: any) =>
-        event.acf.location.some(
+        event.acf.location?.some(
           (loc: { value: any }) => loc.value === area.toLowerCase()
         )
       );
 
     console.log(filters.area, seasonalityMatch, areasMatch);
 
-    // const cateringMatch =
-    //   filters.catering?.length === 0 ||
-    //   filters.catering?.some((cater: any) =>
-    //     event.acf.key_facilities.some(
-    //       (fac: { value: any }) => fac.value === cater
-    //     )
-    //   );
+    const cateringMatch =
+      !filters.catering ||
+      event.acf.key_facilities?.some(
+        (acc: { value: string }) => acc.value === "catering"
+      );
 
     // Return true if any of the values match the filter
     console.log(locationMatch);
@@ -143,10 +150,8 @@ export function filterEvents(events: any, filters: any) {
       todayMatch &&
       parkingMatch &&
       seasonalityMatch &&
-      areasMatch
-      // &&
-      // cateringMatch
+      areasMatch &&
+      cateringMatch
     );
   });
 }
-
