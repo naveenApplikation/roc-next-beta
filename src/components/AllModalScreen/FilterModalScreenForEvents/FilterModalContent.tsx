@@ -7,7 +7,8 @@ import CommonButton from "@/components/button/CommonButton";
 import Calendar from "./Calendar";
 
 const FilterModalContent: React.FC = () => {
-  const { filterOptions, filterSelection, eventFilters } = useMyContext();
+  const { filterOptions, filterSelection, eventFilters, closeModal } =
+    useMyContext();
 
   const data: any = [
     ["Free entry", "Free For Children"],
@@ -49,8 +50,23 @@ const FilterModalContent: React.FC = () => {
       console.log(eventFilters[filterOptions.title]);
     }
   }, [eventFilters, filterOptions.title]);
+  useEffect(() => {
+    if (filterOptions.title == "location" && options.length == 0) {
+      setOption(["Any"]);
+    }
+  }, [filterOptions.title, options]);
   console.log(options);
   const handleFilters = (name: any, value: any) => {
+    if (filterOptions.title == "location") {
+      if (value != "Any" && options.includes("Any")) {
+        setOption([value]);
+        return;
+      } else if (value == "Any") {
+        setOption(["Any"]);
+        return;
+      }
+    }
+
     console.log(name, value, options);
     if (options.includes(value)) {
       const filter = options.filter((item: any) => {
@@ -69,8 +85,9 @@ const FilterModalContent: React.FC = () => {
   );
   const handleSave = () => {
     filterSelection(filterOptions.title, "", options);
+    closeModal("filterOption");
   };
-
+  console.log(options.includes("Any"));
   return (
     <>
       <Container>
@@ -99,10 +116,7 @@ const FilterModalContent: React.FC = () => {
                   >
                     <CheckboxInput
                       type="checkbox"
-                      defaultChecked={
-                        eventFilters[filterOptions.title] &&
-                        eventFilters[filterOptions.title].includes(item)
-                      }
+                      checked={options.includes(item)}
                       onClick={() => {
                         handleFilters(filterOptions.title, item);
                       }}

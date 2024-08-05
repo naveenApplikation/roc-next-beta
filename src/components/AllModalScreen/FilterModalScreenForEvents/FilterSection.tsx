@@ -51,7 +51,11 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   }
 
   const dropdowns = () => {
-    if (params.eventName == "event-list" || params.eventName == "Events") {
+    if (
+      params.eventName == "event-list" ||
+      params.eventName == "EventsByDate" ||
+      params.eventName == "Events"
+    ) {
       return ["Free", "Booking"];
     } else {
       return ["Area", "Location", "Seasonality", "Free", "Booking"];
@@ -238,10 +242,6 @@ const FilterButton = styled.button`
   cursor: pointer;
   height: 33px;
 
-  &:hover {
-    background-color: rgba(235, 235, 235, 255);
-  }
-
   &.active {
     background-color: rgba(235, 235, 235, 255);
   }
@@ -270,10 +270,6 @@ const DropdownButton = styled.button`
   gap: 8px;
   align-items: center;
   height: 33px;
-
-  &:hover {
-    background-color: rgba(235, 235, 235, 255);
-  }
 
   &.active {
     background-color: rgba(235, 235, 235, 255);
