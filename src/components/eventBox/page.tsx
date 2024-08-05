@@ -17,7 +17,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next-nprogress-bar";
 
-
 import { handleFilter } from "@/app/utils/mappingFun";
 import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
@@ -137,8 +136,9 @@ const EventBox: React.FC<EventBoxProps> = ({
   });
   console.log(eventFilters);
   console.log(filterData);
-  const temp = filterEvents(filterData, eventFilters);
-  filterData = temp;
+
+  filterData = filterEvents(filterData, eventFilters);
+
   console.log(filterData, "filtered data");
   return (
     <>

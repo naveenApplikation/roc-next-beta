@@ -51,10 +51,18 @@ const FilterModalContent: React.FC = () => {
     }
   }, [eventFilters, filterOptions.title]);
   useEffect(() => {
-    if (filterOptions.title == "location" && options.length == 0) {
-      setOption(["Any"]);
-    }
-  }, [filterOptions.title, options]);
+     
+       if (
+         filterOptions.title == "location" &&
+         options.length == 0 
+       ) {
+         
+           setOption(["Any"])
+         
+       }
+ 
+   
+  }, [options]);
   console.log(options);
   const handleFilters = (name: any, value: any) => {
     if (filterOptions.title == "location") {
@@ -99,6 +107,9 @@ const FilterModalContent: React.FC = () => {
               {(data[option] || []).map((item: any, index: any) => {
                 return (
                   <div
+                    onClick={() => {
+                      handleFilters(filterOptions.title, item);
+                    }}
                     key={item}
                     style={{
                       padding: "16px",
@@ -106,20 +117,21 @@ const FilterModalContent: React.FC = () => {
                       alignItems: "center",
                       fontSize: "16px",
                       gap: "16px",
+                      cursor: "pointer",
                       borderBottom: `${
                         index === data[option].length - 1
                           ? ""
                           : "1px solid #dfdfdf"
                       }`,
                       boxSizing: "border-box",
+                      background: options.includes(item)
+                        ? "#f2f2f2"
+                        : "rgb(255, 255, 255)",
                     }}
                   >
                     <CheckboxInput
                       type="checkbox"
                       checked={options.includes(item)}
-                      onClick={() => {
-                        handleFilters(filterOptions.title, item);
-                      }}
                     />
                     <p style={{ fontWeight: "600" }}>{item}</p>
                   </div>
@@ -172,7 +184,7 @@ const ScrollingMenu = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  background: #f2f2f2;
+  background: rgb(255, 255, 255);
   border-radius: 10px;
   border-bottom: 1px solid #dfdfdf;
   width: 100%;
