@@ -17,6 +17,7 @@ import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import SocialShareModal from "../modal/SocialShareModal";
 import { bookmark } from "@/app/utils/ImagePath";
+import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvents/Page";
 
 interface CategoriesPageProps {
   params: string;
@@ -27,8 +28,7 @@ interface CategoriesPageProps {
   modal?: any;
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap, socialShare, handleSocialShare} =
-    useMyContext();
+  const { showMap, socialShare, handleSocialShare } = useMyContext();
   let urlData: any;
   var data: ApiResponse[];
   urlData = props.params
@@ -106,6 +106,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       </PageLayout>
       <Categories></Categories>
       <FilterListModalScreen showMap={showMap} />
+      <FilterModalScreenEvents showMap={showMap}></FilterModalScreenEvents>
       <SocialShareModal
         showMap={showMap}
         isOpen={socialShare}

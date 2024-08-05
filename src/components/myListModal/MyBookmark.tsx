@@ -18,7 +18,7 @@ interface DashboardSearchContainerProps {
   activityData?: any;
   loader?: boolean;
 }
-
+ 
 const skeletonItems = new Array(10).fill(null);
 
 const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
@@ -30,6 +30,8 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
   activityData,
   loader,
 }) => {
+
+ 
   return (
     <>
       <TabPanel
@@ -39,7 +41,7 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
       />
       {myBookMarkState == "Lists" ? (
         <>
-          <Lists {...{ listData, loader }} />
+          <Lists  {...{ listData, loader }} />
           {/* <h1>lists</h1> */}
           {/* <Lists {...{ listData, loader }} /> */}
           {/* <div>
@@ -88,7 +90,7 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
       ) : myBookMarkState == "Events" ? (
         <>
           {/* <h1>events</h1> */}
-          <Lists {...{ loader }} listData={eventData} />
+          <Lists {...{ loader }} listData={eventData} currentState={myBookMarkState} />
 
           {/* <FilterSection /> */}
           {/* <SearchedListContainer>

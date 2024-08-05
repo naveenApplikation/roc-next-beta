@@ -22,9 +22,11 @@ import { handleFilter } from "@/app/utils/mappingFun";
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
 import CustomBanner from "@/components/AdComponent/CustomBanner";
-import FilterSection from "@/components/filterSection";
+
 import { activities } from "@/app/utils/data";
 import ScrollList from "@/components/scrollList/ScrollList";
+import FilterSection from "@/components/AllModalScreen/FilterModalScreenForEvents/FilterSection";
+import { filterEvents } from "@/components/AllModalScreen/FilterModalScreenForEvents/Filters";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -54,6 +56,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
     setSelectFilter,
     handleSocialShare,
     socialShare,
+    eventFilters,
   } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
@@ -98,8 +101,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
     }
   };
 
-  const filterDate = handleFilter(urlData, selectFilter);
-  let dataTraverse = filterDate;
+  let filterData = handleFilter(urlData, selectFilter);
+  let dataTraverse = filterData;
   const handlemodal = (id: any) => {
     let temp,
       index = 0;
@@ -132,6 +135,9 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
     return item.listName.toLowerCase() != urlTitle?.toLowerCase();
   });
   console.log(filteredData);
+  const temp = filterEvents(filterData, eventFilters);
+  filterData = temp;
+  console.log(filterData, "filtered data");
 
   return (
     <>
@@ -217,7 +223,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
                 </MainInsideWrapper>
               </SearchedData>
             ))
-          : filterDate?.map((item: any, index: any) => {
+          : filterData?.map((item: any, index: any) => {
               return (
                 <SearchedData key={index}>
                   <MainInsideWrapper
