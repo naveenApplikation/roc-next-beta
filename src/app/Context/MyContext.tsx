@@ -62,6 +62,7 @@ interface ContextProps {
   handleFilterOption?: any;
   filterSelection?: any;
   eventFilters?: any;
+  resetFilters?:any
 }
 
 // Create a context
@@ -119,12 +120,32 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     title: "",
   };
   const [filterOptions, setFilterOption] = useState(options);
+ 
   const [eventFilters, setEventFilters] = useState({
     location: ["Any"] as any,
     free: [] as any,
     booking: [] as any,
     area: [] as any,
     seasonality: [] as any,
+    date:"",
+    today:false,
+    family_friendly:false,
+    couples:false,
+    indoor:false,
+    outdoor:false,
+    wheelchair_access:false,
+    hearing_loop:false,
+    pet_friendly:false,
+    parking:false,
+    catering:false,
+  });
+ const resetFilters = () => {
+    setEventFilters({
+    location: ["Any"],
+    free: [] ,
+    booking: [],
+    area: [],
+    seasonality: [],
     date: "",
     today: false,
     family_friendly: false,
@@ -137,7 +158,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     parking: false,
     catering: false,
   });
-
+ };
   const filterSelection = (name: any, value: any, list: any) => {
     setEventFilters((options) => ({
       ...options,
@@ -420,6 +441,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     handleFilterOption,
     filterSelection,
     eventFilters,
+    resetFilters
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

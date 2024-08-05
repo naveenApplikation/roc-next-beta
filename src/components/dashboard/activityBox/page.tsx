@@ -134,9 +134,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   const filteredData = activities.filter((item) => {
     return item.listName.toLowerCase() != urlTitle?.toLowerCase();
   });
-  console.log(filteredData);
-  const temp = filterEvents(filterData, eventFilters);
-  filterData = temp;
+
+  const temp = (filterData = filterEvents(filterData, eventFilters));
   console.log(filterData, "filtered data");
 
   return (
