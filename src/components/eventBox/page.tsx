@@ -8,7 +8,7 @@ import {
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
@@ -196,91 +196,91 @@ const EventBox: React.FC<EventBoxProps> = ({
         </div>
         {loader
           ? skeletonItems.map((item, index) => (
-              <SearchedData key={index}>
-                <MainInsideWrapper>
+            <SearchedData key={index}>
+              <MainInsideWrapper>
+                <Skeleton
+                  width={80}
+                  height={80}
+                  style={{ borderRadius: 8 }}
+                />
+                <div className="restroRating">
                   <Skeleton
-                    width={80}
-                    height={80}
+                    width={160}
+                    height={17}
                     style={{ borderRadius: 8 }}
                   />
-                  <div className="restroRating">
-                    <Skeleton
-                      width={160}
-                      height={17}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={100}
-                      height={14}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={80}
-                      height={13}
-                      style={{ borderRadius: 8 }}
-                    />
-                  </div>
-                </MainInsideWrapper>
-              </SearchedData>
-            ))
+                  <Skeleton
+                    width={100}
+                    height={14}
+                    style={{ borderRadius: 8 }}
+                  />
+                  <Skeleton
+                    width={80}
+                    height={13}
+                    style={{ borderRadius: 8 }}
+                  />
+                </div>
+              </MainInsideWrapper>
+            </SearchedData>
+          ))
           : filterData?.map((item: any, index: any) => {
-              return (
-                <SearchedData key={index}>
-                  <MainInsideWrapper
-                    onClick={() => {
-                      handlemodalView(item, index);
-                    }}
-                  >
-                    <FamilyEventWrapper>
-                      <img
-                        src={filteredUrls[index]}
-                        alt="image"
-                        width={80}
-                        height={80}
-                        style={{ objectFit: "cover" }}
-                      />
-                      <FamilyEventWrapperInside>
-                        <p className="date">
-                          {/* {formatDate(
+            return (
+              <SearchedData key={index}>
+                <MainInsideWrapper
+                  onClick={() => {
+                    handlemodalView(item, index);
+                  }}
+                >
+                  <FamilyEventWrapper>
+                    <img
+                      src={filteredUrls[index]}
+                      alt="image"
+                      width={80}
+                      height={80}
+                      style={{ objectFit: "cover" }}
+                    />
+                    <FamilyEventWrapperInside>
+                      <p className="date">
+                        {/* {formatDate(
                             item.acf.event_dates[0]
                               ? item.acf.event_dates[0].date
                               : ""
                           )} */}
-                        </p>
-                        <p className="month">
-                          {/* {formatMonth(item.acf?.event_dates[0]?.date)} */}
-                        </p>
-                      </FamilyEventWrapperInside>
-                    </FamilyEventWrapper>
-                    <div className="restroRating">
-                      <p className="shopName">{item.acf?.title}</p>
-                      <DetailContainer>
-                        {item?.acf?.parish?.label ? (
-                          <Image
-                            src={locationMark}
-                            style={{
-                              width: "13px",
-                              height: "13px",
-                              marginRight: 8,
-                            }}
-                            alt="utensils"
-                          />
-                        ) : (
-                          ""
-                        )}
-                        <p>{item?.acf?.parish?.label}</p>
-                      </DetailContainer>
-                      <p>
-                        <span>
-                          {/* {item.acf?.event_dates[0]?.start_time} -{" "}
-                          {item.acf?.event_dates[0]?.end_time} */}
-                        </span>
                       </p>
-                    </div>
-                  </MainInsideWrapper>
-                </SearchedData>
-              );
-            })}
+                      <p className="month">
+                        {/* {formatMonth(item.acf?.event_dates[0]?.date)} */}
+                      </p>
+                    </FamilyEventWrapperInside>
+                  </FamilyEventWrapper>
+                  <div className="restroRating">
+                    <p className="shopName">{item.acf?.title}</p>
+                    <DetailContainer>
+                      {item?.acf?.parish?.label ? (
+                        <Image
+                          src={locationMark}
+                          style={{
+                            width: "13px",
+                            height: "13px",
+                            marginRight: 8,
+                          }}
+                          alt="utensils"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <p>{item?.acf?.parish?.label}</p>
+                    </DetailContainer>
+                    <p>
+                      <span>
+                        {/* {item.acf?.event_dates[0]?.start_time} -{" "}
+                          {item.acf?.event_dates[0]?.end_time} */}
+                      </span>
+                    </p>
+                  </div>
+                </MainInsideWrapper>
+              </SearchedData>
+            );
+          })}
 
         <AddListButton onClick={() => modalClick("ContactUsModal")}>
           <CommonButton text="Suggest an Event" />
@@ -321,6 +321,18 @@ const SearchedListContainer = styled.div`
   padding-bottom: 130px;
 `;
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+    75% {
+      opacity: 0;
+    }
+  100% {
+    opacity: 1;
+  }
+`;
+
 const SearchedData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -328,6 +340,8 @@ const SearchedData = styled.div`
   gap: 10px;
   border-bottom: 1px solid #d9d9d9;
   padding: 10px 0px;
+
+  
   p {
     font-size: 13px;
     font-weight: 400;
@@ -405,6 +419,10 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
   cursor: pointer;
   flex: 1;
+  animation: ${fadeIn} linear;
+  animation-timeline: view();
+  animation-range-end: 100px;
+  animation-range-start: 10px;
 `;
 
 const ImageContainer = styled.div<{ selected: boolean }>`

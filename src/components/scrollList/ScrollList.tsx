@@ -34,7 +34,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data }) => {
           );
         })}
       </MainWrapper>
-      <HalfBlurContainer></HalfBlurContainer>
+      {/* <HalfBlurContainer></HalfBlurContainer> */}
       <BlurContainer></BlurContainer>
     </Container>
   );
@@ -70,16 +70,16 @@ const BlurContainer = styled.div`
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 `;
-const HalfBlurContainer = styled.div`
-    position: absolute;
-    bottom: 28px;
-    left: 0;
-    right: 0;
-    height: 20px;
-    z-index: -1;
-    background: linear-gradient(to top, transparent 18%, transparent 55%);
-    backdrop-filter: blur(1.5px);
-`;
+// const HalfBlurContainer = styled.div`
+//     position: absolute;
+//     bottom: 28px;
+//     left: 0;
+//     right: 0;
+//     height: 20px;
+//     z-index: -1;
+//     background: linear-gradient(to top, transparent 18%, transparent 55%);
+//     backdrop-filter: blur(1.5px);
+// `;
 
 const Wrapper = styled.div`
   border-radius: 24px;
