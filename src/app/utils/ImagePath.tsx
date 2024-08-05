@@ -180,6 +180,8 @@ import bookmarkImg from "../../../assets/images/Home-new-icons/bookmark.svg";
 import bookmarkActiveImg from "../../../assets/images/Home-new-icons/bookmark-active.svg";
 import informationIcon from "../../../assets/images/Home-new-icons/information.svg";
 import backArrowSvg from "../../../assets/images/backArrow.svg";
+import tickSvg from "../../../assets/images/tick.svg";
+export const tick = tickSvg;
 export const backArrow = backArrowSvg;
 export const ScrollIcon = ScrollTopIcon;
 export const NewLogoRoc = NewLogoRocImg;

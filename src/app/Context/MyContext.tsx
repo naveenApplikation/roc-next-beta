@@ -58,6 +58,10 @@ interface ContextProps {
   location?: any;
   socialShare?: any;
   handleSocialShare?: any;
+  filterOptions?: any;
+  handleFilterOption?: any;
+  filterSelection?: any;
+  eventFilters?: any;
 }
 
 // Create a context
@@ -103,13 +107,59 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     modalFilterList: false,
     walksModal: false,
     AboutUs: false,
+    filterOption: false,
+  });
+  const options = {
+    dates: false,
+    free: false,
+    booking: false,
+    area: false,
+    seasonality: false,
+    location: false,
+    title: "",
+  };
+  const [filterOptions, setFilterOption] = useState(options);
+  const [eventFilters, setEventFilters] = useState({
+    location: ["Any"] as any,
+    free: [] as any,
+    booking: [] as any,
+    area: [] as any,
+    seasonality: [] as any,
+    date: "",
+    today: false,
+    family_friendly: false,
+    couples: false,
+    indoor: false,
+    outdoor: false,
+    wheelchair_access: false,
+    hearing_loop: false,
+    pet_friendly: false,
+    parking: false,
+    catering: false,
   });
 
+  const filterSelection = (name: any, value: any, list: any) => {
+    setEventFilters((options) => ({
+      ...options,
+      [name]: value,
+      location: name == "location" ? [...list] : [...options.location],
+      free: name == "free" ? [...list] : [...options.free],
+      booking: name == "booking" ? [...list] : [...options.booking],
+      seasonality: name == "seasonality" ? [...list] : [...options.seasonality],
+      area: name == "area" ? [...list] : [...options.area],
+    }));
+  };
   const [placeData, setPlaceData] = useState<any[]>([]);
   const [placeloader, setPlaceLoader] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectFilter, setSelectFilter] = useState("Any");
-
+  const handleFilterOption = (name: any) => {
+    setFilterOption({
+      ...options,
+      title: name,
+      [name]: true,
+    });
+  };
   const [location, setLocation] = useState<any>({
     latitude: 0,
     longitude: 0,
@@ -222,18 +272,23 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       }
     }
   };
-
+  const filterModalClick = () => {};
   const mapButtonClick = () => {
     setShowMap(false);
   };
-
+  const filterOption = ["opening"];
   const modalClick = (
     name: string,
     item?: any,
     urlImage?: any,
     openReservation?: any
   ) => {
-    if (name == "modalFilter" || name === "modalFilterList") {
+    if (
+      name == "modalFilter" ||
+      name === "modalFilterList" ||
+      name == "filterOption"
+    ) {
+      console.log(name);
       setModalType((prev) => ({
         ...prev,
         [name]: true,
@@ -361,6 +416,10 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     location,
     socialShare,
     handleSocialShare,
+    filterOptions,
+    handleFilterOption,
+    filterSelection,
+    eventFilters,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

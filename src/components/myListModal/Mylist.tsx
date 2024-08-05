@@ -10,9 +10,10 @@ import { useMyContext } from "@/app/Context/MyContext";
 interface ListProps {
   listData?: any;
   loader?: any;
+  currentState?: any;
 }
 
-const Lists: React.FC<ListProps> = ({ listData, loader }) => {
+const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter();
   const { menuClick } = useMyContext();
@@ -30,7 +31,13 @@ const Lists: React.FC<ListProps> = ({ listData, loader }) => {
   //   getCreatedList()
   // },[])
   const handleNavigate = (category: string, id: string) => {
-    menuClick(category, false, id);
+    if (currentState == "Events") {
+      menuClick("event-list", true, id);
+    } else if (currentState == "Lists") {
+      menuClick(category, false, id);
+    } else {
+      menuClick("activity-list", true, id);
+    }
   };
   return (
     <Container>

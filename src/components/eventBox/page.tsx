@@ -17,7 +17,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { useRouter } from "next-nprogress-bar";
 
-import FilterSection from "../filterSection";
+
 import { handleFilter } from "@/app/utils/mappingFun";
 import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
@@ -25,6 +25,8 @@ import { Spin } from "antd";
 import { useParams } from "next/navigation";
 import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
+import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
+import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 interface EventBoxProps {
   isShare?: any;
   urlData?: any;
@@ -54,6 +56,7 @@ const EventBox: React.FC<EventBoxProps> = ({
     setSelectFilter,
     handleSocialShare,
     socialShare,
+    eventFilters,
   } = useMyContext();
 
   const skeletonItems = new Array(10).fill(null);
@@ -100,9 +103,9 @@ const EventBox: React.FC<EventBoxProps> = ({
     }
   };
 
-  const filterDate = handleFilter(urlData, selectFilter);
+  let filterData = handleFilter(urlData, selectFilter);
 
-  let dataTraverse = filterDate;
+  let dataTraverse = filterData;
   const handlemodal = (id: any) => {
     let temp,
       index = 0;
@@ -132,7 +135,11 @@ const EventBox: React.FC<EventBoxProps> = ({
   const filteredData = events.filter((item) => {
     return item.listName.toLowerCase() != urlTitle?.toLowerCase();
   });
-  console.log(urlTitle);
+  console.log(eventFilters);
+  console.log(filterData);
+  const temp = filterEvents(filterData, eventFilters);
+  filterData = temp;
+  console.log(filterData, "filtered data");
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
@@ -216,7 +223,7 @@ const EventBox: React.FC<EventBoxProps> = ({
                 </MainInsideWrapper>
               </SearchedData>
             ))
-          : filterDate?.map((item: any, index: any) => {
+          : filterData?.map((item: any, index: any) => {
               return (
                 <SearchedData key={index}>
                   <MainInsideWrapper
