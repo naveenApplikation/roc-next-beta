@@ -8,7 +8,7 @@ import {
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
@@ -157,14 +157,12 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
+            }}>
             <ImageContainer
               selected={isBookmark}
               onClick={() => {
                 handleBookMark();
-              }}
-            >
+              }}>
               {bookmarkLoader ? (
                 <Spin tip="Loading" size="small" />
               ) : isBookmark ? (
@@ -189,8 +187,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
+          }}>
           <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
@@ -226,8 +223,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               return (
                 <SearchedData key={index}>
                   <MainInsideWrapper
-                    onClick={() => handlemodalView(item, index)}
-                  >
+                    onClick={() => handlemodalView(item, index)}>
                     <FamilyEventWrapper>
                       <Image
                         src={filteredUrls[index]}
@@ -396,6 +392,17 @@ const TitleText = styled.p`
 const AddListButton = styled.div`
   padding-top: 20px;
 `;
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+    75% {
+      opacity: 0;
+    }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const MainInsideWrapper = styled.div`
   display: flex;
@@ -403,6 +410,10 @@ const MainInsideWrapper = styled.div`
   gap: 16px;
   cursor: pointer;
   flex: 1;
+  animation: ${fadeIn} linear;
+  animation-timeline: view();
+  animation-range-end: 100px;
+  animation-range-start: 10px;
 `;
 
 const ImageContainer = styled.div<{ selected: boolean }>`
