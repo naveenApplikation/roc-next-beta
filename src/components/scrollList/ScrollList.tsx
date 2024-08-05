@@ -18,26 +18,25 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data }) => {
     router.push(`/categories/${params.eventName}?search=${id}`);
   };
   return (
-    <>
-      <Container>
-        <MainWrapper>
-          {data.map((item: any) => {
-            return (
-              <Wrapper
-                onClick={() => {
-                  navigate(item.id);
-                }}
-                key={item}
-                style={{ background: background }}
-              >
-                <p>{item?.listName}</p>
-              </Wrapper>
-            );
-          })}
-        </MainWrapper>
-        <BlurContainer></BlurContainer>
-      </Container>
-    </>
+    <Container>
+      <MainWrapper>
+        {data.map((item: any) => {
+          return (
+            <Wrapper
+              onClick={() => {
+                navigate(item.id);
+              }}
+              key={item}
+              style={{ background: background }}
+            >
+              <p>{item?.listName}</p>
+            </Wrapper>
+          );
+        })}
+      </MainWrapper>
+      <HalfBlurContainer></HalfBlurContainer>
+      <BlurContainer></BlurContainer>
+    </Container>
   );
 };
 
@@ -59,6 +58,7 @@ const MainWrapper = styled.div`
   display: flex;
   overflow: auto;
   gap: 4px;
+  margin-left: 10px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -66,9 +66,19 @@ const MainWrapper = styled.div`
 `;
 
 const BlurContainer = styled.div`
-  height: 20px;
+  height: 30px;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+`;
+const HalfBlurContainer = styled.div`
+    position: absolute;
+    bottom: 28px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    z-index: -1;
+    background: linear-gradient(to top, transparent 18%, transparent 55%);
+    backdrop-filter: blur(1.5px);
 `;
 
 const Wrapper = styled.div`

@@ -1,7 +1,7 @@
 "use client";
 import styled from "styled-components";
 
-export const CategoryBody = styled.div`
+export const CategoryBody = styled.div<{title: any}>`
   position: relative;
   z-index: 1;
   width: 480px;
