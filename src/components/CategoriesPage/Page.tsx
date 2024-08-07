@@ -130,7 +130,7 @@ const filterUrls = (ImageUrlData: any) => {
         const jsonData = JSON.parse(item);
         const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-        if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+        if (url && (url.endsWith(".jpg") || url.endsWith(".png")) || url.endsWith(".jpeg")) {
           imageUrls.push(url);
         } else {
           imageUrls.push(
