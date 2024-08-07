@@ -19,6 +19,13 @@ import {
 import { sideWidth } from "@/app/utils/date";
 import CustomBanner from "../AdComponent/CustomBanner";
 
+
+
+interface Props {
+  title?: any;
+}
+
+const list = ["activity-list", "event-list"]
 const HeadMenu = styled.div`
   display: flex;
   align-items: center;
@@ -43,7 +50,7 @@ const HeaderMapProfileContainer = styled.div`
   padding: 0px 16px;
 `;
 
-const HeaderScreen = () => {
+const HeaderScreen = ({ title }: Props) => {
   const router = useRouter();
 
   const navigateClick = () => {
@@ -111,7 +118,7 @@ const HeaderScreen = () => {
           <HamburgerWithoutBG onClick={() => modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
         <Image
-          className="scroll_top_desktop"
+          className={list.includes(title) ? "scroll_top_desktop scroll_top_desktop_adds" : "scroll_top_desktop "}
           onClick={setScrollTop}
           src={ScrollIcon}
           alt="scroll"

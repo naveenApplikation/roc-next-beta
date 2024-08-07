@@ -216,7 +216,7 @@ const ScrollingMenu = styled.div`
   overflow: auto;
   gap: 8px;
   padding: 0px 40px;
-
+  
   &::-webkit-scrollbar {
     display: none;
   }
@@ -232,11 +232,15 @@ const FilterButton = styled.button`
   font-size: 13px;
   font-weight: 500;
   background: #ffffff;
+  color: #000000;
   padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   white-space: nowrap;
   width: 100%;
-  color: #000000;
   cursor: pointer;
+  height: 33px;
 
   &.active {
     background-color: rgba(235, 235, 235, 255);
@@ -256,13 +260,16 @@ const FilterContainer = styled.div`
 const DropdownButton = styled.button`
   background: #ffffff;
   color: #000000;
-  padding: 6px 8px;
+  padding: 12px;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.16);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   display: flex;
+  gap: 8px;
   align-items: center;
+  height: 33px;
 
   &.active {
     background-color: rgba(235, 235, 235, 255);
@@ -270,12 +277,12 @@ const DropdownButton = styled.button`
 `;
 
 const Tick = styled.span`
-  margin-right: 10px;
+
   font-size: 12px;
   transition: transform 0.3s;
 `;
 const Caret = styled.span`
-  margin-left: 10px;
+
   font-size: 12px;
   transition: transform 0.3s;
 

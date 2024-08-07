@@ -16,7 +16,7 @@ import PageLayout from "@/app/pageLayout";
 import FilterListModalScreen from "../AllModalScreen/FilterListModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import SocialShareModal from "../modal/SocialShareModal";
-import { bookmark } from "@/app/utils/ImagePath";
+// import { bookmark } from "@/app/utils/ImagePath";
 import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvents/Page";
 import { useEffect } from "react";
 
@@ -104,8 +104,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   return (
     <>
       <PageLayout>
-        <CategoryBody>
-          <HeaderScreen />
+        <CategoryBody title = {props.params}>
+          <HeaderScreen title = {props.params} />
           {categories()}
         </CategoryBody>
       </PageLayout>

@@ -234,6 +234,10 @@ span {
   .scroll_top_desktop1 {
     left: 250px;
   }
+  .scroll_top_desktop_adds {
+    bottom: 8rem !important;
+    /* bottom: 12.5rem; */
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -245,10 +249,18 @@ span {
     left: 80%;
     bottom: 12.5rem;
   }
+  .scroll_top_desktop_adds {
+    bottom: 9.5rem !important;
+    /* bottom: 12.5rem; */
+  }
 }
 
 @media screen and (max-width: 1100px) {
   .scroll_top_desktop {
     bottom: 12.5rem;
+  }
+  .scroll_top_desktop_adds {
+    bottom: 9.5rem !important;
+    /* bottom: 12.5rem; */
   }
 }
