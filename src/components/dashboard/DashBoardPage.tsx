@@ -39,7 +39,8 @@ const DashBoard = async () => {
   const LocalCusinedata = await getCategory("google/dine-out");
   let familyEventdata = await getCategory("events");
   familyEventdata = familyEventdata.data;
-  const EnjoyTheSunshinedata = await getCategory("sun-shine");
+  let enjoyTheSunshinedata = await getCategory("sun-shine");
+  enjoyTheSunshinedata = enjoyTheSunshinedata.data;
   const TopAttractionsdata = await getCategory("google/top-attraction");
   const bardata = await getDataForHome("Pubs", listData[0]?._id);
 
@@ -64,7 +65,7 @@ const DashBoard = async () => {
       <FamilyEvent data={familyEventdata} />
       <TrendingList {...{ listData }} />
       <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
-      <EnjoyTheSunshine data={EnjoyTheSunshinedata} />
+      <EnjoyTheSunshine data={enjoyTheSunshinedata} />
       <EventsByDate></EventsByDate>
       <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
