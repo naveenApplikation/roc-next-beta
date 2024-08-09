@@ -8,16 +8,18 @@ import styled from "styled-components";
 interface ScrollListPage {
   data?: any;
   background?: any;
+  params?: any;
 }
 
-const ScrollList: React.FC<ScrollListPage> = ({ background, data }) => {
+const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
   const router = useRouter();
-  const params = useParams();
-  if ((params.eventName = "EventsByDate")) {
-    params.eventName = "event-list";
+  console.log(params);
+  if (params === "EventsByDate" || params === "Events") {
+    console.log("enetred");
+    params = "event-list";
   }
   const navigate = (id: any) => {
-    router.push(`/categories/${params.eventName}?search=${id}`);
+    router.push(`/categories/${params}?search=${id}`);
   };
   return (
     <Container>

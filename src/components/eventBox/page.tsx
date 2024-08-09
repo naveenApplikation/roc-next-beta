@@ -161,26 +161,27 @@ const EventBox: React.FC<EventBoxProps> = ({
               gap: 8,
             }}
           >
-            {params.eventName != "EventsByDate" && (
-              <ImageContainer
-                selected={isBookmark}
-                onClick={() => {
-                  handleBookMark();
-                }}
-              >
-                {bookmarkLoader ? (
-                  <Spin tip="Loading" size="small" />
-                ) : isBookmark ? (
-                  <Image
-                    src={bookmarkActive}
-                    style={{ color: "red" }}
-                    alt="Logo Outline"
-                  />
-                ) : (
-                  <Image src={bookmark} alt="Logo Outline" />
-                )}
-              </ImageContainer>
-            )}
+            {params.eventName != "EventsByDate" &&
+              params.eventName != "Events" && (
+                <ImageContainer
+                  selected={isBookmark}
+                  onClick={() => {
+                    handleBookMark();
+                  }}
+                >
+                  {bookmarkLoader ? (
+                    <Spin tip="Loading" size="small" />
+                  ) : isBookmark ? (
+                    <Image
+                      src={bookmarkActive}
+                      style={{ color: "red" }}
+                      alt="Logo Outline"
+                    />
+                  ) : (
+                    <Image src={bookmark} alt="Logo Outline" />
+                  )}
+                </ImageContainer>
+              )}
             <ImageContainer selected={false} onClick={handleShare}>
               <Image src={share} alt="Logo Outline" />
             </ImageContainer>
@@ -291,7 +292,11 @@ const EventBox: React.FC<EventBoxProps> = ({
       </SearchedListContainer>
 
       {urlTitle && (
-        <ScrollList background={"#EB5757"} data={filteredData}></ScrollList>
+        <ScrollList
+          params={params.eventName}
+          background={"#EB5757"}
+          data={filteredData}
+        ></ScrollList>
       )}
       {/* <CustomBanner /> */}
     </>

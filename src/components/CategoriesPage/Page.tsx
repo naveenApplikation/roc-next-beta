@@ -62,10 +62,10 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     if (
       props.params === "event-list" ||
       props.params == "Events" ||
-      urlData === "EventsByDate"
+      props.params === "EventsByDate"
     ) {
       let title = props.title;
-      if (urlData === "EventsByDate") {
+      if (props.params === "EventsByDate") {
         title = props.searchParams.toString().replaceAll("%20", " ");
       }
       return (

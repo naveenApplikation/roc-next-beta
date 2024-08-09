@@ -33,8 +33,6 @@ const ResturatWrapper = styled.div`
   align-items: center;
 `;
 
- 
-
 const ResturantDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -101,8 +99,6 @@ const RestDetailText = styled.p`
   padding: 0px 24px;
 `;
 
- 
-
 const ButtonContainer = styled.div`
   display: flex;
   padding: 0px 24px;
@@ -120,7 +116,6 @@ const AlsoSeeText = styled.p`
   margin-left: 24px;
 `;
 
- 
 const DatesContainer = styled.div`
   margin: 0px 24px;
 `;
@@ -239,34 +234,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
   const ActivitiesListData = [
     {
       name: (
-        <Tooltip title={"Month"}>
-          <span onClick={() => copylink("March - October")}>
-            March - October
-          </span>
-        </Tooltip>
-      ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
-      width: 14,
-      height: 24,
-      nameValue: true,
-    },
-    {
-      name: (
-        <Tooltip title={"Time"}>
-          <span onClick={() => copylink("Today: 09:00 - 18:00")}>
-            Today: 09:00 - 18:00
-          </span>
-        </Tooltip>
-      ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
-      width: 16,
-      height: 24,
-      nameValue: true,
-    },
-    {
-      name: (
         <Tooltip title={"Price"}>
           <span onClick={() => copylink(data?.acf?.price_to)}>
             {`£ ${data?.acf?.price_to}`}
@@ -296,7 +263,10 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <Tooltip title={"Email address"}>
           <span onClick={() => copylink(data?.acf?.email_address)}>
-            <a href={`mailto: ${data?.acf?.email_address}`}> {data?.acf?.email_address} </a>
+            <a href={`mailto: ${data?.acf?.email_address}`}>
+              {" "}
+              {data?.acf?.email_address}{" "}
+            </a>
           </span>
         </Tooltip>
       ),
@@ -310,7 +280,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <WebsiteLink
           href={data?.acf?.website ? data?.acf?.website : ""}
-          target="_blank">
+          target="_blank"
+        >
           {data?.acf?.website}
         </WebsiteLink>
       ),
@@ -322,15 +293,16 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     {
       name:
         data?.acf?.address?.place_name ||
-          data?.acf?.address?.address_line_1 ||
-          data?.acf?.address?.address_line_2 ? (
+        data?.acf?.address?.address_line_1 ||
+        data?.acf?.address?.address_line_2 ? (
           <Tooltip title={"Copy address"}>
             <span
               onClick={() =>
                 copylink(
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
-              }>
+              }
+            >
               {data?.acf?.address?.place_name},{" "}
               {data?.acf?.address?.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},
@@ -345,8 +317,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       height: 24,
       nameValue:
         data.acf?.address?.place_name ||
-          data.acf?.address?.address_line_1 ||
-          data.acf?.address?.address_line_2
+        data.acf?.address?.address_line_1 ||
+        data.acf?.address?.address_line_2
           ? true
           : false,
     },

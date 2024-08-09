@@ -113,7 +113,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
       }
     });
     modalClick(
-      "eventListing",
+      "activities",
       temp,
       filteredUrls[index] ? filteredUrls[index] : fallback
     );
@@ -272,7 +272,11 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <ScrollList data={filteredData} background={"#F2994A"}></ScrollList>
+      <ScrollList
+        data={filteredData}
+        params={"activity-list"}
+        background={"#F2994A"}
+      ></ScrollList>
       {/* <CustomBanner /> */}
     </>
   );

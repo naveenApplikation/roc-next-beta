@@ -21,7 +21,7 @@ interface Props {
 async function Page({ params, searchParams }: Props) {
   let urlData: any = params.eventName.toString().replaceAll("%20", " ");
   const search: any = searchParams.search;
- 
+
   if (
     urlData == "Trending Lists" ||
     urlData == "Jerseyisms" ||
@@ -42,7 +42,9 @@ async function Page({ params, searchParams }: Props) {
   let data, title;
   let bookmark = false;
   if (search == "sun-shine" || search == "events") {
-    data = await getCategory(searchParams.search);
+    const response = await getCategory(searchParams.search);
+    title = response.listName;
+    data = response.data;
   } else if (params.eventName == "EventsByDate") {
     data = await getCategory(
       "filter-events?query=" + searchParams.search.toLowerCase()
