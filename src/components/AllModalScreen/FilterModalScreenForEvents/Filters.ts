@@ -9,6 +9,18 @@ function parseStateDateRange(dateRange: any) {
   return { startDate, endDate };
 }
 
+function isTimeWithinRange(startTime: any, endTime: any, currentTime: any) {
+  const [startHour, startMinute] = startTime.split(":").map(Number);
+  const [endHour, endMinute] = endTime.split(":").map(Number);
+
+  const start = new Date();
+  start.setHours(startHour, startMinute, 0, 0);
+
+  const end = new Date();
+  end.setHours(endHour, endMinute, 0, 0);
+
+  return currentTime >= start && currentTime <= end;
+}
 function isToday(date: any) {
   const today = new Date();
   return (
@@ -58,16 +70,52 @@ export function filterEvents(events: any, filters: any) {
     // Check date
     const eventStartDate = new Date(event.acf.event_dates_start);
     const eventEndDate = new Date(event.acf.event_dates_end);
-    const dateMatch =
-      !filters.date || (eventStartDate <= endDate && eventEndDate >= startDate);
+    // const dateMatch =
+    //   !filters.date || (eventStartDate <= endDate && eventEndDate >= startDate);
     // Check if the event is happening today
     const today = new Date();
-
+    const dateMatch =
+      !filters.date ||
+      event.acf.event_dates.some((dateObj: any, index: any) => {
+        const eventDate = new Date(
+          dateObj.date.slice(0, 4),
+          dateObj.date.slice(4, 6) - 1,
+          dateObj.date.slice(6, 8)
+        );
+        if (eventDate >= startDate && eventDate <= endDate) {
+          event.acf.event_dates = [
+            event.acf.event_dates[index],
+            ...event.acf.event_dates.slice(0, index),
+            ...event.acf.event_dates.slice(
+              index + 1,
+              event.acf.event_dates.length
+            ),
+          ];
+        }
+        return eventDate >= startDate && eventDate <= endDate;
+      });
     const todayMatch =
       !filters.today ||
-      isToday(eventStartDate) ||
-      (eventStartDate <= today && eventEndDate >= today);
+      event.acf.event_dates.some((dateObj: any, index: any) => {
+        const eventDate = new Date(
+          dateObj.date.slice(0, 4),
+          dateObj.date.slice(4, 6) - 1,
+          dateObj.date.slice(6, 8)
+        );
 
+        console.log(filters.today);
+        if (isToday(eventDate)) {
+          event.acf.event_dates = [
+            event.acf.event_dates[index],
+            ...event.acf.event_dates.slice(0, index),
+            ...event.acf.event_dates.slice(
+              index + 1,
+              event.acf.event_dates.length
+            ),
+          ];
+        }
+        return isToday(eventDate);
+      });
     // Check key facilities
     const familyFriendlyMatch =
       !filters.family_friendly ||
