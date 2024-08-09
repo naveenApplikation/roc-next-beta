@@ -37,7 +37,8 @@ const DashBoard = async () => {
 
   const listData = await getApiWithIcon("category", iconsHome);
   const LocalCusinedata = await getCategory("google/dine-out");
-  const familyEventdata = await getCategory("family-events");
+  let familyEventdata = await getCategory("events");
+  familyEventdata = familyEventdata.data;
   const EnjoyTheSunshinedata = await getCategory("sun-shine");
   const TopAttractionsdata = await getCategory("google/top-attraction");
   const bardata = await getDataForHome("Pubs", listData[0]?._id);
