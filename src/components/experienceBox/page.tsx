@@ -89,7 +89,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
     });
 
     modalClick(
-      "activities",
+      "eventListing",
       temp,
       filteredUrls[index] ? filteredUrls[index] : fallback
     );
@@ -108,7 +108,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
     );
   };
 
-  filterData = filterEvents(filterData, eventFilters);
+  // filterData = filterEvents(filterData, eventFilters);
+  console.log(filterData);
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -128,7 +129,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}>
+            }}
+          >
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -146,7 +148,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
+          }}
+        >
           <FilterSection pageTitle="categoryEvent" />
         </div>
 
@@ -183,7 +186,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               return (
                 <SearchedData
                   key={index}
-                  onClick={() => handlemodalView(item, index)}>
+                  onClick={() => handlemodalView(item, index)}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -191,7 +195,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}>
+                    }}
+                  >
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}

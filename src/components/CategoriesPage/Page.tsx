@@ -19,6 +19,7 @@ import SocialShareModal from "../modal/SocialShareModal";
 // import { bookmark } from "@/app/utils/ImagePath";
 import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvents/Page";
 import { useEffect } from "react";
+import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 
 interface CategoriesPageProps {
   params: string;
@@ -29,8 +30,13 @@ interface CategoriesPageProps {
   modal?: any;
 }
 const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
-  const { showMap, socialShare, handleSocialShare, resetFilters } =
-    useMyContext();
+  const {
+    showMap,
+    socialShare,
+    handleSocialShare,
+    resetFilters,
+    eventFilters,
+  } = useMyContext();
   let urlData: any;
   var data: ApiResponse[];
   urlData = props.params
@@ -46,13 +52,22 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   useEffect(() => {
     resetFilters();
   }, [props.searchParams]);
+  data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
   console.log(filteredUrls);
   console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
-    if (props.params === "event-list" || props.params == "Events") {
+    if (
+      props.params === "event-list" ||
+      props.params == "Events" ||
+      urlData === "EventsByDate"
+    ) {
+      let title = props.title;
+      if (urlData === "EventsByDate") {
+        title = props.searchParams.toString().replaceAll("%20", " ");
+      }
       return (
         <EventBox
           isShare={socialShare}
@@ -60,7 +75,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           modal={props.modal}
           bookmarkState={props.bookmarkValue}
           categoryId={props.searchParams}
-          urlTitle={props.title}
+          urlTitle={title}
           filteredUrls={filteredUrls}
         />
       );
@@ -76,11 +91,11 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
           modal={props.modal}
         />
       );
-    } else if (urlData === "Enjoy the sunshine" || urlData === "EventsByDate") {
+    } else if (urlData === "Enjoy the sunshine") {
       let title = urlData;
-      if (urlData === "EventsByDate") {
-        title = props.searchParams.toString().replaceAll("%20", " ");
-      }
+      // if (urlData === "EventsByDate") {
+      //   title = props.searchParams.toString().replaceAll("%20", " ");
+      // }
       return (
         <ExperienceBox
           isShare={socialShare}
@@ -104,8 +119,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   return (
     <>
       <PageLayout>
-        <CategoryBody title = {props.params}>
-          <HeaderScreen title = {props.params} />
+        <CategoryBody title={props.params}>
+          <HeaderScreen title={props.params} />
           {categories()}
         </CategoryBody>
       </PageLayout>
@@ -130,7 +145,10 @@ const filterUrls = (ImageUrlData: any) => {
         const jsonData = JSON.parse(item);
         const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-        if (url && (url.endsWith(".jpg") || url.endsWith(".png")) || url.endsWith(".jpeg")) {
+        if (
+          (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
+          url.endsWith(".jpeg")
+        ) {
           imageUrls.push(url);
         } else {
           imageUrls.push(

@@ -135,8 +135,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
     return item.listName.toLowerCase() != urlTitle?.toLowerCase();
   });
 
-  filterData = filterEvents(filterData, eventFilters);
-  console.log(filterData, "filtered data");
+  // filterData = filterEvents(filterData, eventFilters);
+  // console.log(filterData, "filtered data");
 
   return (
     <>
@@ -157,12 +157,14 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}>
+            }}
+          >
             <ImageContainer
               selected={isBookmark}
               onClick={() => {
                 handleBookMark();
-              }}>
+              }}
+            >
               {bookmarkLoader ? (
                 <Spin tip="Loading" size="small" />
               ) : isBookmark ? (
@@ -187,7 +189,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
+          }}
+        >
           <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
@@ -221,60 +224,46 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             ))
           : filterData?.map((item: any, index: any) => {
               return (
-                <SearchedData key={index}>
-                  <MainInsideWrapper
-                    onClick={() => handlemodalView(item, index)}>
-                    <FamilyEventWrapper>
-                      <Image
-                        src={filteredUrls[index]}
-                        alt="image"
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: 4,
-                          width: "80px",
-                          objectFit: "cover",
-                        }}
-                      />
-                      <FamilyEventWrapperInside>
-                        <p className="date">
-                          {/* {formatDate(
-                            item.acf.event_dates[0]
-                              ? item.acf.event_dates[0].date
-                              : ""
-                          )} */}
-                        </p>
-                        <p className="month">
-                          {/* {formatMonth(item.acf?.event_dates[0]?.date)} */}
-                        </p>
-                      </FamilyEventWrapperInside>
-                    </FamilyEventWrapper>
+                <SearchedData
+                  key={index}
+                  onClick={() => handlemodalView(item, index)}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 16,
+                      flex: 1,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <Image
+                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                      width={500}
+                      height={80}
+                      style={{
+                        borderRadius: 4,
+                        width: "80px",
+                        objectFit: "cover",
+                      }}
+                      alt=""
+                    />
                     <div className="restroRating">
-                      <p className="shopName">{item.acf?.title}</p>
-                      <DetailContainer>
-                        {item?.acf?.parish?.label ? (
-                          <Image
-                            src={locationMark}
-                            style={{
-                              width: "13px",
-                              height: "13px",
-                              marginRight: 8,
-                            }}
-                            alt="utensils"
-                          />
-                        ) : (
-                          ""
-                        )}
-                        <p>{item?.acf?.parish?.label}</p>
-                      </DetailContainer>
-                      <p>
-                        <span>
-                          {/* {item.acf?.event_dates[0]?.start_time} -{" "}
-                          {item.acf?.event_dates[0]?.end_time} */}
-                        </span>
-                      </p>
+                      <p className="shopName">{item.acf.title}</p>
+
+                      <PriceAndLabelText>
+                        {item.acf.parish.label} ⋅ Activity
+                      </PriceAndLabelText>
+                      <PriceAndLabelText>
+                        {item.acf.price_to || item.acf.price_from ? "£" : ""}
+                        {(item.acf.price_from ? item.acf.price_from : "") +
+                          (item.acf.price_to && item.acf.price_from
+                            ? "-"
+                            : "") +
+                          (item.acf.price_to ? item.acf.price_to : "")}
+                      </PriceAndLabelText>
                     </div>
-                  </MainInsideWrapper>
+                  </div>
                 </SearchedData>
               );
             })}
@@ -373,6 +362,14 @@ const FamilyEventWrapper = styled.div`
     width: 30px;
     border-radius: 0px 0px 4px 4px;
   }
+`;
+
+const PriceAndLabelText = styled.p`
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.12px;
 `;
 
 const FamilyEventWrapperInside = styled.div`

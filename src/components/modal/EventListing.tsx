@@ -1,4 +1,3 @@
- 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
@@ -23,7 +22,6 @@ interface ModalProps {
   data?: any;
 }
 
-
 const ModalContent: React.FC<ModalProps> = ({
   dataImage,
   reservationModal,
@@ -32,11 +30,8 @@ const ModalContent: React.FC<ModalProps> = ({
   const [showApiData, setShowApiData] = useState<any>({});
 
   useEffect(() => {
-    
-           setShowApiData(data)
-    
-  }, [data, data._id])
-
+    setShowApiData(data);
+  }, [data, data._id]);
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
@@ -45,15 +40,15 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const EventListData = [
     {
-      name: data?.acf?.event_dates
-        ? (
-          <Tooltip title={"Event date"}>
-            <span onClick={() => copylink(data.acf?.event_dates[0]?.date)}>
-              {formatFullDate(data.acf?.event_dates[0]?.date)}
-            </span>
-          </Tooltip>
-        )
-        : "No events",
+      name: data?.acf?.event_dates ? (
+        <Tooltip title={"Event date"}>
+          <span onClick={() => copylink(data.acf?.event_dates[0]?.date)}>
+            {formatFullDate(data.acf?.event_dates[0]?.date)}
+          </span>
+        </Tooltip>
+      ) : (
+        "No events"
+      ),
       // name: "ssds",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
@@ -62,29 +57,33 @@ const ModalContent: React.FC<ModalProps> = ({
       nameValue: data?.acf?.event_dates ? true : false,
     },
     {
-      name: data?.acf?.event_dates
-        ? (
-          <Tooltip title={"Event time"}>
-            <span onClick={() => copylink(data.acf?.event_dates[0]?.start_time)}>
-              {data.acf?.event_dates[0]?.start_time}
-            </span>
-          </Tooltip>
-        )
-        : "No events",
+      name: data?.acf?.event_dates ? (
+        <Tooltip title={"Event time"}>
+          <span onClick={() => copylink(data.acf?.event_dates[0]?.start_time)}>
+            {data.acf?.event_dates[0]?.start_time}
+          </span>
+        </Tooltip>
+      ) : (
+        "No events"
+      ),
       // name: "sdsd",
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
       width: 16,
       height: 24,
-      nameValue: data?.acf?.event_dates?.length && data?.acf?.event_dates[0].start_time ? true : false,
+      nameValue:
+        data?.acf?.event_dates?.length && data?.acf?.event_dates[0].start_time
+          ? true
+          : false,
     },
     {
-      name:
+      name: (
         <Tooltip title={"Price"}>
           <span onClick={() => copylink(data?.acf?.price_to)}>
             {`£ ${data?.acf?.price_to}`}
           </span>
-        </Tooltip>,
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
       width: 10,
@@ -92,12 +91,16 @@ const ModalContent: React.FC<ModalProps> = ({
       nameValue: data?.acf?.price_to ? true : false,
     },
     {
-      name:
+      name: (
         <Tooltip title={"Email address"}>
           <span onClick={() => copylink(data?.acf?.email_address)}>
-            <a href={`mailto: ${data?.acf?.email_address}`}> {data?.acf?.email_address} </a>
+            <a href={`mailto: ${data?.acf?.email_address}`}>
+              {" "}
+              {data?.acf?.email_address}{" "}
+            </a>
           </span>
-        </Tooltip>,
+        </Tooltip>
+      ),
       image:
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
       width: 16,
@@ -114,7 +117,10 @@ const ModalContent: React.FC<ModalProps> = ({
             {showApiData?.website}
           </WebsiteLink>
         ) : (
-          <WebsiteLink href={data?.acf?.website ? data?.acf?.website : ""} target="_blank">
+          <WebsiteLink
+            href={data?.acf?.website ? data?.acf?.website : ""}
+            target="_blank"
+          >
             {data?.acf?.website}
           </WebsiteLink>
         ),
@@ -125,12 +131,21 @@ const ModalContent: React.FC<ModalProps> = ({
       nameValue: data?.acf?.website ? true : false,
     },
     {
-      name: data?.data_type === "google" ?
-        showApiData?.formatted_address :
-        (
+      name:
+        data?.data_type === "google" ? (
+          showApiData?.formatted_address
+        ) : (
           <Tooltip title={"Copy address"}>
-            <span onClick={() => copylink(`${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`)}>
-              {data?.acf?.address.place_name}, {data?.acf?.address.address_line_1}, {data?.acf?.address?.address_line_2},
+            <span
+              onClick={() =>
+                copylink(
+                  `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
+                )
+              }
+            >
+              {data?.acf?.address.place_name},{" "}
+              {data?.acf?.address.address_line_1},{" "}
+              {data?.acf?.address?.address_line_2},
             </span>
           </Tooltip>
         ),
@@ -138,7 +153,12 @@ const ModalContent: React.FC<ModalProps> = ({
         "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
       width: 12,
       height: 24,
-      nameValue: (data.acf?.address.place_name || data.acf?.address.address_line_1 || data.acf?.address.address_line_2) ? true : false,
+      nameValue:
+        data.acf?.address.place_name ||
+        data.acf?.address.address_line_1 ||
+        data.acf?.address.address_line_2
+          ? true
+          : false,
     },
   ];
 
@@ -148,13 +168,19 @@ const ModalContent: React.FC<ModalProps> = ({
     closes: string;
   }[];
 
-
   const formattedValues = () => {
-    const typeData = data?.data_type === "google" ? showApiData?.types : data?.acf?.type
+    const typeData =
+      data?.data_type === "google" ? showApiData?.types : data?.acf?.type;
     if (Array.isArray(typeData)) {
-      return data?.data_type === "google" ? showApiData?.types.map((item: any) => item.replaceAll("_", " ")).join(" | ") : data?.acf?.type.map((item: any) => item?.label).join(" | ");
+      return data?.data_type === "google"
+        ? showApiData?.types
+            .map((item: any) => item.replaceAll("_", " "))
+            .join(" | ")
+        : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
-      return data?.data_type === "google" ? showApiData?.types : data?.acf?.type?.label;
+      return data?.data_type === "google"
+        ? showApiData?.types
+        : data?.acf?.type?.label;
     }
   };
 
@@ -170,22 +196,25 @@ const ModalContent: React.FC<ModalProps> = ({
       .replace(/(\()/, "")
       .replace(/\)/, "");
   };
-
+  console.log(dataImage);
   return (
     <Container>
       <ResturatContainer>
         <ResturatWrapper>
-          <p style={{ fontSize: "14px", textTransform: 'capitalize' }}>{formattedValues()}</p>
+          <p style={{ fontSize: "14px", textTransform: "capitalize" }}>
+            {formattedValues()}
+          </p>
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
-
-        <Image src={
-          dataImage
-            ? dataImage
-            : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        }
-          alt="Logo"
+        <Image
+          unoptimized
+          src={
+            dataImage
+              ? dataImage
+              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+          }
+          alt="logo"
           width={500}
           height={160}
           style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
@@ -193,28 +222,28 @@ const ModalContent: React.FC<ModalProps> = ({
       </ItemImageContainer>
       <ResturantDetailsContainer>
         {EventListData.map((item, index) => {
-
           return (
-            item?.nameValue &&
-            <ResturantDetailsWrapper key={index}>
-              {" "}
-              <div style={{ width: 20 }}>
-                <Image
-                  style={{ cursor: "pointer", height: "auto" }}
-                  src={item.image}
-                  width={item.width}
-                  height={item.height}
-                  alt="Logo Outline"
-                />{" "}
-              </div>
-              {index == 4 ? (
-                <RestDetailTitleWebsite href={item?.name} target="_blank">
-                  {item?.name}
-                </RestDetailTitleWebsite>
-              ) : (
-                <RestDetailTitle>{item?.name}</RestDetailTitle>
-              )}
-            </ResturantDetailsWrapper>
+            item?.nameValue && (
+              <ResturantDetailsWrapper key={index}>
+                {" "}
+                <div style={{ width: 20 }}>
+                  <Image
+                    style={{ cursor: "pointer", height: "auto" }}
+                    src={item.image}
+                    width={item.width}
+                    height={item.height}
+                    alt="Logo Outline"
+                  />{" "}
+                </div>
+                {index == 4 ? (
+                  <RestDetailTitleWebsite href={item?.name} target="_blank">
+                    {item?.name}
+                  </RestDetailTitleWebsite>
+                ) : (
+                  <RestDetailTitle>{item?.name}</RestDetailTitle>
+                )}
+              </ResturantDetailsWrapper>
+            )
           );
         })}
         <ViewDirection onClick={() => reservationModal("DirectionModal")}>
@@ -280,49 +309,57 @@ const ModalContent: React.FC<ModalProps> = ({
       <AlsoSeeText>Opening</AlsoSeeText>
       <BulletPointWrapper>
         <OpningDatesContainer>
-          {
-            data?.data_type === "google" ?
-              <DatesWrapperText>
-                {showApiData?.current_opening_hours?.weekday_text &&
-                  showApiData?.current_opening_hours?.weekday_text.map((item: any, index: any) => (
+          {data?.data_type === "google" ? (
+            <DatesWrapperText>
+              {showApiData?.current_opening_hours?.weekday_text &&
+                showApiData?.current_opening_hours?.weekday_text.map(
+                  (item: any, index: any) => (
                     <p key={index}>
                       {item}
-                      {index !== showApiData?.current_opening_hours?.weekday_text.length - 1 && ","}{" "}
+                      {index !==
+                        showApiData?.current_opening_hours?.weekday_text
+                          .length -
+                          1 && ","}{" "}
                     </p>
-                  ))}
-              </DatesWrapperText>
-              :
-              <DatesWrapperText>
-                {data?.acf?.seasonality &&
-                  data?.acf?.seasonality.map((item: any, index: any) => (
-                    <p key={index}>
-                      {item?.label}
-                      {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
-                    </p>
-                  ))}
-              </DatesWrapperText>
-          }
+                  )
+                )}
+            </DatesWrapperText>
+          ) : (
+            <DatesWrapperText>
+              {data?.acf?.seasonality &&
+                data?.acf?.seasonality.map((item: any, index: any) => (
+                  <p key={index}>
+                    {item?.label}
+                    {index !== data?.acf?.seasonality.length - 1 && ","}{" "}
+                  </p>
+                ))}
+            </DatesWrapperText>
+          )}
 
-          {
-            data?.data_type === "google" ?
-
-              <WeekTimeArrange>
-                <p>Time:</p>
+          {data?.data_type === "google" ? (
+            <WeekTimeArrange>
+              <p>Time:</p>
+              <p>
+                {convertTo12HourTime(
+                  showApiData?.current_opening_hours?.periods[0].open.time
+                )}{" "}
+                -{" "}
+                {convertTo12HourTime(
+                  showApiData?.current_opening_hours?.periods[0].close.time
+                )}
+              </p>
+            </WeekTimeArrange>
+          ) : (
+            daysOfWeek.map((item, index) => (
+              <WeekTimeArrange key={index}>
+                <p>{item}:</p>
                 <p>
-                  {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].open.time)} - {convertTo12HourTime(showApiData?.current_opening_hours?.periods[0].close.time)}
+                  {daysOfWeekTiming[index].opens} -{" "}
+                  {daysOfWeekTiming[index].closes}
                 </p>
               </WeekTimeArrange>
-              :
-              daysOfWeek.map((item, index) => (
-                <WeekTimeArrange key={index}>
-                  <p>{item}:</p>
-                  <p>
-                    {daysOfWeekTiming[index].opens} - {daysOfWeekTiming[index].closes}
-                  </p>
-                </WeekTimeArrange>
-              ))
-          }
-
+            ))
+          )}
         </OpningDatesContainer>
       </BulletPointWrapper>
     </Container>
@@ -330,7 +367,6 @@ const ModalContent: React.FC<ModalProps> = ({
 };
 
 export default ModalContent;
-
 
 const Container = styled.div`
   display: flex;
@@ -349,8 +385,6 @@ const ResturatWrapper = styled.div`
   gap: 8px;
   align-items: center;
 `;
-
- 
 
 const ResturantDetailsContainer = styled.div`
   display: flex;
@@ -382,8 +416,6 @@ const RestDetailTitle = styled.p`
   line-height: 24px; /* 150% */
 `;
 
- 
-
 const ReviewWraaper = styled.div`
   display: flex;
   align-items: center;
@@ -399,7 +431,6 @@ const RestDetailText = styled.p`
   line-height: 24px; /* 150% */
   padding: 0px 24px;
 `;
- 
 
 const AlsoSeeText = styled.p`
   color: #000;
@@ -409,7 +440,6 @@ const AlsoSeeText = styled.p`
   line-height: normal;
   margin-left: 24px;
 `;
- 
 
 const DatesContainer = styled.div`
   padding: 8px 16px;
@@ -448,8 +478,6 @@ const ItemImageContainer = styled.div`
   padding: 0px 24px;
 `;
 
- 
-
 const BulletPointWrapper = styled.ul`
   list-style-type: disc;
   color: black;
@@ -482,7 +510,7 @@ const Monthstyle = styled.p`
 
 const WeekTimeArrange = styled.div`
   display: flex;
-  gap:10px;
+  gap: 10px;
   align-items: center;
 
   p {
@@ -494,7 +522,6 @@ const WeekTimeArrange = styled.div`
     text-transform: capitalize;
   }
 `;
-
 
 const OpningDatesContainer = styled.div`
   padding: 16px 16px;
