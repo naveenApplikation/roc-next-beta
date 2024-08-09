@@ -13,7 +13,9 @@ interface ScrollListPage {
 const ScrollList: React.FC<ScrollListPage> = ({ background, data }) => {
   const router = useRouter();
   const params = useParams();
-
+  if ((params.eventName = "EventsByDate")) {
+    params.eventName = "event-list";
+  }
   const navigate = (id: any) => {
     router.push(`/categories/${params.eventName}?search=${id}`);
   };
