@@ -258,10 +258,10 @@ const EventBox: React.FC<EventBoxProps> = ({
                       />
                       <FamilyEventWrapperInside>
                         <p className="date">
-                          {formatDate(item.acf?.event_date?item.acf?.event_date:'')}
+                          {formatDate(item.acf?.event_date)}
                         </p>
                         <p className="month">
-                          {formatMonth(item.acf?.event_date?item.acf?.event_date:'')}
+                          {formatMonth(item.acf?.event_date)}
                         </p>
                       </FamilyEventWrapperInside>
                     </FamilyEventWrapper>
