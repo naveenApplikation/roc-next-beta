@@ -103,17 +103,23 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   let filterData = handleFilter(urlData, selectFilter);
-
+  const [date, setDate] = useState("");
   let dataTraverse = filterData;
   const handlemodal = (id: any) => {
+    console.log(date);
+
     let temp,
       index = 0;
-    dataTraverse.forEach((element: any, position: any) => {
-      if (element._id === id) {
+    dataTraverse.some((element: any, position: any) => {
+      if (
+        element._id === id.replace("$", "") &&
+        element.acf.event_date == date
+      ) {
         index = position;
         temp = element;
       }
     });
+
     modalClick(
       "eventListing",
       temp,
@@ -125,10 +131,18 @@ const EventBox: React.FC<EventBoxProps> = ({
       handlemodal(modal);
     }
   }, [modal]);
+
   const handlemodalView = (item: any, pos: any) => {
     console.log(item._id);
+    setDate(item.acf.event_date);
+    let id = item._id;
+    if ( modal && !modal.includes("$")) {
+      id += "$";
+    } else {
+      id = id.replace("$", "");
+    }
     router.replace(
-      `/categories/${params.eventName}?search=${categoryId}&modal=${item._id}`
+      `/categories/${params.eventName}?search=${categoryId}&modal=${id}`
     );
   };
   const filteredData = events.filter((item) => {
@@ -244,14 +258,10 @@ const EventBox: React.FC<EventBoxProps> = ({
                       />
                       <FamilyEventWrapperInside>
                         <p className="date">
-                          {formatDate(
-                            item.acf.event_dates[0]
-                              ? item.acf.event_dates[0].date
-                              : ""
-                          )}
+                          {formatDate(item.acf?.event_date?item.acf?.event_date:'')}
                         </p>
                         <p className="month">
-                          {formatMonth(item.acf?.event_dates[0]?.date)}
+                          {formatMonth(item.acf?.event_date?item.acf?.event_date:'')}
                         </p>
                       </FamilyEventWrapperInside>
                     </FamilyEventWrapper>

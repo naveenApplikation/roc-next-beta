@@ -52,7 +52,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
   const dropdowns = () => {
     if (
-      params.eventName == "event-list" ||
+      params.eventName == "event-category-list" ||
       params.eventName == "EventsByDate" ||
       params.eventName == "Events"
     ) {
@@ -216,7 +216,7 @@ const ScrollingMenu = styled.div`
   overflow: auto;
   gap: 8px;
   padding: 0px 40px;
-  
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -277,12 +277,10 @@ const DropdownButton = styled.button`
 `;
 
 const Tick = styled.span`
-
   font-size: 12px;
   transition: transform 0.3s;
 `;
 const Caret = styled.span`
-
   font-size: 12px;
   transition: transform 0.3s;
 

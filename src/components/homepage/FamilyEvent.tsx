@@ -101,7 +101,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
   return (
     <>
       <MenuDetails
-        isOpen={() => menuClick("Events", true, "events")}
+        isOpen={() => menuClick("Events", true, "upcomming-events")}
         title="Upcoming Events"
       />
       <ScrollingMenu>

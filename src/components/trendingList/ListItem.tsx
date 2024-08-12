@@ -38,7 +38,9 @@ export const ListItem: React.FC<Props> = (props) => {
       if (props.urlTitle == "Event List" || props.urlTitle == "Activity List") {
         router.push(
           `/categories/${
-            props.urlTitle == "Event List" ? "event-list" : "activity-list"
+            props.urlTitle == "Event List"
+              ? "event-category-list"
+              : "activity-list"
           }?search=${id}`
         );
       } else {

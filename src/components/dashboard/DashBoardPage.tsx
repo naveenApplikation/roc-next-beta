@@ -37,7 +37,7 @@ const DashBoard = async () => {
 
   const listData = await getApiWithIcon("category", iconsHome);
   const LocalCusinedata = await getCategory("google/dine-out");
-  let familyEventdata = await getCategory("events");
+  let familyEventdata = await getCategory("upcomming-events");
   familyEventdata = familyEventdata.data;
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = enjoyTheSunshinedata.data;
@@ -75,7 +75,7 @@ const DashBoard = async () => {
       <Shopping {...{ Shoppingdata }} />
       <CategoriesComps
         data={eventsCategories}
-        type="event-list"
+        type="event-category-list"
         name="Event List"
         title="Event Categories"
       />

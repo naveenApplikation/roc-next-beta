@@ -16,8 +16,6 @@ interface DashboardProps {
   title: string;
 }
 
-
-
 const ScrollingMenu = styled.div`
   display: flex;
   overflow: auto;
@@ -56,7 +54,6 @@ const CommunityContainer = styled.div`
   }
 `;
 
-
 const CategoriesComps: React.FC<DashboardProps> = ({
   data,
   name,
@@ -84,7 +81,7 @@ const CategoriesComps: React.FC<DashboardProps> = ({
                   onClick={() => menuClick(type, true, item?._id)}
                 >
                   <p style={{ textAlign: "end" }}> {item?.image}</p>
-                  <p style={{paddingBottom:"5px"}}>{item?.listName}</p>
+                  <p style={{ paddingBottom: "5px" }}>{item?.listName}</p>
                 </CommunityContainer>
               );
             })

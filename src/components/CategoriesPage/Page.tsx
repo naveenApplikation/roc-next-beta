@@ -60,7 +60,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
     if (
-      props.params === "event-list" ||
+      props.params === "event-category-list" ||
       props.params == "Events" ||
       props.params === "EventsByDate"
     ) {

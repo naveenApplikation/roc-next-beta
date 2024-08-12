@@ -41,13 +41,13 @@ async function Page({ params, searchParams }: Props) {
   }
   let data, title;
   let bookmark = false;
-  if (search == "sun-shine" || search == "events") {
+  if (search == "sun-shine" || search == "upcomming-events") {
     const response = await getCategory(searchParams.search);
     title = response.listName;
     data = response.data;
   } else if (params.eventName == "EventsByDate") {
     data = await getCategory(
-      "filter-events?query=" + searchParams.search.toLowerCase()
+      "filter-events-day?query=" + searchParams.search.toLowerCase()
     );
   } else {
     const response = await getCategory(`${urlData}/` + searchParams.search);
@@ -57,7 +57,9 @@ async function Page({ params, searchParams }: Props) {
     title = response?.listName;
     if (token) {
       const res = await getBookMark(
-        urlData == "event-list" ? "event-bookmark" : "activity-bookmark"
+        urlData == "event-category-list"
+          ? "event-bookmark"
+          : "activity-bookmark"
       );
 
       const category = response?.listName;

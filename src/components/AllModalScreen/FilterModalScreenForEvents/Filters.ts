@@ -18,16 +18,31 @@ function isTimeWithinRange(startTime: any, endTime: any, currentTime: any) {
 
   const end = new Date();
   end.setHours(endHour, endMinute, 0, 0);
-
   return currentTime >= start && currentTime <= end;
 }
-function isToday(date: any) {
+function isToday(eventDate: any) {
+  console.log(eventDate);
+  let date = new Date(
+    eventDate.toString().slice(0, 4),
+    eventDate.toString().slice(4, 6) - 1,
+    eventDate.toString().slice(6, 8)
+  );
   const today = new Date();
   return (
     date.getDate() === today.getDate() &&
     date.getMonth() === today.getMonth() &&
     date.getFullYear() === today.getFullYear()
   );
+}
+
+function parseDate(selectedDate: any) {
+  const eventDate = new Date(
+    selectedDate.toString().slice(0, 4),
+    selectedDate.toString().slice(4, 6) - 1,
+    selectedDate.toString().slice(6, 8)
+  );
+
+  return eventDate;
 }
 
 export function filterEvents(events: any, filters: any) {
@@ -53,17 +68,18 @@ export function filterEvents(events: any, filters: any) {
     // Check if the event is free
     const freeMatch =
       filters.free.length === 0 ||
-      (filters.free.includes("free-entry") &&
+      filters.free.some((free: any) =>
         event.acf.booking_information?.some(
-          (b: any) => b.value === "free-entry"
-        ));
+          (b: any) => b.label.toLowerCase() === free.toLowerCase()
+        )
+      );
 
     // Check booking information
     const bookingMatch =
       filters.booking.length === 0 ||
       filters.booking.some((book: any) =>
-        event.acf.booking_information?.some(
-          (eBook: any) => eBook.value === book
+        event.acf.booking_information?.some((eBook: any) =>
+          eBook.value.includes(book)
         )
       );
 
@@ -76,46 +92,12 @@ export function filterEvents(events: any, filters: any) {
     const today = new Date();
     const dateMatch =
       !filters.date ||
-      event.acf.event_dates.some((dateObj: any, index: any) => {
-        const eventDate = new Date(
-          dateObj.date.slice(0, 4),
-          dateObj.date.slice(4, 6) - 1,
-          dateObj.date.slice(6, 8)
-        );
-        if (eventDate >= startDate && eventDate <= endDate) {
-          event.acf.event_dates = [
-            event.acf.event_dates[index],
-            ...event.acf.event_dates.slice(0, index),
-            ...event.acf.event_dates.slice(
-              index + 1,
-              event.acf.event_dates.length
-            ),
-          ];
-        }
-        return eventDate >= startDate && eventDate <= endDate;
-      });
+      (parseDate(event.acf?.event_date) >= startDate &&
+        parseDate(event.acf?.event_date) <= endDate);
+
     const todayMatch =
       !filters.today ||
-      event.acf.event_dates.some((dateObj: any, index: any) => {
-        const eventDate = new Date(
-          dateObj.date.slice(0, 4),
-          dateObj.date.slice(4, 6) - 1,
-          dateObj.date.slice(6, 8)
-        );
-
-        console.log(filters.today);
-        if (isToday(eventDate)) {
-          event.acf.event_dates = [
-            event.acf.event_dates[index],
-            ...event.acf.event_dates.slice(0, index),
-            ...event.acf.event_dates.slice(
-              index + 1,
-              event.acf.event_dates.length
-            ),
-          ];
-        }
-        return isToday(eventDate);
-      });
+      (event.acf.event_date && isToday(event.acf?.event_date));
     // Check key facilities
     const familyFriendlyMatch =
       !filters.family_friendly ||
