@@ -32,7 +32,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   // },[])
   const handleNavigate = (category: string, id: string) => {
     if (currentState == "Events") {
-      menuClick("event-list", true, id);
+      menuClick("event-category-list", true, id);
     } else if (currentState == "Lists") {
       menuClick(category, false, id);
     } else {

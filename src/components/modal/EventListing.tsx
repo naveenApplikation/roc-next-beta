@@ -34,16 +34,21 @@ const ModalContent: React.FC<ModalProps> = ({
   }, [data, data._id]);
 
   const copylink = (copy: any) => {
-    navigator.clipboard.writeText(copy);
+    const date = new Date(
+      copy.toString().slice(0, 4),
+      copy.toString().slice(4, 6) - 1,
+      copy.toString().slice(6, 8)
+    );
+    navigator.clipboard.writeText(date.toString());
     toast.success("copy");
   };
 
   const EventListData = [
     {
-      name: data?.acf?.event_dates ? (
+      name: data?.acf?.event_date ? (
         <Tooltip title={"Event date"}>
-          <span onClick={() => copylink(data.acf?.event_dates[0]?.date)}>
-            {formatFullDate(data.acf?.event_dates[0]?.date)}
+          <span onClick={() => copylink(data.acf?.event_date)}>
+            {formatFullDate(data.acf?.event_date)}
           </span>
         </Tooltip>
       ) : (

@@ -16,7 +16,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
   console.log(params);
   if (params === "EventsByDate" || params === "Events") {
     console.log("enetred");
-    params = "event-list";
+    params = "event-category-list";
   }
   const navigate = (id: any) => {
     router.push(`/categories/${params}?search=${id}`);

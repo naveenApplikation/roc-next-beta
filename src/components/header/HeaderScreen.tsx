@@ -19,13 +19,11 @@ import {
 import { sideWidth } from "@/app/utils/date";
 import CustomBanner from "../AdComponent/CustomBanner";
 
-
-
 interface Props {
   title?: any;
 }
 
-const list = ["activity-list", "event-list"]
+const list = ["activity-list", "event-category-list"];
 const HeadMenu = styled.div`
   display: flex;
   align-items: center;
@@ -118,7 +116,11 @@ const HeaderScreen = ({ title }: Props) => {
           <HamburgerWithoutBG onClick={() => modalClick("LoginSignupModal")} />
         </HeaderMapProfileContainer>
         <Image
-          className={list.includes(title) ? "scroll_top_desktop scroll_top_desktop_adds" : "scroll_top_desktop "}
+          className={
+            list.includes(title)
+              ? "scroll_top_desktop scroll_top_desktop_adds"
+              : "scroll_top_desktop "
+          }
           onClick={setScrollTop}
           src={ScrollIcon}
           alt="scroll"

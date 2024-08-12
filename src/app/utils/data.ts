@@ -191,7 +191,7 @@ export const rightSideMenu = [
     image: event,
     width: 18,
     height: 20,
-    url: "events",
+    url: "upcomming-events",
   },
   {
     name: "Tours",
