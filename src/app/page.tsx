@@ -5,6 +5,7 @@ import RightSideMenu from "@/components/RightSideMenu/page";
 import PageLayout from "./pageLayout";
 import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import { Container, DashboardMenu, MainContainer } from "@/app/style";
+import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
 export default function Home() {
   return (
@@ -12,10 +13,12 @@ export default function Home() {
       <Container>
         <MainContainer>
           <PageLayout>
-            <DashboardMenu>
-              <Header />
-              <Dashboard />
-            </DashboardMenu>
+            <ScrollSet>
+              <DashboardMenu>
+                <Header />
+                <Dashboard />
+              </DashboardMenu>
+            </ScrollSet>
           </PageLayout>
         </MainContainer>
         <RightSideMenu />

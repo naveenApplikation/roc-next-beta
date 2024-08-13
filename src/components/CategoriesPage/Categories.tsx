@@ -35,7 +35,7 @@ const Categories = () => {
     router.prefetch("categories/" + params);
   }, []);
 
-  const options = ["Lists", "Places"];
+  const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
 

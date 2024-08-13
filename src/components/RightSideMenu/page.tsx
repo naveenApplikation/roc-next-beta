@@ -231,7 +231,8 @@ const RightSide = () => {
                   index == 3 ? true : false,
                   index == 3 ? item.url : item.id
                 )
-              }>
+              }
+            >
               <RightSideInsideMenuBox>
                 <Image
                   style={{
@@ -265,7 +266,8 @@ const RightSide = () => {
                     index == 2 ? item.url : item.id
                   );
                 }
-              }}>
+              }}
+            >
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}
@@ -282,7 +284,8 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}>
+          onClick={() => menuClick("Community", true, "category-item")}
+        >
           All Categories
         </button>
       </AllCategories>

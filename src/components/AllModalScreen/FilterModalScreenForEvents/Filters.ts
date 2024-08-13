@@ -1,6 +1,5 @@
 function parseStateDateRange(dateRange: any) {
   if (!dateRange) {
-    console.log("no filters");
     return { startDate: new Date(0), endDate: new Date(0) };
   }
   const [start, end] = dateRange.split("-");
@@ -21,7 +20,6 @@ function isTimeWithinRange(startTime: any, endTime: any, currentTime: any) {
   return currentTime >= start && currentTime <= end;
 }
 function isToday(eventDate: any) {
-  console.log(eventDate);
   let date = new Date(
     eventDate.toString().slice(0, 4),
     eventDate.toString().slice(4, 6) - 1,
@@ -56,10 +54,6 @@ export function filterEvents(events: any, filters: any) {
         if (typeof event.acf.parish === "string") {
           return false;
         } else if (event.acf.parish && event.acf.parish.label) {
-          console.log(event.acf.parish.label);
-          console.log(
-            event.acf.parish.label.includes(loc.replace("Saint", ""))
-          );
           return event.acf.parish.label.includes(loc.replace("Saint", ""));
         }
         return false;
@@ -84,8 +78,7 @@ export function filterEvents(events: any, filters: any) {
       );
 
     // Check date
-    const eventStartDate = new Date(event.acf.event_dates_start);
-    const eventEndDate = new Date(event.acf.event_dates_end);
+
     // const dateMatch =
     //   !filters.date || (eventStartDate <= endDate && eventEndDate >= startDate);
     // Check if the event is happening today
@@ -155,8 +148,6 @@ export function filterEvents(events: any, filters: any) {
         )
       );
 
-    console.log(filters.area, seasonalityMatch, areasMatch);
-
     const cateringMatch =
       !filters.catering ||
       event.acf.key_facilities?.some(
@@ -164,7 +155,7 @@ export function filterEvents(events: any, filters: any) {
       );
 
     // Return true if any of the values match the filter
-    console.log(locationMatch);
+
     return (
       locationMatch &&
       freeMatch &&

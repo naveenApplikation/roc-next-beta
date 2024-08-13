@@ -21,7 +21,7 @@ import { handleFilter } from "@/app/utils/mappingFun";
 import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
@@ -66,6 +66,8 @@ const EventBox: React.FC<EventBoxProps> = ({
 
   const router = useRouter();
   const params = useParams();
+  const date = useSearchParams().get("date");
+
   useEffect(() => {
     setBookmark(bookmarkState);
   }, [bookmarkState]);
@@ -103,18 +105,23 @@ const EventBox: React.FC<EventBoxProps> = ({
   };
 
   let filterData = handleFilter(urlData, selectFilter);
-  const [date, setDate] = useState("");
+
   let dataTraverse = filterData;
   const handlemodal = (id: any) => {
     console.log(date);
 
-    let temp,
+    let temp: any,
       index = 0;
-    dataTraverse.some((element: any, position: any) => {
+    dataTraverse.forEach((element: any, position: any) => {
+      console.log(date);
       if (
+        date &&
         element._id === id.replace("$", "") &&
-        element.acf.event_date == date
+        element.acf.event_date === date
       ) {
+        index = position;
+        temp = element;
+      } else if (!date && !temp && element._id === id.replace("$", "")) {
         index = position;
         temp = element;
       }
@@ -134,26 +141,41 @@ const EventBox: React.FC<EventBoxProps> = ({
 
   const handlemodalView = (item: any, pos: any) => {
     console.log(item._id);
-    setDate(item.acf.event_date);
+
     let id = item._id;
-    if ( modal && !modal.includes("$")) {
+    if (modal && !modal.includes("$")) {
       id += "$";
     } else {
       id = id.replace("$", "");
     }
     router.replace(
-      `/categories/${params.eventName}?search=${categoryId}&modal=${id}`
+      `/categories/${params.eventName}?search=${categoryId}&modal=${id}&date=${item.acf?.event_date}`
     );
   };
-  const filteredData = events.filter((item) => {
-    return item.listName.toLowerCase() != urlTitle?.toLowerCase();
+  const filteredData = events.filter((item:any) => {
+    
+       if(item.listName.toLowerCase()!=urlTitle?.toLowerCase())
+       {
+           if (
+             urlTitle?.toLowerCase() == "upcoming events" &&
+             item.listName.toLowerCase()== "all events"
+           ) {
+             return false;
+           }
+           return true
+       }
+       else
+       {
+         return false
+       }
+    
   });
-  console.log(eventFilters);
-  console.log(filterData);
+  // console.log(eventFilters);
+  // console.log(filterData);
 
   // filterData = filterEvents(filterData, eventFilters);
 
-  console.log(filterData, "filtered data");
+  // console.log(filterData, "filtered data");
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}

@@ -56,7 +56,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  console.log(filteredUrls);
+  
   console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
     if (

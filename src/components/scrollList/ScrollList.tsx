@@ -15,11 +15,19 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
   const router = useRouter();
   console.log(params);
   if (params === "EventsByDate" || params === "Events") {
-    console.log("enetred");
+   
     params = "event-category-list";
   }
+
   const navigate = (id: any) => {
-    router.push(`/categories/${params}?search=${id}`);
+    if(data[0].listName.toLowerCase().includes("activities") && id==data[0].id)
+    { 
+         router.push(`/screens/activities?categoryID=6645d5578bf8ac8d2d5bd628`);
+    }
+    else
+    {
+    router.push(`/categories/${params}?search=${id}`)
+    }
   };
   return (
     <Container>

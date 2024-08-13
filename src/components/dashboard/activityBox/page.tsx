@@ -132,7 +132,9 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   };
 
   const filteredData = activities.filter((item) => {
-    return item.listName.toLowerCase() != urlTitle?.toLowerCase();
+    return !item.listName
+      .toLowerCase()
+      .includes(urlTitle ? urlTitle.toLowerCase() : "");
   });
 
   // filterData = filterEvents(filterData, eventFilters);
@@ -223,6 +225,9 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               </SearchedData>
             ))
           : filterData?.map((item: any, index: any) => {
+              {
+                console.log(index);
+              }
               return (
                 <SearchedData
                   key={index}
@@ -249,10 +254,10 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
                       alt=""
                     />
                     <div className="restroRating">
-                      <p className="shopName">{item.acf.title}</p>
+                      <p className="shopName">{item.acf?.title}</p>
 
                       <PriceAndLabelText>
-                        {item.acf.parish.label} ⋅ Activity
+                        {item.acf?.parish.label} ⋅ Activity
                       </PriceAndLabelText>
                       <PriceAndLabelText>
                         {item.acf.price_to || item.acf.price_from ? "£" : ""}

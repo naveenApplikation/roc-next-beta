@@ -10,9 +10,7 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <PagelayoutContainer>
-      <ScrollSet>
-       {children}
-      </ScrollSet>
+      <PagelayoutMainContainer>{children}</PagelayoutMainContainer>
       <PageLayoutClient />
     </PagelayoutContainer>
   );
