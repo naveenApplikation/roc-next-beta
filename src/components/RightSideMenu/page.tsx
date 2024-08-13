@@ -227,9 +227,9 @@ const RightSide = () => {
               key={index}
               onClick={() =>
                 menuClick(
-                  index == 3 ? item.name : item.url,
-                  index == 3 ? true : false,
-                  index == 3 ? item.url : item.id
+                  index == 3 || index == 6 ? item.id : item.url,
+                  index == 3 || index == 6 ? true : false,
+                  index == 3 || index == 6 ? item.url : item.id
                 )
               }
             >

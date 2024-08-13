@@ -192,6 +192,7 @@ export const rightSideMenu = [
     width: 18,
     height: 20,
     url: "upcomming-events",
+    id: "Events",
   },
   {
     name: "Tours",
@@ -214,8 +215,8 @@ export const rightSideMenu = [
     image: personHiking,
     width: 15,
     height: 20,
-    url: "activities",
-    id: "6645d5578bf8ac8d2d5bd628",
+    url: "activity",
+    id: "activity-list",
   },
   {
     name: "Travel",
@@ -965,7 +966,7 @@ export const events: { id: string; listName: string }[] = [
 ];
 
 export const activities = [
-  { id: "6645d5578bf8ac8d2d5bd628", listName: "All Activities" },
+  { id: "activity", listName: "All Activities" },
   {
     id: "669f5b7f9a4bf462b6a29c73",
     listName: "Active & Adrenaline",

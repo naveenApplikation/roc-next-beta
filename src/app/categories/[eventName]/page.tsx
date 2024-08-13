@@ -41,7 +41,11 @@ async function Page({ params, searchParams }: Props) {
   }
   let data, title;
   let bookmark = false;
-  if (search == "sun-shine" || search == "upcomming-events") {
+  if (
+    search == "sun-shine" ||
+    search == "upcomming-events" ||
+    search == "activity"
+  ) {
     const response = await getCategory(searchParams.search);
     title = response.listName;
     data = response.data;
