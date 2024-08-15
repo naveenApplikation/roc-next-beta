@@ -31,8 +31,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
                 navigate(item.id);
               }}
               key={item}
-              style={{ background: background }}
-            >
+              style={{ background: background }}>
               <p>{item?.listName}</p>
             </Wrapper>
           );
@@ -47,7 +46,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
 export default ScrollList;
 
 const Container = styled.div`
-  position: sticky;
+  position: fixed;
   bottom: 0px;
   z-index: 1993;
 
