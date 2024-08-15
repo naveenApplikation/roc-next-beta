@@ -50,6 +50,10 @@ const Container = styled.div`
   bottom: 0px;
   z-index: 1993;
 
+  @media screen and (min-width: 800px) {
+    max-width: 470px;
+  }
+
   p {
     color: #fff;
     font-size: 14px;
