@@ -7,7 +7,7 @@ import {
   bookmarkActive,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -26,6 +26,7 @@ import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
+
 interface EventBoxProps {
   isShare?: any;
   urlData?: any;
@@ -68,20 +69,17 @@ const EventBox: React.FC<EventBoxProps> = ({
   const params = useParams();
   const date = useSearchParams().get("date");
 
+  const [isBookmark, setBookmark] = useState(false);
+  const [bookmarkLoader, setBookmarkLoader] = useState(false);
+  const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 30)); // Only show first 30 items initially
+  const [loading, setLoading] = useState(false);
+  const [next, setNext] = useState(30); // Track the next batch of items
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     setBookmark(bookmarkState);
   }, [bookmarkState]);
-  // const handleBack = () => {
-  //   router.back();
 
-  //   if (modalType.modalFilterList) {
-  //     closeModal("modalFilterList");
-  //     setSelectFilter("Any");
-  //   }
-  // };
-
-  const [isBookmark, setBookmark] = useState(false);
-  const [bookmarkLoader, setBookmarkLoader] = useState(false);
   const handleBookMark = async () => {
     if (token) {
       setBookmarkLoader(true);
@@ -104,16 +102,10 @@ const EventBox: React.FC<EventBoxProps> = ({
     }
   };
 
-  let filterData = handleFilter(urlData, selectFilter);
-
-  let dataTraverse = filterData;
   const handlemodal = (id: any) => {
-    console.log(date);
-
     let temp: any,
       index = 0;
-    dataTraverse.forEach((element: any, position: any) => {
-      console.log(date);
+    displayedItems.forEach((element: any, position: any) => {
       if (
         date &&
         element._id === id.replace("$", "") &&
@@ -133,15 +125,56 @@ const EventBox: React.FC<EventBoxProps> = ({
       filteredUrls[index] ? filteredUrls[index] : fallback
     );
   };
+
   useEffect(() => {
     if (modal) {
       handlemodal(modal);
     }
   }, [modal]);
 
-  const handlemodalView = (item: any, pos: any) => {
-    console.log(item._id);
+  const handleScroll = () => {
+    if (containerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
 
+      // Check if the user has scrolled 80% down
+      if (
+        scrollTop + clientHeight >= scrollHeight * 0.8 &&
+        !loading &&
+        next < urlData.length
+      ) {
+        setLoading(true);
+        setTimeout(() => {
+          setDisplayedItems((prev: any) => [
+            ...prev,
+            ...urlData.slice(next, next + 30),
+          ]);
+          setNext((prev) => prev + 30);
+          setLoading(false);
+        }, 500); // Simulate loading delay
+      }
+    }
+  };
+
+  // Reset displayed items when urlData changes (due to filters being applied)
+  useEffect(() => {
+    setDisplayedItems(urlData.slice(0, 30)); // Reset to the first 30 items
+    setNext(30); // Reset the counter for the next batch
+  }, [urlData]);
+
+  useEffect(() => {
+    const refCurrent = containerRef.current;
+    if (refCurrent) {
+      refCurrent.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (refCurrent) {
+        refCurrent.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [loading, next, urlData]);
+
+  const handlemodalView = (item: any, pos: any) => {
     let id = item._id;
     if (modal && !modal.includes("$")) {
       id += "$";
@@ -152,42 +185,26 @@ const EventBox: React.FC<EventBoxProps> = ({
       `/categories/${params.eventName}?search=${categoryId}&modal=${id}&date=${item.acf?.event_date}`
     );
   };
-  const filteredData = events.filter((item:any) => {
-    
-       if(item.listName.toLowerCase()!=urlTitle?.toLowerCase())
-       {
-           if (
-             urlTitle?.toLowerCase() == "upcoming events" &&
-             item.listName.toLowerCase()== "all events"
-           ) {
-             return false;
-           }
-           return true
-       }
-       else
-       {
-         return false
-       }
-    
+
+  const filteredData = events.filter((item: any) => {
+    if (item.listName.toLowerCase() !== urlTitle?.toLowerCase()) {
+      if (
+        urlTitle?.toLowerCase() == "upcoming events" &&
+        item.listName.toLowerCase() == "all events"
+      ) {
+        return false;
+      }
+      return true;
+    } else {
+      return false;
+    }
   });
-  // console.log(eventFilters);
-  // console.log(filterData);
 
-  // filterData = filterEvents(filterData, eventFilters);
-
-  // console.log(filterData, "filtered data");
   return (
     <>
-      {/* {isShare && <Backdrop></Backdrop>} */}
-      <SearchedListContainer>
+      <SearchedListContainer ref={containerRef}>
         <Header className="">
           <TitleText>{urlTitle}</TitleText>
-          {/* <Image
-            style={{ width: 40, height: 40, cursor: "pointer" }}
-            src={CloseModal}
-            alt="Logo Outline"
-            onClick={() => handleBack()}
-          /> */}
           <div
             style={{
               padding: "10px 0px",
@@ -195,16 +212,14 @@ const EventBox: React.FC<EventBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
-            {params.eventName != "EventsByDate" &&
-              params.eventName != "Events" && (
+            }}>
+            {params.eventName !== "EventsByDate" &&
+              params.eventName !== "Events" && (
                 <ImageContainer
                   selected={isBookmark}
                   onClick={() => {
                     handleBookMark();
-                  }}
-                >
+                  }}>
                   {bookmarkLoader ? (
                     <Spin tip="Loading" size="small" />
                   ) : isBookmark ? (
@@ -229,95 +244,62 @@ const EventBox: React.FC<EventBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
+          }}>
           <FilterSection pageTitle="categoryEvent" />
         </div>
-        {loader
-          ? skeletonItems.map((item, index) => (
-              <SearchedData key={index}>
-                <MainInsideWrapper>
-                  <Skeleton
+        {displayedItems?.map((item: any, index: any) => {
+          return (
+            <SearchedData key={index}>
+              <MainInsideWrapper
+                onClick={() => {
+                  handlemodalView(item, index);
+                }}>
+                <FamilyEventWrapper>
+                  <img
+                    src={filteredUrls[index]}
+                    alt="image"
                     width={80}
                     height={80}
-                    style={{ borderRadius: 8 }}
+                    style={{ objectFit: "cover" }}
                   />
-                  <div className="restroRating">
-                    <Skeleton
-                      width={160}
-                      height={17}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={100}
-                      height={14}
-                      style={{ borderRadius: 8 }}
-                    />
-                    <Skeleton
-                      width={80}
-                      height={13}
-                      style={{ borderRadius: 8 }}
-                    />
-                  </div>
-                </MainInsideWrapper>
-              </SearchedData>
-            ))
-          : filterData?.map((item: any, index: any) => {
-              return (
-                <SearchedData key={index}>
-                  <MainInsideWrapper
-                    onClick={() => {
-                      handlemodalView(item, index);
-                    }}
-                  >
-                    <FamilyEventWrapper>
-                      <img
-                        src={filteredUrls[index]}
-                        alt="image"
-                        width={80}
-                        height={80}
-                        style={{ objectFit: "cover" }}
+                  <FamilyEventWrapperInside>
+                    <p className="date">{formatDate(item.acf?.event_date)}</p>
+                    <p className="month">{formatMonth(item.acf?.event_date)}</p>
+                  </FamilyEventWrapperInside>
+                </FamilyEventWrapper>
+                <div className="restroRating">
+                  <p className="shopName">{item.acf?.title}</p>
+                  <DetailContainer>
+                    {item?.acf?.parish?.label ? (
+                      <Image
+                        src={locationMark}
+                        style={{
+                          width: "13px",
+                          height: "13px",
+                          marginRight: 8,
+                        }}
+                        alt="utensils"
                       />
-                      <FamilyEventWrapperInside>
-                        <p className="date">
-                          {formatDate(item.acf?.event_date)}
-                        </p>
-                        <p className="month">
-                          {formatMonth(item.acf?.event_date)}
-                        </p>
-                      </FamilyEventWrapperInside>
-                    </FamilyEventWrapper>
-                    <div className="restroRating">
-                      <p className="shopName">{item.acf?.title}</p>
-                      <DetailContainer>
-                        {item?.acf?.parish?.label ? (
-                          <Image
-                            src={locationMark}
-                            style={{
-                              width: "13px",
-                              height: "13px",
-                              marginRight: 8,
-                            }}
-                            alt="utensils"
-                          />
-                        ) : (
-                          ""
-                        )}
-                        <p>{item?.acf?.parish?.label}</p>
-                      </DetailContainer>
-                      <p>
-                        <span>
-                          {item.acf?.event_dates[0]?.start_time}{" "}
-                          {item.acf?.event_dates[0]?.start_time ? "-" : " "}
-                          {item.acf?.event_dates[0]?.end_time}
-                        </span>
-                      </p>
-                    </div>
-                  </MainInsideWrapper>
-                </SearchedData>
-              );
-            })}
-
+                    ) : (
+                      ""
+                    )}
+                    <p>{item?.acf?.parish?.label}</p>
+                  </DetailContainer>
+                  <p>
+                    <span>
+                      {item.acf?.event_dates[0]?.start_time}{" "}
+                      {item.acf?.event_dates[0]?.start_time ? "-" : " "}
+                      {item.acf?.event_dates[0]?.end_time}
+                    </span>
+                  </p>
+                </div>
+              </MainInsideWrapper>
+            </SearchedData>
+          );
+        })}
+        <div style={{ height: "100px", backgroundColor: "transparent" }}>
+          {loading && <p>Loading more items...</p>}
+        </div>
         <AddListButton onClick={() => modalClick("ContactUsModal")}>
           <CommonButton text="Suggest an Event" />
         </AddListButton>
@@ -327,23 +309,13 @@ const EventBox: React.FC<EventBoxProps> = ({
         <ScrollList
           params={params.eventName}
           background={"#EB5757"}
-          data={filteredData}
-        ></ScrollList>
+          data={filteredData}></ScrollList>
       )}
-      {/* <CustomBanner /> */}
     </>
   );
 };
 
-const Backdrop = styled.div`
-  @media screen and (max-width: 800px) {
-    background-color: gray;
-    position: fixed;
-    bottom: 100%;
-    inset: 0px;
-    opacity: 0.5;
-  }
-`;
+// Existing styles remain unchanged...
 
 export default EventBox;
 
@@ -359,6 +331,8 @@ const SearchedListContainer = styled.div`
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 130px;
+  overflow-y: scroll;
+  height: 100vh;
 `;
 
 const fadeIn = keyframes`
