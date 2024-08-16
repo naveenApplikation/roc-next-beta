@@ -360,6 +360,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       </ResturatContainer>
       <ItemImageContainer>
         <ImageWrraper
+        unoptimized
           src={
             dataImage
               ? dataImage
@@ -368,6 +369,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           alt="Logo"
           width={500}
           height={80}
+         
           style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
@@ -379,6 +381,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                 {" "}
                 <div style={{ width: 20 }}>
                   <Image
+                   
                     style={{
                       cursor: "pointer",
                       height: "auto",
@@ -404,7 +407,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         </ViewDirection>
       </ResturantDetailsContainer>
       <RestDetailText>{strippedContent}</RestDetailText>
-      <AlsoSeeText>Tours & activities available</AlsoSeeText>
+      {/* <AlsoSeeText>Tours & activities available</AlsoSeeText>
       {WeekDays.map((item, index) => (
         <TouristContainer key={index}>
           <Image
@@ -438,7 +441,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
             </div>
           </div>
         </TouristContainer>
-      ))}
+      ))} */}
 
       {data.acf?.key_facilities != "" && (
         <>
