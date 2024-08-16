@@ -105,7 +105,7 @@ const EventBox: React.FC<EventBoxProps> = ({
   const handlemodal = (id: any) => {
     let temp: any,
       index = 0;
-    displayedItems.forEach((element: any, position: any) => {
+    urlData.forEach((element: any, position: any) => {
       if (
         date &&
         element._id === id.replace("$", "") &&
