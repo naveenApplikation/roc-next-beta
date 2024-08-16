@@ -4,9 +4,8 @@ import EventListingModalLayout from "@/components//modal/Modal";
 import EventListingModal from "@/components/modal/EventListing";
 import { useMyContext } from "@/app/Context/MyContext";
 import ModalContent from "../modal/PlaceModal/ModalContent";
- 
+
 import { useRouter } from "next/navigation";
- 
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -33,7 +32,8 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   console.log(params);
   const handleClose = () => {
     console.log(params);
-    if (params.eventName) {
+
+    if (params?.eventName) {
       closeModal("eventListing");
 
       router.replace(
@@ -41,9 +41,8 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
       );
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
-         closeModal("eventListing");
-      router.replace("/upcoming")
-   
+      closeModal("eventListing");
+      router.replace("/upcoming");
     }
   };
 
@@ -58,8 +57,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
           dataDetails?.data_type === "google"
             ? dataDetails?.name
             : dataDetails?.acf?.title
-        }
-      >
+        }>
         {dataDetails?.data_type === "google" ? (
           <ModalContent
             onClose={() => closeModal("ModalContent")}
@@ -73,7 +71,6 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
             dataImage={dataUrlImage}
             reservationModal={modalClick}
             data={dataDetails}
-            
           />
         )}
       </EventListingModalLayout>

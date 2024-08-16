@@ -28,13 +28,10 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
           return (
             <Wrapper
               onClick={() => {
-                if(item.id=='upcoming')
-                {
-                    router.push(`/upcoming`);
-                }
-                else
-                {
-                navigate(item.id)
+                if (item.id == "upcoming") {
+                  router.push(`/upcoming`);
+                } else {
+                  navigate(item.id);
                 }
               }}
               key={item}
@@ -56,7 +53,7 @@ const Container = styled.div`
   position: fixed;
   bottom: 0px;
   z-index: 1993;
-
+  max-width: 100%;
   @media screen and (min-width: 800px) {
     max-width: 470px;
   }
