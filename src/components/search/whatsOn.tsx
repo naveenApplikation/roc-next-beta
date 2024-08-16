@@ -4,6 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import Image from "next/image";
+import { filter } from "@/app/utils/ImagePath";
 
 interface listSearchProps {
   filterData?: any;
@@ -13,7 +14,7 @@ interface listSearchProps {
 const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const { modalClick } = useMyContext();
-
+  console.log("whats on",filterData)
   return (
     <>
       {loader ? (
@@ -62,7 +63,7 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
                     flexDirection: "column",
                     maxWidth: "calc(100% - 30%)",
                   }}>
-                  <ListDataTittleText>{item?.title}</ListDataTittleText>
+                  <ListDataTittleText>{item?.item.acf?.title}</ListDataTittleText>
 
                   <ListDataInfoText>{item?.type}</ListDataInfoText>
                   <ListDataInfoText>{item?.date}</ListDataInfoText>

@@ -246,6 +246,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}
                       height={80}
+                      unoptimized
                       style={{
                         borderRadius: 4,
                         width: "80px",
