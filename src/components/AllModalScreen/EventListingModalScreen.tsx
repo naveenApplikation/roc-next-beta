@@ -5,7 +5,7 @@ import EventListingModal from "@/components/modal/EventListing";
 import { useMyContext } from "@/app/Context/MyContext";
 import ModalContent from "../modal/PlaceModal/ModalContent";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -27,7 +27,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
     dataUrlImage,
     reservationMenu,
   } = useMyContext();
-
+  const path = usePathname();
   const router = useRouter();
   console.log(params);
   const handleClose = () => {
@@ -42,7 +42,9 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
       closeModal("eventListing");
-      router.replace("/upcoming");
+      if (path.includes("upcoming")) {
+        router.replace("/upcoming");
+      }
     }
   };
 
