@@ -13,6 +13,7 @@ import { convertTo12HourTime } from "@/app/utils/commanFun";
 import { Tooltip } from "antd";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { share } from "@/app/utils/ImagePath";
 
 interface ModalProps {
   //   onClose: () => void;
@@ -117,15 +118,13 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
-            target="_blank"
-          >
+            target="_blank">
             {showApiData?.website}
           </WebsiteLink>
         ) : (
           <WebsiteLink
             href={data?.acf?.website ? data?.acf?.website : ""}
-            target="_blank"
-          >
+            target="_blank">
             {data?.acf?.website}
           </WebsiteLink>
         ),
@@ -146,8 +145,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 copylink(
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
-              }
-            >
+              }>
               {data?.acf?.address.place_name},{" "}
               {data?.acf?.address.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},
@@ -212,6 +210,10 @@ const ModalContent: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
+        <EventShare>
+          {" "}
+          <Image src={share} alt="Logo Outline" />
+        </EventShare>
         <Image
           unoptimized
           src={
@@ -221,7 +223,7 @@ const ModalContent: React.FC<ModalProps> = ({
           }
           alt="logo"
           width={500}
-          height={160}
+          height={180}
           style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
@@ -481,6 +483,7 @@ const RestDetailTitleWebsite = styled.a`
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
+  position: relative;
 `;
 
 const BulletPointWrapper = styled.ul`
@@ -541,4 +544,18 @@ const WebsiteLink = styled(Link)`
     text-decoration-color: lightblue;
     color: lightblue;
   }
+`;
+
+const EventShare = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffd9;
+  border-radius: 100%;
+  position: absolute;
+  right: 30px;
+  width: 35px;
+  height: 35px;
+  bottom: 10px;
+  cursor: pointer;
 `;
