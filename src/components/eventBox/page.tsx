@@ -71,9 +71,9 @@ const EventBox: React.FC<EventBoxProps> = ({
 
   const [isBookmark, setBookmark] = useState(false);
   const [bookmarkLoader, setBookmarkLoader] = useState(false);
-  const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 30)); // Only show first 30 items initially
+  const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 10)); // Only show first 10 items initially
   const [loading, setLoading] = useState(false);
-  const [next, setNext] = useState(30); // Track the next batch of items
+  const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -146,9 +146,9 @@ const EventBox: React.FC<EventBoxProps> = ({
         setTimeout(() => {
           setDisplayedItems((prev: any) => [
             ...prev,
-            ...urlData.slice(next, next + 30),
+            ...urlData.slice(next, next + 10),
           ]);
-          setNext((prev) => prev + 30);
+          setNext((prev) => prev + 10);
           setLoading(false);
         }, 500); // Simulate loading delay
       }
@@ -157,8 +157,8 @@ const EventBox: React.FC<EventBoxProps> = ({
 
   // Reset displayed items when urlData changes (due to filters being applied)
   useEffect(() => {
-    setDisplayedItems(urlData.slice(0, 30)); // Reset to the first 30 items
-    setNext(30); // Reset the counter for the next batch
+    setDisplayedItems(urlData.slice(0, 10)); // Reset to the first 10 items
+    setNext(10); // Reset the counter for the next batch
   }, [urlData]);
 
   useEffect(() => {
@@ -333,6 +333,7 @@ const SearchedListContainer = styled.div`
   padding-bottom: 130px;
   overflow-y: scroll;
   height: 100vh;
+  scrollbar-color: transparent transparent;
 `;
 
 const fadeIn = keyframes`
