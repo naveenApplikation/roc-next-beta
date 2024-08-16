@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
+import { useRouter } from "next/navigation";
 
 interface DashboardProps {
   data?: any;
@@ -97,7 +98,10 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-
+  const router=useRouter()
+useEffect(() => {
+  router.prefetch(`/categories/Events?search=upcomming-events`);
+}, [router]);
   return (
     <>
       <MenuDetails

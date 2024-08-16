@@ -47,18 +47,18 @@ async function Page({ params, searchParams }: Props) {
     search == "activity"
   ) {
     const response = await getCategory(searchParams.search);
-    title = response.listName;
-    data = response.data;
+    title =await response.listName;
+    data = await response.data
   } else if (params.eventName == "EventsByDate") {
     data = await getCategory(
       "filter-events-day?query=" + searchParams.search.toLowerCase()
     );
   } else {
     const response = await getCategory(`${urlData}/` + searchParams.search);
-    data = response.data;
+    data = await response.data;
 
     const token = cookies().get("loginToken")?.value;
-    title = response?.listName;
+    title = await response?.listName;
     if (token) {
       const res = await getBookMark(
         urlData == "event-category-list"
@@ -66,7 +66,7 @@ async function Page({ params, searchParams }: Props) {
           : "activity-bookmark"
       );
 
-      const category = response?.listName;
+      const category =await response?.listName;
 
       res.bookmark?.forEach((item: any) => {
         if (item.listName.includes(category)) {
@@ -90,13 +90,13 @@ async function Page({ params, searchParams }: Props) {
   );
 }
 
-// const params = ["Enjoy the sunshine", "Community", "Shopping", "Wellbeing"];
+const params = ["Events", "event-category-list","activity-list"];
 
-// export async function generateStaticParams() {
-//   return params.map((params) => {
-//     return { eventName: params };
-//   });
-// }
+export async function generateStaticParams() {
+  return params.map((params) => {
+    return { eventName: params};
+  });
+}
 
 export async function generateMetadata(
   { params }: Props,

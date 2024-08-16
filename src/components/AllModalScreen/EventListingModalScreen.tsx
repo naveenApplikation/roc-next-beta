@@ -70,6 +70,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
             dataImage={dataUrlImage}
             reservationModal={modalClick}
             data={dataDetails}
+            search={searchQuery}
           />
         )}
       </EventListingModalLayout>

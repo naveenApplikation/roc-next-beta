@@ -16,8 +16,8 @@ export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
     const options =
-      params === "events" || params === "Trending Lists"
-        ? { next: { revalidate: 1} }
+      params === "upcomming-events" || params === "Trending Lists"
+        ? { next: { revalidate:30} }
         : undefined;
 
     const res = await fetch(url, options);

@@ -130,7 +130,7 @@ const EventBox: React.FC<EventBoxProps> = ({
     if (modal) {
       handlemodal(modal);
     }
-  }, [modal]);
+  }, []);
 
   const handleScroll = () => {
     if (containerRef.current) {
@@ -252,7 +252,11 @@ const EventBox: React.FC<EventBoxProps> = ({
             <SearchedData key={index}>
               <MainInsideWrapper
                 onClick={() => {
-                  handlemodalView(item, index);
+                  modalClick(
+                    "eventListing",
+                    item,
+                    filteredUrls[index] ? filteredUrls[index] : fallback
+                  );
                 }}>
                 <FamilyEventWrapper>
                   <img

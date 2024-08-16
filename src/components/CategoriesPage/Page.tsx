@@ -54,8 +54,13 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
      
   useEffect(() => {
     resetFilters();
-     router.prefetch(`categories/${props.params}?search=${props.searchParams}`);
+    
   }, [props.searchParams]);
+  useEffect(()=>{
+      router.prefetch(
+        `categories/${props.params}?search=${props.searchParams}`
+      );
+  },[props.params, props.searchParams, router])
   data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
