@@ -20,6 +20,7 @@ import SocialShareModal from "../modal/SocialShareModal";
 import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvents/Page";
 import { useEffect } from "react";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
+import { useRouter } from "next/navigation";
 
 interface CategoriesPageProps {
   params: string;
@@ -49,8 +50,11 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     data = combinedArray;
   }
 
+   const router = useRouter();
+     
   useEffect(() => {
     resetFilters();
+     router.prefetch(`categories/${props.params}?search=${props.searchParams}`);
   }, [props.searchParams]);
   data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
