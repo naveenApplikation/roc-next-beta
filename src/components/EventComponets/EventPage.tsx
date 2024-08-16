@@ -258,7 +258,7 @@ const handleItemClick = (item: any) => {
 
      
         <ScrollList
-          params={"All events"}
+          params={"event-category-list"}
           background={"#EB5757"}
           data={filteredData}
         ></ScrollList>

@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import { getCategory } from "../action"
 import EventPage from "@/components/EventComponets/EventPage";
- 
+export const maxDuration = 300;
 
 async function Page(){
       
