@@ -33,14 +33,17 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   console.log(params);
   const handleClose = () => {
     console.log(params);
-    if (params) {
+    if (params.eventName) {
       closeModal("eventListing");
+
       router.replace(
         `/categories/${params.eventName}?search=${searchQuery.get("search")}`
       );
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
-      closeModal("eventListing");
+         closeModal("eventListing");
+      router.replace("/upcoming")
+   
     }
   };
 
@@ -70,7 +73,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
             dataImage={dataUrlImage}
             reservationModal={modalClick}
             data={dataDetails}
-            search={searchQuery}
+            
           />
         )}
       </EventListingModalLayout>

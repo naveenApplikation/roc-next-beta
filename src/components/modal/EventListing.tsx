@@ -23,14 +23,14 @@ interface ModalProps {
   dataImage: any;
   reservationModal: any;
   data?: any;
-  search?:any
+  
 }
 
 const ModalContent: React.FC<ModalProps> = ({
   dataImage,
   reservationModal,
   data,
-  search
+  
 }) => {
   const [showApiData, setShowApiData] = useState<any>({});
   const router=useRouter()
@@ -50,6 +50,12 @@ const ModalContent: React.FC<ModalProps> = ({
     toast.success("copy");
   };
 
+  const copyUrl=()=>{
+       const url =
+         typeof window !== "undefined" ? window.location.href.toString() : "";
+         navigator.clipboard.writeText(url);
+         toast.success("copy");
+  }
   const EventListData = [
     {
       name: data?.acf?.event_date ? (
@@ -210,9 +216,7 @@ const ModalContent: React.FC<ModalProps> = ({
   };
   console.log(dataImage);
 
-  const handleShare = () => {
-    router.replace(`/categories/${eventName}?search=${search.get('search')}&modal=${data?._id}&date=${data.acf?.event_date}`);
-  };
+  
   return (
   
       <Container>
@@ -224,7 +228,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </ResturatWrapper>
         </ResturatContainer>
         <ItemImageContainer>
-          <EventShare onClick={handleShare}>
+          <EventShare onClick={copylink}>
             {" "}
             <Image src={share} alt="Logo Outline" />
           </EventShare>

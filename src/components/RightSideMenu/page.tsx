@@ -47,7 +47,6 @@ const RightSideHeadMenu = styled.div`
     flex: 1;
   }
 `;
-
 const HeaderMapProfileContainer = styled.div`
   display: flex;
   gap: 16px;
@@ -225,13 +224,19 @@ const RightSide = () => {
           return (
             <RightSideMenu
               key={index}
-              onClick={() =>
+              onClick={() =>{
+                 if(item.url=="upcoming")
+                 {
+                   router.push('/upcoming')
+                 }
+                 else{
                 menuClick(
                   index == 3 || index == 6 ? item.id : item.url,
                   index == 3 || index == 6 ? true : false,
                   index == 3 || index == 6 ? item.url : item.id
                 )
               }
+              }}
             >
               <RightSideInsideMenuBox>
                 <Image
@@ -260,12 +265,19 @@ const RightSide = () => {
                 if (index == 3) {
                   click(item);
                 } else {
+
+                 if(item.url=="upcoming")
+                 {
+                   router.push('/upcoming')
+                 }
+                 else{
                   menuClick(
                     index == 2 ? item.name : item.url,
                     index == 2 ? true : false,
                     index == 2 ? item.url : item.id
                   );
                 }
+              }
               }}
             >
               <RightSideInsideMenuBox>

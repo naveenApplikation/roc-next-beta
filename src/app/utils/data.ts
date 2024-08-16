@@ -191,7 +191,7 @@ export const rightSideMenu = [
     image: event,
     width: 18,
     height: 20,
-    url: "upcomming-events",
+    url: "upcoming",
     id: "Events",
   },
   {
@@ -283,7 +283,7 @@ export const rightSideMenuMobile = [
       "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcalendar.png?alt=media&token=232e231d-db2b-4571-b388-7d92fbb532c7",
     width: 18,
     height: 20,
-    url: "upcomming-events",
+    url: "upcoming",
   },
   {
     name: "Map",
@@ -914,7 +914,7 @@ export const SearchFilterData = [
 ];
 
 export const events: { id: string; listName: string }[] = [
-  { id: "upcomming-events", listName: "All Events" },
+  { id: "upcoming", listName: "All Events" },
   {
     id: "669ecfbf9a4bf462b63f37f7",
     listName: "Arts & Cultural",

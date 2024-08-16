@@ -28,7 +28,14 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
           return (
             <Wrapper
               onClick={() => {
-                navigate(item.id);
+                if(item.id=='upcoming')
+                {
+                    router.push(`/upcoming`);
+                }
+                else
+                {
+                navigate(item.id)
+                }
               }}
               key={item}
               style={{ background: background }}>

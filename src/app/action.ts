@@ -15,10 +15,8 @@ export async function addAndRomoveToken(loginToken?: any) {
 export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
-    const options =
-      params === "upcomming-events" || params === "Trending Lists"
-        ? { next: { revalidate:30} }
-        : undefined;
+    const options ={ next: { revalidate:300} }
+     
 
     const res = await fetch(url, options);
 

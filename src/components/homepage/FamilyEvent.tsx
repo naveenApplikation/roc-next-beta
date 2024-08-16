@@ -10,7 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { skeletonItems } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 interface DashboardProps {
   data?: any;
@@ -102,10 +102,14 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
 useEffect(() => {
   router.prefetch(`/categories/Events?search=upcomming-events`);
 }, [router]);
+
+const navigate=()=>{
+   router.push('/upcoming')
+}
   return (
     <>
       <MenuDetails
-        isOpen={() => menuClick("Events", true, "upcomming-events")}
+        isOpen={() => navigate()}
         title="Upcoming Events"
       />
       <ScrollingMenu>
