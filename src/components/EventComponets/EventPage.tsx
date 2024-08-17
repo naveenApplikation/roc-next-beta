@@ -55,7 +55,7 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
   const router = useRouter();
 
   const [filteredUrls, setFilteredUrls] = useState([]);
-  const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 10)); // Only show first 10 items initially
+  const [displayedItems, setDisplayedItems] = useState(urlData); // Only show first 10 items initially
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -75,6 +75,27 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
     setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
   }, [eventFilters]);
+
+  function getFirstImageUrl(jsonString: string): string | boolean {
+    try {
+      // Parse the JSON string
+      const parsedArray = JSON.parse(jsonString);
+
+      // Check if the parsed array has at least one item and if it has a "url" property
+      if (
+        Array.isArray(parsedArray) &&
+        parsedArray.length > 0 &&
+        parsedArray[0].url
+      ) {
+        return parsedArray[0].url; // Return the URL of the first image
+      } else {
+        return false; // Return false if no valid URL found
+      }
+    } catch (error) {
+      console.error("Invalid JSON string", error);
+      return false; // Return false if JSON parsing fails
+    }
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -101,10 +122,12 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
           return true;
         });
         if (temp) {
+          const image = getFirstImageUrl(temp?.acf?.header_image_data);
           modalClick(
             "eventListing",
             temp,
-            filteredUrls[index] ? filteredUrls[index] : fallback
+
+            image ? image : fallback
           );
         }
       }
@@ -139,23 +162,23 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
   };
 
   // Reset displayed items when urlData changes (due to filters being applied)
-  useEffect(() => {
-    setDisplayedItems(urlData.slice(0, 10)); // Reset to the first 10 items
-    setNext(10); // Reset the counter for the next batch
-  }, [urlData]);
+  // useEffect(() => {
+  //   setDisplayedItems(urlData.slice(0, 10)); // Reset to the first 10 items
+  //   setNext(10); // Reset the counter for the next batch
+  // }, [urlData]);
 
-  useEffect(() => {
-    const refCurrent = containerRef.current;
-    if (refCurrent) {
-      refCurrent.addEventListener("scroll", handleScroll);
-    }
+  // useEffect(() => {
+  //   const refCurrent = containerRef.current;
+  //   if (refCurrent) {
+  //     refCurrent.addEventListener("scroll", handleScroll);
+  //   }
 
-    return () => {
-      if (refCurrent) {
-        refCurrent.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [loading, next, urlData]);
+  //   return () => {
+  //     if (refCurrent) {
+  //       refCurrent.removeEventListener("scroll", handleScroll);
+  //     }
+  //   };
+  // }, [loading, next, urlData]);
 
   const filteredData = events.filter((item: any) => {
     return item.id.toLowerCase() != "upcoming";
