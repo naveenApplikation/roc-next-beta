@@ -15,8 +15,7 @@ export async function addAndRomoveToken(loginToken?: any) {
 export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
-    const options ={ next: { revalidate:300} }
-     
+    const options = { next: { revalidate: 3600 } };
 
     const res = await fetch(url, options);
 
