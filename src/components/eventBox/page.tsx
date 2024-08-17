@@ -234,7 +234,7 @@ const EventBox: React.FC<EventBoxProps> = ({
                 </ImageContainer>
               )}
 
-            {params.eventName == "Upcoming" && (
+            {params.eventName == "upcoming" && (
               <ImageContainer selected={false} onClick={handleShare}>
                 <Image src={share} alt="Logo Outline" />
               </ImageContainer>

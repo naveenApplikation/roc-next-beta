@@ -21,7 +21,7 @@ import { handleFilter } from "@/app/utils/mappingFun";
 import CustomBanner from "../AdComponent/CustomBanner";
 import { addAndRemoveBookmark } from "@/app/action";
 import { Spin } from "antd";
- 
+
 import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
@@ -31,54 +31,43 @@ import { CategoryBody } from "@/app/style";
 import HeaderScreen from "../header/HeaderScreen";
 import SocialShareModal from "../modal/SocialShareModal";
 import dynamic from "next/dynamic";
-const Categories = dynamic(() => import("../CategoriesPage/Categories"),{ssr:false});
+const Categories = dynamic(() => import("../CategoriesPage/Categories"), {
+  ssr: false,
+});
 const FilterListModalScreen = dynamic(
-  () => import("../AllModalScreen/FilterListModalScreen"),{ssr:false}
+  () => import("../AllModalScreen/FilterListModalScreen"),
+  { ssr: false }
 );
 const FilterModalScreenEvents = dynamic(
-  () => import("../AllModalScreen/FilterModalScreenForEvents/Page"),{ssr:false}
+  () => import("../AllModalScreen/FilterModalScreenForEvents/Page"),
+  { ssr: false }
 );
 
 interface EventBoxProps {
- 
   urlData?: any;
   urlTitle?: string;
- 
 }
 
-const EventPage: React.FC<EventBoxProps> = ({
-  urlTitle,
-  urlData,
+const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
+  const { modalClick, handleSocialShare, socialShare, eventFilters, showMap } =
+    useMyContext();
 
-}) => {
-  const {
-    modalClick,
-    handleSocialShare,
-    socialShare,
-    eventFilters,
-    showMap
-  } = useMyContext();
-
-     
-   const router=useRouter()
-   let data=urlData
-   data = filterEvents(data, eventFilters);
-    const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
-   const filteredUrls = filterUrls(ImageUrlData);
+  const router = useRouter();
+  let data = urlData;
+  data = filterEvents(data, eventFilters);
+  const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
+  const filteredUrls = filterUrls(ImageUrlData);
   const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 10)); // Only show first 10 items initially
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
 
- 
-  
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
     }
   };
 
-  
   useEffect(() => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
@@ -87,7 +76,7 @@ const EventPage: React.FC<EventBoxProps> = ({
       if (modalId && date) {
         let temp: any,
           index = 0;
-        urlData.forEach((element: any, position: any) => {
+        urlData.every((element: any, position: any) => {
           if (
             date &&
             element._id === modalId.replace("$", "") &&
@@ -95,29 +84,28 @@ const EventPage: React.FC<EventBoxProps> = ({
           ) {
             index = position;
             temp = element;
-          } else if (
-            !date &&
-            !temp &&
-            element._id === modalId.replace("$", "")
-          ) {
+            return false;
+          } else if (element._id === modalId.replace("$", "")) {
             index = position;
             temp = element;
+            return false;
           }
+          return true;
         });
-        modalClick(
-          "eventListing",
-          temp,
-          filteredUrls[index] ? filteredUrls[index] : fallback
-        );
+        if (temp) {
+          modalClick(
+            "eventListing",
+            temp,
+            filteredUrls[index] ? filteredUrls[index] : fallback
+          );
+        }
       }
     }
   }, [urlData]);
 
-
-const handleItemClick = (item: any) => {
-  router.push(`/upcoming?modal=${item._id}&date=${item.acf?.event_date}`);
-};
-
+  const handleItemClick = (item: any) => {
+    router.push(`/upcoming?modal=${item._id}&date=${item.acf?.event_date}`);
+  };
 
   const handleScroll = () => {
     if (containerRef.current) {
@@ -161,14 +149,12 @@ const handleItemClick = (item: any) => {
     };
   }, [loading, next, urlData]);
 
- 
-
   const filteredData = events.filter((item: any) => {
-        return item.id.toLowerCase()!="upcoming"
+    return item.id.toLowerCase() != "upcoming";
   });
-  
 
-   const Event= <>
+  const Event = (
+    <>
       <SearchedListContainer ref={containerRef}>
         <Header className="">
           <TitleText>Upcoming Events</TitleText>
@@ -179,9 +165,7 @@ const handleItemClick = (item: any) => {
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
-          
+            }}>
             <ImageContainer selected={false} onClick={handleShare}>
               <Image src={share} alt="Logo Outline" />
             </ImageContainer>
@@ -193,8 +177,7 @@ const handleItemClick = (item: any) => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
+          }}>
           <FilterSection pageTitle="categoryEvent" />
         </div>
         {displayedItems?.map((item: any, index: any) => {
@@ -202,9 +185,8 @@ const handleItemClick = (item: any) => {
             <SearchedData key={index}>
               <MainInsideWrapper
                 onClick={() => {
-                   handleItemClick(item)
-                }}
-              >
+                  handleItemClick(item);
+                }}>
                 <FamilyEventWrapper>
                   <img
                     src={filteredUrls[index]}
@@ -256,14 +238,12 @@ const handleItemClick = (item: any) => {
         </AddListButton>
       </SearchedListContainer>
 
-     
-        <ScrollList
-          params={"event-category-list"}
-          background={"#EB5757"}
-          data={filteredData}
-        ></ScrollList>
-    
+      <ScrollList
+        params={"event-category-list"}
+        background={"#EB5757"}
+        data={filteredData}></ScrollList>
     </>
+  );
   return (
     <>
       <PageLayout>
@@ -272,16 +252,14 @@ const handleItemClick = (item: any) => {
           {Event}
         </CategoryBody>
       </PageLayout>
-      
-        <Categories></Categories>
-        <FilterListModalScreen showMap={showMap} />
-        <FilterModalScreenEvents showMap={showMap}></FilterModalScreenEvents>
-        <SocialShareModal
-          showMap={showMap}
-          isOpen={socialShare}
-          onClose={handleSocialShare}
-        ></SocialShareModal>
-      
+
+      <Categories></Categories>
+      <FilterListModalScreen showMap={showMap} />
+      <FilterModalScreenEvents showMap={showMap}></FilterModalScreenEvents>
+      <SocialShareModal
+        showMap={showMap}
+        isOpen={socialShare}
+        onClose={handleSocialShare}></SocialShareModal>
     </>
   );
 };
@@ -422,8 +400,7 @@ const ImageContainer = styled.div<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-
-const filterUrls:any = (ImageUrlData: any) => {
+const filterUrls: any = (ImageUrlData: any) => {
   const imageUrls: string[] = [];
   ImageUrlData?.forEach((item: any) => {
     if (item) {

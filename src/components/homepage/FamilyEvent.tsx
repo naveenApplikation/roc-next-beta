@@ -98,20 +98,33 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  const router=useRouter()
-useEffect(() => {
-  router.prefetch(`/categories/Events?search=upcomming-events`);
-}, [router]);
+  const router = useRouter();
+  useEffect(() => {
+    router.prefetch(`/categories/Events?search=upcomming-events`);
+  }, [router]);
 
-const navigate=()=>{
-   router.push('/upcoming')
-}
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const placeId = urlParams.get("search");
+
+      if (placeId) {
+        const temp = {
+          data_type: "google",
+          place_id: placeId,
+        };
+
+        modalClick("ModalContent", temp, fallback);
+      }
+    }
+  }, [data]);
+
+  const navigate = () => {
+    router.push("/upcoming");
+  };
   return (
     <>
-      <MenuDetails
-        isOpen={() => navigate()}
-        title="Upcoming Events"
-      />
+      <MenuDetails isOpen={() => navigate()} title="Upcoming Events" />
       <ScrollingMenu>
         {!data
           ? skeletonItems.map((item, index) => (
@@ -135,8 +148,7 @@ const navigate=()=>{
                       filteredUrls[index] ? filteredUrls[index] : fallback
                     )
                   }
-                  style={{ cursor: "pointer" }}
-                >
+                  style={{ cursor: "pointer" }}>
                   <FamilyEventWrapper>
                     <MainImage
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}

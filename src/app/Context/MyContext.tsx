@@ -62,7 +62,10 @@ interface ContextProps {
   handleFilterOption?: any;
   filterSelection?: any;
   eventFilters?: any;
-  resetFilters?:any
+  resetFilters?: any;
+  setDataDetails?: any;
+  setTitleNameForModel?: any;
+  titleNameForModel?: any;
 }
 
 // Create a context
@@ -82,6 +85,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [dataUrlImage, setDataUrlImage] = useState("");
   const [appName, setAppName] = useState("");
   const [showMap, setShowMap] = useState<boolean>(false);
+  const [titleNameForModel, setTitleNameForModel] = useState("");
   const [oldName, setOldName] = useState<string>("");
   const [modalType, setModalType] = useState({
     ModalContent: false,
@@ -120,32 +124,13 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     title: "",
   };
   const [filterOptions, setFilterOption] = useState(options);
- 
+
   const [eventFilters, setEventFilters] = useState({
     location: ["Any"] as any,
     free: [] as any,
     booking: [] as any,
     area: [] as any,
     seasonality: [] as any,
-    date:"",
-    today:false,
-    family_friendly:false,
-    couples:false,
-    indoor:false,
-    outdoor:false,
-    wheelchair_access:false,
-    hearing_loop:false,
-    pet_friendly:false,
-    parking:false,
-    catering:false,
-  });
- const resetFilters = () => {
-    setEventFilters({
-    location: ["Any"],
-    free: [] ,
-    booking: [],
-    area: [],
-    seasonality: [],
     date: "",
     today: false,
     family_friendly: false,
@@ -158,7 +143,26 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     parking: false,
     catering: false,
   });
- };
+  const resetFilters = () => {
+    setEventFilters({
+      location: ["Any"],
+      free: [],
+      booking: [],
+      area: [],
+      seasonality: [],
+      date: "",
+      today: false,
+      family_friendly: false,
+      couples: false,
+      indoor: false,
+      outdoor: false,
+      wheelchair_access: false,
+      hearing_loop: false,
+      pet_friendly: false,
+      parking: false,
+      catering: false,
+    });
+  };
   const filterSelection = (name: any, value: any, list: any) => {
     setEventFilters((options) => ({
       ...options,
@@ -441,7 +445,10 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     handleFilterOption,
     filterSelection,
     eventFilters,
-    resetFilters
+    resetFilters,
+    setDataDetails,
+    setTitleNameForModel,
+    titleNameForModel,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

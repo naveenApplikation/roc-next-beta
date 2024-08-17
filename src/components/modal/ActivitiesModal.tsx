@@ -1,11 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { phoneBlack, phone } from "@/app/utils/ImagePath";
+import { phoneBlack, phone, share } from "@/app/utils/ImagePath";
 import toast from "react-hot-toast";
 import { Tooltip } from "antd";
 import Link from "next/link";
 import CommonButton from "@/components/button/CommonButton";
+import { useMyContext } from "@/app/Context/MyContext";
+import { usePathname } from "next/navigation";
 
 interface ModalProps {
   //   onClose: () => void;
@@ -156,6 +158,7 @@ const WeekTimeArrange = styled.div`
 
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
+  position: relative;
 `;
 
 const ImageWrraper = styled(Image)`
@@ -217,6 +220,8 @@ const ActivitiesModal: React.FC<ModalProps> = ({
   reservationModal,
   data,
 }) => {
+  const { handleSocialShare, socialShare } = useMyContext();
+  const path = usePathname();
   const WeekDays = [
     "Monday:",
     "Tuesday:",
@@ -280,8 +285,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <WebsiteLink
           href={data?.acf?.website ? data?.acf?.website : ""}
-          target="_blank"
-        >
+          target="_blank">
           {data?.acf?.website}
         </WebsiteLink>
       ),
@@ -301,8 +305,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                 copylink(
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
-              }
-            >
+              }>
               {data?.acf?.address?.place_name},{" "}
               {data?.acf?.address?.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},
@@ -351,6 +354,12 @@ const ActivitiesModal: React.FC<ModalProps> = ({
     closes: string;
   }[];
 
+  const handleShare = () => {
+    if (!socialShare) {
+      handleSocialShare();
+    }
+  };
+
   return (
     <Container>
       <ResturatContainer>
@@ -359,8 +368,14 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         </ResturatWrapper>
       </ResturatContainer>
       <ItemImageContainer>
+        {path.includes("activity") && (
+          <ActivityShare onClick={handleShare}>
+            {" "}
+            <Image src={share} alt="Logo Outline" />
+          </ActivityShare>
+        )}
         <ImageWrraper
-        unoptimized
+          unoptimized
           src={
             dataImage
               ? dataImage
@@ -369,7 +384,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           alt="Logo"
           width={500}
           height={80}
-         
           style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
         />
       </ItemImageContainer>
@@ -381,7 +395,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
                 {" "}
                 <div style={{ width: 20 }}>
                   <Image
-                   
                     style={{
                       cursor: "pointer",
                       height: "auto",
@@ -528,4 +541,18 @@ const WebsiteLink = styled(Link)`
     text-decoration-color: lightblue;
     color: lightblue;
   }
+`;
+
+const ActivityShare = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffd9;
+  border-radius: 100%;
+  position: absolute;
+  right: 30px;
+  width: 35px;
+  height: 35px;
+  bottom: 10px;
+  cursor: pointer;
 `;

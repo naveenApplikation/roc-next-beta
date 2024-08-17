@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -10,13 +9,18 @@ import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 interface listSearchProps {
   filterData?: any;
   setFilterData?: any;
 }
 
-const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => {
+const PlacePage: React.FC<listSearchProps> = ({
+  filterData,
+  setFilterData,
+}) => {
+  const router = useRouter();
   const [skeletonData] = useState(new Array(10).fill(null));
   const [topPlace, setTopPlace] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
@@ -30,10 +34,19 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
     modalClick,
   } = useMyContext();
 
-  const fetcher = (url: string) => fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then((res) => res.json());
+  const fetcher = (url: string) =>
+    fetch(`https://beta-dot-roc-app-425011.nw.r.appspot.com${url}`).then(
+      (res) => res.json()
+    );
 
-  const { data: topPlaceData, error: topPlaceError, isLoading } = useSWR(
-    searchQuery === "" && selectFilter === "Any" ? '/google/top-attraction' : null,
+  const {
+    data: topPlaceData,
+    error: topPlaceError,
+    isLoading,
+  } = useSWR(
+    searchQuery === "" && selectFilter === "Any"
+      ? "/google/top-attraction"
+      : null,
     fetcher
   );
 
@@ -45,16 +58,12 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
     }
   }, [topPlaceData]);
 
-
   // PLACES API CALL - SELECT FILTER VALUE
   useEffect(() => {
     if (placeData.length) {
-      setFilterData(placeData)
+      setFilterData(placeData);
     }
-  }, [JSON.stringify(placeData)])
-
-
-
+  }, [JSON.stringify(placeData)]);
 
   useEffect(() => {
     const Timer = setTimeout(() => setPageLoading(false), 2000);
@@ -84,35 +93,35 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                 <SearchedListContainer>
                   {placeloader
                     ? skeletonData.map((item, index) => (
-                      <SearchedData key={index}>
-                        <MainInsideWrapper>
-                          <Skeleton
-                            width={800}
-                            height={80}
-                            style={{ borderRadius: 8 }}
-                          />
-                          <div className="restroRating">
+                        <SearchedData key={index}>
+                          <MainInsideWrapper>
                             <Skeleton
-                              width={120}
-                              height={15}
+                              width={800}
+                              height={80}
                               style={{ borderRadius: 8 }}
                             />
-                            <Skeleton
-                              width={120}
-                              height={15}
-                              style={{ borderRadius: 8 }}
-                            />
-                            <Skeleton
-                              width={120}
-                              height={15}
-                              style={{ borderRadius: 8 }}
-                            />
-                          </div>
-                        </MainInsideWrapper>
-                      </SearchedData>
-                    ))
+                            <div className="restroRating">
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                            </div>
+                          </MainInsideWrapper>
+                        </SearchedData>
+                      ))
                     : placeData.length
-                      ? filterData.map((item: any, index: any) => {
+                    ? filterData.map((item: any, index: any) => {
                         if (!item.place_id) {
                           return null;
                         }
@@ -128,13 +137,15 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                             title={item?.data_type ? "" : "No data available"}
                             key={index}>
                             <ListDataWrraper
-                              onClick={() =>
+                              onClick={() => {
+                                router.push(`/?search=${item.place_id}`);
+
                                 modalClick(
                                   "ModalContent",
                                   item,
                                   item?.photoUrl ? item?.photoUrl : fallback
-                                )
-                              }
+                                );
+                              }}
                               selected={item?.data_type ? true : false}>
                               <div
                                 style={{
@@ -198,11 +209,19 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                                         </ListDataInfoText>
                                       ) : null}
                                     </div>
-
                                   </div>
                                   <p>
-                                    <span style={{ color: item?.opening_hours?.open_now ? "#2B902B" : "#FF0000", fontSize: '14px', fontWeight: '500' }}>
-                                      {item?.opening_hours?.open_now ? "Open" : "Closed"}
+                                    <span
+                                      style={{
+                                        color: item?.opening_hours?.open_now
+                                          ? "#2B902B"
+                                          : "#FF0000",
+                                        fontSize: "14px",
+                                        fontWeight: "500",
+                                      }}>
+                                      {item?.opening_hours?.open_now
+                                        ? "Open"
+                                        : "Closed"}
                                     </span>
                                   </p>
                                 </div>
@@ -211,41 +230,41 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                           </div>
                         );
                       })
-                      : ""}
+                    : ""}
                 </SearchedListContainer>
               ) : (
                 <SearchedListContainer>
                   {placeloader
                     ? skeletonData.map((item, index) => (
-                      <SearchedData key={index}>
-                        <MainInsideWrapper>
-                          <Skeleton
-                            width={80}
-                            height={80}
-                            style={{ borderRadius: 8 }}
-                          />
-                          <div className="restroRating">
+                        <SearchedData key={index}>
+                          <MainInsideWrapper>
                             <Skeleton
-                              width={120}
-                              height={15}
+                              width={80}
+                              height={80}
                               style={{ borderRadius: 8 }}
                             />
-                            <Skeleton
-                              width={120}
-                              height={15}
-                              style={{ borderRadius: 8 }}
-                            />
-                            <Skeleton
-                              width={120}
-                              height={15}
-                              style={{ borderRadius: 8 }}
-                            />
-                          </div>
-                        </MainInsideWrapper>
-                      </SearchedData>
-                    ))
+                            <div className="restroRating">
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                              <Skeleton
+                                width={120}
+                                height={15}
+                                style={{ borderRadius: 8 }}
+                              />
+                            </div>
+                          </MainInsideWrapper>
+                        </SearchedData>
+                      ))
                     : placeData.length
-                      ? filterData.map((item: any, index: any) => {
+                    ? filterData.map((item: any, index: any) => {
                         if (!item.place_id) {
                           return null;
                         }
@@ -261,13 +280,14 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                             title={item?.data_type ? "" : "No data available"}
                             key={index}>
                             <ListDataWrraper
-                              onClick={() =>
+                              onClick={() => {
+                                router.push(`/?search=${item.place_id}`);
                                 modalClick(
                                   "ModalContent",
                                   item,
                                   item?.photoUrl ? item?.photoUrl : fallback
-                                )
-                              }
+                                );
+                              }}
                               selected={item?.data_type ? true : false}>
                               <div
                                 style={{
@@ -332,14 +352,13 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                                       ) : null}
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </ListDataWrraper>
                           </div>
                         );
                       })
-                      : ""}
+                    : ""}
                 </SearchedListContainer>
               )}
             </>
@@ -347,39 +366,57 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
             <ScrollingMenu>
               {loader
                 ? skeletonData.map((item, index) => (
-                  <div key={index} style={{ display: "flex", gap: "15px" }}>
-                    <Skeleton
-                      width={80}
-                      height={80}
-                      style={{ borderRadius: "5px" }}
-                    />
-                    <Skeleton
-                      width={80}
-                      height={15}
-                      style={{ marginTop: 8, borderRadius: 6 }}
-                    />
-                  </div>
-                ))
-                :
-                topPlace?.slice(0, 10).map((item: any, index: any) => {
-                  return (
-                    <TopAttractionContainer
-                      key={index}
-                      style={{ cursor: "pointer" }}
-                      onClick={() =>
-                        modalClick(
-                          "ModalContent",
-                          item,
-                          item?.data_type === "google"
-                            ? item?.photoUrl
-                            : item?.photoUrl
+                    <div key={index} style={{ display: "flex", gap: "15px" }}>
+                      <Skeleton
+                        width={80}
+                        height={80}
+                        style={{ borderRadius: "5px" }}
+                      />
+                      <Skeleton
+                        width={80}
+                        height={15}
+                        style={{ marginTop: 8, borderRadius: 6 }}
+                      />
+                    </div>
+                  ))
+                : topPlace?.slice(0, 10).map((item: any, index: any) => {
+                    return (
+                      <TopAttractionContainer
+                        key={index}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          if (item?.data_type === "google") {
+                            router.push(`/?search=${item.place_id}`);
+                          }
+
+                          modalClick(
+                            "ModalContent",
+                            item,
+                            item?.data_type === "google"
+                              ? item?.photoUrl
+                              : item?.photoUrl
                               ? item?.photoUrl
                               : fallback
-                        )
-                      }>
-                      <TopAttractionprofile>
-                        {item?.data_type === "google" ? (
-                          item.photoUrl == undefined ? (
+                          );
+                        }}>
+                        <TopAttractionprofile>
+                          {item?.data_type === "google" ? (
+                            item.photoUrl == undefined ? (
+                              <Image
+                                src={fallback}
+                                alt=""
+                                width={500}
+                                height={80}
+                                style={{
+                                  borderRadius: "100%",
+                                  maxWidth: "100%",
+                                  objectFit: "cover",
+                                }}
+                              />
+                            ) : (
+                              <ImageTag src={item.photoUrl} alt="Image" />
+                            )
+                          ) : (
                             <Image
                               src={fallback}
                               alt=""
@@ -390,48 +427,33 @@ const PlacePage: React.FC<listSearchProps> = ({ filterData, setFilterData }) => 
                                 maxWidth: "100%",
                                 objectFit: "cover",
                               }}
+                              // alt=""
                             />
-                          ) : (
-                            <ImageTag src={item.photoUrl} alt="Image" />
-                          )
-                        ) : (
-                          <Image
-                            src={fallback}
-                            alt=""
-                            width={500}
-                            height={80}
-                            style={{
-                              borderRadius: "100%",
-                              maxWidth: "100%",
-                              objectFit: "cover",
-                            }}
-                          // alt=""
-                          />
-                        )}
-                      </TopAttractionprofile>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: 10,
-                          flexDirection: "column",
-                          maxWidth: "calc(100% - 30%)",
-                        }}>
-                        <ListDataTittleText>{item?.name}</ListDataTittleText>
+                          )}
+                        </TopAttractionprofile>
                         <div
                           style={{
                             display: "flex",
                             gap: 10,
-                            alignItems: "center",
+                            flexDirection: "column",
+                            maxWidth: "calc(100% - 30%)",
                           }}>
-                          <ListDataInfoText style={{ width: "20px" }}>
-                            {item?.rating}
-                          </ListDataInfoText>
-                          <Image src={commentstar} alt="infoCirlce" />
+                          <ListDataTittleText>{item?.name}</ListDataTittleText>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 10,
+                              alignItems: "center",
+                            }}>
+                            <ListDataInfoText style={{ width: "20px" }}>
+                              {item?.rating}
+                            </ListDataInfoText>
+                            <Image src={commentstar} alt="infoCirlce" />
+                          </div>
                         </div>
-                      </div>
-                    </TopAttractionContainer>
-                  );
-                })}
+                      </TopAttractionContainer>
+                    );
+                  })}
             </ScrollingMenu>
           )}
         </>
@@ -483,9 +505,9 @@ const ListDataInfoText = styled.p.attrs((props) => ({
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;
   padding-top: 20px;
-    max-height: calc(100dvh - 250px);
+  max-height: calc(100dvh - 250px);
   overflow: auto;
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;
@@ -534,7 +556,7 @@ const ScrollingMenu = styled.div`
 
   max-height: calc(100dvh - 285px);
   overflow: auto;
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 

@@ -5,12 +5,21 @@ import EventListingModal from "@/components/modal/EventListing";
 import { useMyContext } from "@/app/Context/MyContext";
 
 interface DashboardSearchContainerProps {
-  showMap: boolean
+  showMap: boolean;
 }
 
-const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap }) => {
-
-  const { closeModal, modalClick, dataDetails, modalType, dataUrlImage, reservationMenu } = useMyContext();
+const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({
+  showMap,
+}) => {
+  const {
+    closeModal,
+    modalClick,
+    dataDetails,
+    modalType,
+    dataUrlImage,
+    reservationMenu,
+    titleNameForModel,
+  } = useMyContext();
 
   return (
     <>
@@ -19,23 +28,28 @@ const PlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({ showMap })
         onClose={() => closeModal("ModalContent")}
         name="ModalContent"
         {...{ showMap }}
-        title={dataDetails?.data_type === "google" ? dataDetails?.name : dataDetails?.acf?.title}
-      >
-
-        {dataDetails?.data_type === "google" ?
+        title={
+          dataDetails?.data_type === "google"
+            ? dataDetails?.name
+              ? dataDetails?.name
+              : titleNameForModel
+            : dataDetails?.acf?.title
+        }>
+        {dataDetails?.data_type === "google" ? (
           <ModalContent
             onClose={() => closeModal("ModalContent")}
             reservationModal={modalClick}
             dataImage={dataUrlImage}
             data={dataDetails}
             reservationMenu={reservationMenu}
-          /> :
+          />
+        ) : (
           <EventListingModal
             dataImage={dataUrlImage}
             reservationModal={modalClick}
             data={dataDetails}
           />
-        }
+        )}
       </DashBoardModal>
     </>
   );

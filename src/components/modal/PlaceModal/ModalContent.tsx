@@ -28,6 +28,7 @@ import ImageCarousel from "@/components/carousel/imageCarousel";
 import { getVenueStatus, isOpenHead } from "@/app/utils/commanFunCom";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface ModalProps {
   onClose: () => void;
@@ -43,16 +44,20 @@ const ModalContent: React.FC<ModalProps> = ({
   data,
   reservationMenu = true,
 }) => {
+  const { setTitleNameForModel } = useMyContext();
   const [showApiData, setShowApiData] = useState<any>({});
   const [reviewData, setReviewData] = useState([]);
-
 
   const res = useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
 
   useEffect(() => {
-
     if (Object.keys(data).length) {
+      if (res?.data?.name) {
+        setTitleNameForModel(res.data.name);
+      }
+
       setShowApiData(res.data);
+
       if (res?.data?.reviews) {
         setReviewData(res?.data?.reviews);
       }
@@ -60,8 +65,6 @@ const ModalContent: React.FC<ModalProps> = ({
       setShowApiData(data);
     }
   }, [data, res]);
-
-
 
   const copylink = (copy: any) => {
     navigator.clipboard.writeText(copy);
@@ -73,9 +76,9 @@ const ModalContent: React.FC<ModalProps> = ({
       name:
         data?.data_type === "google"
           ? getVenueStatus(
-            showApiData?.current_opening_hours,
-            showApiData?.name
-          )
+              showApiData?.current_opening_hours,
+              showApiData?.name
+            )
           : "",
       image: clock,
       nameValue:
@@ -154,16 +157,14 @@ const ModalContent: React.FC<ModalProps> = ({
     },
   ];
 
-
-
   const formattedValues = () => {
     const typeData =
       data?.data_type === "google" ? showApiData?.types : data?.acf?.type;
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-          .map((item: any) => item.replaceAll("_", " "))
-          .join(" | ")
+            .map((item: any) => item.replaceAll("_", " "))
+            .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -181,8 +182,6 @@ const ModalContent: React.FC<ModalProps> = ({
     opens: string;
     closes: string;
   }[];
-
-
 
   const opningDate = useCallback((val: any) => {
     return val.map((item: any) => {
@@ -223,10 +222,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 {isOpenHead(showApiData?.current_opening_hours)}
               </ResturatWrapper>
             )}
-            <Ratings
-              defaultValue={data?.rating}
-              ratingvalue={data?.rating}
-            />
+            <Ratings defaultValue={data?.rating} ratingvalue={data?.rating} />
           </ResturatContainer>
           <ItemImageContainer>
             {showApiData?.photos ? (
@@ -275,7 +271,7 @@ const ModalContent: React.FC<ModalProps> = ({
             {relatedTypesFun(showApiData?.types).length ? (
               <>
                 {showApiData?.delivery === undefined &&
-                  showApiData?.dine_in === undefined ? (
+                showApiData?.dine_in === undefined ? (
                   ""
                 ) : (
                   <>
@@ -299,7 +295,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       )}
 
                       {showApiData?.delivery !== undefined &&
-                        showApiData?.dine_in !== undefined ? (
+                      showApiData?.dine_in !== undefined ? (
                         <div className="">.</div>
                       ) : (
                         ""
@@ -326,7 +322,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 )}
 
                 {showApiData?.serves_wine === undefined &&
-                  showApiData?.serves_beer === undefined ? (
+                showApiData?.serves_beer === undefined ? (
                   ""
                 ) : (
                   <>
@@ -349,7 +345,7 @@ const ModalContent: React.FC<ModalProps> = ({
                         </div>
                       )}
                       {showApiData?.serves_wine !== undefined &&
-                        showApiData?.serves_beer !== undefined ? (
+                      showApiData?.serves_beer !== undefined ? (
                         <div className="">.</div>
                       ) : (
                         ""
@@ -388,7 +384,6 @@ const ModalContent: React.FC<ModalProps> = ({
                 <OpeningTitle>Reviews</OpeningTitle>
               </ReviewWraaper>
               {reviewData.map((item: any, index: any) => (
-
                 <div
                   key={index}
                   style={{
@@ -442,9 +437,6 @@ const ModalContent: React.FC<ModalProps> = ({
                   <hr />
                 </div>
               ))}
-
-
-              
             </ReviewContainer>
           )}
           <DatesContainer>
@@ -516,7 +508,7 @@ const ModalContent: React.FC<ModalProps> = ({
                 ""
               )}
               {showApiData?.international_phone_number ||
-                showApiData?.formatted_phone_number ? (
+              showApiData?.formatted_phone_number ? (
                 <CommonButton
                   text="Call"
                   image={phone}
@@ -560,8 +552,6 @@ const ResturatWrapper = styled.div`
   gap: 6px;
   align-items: center;
 `;
-
-
 
 const ResturantDetailsContainer = styled.div`
   display: flex;
@@ -630,14 +620,11 @@ const RestDetailText = styled.p`
   padding: 0px 24px;
 `;
 
-
 const ItemImageContainer = styled.div`
   padding: 0px 24px;
   height: 200px;
   width: 100%;
 `;
-
-
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -704,10 +691,6 @@ const WeekTimeArrange = styled.div`
     flex: 1;
   }
 `;
-
-
-
-
 
 const DeliveryContainer = styled.div`
   display: flex;
