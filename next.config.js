@@ -1,61 +1,15 @@
 /** @type {import('next').NextConfig} */
 import { default as withPWA } from "@ducanh2912/next-pwa";
 
-const rewrites = () => {
-  return [
-    {
-      source: "/restaurants",
-      destination: "/screens/resturants", // Redirect to the original URL
-    },
-    {
-      source: "/eco_dining",
-      destination: "/screens/ecoDining", // Redirect to the original URL
-    },
-    {
-      source: "/wellbeing",
-      destination: "/screens/wellbeing", // Redirect to the original URL
-    },
-    {
-      source: "/events",
-      destination: "/screens/events", // Redirect to the original URL
-    },
-    {
-      source: "/stays",
-      destination: "/screens/stays", // Redirect to the original URL
-    },
-    {
-      source: "/scaffolding",
-      destination: "/screens/scaffolding", // Redirect to the original URL
-    },
-    {
-      source: "/experiences",
-      destination: "/screens/experiences", // Redirect to the original URL
-    },
-    {
-      source: "/attractions",
-      destination: "/screens/attractions", // Redirect to the original URL
-    },
-    {
-      source: "/financial",
-      destination: "/screens/financial", // Redirect to the original URL
-    },
-  ];
-};
+const redirects = async () => [
+  {
+    source: "/summer", // The URL path to match
+    destination: "https://hub.roc.je/jersey-summer-guide-2024", // The URL to redirect to
+    permanent: true, // Set to true for a 308 Permanent Redirect
+  },
+];
 
-/** @type {import('next').NextConfig} */
-
-// const nextConfig = {
-//   output: "export",
-//   reactStrictMode: false,
-//   compiler: {
-//     styledComponents: true,
-//   },
-//   images: {
-//     unoptimized: true,
-//   },
-//   rewrites: rewrites,
-// };
-
+// Combined next.js configuration
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -69,6 +23,7 @@ const nextConfig = {
   },
   reactStrictMode: false,
   staticPageGenerationTimeout: 400,
+  redirects,
 };
 
 const withPwaConfig = withPWA({
@@ -79,17 +34,13 @@ const withPwaConfig = withPWA({
   disable: false,
   dest: "public",
   fallbacks: {
-    document: "/offline", // if you want to fallback to a custom page rather than /_offline
+    document: "/offline", // Fallback to a custom offline page
   },
   workboxOptions: {
     disableDevLogs: true,
   },
-
   reactStrictMode: true,
-  // ... other options you like
+  // ...other options you like
 });
 
 export default withPwaConfig(nextConfig);
-// export default nextConfig;
-
-// export default nextConfig;

@@ -53,10 +53,8 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
     useMyContext();
 
   const router = useRouter();
-  let data = urlData;
-  data = filterEvents(data, eventFilters);
-  const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
-  const filteredUrls = filterUrls(ImageUrlData);
+
+  const [filteredUrls, setFilteredUrls] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(urlData.slice(0, 10)); // Only show first 10 items initially
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
@@ -67,6 +65,16 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
       handleSocialShare();
     }
   };
+
+  useEffect(() => {
+    const filEve = filterEvents(urlData, eventFilters);
+    const ImageUrlData = filEve?.map(
+      (item: any) => item?.acf?.header_image_data
+    );
+
+    setFilteredUrls(filterUrls(ImageUrlData));
+    setDisplayedItems(filEve);
+  }, [eventFilters]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
