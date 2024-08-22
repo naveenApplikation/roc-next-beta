@@ -35,13 +35,9 @@ export const ListItem: React.FC<Props> = (props) => {
   const { showMap, setSelectFilter, modalType, closeModal } = useMyContext();
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition === true) {
-      if (props.urlTitle == "Event List" || props.urlTitle == "Activity List") {
+      if (props.urlTitle?.includes("Event")) {
         router.push(
-          `/categories/${
-            props.urlTitle == "Event List"
-              ? "event-category-list"
-              : "activity-list"
-          }?search=${id}`
+          `/eventCategory/${id}`
         );
       } else {
         router.push(`/screens/${item}?categoryID=${id}`);

@@ -56,7 +56,7 @@ async function Page({ params, searchParams }: Props) {
   } else {
     const response = await getCategory(`${urlData}/` + searchParams.search);
     data = await response.data;
-
+   
     const token = cookies().get("loginToken")?.value;
     title = await response?.listName;
     if (token) {
@@ -92,11 +92,11 @@ async function Page({ params, searchParams }: Props) {
 
 const params = ["Events", "event-category-list","activity-list"];
 
-export async function generateStaticParams() {
-  return params.map((params) => {
-    return { eventName: params};
-  });
-}
+// export async function generateStaticParams() {
+//   return params.map((params) => {
+//     return { eventName: params};
+//   });
+// }
 
 export async function generateMetadata(
   { params }: Props,

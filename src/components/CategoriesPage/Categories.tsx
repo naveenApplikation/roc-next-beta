@@ -30,11 +30,7 @@ const Categories = () => {
   const { showMap } = useMyContext();
   const router = useRouter();
   const params = useParams();
-  const search = useSearchParams();
-  useEffect(() => {
-    router.prefetch("categories/" + params);
-  }, []);
-
+  
   const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
@@ -80,12 +76,12 @@ const Categories = () => {
       <EventListingModalScreen
         showMap={showMap}
         params={params}
-        searchQuery={search}
+        
       />
       <ActivitiesModalScreen
         showMap={showMap}
         params={params}
-        searchQuery={search}
+       
       />
       <ViewDirectionModalScreen showMap={showMap} />
     </>

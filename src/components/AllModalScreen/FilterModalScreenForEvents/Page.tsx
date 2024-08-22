@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import FilterModalLayout from "@/components//modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -7,13 +8,13 @@ const FilterModalContent = dynamic(() => import("./FilterModalContent"), {
 });
 
 interface DashboardSearchContainerProps {
-  showMap: boolean;
+   
 }
 
 const FilterModalScreenEvents: React.FC<DashboardSearchContainerProps> = ({
-  showMap,
+ 
 }) => {
-  const { closeModal, modalType, filterOptions } = useMyContext();
+  const { closeModal, modalType, filterOptions,showMap } = useMyContext();
 
   return (
     <>

@@ -71,7 +71,6 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
     const ImageUrlData = filEve?.map(
       (item: any) => item?.acf?.header_image_data
     );
-
     setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
   }, [eventFilters]);
@@ -188,13 +187,13 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
     <>
       <SearchedListContainer ref={containerRef}>
         <Header className="">
-          <TitleText>Upcoming Events</TitleText>
+          <TitleText>{urlTitle}</TitleText>
           <div
             style={{
-              padding: "10px 0px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              padding:"10px 0px",
+              display:"flex",
+              justifyContent:"space-between",
+              alignItems:"center",
               gap: 8,
             }}>
             <ImageContainer selected={false} onClick={handleShare}>
@@ -277,21 +276,9 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
   );
   return (
     <>
-      <PageLayout>
-        <CategoryBody title={"Upcomming Events"}>
-          <HeaderScreen title={"upcomming Events"} />
+     
           {Event}
-        </CategoryBody>
-      </PageLayout>
-
-      <Categories></Categories>
-      <FilterListModalScreen showMap={showMap} />
-      <FilterModalScreenEvents showMap={showMap}></FilterModalScreenEvents>
-      <SocialShareModal
-        showMap={showMap}
-        isOpen={socialShare}
-        onClose={handleSocialShare}></SocialShareModal>
-    </>
+      </>
   );
 };
 

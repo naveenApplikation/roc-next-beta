@@ -1,15 +1,16 @@
+'use client'
 import React from "react";
 import FilterModalLayout from "@/components//modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
 import FilterListModal from "../modal/FilterListModal";
 
 interface DashboardSearchContainerProps {
-    showMap:boolean
+   
 }
 
-const FilterListModalScreen: React.FC<DashboardSearchContainerProps> = ({showMap})=> {
+const FilterListModalScreen: React.FC<DashboardSearchContainerProps> = ()=> {
 
-    const {closeModal, modalType } = useMyContext();
+    const {closeModal, modalType ,showMap} = useMyContext();
 
   return (
     <>

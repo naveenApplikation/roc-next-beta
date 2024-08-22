@@ -10,13 +10,13 @@ import { usePathname, useRouter } from "next/navigation";
 interface DashboardSearchContainerProps {
   showMap: boolean;
   params?: any;
-  searchQuery?: any;
+ 
 }
 
 const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   params,
-  searchQuery,
+ 
 }) => {
   const {
     modalName,
@@ -37,7 +37,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
       closeModal("eventListing");
 
       router.replace(
-        `/categories/${params.eventName}?search=${searchQuery.get("search")}`
+        `}`
       );
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);

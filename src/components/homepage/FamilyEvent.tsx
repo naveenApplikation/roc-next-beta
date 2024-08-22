@@ -120,7 +120,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
   }, [data]);
 
   const navigate = () => {
-    router.push("/upcoming");
+    router.push("/eventCategory/upcoming");
   };
   return (
     <>

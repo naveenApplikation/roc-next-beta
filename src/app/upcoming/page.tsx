@@ -7,17 +7,15 @@ export const maxDuration = 300;
 async function Page(){
       
       const response=await getCategory('upcomming-events')
-      const data=response.data;
-      const title=response.title
+      const data=await  response?.data;
+      const title=await response?.title
  
       return (
         <>
-         
           <EventPage
              urlData={data}
              urlTitle={title}>
           </EventPage>
-        
         </>
       );
 }

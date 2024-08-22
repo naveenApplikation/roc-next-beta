@@ -1,13 +1,13 @@
+'use client'
 import React, { ReactNode, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import dynamic from "next/dynamic";
 import { constants } from "fs/promises";
+import { useMyContext } from "@/app/Context/MyContext";
 const ShareFeature = dynamic(() => import("../ShareFeature"), { ssr: false });
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  showMap: boolean;
+ 
 }
 
 const StyledModal = styled.div<{
@@ -80,24 +80,22 @@ const StyledModal = styled.div<{
   }
 `;
 
-const SocialShareModal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  showMap,
+const SocialShareModal: React.FC<ModalProps> = ({ 
 }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "auto";
-    }
-    return () => {
-      document.documentElement.style.overflow = "auto"; // Cleanup on component unmount
-    };
-  }, [isOpen]);
+const { showMap, socialShare, handleSocialShare } =
+  useMyContext();
+   useEffect(() => {
+     if (socialShare) {
+       document.documentElement.style.overflow = "hidden";
+     } else {
+       document.documentElement.style.overflow = "auto";
+     }
+     return () => {
+       document.documentElement.style.overflow = "auto"; // Cleanup on component unmount
+     };
+   }, [socialShare]);
   useEffect(() => {
     const handleResize = () => {
       const referenceWidth = 1200; // You can set your own reference width here
@@ -117,7 +115,7 @@ const SocialShareModal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <StyledModal $isopen={isOpen} $showMap={showMap}>
+      <StyledModal $isopen={socialShare} $showMap={showMap}>
         <ShareFeature screenWidth={screenWidth}></ShareFeature>
       </StyledModal>
     </>

@@ -308,11 +308,9 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ProfileAccountModalScreen showMap={showMap} />
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
-          <FilterListModalScreen showMap={showMap} />
+          <FilterListModalScreen/>
           <SocialShareModal
-            showMap={showMap}
-            isOpen={socialShare}
-            onClose={handleSocialShare}
+          
           ></SocialShareModal>
           {/* <FilterModalScreen showMap={showMap} /> */}
         </>

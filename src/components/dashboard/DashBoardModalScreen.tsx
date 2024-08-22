@@ -59,7 +59,7 @@ const DashBoardModalScreen = () => {
       />
        <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
       <FilterModalScreen showMap={showMap} />
-      <FilterListModalScreen showMap={showMap} />
+      <FilterListModalScreen />
       <PlacesModalScreen showMap={showMap} />
     
       <PlaceOrderOnlineModalScreen showMap={showMap} />

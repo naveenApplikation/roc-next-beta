@@ -134,12 +134,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         </CategoryBody>
       </PageLayout>
       <Categories></Categories>
-      <FilterListModalScreen showMap={showMap} />
-      <FilterModalScreenEvents showMap={showMap}></FilterModalScreenEvents>
+      <FilterListModalScreen/>
+      <FilterModalScreenEvents></FilterModalScreenEvents>
       <SocialShareModal
-        showMap={showMap}
-        isOpen={socialShare}
-        onClose={handleSocialShare}
       ></SocialShareModal>
     </>
   );

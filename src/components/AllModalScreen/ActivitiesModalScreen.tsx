@@ -13,7 +13,7 @@ interface DashboardSearchContainerProps {
 const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   params,
-  searchQuery,
+   
 }) => {
   const {
     modalName,
@@ -31,7 +31,7 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
     if (params) {
       closeModal("activities");
       router.replace(
-        `/categories/${params.eventName}?search=${searchQuery.get("search")}`
+        `/categories/`
       );
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
