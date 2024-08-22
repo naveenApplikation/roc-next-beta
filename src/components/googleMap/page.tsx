@@ -87,22 +87,35 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
     };
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const userLoc: any = { lat: latitude, lng: longitude };
-          // setUserLocation(userLoc);
-          const insideJersey = checkIfInsideJersey(userLoc);
-          console.log("User is inside Jersey:", insideJersey);
-          if (insideJersey) {
-            setUserLocation(userLoc);
-          } else {
-          }
-        },
-        (error) => {
-          console.error("Error getting user location:", error);
+      const savedLocation = sessionStorage.getItem("userLocation");
+      if (savedLocation) {
+        const { latitude, longitude } = JSON.parse(savedLocation);
+        const userLoc: any = { lat: latitude, lng: longitude };
+        // setUserLocation(userLoc);
+        const insideJersey = checkIfInsideJersey(userLoc);
+        console.log("User is inside Jersey:", insideJersey);
+        if (insideJersey) {
+          setUserLocation(userLoc);
+        } else {
         }
-      );
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const userLoc: any = { lat: latitude, lng: longitude };
+            // setUserLocation(userLoc);
+            const insideJersey = checkIfInsideJersey(userLoc);
+            console.log("User is inside Jersey:", insideJersey);
+            if (insideJersey) {
+              setUserLocation(userLoc);
+            } else {
+            }
+          },
+          (error) => {
+            console.error("Error getting user location:", error);
+          }
+        );
+      }
     }
   }, []);
 

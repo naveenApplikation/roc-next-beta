@@ -191,11 +191,34 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords;
-      setLocation({ latitude: latitude, longitude: longitude });
-    });
+    const savedLocation = sessionStorage.getItem("userLocation");
+    if (savedLocation) {
+      setLocation(JSON.parse(savedLocation));
+    } else {
+      getLocation();
+    }
   }, []);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const userLocation = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        sessionStorage.setItem("userLocation", JSON.stringify(userLocation));
+        setLocation(userLocation);
+      });
+    }
+  };
+
+  // useEffect(() => {
+
+  //   navigator.geolocation.getCurrentPosition(({ coords }) => {
+  //     const { latitude, longitude } = coords;
+  //     setLocation({ latitude: latitude, longitude: longitude });
+  //   });
+  // }, []);
 
   const router = useRouter();
 

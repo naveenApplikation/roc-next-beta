@@ -672,65 +672,66 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
   //     }
   // }, [latitude, longitude, location?.latitude, location.longitude]);
 
-  useEffect(() => {
-    const Timer = setTimeout(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            if (location?.latitude && location.longitude) {
-              const jerseyBounds = new window.google.maps.LatLngBounds(
-                new window.google.maps.LatLng(49.1692, -2.2666),
-                new window.google.maps.LatLng(49.2668, -2.0116)
-              );
+  // useEffect(() => {
+  //   const Timer = setTimeout(() => {
+  //     if (navigator.geolocation) {
 
-              const checkIfInsideJersey = (location: any) => {
-                return jerseyBounds.contains(
-                  new window.google.maps.LatLng(location.lat, location.lng)
-                );
-              };
-              if (latitude && longitude) {
-                const destination = { lat: latitude, lng: longitude };
-                const origin = {
-                  lat: location?.latitude,
-                  lng: location.longitude,
-                };
-                const insideJersey = checkIfInsideJersey(origin);
-                if (insideJersey) {
-                  setMarkerLocation(destination);
-                  getTravelTimes(origin, destination);
-                } else {
-                  setMarkerLocation(destination);
-                  getTravelTimes(center, destination);
-                }
-              }
-            }
-          },
-          (error) => {
-            console.error("Error getting user location:", error);
-            const destination = { lat: latitude, lng: longitude };
-            setMarkerLocation(destination);
-            getTravelTimes(center, destination);
-            // toast.custom(
-            //   <div
-            //     style={{
-            //       width: "150px",
-            //       background: "white",
-            //       display: "flex",
-            //       gap: "10px",
-            //       borderRadius: "10px",
-            //       padding: "10px",
-            //       boxSizing: "border-box",
-            //     }}>
-            //     <TiInfo style={{ fontSize: "14px", color: "#FF5733" }} />
-            //     <div>{error?.message}</div>
-            //   </div>
-            // );
-          }
-        );
-      }
-    }, 2000);
-    return () => clearTimeout(Timer);
-  }, [latitude, longitude, location?.latitude, location.longitude, center]);
+  //       navigator.geolocation.getCurrentPosition(
+  //         (position) => {
+  //           if (location?.latitude && location.longitude) {
+  //             const jerseyBounds = new window.google.maps.LatLngBounds(
+  //               new window.google.maps.LatLng(49.1692, -2.2666),
+  //               new window.google.maps.LatLng(49.2668, -2.0116)
+  //             );
+
+  //             const checkIfInsideJersey = (location: any) => {
+  //               return jerseyBounds.contains(
+  //                 new window.google.maps.LatLng(location.lat, location.lng)
+  //               );
+  //             };
+  //             if (latitude && longitude) {
+  //               const destination = { lat: latitude, lng: longitude };
+  //               const origin = {
+  //                 lat: location?.latitude,
+  //                 lng: location.longitude,
+  //               };
+  //               const insideJersey = checkIfInsideJersey(origin);
+  //               if (insideJersey) {
+  //                 setMarkerLocation(destination);
+  //                 getTravelTimes(origin, destination);
+  //               } else {
+  //                 setMarkerLocation(destination);
+  //                 getTravelTimes(center, destination);
+  //               }
+  //             }
+  //           }
+  //         },
+  //         (error) => {
+  //           console.error("Error getting user location:", error);
+  //           const destination = { lat: latitude, lng: longitude };
+  //           setMarkerLocation(destination);
+  //           getTravelTimes(center, destination);
+  //           // toast.custom(
+  //           //   <div
+  //           //     style={{
+  //           //       width: "150px",
+  //           //       background: "white",
+  //           //       display: "flex",
+  //           //       gap: "10px",
+  //           //       borderRadius: "10px",
+  //           //       padding: "10px",
+  //           //       boxSizing: "border-box",
+  //           //     }}>
+  //           //     <TiInfo style={{ fontSize: "14px", color: "#FF5733" }} />
+  //           //     <div>{error?.message}</div>
+  //           //   </div>
+  //           // );
+  //         }
+  //       );
+  //     }
+  //   }, 2000);
+  //   return () => clearTimeout(Timer);
+  // }, [latitude, longitude, location?.latitude, location.longitude, center]);
 
   const onUnmount = React.useCallback(function callback(map: any) {
     setMap(null);
