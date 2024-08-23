@@ -26,29 +26,21 @@ import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
-import PageLayout from "@/app/pageLayout";
-import { CategoryBody } from "@/app/style";
-import HeaderScreen from "../header/HeaderScreen";
-import SocialShareModal from "../modal/SocialShareModal";
-import dynamic from "next/dynamic";
-const Categories = dynamic(() => import("../CategoriesPage/Categories"), {
-  ssr: false,
-});
-const FilterListModalScreen = dynamic(
-  () => import("../AllModalScreen/FilterListModalScreen"),
-  { ssr: false }
-);
-const FilterModalScreenEvents = dynamic(
-  () => import("../AllModalScreen/FilterModalScreenForEvents/Page"),
-  { ssr: false }
-);
+import Link from "next/link";
 
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
+  type: "upcoming" | "eventByDate" | "eventCategory";
+  slug: string;
 }
 
-const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
+const EventPage: React.FC<EventBoxProps> = ({
+  urlTitle,
+  urlData,
+  type,
+  slug,
+}) => {
   const { modalClick, handleSocialShare, socialShare, eventFilters, showMap } =
     useMyContext();
 
@@ -133,8 +125,14 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
     }
   }, [urlData]);
 
-  const handleItemClick = (item: any) => {
-    router.push(`/upcoming?modal=${item._id}&date=${item.acf?.event_date}`);
+  const returnEventItems = (item: any) => {
+    if (type == "eventByDate") {
+      return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
+    } else if (type == "eventCategory") {
+      return `/eventCategory/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
+    } else {
+      return "";
+    }
   };
 
   const handleScroll = () => {
@@ -190,10 +188,10 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
           <TitleText>{urlTitle}</TitleText>
           <div
             style={{
-              padding:"10px 0px",
-              display:"flex",
-              justifyContent:"space-between",
-              alignItems:"center",
+              padding: "10px 0px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               gap: 8,
             }}>
             <ImageContainer selected={false} onClick={handleShare}>
@@ -212,52 +210,53 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
         </div>
         {displayedItems?.map((item: any, index: any) => {
           return (
-            <SearchedData key={index}>
-              <MainInsideWrapper
-                onClick={() => {
-                  handleItemClick(item);
-                }}>
-                <FamilyEventWrapper>
-                  <img
-                    src={filteredUrls[index]}
-                    alt="image"
-                    width={80}
-                    height={80}
-                    style={{ objectFit: "cover" }}
-                  />
-                  <FamilyEventWrapperInside>
-                    <p className="date">{formatDate(item.acf?.event_date)}</p>
-                    <p className="month">{formatMonth(item.acf?.event_date)}</p>
-                  </FamilyEventWrapperInside>
-                </FamilyEventWrapper>
-                <div className="restroRating">
-                  <p className="shopName">{item.acf?.title}</p>
-                  <DetailContainer>
-                    {item?.acf?.parish?.label ? (
-                      <Image
-                        src={locationMark}
-                        style={{
-                          width: "13px",
-                          height: "13px",
-                          marginRight: 8,
-                        }}
-                        alt="utensils"
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <p>{item?.acf?.parish?.label}</p>
-                  </DetailContainer>
-                  <p>
-                    <span>
-                      {item.acf?.event_dates[0]?.start_time}{" "}
-                      {item.acf?.event_dates[0]?.start_time ? "-" : " "}
-                      {item.acf?.event_dates[0]?.end_time}
-                    </span>
-                  </p>
-                </div>
-              </MainInsideWrapper>
-            </SearchedData>
+            <Link key={index} href={returnEventItems(item)} prefetch={true}>
+              <SearchedData>
+                <MainInsideWrapper>
+                  <FamilyEventWrapper>
+                    <img
+                      src={filteredUrls[index]}
+                      alt="image"
+                      width={80}
+                      height={80}
+                      style={{ objectFit: "cover" }}
+                    />
+                    <FamilyEventWrapperInside>
+                      <p className="date">{formatDate(item.acf?.event_date)}</p>
+                      <p className="month">
+                        {formatMonth(item.acf?.event_date)}
+                      </p>
+                    </FamilyEventWrapperInside>
+                  </FamilyEventWrapper>
+                  <div className="restroRating">
+                    <p className="shopName">{item.acf?.title}</p>
+                    <DetailContainer>
+                      {item?.acf?.parish?.label ? (
+                        <Image
+                          src={locationMark}
+                          style={{
+                            width: "13px",
+                            height: "13px",
+                            marginRight: 8,
+                          }}
+                          alt="utensils"
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <p>{item?.acf?.parish?.label}</p>
+                    </DetailContainer>
+                    <p>
+                      <span>
+                        {item.acf?.event_dates[0]?.start_time}{" "}
+                        {item.acf?.event_dates[0]?.start_time ? "-" : " "}
+                        {item.acf?.event_dates[0]?.end_time}
+                      </span>
+                    </p>
+                  </div>
+                </MainInsideWrapper>
+              </SearchedData>
+            </Link>
           );
         })}
         <div style={{ height: "100px", backgroundColor: "transparent" }}>
@@ -274,12 +273,7 @@ const EventPage: React.FC<EventBoxProps> = ({ urlTitle, urlData }) => {
         data={filteredData}></ScrollList>
     </>
   );
-  return (
-    <>
-     
-          {Event}
-      </>
-  );
+  return <>{Event}</>;
 };
 
 // Existing styles remain unchanged...

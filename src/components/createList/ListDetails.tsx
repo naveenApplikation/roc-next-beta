@@ -98,6 +98,7 @@ const IconsListScrollBox = styled.div`
   align-items: center;
   /* padding: 8px 8px; */
   gap: 20px;
+  padding-bottom: 100px;
 `;
 
 const IconImage = styled.div<{ selected: boolean }>`
@@ -107,9 +108,9 @@ const IconImage = styled.div<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  cursor:pointer;
-  padding:10px 4px;
-  border: ${props => (props.selected ? '1px solid #2F9FEB' : 'none')};
+  cursor: pointer;
+  padding: 10px 4px;
+  border: ${(props) => (props.selected ? "1px solid #2F9FEB" : "none")};
 `;
 
 const TextAreaContainer = styled.textarea`
@@ -170,22 +171,20 @@ const ListDetails: React.FC<ListDetailsProps> = ({
   listName,
   setListName,
   bgColor,
-  setBgColor
+  setBgColor,
 }) => {
-
-
   const handleIconClick = (iconId: string, color: string) => {
     setSelectedIcon(iconId);
-    setBgColor(color)
+    setBgColor(color);
   };
 
   const handleCategoryType = (e: string) => {
-    setCategoryType(e)
-  }
+    setCategoryType(e);
+  };
 
-  const handleListName = (e: any)=>{
-    setListName(e.target.value)
-  }
+  const handleListName = (e: any) => {
+    setListName(e.target.value);
+  };
 
   return (
     <ListDetailsScreen>
@@ -194,19 +193,24 @@ const ListDetails: React.FC<ListDetailsProps> = ({
         <ListDetailsContent>
           <ListDetailsTitle>List Details</ListDetailsTitle>
           <ListInputField>
-            <ListInputText type="text" placeholder="List name..." value={listName} onChange={handleListName} />
+            <ListInputText
+              type="text"
+              placeholder="List name..."
+              value={listName}
+              onChange={handleListName}
+            />
           </ListInputField>
           {/* <TextAreaContainer
             rows={4}
             cols={50}
             placeholder="List description..."
           /> */}
-          <CheckBoxContainer onClick={()=>handleCategoryType("public")}>
-            <input type="radio" checked={categoryType === "public"}/>
+          <CheckBoxContainer onClick={() => handleCategoryType("public")}>
+            <input type="radio" checked={categoryType === "public"} />
             <p>Public List</p>
           </CheckBoxContainer>
-          <CheckBoxContainer onClick={()=>handleCategoryType("private")}>
-            <input type="radio" checked={categoryType === "private"}/>
+          <CheckBoxContainer onClick={() => handleCategoryType("private")}>
+            <input type="radio" checked={categoryType === "private"} />
             <p>Private List</p>
           </CheckBoxContainer>
           <ListDetailsTitle>Choose an icon</ListDetailsTitle>
@@ -216,8 +220,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
                 <IconImage
                   key={index}
                   onClick={() => handleIconClick(icon.name, icon.color)}
-                  selected={selectedIcon === icon.name}
-                >
+                  selected={selectedIcon === icon.name}>
                   {icon?.image}
                 </IconImage>
               );

@@ -30,7 +30,7 @@ export const Container = styled.div`
 export const CategoryBody = styled.div`
   position: relative;
   z-index: 1;
-  width: 580px;
+  max-width: 480px;
 `;
 
 export const MainContainer = styled.div`

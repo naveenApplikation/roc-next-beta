@@ -10,13 +10,11 @@ import { usePathname, useRouter } from "next/navigation";
 interface DashboardSearchContainerProps {
   showMap: boolean;
   params?: any;
- 
 }
 
 const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   params,
- 
 }) => {
   const {
     modalName,
@@ -36,14 +34,12 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
     if (params?.eventName) {
       closeModal("eventListing");
 
-      router.replace(
-        `}`
-      );
+      router.replace(``);
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
       closeModal("eventListing");
       if (path.includes("upcoming")) {
-        router.replace("/upcoming");
+        router.replace("/eventCategory/upcoming");
       }
     }
   };

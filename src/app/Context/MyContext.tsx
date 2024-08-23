@@ -66,6 +66,8 @@ interface ContextProps {
   setDataDetails?: any;
   setTitleNameForModel?: any;
   titleNameForModel?: any;
+  setCurrentEventPath?: any;
+  currentEventPath?: any;
 }
 
 // Create a context
@@ -74,6 +76,7 @@ const MyContext = createContext<ContextProps | undefined>(undefined);
 // Create a provider component
 const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [modalName, setModalNames] = useState<string>("");
+  const [currentEventPath, setCurrentEventPath] = useState("");
   const [dataDetails, setDataDetails] = useState<DataDetails>({});
   const [filterValues, setFilterValues] = useState({
     distance: "",
@@ -449,6 +452,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setDataDetails,
     setTitleNameForModel,
     titleNameForModel,
+    setCurrentEventPath,
+    currentEventPath,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

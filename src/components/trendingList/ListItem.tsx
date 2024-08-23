@@ -14,6 +14,7 @@ import CalenderBookDatesModalScreen from "@/components/AllModalScreen/CalenderBo
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
+import { handleEventEncoding } from "@/app/utils/commanFun";
 
 interface Props {
   data: any;
@@ -36,9 +37,7 @@ export const ListItem: React.FC<Props> = (props) => {
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition === true) {
       if (props.urlTitle?.includes("Event")) {
-        router.push(
-          `/eventCategory/${id}`
-        );
+        router.push(`/eventCategory/${handleEventEncoding("encode", item)}`);
       } else {
         router.push(`/screens/${item}?categoryID=${id}`);
       }
@@ -79,8 +78,7 @@ export const ListItem: React.FC<Props> = (props) => {
                             true,
                             item?.categoryId ? item.categoryId : item._id
                           )
-                        }
-                      >
+                        }>
                         <ImageTitleContainer>
                           <Imagecontainer style={{ background: item?.bgColor }}>
                             {item?.image}

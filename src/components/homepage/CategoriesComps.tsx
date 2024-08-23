@@ -8,6 +8,8 @@ import Image from "next/image";
 import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { handleEventEncoding } from "@/app/utils/commanFun";
+import Link from "next/link";
 
 interface DashboardProps {
   data?: any;
@@ -62,6 +64,15 @@ const CategoriesComps: React.FC<DashboardProps> = ({
 }) => {
   const { menuClick } = useMyContext();
 
+  const getEventLink = (itemName: string) => {
+    const encodedName = handleEventEncoding("encode", itemName);
+    return `/eventCategory/${encodedName}`;
+  };
+
+  const getCategoryLink = (itemType: string, id: string) => {
+    return `/categories/${itemType}?search=${id}`;
+  };
+
   return (
     <>
       <MenuDetails isOpen={() => menuClick(name, true, type)} title={title} />
@@ -75,14 +86,21 @@ const CategoriesComps: React.FC<DashboardProps> = ({
           : data.length
           ? data.slice(0, 10).map((item: any, index: any) => {
               return (
-                <CommunityContainer
+                <Link
                   key={index}
-                  style={{ background: item?.bgColor, cursor: "pointer" }}
-                  onClick={() => menuClick(type, true, item?._id)}
-                >
-                  <p style={{ textAlign: "end" }}> {item?.image}</p>
-                  <p style={{ paddingBottom: "5px" }}>{item?.listName}</p>
-                </CommunityContainer>
+                  href={
+                    type === "event-category-list" || type === "EventsByDate"
+                      ? getEventLink(item.listName)
+                      : getCategoryLink(type, item._id)
+                  }>
+                  <CommunityContainer
+                    style={{ background: item?.bgColor, cursor: "pointer" }}>
+                    {item.image && (
+                      <p style={{ textAlign: "end" }}> {item?.image}</p>
+                    )}
+                    <p style={{ paddingBottom: "5px" }}>{item?.listName}</p>
+                  </CommunityContainer>
+                </Link>
               );
             })
           : ""}

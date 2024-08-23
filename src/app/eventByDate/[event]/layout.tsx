@@ -11,11 +11,11 @@ export default async function layout({ children }: { children: ReactNode }) {
     <>
       <PageLayout>
         <CategoryBody>{children}</CategoryBody>
+        <Categories></Categories>
+        <FilterListModalScreen />
+        <FilterModalScreenEvents></FilterModalScreenEvents>
+        <SocialShareModal></SocialShareModal>
       </PageLayout>
-      <Categories></Categories>
-      <FilterListModalScreen />
-      <FilterModalScreenEvents></FilterModalScreenEvents>
-      <SocialShareModal></SocialShareModal>
     </>
   );
 }

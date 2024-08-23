@@ -30,7 +30,7 @@ const HeadMenu = styled.div`
   justify-content: space-between;
   // padding: 0px 40px;
   padding-top: 64px;
-  padding-bottom: 16px;
+  padding-bottom: 10px;
   background-color: #fdfdfd;
   width: ${sideWidth};
   @media screen and (max-width: 800px) {
@@ -80,16 +80,14 @@ const HeaderScreen = ({ title }: Props) => {
     <>
       <HeadMenu ref={scrollContainerRef}>
         <div
-          style={{ display: "flex", alignItems: "center", columnGap: "5px" }}
-        >
+          style={{ display: "flex", alignItems: "center", columnGap: "5px" }}>
           <Image
             width={47}
             height={26}
             src={backArrow}
             alt="back arrow"
             style={{ paddingTop: "2px", cursor: "pointer" }}
-            onClick={handleBack}
-          ></Image>
+            onClick={handleBack}></Image>
           <Image
             style={{ cursor: "pointer" }}
             src={ROCLogo}

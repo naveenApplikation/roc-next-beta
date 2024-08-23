@@ -15,9 +15,12 @@ export async function addAndRomoveToken(loginToken?: any) {
 export async function getCategory(params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/${params}`;
-    const options = { next: { revalidate: 3600 } };
+    const res = await fetch(url, { next: { revalidate: 14400 } });
 
-    const res = await fetch(url, options);
+    if (res.status === 404) {
+      console.warn(`Resource not found for ${params}: ${res.statusText}`);
+      return null; // Return null or a fallback if the data is not found
+    }
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -30,7 +33,8 @@ export async function getCategory(params: string) {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.log("test", params);
+    console.error("Error fetching category:", error);
+    return null;
   }
 }
 
@@ -44,9 +48,9 @@ export async function getData(slug: string, params: string) {
           headers: {
             "x-login-token": loginToken ? loginToken.toString() : "",
           },
-          next: { tags: [slug], revalidate: 0 },
+          next: { tags: [slug], revalidate: 3600 },
         }
-      : { next: { revalidate: 1 } };
+      : { next: { revalidate: 3600 } };
     const res = await fetch(url, options);
 
     if (!res.ok) {

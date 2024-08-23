@@ -224,20 +224,17 @@ const RightSide = () => {
           return (
             <RightSideMenu
               key={index}
-              onClick={() =>{
-                 if(item.url=="upcoming")
-                 {
-                   router.push('/upcoming')
-                 }
-                 else{
-                menuClick(
-                  index == 3 || index == 6 ? item.id : item.url,
-                  index == 3 || index == 6 ? true : false,
-                  index == 3 || index == 6 ? item.url : item.id
-                )
-              }
-              }}
-            >
+              onClick={() => {
+                if (item.url == "upcoming") {
+                  router.push("/eventCategory/upcoming");
+                } else {
+                  menuClick(
+                    index == 3 || index == 6 ? item.id : item.url,
+                    index == 3 || index == 6 ? true : false,
+                    index == 3 || index == 6 ? item.url : item.id
+                  );
+                }
+              }}>
               <RightSideInsideMenuBox>
                 <Image
                   style={{
@@ -265,21 +262,17 @@ const RightSide = () => {
                 if (index == 3) {
                   click(item);
                 } else {
-
-                 if(item.url=="upcoming")
-                 {
-                   router.push('/upcoming')
-                 }
-                 else{
-                  menuClick(
-                    index == 2 ? item.name : item.url,
-                    index == 2 ? true : false,
-                    index == 2 ? item.url : item.id
-                  );
+                  if (item.url == "upcoming") {
+                    router.push("/upcoming");
+                  } else {
+                    menuClick(
+                      index == 2 ? item.name : item.url,
+                      index == 2 ? true : false,
+                      index == 2 ? item.url : item.id
+                    );
+                  }
                 }
-              }
-              }}
-            >
+              }}>
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}
@@ -296,8 +289,7 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}
-        >
+          onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button>
       </AllCategories>

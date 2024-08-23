@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
-import Image from "next/image";
 import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { wellbeingImg } from "@/app/utils/ImagePath";
 import { eventsByDate } from "@/app/utils/homeIcon";
+import { useRouter } from "next/navigation";
+import { handleEventEncoding } from "@/app/utils/commanFun";
+import Link from "next/link";
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -50,9 +50,9 @@ const CommunityContainer = styled.div`
 `;
 
 const EventsByDate = () => {
-  const { menuClick } = useMyContext();
-
-  console.log(eventsByDate);
+  const EventMenuClick = (item: any) => {
+    return `/eventByDate/${handleEventEncoding("encode", item.name)}`;
+  };
   return (
     <>
       <MenuDetails title="Events by date" hideShowAll={true} />
@@ -66,14 +66,13 @@ const EventsByDate = () => {
           : eventsByDate.length
           ? eventsByDate.map((item: any, index: any) => {
               return (
-                <CommunityContainer
-                  key={index}
-                  style={{ background: item?.color, cursor: "pointer" }}
-                  onClick={() => menuClick("EventsByDate", true, item?.name)}
-                >
-                  <p style={{ textAlign: "end" }}> {item?.icon}</p>
-                  <p style={{ paddingBottom: "5px" }}>{item?.name}</p>
-                </CommunityContainer>
+                <Link key={index} href={EventMenuClick(item)}>
+                  <CommunityContainer
+                    style={{ background: item?.color, cursor: "pointer" }}>
+                    <p style={{ textAlign: "end" }}> {item?.icon}</p>
+                    <p style={{ paddingBottom: "5px" }}>{item?.name}</p>
+                  </CommunityContainer>
+                </Link>
               );
             })
           : ""}
