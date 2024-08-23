@@ -7,6 +7,11 @@ const redirects = async () => [
     destination: "https://hub.roc.je/jersey-summer-guide-2024", // The URL to redirect to
     permanent: true, // Set to true for a 308 Permanent Redirect
   },
+  {
+    source: "/upcoming", // The old path to match
+    destination: "/eventCategory/upcoming", // The new path to redirect to
+    permanent: true, // Set to true for a 308 Permanent Redirect
+  },
 ];
 
 // Combined next.js configuration
