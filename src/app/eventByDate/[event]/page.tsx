@@ -34,6 +34,7 @@ export default async function Page({ params }: { params: { event: string } }) {
   }
 
   if (!response) {
+    console.log("testing", itemIndex, decodedEvent);
     return <p>Event not found or failed to load event data.</p>;
   }
 
