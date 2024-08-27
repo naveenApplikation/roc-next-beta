@@ -50,6 +50,22 @@ const MainContainer = styled.div`
   position: absolute;
   top: 355px;
   gap: 24px;
+  @media screen and (max-width: 320px) {
+    width: inherit;
+    height: 100%;
+    top: 0px;
+    justify-content: center;
+    padding: 0px 10px;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 321px) and (max-width: 800px) {
+    width: 342px;
+    height: 100%;
+    top: 0px;
+    justify-content: center;
+    padding: 0px 10px;
+    overflow: hidden;
+  }
 `;
 
 const ErrorText = styled.p`
@@ -64,7 +80,7 @@ const Text = styled.p`
 `;
 
 const Button = styled.button`
-  width: 342px;
+  width: 100%;
   height: 52px;
   border-radius: 8px;
   padding: 18px 16px;
