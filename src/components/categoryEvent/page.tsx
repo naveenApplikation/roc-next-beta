@@ -155,8 +155,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}
-          >
+            }}>
             <TitleText>{urlTitle}</TitleText>
             {/* <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -172,8 +171,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: 8,
-              }}
-            >
+              }}>
               <ImageContainer selected={isBookmark} onClick={handleBookMark}>
                 {bookmarkLoader ? (
                   <Spin tip="Loading" size="small" />
@@ -205,8 +203,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}
-          >
+            }}>
             <FilterSection pageTitle="categoryEvent" />
           </div>
         </div>
@@ -255,8 +252,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                         item,
                         item?.data_type === "google" ? item?.photoUrl : fallback
                       )
-                    }
-                  >
+                    }>
                     <FamilyEventWrapper>
                       {item?.data_type === "google" ? (
                         item.photoUrl ? (
@@ -329,8 +325,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       if (!likeLoader) {
                         handleLike(item?._id, item?.userVoted);
                       }
-                    }}
-                  >
+                    }}>
                     {likeLoader == item?._id ? (
                       <Spin tip="Loading" size="small" />
                     ) : (
@@ -422,7 +417,7 @@ const SearchedListContainer = styled.div`
   padding: 25px;
   background-color: #fff;
   min-height: 100vh;
-  padding-bottom: 150px;
+  padding-bottom: 500px;
 `;
 
 const SearchedData = styled.div`
