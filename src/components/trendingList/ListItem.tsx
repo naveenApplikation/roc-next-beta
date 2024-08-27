@@ -23,6 +23,7 @@ interface Props {
 
 export const ListItem: React.FC<Props> = (props) => {
   const listData = props.data;
+  console.log("hey man", props.urlTitle);
   listData.forEach((list: any) => {
     const matchedIcon = icons.find((icon) => icon.name === list.iconName);
     if (matchedIcon) {
@@ -38,6 +39,8 @@ export const ListItem: React.FC<Props> = (props) => {
     if (condition === true) {
       if (props.urlTitle?.includes("Event")) {
         router.push(`/eventCategory/${handleEventEncoding("encode", item)}`);
+      } else if (props.urlTitle?.includes("Activity")) {
+        router.push(`/categories/activity-list?search=${id}`);
       } else {
         router.push(`/screens/${item}?categoryID=${id}`);
       }
@@ -72,13 +75,14 @@ export const ListItem: React.FC<Props> = (props) => {
                     return (
                       <ListContainer
                         key={index}
-                        onClick={() =>
+                        onClick={() => {
+                          console.log("hey what", item);
                           menuClick(
                             item?.listName,
                             true,
                             item?.categoryId ? item.categoryId : item._id
-                          )
-                        }>
+                          );
+                        }}>
                         <ImageTitleContainer>
                           <Imagecontainer style={{ background: item?.bgColor }}>
                             {item?.image}
