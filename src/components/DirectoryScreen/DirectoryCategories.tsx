@@ -1,4 +1,4 @@
-import { getDirectoryCatagories } from "@/app/action";
+import { getDirectoryCategories } from "@/app/action";
 import { ListItem } from "../trendingList/ListItem";
 
 interface TrendingListProps {
@@ -10,7 +10,7 @@ const DirectoryCatories: React.FC<TrendingListProps> = async ({
   urlTitle,
   urlData,
 }) => {
-  const listData = await getDirectoryCatagories(urlData);
+  const listData = await getDirectoryCategories(urlData);
   console.log(listData);
   return (
     <>
@@ -20,4 +20,3 @@ const DirectoryCatories: React.FC<TrendingListProps> = async ({
 };
 
 export default DirectoryCatories;
-

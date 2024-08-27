@@ -37,7 +37,7 @@ export async function getCategory(params: string) {
       {
         next: { revalidate: 14400 }, // 4 hours cache duration
       },
-      10000
+      100000
     ); // 10 seconds timeout for fetch
 
     if (res.status === 404) {
@@ -71,7 +71,7 @@ export async function getData(slug: string, params: string) {
       next: { tags: [slug], revalidate: 3600 }, // 1 hour cache duration
     };
 
-    const res = await fetchWithTimeout(url, options, 10000); // 10 seconds timeout
+    const res = await fetchWithTimeout(url, options, 100000); // 10 seconds timeout
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -92,7 +92,7 @@ export async function getData(slug: string, params: string) {
 export async function getDataForHome(slug: string, params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-    const res = await fetchWithTimeout(url, {}, 10000); // 10 seconds timeout
+    const res = await fetchWithTimeout(url, {}, 100000); // 10 seconds timeout
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -123,7 +123,7 @@ export async function getDirectoryCategories(params: string) {
     const res = await fetchWithTimeout(
       `${process.env.NEXT_API_URL}/directory?query=${params}`,
       {},
-      10000
+      100000
     );
     return await res.json();
   } catch (error) {
@@ -137,7 +137,7 @@ export async function getApiWithIcon(params: string, icons: any) {
     const res = await fetchWithTimeout(
       `${process.env.NEXT_API_URL}/${params}?limit=10`,
       {},
-      10000
+      100000
     );
     const response = await res.json();
 
@@ -165,7 +165,7 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
     const res = await fetchWithTimeout(
       `${process.env.NEXT_API_URL}/${params}?limit=10`,
       {},
-      10000
+      100000
     );
     const response = await res.json();
 
@@ -199,7 +199,7 @@ export async function addAndRemoveBookmark(params: string, categoryId: string) {
           "x-login-token": loginToken ? loginToken.toString() : "",
         },
       },
-      10000 // 10 seconds timeout
+      100000 // 10 seconds timeout
     );
 
     if (!res.ok) {
@@ -224,7 +224,7 @@ export async function getBookMark(params: string) {
         },
         next: { revalidate: 0 }, // Always fresh
       },
-      10000
+      100000
     );
 
     if (!res.ok) {
