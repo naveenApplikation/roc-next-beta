@@ -19,7 +19,6 @@ export async function getCategory(params: string) {
     const res = await fetch(url, {
       next: { revalidate: 14400 },
       signal,
-      cache: "only-if-cached",
     });
 
     if (res.status === 404) {
