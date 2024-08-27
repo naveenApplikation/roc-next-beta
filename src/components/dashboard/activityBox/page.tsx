@@ -159,14 +159,12 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
+            }}>
             <ImageContainer
               selected={isBookmark}
               onClick={() => {
                 handleBookMark();
-              }}
-            >
+              }}>
               {bookmarkLoader ? (
                 <Spin tip="Loading" size="small" />
               ) : isBookmark ? (
@@ -191,8 +189,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
+          }}>
           <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
@@ -231,8 +228,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               return (
                 <SearchedData
                   key={index}
-                  onClick={() => handlemodalView(item, index)}
-                >
+                  onClick={() => handlemodalView(item, index)}>
                   <div
                     style={{
                       display: "flex",
@@ -240,8 +236,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}
-                  >
+                    }}>
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}
@@ -281,8 +276,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
       <ScrollList
         data={filteredData}
         params={"activity-list"}
-        background={"#F2994A"}
-      ></ScrollList>
+        background={"#F2994A"}></ScrollList>
       {/* <CustomBanner /> */}
     </>
   );
@@ -311,7 +305,7 @@ const SearchedListContainer = styled.div`
   padding: 25px;
   background-color: #fff;
   min-height: 100vh;
-  padding-bottom: 130px;
+  padding-bottom: 500px;
 `;
 
 const SearchedData = styled.div`

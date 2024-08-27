@@ -291,7 +291,7 @@ const SearchedListContainer = styled.div`
   padding: 25px;
   background-color: #fff;
   min-height: 100vh;
-  padding-bottom: 130px;
+  padding-bottom: 500px;
   overflow-y: scroll;
   height: 100vh;
   scrollbar-color: transparent transparent;

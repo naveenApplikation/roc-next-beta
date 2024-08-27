@@ -23,7 +23,6 @@ interface Props {
 
 export const ListItem: React.FC<Props> = (props) => {
   const listData = props.data;
-  console.log("hey man", props.urlTitle);
   listData.forEach((list: any) => {
     const matchedIcon = icons.find((icon) => icon.name === list.iconName);
     if (matchedIcon) {
@@ -76,7 +75,6 @@ export const ListItem: React.FC<Props> = (props) => {
                       <ListContainer
                         key={index}
                         onClick={() => {
-                          console.log("hey what", item);
                           menuClick(
                             item?.listName,
                             true,

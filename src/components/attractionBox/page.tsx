@@ -38,16 +38,15 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
     // router.push("/");
     router.back();
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
+      closeModal("modalFilterList");
     }
   };
-  const filterDate = handleFilter(urlData, selectFilter)
+  const filterDate = handleFilter(urlData, selectFilter);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SearchedListContainer>
         <Header className="">
           <TitleText>
-
             {urlTitle ? urlTitle?.toString().replaceAll("%26", "&") : urlTitle}
           </TitleText>
           <Image
@@ -57,9 +56,9 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
             onClick={() => handleBack()}
           />
         </Header>
-          
-        <div style={{padding:'10px 0px'}}>
-        <FilterSection pageTitle = "attractionBox" />
+
+        <div style={{ padding: "10px 0px" }}>
+          <FilterSection pageTitle="attractionBox" />
         </div>
         {/* <LikeCount>5,281 likes</LikeCount> */}
         {/* {urlData != 77 && (
@@ -209,6 +208,7 @@ const SearchedListContainer = styled.div`
   background-color: #fff;
   width: ${sideWidth};
   min-height: 100vh;
+  padding-bottom: 500px;
   @media screen and (max-width: 800px) {
     width: 100%;
     padding: 40px 15px;

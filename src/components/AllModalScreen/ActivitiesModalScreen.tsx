@@ -13,7 +13,6 @@ interface DashboardSearchContainerProps {
 const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
   params,
-   
 }) => {
   const {
     modalName,
@@ -25,14 +24,11 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
   } = useMyContext();
 
   const router = useRouter();
-  console.log(params);
+
   const handleClose = () => {
-    console.log(params);
     if (params) {
       closeModal("activities");
-      router.replace(
-        `/categories/`
-      );
+      router.replace(`/categories/activity-list?search=activity`);
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
       closeModal("activities");
@@ -50,8 +46,7 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
           dataDetails?.data_type === "google"
             ? dataDetails?.name
             : dataDetails?.acf?.title
-        }
-      >
+        }>
         <ActivitiesModal
           dataImage={dataUrlImage}
           reservationModal={modalClick}
