@@ -17,7 +17,6 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   const skeletonItems = new Array(10).fill(null);
   const router = useRouter();
   const { menuClick } = useMyContext();
-
   // const getCreatedList = async()=>{
   //   try {
   //       const res = await Instance.get(`my-list`)
@@ -60,7 +59,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
           </SearchedData>
         ))
       ) : listData?.length == 0 ? (
-        <p style={{ fontSize: "16px" }}> No Bookmarks</p>
+        <p style={{ fontSize: "16px" }}> No Data</p>
       ) : (
         listData?.map((item: any, index: any) => {
           return (
