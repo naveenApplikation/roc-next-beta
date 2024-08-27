@@ -87,6 +87,7 @@ const Button = styled.button`
   border: none;
   font-weight: 600;
   font-size: 16px;
+  cursor: pointer;
   line-height: 16.94px;
   background: rgba(47, 128, 237, 1);
 `;

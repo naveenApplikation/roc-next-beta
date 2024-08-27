@@ -71,7 +71,7 @@ const MainContainer = styled.div`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 30px;
+  font-size: 30px;ssssss
   line-height: 36.54px;
 `;
 const Text = styled.p`
@@ -87,6 +87,7 @@ const Button = styled.button`
   padding: 18px 16px;
   border: none;
   font-weight: 600;
+  cursor: pointer;
   font-size: 16px;
   line-height: 16.94px;
   background: rgba(47, 128, 237, 1);
