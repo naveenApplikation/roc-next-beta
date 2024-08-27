@@ -3,7 +3,7 @@ import { handleEventEncoding } from "@/app/utils/commanFun";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import React from "react";
-
+export const maxDuration = 300;
 // Generate static paths for dynamic routes
 export async function generateStaticParams() {
   const category = await getCategory("event-list");
