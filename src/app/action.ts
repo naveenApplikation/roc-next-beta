@@ -14,8 +14,13 @@ export async function addAndRomoveToken(loginToken?: any) {
 }
 export async function getCategory(params: string) {
   try {
+    const { signal } = new AbortController();
     const url = `${process.env.NEXT_API_URL}/${params}`;
-    const res = await fetch(url, { next: { revalidate: 14400 } });
+    const res = await fetch(url, {
+      next: { revalidate: 14400 },
+      signal,
+      cache: "only-if-cached",
+    });
 
     if (res.status === 404) {
       console.warn(`Resource not found for ${params}: ${res.statusText}`);
