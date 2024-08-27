@@ -1,29 +1,48 @@
 "use server";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
-import next from "next";
 import { cache } from "react";
 
+// Utility function to add timeout to fetch
+async function fetchWithTimeout(
+  resource: string,
+  options: any,
+  timeout = 5000
+) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal,
+  });
+
+  clearTimeout(id);
+  return response;
+}
+
 export async function addAndRomoveToken(loginToken?: any) {
-  // console.log(loginToken,"line7")
   if (loginToken) {
     cookies().set("loginToken", loginToken);
   } else {
     cookies().delete("loginToken");
   }
 }
+
 export async function getCategory(params: string) {
   try {
-    const { signal } = new AbortController();
     const url = `${process.env.NEXT_API_URL}/${params}`;
-    const res = await fetch(url, {
-      next: { revalidate: 14400 },
-      signal,
-    });
+    const res = await fetchWithTimeout(
+      url,
+      {
+        next: { revalidate: 14400 }, // 4 hours cache duration
+      },
+      10000
+    ); // 10 seconds timeout for fetch
 
     if (res.status === 404) {
       console.warn(`Resource not found for ${params}: ${res.statusText}`);
-      return null; // Return null or a fallback if the data is not found
+      return null;
     }
 
     if (!res.ok) {
@@ -45,17 +64,14 @@ export async function getCategory(params: string) {
 export async function getData(slug: string, params: string) {
   try {
     const loginToken = cookies().get("loginToken")?.value;
-    // console.log(loginToken,"line 49")
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-    const options: any = loginToken
-      ? {
-          headers: {
-            "x-login-token": loginToken ? loginToken.toString() : "",
-          },
-          next: { tags: [slug], revalidate: 3600 },
-        }
-      : { next: { revalidate: 3600 } };
-    const res = await fetch(url, options);
+
+    const options: any = {
+      headers: loginToken ? { "x-login-token": loginToken } : undefined,
+      next: { tags: [slug], revalidate: 3600 }, // 1 hour cache duration
+    };
+
+    const res = await fetchWithTimeout(url, options, 10000); // 10 seconds timeout
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -68,15 +84,15 @@ export async function getData(slug: string, params: string) {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.log("test3", params);
+    console.error("Error fetching data:", error);
+    return null;
   }
 }
 
 export async function getDataForHome(slug: string, params: string) {
   try {
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url, {}, 10000); // 10 seconds timeout
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -89,25 +105,42 @@ export async function getDataForHome(slug: string, params: string) {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.log("tes2", params);
+    console.error("Error fetching data for home:", error);
+    return null;
   }
 }
 
 export async function updateLike(params: string) {
-  revalidateTag(params);
+  try {
+    revalidateTag(params);
+  } catch (error) {
+    console.error("Error updating like:", error);
+  }
 }
 
-export async function getDirectoryCatagories(params: string) {
-  const res = await fetch(
-    `${process.env.NEXT_API_URL}/directory?query=${params}`
-  );
-  return await res.json();
+export async function getDirectoryCategories(params: string) {
+  try {
+    const res = await fetchWithTimeout(
+      `${process.env.NEXT_API_URL}/directory?query=${params}`,
+      {},
+      10000
+    );
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching directory categories:", error);
+    return null;
+  }
 }
 
 export async function getApiWithIcon(params: string, icons: any) {
   try {
-    const res = await fetch(`${process.env.NEXT_API_URL}/${params}?limit=10`);
+    const res = await fetchWithTimeout(
+      `${process.env.NEXT_API_URL}/${params}?limit=10`,
+      {},
+      10000
+    );
     const response = await res.json();
+
     if (res.status === 200) {
       response.forEach((list: any) => {
         const matchedIcon = icons.find(
@@ -122,15 +155,20 @@ export async function getApiWithIcon(params: string, icons: any) {
       return [];
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching data with icon:", error);
     return [];
   }
 }
 
 export async function getApiShoppingWithIcon(params: string, icons: any) {
   try {
-    const res = await fetch(`${process.env.NEXT_API_URL}/${params}?limit=10`);
+    const res = await fetchWithTimeout(
+      `${process.env.NEXT_API_URL}/${params}?limit=10`,
+      {},
+      10000
+    );
     const response = await res.json();
+
     if (res.status === 200) {
       response.forEach((list: any) => {
         const matchedIcon = icons.find(
@@ -145,32 +183,32 @@ export async function getApiShoppingWithIcon(params: string, icons: any) {
       return [];
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching shopping data with icon:", error);
     return [];
   }
 }
 
 export async function addAndRemoveBookmark(params: string, categoryId: string) {
-  console.log(categoryId, 157, "action.ts");
   const loginToken = cookies().get("loginToken")?.value;
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       `${process.env.NEXT_API_URL}/${params}/${categoryId}`,
       {
         method: "PUT",
         headers: {
           "x-login-token": loginToken ? loginToken.toString() : "",
         },
-      }
+      },
+      10000 // 10 seconds timeout
     );
 
     if (!res.ok) {
-      console.log(res);
-      throw Error(res.status.toString());
+      throw new Error(`Network response was not ok: ${res.statusText}`);
     }
 
     return true;
   } catch (error) {
+    console.error("Error adding/removing bookmark:", error);
     return false;
   }
 }
@@ -178,59 +216,24 @@ export async function addAndRemoveBookmark(params: string, categoryId: string) {
 export async function getBookMark(params: string) {
   const loginToken = cookies().get("loginToken")?.value;
   try {
-    const res = await fetch(`${process.env.NEXT_API_URL}/${params}`, {
-      headers: {
-        "x-login-token": loginToken ? loginToken.toString() : "",
+    const res = await fetchWithTimeout(
+      `${process.env.NEXT_API_URL}/${params}`,
+      {
+        headers: {
+          "x-login-token": loginToken ? loginToken.toString() : "",
+        },
+        next: { revalidate: 0 }, // Always fresh
       },
-      next: { revalidate: 0 },
-    });
+      10000
+    );
 
     if (!res.ok) {
-      throw Error(res.status.toString());
+      throw new Error(`Network response was not ok: ${res.statusText}`);
     }
 
     return await res.json();
   } catch (error) {
-    return error;
+    console.error("Error fetching bookmark:", error);
+    return null;
   }
 }
-
-// export async function handleLike(req: any, res: any) {
-//   console.log("assasasask");
-//   if (req.method !== "POST") {
-//     return res.status(405).json({ message: "Method Not Allowed" });
-//   }
-
-//   const { id, vote, categoryId } = req.body;
-//   const loginToken = req.headers.authorization;
-
-//   if (!loginToken) {
-//     return res.status(401).json({ message: "Unauthorized" });
-//   }
-
-//   try {
-//     const response = await fetch(
-//       `${process.env.NEXT_API_URL}/category/${
-//         vote ? "removeVoting" : "addVoting"
-//       }`,
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: loginToken,
-//         },
-//         body: JSON.stringify({ categroryId: categoryId, itemId: id }),
-//       }
-//     );
-
-//     const data = await response.json();
-//     if (!response.ok) {
-//       throw new Error(data.message || "Something went wrong!");
-//     }
-
-//     return res.status(200).json({ message: data.message });
-//   } catch (error) {
-//     console.error("Error updating vote:", error);
-//     return res.status(500).json({ message: "Something went wrong!" });
-//   }
-// }
