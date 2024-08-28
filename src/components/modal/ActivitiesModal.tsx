@@ -8,6 +8,7 @@ import Link from "next/link";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
 import { usePathname } from "next/navigation";
+import { handleCall } from "@/app/utils/commanFun";
 
 interface ModalProps {
   //   onClose: () => void;
@@ -522,7 +523,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
             text="Call"
             image={phone}
             imageStyle={20}
-            isOpen={() => reservationModal("Call")}
+            isOpen={() => handleCall(data?.acf?.telephone_number?.formatted)}
             linkNum={data?.acf?.telephone_number?.formatted}
           />
         </ButtonContainer>

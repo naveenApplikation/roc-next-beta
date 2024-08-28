@@ -20,6 +20,7 @@ import {
 } from "@/app/utils/ImagePath";
 import {
   convertTo12HourTime,
+  handleCall,
   relatedTypesFun,
   reservationTypesFun,
 } from "@/app/utils/commanFun";
@@ -513,7 +514,12 @@ const ModalContent: React.FC<ModalProps> = ({
                   text="Call"
                   image={phone}
                   imageStyle={20}
-                  isOpen={() => reservationModal("Call")}
+                  isOpen={() =>
+                    handleCall(
+                      showApiData?.international_phone_number ||
+                        showApiData?.formatted_phone_number
+                    )
+                  }
                   linkNum={
                     showApiData?.international_phone_number ||
                     showApiData?.formatted_phone_number

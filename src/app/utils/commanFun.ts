@@ -81,3 +81,21 @@ export function handleEventEncoding(
     throw new Error('Invalid type. Must be either "encode" or "decode".');
   }
 }
+
+export function formatPhoneNumberForIOS(phoneNumber: string): string {
+  // Remove any characters that are not digits or the plus sign
+  const formattedNumber = phoneNumber.replace(/[^+\d]/g, "");
+
+  // Ensure the number starts with a '+' for international format
+  if (!formattedNumber.startsWith("+") && formattedNumber.length === 10) {
+    // If it's a 10-digit number (common in the US), assume country code +1 (US)
+    return `+1${formattedNumber}`;
+  }
+
+  // Return the formatted number
+  return formattedNumber;
+}
+
+export const handleCall = (linkNum: string) => {
+  window.location.href = `tel:${formatPhoneNumberForIOS(linkNum)}`;
+};

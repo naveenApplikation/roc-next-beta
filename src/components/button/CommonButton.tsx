@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import {inter} from '../../../assets/styles/Font'
+import { inter } from "../../../assets/styles/Font";
 
 interface ButtonProps {
   text: string;
@@ -46,9 +46,13 @@ const CommonButton: React.FC<ButtonProps> = ({
   imageStyle,
   className,
   linkNum,
-  isOpen, }) => {
+  isOpen,
+}) => {
   return (
-    <Container className={className ? className : ""} style={{ backgroundColor: bcColor }} onClick={isOpen}>
+    <Container
+      className={className ? className : ""}
+      style={{ backgroundColor: bcColor }}
+      onClick={isOpen}>
       {image && (
         <Image
           style={{ width: imageStyle, height: "auto" }}
@@ -56,12 +60,13 @@ const CommonButton: React.FC<ButtonProps> = ({
           alt="icon"
         />
       )}
-      {
-        text === "Call" ?
-          <Link style={{color:"white" , fontSize:"16px" , fontWeight:"500"}} href={`tel:${linkNum}`}>{text}</Link>
-          :
-          <TitleText className={inter.className}>{text}</TitleText>
-      }
+      {text === "Call" ? (
+        <div style={{ color: "white", fontSize: "16px", fontWeight: "500" }}>
+          {text}
+        </div>
+      ) : (
+        <TitleText className={inter.className}>{text}</TitleText>
+      )}
     </Container>
   );
 };
