@@ -4,12 +4,12 @@ import Image from "next/image";
 import { ROCLogo } from "./utils/ImagePath";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-const Error = (error: Error) => {
+const NotFound = () => {
   const router = useRouter();
   const navigate = () => {
     router.push("/");
   };
-  console.log(error.message);
+
   return (
     <div style={{ height: "100vh", background: "white" }}>
       <Logo>
@@ -21,12 +21,11 @@ const Error = (error: Error) => {
           display: "flex",
           justifyContent: "center",
           height: "80%",
-          top: "0px",
         }}
       >
         <MainContainer>
-          <ErrorText>Ah bah crie!</ErrorText>
-          <Text>The app has ran into a problem.</Text>
+          <ErrorText>404</ErrorText>
+          <Text>Page not found</Text>
           <Button onClick={navigate}>Go Back</Button>
         </MainContainer>
       </div>
@@ -71,7 +70,7 @@ const MainContainer = styled.div`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 30px;ssssss
+  font-size: 30px;
   line-height: 36.54px;
 `;
 const Text = styled.p`
@@ -87,9 +86,10 @@ const Button = styled.button`
   padding: 18px 16px;
   border: none;
   font-weight: 600;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
   line-height: 16.94px;
   background: rgba(47, 128, 237, 1);
 `;
-export default Error;
+
+export default NotFound;

@@ -35,7 +35,9 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       if (myListtabValue === "Created") {
         try {
           const response = await Instance.get("/my-list");
-          const list = [response.data];
+          const list = [...response.data];
+
+          console.log(response);
           if (response.status === 200) {
             list.forEach((list: any) => {
               const matchedIcon = icons.find(
@@ -45,6 +47,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
                 list.image = matchedIcon.image;
               }
             });
+
             setListData(list);
             setloader(false);
           } else {
@@ -92,7 +95,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
         isOpen={modalType.myList}
         onClose={() => closeModal("myList")}
         {...{ showMap }}
-        title="My List"
+        title="My Lists"
         name="myListModal">
         <SearchedContainer>
           <MylistContainer
