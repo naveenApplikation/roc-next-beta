@@ -227,6 +227,8 @@ const RightSide = () => {
               onClick={() => {
                 if (item.url == "upcoming") {
                   router.push("/eventCategory/upcoming");
+                } else if (item.url == "activity") {
+                  router.push("/activityCategory/all-activities");
                 } else {
                   menuClick(
                     index == 3 || index == 6 ? item.id : item.url,

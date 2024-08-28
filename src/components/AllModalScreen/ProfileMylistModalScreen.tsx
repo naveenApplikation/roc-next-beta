@@ -14,8 +14,6 @@ interface DashboardSearchContainerProps {
   listData?: any;
 }
 
-
-
 const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   myListtabChange,
   mylistoptions,
@@ -23,65 +21,70 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { closeModal, modalType } = useMyContext();
-  const [listData, setListData] = useState<string[]>([])
-  const [contributionData, setContributionData] = useState<string[]>([])
-  const [loader, setloader] = useState<boolean>(false)
-  const loginToken = typeof window !== "undefined" ? window.localStorage.getItem("loginToken") : null;
+  const [listData, setListData] = useState<string[]>([]);
+  const [contributionData, setContributionData] = useState<string[]>([]);
+  const [loader, setloader] = useState<boolean>(false);
+  const loginToken =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("loginToken")
+      : null;
 
   const fetchDataAsync = async () => {
     if (loginToken) {
-      setloader(true)
+      setloader(true);
       if (myListtabValue === "Created") {
         try {
-          const response = await Instance.get("/my-list")
-          const list = [response.data]
+          const response = await Instance.get("/my-list");
+          const list = [response.data];
           if (response.status === 200) {
             list.forEach((list: any) => {
-              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              const matchedIcon = icons.find(
+                (icon) => icon.name === list.iconName
+              );
               if (matchedIcon) {
                 list.image = matchedIcon.image;
               }
-            })
-            setListData(list)
-            setloader(false)
+            });
+            setListData(list);
+            setloader(false);
           } else {
-            setListData([])
-            setloader(false)
+            setListData([]);
+            setloader(false);
           }
         } catch (error) {
-          setListData([])
-          setloader(false)
+          setListData([]);
+          setloader(false);
         }
-
       } else {
-
         try {
-          const response = await Instance.get("/my-contribution")
-          const list = response.data
+          const response = await Instance.get("/my-contribution");
+          const list = response.data;
           if (response.status === 200) {
             list.forEach((list: any) => {
-              const matchedIcon = icons.find(icon => icon.name === list.iconName);
+              const matchedIcon = icons.find(
+                (icon) => icon.name === list.iconName
+              );
               if (matchedIcon) {
                 list.image = matchedIcon.image;
               }
-            })
-            setContributionData(list)
-            setloader(false)
+            });
+            setContributionData(list);
+            setloader(false);
           } else {
-            setContributionData([])
-            setloader(false)
+            setContributionData([]);
+            setloader(false);
           }
         } catch (error) {
-          setContributionData([])
-          setloader(false)
+          setContributionData([]);
+          setloader(false);
         }
       }
     }
-  }
+  };
 
   useEffect(() => {
-    fetchDataAsync()
-  }, [loginToken, myListtabValue])
+    fetchDataAsync();
+  }, [loginToken, myListtabValue]);
 
   return (
     <>
@@ -89,7 +92,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
         isOpen={modalType.myList}
         onClose={() => closeModal("myList")}
         {...{ showMap }}
-        title="My Lists"
+        title="My List"
         name="myListModal">
         <SearchedContainer>
           <MylistContainer
@@ -109,7 +112,6 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
 };
 
 export default ProfileMylistModalScreen;
-
 
 const SearchedContainer = styled.div`
   background-color: #fff;
@@ -151,4 +153,3 @@ const SearchedContainer = styled.div`
     font-weight: 600;
   }
 `;
-

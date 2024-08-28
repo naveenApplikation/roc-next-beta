@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ActivitiesModalLayout from "@/components//modal/Modal";
 import ActivitiesModal from "@/components/modal/ActivitiesModal";
 import { useMyContext } from "@/app/Context/MyContext";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface DashboardSearchContainerProps {
   showMap: boolean;
@@ -12,7 +12,6 @@ interface DashboardSearchContainerProps {
 
 const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
-  params,
 }) => {
   const {
     modalName,
@@ -22,13 +21,14 @@ const ActivitiesModalScreen: React.FC<DashboardSearchContainerProps> = ({
     modalType,
     dataUrlImage,
   } = useMyContext();
+  const params = useParams();
 
   const router = useRouter();
 
   const handleClose = () => {
-    if (params) {
+    if (params && params.activity) {
       closeModal("activities");
-      router.replace(`/categories/activity-list?search=activity`);
+      router.replace(`/activityCategory/${params.activity}`);
     } else {
       //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
       closeModal("activities");

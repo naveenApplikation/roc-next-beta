@@ -16,8 +16,6 @@ interface DashboardSearchContainerProps {
   loader?: boolean;
 }
 
-
-
 const MylistModal: React.FC<DashboardSearchContainerProps> = ({
   myListtabChange,
   mylistoptions,
@@ -35,11 +33,15 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
       />
       {myListtabValue == "Created" ? (
         <>
-          <Lists {...{ listData, loader }} />
+          <Lists {...{ listData, loader, currentState: "Lists" }} />
         </>
       ) : (
         <>
-        <Lists {...{ loader }} listData={contributionData}/>
+          <Lists
+            {...{ loader }}
+            listData={contributionData}
+            currentState="Lists"
+          />
           {/* <FilterSection /> */}
           {/* <SearchedListContainer>
             {contributionData.map((item: any, index: any) => {
@@ -83,7 +85,6 @@ const MylistModal: React.FC<DashboardSearchContainerProps> = ({
 };
 
 export default MylistModal;
-
 
 const SearchedListContainer = styled.div`
   padding-bottom: 40px;

@@ -39,7 +39,7 @@ export const ListItem: React.FC<Props> = (props) => {
       if (props.urlTitle?.includes("Event")) {
         router.push(`/eventCategory/${handleEventEncoding("encode", item)}`);
       } else if (props.urlTitle?.includes("Activity")) {
-        router.push(`/categories/activity-list?search=${id}`);
+        router.push(`/activityCategory/${handleEventEncoding("encode", item)}`);
       } else {
         router.push(`/screens/${item}?categoryID=${id}`);
       }

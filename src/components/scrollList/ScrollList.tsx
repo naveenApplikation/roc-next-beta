@@ -1,5 +1,6 @@
 "use client";
 
+import { handleEventEncoding } from "@/app/utils/commanFun";
 import { useRouter } from "next-nprogress-bar";
 import { useParams, useSearchParams } from "next/navigation";
 import React from "react";
@@ -13,14 +14,7 @@ interface ScrollListPage {
 
 const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
   const router = useRouter();
-  console.log(params);
-  if (params === "EventsByDate" || params === "Events") {
-    params = "event-category-list";
-  }
 
-  const navigate = (id: any) => {
-    router.push(`/categories/${params}?search=${id}`);
-  };
   return (
     <Container>
       <MainWrapper>
@@ -28,10 +22,17 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
           return (
             <Wrapper
               onClick={() => {
-                if (item.id == "upcoming") {
-                  router.push(`/upcoming`);
+                if (params === "event-category-list") {
+                  router.push(
+                    `/eventCategory/${handleEventEncoding("encode", item.slug)}`
+                  );
                 } else {
-                  navigate(item.id);
+                  router.push(
+                    `/activityCategory/${handleEventEncoding(
+                      "encode",
+                      item.slug
+                    )}`
+                  );
                 }
               }}
               key={item}

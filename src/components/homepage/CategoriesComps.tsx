@@ -10,6 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import Link from "next/link";
+import { useRouter } from "next-nprogress-bar";
 
 interface DashboardProps {
   data?: any;
@@ -62,20 +63,30 @@ const CategoriesComps: React.FC<DashboardProps> = ({
   type,
   title,
 }) => {
-  const { menuClick } = useMyContext();
+  const router = useRouter();
 
   const getEventLink = (itemName: string) => {
     const encodedName = handleEventEncoding("encode", itemName);
     return `/eventCategory/${encodedName}`;
   };
 
-  const getCategoryLink = (itemType: string, id: string) => {
-    return `/categories/${itemType}?search=${id}`;
+  const getCategoryLink = (itemName: string) => {
+    const encodedName = handleEventEncoding("encode", itemName);
+    return `/activityCategory/${encodedName}`;
   };
 
   return (
     <>
-      <MenuDetails isOpen={() => menuClick(name, true, type)} title={title} />
+      <MenuDetails
+        isOpen={() => {
+          if (type === "event-category-list") {
+            router.push("eventCategory");
+          } else {
+            router.push("activityCategory");
+          }
+        }}
+        title={title}
+      />
       <ScrollingMenu>
         {!data
           ? skeletonItems.map((item, index) => (
@@ -89,9 +100,9 @@ const CategoriesComps: React.FC<DashboardProps> = ({
                 <Link
                   key={index}
                   href={
-                    type === "event-category-list" || type === "EventsByDate"
+                    type === "event-category-list"
                       ? getEventLink(item.listName)
-                      : getCategoryLink(type, item._id)
+                      : getCategoryLink(item.listName)
                   }>
                   <CommunityContainer
                     style={{ background: item?.bgColor, cursor: "pointer" }}>

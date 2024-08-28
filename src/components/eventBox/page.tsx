@@ -312,12 +312,12 @@ const EventBox: React.FC<EventBoxProps> = ({
         </AddListButton>
       </SearchedListContainer>
 
-      {urlTitle && (
+      {/* {urlTitle && (
         <ScrollList
           params={params.eventName}
           background={"#EB5757"}
           data={filteredData}></ScrollList>
-      )}
+      )} */}
     </>
   );
 };

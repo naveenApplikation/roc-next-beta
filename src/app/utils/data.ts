@@ -216,7 +216,7 @@ export const rightSideMenu = [
     width: 15,
     height: 20,
     url: "activity",
-    id: "activity-list",
+    id: "activity",
   },
   {
     name: "Travel",
@@ -913,134 +913,164 @@ export const SearchFilterData = [
   { id: "13", name: "Jersey" },
 ];
 
-export const events: { id: string; listName: string }[] = [
-  { id: "upcoming", listName: "All Events" },
+export const events: { id: string; listName: string; slug: string }[] = [
+  { id: "upcoming", listName: "All Events", slug: "upcoming" },
   {
     id: "669ecfbf9a4bf462b63f37f7",
     listName: "Arts & Cultural",
+    slug: "Arts & Cultural",
   },
   {
     id: "669ecfbf9a4bf462b63f3840",
     listName: "Family Friendly",
+    slug: "Family Friendly",
   },
   {
     id: "669ecfbf9a4bf462b63f3896",
     listName: "Festivals",
+    slug: "Festivals",
   },
   {
     id: "669ecfbf9a4bf462b63f38c5",
     listName: "Food & Drink",
+    slug: "Food & Drink",
   },
   {
     id: "669ecfbf9a4bf462b63f38d2",
     listName: "Health & Wellbeing",
+    slug: "Health & Wellbeing",
   },
   {
     id: "669ecfbf9a4bf462b63f38de",
     listName: "History & Heritage",
+    slug: "History & Heritage",
   },
   {
     id: "669ecfbf9a4bf462b63f38ec",
     listName: "Music",
+    slug: "Music",
   },
   {
     id: "669ecfbf9a4bf462b63f38f9",
     listName: "Outdoor",
+    slug: "Outdoor",
   },
   {
     id: "669ecfc09a4bf462b63f391e",
     listName: "Participant",
+    slug: "Participant",
   },
   {
     id: "669ecfc09a4bf462b63f392b",
     listName: "Seasonal",
+    slug: "Seasonal",
   },
   {
     id: "669ecfc09a4bf462b63f3935",
     listName: "Spectator",
+    slug: "Spectator",
   },
   {
     id: "669ecfc09a4bf462b63f394c",
     listName: "Sports",
+    slug: "Sports",
   },
 ];
-
 export const activities = [
-  { id: "activity", listName: "All Activities" },
+  { id: "activity", listName: "All Activities", slug: "All Activities" },
   {
     id: "669f5b7f9a4bf462b6a29c73",
     listName: "Active & Adrenaline",
+    slug: "Active & Adrenaline",
   },
   {
     id: "669f5b809a4bf462b6a29d92",
     listName: "Beaches",
+    slug: "Beaches",
   },
   {
     id: "669f5b829a4bf462b6a29eca",
     listName: "Boat",
+    slug: "Boat",
   },
   {
     id: "669f5b829a4bf462b6a29edb",
     listName: "Car Hire Driving",
+    slug: "Car Hire Driving",
   },
   {
     id: "669f5b829a4bf462b6a29ee6",
     listName: "Cycling",
+    slug: "Cycling",
   },
   {
     id: "669f5b829a4bf462b6a29f11",
     listName: "Equipment Hire",
+    slug: "Equipment Hire",
   },
   {
     id: "669f5b829a4bf462b6a29f61",
     listName: "Family",
+    slug: "Family",
   },
   {
     id: "669f5b829a4bf462b6a29f6e",
     listName: "Fishing Charters",
+    slug: "Fishing Charters",
   },
   {
     id: "669f5b839a4bf462b6a29fa6",
     listName: "Fitness & Leisure",
+    slug: "Fitness & Leisure",
   },
   {
     id: "669f5b839a4bf462b6a29fbe",
     listName: "Food & Drink",
+    slug: "Food & Drink",
   },
   {
     id: "669f5b839a4bf462b6a29fca",
     listName: "Golf",
+    slug: "Golf",
   },
   {
     id: "669f5b839a4bf462b6a29fd7",
     listName: "History & Culture",
+    slug: "History & Culture",
   },
   {
     id: "669f5b839a4bf462b6a2a05a",
     listName: "Indoor Sports",
+    slug: "Indoor Sports",
   },
   {
     id: "669f5b839a4bf462b6a2a078",
     listName: "Outdoor Sports",
+    slug: "Outdoor Sports",
   },
   {
     id: "669f5b849a4bf462b6a2a0aa",
     listName: "Nature & Wildlife",
+    slug: "Nature & Wildlife",
   },
   {
     id: "669f5b849a4bf462b6a2a0c1",
     listName: "Spa & Health",
+    slug: "Spa & Health",
   },
   {
     id: "669f5b849a4bf462b6a2a0d4",
     listName: "Swimming",
+    slug: "Swimming",
   },
   {
     id: "669f5b849a4bf462b6a2a0fa",
     listName: "Walking",
+    slug: "Walking",
   },
   {
     id: "669f5b849a4bf462b6a2a12e",
     listName: "Water Sports",
+    slug: "Water Sports",
   },
 ];

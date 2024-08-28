@@ -12,6 +12,23 @@ const redirects = async () => [
     destination: "/eventCategory/upcoming", // The new path to redirect to
     permanent: true, // Set to true for a 308 Permanent Redirect
   },
+  {
+    source: "/categories/activity-list", // The old path
+    has: [
+      {
+        type: "query",
+        key: "search",
+        value: "activity",
+      },
+      {
+        type: "query",
+        key: "modal",
+        value: "(?<modal>.*)", // Captures the modal value
+      },
+    ],
+    destination: "/activityCategory/all-activities?modal=:modal", // Redirect to the new path with the captured modal value
+    permanent: true, // Set to true for a 308 Permanent Redirect
+  },
 ];
 
 // Combined next.js configuration

@@ -30,6 +30,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   // useEffect(()=>{
   //   getCreatedList()
   // },[])
+
   const handleNavigate = (category: string, id: string) => {
     if (currentState == "Events") {
       menuClick("event-category-list", true, id);
@@ -70,8 +71,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
                 key={index}
                 onClick={() => {
                   handleNavigate(item?.listName, item?._id);
-                }}
-              >
+                }}>
                 <ImageTitleContainer>
                   <Imagecontainer style={{ background: item?.bgColor }}>
                     {item ? item.image : ""}

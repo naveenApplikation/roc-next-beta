@@ -27,6 +27,8 @@ import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { handleEventEncoding } from "@/app/utils/commanFun";
 
 interface EventBoxProps {
   urlData?: any;
@@ -41,8 +43,14 @@ const EventPage: React.FC<EventBoxProps> = ({
   type,
   slug,
 }) => {
-  const { modalClick, handleSocialShare, socialShare, eventFilters, showMap } =
-    useMyContext();
+  const {
+    modalClick,
+    handleSocialShare,
+    socialShare,
+    eventFilters,
+    showMap,
+    resetFilters,
+  } = useMyContext();
 
   const router = useRouter();
 
@@ -51,6 +59,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const params = useParams();
 
   const handleShare = () => {
     if (!socialShare) {
@@ -125,6 +134,10 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   }, [urlData]);
 
+  useEffect(() => {
+    resetFilters();
+  }, [params]);
+
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
       return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
@@ -176,9 +189,9 @@ const EventPage: React.FC<EventBoxProps> = ({
   //     }
   //   };
   // }, [loading, next, urlData]);
-
+  // alert(slug);
   const filteredData = events.filter((item: any) => {
-    return item.id.toLowerCase() != "upcoming";
+    return handleEventEncoding("encode", item.slug) !== slug;
   });
 
   const Event = (

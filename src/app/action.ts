@@ -37,7 +37,7 @@ export async function getCategory(params: string) {
       {
         next: { revalidate: 14400 }, // 4 hours cache duration
       },
-      100000
+      150000
     ); // 10 seconds timeout for fetch
 
     if (res.status === 404) {
@@ -56,7 +56,7 @@ export async function getCategory(params: string) {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.error("Error fetching category:", error);
+    console.error("Error fetching category:", params, error);
     return null;
   }
 }
