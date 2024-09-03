@@ -44,6 +44,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <meta name="monetag" content="3a9f3caf1dba54e50171bb8d11959b17" />
       </head>
       <body className={inter.className}>
         <Script
