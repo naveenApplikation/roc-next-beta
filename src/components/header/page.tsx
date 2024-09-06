@@ -1,16 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
 import {
   profileIconDark,
   ROCLogo,
   HamburgerDesktop,
-  iconbetablack
+  iconbetablack,
 } from "@/app/utils/ImagePath";
 
 const HeadMenu = styled.div`
@@ -37,7 +37,7 @@ const HeaderMapProfileContainer = styled.div`
 `;
 
 const Header = () => {
-  const {modalClick } = useMyContext();
+  const { modalClick } = useMyContext();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -45,6 +45,29 @@ const Header = () => {
   const navigateClick = () => {
     router.push("/");
   };
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.addEventListener("updatefound", () => {
+          const newWorker = registration.installing;
+          if (newWorker) {
+            newWorker.addEventListener("statechange", () => {
+              if (
+                newWorker.state === "installed" &&
+                navigator.serviceWorker.controller
+              ) {
+                // Prompt user to refresh
+                if (confirm("New version available. Refresh to update?")) {
+                  window.location.reload();
+                }
+              }
+            });
+          }
+        });
+      });
+    }
+  }, []);
   return (
     <>
       <HeadMenu>
@@ -58,12 +81,12 @@ const Header = () => {
           {pathname === "/" ? (
             <>
               <Image
-            src={iconbetablack}
-            width={48}
-            height={48}
-            alt="Logo Outline"
-            // onClick={() => modalClick("createAccountModal")}
-            />
+                src={iconbetablack}
+                width={48}
+                height={48}
+                alt="Logo Outline"
+                // onClick={() => modalClick("createAccountModal")}
+              />
               <Image
                 style={{ cursor: "pointer" }}
                 src={profileIconDark}
