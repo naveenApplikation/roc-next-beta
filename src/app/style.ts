@@ -144,5 +144,5 @@ export const ScrollingMenu = styled.div`
 export const LeaveFeedbackButtonContainer = styled.div`
   padding-left: 40px;
   padding-right: 40px;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 `;
