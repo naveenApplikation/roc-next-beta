@@ -3,45 +3,29 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { ROCLogo } from "./utils/ImagePath";
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
 const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Function to navigate or reload based on the current route
   const navigate = () => {
-    router.push("/");
-  };
-  // Function to log the error to the API
-  const logErrorToServer = async (error: Error) => {
-    const payload = {
-      message: error.message,
-      stack: error.stack,
-    };
-
-    try {
-      const response = await fetch("/api/logError", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        console.error("Failed to log error on server:", response.statusText);
-      } else {
-        const result = await response.json();
-        console.log("Server response:", result);
-      }
-    } catch (err) {
-      console.error("Error occurred while sending the error:", err);
+    if (pathname === "/") {
+      window.location.reload(); // Reload the page if it's the home page
+    } else {
+      router.push("/"); // Navigate to home page if not already on it
     }
   };
 
-  // Log the error when the component mounts
+  // Reload the page if the path is the home page and an error occurs
   useEffect(() => {
-    if (error) {
-      logErrorToServer(error);
+    if (error && pathname === "/") {
+      console.error("Error occurred on the home page, reloading...");
+      window.location.reload();
     }
-  }, [error]);
+  }, [error, pathname]);
+
   return (
     <div style={{ height: "100vh", background: "white" }}>
       <Logo>
@@ -57,7 +41,7 @@ const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
         }}>
         <MainContainer>
           <ErrorText>Ah bah crie!</ErrorText>
-          <Text>The app has ran into a problem.</Text>
+          <Text>The app has encountered a problem.</Text>
           <Button onClick={navigate}>Go Back</Button>
         </MainContainer>
       </div>
@@ -74,6 +58,7 @@ const Logo = styled.div`
   position: relative;
   justify-content: center;
 `;
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -105,6 +90,7 @@ const ErrorText = styled.p`
   font-size: 30px;
   line-height: 36.54px;
 `;
+
 const Text = styled.p`
   font-size: 18px;
   font-weight: 400;
@@ -124,4 +110,5 @@ const Button = styled.button`
   background: rgba(47, 128, 237, 1);
   color: white;
 `;
+
 export default Error;

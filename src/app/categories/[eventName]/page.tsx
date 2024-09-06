@@ -8,7 +8,7 @@ import ScaffoldingBox from "@/components/scaffoldingBox/page";
 import CategoriesPage from "@/components/CategoriesPage/Page";
 import { ResolvingMetadata, Metadata } from "next";
 import { cookies } from "next/headers";
-
+export const maxDuration = 300;
 interface Props {
   params: {
     eventName: string;
@@ -47,8 +47,8 @@ async function Page({ params, searchParams }: Props) {
     search == "activity"
   ) {
     const response = await getCategory(searchParams.search);
-    title =await response.listName;
-    data = await response.data
+    title = await response.listName;
+    data = await response.data;
   } else if (params.eventName == "EventsByDate") {
     data = await getCategory(
       "filter-events-day?query=" + searchParams.search.toLowerCase()
@@ -56,7 +56,7 @@ async function Page({ params, searchParams }: Props) {
   } else {
     const response = await getCategory(`${urlData}/` + searchParams.search);
     data = await response.data;
-   
+
     const token = cookies().get("loginToken")?.value;
     title = await response?.listName;
     if (token) {
@@ -66,7 +66,7 @@ async function Page({ params, searchParams }: Props) {
           : "activity-bookmark"
       );
 
-      const category =await response?.listName;
+      const category = await response?.listName;
 
       res.bookmark?.forEach((item: any) => {
         if (item.listName.includes(category)) {
@@ -84,13 +84,12 @@ async function Page({ params, searchParams }: Props) {
         searchParams={searchParams.search}
         modal={searchParams.modal}
         bookmarkValue={bookmark}
-        data={data}
-      ></CategoriesPage>
+        data={data}></CategoriesPage>
     </>
   );
 }
 
-const params = ["Events", "event-category-list","activity-list"];
+const params = ["Events", "event-category-list", "activity-list"];
 
 // export async function generateStaticParams() {
 //   return params.map((params) => {
