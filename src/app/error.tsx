@@ -1,15 +1,47 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { ROCLogo } from "./utils/ImagePath";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-const Error = (error: Error) => {
+const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
   const router = useRouter();
   const navigate = () => {
     router.push("/");
   };
-  console.log(error.message);
+  // Function to log the error to the API
+  const logErrorToServer = async (error: Error) => {
+    const payload = {
+      message: error.message,
+      stack: error.stack,
+    };
+
+    try {
+      const response = await fetch("/api/logError", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        console.error("Failed to log error on server:", response.statusText);
+      } else {
+        const result = await response.json();
+        console.log("Server response:", result);
+      }
+    } catch (err) {
+      console.error("Error occurred while sending the error:", err);
+    }
+  };
+
+  // Log the error when the component mounts
+  useEffect(() => {
+    if (error) {
+      logErrorToServer(error);
+    }
+  }, [error]);
   return (
     <div style={{ height: "100vh", background: "white" }}>
       <Logo>
@@ -22,8 +54,7 @@ const Error = (error: Error) => {
           justifyContent: "center",
           height: "80%",
           top: "0px",
-        }}
-      >
+        }}>
         <MainContainer>
           <ErrorText>Ah bah crie!</ErrorText>
           <Text>The app has ran into a problem.</Text>
@@ -71,7 +102,7 @@ const MainContainer = styled.div`
 
 const ErrorText = styled.p`
   font-weight: 700;
-  font-size: 30px;ssssss
+  font-size: 30px;
   line-height: 36.54px;
 `;
 const Text = styled.p`
@@ -91,5 +122,6 @@ const Button = styled.button`
   font-size: 16px;
   line-height: 16.94px;
   background: rgba(47, 128, 237, 1);
+  color: white;
 `;
 export default Error;
