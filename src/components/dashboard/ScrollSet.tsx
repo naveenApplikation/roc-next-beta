@@ -13,23 +13,25 @@ const ScrollSet: React.FC<Props> = (props) => {
     console.log(scrollContainerRef.current?.scrollTop);
     console.log(window.scrollY);
   };
+  //for mobile
   const handleTouchMove = () => {
     console.log(scrollHeight);
-    localStorage.setItem("scroll", window.scrollY.toString());
+    sessionStorage.setItem("scrollMobile", window.scrollY.toString());
   };
   useEffect(() => {
-    const scrollTop = localStorage.getItem("scroll");
-    console.log("scroll", scrollContainerRef.current.scrollTop);
+    const scrollTop = sessionStorage.getItem("scroll");
     console.log(window.innerWidth);
     if (window.innerWidth <= 768) {
       console.log("mobile scroll", scrollTop);
+      // mobile
+      const scrollMobile = sessionStorage.getItem("scrollMobile");
       window.scrollTo({
-        top: parseInt(scrollTop ? scrollTop : ""),
-        behavior: "smooth",
+        top: parseInt(scrollMobile ? scrollMobile : "0"),
+        behavior: "instant",
       });
     } else if (scrollTop && scrollContainerRef.current) {
+      // web
       scrollContainerRef.current.scrollTop = parseInt(scrollTop);
-      console.log("scroll in ref", scrollContainerRef.current.scrollTop);
     }
   }, []);
 
@@ -43,13 +45,17 @@ const ScrollSet: React.FC<Props> = (props) => {
         passive: true,
       });
     }
-    console.log(scrollHeight);
+
     if (scrollHeight != 0) {
       console.log(scrollHeight);
-      localStorage.setItem("scroll", scrollHeight.toString());
+      sessionStorage.setItem("scroll", scrollHeight.toString());
     }
     return () => {
-      scrollContainer.removeEventListener("scroll", handleScroll);
+      scrollContainer.removeEventListener(
+        "scroll",
+        handleScroll,
+        handleTouchMove
+      );
     };
   }, [scrollHeight]);
 
