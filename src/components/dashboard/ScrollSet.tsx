@@ -27,7 +27,7 @@ const ScrollSet: React.FC<Props> = (props) => {
       const scrollMobile = sessionStorage.getItem("scrollMobile");
       window.scrollTo({
         top: parseInt(scrollMobile ? scrollMobile : "0"),
-        behavior: "instant",
+        behavior: "auto",
       });
     } else if (scrollTop && scrollContainerRef.current) {
       // web
@@ -41,7 +41,7 @@ const ScrollSet: React.FC<Props> = (props) => {
       scrollContainer.addEventListener("scroll", handleScroll, {
         passive: true,
       });
-      scrollContainer.addEventListener("touchmove", handleTouchMove, {
+      window.addEventListener("touchstart", handleTouchMove, {
         passive: true,
       });
     }
@@ -51,11 +51,10 @@ const ScrollSet: React.FC<Props> = (props) => {
       sessionStorage.setItem("scroll", scrollHeight.toString());
     }
     return () => {
-      scrollContainer.removeEventListener(
-        "scroll",
-        handleScroll,
-        handleTouchMove
-      );
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+      window.removeEventListener("touchstart", handleTouchMove);
     };
   }, [scrollHeight]);
 
