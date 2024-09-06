@@ -16,11 +16,17 @@ const AdContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #e3e3e3f9;
+
+  @media (min-width: 800px) {
+    max-width: 480px;
+  }
+
   @media screen and (max-width: 800px) {
     position: fixed;
   }
   @media screen and (min-width: 390px) {
     padding-top: 5px;
+    position: fixed;
   }
 `;
 

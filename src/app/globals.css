@@ -194,6 +194,7 @@ span {
 }
 
 .scroll_top_desktop {
+  display: none;
   width: 45px;
   font-size: 18px;
   height: 45px;
@@ -211,11 +212,13 @@ span {
   }
 
   .scroll_top_desktop {
+    display: none;
     left: 399px;
   }
 }
 
 .scroll_top_desktop1 {
+  display: none;
   width: 45px;
   font-size: 18px;
   height: 45px;
@@ -232,6 +235,7 @@ span {
   }
 
   .scroll_top_desktop1 {
+    display: none;
     left: 250px;
   }
   .scroll_top_desktop_adds {
@@ -248,6 +252,7 @@ span {
   .scroll_top_desktop {
     left: 80%;
     bottom: 12.5rem;
+    display: none;
   }
   .scroll_top_desktop_adds {
     bottom: 9.5rem !important;
@@ -257,6 +262,8 @@ span {
 
 @media screen and (max-width: 1100px) {
   .scroll_top_desktop {
+    display: none;
+
     bottom: 12.5rem;
   }
   .scroll_top_desktop_adds {
