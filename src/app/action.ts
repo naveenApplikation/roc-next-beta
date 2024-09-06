@@ -7,7 +7,7 @@ import { cache } from "react";
 async function fetchWithTimeout(
   resource: string,
   options: any,
-  timeout = 5000
+  timeout = 15000
 ) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
