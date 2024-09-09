@@ -59,13 +59,14 @@ const withPwaConfig = withPWA({
   fallbacks: {
     document: "/offline", // Custom offline page
   },
+
   // Ensure the service worker updates immediately on new deployment
   register: true,
   skipWaiting: true, // Force the service worker to activate immediately
   clientsClaim: true, // Claim control over uncontrolled pages as soon as the service worker becomes active
 
   workboxOptions: {
-    disableDevLogs: true, // Disable development logs in the service worker
+    disableDevLogs: process.env.NODE_ENV === "production", // Disable development logs in production
     runtimeCaching: [
       {
         urlPattern: ({ request }) => request.destination === "document", // Cache HTML documents with a network-first strategy
@@ -115,9 +116,10 @@ const withPwaConfig = withPWA({
 
   // Only enable React Strict Mode in development
   ...(process.env.NODE_ENV === "development" && {
-    reactStrictMode: true,
+    reactStrictMode: true, // Enable React Strict Mode only in development
   }),
-  // ...other options you like
+
+  // Add any other configurations here
 });
 
 export default withPwaConfig(nextConfig);
