@@ -100,7 +100,8 @@ const withPwaConfig = withPWA({
         },
       },
       {
-        urlPattern: /^https:\/\/api\.yourdomain\.com\/.*$/, // API caching (update this with your actual API URL)
+        urlPattern:
+          /^https:\/\/beta-dot-roc-app-425011\.nw\.r\.appspot\.com\/.*$/, // API caching
         handler: "NetworkFirst",
         options: {
           cacheName: "api-cache",
@@ -112,7 +113,10 @@ const withPwaConfig = withPWA({
     ],
   },
 
-  reactStrictMode: true, // Enable React Strict Mode for development
+  // Only enable React Strict Mode in development
+  ...(process.env.NODE_ENV === "development" && {
+    reactStrictMode: true,
+  }),
   // ...other options you like
 });
 
