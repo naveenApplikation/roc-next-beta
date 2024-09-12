@@ -11,9 +11,9 @@ export const dataset = assertValue(
 )
 
 export const projectId = assertValue(
-  '6e92ynt3',
-  'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID',
-)
+  "wkg96mtw",
+  "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID"
+);
 
 export const readToken = process.env.SANITY_API_READ_TOKEN || ''
 

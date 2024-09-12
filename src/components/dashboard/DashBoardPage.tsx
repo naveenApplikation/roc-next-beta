@@ -17,12 +17,16 @@ import {
   getApiWithIcon,
   getApiShoppingWithIcon,
   getDataForHome,
+  getBlogData,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
 import CustomBanner from "../AdComponent/CustomBanner";
 import CategoriesComps from "../homepage/CategoriesComps";
 import EventsByDate from "../homepage/EventsByDate";
+ 
+import Blog from "../homepage/Blog";
+ 
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -57,8 +61,14 @@ const DashBoard = async () => {
   );
   const eventsCategories = await getApiWithIcon("event-list", iconsHome);
   const activities = await getApiWithIcon("activity-list", iconsHome);
-  return (
-    <>
+   let post=await getBlogData()
+   console.log(post)
+   
+
+
+ 
+ 
+  return<>
       <SearchNFilter />
       <InfoApp />
       {/* <LocalCusine data={LocalCusinedata} /> */}
@@ -69,6 +79,7 @@ const DashBoard = async () => {
       <EventsByDate></EventsByDate>
       <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
+      <Blog data={post} title={"Jersey Feed"}></Blog>
       <Directory />
       {/* <Bars dataPubs={bardata} /> */}/
       <ScreenPageComps data={bardata} title="Pubs" />
@@ -102,6 +113,6 @@ const DashBoard = async () => {
       <LeaveFeedbackButton />
       <CustomBanner />
     </>
-  );
+
 };
 export default DashBoard;

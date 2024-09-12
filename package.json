@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "type": "module",
-  
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@ducanh2912/next-pwa": "^10.2.7",
