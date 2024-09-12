@@ -58,7 +58,7 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
                await addAndRomoveToken(loginData.data.token) 
                 localStorage.setItem("loginToken",loginData.data.token);
                 console.log(pathname)
-                  if (pathname.includes("screens")) {
+                  if (pathname?.includes("screens")) {
                     window.location.reload();
                   }
                   else

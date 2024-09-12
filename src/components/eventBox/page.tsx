@@ -67,7 +67,7 @@ const EventBox: React.FC<EventBoxProps> = ({
 
   const router = useRouter();
   const params = useParams();
-  const date = useSearchParams().get("date");
+  const date = useSearchParams()?.get("date");
 
   const [isBookmark, setBookmark] = useState(false);
   const [bookmarkLoader, setBookmarkLoader] = useState(false);
@@ -182,7 +182,7 @@ const EventBox: React.FC<EventBoxProps> = ({
       id = id.replace("$", "");
     }
     router.replace(
-      `/categories/${params.eventName}?search=${categoryId}&modal=${id}&date=${item.acf?.event_date}`
+      `/categories/${params?.eventName}?search=${categoryId}&modal=${id}&date=${item.acf?.event_date}`
     );
   };
 
@@ -213,8 +213,8 @@ const EventBox: React.FC<EventBoxProps> = ({
               alignItems: "center",
               gap: 8,
             }}>
-            {params.eventName !== "EventsByDate" &&
-              params.eventName !== "Events" && (
+            {params?.eventName !== "EventsByDate" &&
+              params?.eventName !== "Events" && (
                 <ImageContainer
                   selected={isBookmark}
                   onClick={() => {
@@ -234,7 +234,7 @@ const EventBox: React.FC<EventBoxProps> = ({
                 </ImageContainer>
               )}
 
-            {params.eventName == "upcoming" && (
+            {params?.eventName == "upcoming" && (
               <ImageContainer selected={false} onClick={handleShare}>
                 <Image src={share} alt="Logo Outline" />
               </ImageContainer>

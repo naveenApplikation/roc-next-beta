@@ -43,7 +43,7 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
   const [loader, setloader] = useState(false);
 
   const searchParams = useSearchParams();
-  const query = searchParams.get("code");
+  const query = searchParams?.get("code");
   const router = useRouter()
 
 

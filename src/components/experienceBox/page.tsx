@@ -102,7 +102,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   const handlemodalView = (item: any, pos: any) => {
     console.log(item._id);
     router.replace(
-      `/categories/${params.eventName}?search=${search.get("search")}&modal=${
+      `/categories/${params?.eventName}?search=${search?.get("search")}&modal=${
         item._id
       }`
     );

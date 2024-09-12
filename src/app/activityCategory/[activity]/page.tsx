@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { getCategory } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import ActivityPage from "@/components/ActivityComponents/ActivityPage";

@@ -2,6 +2,7 @@ import { getBookMark, getData } from "@/app/action";
 import EventList from "@/components/screenPage";
 import { Metadata, ResolvingMetadata } from "next";
 import { cookies } from "next/headers";
+import "@/app/globals.css";
 interface Props {
   params: {
     events: string;

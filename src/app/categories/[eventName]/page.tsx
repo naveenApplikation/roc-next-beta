@@ -1,3 +1,4 @@
+import "@/app/globals.css";
 import { getBookMark, getCategory } from "@/app/action";
 
 import CategorieList from "@/components/categorieList/page";
@@ -84,7 +85,8 @@ async function Page({ params, searchParams }: Props) {
         searchParams={searchParams.search}
         modal={searchParams.modal}
         bookmarkValue={bookmark}
-        data={data}></CategoriesPage>
+        data={data}
+      ></CategoriesPage>
     </>
   );
 }

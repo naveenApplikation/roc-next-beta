@@ -1,5 +1,5 @@
 "use client";
-
+import "@/app/globals.css";
 import React, { useState } from "react";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import SearchModalScreen from "../../../components/AllModalScreen/SearchModalScreen";

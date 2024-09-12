@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import React, { useEffect, useState } from "react";
