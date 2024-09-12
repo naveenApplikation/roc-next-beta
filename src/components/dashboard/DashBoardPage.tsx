@@ -17,16 +17,15 @@ import {
   getApiWithIcon,
   getApiShoppingWithIcon,
   getDataForHome,
-  getBlogData,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
 import CustomBanner from "../AdComponent/CustomBanner";
 import CategoriesComps from "../homepage/CategoriesComps";
 import EventsByDate from "../homepage/EventsByDate";
- 
+
 import Blog from "../homepage/Blog";
- 
+import { getAllPosts, getClient } from "@/lib/sanity.client";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -61,14 +60,13 @@ const DashBoard = async () => {
   );
   const eventsCategories = await getApiWithIcon("event-list", iconsHome);
   const activities = await getApiWithIcon("activity-list", iconsHome);
-   let post=await getBlogData()
-   console.log(post)
-   
 
+  const client = getClient();
+  const post = await getAllPosts(client);
+  console.log(post);
 
- 
- 
-  return<>
+  return (
+    <>
       <SearchNFilter />
       <InfoApp />
       {/* <LocalCusine data={LocalCusinedata} /> */}
@@ -113,6 +111,6 @@ const DashBoard = async () => {
       <LeaveFeedbackButton />
       <CustomBanner />
     </>
-
+  );
 };
 export default DashBoard;

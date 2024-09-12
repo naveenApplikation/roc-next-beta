@@ -238,15 +238,4 @@ export async function getBookMark(params: string) {
   }
 }
 
-
-export async function getBlogData(){
-   try {
-     const response = await fetch(
-       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blogData`
-     );
-      
-     return await response.json();
-   } catch (error) {
-     console.log("error in blog data", error);
-   }
-} 
+ 

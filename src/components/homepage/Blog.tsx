@@ -60,7 +60,7 @@ const Blog: React.FC<DashboardProps> = ({ data, title }) => {
                   return (
                     <WalkContainer
                       key={index}
-                      onClick={() => router.push(`/blog/post/${item.slug}`)}
+                      onClick={() => router.push(`/blog/posts/${item.slug}`)}
                     >
                       <Image
                         src={
