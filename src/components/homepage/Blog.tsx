@@ -58,38 +58,47 @@ const Blog: React.FC<DashboardProps> = ({ data, title }) => {
            :data?.slice(0, 10).map(
                 (item: any, index: any) => {
                   return (
-                    <WalkContainer
-                      key={index}
-                      onClick={() => router.push(`/blog/posts/${item.slug}`)}
-                    >
-                      <Image
-                        src={
-                          urlForImage(item?.coverImage)
-                            .height(1000)
-                            .width(2000)
-                            .url()
-                            ? urlForImage(item?.coverImage)
-                                .height(1000)
-                                .width(2000)
-                                .url()
-                            : fallback
-                        }
-                        alt=""
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: "4px",
-                          maxWidth: "100%",
-                          objectFit: "cover",
-                          cursor: "pointer",
-                        }}
-                        // alt=""
-                      />
-
-                      <p>
-                        {item? item?.title : ""}
-                      </p>
-                    </WalkContainer>
+                    <div key={index}>
+                      <ScrollingMenuDishes onClick={()=>{
+                        router.push(`/blog/posts/${item.slug}`);
+                      }}>
+                        
+                          <>
+                            <UtensilsDishesImage>
+                              <Image
+                                className="ratingImage"
+                                src={
+                                  urlForImage(item?.coverImage)
+                                    .height(1000)
+                                    .width(2000)
+                                    .url()
+                                    ? urlForImage(item?.coverImage)
+                                        .height(1000)
+                                        .width(2000)
+                                        .url()
+                                    : fallback
+                                }
+                                alt="my image"
+                                width={500}
+                                height={80}
+                                style={{
+                                  borderRadius: 4,
+                                  maxWidth: "100%",
+                                  objectFit: "cover",
+                                }}
+                              />
+                            </UtensilsDishesImage>
+                            {/* {title && (
+                              <MenuIconContainer>
+                                
+                                <Title>{title}</Title>
+                              </MenuIconContainer>
+                            )} */}
+                            <Menutitle> {item? item?.title : ""}</Menutitle>
+                          </>
+                       
+                      </ScrollingMenuDishes>
+                    </div>
                   );
                 }
               )
@@ -102,74 +111,52 @@ const Blog: React.FC<DashboardProps> = ({ data, title }) => {
 };
 
 export default Blog;
+ 
 
-const WalkContainer = styled.div`
-  height: 120px;
-  min-width: 120px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.01);
+
+const ScrollingMenuDishes = styled.div`
   display: flex;
-  align-items: end;
+  width: 120px;
   flex-direction: column;
-  position: relative;
+  flex-shrink: 0;
   cursor: pointer;
-
-  justify-content: space-between;
-  p {
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-  }
-  img {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-  }
 `;
 
-const ImageTag = styled(Image)`
+const UtensilsDishesImage = styled.div`
+  border-radius: 4px;
+  background: #c4c4c4;
+  height: 64px;
+  align-self: stretch;
+`;
+
+const Title = styled.p`
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+`;
+
+const Menutitle = styled.p`
+  display: block;
   width: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  height: 100%;
-  cursor: "pointer";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 8px;
 `;
-const TopAttractionContainer = styled.div`
+
+const MenuIconContainer = styled.div`
   display: flex;
-  width: 80px;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-
-  p {
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
+  gap: 6px;
+  margin-top: 16px;
 `;
 
-const TopAttractionprofile = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-
-  background-size: contain;
+const MenuIcon = styled(Image)`
+  /* width: 11px;
+  height: 12px; */
 `;
