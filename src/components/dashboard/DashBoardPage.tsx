@@ -77,7 +77,7 @@ const DashBoard = async () => {
       <EventsByDate></EventsByDate>
       <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
-      <Blog data={post} title={"Jersey Feed"}></Blog>
+      {post?.length!=0 &&<Blog data={post} title={"Jersey Feed"}></Blog>}
       <Directory />
       {/* <Bars dataPubs={bardata} /> */}/
       <ScreenPageComps data={bardata} title="Pubs" />
