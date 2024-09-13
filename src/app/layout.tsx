@@ -12,14 +12,14 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "ROC - What's #OnTheROC",
-  description: "Your one-stop-shop for what's #OnTheROC.",
+  title: "ROC - Latest from ROC",
+  description: "Your one-stop-shop for  Latest from ROC.",
   icons:
     "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
   twitter: {
     card: "summary_large_image",
     title: "ROC - What's #OnTheROC",
-    description: "Your one-stop-shop for what's #OnTheROC.",
+    description: "Your one-stop-shop for  Latest from ROC.",
     images:
       "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
   },

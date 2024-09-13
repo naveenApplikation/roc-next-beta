@@ -18,9 +18,9 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
 
   return (
     <Head>
-      <title>{title}</title>
+      <title>ROC - Latest from ROC</title>
       <BlogMeta />
-      <meta
+      {/* <meta
         key="description"
         name="description"
         content={toPlainText(description)}
@@ -34,7 +34,18 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
         content={`${
           process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
         }/api/og?${new URLSearchParams({ title: ogImageTitle })}`}
+      /> */}
+      <meta property="og:title" content="Latest from ROC" />
+      <meta
+        property="og:description"
+        content="Your one-stop-shop for Latest from #ROC.Explore our blog for expert advice and in-depth discussions"
       />
+      <meta
+        property="og:image"
+        content="https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png"
+      />
+
+      <meta property="og:url" content="https://www.roc.je/" />
     </Head>
-  )
+  );
 }
