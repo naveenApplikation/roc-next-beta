@@ -48,7 +48,7 @@ const AdText = styled.p`
 
 export default function CustomBanner() {
   const handleClick = () => {
-    window.open("https://amzn.to/3Xjl874/", "_blank");
+    window.open("https://amzn.to/3Xjl874", "_blank");
   };
   return (
     <AdContainer onClick={handleClick}>
