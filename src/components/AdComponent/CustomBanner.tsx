@@ -26,6 +26,7 @@ const AdContainer = styled.div`
   }
   @media screen and (min-width: 390px) {
     padding-top: 5px;
+    padding-bottom: 5px;
     position: fixed;
   }
 `;
@@ -47,19 +48,18 @@ const AdText = styled.p`
 
 export default function CustomBanner() {
   const handleClick = () => {
-    window.open("https://www.caringcooksofjersey.com/", "_blank");
+    window.open("https://amzn.to/3Xjl874/", "_blank");
   };
   return (
     <AdContainer onClick={handleClick}>
       <AdBody>
         <Image
-          src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FAds%2Fcaring_cooks.gif?alt=media&token=f9499fbc-7f8d-46d1-847c-b7d7c7a1821e"
+          src="https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/ADS%2FAmazon%20Banner%20Draft%201.png?alt=media&token=adec7612-054e-446a-a01b-45e72319c87b"
           alt="Ads"
           width={390}
           height={60}
           // layout="fill" // This makes the image cover the entire container
         />
-        <AdText>Featured Charity</AdText>
       </AdBody>
     </AdContainer>
   );
