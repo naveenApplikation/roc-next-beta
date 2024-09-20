@@ -46,15 +46,15 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     "Hearing_loop",
     "Pet_Friendly",
   ];
-  if (params.eventName == "activity-list") {
+  if (params?.eventName == "activity-list") {
     events.push("Catering");
   }
 
   const dropdowns = () => {
     if (
-      params.eventName == "event-category-list" ||
-      params.eventName == "EventsByDate" ||
-      params.eventName == "Events"
+      params?.eventName == "event-category-list" ||
+      params?.eventName == "EventsByDate" ||
+      params?.eventName == "Events"
     ) {
       return ["Free", "Booking"];
     } else {
@@ -104,7 +104,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
       )}
 
       <ScrollingMenu>
-        {params.eventName == "activity-list" ? (
+        {params?.eventName == "activity-list" ? (
           forActivities
         ) : (
           <>

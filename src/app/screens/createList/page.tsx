@@ -1,5 +1,5 @@
 "use client";
-
+import "@/app/globals.css";
 import React, { useState, useEffect, useCallback } from "react";
 import CreateListings from "@/components/createList/CreateListings";
 import DragInOrder from "@/components/createList/DragInOrder";

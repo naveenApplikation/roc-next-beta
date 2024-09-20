@@ -7,6 +7,7 @@ import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import { Container, DashboardMenu, MainContainer } from "@/app/style";
 import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
+import "./globals.css";
 export default function Home() {
   return (
     <>

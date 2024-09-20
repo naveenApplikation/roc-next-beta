@@ -1,4 +1,6 @@
+//@ts-nocheck
 "use client";
+
 import React, { useState } from "react";
 import EventListingModalLayout from "@/components//modal/Modal";
 import EventListingModal from "@/components/modal/EventListing";
@@ -55,7 +57,8 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
           dataDetails?.data_type === "google"
             ? dataDetails?.name
             : dataDetails?.acf?.title
-        }>
+        }
+      >
         {dataDetails?.data_type === "google" ? (
           <ModalContent
             onClose={() => closeModal("ModalContent")}

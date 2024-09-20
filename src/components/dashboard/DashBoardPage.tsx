@@ -24,6 +24,9 @@ import CustomBanner from "../AdComponent/CustomBanner";
 import CategoriesComps from "../homepage/CategoriesComps";
 import EventsByDate from "../homepage/EventsByDate";
 
+import Blog from "../homepage/Blog";
+import { getAllPosts, getClient } from "@/lib/sanity.client";
+
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
 
@@ -57,6 +60,11 @@ const DashBoard = async () => {
   );
   const eventsCategories = await getApiWithIcon("event-list", iconsHome);
   const activities = await getApiWithIcon("activity-list", iconsHome);
+
+  const client = getClient();
+  const post = await getAllPosts(client);
+  console.log(post);
+
   return (
     <>
       <SearchNFilter />
@@ -99,6 +107,7 @@ const DashBoard = async () => {
       {/* <Surfing data={Surfingdata[0]} /> */}
       <ScreenPageComps data={Surfingdata[0]} title="Surfing" />
       <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
+      {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
       <LeaveFeedbackButton />
       <CustomBanner />
     </>

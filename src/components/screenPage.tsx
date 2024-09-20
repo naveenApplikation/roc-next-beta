@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import { useMyContext } from "@/app/Context/MyContext";

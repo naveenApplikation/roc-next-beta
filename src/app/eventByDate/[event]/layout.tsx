@@ -5,7 +5,7 @@ import FilterModalScreenEvents from "@/components/AllModalScreen/FilterModalScre
 import Categories from "@/components/CategoriesPage/Categories";
 import SocialShareModal from "@/components/modal/SocialShareModal";
 import { ReactNode } from "react";
-
+import "@/app/globals.css";
 export default async function layout({ children }: { children: ReactNode }) {
   return (
     <>

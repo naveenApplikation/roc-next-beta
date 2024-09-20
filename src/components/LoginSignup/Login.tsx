@@ -72,7 +72,7 @@ const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
          setloader(false)
          console.log(pathname);
          await addAndRomoveToken(loginData.data.token); 
-        if (pathname.includes("screens")) {
+        if (pathname?.includes("screens")) {
           window.location.reload();
         }
         else{
