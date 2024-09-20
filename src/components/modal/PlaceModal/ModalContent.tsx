@@ -426,8 +426,7 @@ const ModalContent: React.FC<ModalProps> = ({
                     <p style={{ fontSize: "16px" }}>{item?.author_name}</p>
                   </div>
                   <div className="">
-                    <Rate disabled allowHalf defaultValue={item?.rating} />{" "}
-                    &nbsp;{" "}
+                    <Rate disabled allowHalf value={item?.rating} /> &nbsp;{" "}
                     <span style={{ fontSize: "13px" }}>
                       {item?.relative_time_description}
                     </span>
