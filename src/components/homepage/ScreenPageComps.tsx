@@ -1,5 +1,5 @@
 "use client";
- 
+
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import styled from "styled-components";
@@ -10,9 +10,10 @@ import { skeletonItems } from "@/app/utils/date";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import Image from "next/image";
 import ShopBrachSkeleton from "../skeleton Loader/ShopBrachSkeleton";
+import { MaskGroupImg } from "@/app/utils/ImagePath";
 interface DashboardProps {
   data?: any;
-  title:string
+  title: string;
 }
 
 const ScrollingMenu = styled.div`
@@ -30,11 +31,9 @@ const ScrollingMenu = styled.div`
   }
 `;
 
+const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
+  const { modalClick, menuClick } = useMyContext();
 
-
-const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
-  const {  modalClick, menuClick } = useMyContext();
-  
   return (
     <>
       <MenuDetails
@@ -66,142 +65,149 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
               </div>
             ))
           : title.includes("Beach life")
-          ? data?.GoogleHomeScreenList?.slice(0, 10).map((item: any, index: any) => {
-              return (
-                <WalkContainer
-                  key={index}
-                  onClick={() =>
-                    modalClick(
-                      "ModalContent",
-                      item,
-                      item?.data_type === "google"
-                        ? item?.photoUrl
-                        : item.photoUrl
-                        ? item.photoUrl
-                        : fallback
-                    )
-                  }
-                >
-                  {item?.data_type === "google" ? (
-                    <ImageTag
-                      width={500}
-                      height={80}
-                      src={item.photoUrl ? item.photoUrl : fallback}
-                      alt="Image"
-                    />
-                  ) : (
-                    <Image
-                      src={item.photoUrl ? item.photoUrl : fallback}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{
-                        borderRadius: "4px",
-                        maxWidth: "100%",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                      }}
-                      // alt=""
-                    />
-                  )}
-                  <Image
-                    src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
-                    alt=""
-                    width={120}
-                    height={64}
-                    style={{ position: "absolute", bottom: 0, height: 50 }}
-                  />
-                  <p>
-                    {item?.data_type === "google" ? item?.name : item?.name}
-                  </p>
-                </WalkContainer>
-              );
-            })
-          : title.includes("Top Attractions")
-          ? data
-              ?.GoogleHomeScreenList?.slice(0, 10)
-              .map((item: any, index: any) => {
-                return (
-                  <TopAttractionContainer
-                    key={index}
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      modalClick(
-                        "ModalContent",
-                        item,
-                        item?.data_type === "google"
-                          ? item?.photoUrl
-                          : item?.photoUrl
-                          ? item?.photoUrl
-                          : fallback
-                      )
-                    }
-                  >
-                    <TopAttractionprofile>
-                      {item?.data_type === "google" ? (
-                        item.photoUrl == undefined ? (
-                          <Image
-                            src={fallback}
-                            alt=""
-                            width={500}
-                            height={80}
-                            style={{
-                              borderRadius: "100%",
-                              maxWidth: "100%",
-                              objectFit: "cover",
-                            }}
-                            // alt=""
-                          />
-                        ) : (
-                          <ImageTag width={500} height={80} src={item.photoUrl} alt="Image" />
+            ? data?.GoogleHomeScreenList?.slice(0, 10).map(
+                (item: any, index: any) => {
+                  return (
+                    <WalkContainer
+                      key={index}
+                      onClick={() =>
+                        modalClick(
+                          "ModalContent",
+                          item,
+                          item?.data_type === "google"
+                            ? item?.photoUrl
+                            : item.photoUrl
+                              ? item.photoUrl
+                              : fallback
                         )
+                      }>
+                      {item?.data_type === "google" ? (
+                        <ImageTag
+                          width={500}
+                          height={80}
+                          src={item.photoUrl ? item.photoUrl : fallback}
+                          alt="Image"
+                        />
                       ) : (
                         <Image
-                          src={fallback}
+                          src={item.photoUrl ? item.photoUrl : fallback}
                           alt=""
                           width={500}
                           height={80}
                           style={{
-                            borderRadius: "100%",
+                            borderRadius: "4px",
                             maxWidth: "100%",
                             objectFit: "cover",
+                            cursor: "pointer",
                           }}
                           // alt=""
                         />
                       )}
-                    </TopAttractionprofile>
-                    <p>
-                      {item?.data_type === "google" ? item?.name : item?.name}
-                    </p>
-                  </TopAttractionContainer>
-                );
-              })
-          : (title.includes("Out Out")
-              ? data?.GoogleFoodAndDrinksList
-              : title.includes("Pubs")
-              ? data?.categoryList
-              : data?.GoogleHomeScreenList
-            ).slice(0,10)
-              .map((item: any, index: any) => (
-                <div key={index}>
-                  <RatingMenu
-                    // title={item.name}
-                    headerImage={item.photoUrl}
-                    containerImageUrl={true}
-                    MenutitleDetail={item.name}
-                    isOpen={() =>
-                      modalClick("ModalContent", item, item.photoUrl, true)
-                    }
-                  />
-                </div>
-              ))}
+                      <Image
+                        src={MaskGroupImg}
+                        alt=""
+                        width={120}
+                        height={64}
+                        style={{ position: "absolute", bottom: 0, height: 50 }}
+                      />
+                      <p>
+                        {item?.data_type === "google" ? item?.name : item?.name}
+                      </p>
+                    </WalkContainer>
+                  );
+                }
+              )
+            : title.includes("Top Attractions")
+              ? data?.GoogleHomeScreenList?.slice(0, 10).map(
+                  (item: any, index: any) => {
+                    return (
+                      <TopAttractionContainer
+                        key={index}
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          modalClick(
+                            "ModalContent",
+                            item,
+                            item?.data_type === "google"
+                              ? item?.photoUrl
+                              : item?.photoUrl
+                                ? item?.photoUrl
+                                : fallback
+                          )
+                        }>
+                        <TopAttractionprofile>
+                          {item?.data_type === "google" ? (
+                            item.photoUrl == undefined ? (
+                              <Image
+                                src={fallback}
+                                alt=""
+                                width={500}
+                                height={80}
+                                style={{
+                                  borderRadius: "100%",
+                                  maxWidth: "100%",
+                                  objectFit: "cover",
+                                }}
+                                // alt=""
+                              />
+                            ) : (
+                              <ImageTag
+                                width={500}
+                                height={80}
+                                src={item.photoUrl}
+                                alt="Image"
+                              />
+                            )
+                          ) : (
+                            <Image
+                              src={fallback}
+                              alt=""
+                              width={500}
+                              height={80}
+                              style={{
+                                borderRadius: "100%",
+                                maxWidth: "100%",
+                                objectFit: "cover",
+                              }}
+                              // alt=""
+                            />
+                          )}
+                        </TopAttractionprofile>
+                        <p>
+                          {item?.data_type === "google"
+                            ? item?.name
+                            : item?.name}
+                        </p>
+                      </TopAttractionContainer>
+                    );
+                  }
+                )
+              : (title.includes("Out Out")
+                  ? data?.GoogleFoodAndDrinksList
+                  : title.includes("Pubs")
+                    ? data?.categoryList
+                    : data?.GoogleHomeScreenList
+                )
+                  .slice(0, 10)
+                  .map((item: any, index: any) => (
+                    <div key={index}>
+                      <RatingMenu
+                        // title={item.name}
+                        headerImage={item.photoUrl}
+                        containerImageUrl={true}
+                        MenutitleDetail={item.name}
+                        isOpen={() =>
+                          modalClick("ModalContent", item, item.photoUrl, true)
+                        }
+                      />
+                    </div>
+                  ))}
       </ScrollingMenu>
     </>
   );
 };
 
- 
-export default ScreenPageComps
+export default ScreenPageComps;
 
 const WalkContainer = styled.div`
   height: 120px;
