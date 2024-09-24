@@ -114,7 +114,7 @@ const RightMenu = styled.div`
     width: 100%;
     right: 0;
     background-position: 50% 50%;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2Fbg040724.jpg?alt=media&token=5d24bd8d-6cf3-43b6-8494-e9a0ea04c4bc);
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/app-images%2Fbg-min.png?alt=media&token=f848b949-a4ef-4eb1-ad6c-e064568be630);
     background-size: cover;
   }
 `;

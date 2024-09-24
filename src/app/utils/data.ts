@@ -96,6 +96,9 @@ import {
   sunglassesSes,
   woomenClothing,
   greenGlocers,
+  calendarMobileWhite,
+  dineMobileWhite,
+  eventMobileWhite,
 } from "@/app/utils/ImagePath";
 
 export const topSideMenu = [
@@ -261,8 +264,7 @@ export const rightSideMenu = [
 export const rightSideMenuMobile = [
   {
     name: "To do",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcastle.png?alt=media&token=05f28617-9c06-4e6a-80b1-1022a36ff7df",
+    image: calendarMobileWhite,
     width: 25,
     height: 20,
     url: "Todo",
@@ -270,8 +272,7 @@ export const rightSideMenuMobile = [
   },
   {
     name: "Dine",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Futensils.png?alt=media&token=75675b22-33ab-4495-a75e-88e2695e21c6",
+    image: dineMobileWhite,
     width: 18,
     height: 20,
     url: "Dine out",
@@ -279,8 +280,7 @@ export const rightSideMenuMobile = [
   },
   {
     name: "Events",
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fcalendar.png?alt=media&token=232e231d-db2b-4571-b388-7d92fbb532c7",
+    image: eventMobileWhite,
     width: 18,
     height: 20,
     url: "upcoming",
