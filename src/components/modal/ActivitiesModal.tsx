@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { phoneBlack, phone, share } from "@/app/utils/ImagePath";
+import { phoneBlack, phone, share, currency, globeIcon, mailIcon, locationIcon } from "@/app/utils/ImagePath";
 import toast from "react-hot-toast";
 import { Tooltip } from "antd";
 import Link from "next/link";
@@ -243,20 +243,21 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <Tooltip title={"Price"}>
           <span onClick={() => copylink(data?.acf?.price_to)}>
-            {`£ ${data?.acf?.price_to}`}
+            {`${data?.acf?.price_to ? '£' + data?.acf?.price_to + "-"  : ''} ${data?.acf?.price_from ? "£" : ""} ${data?.acf?.price_from}`}
           </span>
         </Tooltip>
       ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      image: currency,
       width: 10,
       height: 24,
-      nameValue: data?.acf?.price_to ? true : false,
+      nameValue: (data?.acf?.price_to || data?.acf?.price_from) ? true : false,
     },
     {
       name: (
         <Tooltip title={"Phone number"}>
-          <span onClick={() => copylink(data.acf?.telephone_number.formatted)}>
+          <span onClick={() => copylink(data.acf?.telephone_number?.formatted)}>
             {data?.acf?.telephone_number?.formatted}
           </span>
         </Tooltip>
@@ -277,8 +278,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           </span>
         </Tooltip>
       ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      image: mailIcon,
       width: 16,
       height: 24,
       nameValue: data?.acf?.email_address ? true : false,
@@ -291,8 +293,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           {data?.acf?.website}
         </WebsiteLink>
       ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
+      image: globeIcon,
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
       width: 16,
       height: 24,
     },
@@ -316,8 +319,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
         ) : (
           ""
         ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      image: locationIcon,
       width: 12,
       height: 24,
       nameValue:
@@ -391,8 +395,9 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       </ItemImageContainer>
       <ResturantDetailsContainer>
         {ActivitiesListData.map((item, index) => {
+           console.log("bharat pael", item.name ? "yes": "no")
           return (
-            item.name && (
+            item.nameValue && (
               <ResturantDetailsWrapper key={index}>
                 {" "}
                 <div style={{ width: 20 }}>

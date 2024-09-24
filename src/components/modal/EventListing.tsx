@@ -14,7 +14,7 @@ import { convertTo12HourTime } from "@/app/utils/commanFun";
 import { Tooltip } from "antd";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { share } from "@/app/utils/ImagePath";
+import { blackEmail, currency, dateIcon, globeIcon, locationIcon, mailIcon, share, timeIcon } from "@/app/utils/ImagePath";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -71,8 +71,9 @@ const ModalContent: React.FC<ModalProps> = ({
         "No events"
       ),
       // name: "ssds",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fcalendar.png?alt=media&token=4dcb085b-44bc-4182-8893-27dda5f0325f",
+      image: dateIcon,
       width: 14,
       height: 24,
       nameValue: data?.acf?.event_dates ? true : false,
@@ -88,8 +89,9 @@ const ModalContent: React.FC<ModalProps> = ({
         "No events"
       ),
       // name: "sdsd",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fclock.png?alt=media&token=5f80c9da-b46f-4c37-8018-db55c0cfd72e",
+      image: timeIcon,
       width: 16,
       height: 24,
       nameValue:
@@ -105,8 +107,9 @@ const ModalContent: React.FC<ModalProps> = ({
           </span>
         </Tooltip>
       ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fgbp.png?alt=media&token=30f60889-d511-46d9-a8ce-30ef112929e8",
+      image: currency,
       width: 10,
       height: 24,
       nameValue: data?.acf?.price_to ? true : false,
@@ -122,8 +125,9 @@ const ModalContent: React.FC<ModalProps> = ({
           </span>
         </Tooltip>
       ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fenvelope.png?alt=media&token=08ba6331-d66b-485c-b274-4d85de7f76b0",
+      image: mailIcon,
       width: 16,
       height: 24,
       nameValue: data?.acf?.email_address ? true : false,
@@ -143,8 +147,9 @@ const ModalContent: React.FC<ModalProps> = ({
             {data?.acf?.website}
           </WebsiteLink>
         ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Fglobe.png?alt=media&token=0fa8a5a4-35c8-46ae-bb83-45c00d6d7328",
+      image: globeIcon,
       width: 16,
       height: 24,
       nameValue: data?.acf?.website ? true : false,
@@ -167,14 +172,15 @@ const ModalContent: React.FC<ModalProps> = ({
             </span>
           </Tooltip>
         ),
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      // image:
+      //   "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FIcon%2FEventICON%2Flocation-dot.png?alt=media&token=d6ea3348-daab-4b8e-acb6-977148c16e1f",
+      image: locationIcon,
       width: 12,
       height: 24,
       nameValue:
         data.acf?.address.place_name ||
-        data.acf?.address.address_line_1 ||
-        data.acf?.address.address_line_2
+          data.acf?.address.address_line_1 ||
+          data.acf?.address.address_line_2
           ? true
           : false,
     },
@@ -192,8 +198,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-            .map((item: any) => item.replaceAll("_", " "))
-            .join(" | ")
+          .map((item: any) => item.replaceAll("_", " "))
+          .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -350,7 +356,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       {index !==
                         showApiData?.current_opening_hours?.weekday_text
                           .length -
-                          1 && ","}{" "}
+                        1 && ","}{" "}
                     </p>
                   )
                 )}

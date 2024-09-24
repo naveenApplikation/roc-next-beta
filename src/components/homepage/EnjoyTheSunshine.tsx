@@ -73,11 +73,11 @@ const PriceText = styled.p`
   margin-top: 8px;
 `;
 
-const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
+const EnjoyTheSunshine: React.FC<DashboardProps> = ({ data }) => {
 
-  const { filterUrls, modalClick,menuClick } = useMyContext();
+  const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -90,41 +90,41 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
       <ScrollingMenu>
         {!data
           ? skeletonItems.map((item, index) => (
+            <div key={index}>
+              <CommonSkeletonLoader />
+            </div>
+          ))
+          : data?.slice(0, 10).map((item: any, index: any) => {
+            return (
               <div key={index}>
-                <CommonSkeletonLoader />
+                <ScrollingMenuDishes
+                  onClick={() =>
+                    modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
+                  }
+                >
+                  <UtensilsDishesImage>
+                    <MainImage
+                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                      alt=""
+                      width={500}
+                      height={80}
+                      style={{
+                        borderRadius: 4,
+                        maxWidth: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </UtensilsDishesImage>
+                  <Menutitle>
+                    {item.acf.title}
+                  </Menutitle>
+                  <PriceText>
+                    £ {item.acf.price_from}
+                  </PriceText>
+                </ScrollingMenuDishes>
               </div>
-            ))
-          : data?.slice(0, 10).map((item:any, index:any) => {
-              return (
-                <div key={index}>
-                  <ScrollingMenuDishes
-                    onClick={() =>
-                      modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-                    }
-                  >
-                    <UtensilsDishesImage>
-                      <MainImage
-                        src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                        alt=""
-                        width={500}
-                        height={80}
-                        style={{
-                          borderRadius: 4,
-                          maxWidth: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </UtensilsDishesImage>
-                    <Menutitle>
-                      {item.acf.title}
-                    </Menutitle>
-                    <PriceText>
-                      £ {item.acf.price_from}
-                    </PriceText>
-                  </ScrollingMenuDishes>
-                </div>
-              );
-            })}
+            );
+          })}
       </ScrollingMenu>
     </>
   );
