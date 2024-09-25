@@ -16,6 +16,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import CustomBanner from "../AdComponent/CustomBanner";
+import AdsBanner from "../adsBanner/page";
 // import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
@@ -231,7 +232,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <CustomBanner />
+      <AdsBanner />
     </>
   );
 };

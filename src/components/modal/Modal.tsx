@@ -78,7 +78,7 @@ const StyledModal = styled.div<{
     max-width: 100%;
     left: ${({ $isopen, $screenwidth }) => ($isopen ? "0%" : "-100%")};
     transform: none;
-    z-index: 1;
+    z-index: 2;
     max-height: 100vh;
     margin: 0px; /* Center the modal horizontally */
     border-radius: 0px;

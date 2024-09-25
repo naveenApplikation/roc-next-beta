@@ -18,11 +18,9 @@ const ScrollingMenu = styled.div`
   overflow: auto;
   gap: 8px;
   padding: 0px 40px;
-
   &::-webkit-scrollbar {
     display: none;
   }
-
   @media screen and (max-width: 800px) {
     padding: 0px 16px;
   }
@@ -40,7 +38,6 @@ const CommunityContainer = styled.div`
   height: 80px;
   border-radius: 8px;
   background: #bb6bd9;
-
   p {
     color: #fff;
     font-size: 12px;

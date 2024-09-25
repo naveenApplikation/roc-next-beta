@@ -43,7 +43,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
         })}
       </MainWrapper>
       {/* <HalfBlurContainer></HalfBlurContainer> */}
-      <BlurContainer></BlurContainer>
+      {/* <BlurContainer></BlurContainer> */}
     </Container>
   );
 };
@@ -52,8 +52,9 @@ export default ScrollList;
 
 const Container = styled.div`
   position: fixed;
-  bottom: 0px;
-  z-index: 1993;
+  bottom: 30px;
+  z-index: 199399999;
+  z-index: 1;
   max-width: 100%;
   @media screen and (min-width: 800px) {
     max-width: 470px;

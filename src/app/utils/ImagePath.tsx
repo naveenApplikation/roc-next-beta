@@ -185,6 +185,8 @@ import calendarMobile from "../../../assets/images/rightSideMenuImage/castleMobi
 import dineMobile from "../../../assets/images/rightSideMenuImage/utensilsMobile.png";
 import eventMobile from "../../../assets/images/rightSideMenuImage/calendarMobile.png";
 import MaskGroup from "../../../assets/images/MaskGroup.svg";
+import BannerImg from "../../../assets/images/demo.png";
+import RightArowImg from "../../../assets/images/rightArrow.png";
 
 export const tick = tickSvg;
 export const backArrow = backArrowSvg;
@@ -375,6 +377,8 @@ export const dineMobileWhite = dineMobile;
 export const eventMobileWhite = eventMobile;
 
 export const MaskGroupImg = MaskGroup;
+export const BannerDemo = BannerImg;
+export const RightArow = RightArowImg;
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
 // import hongueImg from "../../../assets/images/La Hougue Bie.svg"

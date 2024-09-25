@@ -29,6 +29,7 @@ import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filte
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import AdsBanner from "../adsBanner/page";
 
 interface EventBoxProps {
   urlData?: any;
@@ -190,9 +191,12 @@ const EventPage: React.FC<EventBoxProps> = ({
   //   };
   // }, [loading, next, urlData]);
   // alert(slug);
+
+  console.log("eventsevents" , events)
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
+
 
   const Event = (
     <>
@@ -279,7 +283,7 @@ const EventPage: React.FC<EventBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-
+      <AdsBanner className="75px"/>
       <ScrollList
         params={"event-category-list"}
         background={"#EB5757"}
