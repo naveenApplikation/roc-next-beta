@@ -9,6 +9,7 @@ import DirectionModalLayout from "@/components/modal/Modal"
 
 const AdContainer = styled.div<{
   $className: string;
+  $maxWidth: string;
 }>`
   width: 480px;
   position: sticky;
@@ -22,17 +23,22 @@ const AdContainer = styled.div<{
   background-color: #ffffff1c; 
   backdrop-filter: blur(10px); 
   -webkit-backdrop-filter: blur(10px); 
-
+  padding-bottom: ${({ $className }) => $className};
+  
   @media screen and (max-width: 800px) {
     position: fixed;
+    width:100%;
+    max-width: ${({ $maxWidth }) => $maxWidth};
+    
   }
   @media screen and (min-width: 390px) {
-    padding-bottom: ${({ $className }) => $className};
     position: fixed;
   }
 `;
 
-const AdBody = styled.div`
+const AdBody = styled.div<{
+  $maxWidth: string;
+}>`
   width: 440px;
   display: flex;
   border-radius:12px;
@@ -42,24 +48,42 @@ const AdBody = styled.div`
   img{
     border-radius:12px 0px 0px 12px;
   }
+  @media screen and (max-width: 800px) {
+    width:97%;
+    max-width: ${({ $maxWidth }) => $maxWidth};
+  }
 `;
 const AdContent = styled.div`
   padding: 4px 10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  width:100%;
   
 `
 const AdText = styled.div`
 .baaner_heading{
-      font-size:16px;
-      font-weight:700;
+  font-size:16px;
+  font-weight:700;
+    @media screen and (max-width: 367px) {
+      font-size:14px;
+    }
+    @media screen and (max-width: 333px) {
+      font-size:12px;
+    }
+}
+.banner_text{
+  font-size:14px;
+  color: #0000007A;
+  font-weight:400;
+    @media screen and (max-width: 367px) {
+      font-size:12px;
+    }
+    @media screen and (max-width: 333px) {
+      font-size:10px;
+    }
   }
-  .banner_text{
-    font-size:14px;
-    color: #0000007A;
-    font-weight:400;
-  }
+  
 `
 
 const banners = [
@@ -86,8 +110,9 @@ const banners = [
 ];
 interface AdsBannerProps {
   className?: string;
+  maxWidth?:string;
 }
-const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px" }) => {
+const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px" , maxWidth="480px" }) => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [open , setOpen] = useState<boolean>(false)
   const { modalType } = useMyContext();
@@ -113,8 +138,8 @@ const handleOpen =()=>{
 
   return (
     <>
-      <AdContainer $className={className} onClick={handleOpen}>
-        <AdBody>
+      <AdContainer $className={className} $maxWidth={maxWidth} onClick={handleOpen}>
+        <AdBody $maxWidth={maxWidth}>
           <Image
             src={BannerDemo}
             alt="Advertisement"
