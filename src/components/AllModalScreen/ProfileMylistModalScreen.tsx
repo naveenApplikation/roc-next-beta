@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
+import useSWRMutation from "swr/mutation";
 
 interface DashboardSearchContainerProps {
   myListtabChange: Function;
@@ -13,6 +14,7 @@ interface DashboardSearchContainerProps {
   showMap: boolean;
   listData?: any;
 }
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   myListtabChange,
@@ -21,74 +23,96 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { closeModal, modalType } = useMyContext();
-  const [listData, setListData] = useState<string[]>([]);
+  // const [listData, setListData] = useState<string[]>([]);
   const [contributionData, setContributionData] = useState<string[]>([]);
   const [loader, setloader] = useState<boolean>(false);
   const loginToken =
     typeof window !== "undefined"
       ? window.localStorage.getItem("loginToken")
       : null;
-
+  const { data, error, trigger, isMutating } = useSWRMutation(
+    "api/bookmarkAndList?type=my-list",
+    fetcher
+  );
+  console.log(error, "bookmark", isMutating, data?.bookmarks);
+  let listData = data ? [...data] : ([] as any[]);
+  listData?.forEach((list: any) => {
+    const matchedIcon = icons.find((icon) => icon.name === list.iconName);
+    if (matchedIcon) {
+      list.image = matchedIcon.image;
+    }
+  });
+  if (error) {
+    listData = [];
+  }
   const fetchDataAsync = async () => {
     if (loginToken) {
-      setloader(true);
-      if (myListtabValue === "Created") {
-        try {
-          const response = await Instance.get("/my-list");
-          const list = [...response.data];
+      // if (myListtabValue === "Created") {
+      //   try {
+      //     // const response = await Instance.get("/my-list");
 
-          console.log(response);
-          if (response.status === 200) {
-            list.forEach((list: any) => {
-              const matchedIcon = icons.find(
-                (icon) => icon.name === list.iconName
-              );
-              if (matchedIcon) {
-                list.image = matchedIcon.image;
-              }
-            });
+      //     // const list = [...response.data];
+      //     const response={status:3002}
+      //     const list=[] as any
+      //     console.log(response);
+      //     if (response.status === 200) {
+      //       list.forEach((list: any) => {
+      //         const matchedIcon = icons.find(
+      //           (icon) => icon.name === list.iconName
+      //         );
+      //         if (matchedIcon) {
+      //           list.image = matchedIcon.image;
+      //         }
+      //       });
 
-            setListData(list);
-            setloader(false);
-          } else {
-            setListData([]);
-            setloader(false);
-          }
-        } catch (error) {
-          setListData([]);
+      //       setListData(list);
+      //       setloader(false);
+      //     } else {
+      //       setListData([]);
+      //       setloader(false);
+      //     }
+      //   } catch (error) {
+      //     setListData([]);
+      //     setloader(false);
+      //   }
+      // } else
+      //  {
+      if (myListtabValue === "Contributed") setloader(true);
+      try {
+        const response = await Instance.get("/my-contribution");
+        const list = response.data;
+        if (response.status === 200) {
+          list.forEach((list: any) => {
+            const matchedIcon = icons.find(
+              (icon) => icon.name === list.iconName
+            );
+            if (matchedIcon) {
+              list.image = matchedIcon.image;
+            }
+          });
+          setContributionData(list);
           setloader(false);
-        }
-      } else {
-        try {
-          const response = await Instance.get("/my-contribution");
-          const list = response.data;
-          if (response.status === 200) {
-            list.forEach((list: any) => {
-              const matchedIcon = icons.find(
-                (icon) => icon.name === list.iconName
-              );
-              if (matchedIcon) {
-                list.image = matchedIcon.image;
-              }
-            });
-            setContributionData(list);
-            setloader(false);
-          } else {
-            setContributionData([]);
-            setloader(false);
-          }
-        } catch (error) {
+        } else {
           setContributionData([]);
           setloader(false);
         }
+      } catch (error) {
+        setContributionData([]);
+        setloader(false);
       }
     }
   };
 
   useEffect(() => {
-    fetchDataAsync();
-  }, [loginToken, myListtabValue]);
-
+    if (modalType.myList && loginToken) {
+      if (myListtabValue === "Created") {
+        trigger();
+      } else {
+        fetchDataAsync();
+      }
+    }
+  }, [modalType, myListtabValue]);
+  console.log(listData, "list data", modalType.myList);
   return (
     <>
       <MyListModalLayout
@@ -96,18 +120,21 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
         onClose={() => closeModal("myList")}
         {...{ showMap }}
         title="My Lists"
-        name="myListModal">
+        name="myListModal"
+      >
         <SearchedContainer>
-          <MylistContainer
-            {...{
-              myListtabChange,
-              mylistoptions,
-              myListtabValue,
-              listData,
-              contributionData,
-              loader,
-            }}
-          />
+          {modalType.myList && (
+            <MylistContainer
+              {...{
+                myListtabChange,
+                mylistoptions,
+                myListtabValue,
+                listData,
+                contributionData,
+              }}
+              loader={loader || isMutating}
+            />
+          )}
         </SearchedContainer>
       </MyListModalLayout>
     </>

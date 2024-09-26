@@ -1,5 +1,5 @@
 "use client";
-
+import backgroundImg from '../../../assets/bg040724.webp'
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -114,7 +114,7 @@ const RightMenu = styled.div`
     width: 100%;
     right: 0;
     background-position: 50% 50%;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/app-images%2Fbg-min.png?alt=media&token=f848b949-a4ef-4eb1-ad6c-e064568be630);
+    background-image: url(${backgroundImg.src});
     background-size: cover;
   }
 `;

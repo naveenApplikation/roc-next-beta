@@ -14,6 +14,8 @@ import { useDebounce } from "@/app/utils/debounce";
 import WhatsOn from "../search/whatsOn";
 import { whatsOnMappingData } from "@/app/utils/mappingFun";
 import SearchComponent from "../searchInput/SearchInput";
+import useSWR, { useSWRConfig } from "swr";
+import useSWRMutation from "swr/mutation";
 
 interface DashboardSearchContainerProps {
   tabChange?: Function;
@@ -22,6 +24,7 @@ interface DashboardSearchContainerProps {
   showMap?: boolean;
   modalClick?: any;
 }
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   options,
@@ -40,8 +43,9 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   const [data, setData] = useState<any[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const [filterData, setFilterData] = useState([]);
-  const [orignalData, setOrignalData] = useState<any>([]);
-  const [whatOnData, setWhatOnData] = useState<any[]>([]);
+  // const [orignalData, setOrignalData] = useState<any>([]);
+
+  // const [whatOnData, setWhatOnData] = useState<any[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -86,25 +90,41 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       }
     }
   };
+  const {
+    data: validData,
+    trigger,
+    isMutating,
+  } = useSWRMutation(
+    `/api/whatsOn?value=${searchQuery}&parish=${selectFilter}`,
+    fetcher
+  );
+  const { mutate } = useSWRConfig();
 
-  const fetchDataWhatsOnAsync = async (value: string, selectValue: string) => {
-    setLoader(true);
-    try {
-      const result = await Instance.get(
-        `/filter/avtivities-events?query=${value}&parish=${selectValue}`
-      );
-      if (result.status == 200) {
-        const data: any = whatsOnMappingData(result?.data);
-        setOrignalData(data);
-        setWhatOnData(data);
-        setLoader(false);
-      }
-    } catch (error: any) {
-      setLoader(false);
-    } finally {
-      setLoader(false);
-    }
-  };
+  const whatsOn: any[] = validData ? (whatsOnMappingData(validData) as []) : [];
+  const orignalData: any[] = whatsOn;
+  let whatsOnData: any[] = whatsOn;
+
+  // setWhatOnData(data);
+  // setLoader(false);
+  // const fetchDataWhatsOnAsync = async (value: string, selectValue: string) => {
+  //   setLoader(true);
+  //   try {
+  //     // const result = await Instance.get(
+  //     //   `/filter/avtivities-events?query=${value}&parish=${selectValue}`
+  //     // );
+  //        const result ={status:211,data:[]}
+  //     if (result.status == 200) {
+  //       const data: any = whatsOnMappingData(result?.data);
+  //       setOrignalData(data);
+  //       setWhatOnData(data);
+  //       setLoader(false);
+  //     }
+  //   } catch (error: any) {
+  //     setLoader(false);
+  //   } finally {
+  //     setLoader(false);
+  //   }
+  // };
 
   const handleClearText = () => {
     setSearchQuery("");
@@ -112,7 +132,8 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       inputRef.current.focus(); // Set focus on the input
     }
     if (tabValue === "What's On") {
-      fetchDataWhatsOnAsync(searchQuery, selectFilter);
+      // mutate(`api/whatsOn?value=${searchQuery}&parish=${selectFilter}`);
+      trigger();
     }
   };
 
@@ -125,8 +146,11 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
   // FIRST TIME RENDER
   useEffect(() => {
-    fetchDataWhatsOnAsync(searchQuery, selectFilter);
-  }, []);
+    // mutate(`api/whatsON?value=${searchQuery}&parish=${selectFilter}`);
+    if (tabValue === "What's On") {
+      trigger();
+    }
+  }, [tabValue]);
 
   // Effect to handle debounced value
   useEffect(() => {
@@ -138,7 +162,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         } else if (tabValue === "Places") {
           fetchDataAsync(debouncedValue, filterValues);
         } else if (tabValue === "What's On") {
-          fetchDataWhatsOnAsync(debouncedValue, selectFilter);
+          // mutate(
+          //   `api/whatsOn?value=${searchQuery}&parish=${selectFilter}`
+          // );
+          trigger();
         }
       }
     } else {
@@ -154,7 +181,10 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       } else if (tabValue === "Places") {
         fetchDataAsync(searchQuery, filterValues);
       } else if (tabValue === "What's On") {
-        fetchDataWhatsOnAsync(searchQuery, selectFilter);
+        //  mutate(
+        //    `api/whatsOn?value=${searchQuery}&parish=${selectFilter}`
+        //  );
+        trigger;
       }
     } else {
       setData([]);
@@ -168,10 +198,15 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
         const newWhatsOnData = orignalData.filter((val: any) => {
           if (val?.parishName === selectFilter) return val;
         });
-        setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData);
+        whatsOnData = selectFilter === "Any" ? orignalData : newWhatsOnData;
+        // setWhatOnData(selectFilter === "Any" ? orignalData : newWhatsOnData);
+        trigger();
       } else {
-        setWhatOnData(selectFilter === "Any" ? orignalData : []);
-        fetchDataWhatsOnAsync(searchQuery, selectFilter);
+        // setWhatOnData(selectFilter === "Any" ? orignalData : []);
+        //  mutate(
+        //    `api/whatsOn?value=${searchQuery}&parish=${selectFilter}`
+        //  );
+        trigger();
       }
     }
   }, [selectFilter]);
@@ -207,7 +242,13 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
 
   function tabComponent() {
     if (tabValue === "Lists") {
-      return <Lists searchItem={data} searchQuery={searchQuery} />;
+      return (
+        <Lists
+          tabValue={tabValue}
+          searchItem={data}
+          searchQuery={searchQuery}
+        />
+      );
     } else if (tabValue === "Places") {
       return (
         <>
@@ -219,7 +260,11 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
       return (
         <>
           <FilterSection pageTitle="what'sOn" {...{ tabValue }} />
-          <WhatsOn {...{ orignalData, loader }} filterData={whatOnData} />
+          <WhatsOn
+            {...{ orignalData }}
+            loader={isMutating}
+            filterData={whatsOnData}
+          />
         </>
       );
     }

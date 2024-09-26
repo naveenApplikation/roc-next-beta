@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import { icons } from "@/app/utils/iconList";
+import useSWRMutation from "swr/mutation";
 
 interface DashboardSearchContainerProps {
   myBookmarktabChange: any;
@@ -13,6 +14,7 @@ interface DashboardSearchContainerProps {
   showMap: boolean;
   listData?: any;
 }
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   myBookmarktabChange,
@@ -21,7 +23,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { closeModal, modalType } = useMyContext();
-  const [listData, setListData] = useState<string[]>([]);
+  // const [listData, setListData] = useState<string[]>([]);
   const [eventData, setEventData] = useState<string[]>([]);
   const [activityData, setActivityData] = useState<string[]>([]);
   const [loader, setloader] = useState<boolean>(false);
@@ -30,34 +32,57 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
 
+  const { data, error, trigger, isMutating } = useSWRMutation(
+    "api/bookmarkAndList?type=bookmark",
+    fetcher
+  );
+
+  let listData: any[];
+  if (data) {
+    data?.bookmarks?.forEach((list: any) => {
+      const matchedIcon = icons.find((icon) => icon.name === list.iconName);
+      if (matchedIcon) {
+        list.image = matchedIcon.image;
+      }
+    });
+  }
+  if (error) {
+    listData = [];
+  }
+
+  listData = data?.bookmarks;
+  console.log(listData, "bookmarkdata");
   const fetchDataAsync = async () => {
     if (loginToken) {
       setloader(true);
-      if (myBookMarkState === "Lists") {
-        try {
-          const response = await Instance.get("/bookmark");
-          const list = response.data.bookmarks;
+      // if (myBookMarkState === "Lists") {
+      //   try {
+      //     // const response = await Instance.get("/bookmark");
+      //     const response = { status: 100 };
+      //     // const list = response.data.bookmarks;
+      //     const list = [] as any;
+      //     if (response?.status === 200) {
+      //       list.forEach((list: any) => {
+      //         const matchedIcon = icons.find(
+      //           (icon) => icon.name === list.iconName
+      //         );
+      //         if (matchedIcon) {
+      //           list.image = matchedIcon.image;
+      //         }
+      //       });
+      //       setListData(list);
+      //       setloader(false);
+      //     } else {
+      //       setListData([]);
+      //       setloader(false);
+      //     }
+      //   } catch (error) {
+      //     setListData([]);
+      //     setloader(false);
+      //   }
+      // } else
 
-          if (response.status === 200) {
-            list.forEach((list: any) => {
-              const matchedIcon = icons.find(
-                (icon) => icon.name === list.iconName
-              );
-              if (matchedIcon) {
-                list.image = matchedIcon.image;
-              }
-            });
-            setListData(list);
-            setloader(false);
-          } else {
-            setListData([]);
-            setloader(false);
-          }
-        } catch (error) {
-          setListData([]);
-          setloader(false);
-        }
-      } else if (myBookMarkState === "Events") {
+      if (myBookMarkState === "Events") {
         try {
           const response = await Instance.get("/event-bookmark");
           const list = response.data.bookmark;
@@ -109,8 +134,13 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   };
 
   useEffect(() => {
-    fetchDataAsync();
-  }, [myBookMarkState]);
+    if (modalType.myBookmark && myBookMarkState == "Lists" && loginToken) {
+      console.log("mybookmark");
+      trigger();
+    } else if (modalType.myBookmark) {
+      fetchDataAsync();
+    }
+  }, [myBookMarkState, modalType.myBookmark]);
 
   return (
     <>
@@ -132,6 +162,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
               activityData,
               loader,
             }}
+            loader={loader || isMutating}
           />
         </SearchedContainer>
       </MyListModalLayout>

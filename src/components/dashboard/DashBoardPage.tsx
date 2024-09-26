@@ -12,6 +12,7 @@ import Wellbeing from "@/components/homepage/Wellbeing";
 import CycleRoutes from "@/components/homepage/CycleRoutes";
 import { iconsHome } from "@/app/utils/homeIcon";
 import { shoppingImages } from "@/app/utils/data";
+import '@/app/tailwind.css'
 import {
   getCategory,
   getApiWithIcon,
@@ -23,9 +24,7 @@ import ScreenPageComps from "../homepage/ScreenPageComps";
 import CustomBanner from "../AdComponent/CustomBanner";
 import CategoriesComps from "../homepage/CategoriesComps";
 import EventsByDate from "../homepage/EventsByDate";
-
-import Blog from "../homepage/Blog";
-import { getAllPosts, getClient } from "@/lib/sanity.client";
+import { getUpcoming } from "@/app/HomePageAction";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -39,32 +38,43 @@ const DashBoard = async () => {
   // };
 
   const listData = await getApiWithIcon("category", iconsHome);
-  const LocalCusinedata = await getCategory("google/dine-out");
-  let familyEventdata = await getCategory("upcomming-events");
-  familyEventdata = await familyEventdata.data;
+  let LocalCusinedata = await getCategory("google/dine-out");
+  LocalCusinedata = LocalCusinedata.GoogleHomeScreenList.slice(0,10)
+  let familyEventdata = await getUpcoming("upcomming-events");
+  familyEventdata = await familyEventdata.data.slice(0,10);
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
-  const TopAttractionsdata = await getCategory("google/top-attraction");
-  const bardata = await getDataForHome("Pubs", listData[0]?._id);
-
-  const beachLifedata = await getCategory("google/beach-life");
-  const sustainabilitydata = await getCategory("google/sustainability");
-  const Heritagedata = await getCategory("google/heritage");
+  let topAttractionsdata = await getCategory("google/top-attraction");
+  topAttractionsdata=
+    topAttractionsdata[0].GoogleHomeScreenList.slice(0, 10);
+  let bardata = await getDataForHome("Pubs", listData[0]?._id);
+  bardata= bardata.categoryList.slice(0, 10);
+  let beachLifedata = await getCategory("google/beach-life");
+  beachLifedata = beachLifedata[0].GoogleHomeScreenList.slice(0,10);
+   
+  let sustainabilitydata = await getCategory("google/sustainability");
+  sustainabilitydata= sustainabilitydata[0]?.GoogleHomeScreenList.slice(0,10)
+  let Heritagedata = await getCategory("google/heritage");
+   Heritagedata =
+     Heritagedata[0].GoogleHomeScreenList?.slice(0, 10); 
   const Walksdata = await getCategory("walks");
-  const Wellbeingdata = await getCategory("wellbeing-lists");
-  const Cocktaildata = await getCategory("google/cocktail-bars");
-  const Surfingdata = await getCategory("google/surfing");
+  let Wellbeingdata = await getCategory("wellbeing-lists");
+
+  let Cocktaildata = await getCategory("google/cocktail-bars");
+  Cocktaildata=
+    Cocktaildata[0].GoogleFoodAndDrinksList?.slice(0, 10);
+
+  let Surfingdata = await getCategory("google/surfing");
+  Surfingdata= Surfingdata[0].GoogleHomeScreenList?.slice(
+    0,
+    10
+  );
   const Shoppingdata = await getApiShoppingWithIcon(
     "shopping-lists",
     shoppingImages
   );
   const eventsCategories = await getApiWithIcon("event-list", iconsHome);
   const activities = await getApiWithIcon("activity-list", iconsHome);
-
-  const client = getClient();
-  const post = await getAllPosts(client);
-  console.log(post);
-
   return (
     <>
       <SearchNFilter />
@@ -75,7 +85,8 @@ const DashBoard = async () => {
       <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
       <EnjoyTheSunshine data={enjoyTheSunshinedata} />
       <EventsByDate></EventsByDate>
-      <ScreenPageComps data={beachLifedata[0]} title="Beach life " />
+      <ScreenPageComps data={beachLifedata} title="Beach life " />
+
       {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
       <Directory />
       {/* <Bars dataPubs={bardata} /> */}/
@@ -96,18 +107,17 @@ const DashBoard = async () => {
       {/* <BeachLife data={beachLifedata[0]} /> */}
       <Community {...{ listData }} />
       {/* <Sustainability data={sustainabilitydata[0]} /> */}
-      <ScreenPageComps data={sustainabilitydata[0]} title="Sustainability" />
+      <ScreenPageComps data={sustainabilitydata} title="Sustainability" />
       {/* <Heritage data={Heritagedata[0]} /> */}
-      <ScreenPageComps data={Heritagedata[0]} title="Heritage" />
+      <ScreenPageComps data={Heritagedata} title="Heritage" />
       <Walks data={Walksdata} />
       <Wellbeing data={Wellbeingdata} />
       {/* <Outout data={Cocktaildata[0]} /> */}
-      <ScreenPageComps data={Cocktaildata[0]} title="Out Out" />
+      <ScreenPageComps data={Cocktaildata} title="Out Out" />
       <CycleRoutes />
       {/* <Surfing data={Surfingdata[0]} /> */}
-      <ScreenPageComps data={Surfingdata[0]} title="Surfing" />
-      <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
-      {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
+      <ScreenPageComps data={Surfingdata} title="Surfing" />
+      <ScreenPageComps data={topAttractionsdata} title="Top Attractions" />
       <LeaveFeedbackButton />
       <CustomBanner />
     </>

@@ -3,7 +3,7 @@
 import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
+
 import Image from "next/image";
 import ShopBrachSkeleton from "@/components/skeleton Loader/ShopBrachSkeleton";
 import { skeletonItems } from '@/app/utils/date'
@@ -16,47 +16,9 @@ interface DashboardProps {
   menuClick?: any;
 }
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
+  
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const WalkContainer = styled.div`
-  height: 120px;
-  min-width: 120px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.01);
-  display: flex;
-  align-items: end;
-  flex-direction: column;
-  position: relative;
-
-  justify-content: space-between;
-  p {
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-  }
-  img {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-  }
-`;
+  
 
 
 const Walks: React.FC<DashboardProps> = ({data}) => {
@@ -66,40 +28,51 @@ const Walks: React.FC<DashboardProps> = ({data}) => {
   return (
     <>
       <MenuDetails title="Walks" hideShowAll={true} />
-      <ScrollingMenu>
+      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <ShopBrachSkeleton />
-            </div>
-          ))
-          :
-          walkData?.map((item, index) => {
-            return (
-              <WalkContainer key={index}
-                onClick={() =>
-                  modalClick("walksModal", item)
-                }
-              >
-                <Image
-                  src={item.icon ? item.icon : fallback}
-                  alt=""
-                  width={500}
-                  height={80}
-                  style={{ borderRadius: "8px", maxWidth: "100%", objectFit: 'cover' }}
-                />
-                <Image
-                  src={walkMask}
-                  alt=""
-                  width={120}
-                  height={64}
-                  style={{ position: "absolute", bottom: 0, height: 50 }}
-                />
-                <p>{item?.name}</p>
-              </WalkContainer>
-            );
-          })}
-      </ScrollingMenu>
+              <div key={index}>
+                <ShopBrachSkeleton />
+              </div>
+            ))
+          : walkData?.map((item, index) => {
+              return (
+                <div
+                  className="h-[120px] min-w-[120px] bg-black/[0.01] bg-bottom bg-no-repeat flex flex-col items-end justify-between relative"
+                  key={index}
+                  onClick={() => modalClick("walksModal", item)}
+                >
+                  <Image
+                    src={item.icon ? item.icon : fallback}
+                    alt=""
+                    width={500}
+                    height={80}
+                    className="h-full w-full rounded-[4px]"
+                    style={{
+                      borderRadius: "8px",
+                      maxWidth: "100%",
+                      objectFit: "cover",
+                    }}
+                    loading="lazy"
+                    quality={50}
+                  />
+                  <Image
+                    src={walkMask}
+                    alt=""
+                    width={120}
+                    height={64}
+                    className="h-full w-full rounded-[4px]"
+                    style={{ position: "absolute", bottom: 0, height: 50 }}
+                    loading="lazy"
+                    quality={50}
+                  />
+                  <p className="text-white text-[14px] font-normal absolute bottom-[8px] left-[12px]">
+                    {item?.name}
+                  </p>
+                </div>
+              );
+            })}
+      </div>
     </>
   );
 };

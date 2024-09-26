@@ -3,49 +3,13 @@
 import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
+
 import Image from "next/image";
 import "react-loading-skeleton/dist/skeleton.css";
 import { cycleRouteData } from "@/app/utils/data";
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const CommunityContainer = styled.div`
-  display: flex;
-  width: 80px;
-  padding: 7px 8px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: end;
-  gap: 8px;
-  flex-shrink: 0;
-  height: 80px;
-  border-radius: 8px;
-  background: #bb6bd9;
-  cursor: pointer;
-
-  p {
-    color: #fff;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 100%;
-  }
-`;
+ 
+ 
 const CycleRoutes = () => {
   
   const {modalClick } = useMyContext();
@@ -53,11 +17,12 @@ const CycleRoutes = () => {
   return (
     <>
       <MenuDetails title="Cycle Routes" hideShowAll={true} />
-      <ScrollingMenu>
+      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {cycleRouteData.length
           ? cycleRouteData?.map((item: any, index: any) => {
               return (
-                <CommunityContainer
+                <div
+                  className="flex w-[80px] p-[7px] px-[8px] flex-col justify-between items-end gap-[8px] flex-shrink-0 h-[80px] rounded-[8px] bg-[#bb6bd9] cursor-pointer"
                   key={index}
                   style={{ background: item?.color }}
                   onClick={() => modalClick("walksModal", item)}
@@ -67,14 +32,17 @@ const CycleRoutes = () => {
                     alt=""
                     width={20}
                     height={20}
-                    style={{ borderRadius: 4 }}
+                    className="rounded-[4px]"
+                    loading="lazy"
+                    quality={70}
+                    placeholder="blur"
                   />
-                  <p>{item?.name}</p>
-                </CommunityContainer>
+                  <p className="text-white text-[12px] font-medium leading-normal w-full">{item?.name}</p>
+                </div>
               );
             })
           : ""}
-      </ScrollingMenu>
+      </div>
     </>
   );
 };

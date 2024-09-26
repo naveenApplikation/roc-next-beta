@@ -3,7 +3,7 @@
 import React from "react";
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
+
 import Image from "next/image";
 import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
@@ -17,45 +17,7 @@ interface DashboardProps {
   type: string;
   name: string;
   title: string;
-}
-
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const CommunityContainer = styled.div`
-  display: flex;
-  width: 80px;
-  padding: 0px 8px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: end;
-  gap: 8px;
-  flex-shrink: 0;
-  height: 80px;
-  border-radius: 8px;
-  background: #bb6bd9;
-
-  p {
-    color: #fff;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 100%;
-  }
-`;
+} 
 
 const CategoriesComps: React.FC<DashboardProps> = ({
   data,
@@ -87,7 +49,7 @@ const CategoriesComps: React.FC<DashboardProps> = ({
         }}
         title={title}
       />
-      <ScrollingMenu>
+      <div className="flex overflow-auto gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
@@ -103,19 +65,30 @@ const CategoriesComps: React.FC<DashboardProps> = ({
                     type === "event-category-list"
                       ? getEventLink(item.listName)
                       : getCategoryLink(item.listName)
-                  }>
-                  <CommunityContainer
-                    style={{ background: item?.bgColor, cursor: "pointer" }}>
+                  }
+                >
+                  <div
+                    className="flex w-[80px] p-[7px] px-[8px] flex-col justify-between items-end gap-[8px] flex-shrink-0 h-[80px] rounded-[8px] bg-[#bb6bd9] cursor-pointer"
+                    style={{ background: item?.bgColor, cursor: "pointer" }}
+                  >
                     {item.image && (
-                      <p style={{ textAlign: "end" }}> {item?.image}</p>
+                      <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
+                        {" "}
+                        {item?.image}
+                      </p>
                     )}
-                    <p style={{ paddingBottom: "5px" }}>{item?.listName}</p>
-                  </CommunityContainer>
+                    <p
+                      className="text-white text-[12px] font-medium leading-normal w-full"
+                      style={{ paddingBottom: "5px" }}
+                    >
+                      {item?.listName}
+                    </p>
+                  </div>
                 </Link>
               );
             })
           : ""}
-      </ScrollingMenu>
+      </div>
     </>
   );
 };

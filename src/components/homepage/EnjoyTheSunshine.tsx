@@ -2,7 +2,6 @@
 
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import { skeletonItems } from "@/app/utils/date";
@@ -12,72 +11,12 @@ import fallback from '../../../assets/images/fallbackimage.png'
 interface DashboardProps {
   data?: any;
 }
+ 
+const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
+  const { filterUrls,modalClick,menuClick } = useMyContext();
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const ScrollingMenuDishes = styled.div`
-  display: flex;
-  width: 120px;
-  flex-direction: column;
-  flex-shrink: 0;
-  cursor: pointer;
-`;
-
-const UtensilsDishesImage = styled.div`
-  border-radius: 4px;
-  background: #c4c4c4;
-  height: 64px;
-  align-self: stretch;
-`;
-
-const Menutitle = styled.p`
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 8px;
-  display: block;
-  width: 100%; 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis;
-`;
-
-const MainImage = styled(Image)`
-  width: 120px !important;
-  height: 64px !important;
-  border-radius: 6px;
-`;
-
-const PriceText = styled.p`
-  overflow: hidden;
-  color: rgba(0, 0, 0, 0.48);
-  text-overflow: ellipsis;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 8px;
-`;
-
-const EnjoyTheSunshine: React.FC<DashboardProps> = ({ data }) => {
-
-  const { filterUrls, modalClick, menuClick } = useMyContext();
-
-  const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
+  const ImageUrlData = data.map((item:any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
@@ -87,45 +26,54 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({ data }) => {
         isOpen={() => menuClick("Enjoy the sunshine", true, "sun-shine")}
         title="Enjoy the sunshine"
       />
-      <ScrollingMenu>
+      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <CommonSkeletonLoader />
-            </div>
-          ))
-          : data?.slice(0, 10).map((item: any, index: any) => {
-            return (
               <div key={index}>
-                <ScrollingMenuDishes
-                  onClick={() =>
-                    modalClick("activities", item, filteredUrls[index] ? filteredUrls[index] : fallback)
-                  }
-                >
-                  <UtensilsDishesImage>
-                    <MainImage
-                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{
-                        borderRadius: 4,
-                        maxWidth: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </UtensilsDishesImage>
-                  <Menutitle>
-                    {item.acf.title}
-                  </Menutitle>
-                  <PriceText>
-                    £ {item.acf.price_from}
-                  </PriceText>
-                </ScrollingMenuDishes>
+                <CommonSkeletonLoader />
               </div>
-            );
-          })}
-      </ScrollingMenu>
+            ))
+          : data?.slice(0, 10).map((item: any, index: any) => {
+              return (
+                <div key={index}>
+                  <div
+                    className="flex w-[120px] flex-col flex-shrink-0 cursor-pointer"
+                    onClick={() =>
+                      modalClick(
+                        "activities",
+                        item,
+                        filteredUrls[index] ? filteredUrls[index] : fallback
+                      )
+                    }
+                  >
+                    <div className="rounded-[4px] bg-[#c4c4c4] h-[64px] self-stretch">
+                      <Image className="w-[140px] h-[64px] rounded-6px"
+                        src={
+                          filteredUrls[index] ? filteredUrls[index] : fallback
+                        }
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{
+                          borderRadius: 4,
+                          maxWidth: "100%",
+                          objectFit: "cover",
+                        }}
+                        loading="lazy"
+                        placeholder="blur"
+                      />
+                    </div>
+                    <p className="text-[13px] font-normal leading-normal mt-[8px] block w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                      {item.acf.title}
+                    </p>
+                    <p className="overflow-hidden text-black/[0.48] text-ellipsis text-[12px] font-normal leading-normal mt-[8px]">
+                      £ {item.acf.price_from}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+      </div>
     </>
   );
 };

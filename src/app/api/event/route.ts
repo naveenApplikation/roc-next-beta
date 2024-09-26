@@ -5,8 +5,8 @@ export async function GET(request: Request) {
   const {searchParams}=data
   console.log(searchParams.get('placeId'))
   
-  
-   const result = await fetch(
+  const result = await fetch(
+     
      `${process.env.NEXT_API_URL}/google/place/${searchParams.get('placeId')}`,
      {
        headers: {
