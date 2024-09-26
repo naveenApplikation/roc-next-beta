@@ -189,12 +189,19 @@ const RightSide = () => {
   return (
     <RightMenu>
       <RightSideHeadMenu>
-        <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
+        <Image
+          src={LogoNew}
+          width={117}
+          height={48}
+          style={{ height: "48px" }}
+          alt="Logo Outline"
+        />
         <HeaderMapProfileContainer>
           <Image
             src={iconbeta}
             width={48}
             height={48}
+            style={{ height: "48px" }}
             alt="Logo Outline"
             // onClick={() => modalClick("createAccountModal")}
           />
@@ -236,7 +243,8 @@ const RightSide = () => {
                     index == 3 || index == 6 ? item.url : item.id
                   );
                 }
-              }}>
+              }}
+            >
               <RightSideInsideMenuBox>
                 <Image
                   style={{
@@ -274,7 +282,8 @@ const RightSide = () => {
                     );
                   }
                 }
-              }}>
+              }}
+            >
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}
@@ -291,7 +300,8 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}>
+          onClick={() => menuClick("Community", true, "category-item")}
+        >
           All Categories
         </button>
       </AllCategories>
