@@ -227,12 +227,16 @@ const EventPage: React.FC<EventBoxProps> = ({
               <SearchedData>
                 <MainInsideWrapper>
                   <FamilyEventWrapper>
-                    <img
+                    <Image
                       src={filteredUrls[index]}
                       alt="image"
-                      width={80}
+                      width={500}
                       height={80}
-                      style={{ objectFit: "cover" }}
+                      style={{
+                        objectFit: "cover",
+                        width: "80px",
+                        height: "80px",
+                      }}
                     />
                     <FamilyEventWrapperInside>
                       <p className="date">{formatDate(item.acf?.event_date)}</p>
