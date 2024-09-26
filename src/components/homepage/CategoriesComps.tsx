@@ -17,7 +17,7 @@ interface DashboardProps {
   type: string;
   name: string;
   title: string;
-} 
+}
 
 const CategoriesComps: React.FC<DashboardProps> = ({
   data,
@@ -49,7 +49,7 @@ const CategoriesComps: React.FC<DashboardProps> = ({
         }}
         title={title}
       />
-      <div className="flex overflow-auto gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
+      <div className="flex overflow-y-hidden gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
@@ -57,37 +57,34 @@ const CategoriesComps: React.FC<DashboardProps> = ({
               </div>
             ))
           : data.length
-          ? data.slice(0, 10).map((item: any, index: any) => {
-              return (
-                <Link
-                  key={index}
-                  href={
-                    type === "event-category-list"
-                      ? getEventLink(item.listName)
-                      : getCategoryLink(item.listName)
-                  }
-                >
-                  <div
-                    className="flex w-[80px] p-[7px] px-[8px] flex-col justify-between items-end gap-[8px] flex-shrink-0 h-[80px] rounded-[8px] bg-[#bb6bd9] cursor-pointer"
-                    style={{ background: item?.bgColor, cursor: "pointer" }}
-                  >
-                    {item.image && (
-                      <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
-                        {" "}
-                        {item?.image}
+            ? data.slice(0, 10).map((item: any, index: any) => {
+                return (
+                  <Link
+                    key={index}
+                    href={
+                      type === "event-category-list"
+                        ? getEventLink(item.listName)
+                        : getCategoryLink(item.listName)
+                    }>
+                    <div
+                      className="flex w-[80px] p-[7px] px-[8px] flex-col justify-between items-end gap-[8px] flex-shrink-0 h-[80px] rounded-[8px] bg-[#bb6bd9] cursor-pointer"
+                      style={{ background: item?.bgColor, cursor: "pointer" }}>
+                      {item.image && (
+                        <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
+                          {" "}
+                          {item?.image}
+                        </p>
+                      )}
+                      <p
+                        className="text-white text-[12px] font-medium leading-normal w-full"
+                        style={{ paddingBottom: "5px" }}>
+                        {item?.listName}
                       </p>
-                    )}
-                    <p
-                      className="text-white text-[12px] font-medium leading-normal w-full"
-                      style={{ paddingBottom: "5px" }}
-                    >
-                      {item?.listName}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })
-          : ""}
+                    </div>
+                  </Link>
+                );
+              })
+            : ""}
       </div>
     </>
   );

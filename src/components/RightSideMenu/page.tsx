@@ -1,5 +1,5 @@
 "use client";
-import backgroundImg from '../../../assets/bg040724.webp'
+import backgroundImg from "../../../assets/bg040724.webp";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -103,6 +103,7 @@ const RightSideInsideMenuBox = styled.div`
 const RightMenu = styled.div`
   position: fixed;
   right: 24px;
+
   @media screen and (max-width: 800px) {
     position: fixed;
     display: flex;
@@ -113,8 +114,7 @@ const RightMenu = styled.div`
     top: 0;
     width: 100%;
     right: 0;
-    background-position: 50% 50%;
-    background-image: url(${backgroundImg.src});
+    background-position: 50% 50%; /* Removing background-image property */
     background-size: cover;
   }
 `;
@@ -188,6 +188,17 @@ const RightSide = () => {
 
   return (
     <RightMenu>
+      <div
+        className="background-image-wrapper"
+        style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+        <Image
+          src={backgroundImg.src}
+          layout="fill"
+          objectFit="cover"
+          alt="Background"
+          // Optional: Use 'priority' for faster loading
+        />
+      </div>
       <RightSideHeadMenu>
         <Image
           src={LogoNew}
@@ -243,8 +254,7 @@ const RightSide = () => {
                     index == 3 || index == 6 ? item.url : item.id
                   );
                 }
-              }}
-            >
+              }}>
               <RightSideInsideMenuBox>
                 <Image
                   style={{
@@ -282,8 +292,7 @@ const RightSide = () => {
                     );
                   }
                 }
-              }}
-            >
+              }}>
               <RightSideInsideMenuBox>
                 <Image
                   src={item.image}
@@ -300,8 +309,7 @@ const RightSide = () => {
       <AllCategories>
         <button
           style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}
-        >
+          onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button>
       </AllCategories>
