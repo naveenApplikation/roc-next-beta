@@ -10,6 +10,7 @@ import { skeletonItems } from "@/app/utils/date";
 import RatingMenu from "@/components/dashboard/RatingMenu";
 import Image from "next/image";
 import ShopBrachSkeleton from "../skeleton Loader/ShopBrachSkeleton";
+import { MaskGroupImg } from "@/app/utils/ImagePath";
 interface DashboardProps {
   data?: any;
   title:string
@@ -88,7 +89,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
               />
             )}
             <Image
-              src="https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FListCommunity%2FMask%20group.png?alt=media&token=6519fc68-65f1-4e2e-b4d5-dd90e9bf2380"
+              src={MaskGroupImg}
               alt=""
               width={120}
               height={64}
