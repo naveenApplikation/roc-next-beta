@@ -9,6 +9,7 @@ import { skeletonItems } from "@/app/utils/date";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { wellbeingImg } from "@/app/utils/ImagePath";
+import AdsBanner from "../adsBanner/page";
 
 interface DashboardProps {
   data?: any;
@@ -85,6 +86,7 @@ const Wellbeing: React.FC<DashboardProps> = ({data}) => {
        );
      }) : ""}
    </ScrollingMenu>
+   <AdsBanner/>
  </>
   )
 };

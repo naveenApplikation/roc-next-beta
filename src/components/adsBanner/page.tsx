@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { BannerDemo, RightArow } from "@/app/utils/ImagePath";
-import { useMyContext } from "@/app/Context/MyContext";
 import DirectionModalLayout from "@/components/modal/Modal"
+import { useMyContext } from "@/app/Context/MyContext";
 
 const AdContainer = styled.div<{
   $className: string;
@@ -86,50 +86,13 @@ const AdText = styled.div`
   
 `
 
-const banners = [
-  {
-    url: "https://amzn.to/3Xjl874",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/ADS%2FAmazon%20Banner%20Draft%201.png?alt=media&token=adec7612-054e-446a-a01b-45e72319c87b",
-  },
-  {
-    url: "https://amzn.to/3Tq7QV2",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/ADS%2FAmazon%20Banner%202.png?alt=media&token=595f3df2-0e99-4280-a9a3-582247c9132c",
-  },
-  {
-    url: "https://amzn.to/4d2hUKZ",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/ADS%2FAmazon%20Banner%203.png?alt=media&token=151eb7be-fd21-426c-9f4c-89e0f272cd91",
-  },
-  {
-    url: "https://amzn.to/3XIeAQM",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/ADS%2FAmazon%20Banner%204.png?alt=media&token=cccae8d5-b42f-46be-b39f-ce57cf8ec4e2",
-  },
-];
 interface AdsBannerProps {
   className?: string;
   maxWidth?:string;
 }
 const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px" , maxWidth="480px" }) => {
-  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [open , setOpen] = useState<boolean>(false)
-  const { modalType } = useMyContext();
-  useEffect(() => {
-    banners.forEach((banner) => {
-      const img = new window.Image();
-      img.src = banner.imgSrc;
-    });
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { showMap } = useMyContext();
 
 
 const handleOpen =()=>{
@@ -164,7 +127,7 @@ const handleOpen =()=>{
       <DirectionModalLayout
         isOpen={open}
         name="adsBanner"
-        showMap={true}
+        showMap={showMap}
         onClose={handleOpen}
       >
         <iframe
