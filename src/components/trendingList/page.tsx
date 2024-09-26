@@ -1,6 +1,7 @@
 import { getCategory } from "@/app/action";
 import { ListItem } from "./ListItem";
 import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 interface TrendingListProps {
   urlData?: any;
   urlTitle?: string;
@@ -13,6 +14,7 @@ const TrendingList = async ({ urlTitle, urlData }: TrendingListProps) => {
     <div>
       <ListItem data={listData} urlTitle={urlTitle}></ListItem>
       <AdsBanner/>
+      <BannerModal/>
     </div>
   );
 };

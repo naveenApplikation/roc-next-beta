@@ -30,6 +30,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 interface EventBoxProps {
   urlData?: any;
@@ -51,6 +52,8 @@ const EventPage: React.FC<EventBoxProps> = ({
     eventFilters,
     showMap,
     resetFilters,
+    modalType,
+    closeModal
   } = useMyContext();
 
   const router = useRouter();
@@ -192,7 +195,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   // }, [loading, next, urlData]);
   // alert(slug);
 
-  console.log("eventsevents" , events)
+  console.log("eventsevents", events)
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
@@ -216,6 +219,7 @@ const EventPage: React.FC<EventBoxProps> = ({
             </ImageContainer>
           </div>
         </Header>
+        bharat
         <div
           style={{
             padding: "10px 0px",
@@ -283,7 +287,7 @@ const EventPage: React.FC<EventBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <AdsBanner className="75px"/>
+      <AdsBanner className="75px" />
       <ScrollList
         params={"event-category-list"}
         background={"#EB5757"}

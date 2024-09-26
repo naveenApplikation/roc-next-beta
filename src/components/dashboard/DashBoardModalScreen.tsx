@@ -8,7 +8,7 @@ import MyBookMarkModal from "@/components/AllModalScreen/MyBookMarkModal";
 import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import PlacesModalScreen from "@/components/AllModalScreen/PlacesModalScreen";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
- 
+
 import PlaceOrderOnlineModalScreen from "@/components/AllModalScreen/PlaceOrderOnlineModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import ActivitiesModalScreen from "@/components/AllModalScreen/ActivitiesModalScreen";
@@ -20,22 +20,23 @@ import ReservationCalenderModal from "@/components/AllModalScreen/reservationCal
 import FilterListModalScreen from "@/components/AllModalScreen/FilterListModalScreen";
 import BetaExploreModal from "@/components/modal/BetaExploreModal";
 import PrivacyPolicy from "../homepage/PrivacyAndPolicyModal/page";
-
+import DirectionModalLayout from "../modal/Modal"
+import BannerModal from "../bannerModal/page";
 
 
 type mylisttabs = "Created" | "Contributed";
 type myBookmarktabs = "Lists" | "Events";
 
 const DashBoardModalScreen = () => {
-  const {showMap} = useMyContext();
- 
-  
+  const { showMap, closeModal, modalType } = useMyContext();
+
+
   const [myListtabValue, setMyListTabValue] = useState("Created");
   const [myBookMarkState, setMyBookMarkState] = useState("Lists");
- 
+
   const options = ["Lists", "Places", "What's On"];
   const mylistoptions = ["Created", "Contributed"];
-  const myBookmarkoptions = ["Lists", "Events","Activities"];
+  const myBookmarkoptions = ["Lists", "Events", "Activities"];
 
   const myListtabChange = async (value: mylisttabs) => {
     setMyListTabValue(value);
@@ -44,24 +45,24 @@ const DashBoardModalScreen = () => {
   const myBookmarktabChange = async (value: myBookmarktabs) => {
     setMyBookMarkState(value);
   };
- 
+
 
   return (
     <>
-    
-      <SearchModalScreen {...{  options, showMap }} />
+
+      <SearchModalScreen {...{ options, showMap }} />
       <ProfileAccountModalScreen showMap={showMap} />
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
-        <MyBookMarkModal
+      <MyBookMarkModal
         {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
-       <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
+      <PrivacyPolicy {...{ showMap }}></PrivacyPolicy>
       <FilterModalScreen showMap={showMap} />
       <FilterListModalScreen />
       <PlacesModalScreen showMap={showMap} />
-    
+
       <PlaceOrderOnlineModalScreen showMap={showMap} />
       <EventListingModalScreen showMap={showMap} />
       <ActivitiesModalScreen showMap={showMap} />
@@ -71,6 +72,7 @@ const DashBoardModalScreen = () => {
       <WalksModal />
       <BetaExploreModal />
       <InfoAppScreen {...{ showMap }} />
+      <BannerModal />
     </>
   );
 };

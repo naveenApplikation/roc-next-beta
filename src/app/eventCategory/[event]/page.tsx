@@ -1,8 +1,10 @@
 //@ts-nocheck
 import { getCategory } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import BannerModal from "@/components/bannerModal/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
+import Modal from "@/components/modal/Modal";
 import React from "react";
 export const maxDuration = 300;
 // Generate static paths for dynamic routes
@@ -62,6 +64,7 @@ export default async function Page({ params }: { params: { event: string } }) {
         type="eventCategory"
         slug={params.event}
       />
+      <BannerModal />
     </>
   );
 }

@@ -232,7 +232,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <AdsBanner />
+      {/* <AdsBanner /> */}
     </>
   );
 };

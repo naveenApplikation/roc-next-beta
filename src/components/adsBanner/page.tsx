@@ -126,7 +126,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "4
           </AdContent>
         </AdBody>
       </AdContainer>
-      <DirectionModalLayout
+      {/* <DirectionModalLayout
         isOpen={modalType.adsBanner}
         name="adsBanner"
         showMap={showMap}
@@ -140,7 +140,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "4
           title="Jersey War Tunnels Escape Rooms"
           className="iframe_body"
         ></iframe>
-      </DirectionModalLayout>
+      </DirectionModalLayout> */}
     </>
   );
 }

@@ -86,7 +86,7 @@ const Wellbeing: React.FC<DashboardProps> = ({data}) => {
        );
      }) : ""}
    </ScrollingMenu>
-   <AdsBanner/>
+   {/* <AdsBanner/> */}
  </>
   )
 };

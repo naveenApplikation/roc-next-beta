@@ -9,7 +9,7 @@ export default async function page() {
   return (
     <div>
       <ListItem data={listData} urlTitle={"Activity Categories"}></ListItem>
-      <AdsBanner/>
+      {/* <AdsBanner/> */}
     </div>
   );
 }
