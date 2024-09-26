@@ -116,6 +116,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     walksModal: false,
     AboutUs: false,
     filterOption: false,
+    adsBanner:false
   });
   const options = {
     dates: false,
@@ -327,7 +328,6 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const mapButtonClick = () => {
     setShowMap(false);
   };
-  const filterOption = ["opening"];
   const modalClick = (
     name: string,
     item?: any,

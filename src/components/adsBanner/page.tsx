@@ -88,20 +88,22 @@ const AdText = styled.div`
 
 interface AdsBannerProps {
   className?: string;
-  maxWidth?:string;
+  maxWidth?: string;
 }
-const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px" , maxWidth="480px" }) => {
-  const [open , setOpen] = useState<boolean>(false)
-  const { showMap } = useMyContext();
+const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "480px" }) => {
+  const [open, setOpen] = useState<boolean>(false)
+  const { showMap, modalClick , modalType ,closeModal } = useMyContext();
 
 
-const handleOpen =()=>{
-  setOpen(!open)
-}
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+
+  console.log("modalTypemodalType" , modalType)
 
   return (
     <>
-      <AdContainer $className={className} $maxWidth={maxWidth} onClick={handleOpen}>
+      <AdContainer $className={className} $maxWidth={maxWidth} onClick={() => modalClick("adsBanner", "adsBanner")}>
         <AdBody $maxWidth={maxWidth}>
           <Image
             src={BannerDemo}
@@ -125,19 +127,19 @@ const handleOpen =()=>{
         </AdBody>
       </AdContainer>
       <DirectionModalLayout
-        isOpen={open}
+        isOpen={modalType.adsBanner}
         name="adsBanner"
         showMap={showMap}
-        onClose={handleOpen}
+        onClose={() => closeModal("adsBanner")}
       >
         <iframe
-              style={{ border: "none", height: "100%", overflow: 'hidden' }}
-              src="https://hub.roc.je/featured/jersey-war-tunnels-escape-rooms"
-              height="500px"
-              width="100%"
-              title="Jersey War Tunnels Escape Rooms"
-              className="iframe_body"
-            ></iframe>
+          style={{ border: "none", height: "100%", overflow: 'hidden' }}
+          src="https://hub.roc.je/featured/jersey-war-tunnels-escape-rooms"
+          height="500px"
+          width="100%"
+          title="Jersey War Tunnels Escape Rooms"
+          className="iframe_body"
+        ></iframe>
       </DirectionModalLayout>
     </>
   );

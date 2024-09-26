@@ -80,7 +80,6 @@ const InfoAppScreen: React.FC<InfoAppProps> = ({ showMap }) => {
           </div>
         ) : (
           <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
-            
             <iframe
               style={{ border: "none", height: "100%", overflow: 'hidden' }}
               src={linkData[appName]}
