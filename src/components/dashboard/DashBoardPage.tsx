@@ -41,36 +41,33 @@ const DashBoard = async () => {
 
   const listData = await getApiWithIcon("category", iconsHome);
   let LocalCusinedata = await getCategory("google/dine-out");
-  LocalCusinedata = LocalCusinedata.GoogleHomeScreenList.slice(0,10)
+  LocalCusinedata = {"name":LocalCusinedata.listName,"id":LocalCusinedata._id,"listData":LocalCusinedata.GoogleHomeScreenList.slice(0,10)}
   let familyEventdata = await getUpcoming("upcomming-events");
   familyEventdata = await familyEventdata.data.slice(0,10);
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
   let topAttractionsdata = await getCategory("google/top-attraction");
-  topAttractionsdata=
-    topAttractionsdata[0].GoogleHomeScreenList.slice(0, 10);
+  topAttractionsdata= {"name":topAttractionsdata.listName,"id":topAttractionsdata._id,"listData":topAttractionsdata.GoogleHomeScreenList.slice(0,10)}
   let bardata = await getDataForHome("Pubs", listData[0]?._id);
   bardata= bardata.categoryList.slice(0, 10);
   let beachLifedata = await getCategory("google/beach-life");
-  beachLifedata = beachLifedata[0].GoogleHomeScreenList.slice(0,10);
+  beachLifedata = {"name":beachLifedata.listName,"id":beachLifedata._id,"listData":beachLifedata[0].GoogleHomeScreenList.slice(0,10)}
    
   let sustainabilitydata = await getCategory("google/sustainability");
-  sustainabilitydata= sustainabilitydata[0]?.GoogleHomeScreenList.slice(0,10)
+  sustainabilitydata=  {"name":sustainabilitydata.listName,"id":sustainabilitydata ._id,"listData":sustainabilitydata[0].GoogleHomeScreenList.slice(0,10)}
   let Heritagedata = await getCategory("google/heritage");
    Heritagedata =
-     Heritagedata[0].GoogleHomeScreenList?.slice(0, 10); 
+   {"name":Heritagedata.listName,"id":Heritagedata._id,"listData":Heritagedata[0].GoogleHomeScreenList.slice(0,10)}
   const Walksdata = await getCategory("walks");
   let Wellbeingdata = await getCategory("wellbeing-lists");
 
   let Cocktaildata = await getCategory("google/cocktail-bars");
-  Cocktaildata=
-    Cocktaildata[0].GoogleFoodAndDrinksList?.slice(0, 10);
+  Cocktaildata= {"name":Cocktaildata.listName,"id":Cocktaildata._id,"listData": Cocktaildata[0].GoogleFoodAndDrinksList?.slice(0, 10)}
+   
 
   let Surfingdata = await getCategory("google/surfing");
-  Surfingdata= Surfingdata[0].GoogleHomeScreenList?.slice(
-    0,
-    10
-  );
+  Surfingdata= 
+  {"name":Surfingdata.listName,"id":Surfingdata[0]._id,"listData":Surfingdata.GoogleHomeScreenList.slice(0,10)}
   const Shoppingdata = await getApiShoppingWithIcon(
     "shopping-lists",
     shoppingImages
@@ -79,6 +76,7 @@ const DashBoard = async () => {
   const activities = await getApiWithIcon("activity-list", iconsHome);
  const client = getClient();
   const post = await getAllPosts(client);
+  console.log(Surfingdata)
   return (
     <>
       <SearchNFilter />

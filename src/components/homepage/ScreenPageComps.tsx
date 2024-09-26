@@ -20,6 +20,7 @@ interface DashboardProps {
 
 const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
   const {  modalClick, menuClick } = useMyContext(); 
+  console.log(data,"data coming")
   return <>
    <MenuDetails
   isOpen={() => menuClick(data?.listName, false, data?._id)}
@@ -50,7 +51,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
         </div>
       ))
     : title.includes("Beach life")
-    ? data?.slice(0, 10).map((item: any, index: any) => {
+    ? data.listData?.slice(0, 10).map((item: any, index: any) => {
         return (
           <div
             key={index}
@@ -104,7 +105,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
         );
       })
     : title.includes("Top Attractions")
-    ? data?.slice(0, 10).map((item: any, index: any) => {
+    ? data.listData?.slice(0, 10).map((item: any, index: any) => {
         return (
           <div
             key={index}
@@ -162,7 +163,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data,title }) => {
           </div>
         );
       })
-    : data?.slice(0, 10).map((item: any, index: any) => (
+    : data.listData?.slice(0, 10).map((item: any, index: any) => (
         <div key={index}>
           <RatingMenu
             headerImage={item.photoUrl}
