@@ -178,7 +178,7 @@ const MainInsideWrapper = styled.div`
 
 const Container = styled.div`
   padding: 40px;
-  padding-bottom:90px;
+  padding-bottom: 90px;
   background-color: #fff;
   width: ${sideWidth};
   height: 100%;
@@ -186,6 +186,7 @@ const Container = styled.div`
   @media screen and (max-width: 800px) {
     width: 100%;
     padding: 40px 15px;
+    padding-bottom: 150px;
   }
 `;
 
