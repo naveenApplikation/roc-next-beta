@@ -99,7 +99,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "4
     setOpen(!open)
   }
 
-  console.log("modalTypemodalType" , modalType)
+  // console.log("modalTypemodalType" , modalType)
 
   return (
     <>

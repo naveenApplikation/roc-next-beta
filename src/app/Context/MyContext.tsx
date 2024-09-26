@@ -352,12 +352,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }));
       } else {
         setModalType((prev) => {
-          console.log(name);
           const updatedState = Object.keys(prev).reduce((acc, key) => {
             acc[key] = key === name;
             return acc;
           }, {} as { [key: string]: boolean });
-
+          
+          // console.log(updatedState);
           return updatedState as typeof prev;
         });
       }

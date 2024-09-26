@@ -21,6 +21,8 @@ import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvent
 import { useEffect } from "react";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import { useRouter } from "next/navigation";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 interface CategoriesPageProps {
   params: string;
@@ -131,6 +133,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         <CategoryBody title={props.params}>
           <HeaderScreen title={props.params} />
           {categories()}
+          <AdsBanner />
         </CategoryBody>
       </PageLayout>
       <Categories></Categories>
@@ -138,6 +141,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       <FilterModalScreenEvents></FilterModalScreenEvents>
       <SocialShareModal
       ></SocialShareModal>
+          <BannerModal />
     </>
   );
 };

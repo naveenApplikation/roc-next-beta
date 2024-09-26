@@ -10,6 +10,8 @@ export default async function page() {
   return (
     <div>
       <ListItem data={listData} urlTitle={"Event Categories"}></ListItem>
+      <AdsBanner />
+      <BannerModal />
     </div>
   );
 }

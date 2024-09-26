@@ -219,7 +219,6 @@ const EventPage: React.FC<EventBoxProps> = ({
             </ImageContainer>
           </div>
         </Header>
-        bharat
         <div
           style={{
             padding: "10px 0px",

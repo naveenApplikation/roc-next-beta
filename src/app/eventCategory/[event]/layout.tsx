@@ -17,6 +17,7 @@ export default async function layout({ children }: { children: ReactNode }) {
       <FilterListModalScreen />
       <FilterModalScreenEvents></FilterModalScreenEvents>
       <SocialShareModal></SocialShareModal>
+      <BannerModal />
     </>
   );
 }

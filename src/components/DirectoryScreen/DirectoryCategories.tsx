@@ -1,5 +1,7 @@
 import { getDirectoryCategories } from "@/app/action";
 import { ListItem } from "../trendingList/ListItem";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 interface TrendingListProps {
   urlData?: any;
@@ -15,6 +17,8 @@ const DirectoryCatories: React.FC<TrendingListProps> = async ({
   return (
     <>
       <ListItem data={listData} urlTitle={urlTitle}></ListItem>
+      <AdsBanner />
+      <BannerModal />
     </>
   );
 };

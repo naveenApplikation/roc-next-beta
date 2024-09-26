@@ -360,7 +360,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           alt="scroll"
         />
       </SearchedListContainer>
-      {/* <AdsBanner /> */}
+      <AdsBanner />
       {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
     </>
   );

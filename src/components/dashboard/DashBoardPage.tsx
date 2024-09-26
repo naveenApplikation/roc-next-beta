@@ -111,7 +111,7 @@ const DashBoard = async () => {
       {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
       <LeaveFeedbackButton />
       {/* <CustomBanner /> */}
-      {/* <AdsBanner maxWidth="auto" /> */}
+      <AdsBanner maxWidth="auto" />
     </>
   );
 };

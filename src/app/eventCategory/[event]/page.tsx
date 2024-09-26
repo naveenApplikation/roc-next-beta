@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: { event: string } }) {
         type="eventCategory"
         slug={params.event}
       />
-      <BannerModal />
+      {/* <BannerModal /> */}
     </>
   );
 }
