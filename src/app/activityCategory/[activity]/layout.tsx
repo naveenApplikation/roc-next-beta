@@ -13,7 +13,7 @@ export default async function layout({ children }: { children: ReactNode }) {
     <>
       <PageLayout>
         <CategoryBody>{children}</CategoryBody>
-        <AdsBanner />
+        
       </PageLayout>
       <Categories></Categories>
       <FilterListModalScreen />

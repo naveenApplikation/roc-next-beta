@@ -265,9 +265,10 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      {/* <AdsBanner className="75px" /> */}
+      <AdsBanner className="75px" />
       <ScrollList
         data={filteredData}
+        bottom={"30px"}
         params={"activity-list"}
         background={"#F2994A"}>
 
