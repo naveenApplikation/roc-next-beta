@@ -29,6 +29,7 @@ import FilterSection from "@/components/AllModalScreen/FilterModalScreenForEvent
 import { filterEvents } from "@/components/AllModalScreen/FilterModalScreenForEvents/Filters";
 import ActivityFilterSection from "../AllModalScreen/FilterModalScreenForEvents/ActivityFIlterSection";
 import { useParams } from "next/navigation";
+import AdsBanner from "../adsBanner/page";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -264,10 +265,13 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
+      {/* <AdsBanner className="75px" /> */}
       <ScrollList
         data={filteredData}
         params={"activity-list"}
-        background={"#F2994A"}></ScrollList>
+        background={"#F2994A"}>
+
+        </ScrollList>
       {/* <CustomBanner /> */}
     </>
   );

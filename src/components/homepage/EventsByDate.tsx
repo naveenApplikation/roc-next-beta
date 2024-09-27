@@ -10,6 +10,8 @@ import { eventsByDate } from "@/app/utils/homeIcon";
 import { useRouter } from "next/navigation";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import Link from "next/link";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 const ScrollingMenu = styled.div`
   display: flex;
@@ -59,23 +61,24 @@ const EventsByDate = () => {
       <ScrollingMenu>
         {!eventsByDate
           ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-              </div>
-            ))
+            <div key={index}>
+              <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
+            </div>
+          ))
           : eventsByDate.length
-          ? eventsByDate.map((item: any, index: any) => {
+            ? eventsByDate.map((item: any, index: any) => {
               return (
                 <Link key={index} href={EventMenuClick(item)}>
                   <CommunityContainer
                     style={{ background: item?.color, cursor: "pointer" }}>
-                    <p style={{ textAlign: "end" }}> {item?.icon}</p>
-                    <p style={{ paddingBottom: "5px" }}>{item?.name}</p>
+                    <p style={{ textAlign: "end" }}> {item?.icon} </p>
+                    <p style={{ paddingBottom: "5px" }}>{item?.name} </p>
                   </CommunityContainer>
                 </Link>
               );
             })
-          : ""}
+            : ""}
+        {/* <BannerModal /> */}
       </ScrollingMenu>
     </>
   );

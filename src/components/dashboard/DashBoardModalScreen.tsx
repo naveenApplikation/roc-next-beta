@@ -62,7 +62,6 @@ const DashBoardModalScreen = () => {
       <FilterModalScreen showMap={showMap} />
       <FilterListModalScreen />
       <PlacesModalScreen showMap={showMap} />
-
       <PlaceOrderOnlineModalScreen showMap={showMap} />
       <EventListingModalScreen showMap={showMap} />
       <ActivitiesModalScreen showMap={showMap} />

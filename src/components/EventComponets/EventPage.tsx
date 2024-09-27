@@ -286,14 +286,17 @@ const EventPage: React.FC<EventBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <AdsBanner className="75px" />
       <ScrollList
         params={"event-category-list"}
         background={"#EB5757"}
+        bottom= "90px"
         data={filteredData}></ScrollList>
     </>
   );
-  return <>{Event}</>;
+  return <>
+  {Event}
+  <AdsBanner  />
+  </>;
 };
 
 // Existing styles remain unchanged...

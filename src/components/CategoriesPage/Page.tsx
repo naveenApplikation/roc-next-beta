@@ -52,23 +52,23 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     data = combinedArray;
   }
 
-   const router = useRouter();
-     
+  const router = useRouter();
+
   useEffect(() => {
     resetFilters();
-    
+
   }, [props.searchParams]);
-  useEffect(()=>{
-      router.prefetch(
-        `categories/${props.params}?search=${props.searchParams}`
-      );
-  },[props.params, props.searchParams, router])
+  useEffect(() => {
+    router.prefetch(
+      `categories/${props.params}?search=${props.searchParams}`
+    );
+  }, [props.params, props.searchParams, router])
   data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  
-  console.log(props.params, 42, props.params == "activity-list");
+
+  // console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
     if (
       props.params === "event-category-list" ||
@@ -137,11 +137,11 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         </CategoryBody>
       </PageLayout>
       <Categories></Categories>
-      <FilterListModalScreen/>
+      <FilterListModalScreen />
       <FilterModalScreenEvents></FilterModalScreenEvents>
       <SocialShareModal
       ></SocialShareModal>
-          <BannerModal />
+      <BannerModal />
     </>
   );
 };

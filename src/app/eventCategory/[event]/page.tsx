@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { getCategory } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import AdsBanner from "@/components/adsBanner/page";
 import BannerModal from "@/components/bannerModal/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
@@ -64,6 +65,7 @@ export default async function Page({ params }: { params: { event: string } }) {
         type="eventCategory"
         slug={params.event}
       />
+      {/* <AdsBanner className="75px" /> */}
       {/* <BannerModal /> */}
     </>
   );

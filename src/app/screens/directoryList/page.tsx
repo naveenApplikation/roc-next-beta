@@ -23,6 +23,8 @@ import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionM
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import { CloseModal } from "@/app/utils/ImagePath";
 import PrivacyPolicy from "@/components/homepage/PrivacyAndPolicyModal/page";
+import AdsBanner from "@/components/adsBanner/page";
+import BannerModal from "@/components/bannerModal/page";
 
 type tabs = "Lists" | "Places";
 type mylisttabs = "Created" | "Contributed";
@@ -37,8 +39,8 @@ const Directorylist = () => {
   const mylistoptions = ["Created", "Contributed"];
   const [tabValue, setTabValue] = useState("Lists");
 
-   const [myBookMarkState, setMyBookMarkState] = useState("Lists");
- 
+  const [myBookMarkState, setMyBookMarkState] = useState("Lists");
+
   const myBookmarkoptions = ["Lists", "Events"];
 
   const myBookmarktabChange = async (value: myBookmarktabs) => {
@@ -51,7 +53,7 @@ const Directorylist = () => {
   };
 
   const router = useRouter();
-console.log("route", router)
+  console.log("route", router)
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -103,7 +105,7 @@ console.log("route", router)
         <Container>
           {/* <Header className=""> */}
 
-            {/* <TitltCategory> All Categories</TitltCategory>
+          {/* <TitltCategory> All Categories</TitltCategory>
             <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
               src={CloseModal}
@@ -151,10 +153,10 @@ console.log("route", router)
       <ProfileMylistModalScreen
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
-         <MyBookMarkModal
+      <MyBookMarkModal
         {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
       />
-      <PrivacyPolicy {...{showMap}}></PrivacyPolicy>
+      <PrivacyPolicy {...{ showMap }}></PrivacyPolicy>
       <PlacesModalScreen showMap={showMap} />
       {/* <CalenderBookDatesModalScreen showMap={showMap} /> */}
       <PlaceOrderOnlineModalScreen showMap={showMap} />
@@ -163,6 +165,8 @@ console.log("route", router)
       <DirectoryModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
       <ReservationCalenderModal showMap={showMap} />
+      <AdsBanner />
+      <BannerModal />
     </PageLayout>
   );
 };
@@ -176,7 +180,7 @@ const CategoryBody = styled.div`
   width: ${sideWidth};
   height: 100vh;
   overflow: auto;
-
+  padding-bottom: 85px;
   &::-webkit-scrollbar {
     display: none;
   }

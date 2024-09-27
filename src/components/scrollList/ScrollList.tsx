@@ -10,13 +10,14 @@ interface ScrollListPage {
   data?: any;
   background?: any;
   params?: any;
+  bottom?: any;
 }
 
-const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
+const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom }) => {
   const router = useRouter();
 
   return (
-    <Container>
+    <Container bottom = {bottom}>
       <MainWrapper>
         {data.map((item: any) => {
           return (
@@ -50,9 +51,11 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params }) => {
 
 export default ScrollList;
 
-const Container = styled.div`
+const Container = styled.div<{
+  bottom: string;
+}>`
   position: fixed;
-  bottom: 30px;
+  bottom: ${({ bottom }) => bottom};
   z-index: 199399999;
   z-index: 1;
   max-width: 100%;

@@ -27,6 +27,7 @@ import EventsByDate from "../homepage/EventsByDate";
 import Blog from "../homepage/Blog";
 import { getAllPosts, getClient } from "@/lib/sanity.client";
 import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -110,8 +111,8 @@ const DashBoard = async () => {
       <ScreenPageComps data={TopAttractionsdata[0]} title="Top Attractions" />
       {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
       <LeaveFeedbackButton />
-      {/* <CustomBanner /> */}
       <AdsBanner maxWidth="auto" />
+      {/* <BannerModal /> */}
     </>
   );
 };
