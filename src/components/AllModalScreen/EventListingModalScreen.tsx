@@ -32,18 +32,24 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   console.log(params);
   const handleClose = () => {
     console.log(params);
+   closeModal("eventListing");
+    switch(true)
+    {
+       case params.event?true:false:
+            if(path?.includes('eventCategory'))
+            {
+            router.replace(`/eventCategory/${params?.event}`)
+            }
+            else if(path?.includes('eventByDate')){
+                  router.replace(`/eventByDate/${params?.event}`)
+            }
+            break;
+       
+       default:
+            router.replace(``);
 
-    if (params?.eventName) {
-      closeModal("eventListing");
-
-      router.replace(``);
-    } else {
-      //  router.replace(`/screens/${params.events}?categoryID=${searchParams.get('categoryID')}`);
-      closeModal("eventListing");
-      if (path.includes("upcoming")) {
-        router.replace("/eventCategory/upcoming");
-      }
     }
+    
   };
 
   return (

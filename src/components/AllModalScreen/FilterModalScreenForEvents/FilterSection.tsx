@@ -46,15 +46,14 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     "Hearing_loop",
     "Pet_Friendly",
   ];
-  if (params?.eventName == "activity-list") {
+  if (pathName?.includes("activityCategory")) {
     events.push("Catering");
   }
 
   const dropdowns = () => {
     if (
-      params?.eventName == "event-category-list" ||
-      params?.eventName == "EventsByDate" ||
-      params?.eventName == "Events"
+      pathName?.includes("eventCategory") ||
+      pathName?.includes("eventBydate")
     ) {
       return ["Free", "Booking"];
     } else {
@@ -76,13 +75,13 @@ const FilterSection: React.FC<FilterSectionProps> = ({
       >
         {eventFilters[name].length > 0 && (
           <Tick>
-            <Image src={tick} alt="tick"></Image>{" "}
+            <Image src={tick}  alt="tick"></Image>{" "}
           </Tick>
         )}
 
         {item}
         <Caret className={filterOptions[name] ? "active" : ""}>
-          {filterOptions[name] ? (
+          {filterOptions[name]? (
             <Image src={caret} alt="infoCirlce" />
           ) : (
             <Image src={caret} alt="infoCirlce" />
@@ -104,7 +103,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
       )}
 
       <ScrollingMenu>
-        {params?.eventName == "activity-list" ? (
+        {pathName?.includes("activityCategory") ? (
           forActivities
         ) : (
           <>

@@ -137,8 +137,11 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   }, [urlData]);
 
   useEffect(() => {
-    resetFilters();
-  }, [params]);
+     if(params?.activity)
+     {
+        resetFilters();
+     }
+  }, [params?.activity]);
 
   useEffect(() => {
     const filEve = filterEvents(urlData, eventFilters);
