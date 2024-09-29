@@ -176,6 +176,9 @@ const DropdownButton = styled.button`
   &.active {
     background-color: rgba(235, 235, 235, 255);
   }
+  & img {
+    max-width: none;
+  }
 `;
 
 const Tick = styled.span`
