@@ -2,7 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { phoneBlack, phone, share, currency, globeIcon, mailIcon, locationIcon } from "@/app/utils/ImagePath";
+import {
+  phoneBlack,
+  phone,
+  share,
+  currency,
+  globeIcon,
+  mailIcon,
+  locationIcon,
+} from "@/app/utils/ImagePath";
 import toast from "react-hot-toast";
 import { Tooltip } from "antd";
 import Link from "next/link";
@@ -243,7 +251,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       name: (
         <Tooltip title={"Price"}>
           <span onClick={() => copylink(data?.acf?.price_to)}>
-            {`${data?.acf?.price_to ? '£' + data?.acf?.price_to + "-"  : ''} ${data?.acf?.price_from ? "£" : ""} ${data?.acf?.price_from}`}
+            {`${data?.acf?.price_to ? "£" + data?.acf?.price_to + "-" : ""} ${data?.acf?.price_from ? "£" : ""} ${data?.acf?.price_from}`}
           </span>
         </Tooltip>
       ),
@@ -252,7 +260,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       image: currency,
       width: 10,
       height: 24,
-      nameValue: (data?.acf?.price_to || data?.acf?.price_from) ? true : false,
+      nameValue: data?.acf?.price_to || data?.acf?.price_from ? true : false,
     },
     {
       name: (
@@ -395,7 +403,6 @@ const ActivitiesModal: React.FC<ModalProps> = ({
       </ItemImageContainer>
       <ResturantDetailsContainer>
         {ActivitiesListData.map((item, index) => {
-           console.log("bharat pael", item.name ? "yes": "no")
           return (
             item.nameValue && (
               <ResturantDetailsWrapper key={index}>

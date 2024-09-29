@@ -231,6 +231,8 @@ const EventPage: React.FC<EventBoxProps> = ({
                 <MainInsideWrapper>
                   <FamilyEventWrapper>
                     <Image
+                      unoptimized
+                      priority
                       src={filteredUrls[index]}
                       alt="image"
                       width={500}
