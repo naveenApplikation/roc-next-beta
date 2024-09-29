@@ -17,6 +17,7 @@ import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSe
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import CustomBanner from "../AdComponent/CustomBanner";
 import AdsBanner from "../adsBanner/page";
+import ActivityFilterSection from "../AllModalScreen/FilterModalScreenForEvents/ActivityFIlterSection";
 // import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
@@ -130,8 +131,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}
-          >
+            }}>
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -149,9 +149,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}
-        >
-          <FilterSection pageTitle="categoryEvent" />
+          }}>
+          <ActivityFilterSection pageTitle="categoryEvent" />
         </div>
 
         {loader
@@ -187,8 +186,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               return (
                 <SearchedData
                   key={index}
-                  onClick={() => handlemodalView(item, index)}
-                >
+                  onClick={() => handlemodalView(item, index)}>
                   <div
                     style={{
                       display: "flex",
@@ -196,8 +194,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}
-                  >
+                    }}>
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}
@@ -205,6 +202,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       style={{
                         borderRadius: 4,
                         width: "80px",
+                        height: "80px",
                         objectFit: "cover",
                       }}
                       alt=""

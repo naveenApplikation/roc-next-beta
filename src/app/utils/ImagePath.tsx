@@ -1,3 +1,5 @@
+
+import emailBlack from '../../../assets/images/menuModalsImage/email.png'
 import gloveImg from "../../../assets/images/globe.svg";
 import phoneImg from "../../../assets/images/phone.svg";
 import filterSearchImg from "../../../assets/images/filterSearch.svg";
@@ -60,7 +62,7 @@ import utensilImg from "../../../assets/images/utensilsImg.svg";
 import ellipsisImg from "../../../assets/images/ellipsis.svg";
 import eventImg from "../../../assets/images/event.svg";
 import closeModalImg from "../../../assets/images/closeModal.svg";
-import clocksImg from "../../../assets/images/clocks.svg";
+import clocksImg from "../../../assets/images/clocks.svg"; // -----------------------------------------------
 import globeImg from "../../../assets/images/globereal.svg";
 import profileBlackImg from "../../../assets/images/profileBlack.svg";
 import profileWhiteImg from "../../../assets/images/profileWhite.svg";
@@ -187,6 +189,47 @@ import eventMobile from "../../../assets/images/rightSideMenuImage/calendarMobil
 import MaskGroup from "../../../assets/images/MaskGroup.svg";
 import BannerImg from "../../../assets/images/demo.png";
 import RightArowImg from "../../../assets/images/rightArrow.png";
+
+import envelope from '../../../assets/images/modalImageSVG/envelope.svg';
+import globesimag from '../../../assets/images/modalImageSVG/globe.svg';
+import locationImgs from '../../../assets/images/modalImageSVG/location-dot.svg';
+import dateImgs from '../../../assets/images/modalImageSVG/calendar.svg';
+import timeImgs from '../../../assets/images/clocks.svg';
+
+
+
+
+
+
+
+
+
+export const mailIcon = envelope;
+export const globeIcon = globesimag;
+export const locationIcon = locationImgs;
+export const dateIcon = dateImgs;
+export const timeIcon = timeImgs;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const tick = tickSvg;
 export const backArrow = backArrowSvg;
@@ -394,6 +437,8 @@ interface HamburgerProps {
 interface ThumbsUPIconProp {
   color: string;
 }
+
+export const blackEmail = emailBlack
 
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
   return (

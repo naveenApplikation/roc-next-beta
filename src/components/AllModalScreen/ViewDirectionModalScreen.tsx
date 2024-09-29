@@ -14,7 +14,7 @@ const ViewDirectionModalScreen: React.FC<DashboardSearchContainerProps> = ({ sho
 
   return (
     <>
-      <DirectionModalLayout
+   { showMap &&  <DirectionModalLayout
         isOpen={modalType.DirectionModal}
         onClose={() => closeModal("DirectionModal")}
         name="DirectionModal"
@@ -22,7 +22,7 @@ const ViewDirectionModalScreen: React.FC<DashboardSearchContainerProps> = ({ sho
         title="Directions"
       >
         <DirectionModal dataDetails={dataDetails} />
-      </DirectionModalLayout>
+      </DirectionModalLayout>}
     </>
   );
 };

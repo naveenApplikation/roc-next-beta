@@ -99,15 +99,14 @@ const SearchInput = styled.input`
   &::placeholder {
     color: #000;
   }
-    
+
   &[type="search"]::-webkit-search-cancel-button {
-  display: none;
+    display: none;
+  }
 `;
 
 const SearchIcon = styled(Image)`
   cursor: pointer;
-  width:25px;
+  width: 25px;
   height: 25px;
-
-}
 `;

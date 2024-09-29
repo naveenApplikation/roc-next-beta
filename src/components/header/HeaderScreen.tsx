@@ -86,7 +86,12 @@ const HeaderScreen = ({ title }: Props) => {
             height={26}
             src={backArrow}
             alt="back arrow"
-            style={{ paddingTop: "2px", cursor: "pointer" }}
+            style={{
+              paddingTop: "2px",
+              cursor: "pointer",
+              height: "30px",
+              width: "26px",
+            }}
             onClick={handleBack}></Image>
           <Image
             style={{ cursor: "pointer" }}

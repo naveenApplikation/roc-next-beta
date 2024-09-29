@@ -138,8 +138,11 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   }, [urlData]);
 
   useEffect(() => {
-    resetFilters();
-  }, [params]);
+     if(params?.activity)
+     {
+        resetFilters();
+     }
+  }, [params?.activity]);
 
   useEffect(() => {
     const filEve = filterEvents(urlData, eventFilters);
@@ -239,6 +242,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                   style={{
                     borderRadius: 4,
                     width: "80px",
+                    height: "80px",
                     objectFit: "cover",
                   }}
                   alt=""

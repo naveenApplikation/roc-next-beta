@@ -1,42 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import Image from "next/image";
-
-const AdContainer = styled.div`
-  width: 100%;
-  position: sticky;
-  bottom: -2px;
-  cursor: pointer;
-  z-index: 99999999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e3e3e3f9;
-
-  @media (min-width: 800px) {
-    max-width: 480px;
-  }
-
-  @media screen and (max-width: 800px) {
-    position: fixed;
-  }
-  @media screen and (min-width: 390px) {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: fixed;
-  }
-`;
-
-const AdBody = styled.div`
-  width: 100%;
-  max-width: 390px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const banners = [
   {
@@ -86,8 +51,10 @@ export default function CustomBanner() {
   };
 
   return (
-    <AdContainer onClick={handleClick}>
-      <AdBody>
+    <div
+      className="w-full sticky bottom-[-2px] cursor-pointer z-[99999999] flex justify-center items-center bg-[#e3e3e3f9] md:max-w-[480px] md:position-fixed sm:position-fixed sm:pt-[5px]"
+      onClick={handleClick}>
+      <div className="w-full max-w-[390px] flex flex-col justify-center items-center">
         <Image
           src={banners[currentBannerIndex].imgSrc}
           alt="Advertisement"
@@ -95,7 +62,8 @@ export default function CustomBanner() {
           height={60}
           // layout="fill" // You can uncomment this if you want to make the image responsive
         />
-      </AdBody>
-    </AdContainer>
+        <p className="leading-[2.3] text-[14px] font-light">Featured Charity</p>
+      </div>
+    </div>
   );
 }

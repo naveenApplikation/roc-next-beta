@@ -10,10 +10,13 @@ const LeaveFeedbackButton = () => {
     const {menuClick } = useMyContext();
 
   return (
-    <LeaveFeedbackButtonContainer onClick={() => menuClick("LeaveFeedback")}>
-        <CommonButton text="Leave feedback" />
-      </LeaveFeedbackButtonContainer>
-  )
+    <div
+      className="pl-[40px] pr-[40px] pb-[120px]"
+      onClick={() => menuClick("LeaveFeedback")}
+    >
+      <CommonButton text="Leave feedback" />
+    </div>
+  );
 }
 
 export default LeaveFeedbackButton

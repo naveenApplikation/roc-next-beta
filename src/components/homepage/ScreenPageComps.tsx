@@ -1,8 +1,7 @@
 "use client";
-
 import { useMyContext } from "@/app/Context/MyContext";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
+
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
 import fallback from "../../../assets/images/fallbackimage.png";
 import Skeleton from "react-loading-skeleton";
@@ -16,21 +15,6 @@ interface DashboardProps {
   title: string;
 }
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
 const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
   const { modalClick, menuClick } = useMyContext();
 
@@ -38,10 +22,10 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
     
     <>
       <MenuDetails
-        isOpen={() => menuClick(data?.listName, false, data?._id)}
+        isOpen={() => menuClick(data?.name, false, data?.id)}
         title={title}
       />
-      <ScrollingMenu>
+      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
@@ -66,217 +50,131 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
               </div>
             ))
           : title.includes("Beach life")
-            ? data?.GoogleHomeScreenList?.slice(0, 10).map(
-                (item: any, index: any) => {
+            ? data.listData?.slice(0, 10).map((item: any, index: any) => {
+                return (
+                  <div
+                    key={index}
+                    className="h-[120px] min-w-[120px] bg-black/[0.01] bg-bottom bg-no-repeat flex flex-col items-end relative cursor-pointer justify-between"
+                    onClick={() =>
+                      modalClick(
+                        "ModalContent",
+                        item,
+                        item?.data_type === "google"
+                          ? item?.photoUrl
+                          : item.photoUrl
+                            ? item.photoUrl
+                            : fallback
+                      )
+                    }>
+                    {item?.data_type === "google" ? (
+                      <Image
+                        className="w-full h-full rounded-[4px] object-cover cursor-pointer"
+                        width={500}
+                        height={80}
+                        src={item.photoUrl ? item.photoUrl : fallback}
+                        alt="Image"
+                        loading="lazy"
+                        placeholder="blur"
+                      />
+                    ) : (
+                      <Image
+                        src={item.photoUrl ? item.photoUrl : fallback}
+                        alt=""
+                        width={500}
+                        height={80}
+                        className="rounded-[4px] w-full h-full object-cover cursor-pointer"
+                        loading="lazy"
+                        placeholder="blur"
+                      />
+                    )}
+                    <Image
+                      src={MaskGroupImg}
+                      alt=""
+                      width={120}
+                      height={64}
+                      className="absolute bottom-0 h-[50px]"
+                      loading="lazy"
+                      placeholder="blur"
+                    />
+                    <p className="text-white text-[14px] font-normal overflow-hidden text-ellipsis line-clamp-3 absolute bottom-[8px] left-[12px]">
+                      {item?.data_type === "google" ? item?.name : item?.name}
+                    </p>
+                  </div>
+                );
+              })
+            : title.includes("Top Attractions")
+              ? data.listData?.slice(0, 10).map((item: any, index: any) => {
                   return (
-                    <WalkContainer
+                    <div
                       key={index}
+                      className="flex flex-col items-center gap-[8px] w-[80px] cursor-pointer"
                       onClick={() =>
                         modalClick(
                           "ModalContent",
                           item,
                           item?.data_type === "google"
                             ? item?.photoUrl
-                            : item.photoUrl
-                              ? item.photoUrl
+                            : item?.photoUrl
+                              ? item?.photoUrl
                               : fallback
                         )
                       }>
-                      {item?.data_type === "google" ? (
-                        <ImageTag
-                          width={500}
-                          height={80}
-                          src={item.photoUrl ? item.photoUrl : fallback}
-                          alt="Image"
-                        />
-                      ) : (
-                        <Image
-                          src={item.photoUrl ? item.photoUrl : fallback}
-                          alt=""
-                          width={500}
-                          height={80}
-                          style={{
-                            borderRadius: "4px",
-                            maxWidth: "100%",
-                            objectFit: "cover",
-                            cursor: "pointer",
-                          }}
-                          // alt=""
-                        />
-                      )}
-                      <Image
-                        src={MaskGroupImg}
-                        alt=""
-                        width={120}
-                        height={64}
-                        style={{ position: "absolute", bottom: 0, height: 50 }}
-                      />
-                      <p>
-                        {item?.data_type === "google" ? item?.name : item?.name}
-                      </p>
-                    </WalkContainer>
-                  );
-                }
-              )
-            : title.includes("Top Attractions")
-              ? data?.GoogleHomeScreenList?.slice(0, 10).map(
-                  (item: any, index: any) => {
-                    return (
-                      <TopAttractionContainer
-                        key={index}
-                        style={{ cursor: "pointer" }}
-                        onClick={() =>
-                          modalClick(
-                            "ModalContent",
-                            item,
-                            item?.data_type === "google"
-                              ? item?.photoUrl
-                              : item?.photoUrl
-                                ? item?.photoUrl
-                                : fallback
-                          )
-                        }>
-                        <TopAttractionprofile>
-                          {item?.data_type === "google" ? (
-                            item.photoUrl == undefined ? (
-                              <Image
-                                src={fallback}
-                                alt=""
-                                width={500}
-                                height={80}
-                                style={{
-                                  borderRadius: "100%",
-                                  maxWidth: "100%",
-                                  objectFit: "cover",
-                                }}
-                                // alt=""
-                              />
-                            ) : (
-                              <ImageTag
-                                width={500}
-                                height={80}
-                                src={item.photoUrl}
-                                alt="Image"
-                              />
-                            )
-                          ) : (
+                      <div className="w-[80px] h-[80px] rounded-full bg-black/[0.08] border border-black/[0.08] bg-contain">
+                        {item?.data_type === "google" ? (
+                          item.photoUrl == undefined ? (
                             <Image
                               src={fallback}
                               alt=""
                               width={500}
                               height={80}
-                              style={{
-                                borderRadius: "100%",
-                                maxWidth: "100%",
-                                objectFit: "cover",
-                              }}
-                              // alt=""
+                              className="rounded-full w-full h-full object-cover"
+                              loading="lazy"
+                              placeholder="blur"
                             />
-                          )}
-                        </TopAttractionprofile>
-                        <p>
-                          {item?.data_type === "google"
-                            ? item?.name
-                            : item?.name}
-                        </p>
-                      </TopAttractionContainer>
-                    );
-                  }
-                )
-              : (title.includes("Out Out")
-                  ? data?.GoogleFoodAndDrinksList
-                  : title.includes("Pubs")
-                    ? data?.categoryList
-                    : data?.GoogleHomeScreenList
-                )
-                  .slice(0, 10)
-                  .map((item: any, index: any) => (
-                    <div key={index}>
-                      <RatingMenu
-                        // title={item.name}
-                        headerImage={item.photoUrl}
-                        containerImageUrl={true}
-                        MenutitleDetail={item.name}
-                        isOpen={() =>
-                          modalClick("ModalContent", item, item.photoUrl, true)
-                        }
-                      />
+                          ) : (
+                            <Image
+                              className="w-full h-full rounded-full object-cover cursor-pointer"
+                              width={500}
+                              height={80}
+                              src={item.photoUrl}
+                              alt="Image"
+                              loading="lazy"
+                              placeholder="blur"
+                            />
+                          )
+                        ) : (
+                          <Image
+                            src={fallback}
+                            alt=""
+                            width={500}
+                            height={80}
+                            className="rounded-full w-full h-full object-cover"
+                            loading="lazy"
+                            placeholder="blur"
+                          />
+                        )}
+                      </div>
+                      <p className="text-center text-[12px] font-medium overflow-hidden text-ellipsis line-clamp-3">
+                        {item?.data_type === "google" ? item?.name : item?.name}
+                      </p>
                     </div>
-                  ))}
-      </ScrollingMenu>
+                  );
+                })
+              : data.listData?.slice(0, 10).map((item: any, index: any) => (
+                  <div key={index}>
+                    <RatingMenu
+                      headerImage={item.photoUrl}
+                      containerImageUrl={true}
+                      MenutitleDetail={item.name}
+                      isOpen={() =>
+                        modalClick("ModalContent", item, item.photoUrl, true)
+                      }
+                    />
+                  </div>
+                ))}
+      </div>
     </>
   );
 };
 
 export default ScreenPageComps;
-
-const WalkContainer = styled.div`
-  height: 120px;
-  min-width: 120px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.01);
-  display: flex;
-  align-items: end;
-  flex-direction: column;
-  position: relative;
-  cursor: pointer;
-
-  justify-content: space-between;
-  p {
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    position: absolute;
-    bottom: 8px;
-    left: 12px;
-  }
-  img {
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-  }
-`;
-
-const ImageTag = styled(Image)`
-  width: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  height: 100%;
-  cursor: "pointer";
-`;
-const TopAttractionContainer = styled.div`
-  display: flex;
-  width: 80px;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-
-  p {
-    text-align: center;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-`;
-
-const TopAttractionprofile = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-
-  background-size: contain;
-`;

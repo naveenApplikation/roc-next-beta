@@ -1,5 +1,5 @@
 "use client";
-
+import backgroundImg from "../../../assets/bg040724.webp";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -103,6 +103,7 @@ const RightSideInsideMenuBox = styled.div`
 const RightMenu = styled.div`
   position: fixed;
   right: 24px;
+
   @media screen and (max-width: 800px) {
     position: fixed;
     display: flex;
@@ -113,8 +114,7 @@ const RightMenu = styled.div`
     top: 0;
     width: 100%;
     right: 0;
-    background-position: 50% 50%;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/roc-web-app-8a6e8.appspot.com/o/app-images%2Fbg-min.png?alt=media&token=f848b949-a4ef-4eb1-ad6c-e064568be630);
+    background-position: 50% 50%; /* Removing background-image property */
     background-size: cover;
   }
 `;
@@ -188,13 +188,31 @@ const RightSide = () => {
 
   return (
     <RightMenu>
+      <div
+        className="background-image-wrapper"
+        style={{ position: "absolute", inset: 0, zIndex: -1 }}>
+        <Image
+          src={backgroundImg.src}
+          layout="fill"
+          objectFit="cover"
+          alt="Background"
+          // Optional: Use 'priority' for faster loading
+        />
+      </div>
       <RightSideHeadMenu>
-        <Image src={LogoNew} width={117} height={48} alt="Logo Outline" />
+        <Image
+          src={LogoNew}
+          width={117}
+          height={48}
+          style={{ height: "48px" }}
+          alt="Logo Outline"
+        />
         <HeaderMapProfileContainer>
           <Image
             src={iconbeta}
             width={48}
             height={48}
+            style={{ height: "48px" }}
             alt="Logo Outline"
             // onClick={() => modalClick("createAccountModal")}
           />

@@ -1,51 +1,12 @@
 "use client"
 
 import React from "react";
-import styled from "styled-components";
+
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
 
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const OptionMenu = styled(ScrollingMenu)`
-  gap: 25px;
-`;
-
-const NormalOption = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  gap: 8px;
-  justify-content: space-between;
-  img{
-    height:18px;
-    width:18px;
-  }
-`;
-
-const Tittle = styled.p`
-  color: var(--BODY, #000);
-text-align: center;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-`
+ 
 
 const InfoApp = () => {
 
@@ -59,20 +20,34 @@ const InfoApp = () => {
 
   return (
     <>
-      <OptionMenu>
+      <div className="flex overflow-auto px-[16px] md:px-[40px] no-scrollbar gap-[25px]">
         {topSideMenu.map((item: any, index: any) => {
           return (
-            <NormalOption
-              className=""
+            <div
+              className="flex flex-col items-center cursor-pointer gap-[8px] justify-betwee"
               key={index}
               onClick={() => modalClick("infoApp", item.name)}
             >
-              <Image src={item.image} alt="right icon" />
-              <Tittle style={{textTransform : item.name==="sos" ? "uppercase":"capitalize" , whiteSpace:"nowrap"}}>{formatNameWithSpaces(item.name)}</Tittle>
-            </NormalOption>
+              <Image
+                className="h-[18px] w-[18px]"
+                src={item.image}
+                alt="right icon"
+                priority
+              />
+              <p
+                className="text-black text-center text-[14px] font-normal leading-normal"
+                style={{
+                  textTransform:
+                    item.name === "sos" ? "uppercase" : "capitalize",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {formatNameWithSpaces(item.name)}
+              </p>
+            </div>
           );
         })}
-      </OptionMenu>
+      </div>
     </>
   );
 };

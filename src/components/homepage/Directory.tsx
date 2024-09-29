@@ -2,69 +2,10 @@
 
 import React from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
+ 
 import { DirectoryHomepage } from "@/app/utils/homeIcon";
 import { useMyContext } from "@/app/Context/MyContext";
-
-const DirectoryWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 0px 40px;
-  padding-bottom: 17px;
-
-  img {
-    width: 16px;
-    height: 16px;
-  }
-
-  @media screen and (max-width: 800px) {
-    margin: 0px 16px;
-  }
-`;
-
-const DirectoryMenuTitle = styled.p`
-  font-size: 1.6rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  cursor: pointer;
-  text-transform: capitalize;
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-  flex: 1;
-  cursor: pointer;
-`;
-
-const FirstMainWraaper = styled(MainWrapper)``;
-
-const AddButton = styled.button`
-  display: flex;
-  padding: 12px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  border-radius: 8px;
-  background: #fff;
-  border: none;
-  box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.4);
-  margin: 0px 40px;
-  color: #2f80ed;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-
-  @media screen and (max-width: 800px) {
-    margin: 0px 16px;
-  }
-`;
-
+ 
 const DirectoryList = () => {
   const { modalClick, menuClick } = useMyContext();
 
@@ -75,22 +16,36 @@ const DirectoryList = () => {
         isOpen={() => menuClick("directoryList")}
       />
       {DirectoryHomepage.slice(0, 5).map((item: any, index: any) => (
-        <DirectoryWrapper key={index}>
-          <FirstMainWraaper
-            onClick={() => menuClick(item.data[0].url, true, "Directory")}>
+        <div
+          className="flex justify-between border-b border-black/[0.1] mx-[16px] pb-[17px] md:mx-[40px]"
+          key={index}
+        >
+          <div
+            className="flex items-center justify-start gap-[15px] flex-1 cursor-pointer"
+            onClick={() => menuClick(item.data[0].url, true, "Directory")}
+          >
             {item.data[0].image}
-            <DirectoryMenuTitle>{item.data[0].title}</DirectoryMenuTitle>
-          </FirstMainWraaper>
-          <MainWrapper
-            onClick={() => menuClick(item.data[1].url, true, "Directory")}>
+            <p className="text-[1.6rem] font-normal leading-normal cursor-pointer capitalize">
+              {item.data[0].title}
+            </p>
+          </div>
+          <div
+            className="flex items-center justify-start gap-[15px] flex-1 cursor-pointer"
+            onClick={() => menuClick(item.data[1].url, true, "Directory")}
+          >
             {item.data[1].image}
-            <DirectoryMenuTitle>{item.data[1].title}</DirectoryMenuTitle>
-          </MainWrapper>
-        </DirectoryWrapper>
+            <p className="text-[1.6rem] font-normal leading-normal cursor-pointer capitalize">
+              {item.data[1].title}
+            </p>
+          </div>
+        </div>
       ))}
-      <AddButton onClick={() => modalClick("AddDirectoryModal")}>
+      <button
+        className="flex px-[16px] py-[12px] justify-center items-center gap-[8px] self-stretch rounded-[8px] bg-white border-none shadow-[0_0_40px_rgba(0,0,0,0.4)] mx-[16px] text-[#2f80ed] text-[14px] font-semibold cursor-pointer md:mx-[40px]"
+        onClick={() => modalClick("AddDirectoryModal")}
+      >
         Add to Directory
-      </AddButton>
+      </button>
     </>
   );
 };

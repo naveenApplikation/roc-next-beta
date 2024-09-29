@@ -7,7 +7,7 @@ import {
   bookmarkActive,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React, { useEffect, useState, useRef, Suspense } from "react";
+import React, { useEffect, useState, useRef, Suspense, useCallback, useMemo } from "react";
 import styled, { keyframes } from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -63,14 +63,14 @@ const EventPage: React.FC<EventBoxProps> = ({
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const params = useParams();
-
+  const params =useParams()
+  
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
     }
   };
-
+  
   useEffect(() => {
     const filEve = filterEvents(urlData, eventFilters);
     const ImageUrlData = filEve?.map(
@@ -109,7 +109,7 @@ const EventPage: React.FC<EventBoxProps> = ({
       if (modalId && date) {
         let temp: any,
           index = 0;
-        urlData.every((element: any, position: any) => {
+        displayedItems.every((element: any, position: any) => {
           if (
             date &&
             element._id === modalId.replace("$", "") &&
@@ -118,11 +118,12 @@ const EventPage: React.FC<EventBoxProps> = ({
             index = position;
             temp = element;
             return false;
-          } else if (element._id === modalId.replace("$", "")) {
-            index = position;
-            temp = element;
-            return false;
           }
+          // } else if (element._id === modalId.replace("$", "")) {
+          //   index = position;
+          //   temp = element;
+          //   return false;
+          // }
           return true;
         });
         if (temp) {
@@ -137,11 +138,13 @@ const EventPage: React.FC<EventBoxProps> = ({
       }
     }
   }, [urlData]);
-
-  useEffect(() => {
-    resetFilters();
-  }, [params]);
-
+ 
+  useEffect(()=>{
+        if(params?.event)
+        {
+            resetFilters()
+        }
+  },[params?.event])
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
       return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
@@ -234,12 +237,18 @@ const EventPage: React.FC<EventBoxProps> = ({
               <SearchedData>
                 <MainInsideWrapper>
                   <FamilyEventWrapper>
-                    <img
+                    <Image
+                      unoptimized
+                      priority
                       src={filteredUrls[index]}
                       alt="image"
-                      width={80}
+                      width={500}
                       height={80}
-                      style={{ objectFit: "cover" }}
+                      style={{
+                        objectFit: "cover",
+                        width: "80px",
+                        height: "80px",
+                      }}
                     />
                     <FamilyEventWrapperInside>
                       <p className="date">{formatDate(item.acf?.event_date)}</p>

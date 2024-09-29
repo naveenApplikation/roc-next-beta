@@ -1,50 +1,31 @@
 "use client";
 
 import React from "react";
-import styled from "styled-components";
+
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
-import {search } from "@/app/utils/ImagePath";
-
+import { search } from "@/app/utils/ImagePath";
 
 const SearchNFilter = () => {
-  const {modalClick} = useMyContext();
+  const { modalClick } = useMyContext();
 
   return (
     <>
-      <InputButtonWrapper>
-        <button onClick={() => modalClick("search")}>
+      <div className="mt-[20px] px-[16px] md:px-[40px] md:pt-[16px]">
+        <button
+          className="px-[24px] py-[19px] shadow-[0_0_24px_rgba(82,41,0,0.5)] bg-white outline-none border-none w-full rounded-[8px] flex justify-between items-center text-[18px] font-medium"
+          onClick={() => modalClick("search")}>
           <p>Search...</p>
-          <SearchIcon src={search} alt="Search" />
+          <Image
+            className="cursor-pointer"
+            src={search}
+            alt="Search"
+            priority
+          />
         </button>
-      </InputButtonWrapper>
+      </div>
     </>
   );
 };
 
 export default SearchNFilter;
-
-const InputButtonWrapper = styled.div`
-  padding: 0px 40px;
-  button {
-    padding: 19px 24px;
-    box-shadow: 0px 0px 24px 0px rgba(82, 41, 0, 0.5);
-    background: white;
-    outline: none;
-    border: none;
-    width: 100%;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-    padding-top: 16px;
-  }
-`;
-const SearchIcon = styled(Image)`
-  cursor: pointer;
-`;
