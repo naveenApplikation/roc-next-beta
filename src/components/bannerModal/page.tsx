@@ -21,7 +21,7 @@ const BannerModal: React.FC<BannerModalProps> = () => {
         src="https://hub.roc.je/featured/cafe-at-jersey-war-tunnels"
         height="500px"
         width="100%"
-        title="Cafe@ Jersey War Tunnels"
+        title="Cafe @ Jersey War Tunnels"
         className="iframe_body"></iframe>
     </Modal>
   );

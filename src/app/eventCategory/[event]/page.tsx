@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { event: string } }) {
 
   if (params.event === "upcoming") {
     // Fetch upcoming events
-    response = await getCategory("upcomming-events");
+    response = await getCategory("upcomming-events?type=limit");
     title = "Upcoming Events";
   } else {
     // Fetch event categories

@@ -49,7 +49,7 @@ const DashBoard = async () => {
     id: LocalCusinedata?._id,
     listData: LocalCusinedata.GoogleHomeScreenList.slice(0, 10),
   };
-  let familyEventdata = await getUpcoming("upcomming-events");
+  let familyEventdata = await getCategory("upcomming-events?type=limit");
   familyEventdata = await familyEventdata.data.slice(0, 10);
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;

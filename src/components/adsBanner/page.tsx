@@ -110,7 +110,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
           <Image src={BannerDemo2} alt="Advertisement" width={96} height={66} />
           <AdContent>
             <AdText>
-              <p className="baaner_heading">Cafe@ Jersey War Tunnels</p>
+              <p className="baaner_heading">Cafe @ Jersey War Tunnels</p>
               <p className="banner_text">Open daily 10am to 5pm</p>
             </AdText>
             <Image src={RightArow} alt="icon" height={20} />
