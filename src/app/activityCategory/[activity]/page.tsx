@@ -6,7 +6,7 @@ import AdsBanner from "@/components/adsBanner/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import React from "react";
-export const maxDuration = 300;
+export const maxDuration = 60;
 // Generate static paths for dynamic routes
 export async function generateStaticParams() {
   const category = await getCategory("activity-list");
@@ -69,7 +69,6 @@ export default async function Page({
         slug={params.activity}
         bookmarkState={true}
       />
-     
     </>
   );
 }

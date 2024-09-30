@@ -4,7 +4,7 @@ import { eventsByDate } from "@/app/utils/homeIcon";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import React from "react";
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 // This enables dynamic path generation using generateStaticParams
 export async function generateStaticParams() {

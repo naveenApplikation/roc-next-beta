@@ -7,7 +7,7 @@ import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import Modal from "@/components/modal/Modal";
 import React from "react";
-export const maxDuration = 300;
+export const maxDuration = 60;
 // Generate static paths for dynamic routes
 export async function generateStaticParams() {
   const category = await getCategory("event-list");

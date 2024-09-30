@@ -9,7 +9,7 @@ import ScaffoldingBox from "@/components/scaffoldingBox/page";
 import CategoriesPage from "@/components/CategoriesPage/Page";
 import { ResolvingMetadata, Metadata } from "next";
 import { cookies } from "next/headers";
-export const maxDuration = 300;
+export const maxDuration = 60;
 interface Props {
   params: {
     eventName: string;
@@ -85,8 +85,7 @@ async function Page({ params, searchParams }: Props) {
         searchParams={searchParams.search}
         modal={searchParams.modal}
         bookmarkValue={bookmark}
-        data={data}
-      ></CategoriesPage>
+        data={data}></CategoriesPage>
     </>
   );
 }
