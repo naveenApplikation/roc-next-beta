@@ -18,7 +18,7 @@ const BannerModal: React.FC<BannerModalProps> = () => {
       onClose={() => closeModal("adsBanner")}>
       <iframe
         style={{ border: "none", height: "100%", overflow: "hidden" }}
-        src="http://hub.roc.je/featured/cafe-at-jersey-war-tunnels"
+        src="https://hub.roc.je/featured/cafe-at-jersey-war-tunnels"
         height="500px"
         width="100%"
         title="Cafe @ Jersey War Tunnels"
