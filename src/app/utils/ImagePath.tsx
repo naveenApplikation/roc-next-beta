@@ -1,5 +1,4 @@
-
-import emailBlack from '../../../assets/images/menuModalsImage/email.png'
+import emailBlack from "../../../assets/images/menuModalsImage/email.png";
 import gloveImg from "../../../assets/images/globe.svg";
 import phoneImg from "../../../assets/images/phone.svg";
 import filterSearchImg from "../../../assets/images/filterSearch.svg";
@@ -187,49 +186,21 @@ import calendarMobile from "../../../assets/images/rightSideMenuImage/castleMobi
 import dineMobile from "../../../assets/images/rightSideMenuImage/utensilsMobile.png";
 import eventMobile from "../../../assets/images/rightSideMenuImage/calendarMobile.png";
 import MaskGroup from "../../../assets/images/MaskGroup.svg";
-import BannerImg from "../../../assets/images/demo.png";
+import BannerImg1 from "../../../assets/images/demo.png";
+import BannerImg2 from "../../../assets/images/Ads/jwt-cafe-1.webp";
 import RightArowImg from "../../../assets/images/rightArrow.png";
 
-import envelope from '../../../assets/images/modalImageSVG/envelope.svg';
-import globesimag from '../../../assets/images/modalImageSVG/globe.svg';
-import locationImgs from '../../../assets/images/modalImageSVG/location-dot.svg';
-import dateImgs from '../../../assets/images/modalImageSVG/calendar.svg';
-import timeImgs from '../../../assets/images/clocks.svg';
-
-
-
-
-
-
-
-
+import envelope from "../../../assets/images/modalImageSVG/envelope.svg";
+import globesimag from "../../../assets/images/modalImageSVG/globe.svg";
+import locationImgs from "../../../assets/images/modalImageSVG/location-dot.svg";
+import dateImgs from "../../../assets/images/modalImageSVG/calendar.svg";
+import timeImgs from "../../../assets/images/clocks.svg";
 
 export const mailIcon = envelope;
 export const globeIcon = globesimag;
 export const locationIcon = locationImgs;
 export const dateIcon = dateImgs;
 export const timeIcon = timeImgs;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const tick = tickSvg;
 export const backArrow = backArrowSvg;
@@ -420,8 +391,11 @@ export const dineMobileWhite = dineMobile;
 export const eventMobileWhite = eventMobile;
 
 export const MaskGroupImg = MaskGroup;
-export const BannerDemo = BannerImg;
 export const RightArow = RightArowImg;
+//ads
+export const BannerDemo = BannerImg1;
+export const BannerDemo2 = BannerImg2;
+
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
 // import hongueImg from "../../../assets/images/La Hougue Bie.svg"
@@ -438,7 +412,7 @@ interface ThumbsUPIconProp {
   color: string;
 }
 
-export const blackEmail = emailBlack
+export const blackEmail = emailBlack;
 
 export const Hamburger: React.FC<HamburgerProps> = ({ onClick }) => {
   return (

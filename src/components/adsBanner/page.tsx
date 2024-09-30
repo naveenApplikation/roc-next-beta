@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { BannerDemo, RightArow } from "@/app/utils/ImagePath";
-import DirectionModalLayout from "@/components/modal/Modal"
+import { BannerDemo, BannerDemo2, RightArow } from "@/app/utils/ImagePath";
+import DirectionModalLayout from "@/components/modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
 
 const AdContainer = styled.div<{
@@ -19,17 +19,16 @@ const AdContainer = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  background-color: #ffffff1c; 
-  backdrop-filter: blur(10px); 
-  -webkit-backdrop-filter: blur(10px); 
+
+  background-color: #ffffff1c;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding-bottom: ${({ $className }) => $className};
-  
+
   @media screen and (max-width: 800px) {
     position: fixed;
-    width:100%;
+    width: 100%;
     max-width: ${({ $maxWidth }) => $maxWidth};
-    
   }
   @media screen and (min-width: 390px) {
     position: fixed;
@@ -41,88 +40,80 @@ const AdBody = styled.div<{
 }>`
   width: 440px;
   display: flex;
-  border-radius:12px;
-  background:white;
-  border:1px solid #D9D9D9;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid #d9d9d9;
 
-  img{
-    border-radius:12px 0px 0px 12px;
+  img {
+    border-radius: 12px 0px 0px 12px;
   }
   @media screen and (max-width: 800px) {
-    width:97%;
+    width: 97%;
     max-width: ${({ $maxWidth }) => $maxWidth};
   }
 `;
 const AdContent = styled.div`
   padding: 4px 10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  width:100%;
-  
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
 const AdText = styled.div`
-.baaner_heading{
-  font-size:16px;
-  font-weight:700;
+  .baaner_heading {
+    font-size: 16px;
+    font-weight: 700;
     @media screen and (max-width: 367px) {
-      font-size:14px;
+      font-size: 14px;
     }
     @media screen and (max-width: 333px) {
-      font-size:12px;
-    }
-}
-.banner_text{
-  font-size:14px;
-  color: #0000007A;
-  font-weight:400;
-    @media screen and (max-width: 367px) {
-      font-size:12px;
-    }
-    @media screen and (max-width: 333px) {
-      font-size:10px;
+      font-size: 12px;
     }
   }
-  
-`
+  .banner_text {
+    font-size: 14px;
+    color: #0000007a;
+    font-weight: 400;
+    @media screen and (max-width: 367px) {
+      font-size: 12px;
+    }
+    @media screen and (max-width: 333px) {
+      font-size: 10px;
+    }
+  }
+`;
 
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
 }
-const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "480px" }) => {
-  const [open, setOpen] = useState<boolean>(false)
-  const { showMap, modalClick , modalType ,closeModal } = useMyContext();
-
+const AdsBanner: React.FC<AdsBannerProps> = ({
+  className = "20px",
+  maxWidth = "480px",
+}) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const { showMap, modalClick, modalType, closeModal } = useMyContext();
 
   const handleOpen = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   // console.log("modalTypemodalType" , modalType)
 
   return (
     <>
-      <AdContainer $className={className} $maxWidth={maxWidth} onClick={() => modalClick("adsBanner", "adsBanner")}>
+      <AdContainer
+        $className={className}
+        $maxWidth={maxWidth}
+        onClick={() => modalClick("adsBanner", "adsBanner")}>
         <AdBody $maxWidth={maxWidth}>
-          <Image
-            src={BannerDemo}
-            alt="Advertisement"
-            width={96}
-            height={66}
-          />
+          <Image src={BannerDemo2} alt="Advertisement" width={96} height={66} />
           <AdContent>
             <AdText>
-              <p className="baaner_heading">Can You Escape Jersey’s
-                Underground Puzzles?</p>
-              <p className="banner_text">Jersey War Tunnels Escape Rooms</p>
+              <p className="baaner_heading">Cafe@ Jersey War Tunnels</p>
+              <p className="banner_text">Open daily 10am to 5pm</p>
             </AdText>
-            <Image
-              src={RightArow}
-              alt="icon"
-              height={20}
-            />
-
+            <Image src={RightArow} alt="icon" height={20} />
           </AdContent>
         </AdBody>
       </AdContainer>
@@ -143,6 +134,6 @@ const AdsBanner: React.FC<AdsBannerProps> = ({ className = "20px", maxWidth = "4
       </DirectionModalLayout> */}
     </>
   );
-}
+};
 
-export default AdsBanner
+export default AdsBanner;
