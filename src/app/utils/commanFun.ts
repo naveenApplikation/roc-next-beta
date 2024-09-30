@@ -99,3 +99,20 @@ export function formatPhoneNumberForIOS(phoneNumber: string): string {
 export const handleCall = (linkNum: string) => {
   window.location.href = `tel:${formatPhoneNumberForIOS(linkNum)}`;
 };
+
+export function convertGCSUrl(gcsUrl:string) {
+  // Check if the input URL is valid and in the expected format
+  const regex = /^https:\/\/storage\.cloud\.google\.com\/(.+)\/(.+)$/;
+  const match = gcsUrl.match(regex);
+
+  if (match) {
+    // Extract the bucket name and the path to the image
+    const bucketName = match[1];
+    const imagePath = match[2];
+
+    // Construct the direct access URL
+    return `https://storage.googleapis.com/${bucketName}/${imagePath}`;
+  } else {
+    return gcsUrl;
+  }
+}

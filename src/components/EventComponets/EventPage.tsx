@@ -7,7 +7,14 @@ import {
   bookmarkActive,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
-import React, { useEffect, useState, useRef, Suspense, useCallback, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  Suspense,
+  useCallback,
+  useMemo,
+} from "react";
 import styled, { keyframes } from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -28,7 +35,7 @@ import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSe
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { handleEventEncoding } from "@/app/utils/commanFun";
+import { convertGCSUrl, handleEventEncoding } from "@/app/utils/commanFun";
 import AdsBanner from "../adsBanner/page";
 import BannerModal from "../bannerModal/page";
 
@@ -53,7 +60,7 @@ const EventPage: React.FC<EventBoxProps> = ({
     showMap,
     resetFilters,
     modalType,
-    closeModal
+    closeModal,
   } = useMyContext();
 
   const router = useRouter();
@@ -63,14 +70,14 @@ const EventPage: React.FC<EventBoxProps> = ({
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const params =useParams()
-  
+  const params = useParams();
+
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
     }
   };
-  
+
   useEffect(() => {
     const filEve = filterEvents(urlData, eventFilters);
     const ImageUrlData = filEve?.map(
@@ -138,13 +145,12 @@ const EventPage: React.FC<EventBoxProps> = ({
       }
     }
   }, [urlData]);
- 
-  useEffect(()=>{
-        if(params?.event)
-        {
-            resetFilters()
-        }
-  },[params?.event])
+
+  useEffect(() => {
+    if (params?.event) {
+      resetFilters();
+    }
+  }, [params?.event]);
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
       return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
@@ -198,11 +204,10 @@ const EventPage: React.FC<EventBoxProps> = ({
   // }, [loading, next, urlData]);
   // alert(slug);
 
-  console.log("eventsevents", events)
+  // console.log("eventsevents", events);
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
-
 
   const Event = (
     <>
@@ -299,13 +304,11 @@ const EventPage: React.FC<EventBoxProps> = ({
       <ScrollList
         params={"event-category-list"}
         background={"#EB5757"}
-        bottom= "30px"
+        bottom="30px"
         data={filteredData}></ScrollList>
     </>
   );
-  return <>
-  {Event}
-  </>;
+  return <>{Event}</>;
 };
 
 // Existing styles remain unchanged...
@@ -456,22 +459,16 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          imageUrls.push(url);
+          imageUrls.push(convertGCSUrl(url));
         } else {
-          imageUrls.push(
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          ); // Push default image URL if URL is not valid
+          imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        imageUrls.push(
-          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        ); // Push default image URL if JSON parsing fails
+        imageUrls.push(fallback.src); // Push default image URL if JSON parsing fails
       }
     } else {
-      imageUrls.push(
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-      ); // Push default image URL if item is undefined
+      imageUrls.push(fallback.src); // Push default image URL if item is undefined
     }
   });
   return imageUrls;

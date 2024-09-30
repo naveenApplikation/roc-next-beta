@@ -22,7 +22,7 @@ const AboutUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         <MenuModalContent>
             <iframe
                 style={{ border: "none", height: "100%", overflow: 'hidden', scrollbarWidth:'none', borderRadius:"15px" }}
-                src={'https://hub.roc.je/about-roc'}
+                src={'http://hub.roc.je/about-roc'}
                 height="500px"
                 width="100%"
                 title={"About us"}

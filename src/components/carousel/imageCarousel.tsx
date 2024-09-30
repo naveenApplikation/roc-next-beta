@@ -1,4 +1,5 @@
 import { getImageData } from '@/app/screenPageApi/getImageData';
+import { fallBack } from '@/app/utils/ImagePath';
 import Instance from '@/app/utils/Instance';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
@@ -104,7 +105,7 @@ const ImageCarousel: React.FC<ImageCraouselPrope> = ({ imageArr, imageUrl }) => 
                 src={
                     imageUrl
                         ? imageUrl
-                        : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+                        : fallBack.src
                 }
                 alt="Logo"
                 width={500}

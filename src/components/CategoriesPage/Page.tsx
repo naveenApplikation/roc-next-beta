@@ -23,6 +23,7 @@ import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filte
 import { useRouter } from "next/navigation";
 import AdsBanner from "../adsBanner/page";
 import BannerModal from "../bannerModal/page";
+import { fallBack } from "@/app/utils/ImagePath";
 
 interface CategoriesPageProps {
   params: string;
@@ -162,19 +163,16 @@ const filterUrls = (ImageUrlData: any) => {
           imageUrls.push(url);
         } else {
           imageUrls.push(
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          ); // Push default image URL if URL is not valid
+            fallBack.src          ); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
         imageUrls.push(
-          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        ); // Push default image URL if JSON parsing fails
+          fallBack.src        ); // Push default image URL if JSON parsing fails
       }
     } else {
       imageUrls.push(
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-      ); // Push default image URL if item is undefined
+        fallBack.src      ); // Push default image URL if item is undefined
     }
   });
   return imageUrls;

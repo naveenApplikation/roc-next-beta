@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     <>
       <HeaderScreen title={"Events"} />
       <EventPage
-        urlData={data}
+        urlData={data?data:[]}
         urlTitle={title}
         type="eventCategory"
         slug={params.event}

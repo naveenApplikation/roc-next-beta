@@ -11,7 +11,8 @@ import { CategoryIcons } from "@/app/utils/iconList";
 import { buildFilterUrl } from "@/app/utils/filter";
 import Instance from "@/app/utils/Instance";
 import { useRouter } from "next-nprogress-bar";
-
+import { convertGCSUrl } from "../utils/commanFun";
+import fallback from "../../../assets/images/fallbackimage.png"
 // Define types for your state and functions
 interface ModalType {
   [key: string]: boolean;
@@ -414,22 +415,20 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
           if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
-            imageUrls.push(url);
+            imageUrls.push(convertGCSUrl(url));
           } else {
             imageUrls.push(
-              "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+              fallback.src
             ); // Push default image URL if URL is not valid
           }
         } catch (error) {
           console.error("Error parsing JSON:", error);
           imageUrls.push(
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          ); // Push default image URL if JSON parsing fails
+            fallback.src          ); // Push default image URL if JSON parsing fails
         }
       } else {
         imageUrls.push(
-          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        ); // Push default image URL if item is undefined
+          fallback.src        ); // Push default image URL if item is undefined
       }
     });
     return imageUrls;

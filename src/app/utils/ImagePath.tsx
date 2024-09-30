@@ -195,6 +195,7 @@ import globesimag from "../../../assets/images/modalImageSVG/globe.svg";
 import locationImgs from "../../../assets/images/modalImageSVG/location-dot.svg";
 import dateImgs from "../../../assets/images/modalImageSVG/calendar.svg";
 import timeImgs from "../../../assets/images/clocks.svg";
+import fallback from "../../../assets/images/fallbackimage.png"
 
 export const mailIcon = envelope;
 export const globeIcon = globesimag;
@@ -392,6 +393,7 @@ export const eventMobileWhite = eventMobile;
 
 export const MaskGroupImg = MaskGroup;
 export const RightArow = RightArowImg;
+export const fallBack = fallback;
 //ads
 export const BannerDemo = BannerImg1;
 export const BannerDemo2 = BannerImg2;
