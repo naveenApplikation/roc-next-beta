@@ -16,6 +16,8 @@ import { useParams, useSearchParams } from "next/navigation";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import CustomBanner from "../AdComponent/CustomBanner";
+import AdsBanner from "../adsBanner/page";
+import ActivityFilterSection from "../AllModalScreen/FilterModalScreenForEvents/ActivityFIlterSection";
 // import { addAndRemoveBookmark } from "@/app/action";
 
 interface ExperienceBoxProps {
@@ -148,7 +150,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
           }}>
-          <FilterSection pageTitle="categoryEvent" />
+          <ActivityFilterSection pageTitle="categoryEvent" />
         </div>
 
         {loader
@@ -228,7 +230,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
-      <CustomBanner />
+      {/* <AdsBanner /> */}
     </>
   );
 };

@@ -178,13 +178,15 @@ const MainInsideWrapper = styled.div`
 
 const Container = styled.div`
   padding: 40px;
+  padding-bottom: 90px;
   background-color: #fff;
   width: ${sideWidth};
   height: 100%;
-  min-height: 83vh;
+  min-height: 100vh;
   @media screen and (max-width: 800px) {
     width: 100%;
     padding: 40px 15px;
+    padding-bottom: 150px;
   }
 `;
 

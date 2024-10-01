@@ -19,6 +19,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
   const { modalClick, menuClick } = useMyContext();
 
   return (
+    
     <>
       <MenuDetails
         isOpen={() => menuClick(data?.name, false, data?.id)}

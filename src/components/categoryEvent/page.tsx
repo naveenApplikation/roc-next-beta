@@ -25,6 +25,7 @@ import useSWR from "swr";
 import { addAndRemoveBookmark, getBookMark } from "@/app/action";
 import ScrollList from "@/components/scrollList/ScrollList";
 import CustomBanner from "../AdComponent/CustomBanner";
+import AdsBanner from "../adsBanner/page";
 
 interface EventBoxProps {
   categoryId?: any;
@@ -359,8 +360,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
           alt="scroll"
         />
       </SearchedListContainer>
+      {/* <AdsBanner /> */}
       {/* <ScrollList background={"rgba(39, 174, 96, 1)"} /> */}
-      <CustomBanner />
     </>
   );
 };

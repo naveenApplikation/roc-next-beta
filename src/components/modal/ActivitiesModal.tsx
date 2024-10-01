@@ -10,6 +10,7 @@ import {
   globeIcon,
   mailIcon,
   locationIcon,
+  fallBack,
 } from "@/app/utils/ImagePath";
 import toast from "react-hot-toast";
 import { Tooltip } from "antd";
@@ -393,7 +394,7 @@ const ActivitiesModal: React.FC<ModalProps> = ({
           src={
             dataImage
               ? dataImage
-              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+              : fallBack.src
           }
           alt="Logo"
           width={500}

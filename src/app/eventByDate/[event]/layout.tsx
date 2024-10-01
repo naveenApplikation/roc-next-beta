@@ -6,6 +6,7 @@ import Categories from "@/components/CategoriesPage/Categories";
 import SocialShareModal from "@/components/modal/SocialShareModal";
 import { ReactNode } from "react";
 import "@/app/globals.css";
+import BannerModal from "@/components/bannerModal/page";
 export default async function layout({ children }: { children: ReactNode }) {
   return (
     <>
@@ -15,6 +16,7 @@ export default async function layout({ children }: { children: ReactNode }) {
         <FilterListModalScreen />
         <FilterModalScreenEvents></FilterModalScreenEvents>
         <SocialShareModal></SocialShareModal>
+        <BannerModal />
       </PageLayout>
     </>
   );

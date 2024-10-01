@@ -1,8 +1,11 @@
 //@ts-nocheck
 import { getCategory } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import AdsBanner from "@/components/adsBanner/page";
+import BannerModal from "@/components/bannerModal/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
+import Modal from "@/components/modal/Modal";
 import React from "react";
 export const maxDuration = 300;
 // Generate static paths for dynamic routes
@@ -27,7 +30,7 @@ export default async function Page({ params }: { params: { event: string } }) {
 
   if (params.event === "upcoming") {
     // Fetch upcoming events
-    response = await getCategory("upcomming-events");
+    response = await getCategory("upcomming-events?type=limit");
     title = "Upcoming Events";
   } else {
     // Fetch event categories
@@ -62,6 +65,8 @@ export default async function Page({ params }: { params: { event: string } }) {
         type="eventCategory"
         slug={params.event}
       />
+      {/* <AdsBanner className="75px" /> */}
+      {/* <BannerModal /> */}
     </>
   );
 }

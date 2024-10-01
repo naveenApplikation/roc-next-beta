@@ -53,7 +53,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   const dropdowns = () => {
     if (
       pathName?.includes("eventCategory") ||
-      pathName?.includes("eventBydate")
+      pathName?.includes("eventByDate")
     ) {
       return ["Free", "Booking"];
     } else {

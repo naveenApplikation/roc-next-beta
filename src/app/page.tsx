@@ -8,6 +8,7 @@ import { Container, DashboardMenu, MainContainer } from "@/app/style";
 import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
 import "./globals.css";
+import AdsBanner from "@/components/adsBanner/page";
 export default function Home() {
   return (
     <>

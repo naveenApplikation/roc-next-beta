@@ -27,6 +27,8 @@ import EventsByDate from "../homepage/EventsByDate";
 import { getUpcoming } from "@/app/HomePageAction";
 import { getClient, getAllPosts } from "@/lib/sanity.client";
 import Blog from "../homepage/Blog";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -47,7 +49,7 @@ const DashBoard = async () => {
     id: LocalCusinedata?._id,
     listData: LocalCusinedata.GoogleHomeScreenList.slice(0, 10),
   };
-  let familyEventdata = await getUpcoming("upcomming-events");
+  let familyEventdata = await getCategory("upcomming-events?type=limit");
   familyEventdata = await familyEventdata.data.slice(0, 10);
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
@@ -152,7 +154,8 @@ const DashBoard = async () => {
       <ScreenPageComps data={topAttractionsdata} title="Top Attractions" />
       {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
       <LeaveFeedbackButton />
-      <CustomBanner />
+      <AdsBanner maxWidth="auto" />
+      {/* <BannerModal /> */}
     </>
   );
 };

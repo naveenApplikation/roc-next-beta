@@ -14,7 +14,7 @@ import { convertTo12HourTime } from "@/app/utils/commanFun";
 import { Tooltip } from "antd";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { blackEmail, currency, dateIcon, globeIcon, locationIcon, mailIcon, share, timeIcon } from "@/app/utils/ImagePath";
+import { blackEmail, currency, dateIcon, fallBack, globeIcon, locationIcon, mailIcon, share, timeIcon } from "@/app/utils/ImagePath";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -249,7 +249,7 @@ const ModalContent: React.FC<ModalProps> = ({
           src={
             dataImage
               ? dataImage
-              : "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+              :  fallBack.src
           }
           alt="logo"
           width={500}

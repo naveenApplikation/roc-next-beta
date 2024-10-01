@@ -5,6 +5,7 @@ import {
   bookmark,
   share,
   bookmarkActive,
+  fallBack,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -29,6 +30,7 @@ import FilterSection from "@/components/AllModalScreen/FilterModalScreenForEvent
 import { filterEvents } from "@/components/AllModalScreen/FilterModalScreenForEvents/Filters";
 import ActivityFilterSection from "../AllModalScreen/FilterModalScreenForEvents/ActivityFIlterSection";
 import { useParams } from "next/navigation";
+import AdsBanner from "../adsBanner/page";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -268,10 +270,14 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
           <CommonButton text="Suggest an Event" />
         </AddListButton>
       </SearchedListContainer>
+      <AdsBanner className="75px" />
       <ScrollList
         data={filteredData}
+        bottom={"30px"}
         params={"activity-list"}
-        background={"#F2994A"}></ScrollList>
+        background={"#F2994A"}>
+
+        </ScrollList>
       {/* <CustomBanner /> */}
     </>
   );
@@ -439,19 +445,17 @@ const filterUrlsForActivity: any = (ImageUrlData: any) => {
           imageUrls.push(url);
         } else {
           imageUrls.push(
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
+            fallBack.src
           ); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
         imageUrls.push(
-          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        ); // Push default image URL if JSON parsing fails
+          fallBack.src        ); // Push default image URL if JSON parsing fails
       }
     } else {
       imageUrls.push(
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-      ); // Push default image URL if item is undefined
+        fallBack.src      ); // Push default image URL if item is undefined
     }
   });
   return imageUrls;

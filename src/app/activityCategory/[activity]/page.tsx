@@ -2,6 +2,7 @@
 import { getCategory } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import ActivityPage from "@/components/ActivityComponents/ActivityPage";
+import AdsBanner from "@/components/adsBanner/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import React from "react";

@@ -10,6 +10,8 @@ import { eventsByDate } from "@/app/utils/homeIcon";
 import { useRouter } from "next/navigation";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import Link from "next/link";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
 
 const EventsByDate = () => {
   const EventMenuClick = (item: any) => {
@@ -21,10 +23,10 @@ const EventsByDate = () => {
       <div className="flex overflow-y-hidden gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!eventsByDate
           ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-              </div>
-            ))
+            <div key={index}>
+              <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
+            </div>
+          ))
           : eventsByDate.length
             ? eventsByDate.map((item: any, index: any) => {
                 return (
@@ -46,6 +48,7 @@ const EventsByDate = () => {
                 );
               })
             : ""}
+            {/* <BannerModal /> */}
       </div>
     </>
   );

@@ -21,6 +21,9 @@ import FilterModalScreenEvents from "../AllModalScreen/FilterModalScreenForEvent
 import { useEffect } from "react";
 import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import { useRouter } from "next/navigation";
+import AdsBanner from "../adsBanner/page";
+import BannerModal from "../bannerModal/page";
+import { fallBack } from "@/app/utils/ImagePath";
 
 interface CategoriesPageProps {
   params: string;
@@ -50,23 +53,23 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
     data = combinedArray;
   }
 
-   const router = useRouter();
-     
+  const router = useRouter();
+
   useEffect(() => {
     resetFilters();
-    
+
   }, [props.searchParams]);
-  useEffect(()=>{
-      router.prefetch(
-        `categories/${props.params}?search=${props.searchParams}`
-      );
-  },[props.params, props.searchParams, router])
+  useEffect(() => {
+    router.prefetch(
+      `categories/${props.params}?search=${props.searchParams}`
+    );
+  }, [props.params, props.searchParams, router])
   data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  
-  console.log(props.params, 42, props.params == "activity-list");
+
+  // console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
     if (
       props.params === "event-category-list" ||
@@ -131,13 +134,15 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
         <CategoryBody title={props.params}>
           <HeaderScreen title={props.params} />
           {categories()}
+          <AdsBanner />
         </CategoryBody>
       </PageLayout>
       <Categories></Categories>
-      <FilterListModalScreen/>
+      <FilterListModalScreen />
       <FilterModalScreenEvents></FilterModalScreenEvents>
       <SocialShareModal
       ></SocialShareModal>
+      <BannerModal />
     </>
   );
 };
@@ -158,19 +163,16 @@ const filterUrls = (ImageUrlData: any) => {
           imageUrls.push(url);
         } else {
           imageUrls.push(
-            "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-          ); // Push default image URL if URL is not valid
+            fallBack.src          ); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
         imageUrls.push(
-          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-        ); // Push default image URL if JSON parsing fails
+          fallBack.src        ); // Push default image URL if JSON parsing fails
       }
     } else {
       imageUrls.push(
-        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FNo_Image_Available.jpg?alt=media&token=90cbe8cc-39f6-45f9-8c4b-59e9be631a07"
-      ); // Push default image URL if item is undefined
+        fallBack.src      ); // Push default image URL if item is undefined
     }
   });
   return imageUrls;

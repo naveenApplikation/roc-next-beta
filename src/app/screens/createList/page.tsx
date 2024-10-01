@@ -120,7 +120,7 @@ const Page = () => {
     }
   };
 
-  // Debounce for 300 milliseconds
+  // Debounce for 60 milliseconds
   const [loader, setloader] = useState(false);
 
   const fetchDataAsync = async (value: string) => {

@@ -3,6 +3,8 @@ import EventList from "@/components/screenPage";
 import { Metadata, ResolvingMetadata } from "next";
 import { cookies } from "next/headers";
 import "@/app/globals.css";
+import BannerModal from "@/components/bannerModal/page";
+import AdsBanner from "@/components/adsBanner/page";
 interface Props {
   params: {
     events: string;
@@ -34,6 +36,8 @@ async function Page({ params, searchParams }: Props) {
   return (
     <>
       <EventList data={data} bookmarkValue={bookmark}></EventList>
+      <AdsBanner />
+      {/* <BannerModal /> */}
     </>
   );
 }

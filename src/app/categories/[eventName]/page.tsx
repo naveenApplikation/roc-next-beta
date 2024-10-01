@@ -42,11 +42,12 @@ async function Page({ params, searchParams }: Props) {
   }
   let data, title;
   let bookmark = false;
-  if (
-    search == "sun-shine" ||
-    search == "upcomming-events" ||
-    search == "activity"
-  ) {
+
+  if (search == "upcomming-events") {
+    const response = await getCategory(`${searchParams.search}?type=limit`);
+    title = await response.listName;
+    data = await response.data;
+  } else if (search == "sun-shine" || search == "activity") {
     const response = await getCategory(searchParams.search);
     title = await response.listName;
     data = await response.data;
@@ -85,8 +86,7 @@ async function Page({ params, searchParams }: Props) {
         searchParams={searchParams.search}
         modal={searchParams.modal}
         bookmarkValue={bookmark}
-        data={data}
-      ></CategoriesPage>
+        data={data}></CategoriesPage>
     </>
   );
 }
