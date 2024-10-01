@@ -63,12 +63,8 @@ const EventPage: React.FC<EventBoxProps> = ({
     closeModal,
   } = useMyContext();
 
-  const router = useRouter();
-
   const [filteredUrls, setFilteredUrls] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(urlData); // Only show first 10 items initially
-  const [loading, setLoading] = useState(false);
-  const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
 
@@ -126,11 +122,7 @@ const EventPage: React.FC<EventBoxProps> = ({
             temp = element;
             return false;
           }
-          // } else if (element._id === modalId.replace("$", "")) {
-          //   index = position;
-          //   temp = element;
-          //   return false;
-          // }
+
           return true;
         });
         if (temp) {
@@ -161,50 +153,6 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
 
-  const handleScroll = () => {
-    if (containerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-
-      // Check if the user has scrolled 80% down
-      if (
-        scrollTop + clientHeight >= scrollHeight * 0.8 &&
-        !loading &&
-        next < urlData.length
-      ) {
-        setLoading(true);
-        setTimeout(() => {
-          setDisplayedItems((prev: any) => [
-            ...prev,
-            ...urlData.slice(next, next + 10),
-          ]);
-          setNext((prev) => prev + 10);
-          setLoading(false);
-        }, 500); // Simulate loading delay
-      }
-    }
-  };
-
-  // Reset displayed items when urlData changes (due to filters being applied)
-  // useEffect(() => {
-  //   setDisplayedItems(urlData.slice(0, 10)); // Reset to the first 10 items
-  //   setNext(10); // Reset the counter for the next batch
-  // }, [urlData]);
-
-  // useEffect(() => {
-  //   const refCurrent = containerRef.current;
-  //   if (refCurrent) {
-  //     refCurrent.addEventListener("scroll", handleScroll);
-  //   }
-
-  //   return () => {
-  //     if (refCurrent) {
-  //       refCurrent.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, [loading, next, urlData]);
-  // alert(slug);
-
-  // console.log("eventsevents", events);
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
@@ -238,13 +186,11 @@ const EventPage: React.FC<EventBoxProps> = ({
         </div>
         {displayedItems?.map((item: any, index: any) => {
           return (
-            <Link key={index} href={returnEventItems(item)} prefetch={true}>
+            <Link key={index} href={returnEventItems(item)}>
               <SearchedData>
                 <MainInsideWrapper>
                   <FamilyEventWrapper>
                     <Image
-                      unoptimized
-                      priority
                       src={filteredUrls[index]}
                       alt="image"
                       width={500}
@@ -293,9 +239,7 @@ const EventPage: React.FC<EventBoxProps> = ({
             </Link>
           );
         })}
-        <div style={{ height: "100px", backgroundColor: "transparent" }}>
-          {loading && <p>Loading more items...</p>}
-        </div>
+
         <AddListButton onClick={() => modalClick("ContactUsModal")}>
           <CommonButton text="Suggest an Event" />
         </AddListButton>
