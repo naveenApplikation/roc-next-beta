@@ -245,7 +245,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </EventShare>
         )}
         <Image
-          unoptimized
+       
           src={
             dataImage
               ? dataImage

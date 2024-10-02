@@ -1,5 +1,6 @@
 "use client";
 
+import { useMyContext } from "@/app/Context/MyContext";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { useRouter } from "next-nprogress-bar";
 import { useParams, useSearchParams } from "next/navigation";
@@ -15,7 +16,7 @@ interface ScrollListPage {
 
 const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom }) => {
   const router = useRouter();
-
+  const {resetFilters}=useMyContext()
   return (
     <Container bottom = {bottom}>
       <MainWrapper>
@@ -24,6 +25,7 @@ const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom
             <Wrapper
               onClick={() => {
                 if (params === "event-category-list") {
+                  resetFilters()
                   router.push(
                     `/eventCategory/${handleEventEncoding("encode", item.slug)}`
                   );

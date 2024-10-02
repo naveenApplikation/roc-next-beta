@@ -55,6 +55,8 @@
     "react-share-social": "^0.1.60",
     "react-toastify": "^10.0.5",
     "react-virtualized": "^9.22.5",
+    "react-virtualized-auto-sizer": "^1.0.24",
+    "react-window": "^1.8.10",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "sanity": "^3.57.2",

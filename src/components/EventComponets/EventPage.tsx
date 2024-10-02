@@ -32,13 +32,20 @@ import { Spin } from "antd";
 import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
-import { filterEvents } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
+import {
+  filterEvents,
+  parseDate,
+  parseDateRange,
+  parseStateDateRange,
+} from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { convertGCSUrl, handleEventEncoding } from "@/app/utils/commanFun";
 import AdsBanner from "../adsBanner/page";
 import BannerModal from "../bannerModal/page";
-
+import Instance from "@/app/utils/Instance";
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
@@ -61,27 +68,89 @@ const EventPage: React.FC<EventBoxProps> = ({
     resetFilters,
     modalType,
     closeModal,
+    handleFilterOption,
   } = useMyContext();
 
   const [filteredUrls, setFilteredUrls] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(urlData); // Only show first 10 items initially
+  const [currentData, setCurrentData] = useState(urlData); // for upcoming events only
+  const [loading, setLoading] = useState(false);
+  const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
+  const pathName = usePathname();
 
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
     }
   };
+  useEffect(() => {
+    document.addEventListener(
+      "touchmove",
+      function (event) {
+        event.preventDefault();
+      },
+      { passive: true }
+    );
+    if (params?.event) {
+      resetFilters();
+    }
+  }, [params?.event]);
+  console.log(eventFilters);
+  const [isDate, setDate] = useState(false);
+  const dateWiseUpdate = async (range: string) => {
+    try {
+      setLoading(true);
+
+      const result = await Instance.get(
+        `/upcomming-events?type=range&date=${range}`
+      );
+      console.log(result.data);
+      //  const filEve = filterEvents(result.data.data, eventFilters);
+      //     const ImageUrlData = result.data.data?.map(
+      //   (item: any) => item?.acf?.header_image_data
+      // );
+      //    setFilteredUrls(filterUrls(ImageUrlData));
+      setCurrentData(result.data.data);
+      setDate(true);
+    } catch (error) {
+      setLoading(false);
+      setCurrentData(urlData);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const filEve = filterEvents(urlData, eventFilters);
+    //only this initiate whenever the date change
+
+    if (eventFilters.date && pathName?.includes("upcoming")) {
+      // only if in upcoming events
+      const { startDate, endDate } = parseStateDateRange(eventFilters.date);
+      const lastDate = urlData[urlData.length - 1].acf?.event_date;
+      console.log(
+        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+      );
+      if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
+        const format = parseDateRange(eventFilters.date);
+        dateWiseUpdate(format);
+      } else {
+        setDate(false);
+      }
+    } else {
+      setDate(false);
+    }
+  }, [eventFilters.date]);
+
+  useEffect(() => {
+    const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
     const ImageUrlData = filEve?.map(
       (item: any) => item?.acf?.header_image_data
     );
     setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
-  }, [eventFilters]);
+  }, [eventFilters, isDate, currentData]);
 
   function getFirstImageUrl(jsonString: string): string | boolean {
     try {
@@ -138,11 +207,6 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   }, [urlData]);
 
-  useEffect(() => {
-    if (params?.event) {
-      resetFilters();
-    }
-  }, [params?.event]);
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
       return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
@@ -157,99 +221,161 @@ const EventPage: React.FC<EventBoxProps> = ({
     return handleEventEncoding("encode", item.slug) !== slug;
   });
 
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => {
+    const item = displayedItems[index];
+    return (
+      <Link key={index} href={returnEventItems(item)} prefetch={true}>
+        <SearchedData style={style}>
+          <MainInsideWrapper>
+            <FamilyEventWrapper>
+              <Image
+                src={filteredUrls[index]}
+                alt="image"
+                width={500}
+                height={80}
+                style={{
+                  objectFit: "cover",
+                  width: "80px",
+                  height: "80px",
+                }}
+              />
+              <FamilyEventWrapperInside>
+                <p className="date">{formatDate(item.acf?.event_date)}</p>
+                <p className="month">{formatMonth(item.acf?.event_date)}</p>
+              </FamilyEventWrapperInside>
+            </FamilyEventWrapper>
+            <div className="restroRating">
+              <p className="shopName">{item.acf?.title}</p>
+              <DetailContainer>
+                {item?.acf?.parish?.label ? (
+                  <Image
+                    src={locationMark}
+                    style={{
+                      width: "13px",
+                      height: "13px",
+                      marginRight: 8,
+                    }}
+                    alt="utensils"
+                  />
+                ) : null}
+                <p>{item?.acf?.parish?.label}</p>
+              </DetailContainer>
+              <p>
+                <span>
+                  {item.acf?.event_dates[0]?.start_time}{" "}
+                  {item.acf?.event_dates[0]?.start_time ? "-" : " "}
+                  {item.acf?.event_dates[0]?.end_time}
+                </span>
+              </p>
+            </div>
+          </MainInsideWrapper>
+        </SearchedData>
+      </Link>
+    );
+  };
+
   const Event = (
     <>
-      <SearchedListContainer ref={containerRef}>
-        <Header className="">
-          <TitleText>{urlTitle}</TitleText>
-          <div
-            style={{
-              padding: "10px 0px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 8,
-            }}>
-            <ImageContainer selected={false} onClick={handleShare}>
-              <Image src={share} alt="Logo Outline" />
-            </ImageContainer>
-          </div>
-        </Header>
-        <div
-          style={{
-            padding: "10px 0px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}>
-          <FilterSection pageTitle="categoryEvent" />
-        </div>
-        {displayedItems?.map((item: any, index: any) => {
-          return (
-            <Link key={index} href={returnEventItems(item)}>
-              <SearchedData>
-                <MainInsideWrapper>
-                  <FamilyEventWrapper>
-                    <Image
-                      src={filteredUrls[index]}
-                      alt="image"
-                      width={500}
-                      height={80}
-                      style={{
-                        objectFit: "cover",
-                        width: "80px",
-                        height: "80px",
-                      }}
-                    />
-                    <FamilyEventWrapperInside>
-                      <p className="date">{formatDate(item.acf?.event_date)}</p>
-                      <p className="month">
-                        {formatMonth(item.acf?.event_date)}
-                      </p>
-                    </FamilyEventWrapperInside>
-                  </FamilyEventWrapper>
-                  <div className="restroRating">
-                    <p className="shopName">{item.acf?.title}</p>
-                    <DetailContainer>
-                      {item?.acf?.parish?.label ? (
-                        <Image
-                          src={locationMark}
-                          style={{
-                            width: "13px",
-                            height: "13px",
-                            marginRight: 8,
-                          }}
-                          alt="utensils"
-                        />
-                      ) : (
-                        ""
-                      )}
-                      <p>{item?.acf?.parish?.label}</p>
-                    </DetailContainer>
-                    <p>
-                      <span>
-                        {item.acf?.event_dates[0]?.start_time}{" "}
-                        {item.acf?.event_dates[0]?.start_time ? "-" : " "}
-                        {item.acf?.event_dates[0]?.end_time}
-                      </span>
-                    </p>
-                  </div>
-                </MainInsideWrapper>
-              </SearchedData>
-            </Link>
-          );
-        })}
+      <AutoSizer style={{ height: "inherit", width: "inherit" }}>
+        {({ height, width }) => (
+          <>
+            <SearchedListContainer ref={containerRef}>
+              <Header className="">
+                <TitleText>{urlTitle}</TitleText>
+                <div
+                  style={{
+                    padding: "10px 0px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 8,
+                  }}>
+                  <ImageContainer selected={false} onClick={handleShare}>
+                    <Image src={share} alt="Logo Outline" />
+                  </ImageContainer>
+                </div>
+              </Header>
+              <div
+                style={{
+                  padding: "10px 0px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}>
+                <FilterSection pageTitle="categoryEvent" />
+              </div>
 
-        <AddListButton onClick={() => modalClick("ContactUsModal")}>
-          <CommonButton text="Suggest an Event" />
-        </AddListButton>
-      </SearchedListContainer>
-      <AdsBanner className="75px" />
-      <ScrollList
-        params={"event-category-list"}
-        background={"#EB5757"}
-        bottom="30px"
-        data={filteredData}></ScrollList>
+              <List
+                height={600}
+                itemCount={displayedItems.length + 1}
+                itemSize={100}
+                width={width}>
+                {({ index, style }) => (
+                  <>
+                    {index < displayedItems.length ? (
+                      <Row index={index} style={{ ...style, width: "95%" }} />
+                    ) : (
+                      <div
+                        style={{
+                          ...style,
+                          width: "80%",
+                          height: "80px",
+                          //  display: 'flex',
+                          //  justifyContent:"center",
+                          //  alignItems:"center",
+                        }}>
+                        {!loading && (
+                          <AddListButton
+                            onClick={() => {
+                              modalClick("filterOption");
+                              handleFilterOption("dates");
+                            }}>
+                            <CommonButton text="For more Events" />
+                          </AddListButton>
+                        )}
+                      </div>
+                    )}
+                  </>
+                )}
+              </List>
+
+              {loading && (
+                <Loader
+                  style={{
+                    position: "absolute",
+                    background: "black",
+                    inset: "0",
+                    opacity: "0.7",
+                  }}>
+                  <Loader
+                    style={{
+                      position: "absolute",
+                      inset: "0",
+                      display: "flex",
+                      justifyContent: "center",
+                      top: "30%",
+                    }}>
+                    {" "}
+                    <CustomSpin tip="Loading" size="large"></CustomSpin>
+                  </Loader>
+                </Loader>
+              )}
+            </SearchedListContainer>
+            <AdsBanner className="75px" />
+            <ScrollList
+              params={"event-category-list"}
+              background={"#EB5757"}
+              bottom="30px"
+              data={filteredData}></ScrollList>
+          </>
+        )}
+      </AutoSizer>
     </>
   );
   return <>{Event}</>;
@@ -259,6 +385,17 @@ const EventPage: React.FC<EventBoxProps> = ({
 
 export default EventPage;
 
+const Loader = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const CustomSpin = styled(Spin)`
+  .ant-spin-dot i {
+    background-color: white !important; /* Change the color of the dots */
+    font-size: 100px;
+  }
+`;
 const Header = styled.div`
   display: flex;
   width: 100%;
@@ -271,8 +408,9 @@ const SearchedListContainer = styled.div`
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 500px;
-  overflow-y: scroll;
-  height: 100vh;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  height: 110vh;
   scrollbar-color: transparent transparent;
 `;
 
@@ -295,7 +433,6 @@ const SearchedData = styled.div`
   gap: 10px;
   border-bottom: 1px solid #d9d9d9;
   padding: 10px 0px;
-
   p {
     font-size: 13px;
     font-weight: 400;
@@ -364,7 +501,10 @@ const TitleText = styled.p`
 `;
 
 const AddListButton = styled.div`
-  padding-top: 20px;
+  padding-top: 40px;
+  padding-left: 30px;
+  height: 500px;
+  width: 100%;
 `;
 
 const MainInsideWrapper = styled.div`
