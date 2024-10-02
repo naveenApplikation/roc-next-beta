@@ -1,4 +1,4 @@
-function parseStateDateRange(dateRange: any) {
+export function parseStateDateRange(dateRange: any) {
   if (!dateRange) {
     return { startDate: new Date(0), endDate: new Date(0) };
   }
@@ -6,6 +6,25 @@ function parseStateDateRange(dateRange: any) {
   const startDate = new Date(start);
   const endDate = new Date(end);
   return { startDate, endDate };
+}
+export function parseDateRange(dateRange) {
+  // Split the string on " - " to get the two date parts
+  const dates = dateRange.split(' - ');
+
+  // Function to parse a single date string into YYYY-MM-DD format
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Format both dates and join with '%20-%20'
+  const formattedStartDate = formatDate(dates[0]);
+  const formattedEndDate = formatDate(dates[1]);
+  
+  return `${formattedStartDate}%20-%20${formattedEndDate}`;
 }
 
 function isTimeWithinRange(startTime: any, endTime: any, currentTime: any) {
@@ -33,7 +52,7 @@ function isToday(eventDate: any) {
   );
 }
 
-function parseDate(selectedDate: any) {
+export function parseDate(selectedDate: any) {
   const eventDate = new Date(
     selectedDate.toString().slice(0, 4),
     selectedDate.toString().slice(4, 6) - 1,
