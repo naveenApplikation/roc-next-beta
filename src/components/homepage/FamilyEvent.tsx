@@ -43,8 +43,9 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
       }
     }
   }, [data]);
-
+  const {resetFilters}=useMyContext()
   const navigate = () => {
+    resetFilters();
     router.push("/eventCategory/upcoming");
   };
   return (
