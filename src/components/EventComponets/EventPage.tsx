@@ -32,7 +32,12 @@ import { Spin } from "antd";
 import ScrollList from "../scrollList/ScrollList";
 import { events } from "@/app/utils/data";
 import FilterSection from "../AllModalScreen/FilterModalScreenForEvents/FilterSection";
-import { filterEvents, parseDate, parseDateRange, parseStateDateRange } from "../AllModalScreen/FilterModalScreenForEvents/Filters";
+import {
+  filterEvents,
+  parseDate,
+  parseDateRange,
+  parseStateDateRange,
+} from "../AllModalScreen/FilterModalScreenForEvents/Filters";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { convertGCSUrl, handleEventEncoding } from "@/app/utils/commanFun";
@@ -63,19 +68,17 @@ const EventPage: React.FC<EventBoxProps> = ({
     resetFilters,
     modalType,
     closeModal,
-    handleFilterOption
+    handleFilterOption,
   } = useMyContext();
-
-  const router = useRouter();
 
   const [filteredUrls, setFilteredUrls] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(urlData); // Only show first 10 items initially
-  const [currentData, setCurrentData] = useState(urlData) // for upcoming events only
+  const [currentData, setCurrentData] = useState(urlData); // for upcoming events only
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(10); // Track the next batch of items
   const containerRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   const handleShare = () => {
     if (!socialShare) {
@@ -83,89 +86,70 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
   useEffect(() => {
-
-    document.addEventListener('touchmove', function (event) {
-      event.preventDefault();
-    }, { passive: true });
+    document.addEventListener(
+      "touchmove",
+      function (event) {
+        event.preventDefault();
+      },
+      { passive: true }
+    );
     if (params?.event) {
-
       resetFilters();
-
-
     }
   }, [params?.event]);
-  console.log(eventFilters)
-  const [isDate, setDate] = useState(false)
+  console.log(eventFilters);
+  const [isDate, setDate] = useState(false);
   const dateWiseUpdate = async (range: string) => {
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const result = await Instance.get(`/upcomming-events?type=range&date=${range}`);
-      console.log(result.data)
+      const result = await Instance.get(
+        `/upcomming-events?type=range&date=${range}`
+      );
+      console.log(result.data);
       //  const filEve = filterEvents(result.data.data, eventFilters);
       //     const ImageUrlData = result.data.data?.map(
       //   (item: any) => item?.acf?.header_image_data
       // );
       //    setFilteredUrls(filterUrls(ImageUrlData));
       setCurrentData(result.data.data);
-      setDate(true)
-
+      setDate(true);
+    } catch (error) {
+      setLoading(false);
+      setCurrentData(urlData);
+    } finally {
+      setLoading(false);
     }
-    catch (error) {
-      setLoading(false)
-      setCurrentData(urlData)
-
-    }
-    finally {
-      setLoading(false)
-
-    }
-
-  }
-
-  useEffect(() => { //only this initiate whenever the date change
-
-    if (eventFilters.date && pathName?.includes('upcoming')) // only if in upcoming events
-    {
-
-      const { startDate, endDate } = parseStateDateRange(eventFilters.date);
-      const lastDate = urlData[urlData.length - 1].acf?.event_date
-      console.log(startDate > parseDate(lastDate) || endDate > parseDate(lastDate))
-      if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
-        const format = parseDateRange(eventFilters.date)
-        dateWiseUpdate(format)
-      }
-      else {
-
-        setDate(false)
-      }
-    }
-    else {
-
-
-      setDate(false)
-    }
-
-
-  }, [eventFilters.date])
-
-
-
-
-
-
-
+  };
 
   useEffect(() => {
+    //only this initiate whenever the date change
 
+    if (eventFilters.date && pathName?.includes("upcoming")) {
+      // only if in upcoming events
+      const { startDate, endDate } = parseStateDateRange(eventFilters.date);
+      const lastDate = urlData[urlData.length - 1].acf?.event_date;
+      console.log(
+        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+      );
+      if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
+        const format = parseDateRange(eventFilters.date);
+        dateWiseUpdate(format);
+      } else {
+        setDate(false);
+      }
+    } else {
+      setDate(false);
+    }
+  }, [eventFilters.date]);
+
+  useEffect(() => {
     const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
     const ImageUrlData = filEve?.map(
       (item: any) => item?.acf?.header_image_data
     );
     setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
-
-
   }, [eventFilters, isDate, currentData]);
 
   function getFirstImageUrl(jsonString: string): string | boolean {
@@ -207,11 +191,7 @@ const EventPage: React.FC<EventBoxProps> = ({
             temp = element;
             return false;
           }
-          // } else if (element._id === modalId.replace("$", "")) {
-          //   index = position;
-          //   temp = element;
-          //   return false;
-          // }
+
           return true;
         });
         if (temp) {
@@ -227,7 +207,6 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   }, [urlData]);
 
-
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
       return `/eventByDate/${slug}?modal=${item._id}&date=${item.acf?.event_date}`;
@@ -238,55 +217,17 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
 
-  const handleScroll = () => {
-    if (containerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-
-      // Check if the user has scrolled 80% down
-      if (
-        scrollTop + clientHeight >= scrollHeight * 0.8 &&
-        !loading &&
-        next < urlData.length
-      ) {
-        setLoading(true);
-        setTimeout(() => {
-          setDisplayedItems((prev: any) => [
-            ...prev,
-            ...urlData.slice(next, next + 10),
-          ]);
-          setNext((prev) => prev + 10);
-          setLoading(false);
-        }, 500); // Simulate loading delay
-      }
-    }
-  };
-
-  // Reset displayed items when urlData changes (due to filters being applied)
-  // useEffect(() => {
-  //   setDisplayedItems(urlData.slice(0, 10)); // Reset to the first 10 items
-  //   setNext(10); // Reset the counter for the next batch
-  // }, [urlData]);
-
-  // useEffect(() => {
-  //   const refCurrent = containerRef.current;
-  //   if (refCurrent) {
-  //     refCurrent.addEventListener("scroll", handleScroll);
-  //   }
-
-  //   return () => {
-  //     if (refCurrent) {
-  //       refCurrent.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, [loading, next, urlData]);
-  // alert(slug);
-
-  // console.log("eventsevents", events);
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
 
-  const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => {
     const item = displayedItems[index];
     return (
       <Link key={index} href={returnEventItems(item)} prefetch={true}>
@@ -294,7 +235,6 @@ const EventPage: React.FC<EventBoxProps> = ({
           <MainInsideWrapper>
             <FamilyEventWrapper>
               <Image
-
                 src={filteredUrls[index]}
                 alt="image"
                 width={500}
@@ -342,10 +282,7 @@ const EventPage: React.FC<EventBoxProps> = ({
 
   const Event = (
     <>
-
-
       <AutoSizer style={{ height: "inherit", width: "inherit" }}>
-
         {({ height, width }) => (
           <>
             <SearchedListContainer ref={containerRef}>
@@ -374,59 +311,61 @@ const EventPage: React.FC<EventBoxProps> = ({
                 <FilterSection pageTitle="categoryEvent" />
               </div>
 
-
               <List
                 height={600}
-
                 itemCount={displayedItems.length + 1}
                 itemSize={100}
-                width={width}
-              >
+                width={width}>
                 {({ index, style }) => (
                   <>
-
-                    {index < displayedItems.length ?
+                    {index < displayedItems.length ? (
                       <Row index={index} style={{ ...style, width: "95%" }} />
-                      :
-
+                    ) : (
                       <div
                         style={{
                           ...style,
-                          width: '80%',
+                          width: "80%",
                           height: "80px",
                           //  display: 'flex',
                           //  justifyContent:"center",
                           //  alignItems:"center",
-
-                        }}
-                      >
-
-                        {!loading && <AddListButton
-
-                          onClick={() => {
-                            modalClick("filterOption");
-                            handleFilterOption("dates");
-                          }}
-                        >
-
-                          <CommonButton text="For more Events" />
-                        </AddListButton>}
+                        }}>
+                        {!loading && (
+                          <AddListButton
+                            onClick={() => {
+                              modalClick("filterOption");
+                              handleFilterOption("dates");
+                            }}>
+                            <CommonButton text="For more Events" />
+                          </AddListButton>
+                        )}
                       </div>
-
-                    }
-
+                    )}
                   </>
                 )}
-
-
-
               </List>
 
-
-
-              {loading && <Loader style={{ position: "absolute", background: "black", inset: "0", opacity: "0.7" }}>
-                <Loader style={{ position: "absolute", inset: "0", display: "flex", justifyContent: "center", top: "30%" }}>  <CustomSpin tip="Loading" size="large"></CustomSpin></Loader>
-              </Loader>}
+              {loading && (
+                <Loader
+                  style={{
+                    position: "absolute",
+                    background: "black",
+                    inset: "0",
+                    opacity: "0.7",
+                  }}>
+                  <Loader
+                    style={{
+                      position: "absolute",
+                      inset: "0",
+                      display: "flex",
+                      justifyContent: "center",
+                      top: "30%",
+                    }}>
+                    {" "}
+                    <CustomSpin tip="Loading" size="large"></CustomSpin>
+                  </Loader>
+                </Loader>
+              )}
             </SearchedListContainer>
             <AdsBanner className="75px" />
             <ScrollList
@@ -437,8 +376,6 @@ const EventPage: React.FC<EventBoxProps> = ({
           </>
         )}
       </AutoSizer>
-
-
     </>
   );
   return <>{Event}</>;
@@ -452,13 +389,12 @@ const Loader = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-
-`
+`;
 const CustomSpin = styled(Spin)`
-.ant-spin-dot i {
-  background-color: white !important; /* Change the color of the dots */
-  font-size:100px;
-}
+  .ant-spin-dot i {
+    background-color: white !important; /* Change the color of the dots */
+    font-size: 100px;
+  }
 `;
 const Header = styled.div`
   display: flex;
@@ -472,8 +408,8 @@ const SearchedListContainer = styled.div`
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 500px;
-  -webkit-overflow-scrolling: touch; 
-  overflow:hidden;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   height: 110vh;
   scrollbar-color: transparent transparent;
 `;
@@ -565,10 +501,10 @@ const TitleText = styled.p`
 `;
 
 const AddListButton = styled.div`
-  padding-top:40px;
-  padding-left:30px;
-  height:500px;
-  width:100%;
+  padding-top: 40px;
+  padding-left: 30px;
+  height: 500px;
+  width: 100%;
 `;
 
 const MainInsideWrapper = styled.div`
