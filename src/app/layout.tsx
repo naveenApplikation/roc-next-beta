@@ -45,6 +45,23 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         /> */}
         {/* <link rel="preconnect" href="https://tpc.googlesyndication.com/" /> */}
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4636767191633754"
+           crossOrigin="anonymous"></Script>
+              <link rel="preload" href="https://weather.roc.je/" as="document" />
+        <link rel="preload" href="https://www.jerseytravel.com/" as="document" />
+        <link rel="preload" href="https://hub.roc.je/essentials/sos" as="document" />
+        <link rel="preload" href="https://hub.roc.je/essentials/tides" as="document" />
+        <link rel="preload" href="https://www.jerseyairport.com/flight/departures/" as="document" />
+        <link rel="preload" href="https://www.ports.je/jerseyharbours/arrivals-departures/" as="document" />
+        <link rel="preload" href="https://hub.roc.je/essentials/news" as="document" />
+        <link rel="preload" href="https://www.jersey.com/inspire-me/inspiration/breathtaking-beaches-of-jersey/" as="document" />
+        <link rel="preload" href="https://en.wikipedia.org/wiki/Public_holidays_in_Jersey" as="document" />
+        <link rel="preload" href="https://talkroute.com/sign-up/new-jersey-phone-numbers/" as="document" />
+        <link rel="preload" href="https://www.gov.je/Travel/Motoring/Parking/pages/carparkspaces.aspx" as="document" />
+        <link rel="preload" href="https://hub.roc.je/essentials/taxis" as="document" />
+        <link rel="preload" href="https://libertybus.je/" as="document" />
+        <link rel="preload" href="https://www.channel103.com/radioplayer/" as="document" />
+        <link rel="preload" href="https://hub.roc.je/cycle/cycle-routes" as="document" />
       </head>
       <body className={inter.className}>
         {/* <Script

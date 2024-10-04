@@ -80,13 +80,13 @@ const Header = () => {
         <HeaderMapProfileContainer>
           {pathname === "/" ? (
             <>
-              <Image
+              {/* <Image
                 src={iconbetablack}
                 width={48}
                 height={48}
                 alt="Logo Outline"
                 // onClick={() => modalClick("createAccountModal")}
-              />
+              /> */}
               <Image
                 style={{ cursor: "pointer" }}
                 src={profileIconDark}

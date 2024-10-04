@@ -208,14 +208,14 @@ const RightSide = () => {
           alt="Logo Outline"
         />
         <HeaderMapProfileContainer>
-          <Image
+          {/* <Image
             src={iconbeta}
             width={48}
             height={48}
             style={{ height: "48px" }}
             alt="Logo Outline"
             // onClick={() => modalClick("createAccountModal")}
-          />
+          /> */}
           <ImageContainer>
             <Image
               src={profileBrown}

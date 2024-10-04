@@ -1,3 +1,4 @@
+export const dynamic="force-static"
 export async function GET() {
   const result = await fetch(`${process.env.NEXT_API_URL}/nav-links`, {
     headers: {
