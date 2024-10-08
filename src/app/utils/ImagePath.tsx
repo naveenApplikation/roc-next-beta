@@ -188,15 +188,16 @@ import eventMobile from "../../../assets/images/rightSideMenuImage/calendarMobil
 import MaskGroup from "../../../assets/images/MaskGroup.svg";
 import BannerImg1 from "../../../assets/images/demo.png";
 import BannerImg2 from "../../../assets/images/Ads/jwt-cafe-1.webp";
-import RightArowImg from "../../../assets/images/rightArrow.png";
+import BannerImg3 from "../../../assets/images/Ads/prime-ad.jpg"
 
+import RightArowImg from "../../../assets/images/rightArrow.png";
 import envelope from "../../../assets/images/modalImageSVG/envelope.svg";
 import globesimag from "../../../assets/images/modalImageSVG/globe.svg";
 import locationImgs from "../../../assets/images/modalImageSVG/location-dot.svg";
 import dateImgs from "../../../assets/images/modalImageSVG/calendar.svg";
 import timeImgs from "../../../assets/images/clocks.svg";
 import fallback from "../../../assets/images/fallbackimage.png"
-
+ 
 export const mailIcon = envelope;
 export const globeIcon = globesimag;
 export const locationIcon = locationImgs;
@@ -397,6 +398,9 @@ export const fallBack = fallback;
 //ads
 export const BannerDemo = BannerImg1;
 export const BannerDemo2 = BannerImg2;
+export const BannerDemo3 = BannerImg3;
+
+
 
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
