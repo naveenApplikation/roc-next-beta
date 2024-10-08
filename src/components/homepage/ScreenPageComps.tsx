@@ -74,7 +74,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                         src={item.photoUrl ? item.photoUrl : fallback}
                         alt="Image"
                         loading="lazy"
-                        placeholder="blur"
+                        
                       />
                     ) : (
                       <Image
@@ -84,7 +84,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                         height={80}
                         className="rounded-[4px] w-full h-full object-cover cursor-pointer"
                         loading="lazy"
-                        placeholder="blur"
+                        
                       />
                     )}
                     <Image
@@ -94,7 +94,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                       height={64}
                       className="absolute bottom-0 h-[50px]"
                       loading="lazy"
-                      placeholder="blur"
+                      
                     />
                     <p className="text-white text-[14px] font-normal overflow-hidden text-ellipsis line-clamp-3 absolute bottom-[8px] left-[12px]">
                       {item?.data_type === "google" ? item?.name : item?.name}
@@ -129,7 +129,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                               height={80}
                               className="rounded-full w-full h-full object-cover"
                               loading="lazy"
-                              placeholder="blur"
+                              
                             />
                           ) : (
                             <Image
@@ -139,7 +139,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                               src={item.photoUrl}
                               alt="Image"
                               loading="lazy"
-                              placeholder="blur"
+                              
                             />
                           )
                         ) : (
@@ -150,7 +150,7 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                             height={80}
                             className="rounded-full w-full h-full object-cover"
                             loading="lazy"
-                            placeholder="blur"
+                            
                           />
                         )}
                       </div>

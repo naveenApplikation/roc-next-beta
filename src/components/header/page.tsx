@@ -78,7 +78,7 @@ const Header = () => {
           onClick={navigateClick}
         />
         <HeaderMapProfileContainer>
-          {pathname === "/" ? (
+          {pathname === "/"  || pathname?.includes('info')? (
             <>
               {/* <Image
                 src={iconbetablack}

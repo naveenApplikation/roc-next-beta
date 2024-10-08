@@ -46,7 +46,7 @@ const Shopping: React.FC<DashboardProps> = ({Shoppingdata}) => {
                       src={item?.image}
                       alt={""}
                       priority
-                      placeholder="blur"
+                      
                     />
                   </p>
                   <p className="text-white text-[12px] font-medium leading-normal w-full">

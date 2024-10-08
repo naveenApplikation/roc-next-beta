@@ -85,7 +85,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                       height={80}
                       className="rounded-[4px] max-w-full h-[80px] object-cover"
                       loading="lazy"
-                      placeholder="blur"
+                      
                     />
                     <div className="absolute bottom-[4px] left-[4px] text-center bg-white rounded-[4px]">
                       <p className="text-[17px] font-extrabold leading-normal w-[30px]">

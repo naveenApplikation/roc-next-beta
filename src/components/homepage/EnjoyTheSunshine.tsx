@@ -60,7 +60,7 @@ const EnjoyTheSunshine: React.FC<DashboardProps> = ({data}) => {
                           objectFit: "cover",
                         }}
                         loading="lazy"
-                        placeholder="blur"
+                        
                       />
                     </div>
                     <p className="text-[13px] font-normal leading-normal mt-[8px] block w-full whitespace-nowrap overflow-hidden text-ellipsis">

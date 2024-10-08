@@ -52,7 +52,7 @@ const Wellbeing: React.FC<DashboardProps> = ({data}) => {
                       src={wellbeingImg}
                       alt=""
                       priority
-                      placeholder="blur"
+                      
                     />
                   </p>
                   <p className="text-white">{item?.listName}</p>

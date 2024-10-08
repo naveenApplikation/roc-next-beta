@@ -1,16 +1,18 @@
+'use client'
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { BackArrow, CloseModal } from "@/app/utils/ImagePath";
 import { useMyContext } from "@/app/Context/MyContext";
+import { useRouter } from "next-nprogress-bar";
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: (name: string) => void;
+  
+  
   children?: ReactNode;
   title?: any;
   name: string;
-  showMap: boolean;
+  
 }
 
 const StyledModal = styled.div<{
@@ -42,7 +44,7 @@ const StyledModal = styled.div<{
   align-items: flex-start;
   margin: 16px auto;
   transition: left 0.8s ease-in-out;
-  z-index: 1;
+  z-index: 0;
   padding: 24px 0px;
   overflow: auto;
 
@@ -113,27 +115,24 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
+const InfoServerModel: React.FC<ModalProps> = ({
+ 
   children,
   title,
-  showMap,
+  
   name,
 }) => {
   const [screenWidthPercentage, setScreenWidthPercentage] = useState(117);
   const [screenWidth, setScreenWidth] = useState(100);
-  const { modalClick, oldName, modalType } = useMyContext();
+  const { modalClick, oldName, modalType,showMap } = useMyContext();
   useEffect(() => {
-    if (isOpen) {
+   
       document.documentElement.style.overflow = "hidden";
-    } else {
-      document.documentElement.style.overflow = "auto";
-    }
+    
     return () => {
       document.documentElement.style.overflow = "auto"; // Cleanup on component unmount
     };
-  }, [isOpen]);
+  });
   useEffect(() => {
     const handleResize = () => {
       const referenceWidth = 1200; // You can set your own reference width here
@@ -150,36 +149,23 @@ const Modal: React.FC<ModalProps> = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+   const router=useRouter()
   return (
     <StyledModal
-      $isopen={isOpen}
+      $isopen={true}
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
       $screenwidth={screenWidth}
-      $modalType={modalType.modalFilterList}>
+      $modalType={true}>
       <div className="modal-content">
         <HeaderContainer>
-          {oldName === "" ? (
-            ""
-          ) : (
-            <div onClick={() => modalClick(oldName)}>
-              <BackArrow />
-            </div>
-          )}
-          {modalType.myList ? (
-            <div onClick={() => onClose(name)}>
-              <BackArrow />
-            </div>
-          ) : (
-            ""
-          )}
+          
           <h4 style={{ textTransform: "capitalize" }}>{title}</h4>
           <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
-            onClick={() => onClose(name)}
+            onClick={() => router.replace('/')}
           />
         </HeaderContainer>
 
@@ -189,6 +175,6 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+export default InfoServerModel;
 
  

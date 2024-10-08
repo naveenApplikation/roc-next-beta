@@ -113,7 +113,7 @@ export const PagelayoutMainContainer = styled.div`
   overflow: auto;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   -webkit-overflow-scrolling: touch;
-  z-index: 1;
+  z-index: 2;
   &::-webkit-scrollbar {
     display: none;
   }

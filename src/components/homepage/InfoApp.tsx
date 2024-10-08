@@ -5,12 +5,14 @@ import React from "react";
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
+import { useRouter } from "next-nprogress-bar";
 
  
 
 const InfoApp = () => {
 
   const {modalClick} = useMyContext();
+  const router=useRouter()
 
   const formatNameWithSpaces = (name:any) => {
     // Use a regular expression to split the string into words
@@ -26,7 +28,8 @@ const InfoApp = () => {
             <div
               className="flex flex-col items-center cursor-pointer gap-[8px] justify-betwee"
               key={index}
-              onClick={() => modalClick("infoApp", item.name)}
+              // onClick={() => modalClick("infoApp", item.name)}
+              onClick={()=>{router.push(`/info/${item.name}`)}}
             >
               <Image
                 className="h-[18px] w-[18px]"

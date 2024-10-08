@@ -35,7 +35,7 @@ const CycleRoutes = () => {
                     className="rounded-[4px]"
                     loading="lazy"
                     quality={70}
-                    placeholder="blur"
+                    
                   />
                   <p className="text-white text-[12px] font-medium leading-normal w-full">{item?.name}</p>
                 </div>
