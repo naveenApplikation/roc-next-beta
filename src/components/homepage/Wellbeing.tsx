@@ -28,7 +28,7 @@ const Wellbeing: React.FC<DashboardProps> = ({data}) => {
         isOpen={() => menuClick("Wellbeing", true, "wellbeing-lists")}
         title="Wellbeing"
       />
-      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
+      <div className="flex overflow-auto overflow-y-hidden gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
@@ -52,10 +52,12 @@ const Wellbeing: React.FC<DashboardProps> = ({data}) => {
                       src={wellbeingImg}
                       alt=""
                       priority
+                      height={16}
+                      width={16}
                       
                     />
                   </p>
-                  <p className="text-white">{item?.listName}</p>
+                  <p className="text-white text-[13px]">{item?.listName}</p>
                 </div>
               );
             })

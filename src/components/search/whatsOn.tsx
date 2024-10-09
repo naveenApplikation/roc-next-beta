@@ -98,6 +98,8 @@ const ListDataInfoText = styled.p`
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
+  text-transform:capitalize;
+
 `;
 
 const SearchedData = styled.div`

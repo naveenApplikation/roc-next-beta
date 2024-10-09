@@ -33,7 +33,7 @@ const TrendingList: React.FC<DashboardProps> = ({ listData }) => {
         title="Trending Lists"
       />
 
-      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
+      <div className="flex  overflow-y-hidden  gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!listData
           ? skeletonItems.map((item, index) => (
               <div key={index}>

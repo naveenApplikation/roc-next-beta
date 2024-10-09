@@ -15,6 +15,7 @@ import FilterModalScreen from "@/components/AllModalScreen/FilterModalScreen";
 import EventListingModalScreen from "@/components/AllModalScreen/EventListingModalScreen";
 import { useMyContext } from "@/app/Context/MyContext";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import Categories from "@/components/CategoriesPage/Categories";
 
 interface Props {
   data: any;
@@ -123,6 +124,7 @@ export const ListItem: React.FC<Props> = (props) => {
       <FilterModalScreen showMap={showMap} />
       <EventListingModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
+      <Categories></Categories>
     </>
   );
 };

@@ -27,6 +27,7 @@ import SocialShareModal from "./modal/SocialShareModal";
 import { bookmark } from "@/app/utils/ImagePath";
 import HeaderScreen from "./header/HeaderScreen";
 import BannerModal from "./bannerModal/page";
+import Categories from "@/components/CategoriesPage/Categories";
 
 interface ScreenPageProps {
   data: any;
@@ -311,6 +312,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           <ReservationCalenderModal showMap={showMap} />
           <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen/>
+        <Categories></Categories>
           <BannerModal />
           <SocialShareModal
           

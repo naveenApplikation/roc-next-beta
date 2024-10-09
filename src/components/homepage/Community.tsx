@@ -23,7 +23,7 @@ const Community: React.FC<DashboardProps> = ({listData }) => {
         isOpen={() => menuClick("Community", true, "category-item")}
         title="Community Latest"
       />
-      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
+      <div className="flex overflow-y-hidden gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
         {!listData
           ? skeletonItems.map((item, index) => (
               <div key={index}>
