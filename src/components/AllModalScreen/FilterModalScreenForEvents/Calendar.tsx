@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { useMyContext } from "@/app/Context/MyContext";
 import CommonButton from "@/components/button/CommonButton";
 import React, { useEffect, useState } from "react";
@@ -40,7 +39,7 @@ const CalendarGrid = styled.div`
   gap: 4px;
 `;
 
-const Day = styled.div<{ isSelected?: any; isInRange?: any }>`
+const Day = styled.div<{ isSelected?: boolean; isInRange?: boolean; isDisabled?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,11 +47,13 @@ const Day = styled.div<{ isSelected?: any; isInRange?: any }>`
   border-radius: 4px;
   background: ${(props) =>
     props.isSelected ? "#007bff" : props.isInRange ? "#e9ecef" : "none"};
-  color: ${(props) => (props.isSelected ? "#fff" : "inherit")};
-  cursor: pointer;
+  color: ${(props) => (props.isDisabled ? "#ccc" : props.isSelected ? "#fff" : "inherit")};
+  cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
+  pointer-events: ${(props) => (props.isDisabled ? "none" : "auto")};
 
   &:hover {
-    background: ${(props) => (props.isSelected ? "#0056b3" : "#f8f9fa")};
+    background: ${(props) =>
+      props.isDisabled ? "none" : props.isSelected ? "#0056b3" : "#f8f9fa"};
   }
 `;
 
@@ -74,6 +75,7 @@ const FooterButton = styled.button<{ primary?: any }>`
     background: ${(props) => (props.primary ? "#0056b3" : "#5a6268")};
   }
 `;
+
 const YearSelect = styled.select`
   background: none;
   border: none;
@@ -89,21 +91,35 @@ const YearSelect = styled.select`
 
 const Calendar = () => {
   const { filterSelection, closeModal, eventFilters } = useMyContext();
-  const [startDate, setStartDate] = useState("" as any);
-  const [endDate, setEndDate] = useState("" as any);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const today = new Date(); // Get today's date
+
   useEffect(() => {
     if (eventFilters.date) {
       const date = eventFilters.date.split("-");
       setStartDate(new Date(date[0]));
-      setEndDate(date[1] ? new Date(date[1]) : "");
+      setEndDate(date[1] ? new Date(date[1]) : null);
     }
   }, [eventFilters.date]);
+
+  useEffect(() => {
+    if (eventFilters.date === "") {
+      handleTodayClick();
+    }
+  }, [eventFilters]);
+
   const startOfMonth = new Date(currentYear, currentMonth, 1);
   const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
 
-  const handleDateClick = (date: any) => {
+  const handleDateClick = (date: Date) => {
+    if (date < today) {
+ 
+      return;
+    }
+
     if (!startDate || (startDate && endDate)) {
       setStartDate(date);
       setEndDate(null);
@@ -117,13 +133,13 @@ const Calendar = () => {
     }
   };
 
-  const isDateInRange = (date: any) => {
+  const isDateInRange = (date: Date) => {
     if (!startDate || !endDate) return false;
     return date >= startDate && date <= endDate;
   };
 
   const renderDays = () => {
-    const days = [];
+    const days:any = [];
     const firstDayOfWeek = startOfMonth.getDay();
     const daysInMonth = endOfMonth.getDate();
 
@@ -133,15 +149,18 @@ const Calendar = () => {
 
     for (let date = 1; date <= daysInMonth; date++) {
       const day = new Date(currentYear, currentMonth, date);
-      const isSelected =
+      const isSelected:any=
         (startDate && day.toDateString() === startDate.toDateString()) ||
         (endDate && day.toDateString() === endDate.toDateString());
       const isInRange = isDateInRange(day);
+      const isDisabled = day < new Date(today.setHours(0, 0, 0, 0)); // Disable past dates
+
       days.push(
         <Day
           key={day.toDateString()}
           isSelected={isSelected}
           isInRange={isInRange}
+          isDisabled={isDisabled}
           onClick={() => handleDateClick(day)}
         >
           {date}
@@ -169,6 +188,7 @@ const Calendar = () => {
       setCurrentMonth(currentMonth + 1);
     }
   };
+
   const handleTodayClick = () => {
     const today = new Date();
     setCurrentMonth(today.getMonth());
@@ -176,6 +196,7 @@ const Calendar = () => {
     setStartDate(today);
     setEndDate(today);
   };
+
   const handleYearChange = (event: any) => {
     setCurrentYear(parseInt(event.target.value, 10));
   };

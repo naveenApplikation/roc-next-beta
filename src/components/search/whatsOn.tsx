@@ -32,7 +32,8 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
         ))
       ) : (
         <ScrollingMenu>
-          {filterData?.map((item: any, index: any) => {
+
+          {filterData.length==0?<p style={{fontSize:"20px",color:"black",textAlign:"center"}}>Results Not Found</p>:filterData?.map((item: any, index: any) => {
             return (
               <TopAttractionContainer
                 key={index}
