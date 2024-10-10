@@ -118,11 +118,11 @@ const adsData = [
     heading: "Cafe @ Jersey War Tunnels",
     text: "Open daily 10am to 5pm",
   },
-  {
-    type: "new",
-    image: BannerDemo3, // Path to the new ad image
-    url: "https://amzn.to/4dRSj8d", // URL for the new ad
-  },
+  // {
+  //   type: "new",
+  //   image: BannerDemo3, // Path to the new ad image
+  //   url: "https://amzn.to/4dRSj8d", // URL for the new ad
+  // },
 ];
 
 const AdsBanner: React.FC<AdsBannerProps> = ({
@@ -132,13 +132,13 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
   const { modalClick } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const currentAd = adsData[currentAdIndex];
 
