@@ -1,70 +1,33 @@
-"use client";
 
-import { useMyContext } from "@/app/Context/MyContext";
-import MenuDetails from "@/components/dashboard/MenuDetails";
-import styled from "styled-components";
-import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
+
 import fallback from "../../../assets/images/fallbackimage.png";
-import Skeleton from "react-loading-skeleton";
-import { skeletonItems } from "@/app/utils/date";
-import RatingMenu from "@/components/dashboard/RatingMenu";
 import Image from "next/image";
-import ShopBrachSkeleton from "../skeleton Loader/ShopBrachSkeleton";
-import { useRouter } from "next-nprogress-bar";
 import { urlForImage } from "@/lib/sanity.image";
+import Link from "next/link";
+import { BlogMenu } from "./Menu";
 interface DashboardProps {
   data?: any;
   title: string;
-}
-
-const ScrollingMenu = styled.div`
-  display: flex;
-  overflow: auto;
-  gap: 8px;
-  padding: 0px 40px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
+} 
 
 const Blog: React.FC<DashboardProps> = ({ data, title }) => {
   
-     const router=useRouter()
-    const menuClick=()=>{
-          router.push('/blog') 
-    }
-   console.log(data);
+   console.log( urlForImage(data[0]?.coverImage)
+   .height(1000)
+   .width(2000)
+   .url())
   return (
     <>
-      <MenuDetails
-        isOpen={() => menuClick()}
-        title={title}
-      />
-      <ScrollingMenu>
-        {!data
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-               
-                  <ShopBrachSkeleton />
-                 
-              </div>
-        
-          ))
-           :data?.slice(0, 10).map(
+       <BlogMenu></BlogMenu>
+      <div className="flex overflow-auto gap-[8px] px-[40px] max-[800px]:px-[16px]  no-scrollbar">
+        {data?.slice(0, 10).map(
                 (item: any, index: any) => {
                   return (
-                    <div key={index}>
-                      <ScrollingMenuDishes onClick={()=>{
-                        router.push(`/blog/posts/${item.slug}`);
-                      }}>
+                     
+                      <Link key={index} className="flex w-[120px] flex-col flex-shrink-0 cursor-pointer" href={`/blog/posts/${item.slug}`}  >
                         
                           <>
-                            <UtensilsDishesImage>
+                            <div className="rounded bg-gray-400 h-[64px] self-stretch">
                               <Image
                                 className="ratingImage"
                                 src={
@@ -87,25 +50,25 @@ const Blog: React.FC<DashboardProps> = ({ data, title }) => {
                                   objectFit: "cover",
                                 }}
                               />
-                            </UtensilsDishesImage>
+                            </div>
                             {/* {title && (
                               <MenuIconContainer>
                                 
                                 <Title>{title}</Title>
                               </MenuIconContainer>
                             )} */}
-                            <Menutitle> {item? item?.title : ""}</Menutitle>
+                            <p className="w-full whitespace-nowrap overflow-hidden text-ellipsis text-[13px] font-normal leading-normal mt-2"> {item? item?.title : ""}</p>
                           </>
                        
-                      </ScrollingMenuDishes>
-                    </div>
+                      </Link>
+                    
                   );
                 }
               )
              
             }       
                 
-      </ScrollingMenu>
+      </div>
     </>
   );
 };
@@ -113,50 +76,4 @@ const Blog: React.FC<DashboardProps> = ({ data, title }) => {
 export default Blog;
  
 
-
-const ScrollingMenuDishes = styled.div`
-  display: flex;
-  width: 120px;
-  flex-direction: column;
-  flex-shrink: 0;
-  cursor: pointer;
-`;
-
-const UtensilsDishesImage = styled.div`
-  border-radius: 4px;
-  background: #c4c4c4;
-  height: 64px;
-  align-self: stretch;
-`;
-
-const Title = styled.p`
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-`;
-
-const Menutitle = styled.p`
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 8px;
-`;
-
-const MenuIconContainer = styled.div`
-  display: flex;
-  gap: 6px;
-  margin-top: 16px;
-`;
-
-const MenuIcon = styled(Image)`
-  /* width: 11px;
-  height: 12px; */
-`;
+ 

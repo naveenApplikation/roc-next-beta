@@ -32,7 +32,12 @@ import { FaPlane } from "react-icons/fa6";
 import { FaBus } from "react-icons/fa6";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaUserTie } from "react-icons/fa6";
-
+import ArchirondelImage from "../../../assets/images/walks images/Archirondel.webp"
+import GoeryIMage from "../../../assets/images/walks images/Gorey.webp"
+import Hougue from '../../../assets/images/walks images/La Hougue Bie.webp'
+import Pluente from '../../../assets/images/walks images/La Pulente.webp'
+import Aubin from '../../../assets/images/walks images/St Aubin.webp'
+import Trinity from '../../../assets/images/walks images/Trinity.webp'
 import {
   utensils,
   utensil,
@@ -726,71 +731,71 @@ export const DirectoryItem: any = [
 
 export const walkData = [
   {
-    name: "Gorey",
+    listName: "Gorey",
     color: "#BB6BD9",
-    icon: gorey,
+    icon: GoeryIMage,
     url: "https://hub.roc.je/walks/gorey-walk",
   },
   {
-    name: "St Aubin",
+    listName: "St Aubin",
     color: "#56CCF2",
-    icon: aubin,
+    icon:Aubin,
     url: "https://hub.roc.je/walks/st-aubin-walk",
   },
   {
-    name: "Archirondel",
+    listName: "Archirondel",
     color: "#EB5757",
-    icon: archirondel,
+    icon:ArchirondelImage,
     url: "https://hub.roc.je/walks/archirondel-walk",
   },
   {
-    name: "Trinity",
+    listName: "Trinity",
     color: "#27AE60",
-    icon: trinity,
+    icon: Trinity,
     url: "https://hub.roc.je/walks/trinity-walk",
   },
   {
-    name: "La Hougue Bie",
+    listName: "La Hougue Bie",
     color: "#F2994A",
-    icon: hongue,
+    icon: Hougue,
     url: "https://hub.roc.je/walks/la-Hougue-bie-walk",
   },
   {
-    name: "La Pulente",
+    listName: "La Pulente",
     color: "#F2994A",
-    icon: pulente,
+    icon: Pluente,
     url: "https://hub.roc.je/walks/la-pulente-walk",
   },
 ];
 export const cycleRouteData = [
   {
-    name: "Easy",
-    color: "#56CCF2",
-    icon: family,
+    listName: "Easy",
+    bgColor: "#56CCF2",
+    image: family,
     url: "https://hub.roc.je/cycle/cycle-routes-easy",
   },
   {
-    name: "Medium",
-    color: "#BB6BD9",
-    icon: cycle,
+    listName: "Medium",
+    bgColor: "#BB6BD9",
+    image: cycle,
     url: "https://hub.roc.je/cycle/cycle-routes-medium",
   },
   {
-    name: "Difficult",
-    color: "#EB5757",
-    icon: pro,
+    listName: "Difficult",
+    bgColor: "#EB5757",
+    image: pro,
     url: "https://hub.roc.je/cycle/cycle-routes-difficult",
   },
   {
-    name: "Cycling safety",
-    color: "#F2994A",
-    icon: shield,
+    listName: "Cycling safety",
+    bgColor: "#F2994A",
+    image: shield,
     url: "https://hub.roc.je/cycle/cycling-safety",
   },
   {
-    name: "Cycle hire",
-    color: "#27AE60",
-    icon: cycle,
+    listName: "Cycle hire",
+    bgColor: "#27AE60",
+    image: cycle,
     url: "https://www.jersey.com/things-to-do/outdoor-activities/cycle-hire/",
   },
 ];

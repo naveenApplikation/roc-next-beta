@@ -1,10 +1,8 @@
-"use client"
-
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import fallback from "../../../assets/images/fallbackimage.png";
-import "./RatingMenu.css";
+ 
 interface MenuProps {
   title?: string;
   MenutitleDetail?: string;
@@ -14,52 +12,11 @@ interface MenuProps {
   headerImage?: any;
 }
 
-const ScrollingMenuDishes = styled.div`
-  display: flex;
-  width: 120px;
-  flex-direction: column;
-  flex-shrink: 0;
-  cursor: pointer;
-`;
 
-const UtensilsDishesImage = styled.div`
-  border-radius: 4px;
-  background: #c4c4c4;
-  height: 64px;
-  align-self: stretch;
-`;
 
-const Title = styled.p`
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-`;
 
-const Menutitle = styled.p`
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 8px;
-`;
 
-const MenuIconContainer = styled.div`
-  display: flex;
-  gap: 6px;
-  margin-top: 16px;
-`;
 
-const MenuIcon = styled(Image)`
-  /* width: 11px;
-  height: 12px; */
-`;
 
 const RatingMenu: React.FC<MenuProps> = ({
   containerImageUrl,
@@ -70,36 +27,36 @@ const RatingMenu: React.FC<MenuProps> = ({
   isOpen,
 }) => {
   return (
-    <ScrollingMenuDishes onClick={isOpen}>
+    <div className="flex w-[120px] flex-col flex-shrink-0 cursor-pointer">
       {containerImageUrl && (
         <>
-          <UtensilsDishesImage>
+          <div className="rounded bg-gray-400 h-[64px] self-stretch">
             <Image
-              className="ratingImage"
+              className="w-[120px] h-[64px] rounded-[6px]"
               src={headerImage ? headerImage : fallback}
               alt="my image"
               width={500}
               height={80}
               style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
             />
-          </UtensilsDishesImage>
+          </div>
           {title && (
-            <MenuIconContainer>
+            <div className="flex gap-[6px] mt-[16px]">
               {menuImageUrl && (
-                <MenuIcon
+                <Image
                   src={menuImageUrl}
                   width={11}
                   height={12}
                   alt="icon"
                 />
               )}
-              <Title>{title}</Title>
-            </MenuIconContainer>
+              <p className="text-size-[12px] font-normal text-center leading-normal" >{title}</p>
+            </div>
           )}
-          <Menutitle>{MenutitleDetail}</Menutitle>
+          <p className="w-full whitespace-nowrap overflow-hidden text-ellipsis text-[13px] font-normal leading-normal mt-2">{MenutitleDetail}</p>
         </>
       )}
-    </ScrollingMenuDishes>
+    </div>
   );
 };
 

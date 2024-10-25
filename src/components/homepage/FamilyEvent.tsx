@@ -1,15 +1,11 @@
-"use client";
+ 
 
-import React, { useEffect } from "react";
-import MenuDetails from "@/components/dashboard/MenuDetails";
+import React from "react";
 import Image from "next/image";
-import { useMyContext } from "@/app/Context/MyContext";
 import { formatMonth, formatDate } from "@/app/utils/date";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { skeletonItems } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
-import { useRouter } from "next-nprogress-bar";
+import { convertGCSUrl } from "@/app/utils/commanFun";
+import { OpenModal, UpcomingMenu } from "./Menu";
 
 interface DashboardProps {
   data?: any;
@@ -20,61 +16,26 @@ interface DashboardProps {
  
 
 const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
-  const { filterUrls, modalClick, menuClick } = useMyContext();
+  
 
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  const router = useRouter();
+ 
   
   
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const placeId = urlParams.get("search");
-
-      if (placeId) {
-        const temp = {
-          data_type: "google",
-          place_id: placeId,
-        };
-
-        modalClick("ModalContent", temp, fallback);
-      }
-    }
-  }, [data]);
-  const {resetFilters}=useMyContext()
-  const navigate = () => {
-    resetFilters();
-    router.push("/eventCategory/upcoming");
-  };
+  
+   
   return (
     <>
-      <MenuDetails isOpen={() => navigate()} title="Upcoming Events" />
-      <div className="flex overflow-auto gap-[8px] px-[16px] md:px-[40px] no-scrollbar">
-        {!data
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-                <Skeleton
-                  width={80}
-                  height={15}
-                  style={{ marginTop: 8, borderRadius: 6 }}
-                />
-              </div>
-            ))
-          : data.slice(0, 10).map((item: any, index: any) => {
+      <UpcomingMenu {...{data}}></UpcomingMenu>
+      <div className="flex overflow-auto gap-[8px] px-[40px] max-[800px]:px-[16px] no-scrollbar">
+        { data.slice(0, 10).map((item: any, index: any) => {
               return (
+                <OpenModal key={index} url={filteredUrls[index]} {...{item}}>
                 <div
-                  className="flex w-[80px] flex-col gap-[8px] flex-shrink-0"
+                  className="flex w-[80px] flex-col gap-[8px] "
                   key={index}
-                  onClick={() =>
-                    modalClick(
-                      "eventListing",
-                      item,
-                      filteredUrls[index] ? filteredUrls[index] : fallback
-                    )
-                  }
                   style={{ cursor: "pointer" }}
                 >
                   <div className="flex flex-col relative">
@@ -84,7 +45,8 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                       width={500}
                       height={80}
                       className="rounded-[4px] max-w-full h-[80px] object-cover"
-                      loading="lazy"
+                    
+                      priority
                       
                     />
                     <div className="absolute bottom-[4px] left-[4px] text-center bg-white rounded-[4px]">
@@ -100,6 +62,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                     {item.acf.title}
                   </p>
                 </div>
+                </OpenModal>
               );
             })}
       </div>
@@ -108,3 +71,31 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
 };
 
 export default FamilyEvent;
+
+const filterUrls = (ImageUrlData: any) => {
+  const imageUrls: string[] = [];
+  ImageUrlData?.forEach((item: any) => {
+    if (item) {
+      try {
+        const jsonData = JSON.parse(item);
+        const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
+
+        if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+          imageUrls.push(convertGCSUrl(url));
+        } else {
+          imageUrls.push(
+            fallback.src
+          ); // Push default image URL if URL is not valid
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        imageUrls.push(
+          fallback.src          ); // Push default image URL if JSON parsing fails
+      }
+    } else {
+      imageUrls.push(
+        fallback.src        ); // Push default image URL if item is undefined
+    }
+  });
+  return imageUrls;
+};

@@ -1,17 +1,16 @@
-"use client";
+ 
 
 import React from "react";
-import { useMyContext } from "@/app/Context/MyContext";
-import MenuDetails from "@/components/dashboard/MenuDetails";
 
 import Image from "next/image";
-import { skeletonItems } from "@/app/utils/date";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import Link from "next/link";
-import { useRouter } from "next-nprogress-bar";
-
+import { wellbeingImg } from "@/app/utils/ImagePath";
+import { EventMenu, OpenEventModal } from "./Menu";
+import { getCategory, getApiShoppingWithIcon, getApiWithIcon } from "@/app/action";
+import { cycleRouteData, shoppingImages } from "@/app/utils/data";
+import { eventsByDate, iconsHome } from "@/app/utils/homeIcon";
+ 
 interface DashboardProps {
   data?: any;
   type: string;
@@ -19,62 +18,153 @@ interface DashboardProps {
   title: string;
 }
 
-const CategoriesComps: React.FC<DashboardProps> = ({
+const CategoriesComps: React.FC<DashboardProps> = async({
   data,
   name,
   type,
   title,
 }) => {
-  const router = useRouter();
-
+  
+  let currentLink:any
+  let getLink:any=()=>{
+     return "/"
+  }
+  let menuLink:any=()=>{
+      return "/"
+  }
+  
   const getEventLink = (itemName: string) => {
     const encodedName = handleEventEncoding("encode", itemName);
     return `/eventCategory/${encodedName}`;
+
   };
 
   const getCategoryLink = (itemName: string) => {
     const encodedName = handleEventEncoding("encode", itemName);
     return `/activityCategory/${encodedName}`;
   };
+  // console.log(data)
+  let datas:any
+  switch(title)
+  {
+    
+    case "Wellbeing":
+      console.log(title)
+         datas=await getCategory("wellbeing-lists")
+         console.log("yes")
+         getLink=(item:any)=>{
+             return `/screens/${item.listName}?categoryID=${item.categoryId}`
+         }
+         
+            currentLink= `/categories/Wellbeing?search=wellbeing-lists`
+      
+         
+         break;
+    case "Shopping":
+         datas=await getApiShoppingWithIcon(
+          "shopping-lists",
+          shoppingImages
+        );
+        getLink=(item:any)=>{
+          return `/screens/${item.listName}?categoryID=${item.categoryId}`
+      }
+      
+         currentLink= `/categories/Shopping?search=shopping-lists`
+   
+        break;
+    case "Event Categories":
+        datas=await getApiWithIcon("event-list", iconsHome)
+        getLink=(item:any) => {
+          const encodedName = handleEventEncoding("encode",item.listName);
+          return `/eventCategory/${encodedName}`;
+        };
+       
+            currentLink= '/eventCategory'
+       
+        break;
+    case "Activity Categories":
+        datas=await getApiWithIcon("activity-list", iconsHome)
+        getLink=(item:any) => {
+          const encodedName = handleEventEncoding("encode", item.listName);
+          return `/activityCategory/${encodedName}`;
+        };
+        
+              currentLink= '/activityCategory'
+        
+        break;
+    case "Community":
+        datas = await getApiWithIcon("category", iconsHome)
+      getLink=(item:any)=>{
+          return `/screens/${item.listName}?categoryID=${item._id}`
+      }
+      
+            currentLink= '/categories/Community?search=category-item'
+      
+        break;
+    case "Trending Lists":
+        datas = await getApiWithIcon("category", iconsHome)
+        getLink=(item:any)=>{
+          return `/screens/${item.listName}?categoryID=${item._id}`
+      }
+      
+        currentLink='/categories/Trending%20Lists?search=category-item'
+ 
+        break;
+    case "Events By date":
+       datas=eventsByDate  
+       getLink=(item: any) => {
+        return `/eventByDate/${handleEventEncoding("encode", item.listName)}`;
+      };
+       
+       break;
+    default: 
+        datas=[]
 
+  }
+
+   console.log(title,datas.length,currentLink)
+  
+  
   return (
     <>
-      <MenuDetails
-        isOpen={() => {
-          if (type === "event-category-list") {
-            router.push("eventCategory");
-          } else {
-            router.push("activityCategory");
-          }
-        }}
-        title={title}
-      />
-      <div className="flex overflow-y-hidden gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
-        {!data
-          ? skeletonItems.map((item, index) => (
-              <div key={index}>
-                <Skeleton width={80} height={80} style={{ borderRadius: 6 }} />
-              </div>
-            ))
-          : data.length
-            ? data.slice(0, 10).map((item: any, index: any) => {
+       <EventMenu title={title} menuLink={currentLink} ></EventMenu>
+      <div className="flex overflow-y-hidden gap-x-[8px] px-[40px] max-[800px]:px-[16px] no-scrollbar">
+        {  datas.length
+            ? datas.map((item: any, index: any) => {
+              
                 return (
                   <Link
                     key={index}
                     href={
-                      type === "event-category-list"
-                        ? getEventLink(item.listName)
-                        : getCategoryLink(item.listName)
+                        getLink(item)
                     }>
                     <div
                       className="flex w-[80px] p-[7px] px-[8px] flex-col justify-between items-end gap-[8px] flex-shrink-0 h-[80px] rounded-[8px] bg-[#bb6bd9] cursor-pointer"
                       style={{ background: item?.bgColor, cursor: "pointer" }}>
-                      {item.image && (
+                      { title=='Shopping' || title.includes('Cycle') ? <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
+                      <Image
+                        src={item?.image}
+                        alt={""}
+                       
+                        
+                      />
+                    </p> : title=="Wellbeing" ? <p style={{ textAlign: "right" }}>
+                      <Image
+                        src={wellbeingImg}
+                        alt=""
+                        height={16}
+                        width={16}
+                        loading="lazy"
+                      />
+                    </p> : 
                         <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
-                          {" "}
+                      
                           {item?.image}
+                  
                         </p>
-                      )}
+                    
+                      
+                      }
                       <p
                         className="text-white text-[12px] font-medium leading-normal w-full"
                         style={{ paddingBottom: "5px" }}>
@@ -86,6 +176,9 @@ const CategoriesComps: React.FC<DashboardProps> = ({
               })
             : ""}
       </div>
+      {
+         title=='Trending Lists' &&  <OpenEventModal ></OpenEventModal>
+      }
     </>
   );
 };

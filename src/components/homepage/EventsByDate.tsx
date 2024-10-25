@@ -20,7 +20,7 @@ const EventsByDate = () => {
   return (
     <>
       <MenuDetails title="Events by date" hideShowAll={true} />
-      <div className="flex overflow-y-hidden gap-x-[8px] px-[16px] md:px-[40px] no-scrollbar">
+      <div className="flex overflow-y-hidden gap-x-[8px] px-[40px] md:px-[16px] no-scrollbar">
         {!eventsByDate
           ? skeletonItems.map((item, index) => (
             <div key={index}>
@@ -36,7 +36,7 @@ const EventsByDate = () => {
                       style={{ background: item?.color, cursor: "pointer" }}>
                       <p className="flex flex-col-reverse items-end text-white text-[12px] font-medium leading-normal w-full">
                         {" "}
-                        {item?.icon}
+                        {item?.image}
                       </p>
                       <p
                         className="text-white text-[12px] font-medium leading-normal w-full"

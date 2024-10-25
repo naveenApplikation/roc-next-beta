@@ -9,44 +9,18 @@ interface MenuProps {
   isOpen?: () => void;
   hideShowAll?: boolean
 }
-
-const HeadMenu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 40px;
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-  }
-`;
-
-const MenuTitle = styled.p`
-  /* font-family: "ProximaNova"; */
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const ViewAllText = styled.p`
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  cursor: pointer;
-`;
+ 
 
 const MenuDetails: React.FC<MenuProps> = ({ isOpen, title, hideShowAll }) => {
   return (
     <div>
-      <HeadMenu>
-        <MenuTitle>{title}</MenuTitle>
+      <div className="flex items-center justify-between px-[40px] max-[800px]:px-[16px]">
+        <p className="text-[24px] font-bold leading-none">{title}</p>
         {!hideShowAll &&
-          <ViewAllText onClick={isOpen}>
+          <p className="text-[14px] font-bold leading-none cursor-pointer" onClick={isOpen}>
             View All
-          </ViewAllText>}
-      </HeadMenu>
+          </p>}
+      </div>
     </div>
   );
 };

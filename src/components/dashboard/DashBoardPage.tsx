@@ -1,34 +1,44 @@
+
 import React from "react";
-import SearchNFilter from "@/components/homepage/SearchNFilter";
-import InfoApp from "@/components/homepage/InfoApp";
-import FamilyEvent from "@/components/homepage/FamilyEvent";
-import EnjoyTheSunshine from "@/components/homepage/EnjoyTheSunshine";
-import TrendingList from "@/components/homepage/TrendingList";
-import Directory from "@/components/homepage/Directory";
-import Shopping from "@/components/homepage/Shopping";
-import Community from "@/components/homepage/Community";
-import Walks from "@/components/homepage/Walks";
-import Wellbeing from "@/components/homepage/Wellbeing";
-import CycleRoutes from "@/components/homepage/CycleRoutes";
+import dynamic from 'next/dynamic';
+
+ 
+// const SearchNFilter = dynamic(() => import('@/components/homepage/SearchNFilter'), { ssr: false });
+// const InfoApp = dynamic(() => import('@/components/homepage/InfoApp'), { ssr: false });
+// const FamilyEvent = dynamic(() => import('@/components/homepage/FamilyEvent'), { ssr: false });
+// const LeaveFeedbackButton = dynamic(() => import('@/components/homepage/LeaveFeedbackButton'), { ssr: false });
+// const AdsBanner=dynamic(()=>import("../adsBanner/page"),{ssr:false})
 import { iconsHome } from "@/app/utils/homeIcon";
-import { shoppingImages } from "@/app/utils/data";
-import "@/app/tailwind.css";
+ 
 import {
   getCategory,
   getApiWithIcon,
-  getApiShoppingWithIcon,
   getDataForHome,
 } from "@/app/action";
-import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
-import ScreenPageComps from "../homepage/ScreenPageComps";
-import CustomBanner from "../AdComponent/CustomBanner";
-import CategoriesComps from "../homepage/CategoriesComps";
-import EventsByDate from "../homepage/EventsByDate";
-import { getUpcoming } from "@/app/HomePageAction";
+
 import { getClient, getAllPosts } from "@/lib/sanity.client";
-import Blog from "../homepage/Blog";
+ 
+// const CycleRoutes= dynamic(()=>import("../homepage/CycleRoutes"),{ssr:false});
+// const Blog=dynamic(()=>import("../homepage/Blog"),{ssr:false})
+// const CategoriesComps =dynamic(()=>import("../homepage/CategoriesComps"),{ssr:false});
+// const EnjoyTheSunshine=dynamic(()=>import("../homepage/EnjoyTheSunshine"),{ssr:false});
+// const ScreenPageComps=dynamic(()=>import("../homepage/ScreenPageComps"),{ssr:false});
+// const Walks=dynamic(()=>import("../homepage/Walks"),{ssr:false});
+// const Directory=dynamic(()=>import("../homepage/Directory"),{ssr:false})
+
 import AdsBanner from "../adsBanner/page";
-import BannerModal from "../bannerModal/page";
+import Blog from "../homepage/Blog";
+import CategoriesComps from "../homepage/CategoriesComps";
+import EnjoyTheSunshine from "../homepage/EnjoyTheSunshine";
+import FamilyEvent from "../homepage/FamilyEvent";
+import InfoApp from "../homepage/InfoApp";
+import LeaveFeedbackButton from "../homepage/LeaveFeedbackButton";
+import ScreenPageComps from "../homepage/ScreenPageComps";
+import SearchNFilter from "../homepage/SearchNFilter";
+import Walks from "../homepage/Walks";
+import Directory from "../homepage/Directory";
+import CycleRoutes from "../homepage/CycleRoutes";
+ 
 
 const DashBoard = async () => {
   // const specificSectionRef = useRef<HTMLDivElement>(null);
@@ -40,7 +50,7 @@ const DashBoard = async () => {
   //   ) {
   //   }
   // };
-
+ 
   const listData = await getApiWithIcon("category", iconsHome);
   let LocalCusinedata = await getCategory("google/dine-out");
 
@@ -53,12 +63,7 @@ const DashBoard = async () => {
   familyEventdata = await familyEventdata.data.slice(0, 10);
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
-  let topAttractionsdata = await getCategory("google/top-attraction");
-  topAttractionsdata = {
-    name: topAttractionsdata[0]?.listName,
-    id: topAttractionsdata[0]?._id,
-    listData: topAttractionsdata[0]?.GoogleHomeScreenList?.slice(0, 10),
-  };
+  
   let bardata = await getDataForHome("Pubs", listData[0]?._id);
   bardata = {
     name: bardata?.listName,
@@ -86,7 +91,6 @@ const DashBoard = async () => {
     listData: Heritagedata[0]?.GoogleHomeScreenList?.slice(0, 10),
   };
   const Walksdata = await getCategory("walks");
-  let Wellbeingdata = await getCategory("wellbeing-lists");
 
   let Cocktaildata = await getCategory("google/cocktail-bars");
   Cocktaildata = {
@@ -101,61 +105,116 @@ const DashBoard = async () => {
     id: Surfingdata[0]?._id,
     listData: Surfingdata[0]?.GoogleHomeScreenList?.slice(0, 10),
   };
-  const Shoppingdata = await getApiShoppingWithIcon(
-    "shopping-lists",
-    shoppingImages
-  );
-  const eventsCategories = await getApiWithIcon("event-list", iconsHome);
-  const activities = await getApiWithIcon("activity-list", iconsHome);
+  let topAttractionsdata = await getCategory("google/top-attraction");
+  topAttractionsdata = {
+    name: topAttractionsdata[0]?.listName,
+    id: topAttractionsdata[0]?._id,
+    listData: topAttractionsdata[0]?.GoogleHomeScreenList?.slice(0, 10),
+  };
   const client = getClient();
   const post = await getAllPosts(client);
 
+   
   return (
     <>
-      <SearchNFilter />
-      <InfoApp />
-      {/* <LocalCusine data={LocalCusinedata} /> */}
-      <FamilyEvent data={familyEventdata} />
-      <TrendingList {...{ listData }} />
-      <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
-      <EnjoyTheSunshine data={enjoyTheSunshinedata} />
-      <EventsByDate></EventsByDate>
-      <ScreenPageComps data={beachLifedata} title="Beach life " />
-      {/* <TopAttractions data={TopAttractionsdata[0]} /> */}
-      <Directory />
-      {/* <Bars dataPubs={bardata} /> */}/
-      <ScreenPageComps data={bardata} title="Pubs" />
-      <Shopping {...{ Shoppingdata }} />
-      <CategoriesComps
-        data={eventsCategories}
-        type="event-category-list"
-        name="Event List"
-        title="Event Categories"
-      />
-      <CategoriesComps
-        data={activities}
-        type="activity-list"
-        name="Activity List"
-        title="Activity Categories"
-      />
-      {/* <BeachLife data={beachLifedata[0]} /> */}
-      <Community {...{ listData }} />
-      {/* <Sustainability data={sustainabilitydata[0]} /> */}
-      <ScreenPageComps data={sustainabilitydata} title="Sustainability" />
-      {/* <Heritage data={Heritagedata[0]} /> */}
-      <ScreenPageComps data={Heritagedata} title="Heritage" />
-      <Walks data={Walksdata} />
-      <Wellbeing data={Wellbeingdata} />
-      {/* <Outout data={Cocktaildata[0]} /> */}
-      <ScreenPageComps data={Cocktaildata} title="Out Out" />
-      <CycleRoutes />
-      {/* <Surfing data={Surfingdata[0]} /> */}
-      <ScreenPageComps data={Surfingdata} title="Surfing" />
-      <ScreenPageComps data={topAttractionsdata} title="Top Attractions" />
-      {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
-      <LeaveFeedbackButton />
-      <AdsBanner maxWidth="auto" />
-      {/* <BannerModal /> */}
+      
+       
+        <SearchNFilter />
+      
+      
+        <InfoApp />
+     
+        <FamilyEvent data={familyEventdata} />
+        
+ 
+        <CategoriesComps
+          type="activity-list"
+          name=""
+          title="Trending Lists"
+        />
+       
+        <ScreenPageComps data={LocalCusinedata} title="Dine Out" />
+     
+        <EnjoyTheSunshine data={enjoyTheSunshinedata} />
+     
+        <CategoriesComps
+        
+          type="activity-list"
+          name=""
+          title="Events By date"
+        />
+      
+        <ScreenPageComps data={beachLifedata} title="Beach life" />
+    
+        <Directory />
+      
+        <ScreenPageComps data={bardata} title="Pubs" />
+      
+        <CategoriesComps
+        
+          type="shopping"
+          name=""
+          title="Shopping"
+        />
+      
+        <CategoriesComps
+          
+          type="event-category-list"
+          name="list"
+          title="Event Categories"
+        />
+      
+        <CategoriesComps
+       
+          type="activity-list"
+          name="list"
+          title="Activity Categories"
+        />
+     
+        <CategoriesComps
+           
+          type="activity-list"
+          name=""
+          title="Community"
+        />
+      
+        <ScreenPageComps data={sustainabilitydata} title="Sustainability" />
+     
+        <ScreenPageComps data={Heritagedata} title="Heritage" />
+     
+        <Walks data={Walksdata} />
+      
+        <CategoriesComps
+         
+          type="activity-list"
+          name=""
+          title="Wellbeing"
+        />
+      
+        <ScreenPageComps data={Cocktaildata} title="Out Out" />
+    
+       <CycleRoutes></CycleRoutes>
+    
+    
+        <ScreenPageComps data={Surfingdata} title="Surfing" />
+    
+
+      
+        <ScreenPageComps data={topAttractionsdata} title="Top Attractions" />
+    
+
+      {post?.length != 0 && (
+        <>
+          <Blog data={post} title="Jersey Feed" />
+        </>
+      )}
+
+     
+        <LeaveFeedbackButton />
+     
+
+   
+      
     </>
   );
 };

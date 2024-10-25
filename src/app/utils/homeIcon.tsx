@@ -1660,28 +1660,28 @@ export const iconsHome = [
 
 export const eventsByDate = [
   {
-    name: "Today",
-    color: "#EB5757",
-    icon: calendarIcon,
+    listName: "Today",
+    bgColor: "#EB5757",
+    image: calendarIcon,
   },
   {
-    name: "Tomorrow",
-    color: "#ED7055",
-    icon: calendarIcon,
+    listName: "Tomorrow",
+    bgColor: "#ED7055",
+    image: calendarIcon,
   },
   {
-    name: "Weekend",
-    color: "#EE8253",
-    icon: calendarIcon,
+    listName: "Weekend",
+    bgColor: "#EE8253",
+    image: calendarIcon,
   },
   {
-    name: "Next Week",
-    color: "#EF9351",
-    icon: calendarIcon,
+    listName: "Next Week",
+    bgColor: "#EF9351",
+    image: calendarIcon,
   },
   {
-    name: "Next Month",
-    color: "#F0A54F",
-    icon: calendarIcon,
+    listName: "Next Month",
+    bgColor: "#F0A54F",
+    image: calendarIcon,
   },
 ];

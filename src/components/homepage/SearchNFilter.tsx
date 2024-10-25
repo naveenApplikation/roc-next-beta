@@ -1,14 +1,10 @@
 "use client";
-
 import React from "react";
-
 import Image from "next/image";
 import { useMyContext } from "@/app/Context/MyContext";
 import { search } from "@/app/utils/ImagePath";
-
 const SearchNFilter = () => {
   const { modalClick } = useMyContext();
-
   return (
     <>
       <div className="mt-[20px] px-[16px] md:px-[40px] md:pt-[16px]">
@@ -27,5 +23,4 @@ const SearchNFilter = () => {
     </>
   );
 };
-
 export default SearchNFilter;

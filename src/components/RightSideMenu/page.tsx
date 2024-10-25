@@ -1,7 +1,7 @@
 "use client";
-import backgroundImg from "../../../assets/bg040724.webp";
+
 import React from "react";
-import styled from "styled-components";
+ 
 import Image from "next/image";
 import {
   LogoNew,
@@ -14,160 +14,31 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next-nprogress-bar";
 
-const RightSideMenuContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: auto;
-  gap: 24px;
-  position: absolute;
-  top: 60px;
-  right: 30px;
+// const RightSideMenuContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   height: 100vh;
+//   overflow: auto;
+//   gap: 24px;
+//   position: absolute;
+//   top: 60px;
+//   right: 30px;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+//   &::-webkit-scrollbar {
+//     display: none;
+//   }
 
-  @media screen and (max-width: 800px) {
-    padding: 0px;
-    height: auto;
-    overflow: hidden;
-    flex-direction: row;
-    display: none;
-  }
-`;
+//   @media screen and (max-width: 800px) {
+//     padding: 0px;
+//     height: auto;
+//     overflow: hidden;
+//     flex-direction: row;
+//     display: none;
+//   }
+// `;
 
-const RightSideHeadMenu = styled.div`
-  display: none;
 
-  @media screen and (max-width: 800px) {
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
-  }
-`;
-const HeaderMapProfileContainer = styled.div`
-  display: flex;
-  gap: 16px;
-`;
-
-const RightSideMenu = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-  }
-`;
-
-const RightSideInsideMenuBox = styled.div`
-  background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 129px;
-  height: 64px;
-  padding: 16px 24px;
-  gap: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  .iconSize {
-    width: 22px;
-    height: auto;
-  }
-
-  p {
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-
-    @media screen and (max-width: 800px) {
-      color: white;
-    }
-  }
-
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(40px);
-  }
-  @media screen and (max-width: 530px) {
-    flex-direction: column;
-  }
-  @media screen and (max-width: 450px) {
-    padding: 8px;
-  }
-`;
-
-const RightMenu = styled.div`
-  position: fixed;
-  right: 24px;
-
-  @media screen and (max-width: 800px) {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    height: 510px;
-    padding: 16px;
-    padding-bottom: 60px;
-    top: 0;
-    width: 100%;
-    right: 0;
-    background-position: 50% 50%; /* Removing background-image property */
-    background-size: cover;
-  }
-`;
-
-const MobileViewRightSideMenu = styled.div`
-  display: none;
-
-  @media screen and (max-width: 800px) {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-  }
-`;
-
-const AllCategories = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8px;
-  cursor: pointer;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(40px);
-
-  button {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.16);
-    border: none;
-    border-radius: 8px;
-    padding: 12px 8px;
-    color: #fff;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  @media screen and (min-width: 801px) {
-    display: none;
-  }
-`;
-
-const ImageContainer = styled.div`
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(1px);
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const RightSide = () => {
+const RightSide = ({children}:{children:any}) => {
   const { modalClick, iconClick } = useMyContext();
 
   const router = useRouter();
@@ -187,60 +58,46 @@ const RightSide = () => {
   };
 
   return (
-    <RightMenu>
-      <div
-        className="background-image-wrapper"
-        style={{ position: "absolute", inset: 0, zIndex: -1 }}>
-        <Image
-          src={backgroundImg.src}
-          layout="fill"
-          objectFit="cover"
-          alt="Background"
-          // Optional: Use 'priority' for faster loading
-        />
-      </div>
-      <RightSideHeadMenu>
+    <div className="fixed  h-[510px] flex flex-col p-[16px] pb-[60px] px-4 top-0 w-full right-0 bg-cover bg-center">
+      {children}
+      <div className="hidden  max-[800px]:flex justify-between pt-6 flex-1">
         <Image
           src={LogoNew}
           width={117}
           height={48}
           style={{ height: "48px" }}
           alt="Logo Outline"
+          priority
         />
-        <HeaderMapProfileContainer>
-          {/* <Image
-            src={iconbeta}
-            width={48}
-            height={48}
-            style={{ height: "48px" }}
-            alt="Logo Outline"
-            // onClick={() => modalClick("createAccountModal")}
-          /> */}
-          <ImageContainer>
+        <div className="flex gap-[16px]">
+          
+          <div className="w-[48px] h-[48px] bg-white/20 backdrop-blur-[10px] rounded-full flex justify-center items-center">
             <Image
               src={profileBrown}
               width={20}
               height={17.5}
               alt="Logo Outline"
               onClick={() => modalClick("createAccountModal")}
+              priority
             />
-          </ImageContainer>
-          <ImageContainer>
+          </div>
+          <div className="w-[48px] h-[48px] bg-white/20 backdrop-blur-[10px] rounded-full flex justify-center items-center">
             <Image
               src={MenuIcon}
               width={20}
               height={17.5}
               alt="Logo Outline"
               onClick={() => modalClick("createAccountModal")}
+              priority
             />
-          </ImageContainer>
+          </div>
           {/* <Hamburger onClick={() => modalClick("LoginSignupModal")} /> */}
-        </HeaderMapProfileContainer>
-      </RightSideHeadMenu>
-      <RightSideMenuContainer>
+        </div>
+      </div>
+      <div className="flex flex-col h-screen overflow-auto gap-[24px] absolute top-[60px] right-[30px] no-scrollbar max-[800px]:hidden">
         {rightSideMenu.map((item, index) => {
           return (
-            <RightSideMenu
+            <div className="shadow-[0_4px_12px_rgba(0,0,0,0.1)] max-[800px]:w-full"
               key={index}
               onClick={() => {
                 if (item.url == "upcoming") {
@@ -255,7 +112,7 @@ const RightSide = () => {
                   );
                 }
               }}>
-              <RightSideInsideMenuBox>
+              <div className="bg-white/20 flex flex-row items-center justify-center h-[64px] px-[16px] py-[24px] gap-[8px] rounded-lg cursor-pointer w-full bg-white/16  backdrop-blur-[20px] max-[530px]:flex-col max-[450px]:p-2">
                 <Image
                   style={{
                     width: item.name == "All" ? "22px" : "auto",
@@ -266,17 +123,17 @@ const RightSide = () => {
                   height={item.height}
                   alt="icon"
                 />
-                <p>{item.name}</p>
-              </RightSideInsideMenuBox>
-            </RightSideMenu>
+                <p className="text-[14px]  w-full bg-white/20 rounded-lg py-[12px] px-[8px]  font-medium border-none">{item.name}</p>
+              </div>
+            </div>
           );
         })}
-      </RightSideMenuContainer>
+      </div>
 
-      <MobileViewRightSideMenu>
+      <div className="hidden max-[800px]:flex justify-between gap-2">
         {rightSideMenuMobile.map((item, index) => {
           return (
-            <RightSideMenu
+            <div className="shadow-[0_4px_12px_rgba(0,0,0,0.1)] w-full"
               key={index}
               onClick={() => {
                 if (index == 3) {
@@ -293,27 +150,28 @@ const RightSide = () => {
                   }
                 }
               }}>
-              <RightSideInsideMenuBox>
+              <div className="bg-white/20 flex flex-col items-center justify-center h-[64px] p-4 gap-2 rounded-lg cursor-pointer w-full bg-white/16  backdrop-blur-[20px] max-[530px]:flex-col max-[450px]:p-2">
                 <Image
                   src={item.image}
                   width={item.width}
                   height={item.height}
                   alt="icon"
                 />
-                <p>{item.name}</p>
-              </RightSideInsideMenuBox>
-            </RightSideMenu>
+                <p className="text-[14px] text-white font-medium leading-normal">{item.name}</p>
+              </div>
+            </div>
           );
         })}
-      </MobileViewRightSideMenu>
-      <AllCategories>
+      </div>
+      <div className="hidden max:[800px]:flex justify-center items-center mt-[8px] cursor-pointer backdrop-blur-[20px] max-[800px]:block max-[800px]:w-full">
         <button
+        className="text-[14px]  w-full bg-white/20 rounded-lg py-[12px] px-[8px] text-white font-medium border-none"
           style={{ cursor: "pointer" }}
           onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button>
-      </AllCategories>
-    </RightMenu>
+      </div>
+    </div>
   );
 };
 

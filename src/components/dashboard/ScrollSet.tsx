@@ -1,5 +1,4 @@
 "use client";
-import { PagelayoutMainContainer } from "@/app/style";
 import React, { useEffect, useRef, useState } from "react";
 interface Props {
   children: any;
@@ -15,7 +14,7 @@ const ScrollSet: React.FC<Props> = (props) => {
   };
   //for mobile
   const handleTouchMove = () => {
-    console.log(scrollHeight);
+    console.log(window.scrollY,window.innerHeight);
     sessionStorage.setItem("scrollMobile", window.scrollY.toString());
   };
   useEffect(() => {
@@ -59,9 +58,10 @@ const ScrollSet: React.FC<Props> = (props) => {
   }, [scrollHeight]);
 
   return (
-    <PagelayoutMainContainer ref={scrollContainerRef}>
+    <div ref={scrollContainerRef} className="h-screen overflow-auto shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] z-[1] no-scrollbar max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:z-10" data-body-scroll-lock-ignore>
       {props.children}
-    </PagelayoutMainContainer>
+      </div>
+ 
   );
 };
 

@@ -45,7 +45,7 @@ const Shopping: React.FC<DashboardProps> = ({Shoppingdata}) => {
                     <Image
                       src={item?.image}
                       alt={""}
-                      priority
+                   
                       
                     />
                   </p>

@@ -16,14 +16,14 @@ const WalksModal: React.FC<WalksModalProps> = (props) => {
             isOpen={modalType.walksModal}
             onClose={() => closeModal("walksModal")}
             {...{ showMap }}
-            title={dataDetails.name}
+            title={dataDetails.listName}
             name="walksModal">
             <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
                 <iframe
                     style={{ border: 'none' }}
                     height="100%"
                     width="100%"
-                    title={dataDetails.name}
+                    title={dataDetails.listName}
                     src={dataDetails?.url}
                 ></iframe>
             </div>

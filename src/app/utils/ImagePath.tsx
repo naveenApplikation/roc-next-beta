@@ -197,7 +197,10 @@ import locationImgs from "../../../assets/images/modalImageSVG/location-dot.svg"
 import dateImgs from "../../../assets/images/modalImageSVG/calendar.svg";
 import timeImgs from "../../../assets/images/clocks.svg";
 import fallback from "../../../assets/images/fallbackimage.png"
- 
+import loader from '../../../assets/images/loaderImage/loader.svg'
+import backgroundImg from '../../../assets/bg040724.webp'
+export const backgroundImage=backgroundImg
+export const Loader=loader
 export const mailIcon = envelope;
 export const globeIcon = globesimag;
 export const locationIcon = locationImgs;

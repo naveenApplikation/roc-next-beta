@@ -12,29 +12,7 @@ import {
   HamburgerDesktop,
   iconbetablack,
 } from "@/app/utils/ImagePath";
-
-const HeadMenu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 40px;
-  padding-top: 64px;
-  padding-bottom: 6px;
-
-  background-color: transparent;
-
-  @media screen and (max-width: 800px) {
-    padding: 0px 16px;
-    padding-top: 40px;
-    display: none;
-  }
-`;
-
-const HeaderMapProfileContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
+ 
 
 const Header = () => {
   const { modalClick } = useMyContext();
@@ -70,15 +48,17 @@ const Header = () => {
   }, []);
   return (
     <>
-      <HeadMenu>
+     <div className="sticky top:0 flex items-center justify-between px-10 pt-8 pb-1 bg-transparent max-[800px]:hidden max-[800px]:px-4 max-[800px]:pt-10">
+
         <Image
           style={{ cursor: "pointer" }}
           src={ROCLogo}
           alt="Logo Outline"
           onClick={navigateClick}
         />
-        <HeaderMapProfileContainer>
-          {pathname === "/"  || pathname?.includes('info')? (
+     <div className="flex items-center gap-4">
+
+          {pathname === "/"  || pathname?.includes('info') || pathname?.includes('home')? (
             <>
               {/* <Image
                 src={iconbetablack}
@@ -128,8 +108,8 @@ const Header = () => {
               />
             </>
           )}
-        </HeaderMapProfileContainer>
-      </HeadMenu>
+        </div>
+      </div>
     </>
   );
 };

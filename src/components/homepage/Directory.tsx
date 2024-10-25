@@ -25,7 +25,7 @@ const DirectoryList = () => {
             onClick={() => menuClick(item.data[0].url, true, "Directory")}
           >
             {item.data[0].image}
-            <p className="text-[1.6rem] font-normal leading-normal cursor-pointer capitalize">
+            <p className="text-[14px] font-normal leading-normal cursor-pointer capitalize">
               {item.data[0].title}
             </p>
           </div>
@@ -34,7 +34,7 @@ const DirectoryList = () => {
             onClick={() => menuClick(item.data[1].url, true, "Directory")}
           >
             {item.data[1].image}
-            <p className="text-[1.6rem] font-normal leading-normal cursor-pointer capitalize">
+            <p className="text-[14px] font-normal leading-normal cursor-pointer capitalize">
               {item.data[1].title}
             </p>
           </div>

@@ -9,14 +9,14 @@ export const maxDuration = 300;
 // This enables dynamic path generation using generateStaticParams
 export async function generateStaticParams() {
   return eventsByDate.map((item: any) => ({
-    event: handleEventEncoding("encode", item.name),
+    event: handleEventEncoding("encode", item.listName),
   }));
 }
 
 export default async function Page({ params }: { params: { event: string } }) {
   const decodedEvent = handleEventEncoding("decode", params.event);
   const itemIndex = eventsByDate.findIndex(
-    (val: any) => val.name === decodedEvent
+    (val: any) => val.listName === decodedEvent
   );
 
   let response = null;
@@ -26,9 +26,9 @@ export default async function Page({ params }: { params: { event: string } }) {
     try {
       // Use fetch with the revalidate option for ISR
       response = await getCategory(
-        `filter-events-day?query=${eventsByDate[itemIndex].name.toLowerCase()}`
+        `filter-events-day?query=${eventsByDate[itemIndex].listName.toLowerCase()}`
       );
-      title = eventsByDate[itemIndex].name;
+      title = eventsByDate[itemIndex].listName;
     } catch (error) {
       console.error("Failed to fetch category:", error);
     }

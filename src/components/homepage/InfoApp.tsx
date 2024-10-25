@@ -1,18 +1,17 @@
-"use client"
-
+ 
 import React from "react";
 
 import { topSideMenu } from "@/app/utils/data";
 import Image from "next/image";
-import { useMyContext } from "@/app/Context/MyContext";
-import { useRouter } from "next-nprogress-bar";
+ 
+import Link from "next/link";
 
  
 
 const InfoApp = () => {
 
-  const {modalClick} = useMyContext();
-  const router=useRouter()
+ 
+  // const router=useRouter()
 
   const formatNameWithSpaces = (name:any) => {
     // Use a regular expression to split the string into words
@@ -22,14 +21,14 @@ const InfoApp = () => {
 
   return (
     <>
-      <div className="flex overflow-auto px-[16px] md:px-[40px] no-scrollbar gap-[25px]">
+      <div className="flex overflow-auto px-[40px] max-[800px]:px-[16px] no-scrollbar gap-[25px]">
         {topSideMenu.map((item: any, index: any) => {
           return (
-            <div
+            <Link
               className="flex flex-col items-center cursor-pointer gap-[8px] justify-betwee"
               key={index}
               // onClick={() => modalClick("infoApp", item.name)}
-              onClick={()=>{router.push(`/info/${item.name}`)}}
+              href={`/info/${item.name}`}
             >
               <Image
                 className="h-[18px] w-[18px]"
@@ -47,7 +46,7 @@ const InfoApp = () => {
               >
                 {formatNameWithSpaces(item.name)}
               </p>
-            </div>
+            </Link>
           );
         })}
       </div>

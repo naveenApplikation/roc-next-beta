@@ -1,25 +1,29 @@
-
 import React, { Suspense } from "react";
-import Dashboard from "@/components/dashboard/DashBoardPage";
-import Header from "@/components/header/page";
 import RightSideMenu from "@/components/RightSideMenu/page";
-import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
+import PageLayout from "../pageLayout";
+import Image from "next/image";
 import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
- 
-import AdsBanner from "@/components/adsBanner/page";
-import PageLayout from "../../pageLayout";
-import BottomSheetComp from "@/components/dashboard/BottomSheet";
-import { backgroundImage } from "@/app/utils/ImagePath";
-import DashBoard from "@/components/dashboard/DashBoardPage";
-import Loading from "@/components/dashboard/loading";
-import Image from "next/image";
-
+import backgroundImg from "../../../assets/bg040724.webp";
 import "@/app/tailwind.css"
-export default function layout({children}:{children:any}){
+ 
+ 
+// import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
+const BottomSheetComp=dynamic(()=>import("@/components/dashboard/BottomSheet"),{ssr:false});
+
+import DashBoard from "@/components/dashboard/DashBoardPage";
+import dynamic from "next/dynamic";
+import Loading from "@/components/dashboard/loading";
+import Header from "@/components/header/page";
+ 
+const  DashBoardModalScreen=dynamic(()=>import("@/components/dashboard/DashBoardModalScreen"),{ssr:false})
+export default async function Page() {
+   
+  
   return (
     <>
-       <div className="h-screen scroll-smooth   overflow-auto  max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:rounded-t-3xl max-[800px]:mt-[470px] max-[800px]:z-[1] max-[800px]:bg-white no-scrollbar">
+          
+        <div className="h-screen scroll-smooth   overflow-auto  max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:rounded-t-3xl max-[800px]:mt-[470px] max-[800px]:z-[1] max-[800px]:bg-white no-scrollbar">
           <PageLayout>
             <ScrollSet>
             <BottomSheetComp>
@@ -28,14 +32,11 @@ export default function layout({children}:{children:any}){
            
                  <Suspense fallback={<Loading></Loading>}>
             <DashBoard></DashBoard>
-               
-     
               </Suspense>
                     
                
               </div>
               </BottomSheetComp>
-              <AdsBanner maxWidth="auto" />
             </ScrollSet>
           </PageLayout>
         </div>
@@ -45,7 +46,7 @@ export default function layout({children}:{children:any}){
         className="hidden max-[800px]:block background-image-wrapper"
         style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
-          src={backgroundImage.src}
+          src={backgroundImg.src}
           layout="fill"
           objectFit="cover"
           alt="Background"
@@ -56,7 +57,6 @@ export default function layout({children}:{children:any}){
         </RightSideMenu>
       <DashBoardModalScreen></DashBoardModalScreen>
   
-      {children}
     </>
   );
 }
