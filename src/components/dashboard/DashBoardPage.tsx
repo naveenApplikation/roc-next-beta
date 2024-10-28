@@ -3,11 +3,11 @@ import React from "react";
 import dynamic from 'next/dynamic';
 
  
-// const SearchNFilter = dynamic(() => import('@/components/homepage/SearchNFilter'), { ssr: false });
-// const InfoApp = dynamic(() => import('@/components/homepage/InfoApp'), { ssr: false });
-// const FamilyEvent = dynamic(() => import('@/components/homepage/FamilyEvent'), { ssr: false });
-// const LeaveFeedbackButton = dynamic(() => import('@/components/homepage/LeaveFeedbackButton'), { ssr: false });
-// const AdsBanner=dynamic(()=>import("../adsBanner/page"),{ssr:false})
+const SearchNFilter = dynamic(() => import('@/components/homepage/SearchNFilter'), { ssr: false });
+const InfoApp = dynamic(() => import('@/components/homepage/InfoApp'), { ssr: false });
+const FamilyEvent = dynamic(() => import('@/components/homepage/FamilyEvent'), { ssr: false });
+const LeaveFeedbackButton = dynamic(() => import('@/components/homepage/LeaveFeedbackButton'), { ssr: false });
+const AdsBanner=dynamic(()=>import("../adsBanner/page"),{ssr:false})
 import { iconsHome } from "@/app/utils/homeIcon";
  
 import {
@@ -18,26 +18,26 @@ import {
 
 import { getClient, getAllPosts } from "@/lib/sanity.client";
  
-// const CycleRoutes= dynamic(()=>import("../homepage/CycleRoutes"),{ssr:false});
-// const Blog=dynamic(()=>import("../homepage/Blog"),{ssr:false})
-// const CategoriesComps =dynamic(()=>import("../homepage/CategoriesComps"),{ssr:false});
-// const EnjoyTheSunshine=dynamic(()=>import("../homepage/EnjoyTheSunshine"),{ssr:false});
-// const ScreenPageComps=dynamic(()=>import("../homepage/ScreenPageComps"),{ssr:false});
-// const Walks=dynamic(()=>import("../homepage/Walks"),{ssr:false});
-// const Directory=dynamic(()=>import("../homepage/Directory"),{ssr:false})
+const CycleRoutes= dynamic(()=>import("../homepage/CycleRoutes"),{ssr:false});
+const Blog=dynamic(()=>import("../homepage/Blog"),{ssr:false})
+const CategoriesComps =dynamic(()=>import("../homepage/CategoriesComps"),{ssr:false});
+const EnjoyTheSunshine=dynamic(()=>import("../homepage/EnjoyTheSunshine"),{ssr:false});
+const ScreenPageComps=dynamic(()=>import("../homepage/ScreenPageComps"),{ssr:false});
+const Walks=dynamic(()=>import("../homepage/Walks"),{ssr:false});
+const Directory=dynamic(()=>import("../homepage/Directory"),{ssr:false})
 
-import AdsBanner from "../adsBanner/page";
-import Blog from "../homepage/Blog";
-import CategoriesComps from "../homepage/CategoriesComps";
-import EnjoyTheSunshine from "../homepage/EnjoyTheSunshine";
-import FamilyEvent from "../homepage/FamilyEvent";
-import InfoApp from "../homepage/InfoApp";
-import LeaveFeedbackButton from "../homepage/LeaveFeedbackButton";
-import ScreenPageComps from "../homepage/ScreenPageComps";
-import SearchNFilter from "../homepage/SearchNFilter";
-import Walks from "../homepage/Walks";
-import Directory from "../homepage/Directory";
-import CycleRoutes from "../homepage/CycleRoutes";
+// import AdsBanner from "../adsBanner/page";
+// import Blog from "../homepage/Blog";
+// import CategoriesComps from "../homepage/CategoriesComps";
+// import EnjoyTheSunshine from "../homepage/EnjoyTheSunshine";
+// import FamilyEvent from "../homepage/FamilyEvent";
+// import InfoApp from "../homepage/InfoApp";
+// import LeaveFeedbackButton from "../homepage/LeaveFeedbackButton";
+// import ScreenPageComps from "../homepage/ScreenPageComps";
+// import SearchNFilter from "../homepage/SearchNFilter";
+// import Walks from "../homepage/Walks";
+// import Directory from "../homepage/Directory";
+// import CycleRoutes from "../homepage/CycleRoutes";
  
 
 const DashBoard = async () => {

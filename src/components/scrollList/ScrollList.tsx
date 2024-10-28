@@ -58,8 +58,8 @@ const Container = styled.div<{
 }>`
   position: fixed;
   bottom: ${({ bottom }) => bottom};
-  z-index: 199399999;
-  z-index: 1;
+ 
+  z-index: 5;
   max-width: 100%;
   max-width: 470px;
   @media screen and (min-width: 800px) {

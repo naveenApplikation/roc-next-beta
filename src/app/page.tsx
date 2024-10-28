@@ -24,15 +24,10 @@ export default async function Page() {
   
   return (
     <>
-          
-        <div data-body-scroll-lock-ignore className="h-screen scroll-smooth   overflow-auto  max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:rounded-t-3xl max-[800px]:mt-[470px] max-[800px]:z-[1] max-[800px]:bg-white no-scrollbar">
-          <PageLayout>
-            <ScrollSet>
+        <Suspense fallback={<Loading></Loading>}>
             <BottomSheetComp>
-              <div  className="w-[480px] overflow-hidden  scroll-smooth h-auto bg-white transition-all duration-[600ms] ease-in-out bg-blend-normal shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] relative z-[1] flex flex-col gap-6 min-h-screen max-[800px]:w-full">
-                 <Header></Header>
-           
-                
+              <div  className="w-[480px] overflow-hidden  scroll-smooth h-auto bg-white   bg-blend-normal shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] relative z-[1] flex flex-col gap-[24px] min-h-screen max-[800px]:w-full">
+              
             <DashBoard></DashBoard>
                
      
@@ -40,10 +35,9 @@ export default async function Page() {
                
               </div>
               </BottomSheetComp>
+       
+              </Suspense>
               <AdsBanner maxWidth="auto" />
-            </ScrollSet>
-          </PageLayout>
-        </div>
         
         <RightSideMenu>
         <div

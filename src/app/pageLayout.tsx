@@ -10,7 +10,7 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <div className="flex justify-between max-[800px]:flex-col-reverse" data-body-scroll-lock-ignore>
-         <div className="h-screen overflow-auto shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] z-[1] no-scrollbar max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:z-10">
+         <div className="h-screen overflow-auto shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] z-[1] no-scrollbar max-[800px]:h-auto max-[800px]:overflow-hidden max-[800px]:z-[1]">
           {children}
          </div>
       <PageLayoutClient />

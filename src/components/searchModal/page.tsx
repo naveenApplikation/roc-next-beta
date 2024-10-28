@@ -98,7 +98,7 @@ const StyledModal = styled.div<{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  z-index: 2;
+  z-index: 5;
   padding: 24px 0px;
   overflow: auto;
   transform: none;

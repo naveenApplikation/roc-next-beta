@@ -15,7 +15,7 @@ const AdContainer = styled.div<{
   position: sticky;
   bottom: -2px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 5;
   display: flex;
   justify-content: center;
   align-items: center;

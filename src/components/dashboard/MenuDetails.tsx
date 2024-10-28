@@ -14,7 +14,7 @@ interface MenuProps {
 const MenuDetails: React.FC<MenuProps> = ({ isOpen, title, hideShowAll }) => {
   return (
     <div>
-      <div className="flex items-center justify-between px-[40px] max-[800px]:px-[16px]">
+      <div className={`flex items-center justify-between  ${title=="Pubs"?'pt-[34px]':""} px-[40px] max-[800px]:px-[16px]`}>
         <p className="text-[24px] font-bold leading-none">{title}</p>
         {!hideShowAll &&
           <p className="text-[14px] font-bold leading-none cursor-pointer" onClick={isOpen}>

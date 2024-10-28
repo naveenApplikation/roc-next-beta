@@ -88,7 +88,8 @@ const StyledModal = styled.div<{
     left: 0;
     top: auto;
     height: 100%;
-
+    z-index:5;
+   
     bottom: ${({ $isopen }) =>
       $isopen
         ? "0%"

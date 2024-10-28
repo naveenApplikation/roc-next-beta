@@ -15,7 +15,7 @@ const ScrollSet: React.FC<Props> = (props) => {
   //for mobile
   const handleTouchMove = () => {
     console.log(window.scrollY,window.innerHeight);
-    sessionStorage.setItem("scrollMobile", window.scrollY.toString());
+    // sessionStorage.setItem("scrollMobile", window.scrollY.toString());
   };
   useEffect(() => {
     const scrollTop = sessionStorage.getItem("scroll");
@@ -30,6 +30,7 @@ const ScrollSet: React.FC<Props> = (props) => {
       });
     } else if (scrollTop && scrollContainerRef.current) {
       // web
+      
       scrollContainerRef.current.scrollTop = parseInt(scrollTop);
     }
   }, []);
