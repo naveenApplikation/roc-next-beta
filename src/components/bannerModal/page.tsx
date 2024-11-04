@@ -8,21 +8,23 @@ interface BannerModalProps {
 }
 
 const BannerModal: React.FC<BannerModalProps> = () => {
-  const { showMap, modalType, closeModal } = useMyContext();
+  const { showMap, modalType, closeModal, currentAdsDetail } = useMyContext();
   console.log("updatedState", modalType.adsBanner);
   return (
     <Modal
       isOpen={modalType.adsBanner}
       name="adsBanner"
       showMap={showMap}
-      onClose={() => closeModal("adsBanner")}>
+      onClose={() => closeModal("adsBanner")}
+    >
       <iframe
         style={{ border: "none", height: "100%", overflow: "hidden" }}
-        src="https://hub.roc.je/featured/cafe-at-jersey-war-tunnels"
+        src={currentAdsDetail.url}
         height="500px"
         width="100%"
-        title="Cafe @ Jersey War Tunnels"
-        className="iframe_body"></iframe>
+        title={currentAdsDetail.heading}
+        className="iframe_body"
+      ></iframe>
     </Modal>
   );
 };

@@ -3,7 +3,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { BannerDemo, BannerDemo2, BannerDemo3, RightArow } from "@/app/utils/ImagePath";
+import {
+  BannerDemo,
+  BannerDemo2,
+  BannerDemo3,
+  RightArow,
+} from "@/app/utils/ImagePath";
 import DirectionModalLayout from "@/components/modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
 
@@ -58,8 +63,7 @@ const FullAdBody = styled.div<{
 }>`
   width: 440px;
   display: flex;
- justify-content:center;
- 
+  justify-content: center;
 
   img {
     border-radius: 12px 12px 12px 12px;
@@ -100,10 +104,6 @@ const AdText = styled.div`
   }
 `;
 
-
-
-
-
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
@@ -114,31 +114,33 @@ const adsData = [
   {
     type: "existing",
     image: BannerDemo2,
-    url: "#",
+    url: "https://hub.roc.je/featured/cafe-at-jersey-war-tunnels",
     heading: "Cafe @ Jersey War Tunnels",
     text: "Open daily 10am to 5pm",
   },
-  // {
-  //   type: "new",
-  //   image: BannerDemo3, // Path to the new ad image
-  //   url: "https://amzn.to/4dRSj8d", // URL for the new ad
-  // },
+  {
+    type: "existing",
+    image: BannerDemo3, // Path to the new ad image
+    url: "https://hub.roc.je/featured/art-in-the-frame-christmas-events", // URL for the new ad
+    heading: "Sip, Savour, and Make Memories: Christmas Tasting & Craft Events",
+    text: "",
+  },
 ];
 
 const AdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
 }) => {
-  const { modalClick } = useMyContext();
+  const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
-  //   }, 5000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
+    }, 5000);
 
-  //   return () => clearInterval(interval);
-  // }, []);
+    return () => clearInterval(interval);
+  }, []);
 
   const currentAd = adsData[currentAdIndex];
 
@@ -148,10 +150,22 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
         <AdContainer
           $className={className}
           $maxWidth={maxWidth}
-          onClick={() => modalClick("adsBanner", "adsBanner")}
+          onClick={() => {
+            setcurrentAdsDetail({
+              url: adsData[currentAdIndex].url,
+              heading: adsData[currentAdIndex].heading,
+              title: adsData[currentAdIndex].text,
+            });
+            modalClick("adsBanner", "adsBanner");
+          }}
         >
           <AdBody $maxWidth={maxWidth}>
-            <Image src={currentAd.image} alt="Advertisement" width={96} height={66} />
+            <Image
+              src={currentAd.image}
+              alt="Advertisement"
+              width={96}
+              height={66}
+            />
             <AdContent>
               <AdText>
                 <p className="banner_heading">{currentAd.heading}</p>
@@ -165,13 +179,11 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
         <AdContainer
           $className={className} // Set default className
           $maxWidth={maxWidth} // Set default maxWidth
-      
           onClick={() => window.open(currentAd.url, "_blank")}
         >
-            <FullAdBody    $maxWidth={maxWidth}>
-            <Image src={currentAd.image} alt="Full Ad"  height={70}/>           
+          <FullAdBody $maxWidth={maxWidth}>
+            <Image src={currentAd.image} alt="Full Ad" height={70} />
           </FullAdBody>
-        
         </AdContainer>
       )}
     </>

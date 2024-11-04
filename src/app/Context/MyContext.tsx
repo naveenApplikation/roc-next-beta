@@ -12,7 +12,7 @@ import { buildFilterUrl } from "@/app/utils/filter";
 import Instance from "@/app/utils/Instance";
 import { useRouter } from "next-nprogress-bar";
 import { convertGCSUrl } from "../utils/commanFun";
-import fallback from "../../../assets/images/fallbackimage.png"
+import fallback from "../../../assets/images/fallbackimage.png";
 // Define types for your state and functions
 interface ModalType {
   [key: string]: boolean;
@@ -69,6 +69,8 @@ interface ContextProps {
   titleNameForModel?: any;
   setCurrentEventPath?: any;
   currentEventPath?: any;
+  setcurrentAdsDetail?: any;
+  currentAdsDetail?: any;
 }
 
 // Create a context
@@ -91,6 +93,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [showMap, setShowMap] = useState<boolean>(false);
   const [titleNameForModel, setTitleNameForModel] = useState("");
   const [oldName, setOldName] = useState<string>("");
+  const [currentAdsDetail, setcurrentAdsDetail] = useState({});
   const [modalType, setModalType] = useState({
     ModalContent: false,
     orderOnlineModal: false,
@@ -117,7 +120,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     walksModal: false,
     AboutUs: false,
     filterOption: false,
-    adsBanner:false
+    adsBanner: false,
   });
   const options = {
     dates: false,
@@ -353,11 +356,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }));
       } else {
         setModalType((prev) => {
-          const updatedState = Object.keys(prev).reduce((acc, key) => {
-            acc[key] = key === name;
-            return acc;
-          }, {} as { [key: string]: boolean });
-          
+          const updatedState = Object.keys(prev).reduce(
+            (acc, key) => {
+              acc[key] = key === name;
+              return acc;
+            },
+            {} as { [key: string]: boolean }
+          );
+
           // console.log(updatedState);
           return updatedState as typeof prev;
         });
@@ -417,18 +423,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
             imageUrls.push(convertGCSUrl(url));
           } else {
-            imageUrls.push(
-              fallback.src
-            ); // Push default image URL if URL is not valid
+            imageUrls.push(fallback.src); // Push default image URL if URL is not valid
           }
         } catch (error) {
           console.error("Error parsing JSON:", error);
-          imageUrls.push(
-            fallback.src          ); // Push default image URL if JSON parsing fails
+          imageUrls.push(fallback.src); // Push default image URL if JSON parsing fails
         }
       } else {
-        imageUrls.push(
-          fallback.src        ); // Push default image URL if item is undefined
+        imageUrls.push(fallback.src); // Push default image URL if item is undefined
       }
     });
     return imageUrls;
@@ -476,6 +478,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     titleNameForModel,
     setCurrentEventPath,
     currentEventPath,
+    setcurrentAdsDetail,
+    currentAdsDetail,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
