@@ -88,14 +88,14 @@ const StyledModal = styled.div<{
     left: 0;
     top: auto;
     height: 100%;
-    z-index:5;
-   
+    z-index: 5;
+
     bottom: ${({ $isopen }) =>
       $isopen
         ? "0%"
         : "-100%"}; // Position at bottom if open, otherwise off-screen
     width: 100%;
-    transition: bottom 0.8s ease-in-out;
+    transition: bottom 0.3s ease-in-out;
   }
 `;
 
@@ -158,7 +158,8 @@ const Modal: React.FC<ModalProps> = ({
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
       $screenwidth={screenWidth}
-      $modalType={modalType.modalFilterList}>
+      $modalType={modalType.modalFilterList}
+    >
       <div className="modal-content">
         <HeaderContainer>
           {oldName === "" ? (
@@ -191,5 +192,3 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-
- 

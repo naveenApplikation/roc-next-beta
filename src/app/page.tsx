@@ -5,56 +5,56 @@ import Image from "next/image";
 import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
 
-import "@/app/tailwind.css"
- 
- 
+import "@/app/tailwind.css";
+
 // import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
- 
+
 import DashBoard from "@/components/dashboard/DashBoardPage";
 import dynamic from "next/dynamic";
 import Loading from "@/components/dashboard/loading";
 import Header from "@/components/header/page";
 import { backgroundImage } from "./utils/ImagePath";
-const AdsBanner=dynamic(()=>import("@/components/adsBanner/page"));
+const AdsBanner = dynamic(() => import("@/components/adsBanner/page"));
 import BottomSheetComp from "@/components/dashboard/BottomSheet";
- 
-const  DashBoardModalScreen=dynamic(()=>import("@/components/dashboard/DashBoardModalScreen"),{ssr:false})
+import BottomSheetV2 from "@/components/dashboard/BottomSheetV2";
+
+const DashBoardModalScreen = dynamic(
+  () => import("@/components/dashboard/DashBoardModalScreen"),
+  { ssr: false }
+);
+
 export default async function Page() {
-   
-  
   return (
     <>
-        <Suspense fallback={<Loading></Loading>}>
-            <BottomSheetComp>
-              <div  className="w-[480px] overflow-hidden  scroll-smooth h-auto bg-white   bg-blend-normal shadow-[0_-8px_40px_0_rgba(0,0,0,0.25)] relative z-[1] flex flex-col gap-[24px] min-h-screen max-[800px]:w-full">
-              
-            <DashBoard></DashBoard>
-               
-     
-             
-               
-              </div>
-              </BottomSheetComp>
-       
-              </Suspense>
-              <AdsBanner maxWidth="auto" />
-        
-        <RightSideMenu>
+      <Suspense fallback={<Loading></Loading>}>
+        {/* <BottomSheetComp> */}
+        <div className="relative z-[1] ">
+          <BottomSheetV2>
+            <div className="scroll-smooth h-auto   flex flex-col gap-[24px] min-h-screen max-[800px]:w-full">
+              <DashBoard></DashBoard>
+            </div>
+          </BottomSheetV2>
+        </div>
+
+        {/* </BottomSheetComp> */}
+      </Suspense>
+      <AdsBanner maxWidth="auto" />
+
+      <RightSideMenu>
         <div
-        className="hidden max-[800px]:block background-image-wrapper"
-        style={{ position: "absolute", inset: 0, zIndex: -1 }}>
-        <Image
-          src={backgroundImage.src}
-          layout="fill"
-          objectFit="cover"
-          alt="Background"
-          priority
-        
-        />
-      </div>
-        </RightSideMenu>
+          className="hidden max-[800px]:block background-image-wrapper"
+          style={{ position: "absolute", inset: 0, zIndex: -1 }}
+        >
+          <Image
+            src={backgroundImage.src}
+            layout="fill"
+            objectFit="cover"
+            alt="Background"
+            priority
+          />
+        </div>
+      </RightSideMenu>
       <DashBoardModalScreen></DashBoardModalScreen>
-  
     </>
   );
 }

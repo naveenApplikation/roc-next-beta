@@ -12,8 +12,6 @@ interface SearchModalProps {
   showMap: boolean;
 }
 
-
-
 const SearchModal: React.FC<SearchModalProps> = ({
   isOpen,
   onClose,
@@ -58,7 +56,8 @@ const SearchModal: React.FC<SearchModalProps> = ({
       $isopen={isOpen}
       $showMap={showMap}
       $screenwidthpercentage={screenWidthPercentage}
-      $screenwidth={screenWidth}>
+      $screenwidth={screenWidth}
+    >
       <div className="modal-content">
         <HeaderContainer>
           <h4>{title}</h4>
@@ -76,10 +75,6 @@ const SearchModal: React.FC<SearchModalProps> = ({
 };
 
 export default SearchModal;
-
-
-
-
 
 const StyledModal = styled.div<{
   $isopen: boolean;
@@ -105,7 +100,7 @@ const StyledModal = styled.div<{
   left: 0;
   top: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
   height: 100%;
-  transition: top 0.8s ease-in-out;
+  transition: top 0.3s ease-in-out;
 
   &::-webkit-scrollbar {
     display: none;
