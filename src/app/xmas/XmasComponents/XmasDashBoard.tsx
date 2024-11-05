@@ -5,7 +5,7 @@ import Shopping from "./Shopping";
 import FoodAndDrink from "./FoodAndDrink";
 import NewYearEvening from "./NewYearEvening";
 import BottomButtonList from "./BottomButtonList";
-import { RocLogoIcon } from "../utils/XmasImagePath";
+import { LogoIcon, RocLogoIcon } from "../utils/XmasImagePath";
 import Image from "next/image";
 import Header from "./XmasHeader";
 
@@ -28,7 +28,7 @@ export default function XmasDashboard()
           <BottomButtonList></BottomButtonList>
           <div className="flex px-[20px] w-full justify-center w-full py-[8px]">
               <Image
-              src={RocLogoIcon}
+              src={LogoIcon}
               alt=""
               height={32}
               width={120}

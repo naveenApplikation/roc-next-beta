@@ -19,7 +19,9 @@ import EventLayoutImage from  '../../../../assets/xmasAssets/highlightImages/diy
 import ShoppingLayoutImage from  '../../../../assets/xmasAssets/highlightImages/coop-bikes.jpg'
 
 import BanjoImage from  '../../../../assets/xmasAssets/highlightImages/banjo.jpg'
-import clothing from '../../../../assets/xmasAssets/icons/men.svg'
+import Menclothing from '../../../../assets/xmasAssets/icons/men.svg'
+import WomenClothing from '../../../../assets/xmasAssets/icons/women.svg'
+
 import bag from '../../../../assets/xmasAssets/icons/bag.svg'
 import foot from '../../../../assets/xmasAssets/icons/foot.svg'
 import lip from '../../../../assets/xmasAssets/icons/lip.svg'
@@ -37,6 +39,12 @@ import basket from '../../../../assets/xmasAssets/icons/basket.svg'
 import wine from '../../../../assets/xmasAssets/icons/wine.svg'
 import NewYearEvening from '../../../../assets/xmasAssets/highlightImages/new year Evening.jpg'
 import RocLogo from '../../../../assets/xmasAssets/icons/rocLogo.svg'
+import Event from  '../../../../assets/xmasAssets/eventImage.jpg'
+import KidsClothing from '../../../../assets/xmasAssets/icons/kids clothing.svg'
+import Logo from '../../../../assets/xmasAssets/icons/logo.svg'
+export const LogoIcon=Logo
+export const kidsClothingIcon=KidsClothing
+export const EventImage=Event
 export const XmasBgImage=XmasImage
 export const NewYearEveningImage=NewYearEvening
 export const calendarImage=Calendar
@@ -57,7 +65,8 @@ export const starImage=StarLogo
 export const EventLayout=EventLayoutImage
 export const ShoppingLayout=ShoppingLayoutImage
 export const Banjo=BanjoImage
-export const ClothingIcon=clothing
+export const MenClothingIcon=Menclothing
+export const WomenClothingIcon=WomenClothing
 export const BagIcon=bag
 export const FootIcon=foot
 export const lipIcon=lip

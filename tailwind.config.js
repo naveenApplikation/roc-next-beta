@@ -14,7 +14,10 @@ export default {
         cyan: "#79FFE1",
         "blue-500": "#2276FC",
         "yellow-100": "#fef7da",
+        'warm-brown': '#8b5e3c', // Adjust this color based on the lighter shade
+        'dark-brown': '#2c1a11', // Adjust this color based on the darker shade
       },
+    
       spacing: {
         28: "7rem",
       },

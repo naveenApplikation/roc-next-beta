@@ -10,7 +10,7 @@ export default function Places({title}:{title:string})
     return (
       <div key={index} className="flex flex-col  w-[120px] gap-[8px]">
         <div className="w-[120px]  rounded-[8px]">
-          <Image height={70} width={120} alt="" objectFit="cover" src={Banjo} className="rounded-[8px]" />
+          <Image height={500} width={500} alt="" objectFit="fill" src={Banjo} className="h-[70px] w-[120px] w- rounded-[8px]" />
         </div>
         <p className="text-[12px] font-normal  leading-normal overflow-hidden  text-ellipsis line-clamp-1">
           Famous Kitchen Tour and activities 

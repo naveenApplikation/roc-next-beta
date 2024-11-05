@@ -2,14 +2,29 @@
 import { useEffect, useRef, useState } from "react";
 import XmasDashboard from "./XmasDashBoard";
 import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
-
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 
  const ScrollLayout=()=>{
 
     
+  
+
+
     const ref=useRef<HTMLDivElement>(null)
+   
     const [resize,setResize]=useState(0)
+    useEffect(() => {
+      if (ref.current) {
+        // When opening the bottom sheet
+        // disableBodyScroll(ref.current);
+    
+        return () => {
+          // When closing the bottom sheet
+          enableBodyScroll(ref.current);
+        };
+      }
+    }, [resize]);
     useEffect(()=>{
         const handleResize=()=>{
              setResize(window.innerWidth)
@@ -96,9 +111,9 @@ import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
 
    },[])
 
-    return   <div className="flex justify-between max-[800px]:flex-col-reverse" data-body-scroll-lock-ignore>
+    return   <div className="overflow-hidden flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
     
-    <div ref={ref} className='min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[485px] z-[1]    h-screen no-scrollbar border'>
+    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-h-screen min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[530px] z-[1] no-scrollbar'>
 
              <XmasDashboard></XmasDashboard>
        </div>

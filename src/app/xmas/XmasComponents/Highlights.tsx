@@ -30,7 +30,7 @@ const HighLights=()=>{
          <div className="grid grid-cols-1 px-[20px] gap-[16px]">
              
                <div className="flex flex-row gap-[4px] ">
-                    <HighLightButton title="Event" icon={calendarImage}></HighLightButton>
+                    <HighLightButton title="Events" icon={calendarImage}></HighLightButton>
                     <HighLightButton title="Shopping" icon={ShoppingBag}></HighLightButton>
                     <HighLightButton title="Food & Drink" icon={foodAndDrink}></HighLightButton>
                </div>
@@ -61,16 +61,18 @@ const RenderHighLights=({data}:{data:{content:string,date:string,image:StaticIma
                           <Image 
                                 src={item.image}
                                 alt=""
+                                height={500}
+                                width={500}
                                 objectFit="cover"
                                 className="h-full w-full rounded-[16px]"   
                               >
 
                               </Image>
-                         {item.date &&     <div className="w-max absolute top-2 rounded-[16px] p-[8px] left-2 bg-[#F40035]">
+                         {item.date &&     <div className="w-max absolute top-2 rounded-[16px] py-[4px] px-[5px] left-2 bg-[#F40035]">
                                <p className="text-white font-[500] text-[14px] overflow-hidden text-ellipsis line-clamp-2">{item.date}</p>
                           </div>}
                           {/* <div className="w-full absolute bottom-[42px] h-[25px] w-full backdrop-blur-[30px] backdrop-brightness-[0.5] border-none opacity-[0.3]  "></div> */}
-                          <div style={{ boxShadow: '0px -30px 20px rgba(0,0,0, 0.5)' }} className="h-[48px] overflow-hidden truncate box-border w-full backdrop-blur-[30px] backdrop-brightness-[0.9] border-0  bg-white/30 absolute bottom-[0px] px-[12px] pb-[5px] pt-[5px]  rounded-b-[16px] ">
+                          <div style={{ boxShadow: '0px -30px 20px rgba(0,0,0, 0.5)' }} className="h-[48px] overflow-hidden truncate box-border w-full backdrop-blur-[40px]  border-0 flex backdrop-brightness-[1] items-end  absolute bottom-[0px] px-[12px] pb-[5px] pt-[5px]  rounded-b-[16px] ">
                             <p className="text-white text-[12px] font-[600] text-wrap overflow-hidden text-ellipsis line-clamp-2">{item.content}</p>
                           </div>
                           </div>

@@ -1,4 +1,5 @@
-import { ClothingIcon, dining, drinks, ElectonicIcon, FitnessIcon, FootIcon, GiftBoxIcon, GiftIcon, hearts, HomeDecorIcon, JewelIcon, lipIcon, ShoppingLayout, smily, ToysIcon } from "../utils/XmasImagePath";
+ 
+import { ElectonicIcon, FitnessIcon, FootIcon, GiftBoxIcon, GiftIcon, HomeDecorIcon, JewelIcon, kidsClothingIcon, lipIcon, MenClothingIcon, ShoppingLayout, ToysIcon, WomenClothingIcon } from "../utils/XmasImagePath";
 import ImageLayout from "./ImageLayout";
 import ListingItems from "./ListingItems";
 import Places from "./Places";
@@ -28,15 +29,15 @@ export default function Shopping(){
 
 const data=[{
     content:"Women’s Clothing",
-    image:ClothingIcon
+    image:WomenClothingIcon
 },
 {
     content:"Men’s Clothing",
-    image:ClothingIcon
+    image:MenClothingIcon
 },
 {
     content:"Kids Clothing",
-    image:ClothingIcon
+    image:kidsClothingIcon
 },
 {
     content:"Footwear",
