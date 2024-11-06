@@ -27,3 +27,18 @@
 filter: blur(35px);
   z-index: 3;
 }
+
+.backdropEffect{
+    backdrop-filter: blur(15px);
+    position: absolute;
+    height: 230px;
+    width: 100%;
+    z-index: 5;
+    bottom: 0;
+    padding: 10px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+    
+}

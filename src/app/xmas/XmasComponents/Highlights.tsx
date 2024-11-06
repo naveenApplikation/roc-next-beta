@@ -30,11 +30,12 @@ const HighLights=()=>{
          <div className="grid grid-cols-1 px-[20px] gap-[16px]">
              
                <div className="flex flex-row gap-[4px] ">
+                 
                     <HighLightButton title="Events" icon={calendarImage}></HighLightButton>
                     <HighLightButton title="Shopping" icon={ShoppingBag}></HighLightButton>
                     <HighLightButton title="Food & Drink" icon={foodAndDrink}></HighLightButton>
                </div>
-               <div className="grid grid-cols-1 py-[24px] gap-[16px]">
+               <div  className="grid grid-cols-1 py-[24px] gap-[16px]">
 
                     <div className="">
                         <h1 className="text-[#F40035] text-[32px] font-[900] ">Highlights</h1>
@@ -68,7 +69,7 @@ const RenderHighLights=({data}:{data:{content:string,date:string,image:StaticIma
                               >
 
                               </Image>
-                         {item.date &&     <div className="w-max absolute top-2 rounded-[16px] py-[4px] px-[5px] left-2 bg-[#F40035]">
+                         {item.date &&     <div className="w-max absolute top-2 rounded-[16px] py-[5px] px-[12px] left-2 bg-[#F40035]">
                                <p className="text-white font-[500] text-[14px] overflow-hidden text-ellipsis line-clamp-2">{item.date}</p>
                           </div>}
                           {/* <div className="w-full absolute bottom-[42px] h-[25px] w-full backdrop-blur-[30px] backdrop-brightness-[0.5] border-none opacity-[0.3]  "></div> */}

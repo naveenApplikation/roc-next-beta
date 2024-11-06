@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import XmasDashboard from "./XmasDashBoard";
 import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-
+import { EventImage, winterDomes, XmasBgImage } from "../utils/XmasImagePath";
+import Image from "next/image";
+import { shopping } from "@/app/utils/ImagePath";
 
  const ScrollLayout=()=>{
 
@@ -42,14 +44,14 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
         {
             console.log("yes")
          
-            scrollableDiv.style.overflowY = 'scroll';  
+            // scrollableDiv.style.overflowY = 'scroll';  
             scrollableDiv.style.borderTopRightRadius="0px"
             scrollableDiv.style.borderTopLeftRadius="0px"
 
         }
         else if(scrollableDiv)
         {
-            scrollableDiv.style.overflowY = 'hidden';  
+            // scrollableDiv.style.overflowY = 'hidden';  
             scrollableDiv.style.borderTopRightRadius="24px"
             scrollableDiv.style.borderTopLeftRadius="24px"
         }
@@ -111,11 +113,12 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
    },[])
 
-    return   <div className="overflow-hidden flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
+    return   <div className="overflow-hidden min-[800px]:h-screen flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
     
-    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-h-screen min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[530px] z-[1] no-scrollbar'>
-
-             <XmasDashboard></XmasDashboard>
+    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[1] no-scrollbar'>
+         
+        <XmasDashboard></XmasDashboard>
+     
        </div>
        <PageLayoutClient></PageLayoutClient>
        </div>
@@ -124,3 +127,4 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 
 export default ScrollLayout
+

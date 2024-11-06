@@ -9,7 +9,7 @@ export default function BottomButtonList()
                 
             <div className="flex flex-row gap-[4px] ">
            {  data.map((item)=>{return <>
-            <Link className="px-[12px] py-[16px] w-full text-white rounded-[16px] bg-[#374957] flex flex-col items-center justify-center gap-[4px]" href={""} >
+            <Link href={`#${item.nav}`} className="px-[12px] py-[16px] w-full text-white rounded-[16px] bg-[#374957] flex flex-col items-center justify-center gap-[4px]"  >
               <Image
               src={item.icon}
               alt=""
@@ -34,14 +34,17 @@ export default function BottomButtonList()
 const data=[
     {
          icon:calendarImage,
-         title:"Events"
+         title:"Events",
+         nav:"events"
     },
     {
         icon:ShoppingBag,
-        title:"Shopping"
+        title:"Shopping",
+        nav:"shopping"
     },
     {
         icon:foodAndDrink,
-        title:"Food"
+        title:"Food",
+        nav:"food & drink"
     }
 ]

@@ -3,7 +3,7 @@ import Link from "next/link"
 const HighLightButton=({title,icon}:{title:string,icon:any})=>{
     return <>
        
-       <Link className="px-[12px] py-[8px] w-full text-white rounded-[16px] bg-[#F40035] flex flex-col items-center justify-center gap-[4px]" href={""} >
+       <Link href={`#${title.toLowerCase()}`} className="px-[12px] py-[8px] w-full text-white rounded-[16px] bg-[#F40035] flex flex-col items-center justify-center gap-[4px]"  >
               <Image
               src={icon}
               alt=""

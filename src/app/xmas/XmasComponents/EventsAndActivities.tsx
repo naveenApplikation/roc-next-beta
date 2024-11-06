@@ -11,9 +11,9 @@ export default function EventAndActivities(){
       return <>
         
              
-          <div className="grid grid-cols-1  px-[20px] py-[24px] gap-[16px]">
-            <div className="">
-                <h1 className="text-[#F40035] text-[32px] font-[900] ">Events & Activities</h1>
+          <div  id="events" className="grid grid-cols-1  px-[20px] py-[24px] gap-[16px]">
+            <div  className="">
+                <h1  className="text-[#F40035] text-[32px] font-[900] ">Events & Activities</h1>
             </div>
             <ImageLayout image={EventLayout}>
             Sip, Savour, and Make Memories:    <br/> Christmas Tasting & Craft Events
