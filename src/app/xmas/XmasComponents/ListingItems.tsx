@@ -9,10 +9,10 @@ const ListingItems=({data}:{data:any[]})=>{
      <div className="relative border-none flex items-center grow gap-[16px] py-[12px]">
       <Image
        alt="icon"
-       width={500}
+       width={20}
        height={500}
        src={item.image}
-       className="h-[20px] w-[20]"
+       className="h-[20px]"
       ></Image>
 
      <p className="absolute text-[18px] left-[50px] font-[400]">{item.content}</p>
