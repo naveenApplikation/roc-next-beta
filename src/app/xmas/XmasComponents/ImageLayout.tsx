@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../../assets/images/fallbackimage.png";
-import { convertGCSUrl } from "@/app/utils/commanFun";
+import { convertGCSUrl, handleEventEncoding } from "@/app/utils/commanFun";
 import { useRouter } from "next-nprogress-bar";
 
 const filterUrls = (ImageUrlData: any) => {
@@ -57,7 +57,9 @@ export default function ImageLayout({
         router.push(`/xmas/iframe/advertisement/${item?._id}`);
         break;
       case "eventCategory":
-        router.push(`/eventCategory/${item?.list_name}`);
+        router.push(
+          `/eventCategory/${handleEventEncoding("encode", item?.list_name)}`
+        );
 
         break;
       case "place":

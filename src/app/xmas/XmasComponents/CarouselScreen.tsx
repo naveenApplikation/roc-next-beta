@@ -8,7 +8,7 @@ import "../style.css";
 import { transform } from "lodash";
 import { useMyContext } from "@/app/Context/MyContext";
 import { useRouter } from "next-nprogress-bar";
-import { convertGCSUrl } from "@/app/utils/commanFun";
+import { convertGCSUrl, handleEventEncoding } from "@/app/utils/commanFun";
 import fallback from "../../../../assets/images/fallbackimage.png";
 const filterUrls = (ImageUrlData: any) => {
   const imageUrls: string[] = [];
@@ -57,7 +57,9 @@ const Carousel = ({ slides }) => {
         router.push(`/xmas/iframe/carousel/${item?._id}`);
         break;
       case "eventCategory":
-        router.push(`/eventCategory/${item?.list_name}`);
+        router.push(
+          `/eventCategory/${handleEventEncoding("encode", item?.list_name)}`
+        );
 
         break;
       case "place":
