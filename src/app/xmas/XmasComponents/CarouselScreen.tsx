@@ -57,7 +57,7 @@ const Carousel = ({ slides }) => {
         router.push(`/xmas/iframe/carousel/${item?._id}`);
         break;
       case "eventCategory":
-        router.push(`/eventCategory/${item?.category_id}`);
+        router.push(`/eventCategory/${item?.list_name}`);
 
         break;
       case "place":
