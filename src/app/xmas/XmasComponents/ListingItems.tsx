@@ -28,7 +28,10 @@ const ListingItems = ({ data, title }: { data: any[]; title: string }) => {
           return (
             <div
               key={index}
-              className={`flex justify-between h-[48px] items-center  border border-x-0 border-t-0 ${index == data.length - 1 ? "border-0" : "border-b-gray-300"} `}
+              onClick={() => {
+                navigate(item);
+              }}
+              className={`flex justify-between h-[48px] items-center  border border-x-0 border-t-0 ${index == data.length - 1 ? "border-0" : "border-b-gray-300"} cursor-pointer`}
             >
               <div className="relative border-none flex items-center grow gap-[16px] py-[12px]">
                 <div className="h-[30] w-[30] flex justify-center items-center">
@@ -47,9 +50,6 @@ const ListingItems = ({ data, title }: { data: any[]; title: string }) => {
                 width={8}
                 src={RedArrow}
                 alt=""
-                onClick={() => {
-                  navigate(item);
-                }}
                 className="cursor-pointer"
               ></Image>
             </div>
