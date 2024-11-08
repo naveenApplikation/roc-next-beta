@@ -7,7 +7,7 @@ import { EventImage, winterDomes, XmasBgImage } from "../utils/XmasImagePath";
 import Image from "next/image";
 import { shopping } from "@/app/utils/ImagePath";
 
- const ScrollLayout=()=>{
+ const ScrollLayout=({children}:{children:any})=>{
 
     
   
@@ -115,9 +115,9 @@ import { shopping } from "@/app/utils/ImagePath";
 
     return   <div className="overflow-hidden min-[800px]:h-screen flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
     
-    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[1] no-scrollbar'>
+    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-[800px]:w-[480px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[2] no-scrollbar'>
          
-        <XmasDashboard></XmasDashboard>
+        {children}
      
        </div>
        <PageLayoutClient></PageLayoutClient>

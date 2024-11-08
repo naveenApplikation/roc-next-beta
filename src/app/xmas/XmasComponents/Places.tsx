@@ -1,19 +1,31 @@
+'use client'
 import Image from "next/image";
 import XmasMenu from "./XmasMenu";
 import { Banjo } from "../utils/XmasImagePath";
-export default function Places({title}:{title:string})
+import { useMyContext } from "@/app/Context/MyContext";
+import fallback from "../../../../assets/images/fallbackimage.png";
+export default function Places({title,data,nav}:{title:string,data:any,nav:string})
 {
+  
+  console.log(data,"data")
+    const {modalClick}=useMyContext()
     return <>
-             <XmasMenu>{title}</XmasMenu>
+             <XmasMenu link={nav}>{title}</XmasMenu>
            <div className="flex gap-[8px] overflow-y-hidden no-scrollbar">
-  {[1,2,3,4,5,6,7,8,9,10].map((index) => {
+  {(data || []).map((item,index) => {
     return (
-      <div key={index} className="flex flex-col  w-[120px] gap-[8px]">
+      <div  onClick={() =>
+        modalClick(
+          "eventListing",
+          item,
+          item?.data_type === "google" ? item?.photoUrl : fallback
+        )
+      } key={index} className="flex flex-col cursor-pointer  w-[120px] gap-[8px]">
         <div className="w-[120px]  rounded-[8px]">
-          <Image height={500} width={500} alt="" objectFit="fill" src={Banjo} className="h-[70px] w-[120px] w- rounded-[8px]" />
+          <Image height={500} width={500} alt="" objectFit="cover" src={item?.photoUrl} className="h-[70px] w-[120px] object-cover w- rounded-[8px]" />
         </div>
         <p className="text-[12px] font-normal  leading-normal overflow-hidden  text-ellipsis line-clamp-1">
-          Famous Kitchen Tour and activities 
+          {item?.name}
         </p>
       </div>
     );

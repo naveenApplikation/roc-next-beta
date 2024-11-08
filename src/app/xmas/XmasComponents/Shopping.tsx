@@ -1,11 +1,25 @@
  
+import { Fragment } from "react";
 import { ElectonicIcon, FitnessIcon, FootIcon, GiftBoxIcon, GiftIcon, HomeDecorIcon, JewelIcon, kidsClothingIcon, lipIcon, MenClothingIcon, ShoppingLayout, ToysIcon, WomenClothingIcon } from "../utils/XmasImagePath";
+import { getShopCategory } from "../XmasAction";
 import ImageLayout from "./ImageLayout";
 import ListingItems from "./ListingItems";
 import Places from "./Places";
 
 
-export default function Shopping(){
+export default async function Shopping({ads}:{ads:any}){
+
+        const shoppingData=await getShopCategory("main")
+        const ShoppingItems=()=>{
+            return  shoppingData.map((data,index)=>{
+              return  <Fragment key={index}>
+                <Places   nav={`/screens/${data.category.listName}?categoryID=${data.category._id}`} data={data.category.PeopleCommunityList} title={data.title} ></Places>
+  
+                </Fragment>
+            })
+       }
+        const categoryList=await getShopCategory('secondary')
+        
      return <>
              
             <div id="shopping" className="grid grid-cols-1  px-[20px] py-[24px] gap-[16px]">
@@ -15,13 +29,12 @@ export default function Shopping(){
                 <div>
                     <p className="text-[16px]  leading-[20px] text-gray-500 font-[500] overflow-hidden  text-ellipsis line-clamp-2">St Helier late night shopping until 9pm on Thursdays through to 23 December.</p>
                 </div>
-                <ImageLayout image={ShoppingLayout}>
-                   Coop Bikes: Your family bike shop
+                <ImageLayout data={ads}>
+                {ads?.title}
                 </ImageLayout>
-                <Places title="Artisan & Personalised"></Places>
-                <Places title="Toy Shops"></Places>
-                <Places title="Christmas trees and decorations"></Places>
-                <ListingItems data={data}></ListingItems>
+                 
+                <ShoppingItems></ShoppingItems>
+                <ListingItems title="shopping" data={categoryList}></ListingItems>
             </div>
      </>
 }

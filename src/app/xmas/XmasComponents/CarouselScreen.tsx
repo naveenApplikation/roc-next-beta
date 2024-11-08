@@ -1,13 +1,84 @@
 'use client'
  import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { RocLogoIcon } from "../utils/XmasImagePath";
 import { MenuIcon } from "@/app/utils/ImagePath";
 
 import '../style.css'
 import { transform } from "lodash";
+import { useMyContext } from "@/app/Context/MyContext";
+import { useRouter } from "next-nprogress-bar";
+import { convertGCSUrl } from "@/app/utils/commanFun";
+import fallback from "../../../../assets/images/fallbackimage.png";
+const filterUrls = (ImageUrlData: any) => {
+  const imageUrls: string[] = [];
+  ImageUrlData?.forEach((item: any) => {
+    if (item) {
+      try {
+        const jsonData = JSON.parse(item);
+        const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
- const Carousel = ({ slides }) => {
+        if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+          imageUrls.push(convertGCSUrl(url));
+        } else {
+          imageUrls.push(
+            fallback.src
+          ); // Push default image URL if URL is not valid
+        }
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+        imageUrls.push(
+          fallback.src          ); // Push default image URL if JSON parsing fails
+      }
+    } else {
+      imageUrls.push(
+        fallback.src        ); // Push default image URL if item is undefined
+    }
+  });
+  return imageUrls;
+};
+
+const Carousel = ({ slides }) => {
+ const router=useRouter()
+
+ const {modalClick}=useMyContext()
+
+  const navigate=(type:string,item:any)=>{
+    console.log(item)
+    switch(type)
+    {
+       case 'event':
+        
+           const filteredUrls = filterUrls([item.event_id.acf.header_image_data]);
+           console.log(filteredUrls)
+           modalClick(
+               "eventListing",
+               {
+                   acf:item.event_id.acf
+               },
+               filteredUrls[0] ? filteredUrls[0] : fallback
+             )
+           break;
+       case 'iframe':
+            router.push(`/xmas/iframe/carousel/${item?._id}`)
+            break;
+       case 'eventCategory':
+            router.push(`/eventCategory/${item?.category_id}`)
+         
+            break;
+       case 'place':
+              modalClick(
+                "eventListing",
+                item,
+                item?.data_type === "google" ? item?.photoUrl : fallback
+              )
+            break;
+       default:
+          router.push('/xmas')     
+    }
+  }
+  
+   
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideInterval = 5000; // 4 seconds
 
@@ -53,63 +124,35 @@ import { transform } from "lodash";
   };
 
   const RenderImage=()=>{
+
+   
      return <>
-        <div 
-      className="carousel-container absolute w-full h-full top-0 max-w-[470px] mx-auto overflow-hidden"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div className="carousel-inner flex transition-transform duration-1000 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)`,}}>
-        {slides.map((slide, index) => (
-          <div key={index} className="relative carousel-item min-w-full">
-                <Image
-                      layout='cover'
-                       objectFit='fill'
-                       
-                       src={slide.image}
-                       alt=''
-                       className='w-full h-[320px] object-cover'
-                        
-                       priority
-                  //      style={{height:"490px"}}
-                    
-                    
-                      ></Image>
-                   <Image
-                      layout='cover'
-                       objectFit='fill'
-                     
-                       src={slide.image}
-                       alt=''
-                       style={{transform: 'rotateX(190deg)'}}
-                       className='w-full  h-[320px] object-cover'
-                       priority
-                  //      style={{height:"490px"}}
-                    
-                    
-                      ></Image>
-             
-          
-                 
-              
-          </div>
-        ))}
+      <div 
+  className="carousel-container absolute w-full h-full top-0 max-w-[100%] mx-auto overflow-hidden"
+  onTouchStart={handleTouchStart}
+  onTouchEnd={handleTouchEnd}
+  onClick={() => navigate(slides[currentIndex].link_type, slides[currentIndex])}
+>
+  <div className="carousel-inner flex transition-transform duration-1000 ease-in-out" 
+    style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+    {slides.map((slide, index) => (
+      <div 
+        key={index}
+        className="flex-shrink-0 max-[800px]:w-[100%]"
+      >
+        <Image
+          height={510}
+          width={1000}
+          src={slide.img_url}
+          alt=""
+          className="w-full h-[510px] object-cover"
+          priority
+        />
       </div>
+    ))}
+  </div>
+</div>
 
-      {/* Navigation Buttons */}
-    
-
-      {/* Indicators */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full ${index === currentIndex ? 'bg-white' : 'bg-gray-500/50'}`}
-            onClick={() => setCurrentIndex(index)}
-          ></button>
-        ))}
-      </div>
-    </div>
      </>
   }
 
@@ -133,9 +176,10 @@ import { transform } from "lodash";
                   >
          
                   </Image>
-                  <div className='flex bg-[#F40035] rounded-[10px] text-white justify-between gap-[8px] items-center px-[10px] py-[9px]'>
-                        <p className='text-[15px] font-[700]'>Xmas Guide</p>
+                  <div className='flex bg-[#F40035] rounded-[10px]  justify-between gap-[8px] items-center px-[10px] py-[9px]'>
+                        <p className='text-[15px] text-white font-[700]'>Xmas Guide</p>
                         <Image
+                         onClick={() => modalClick("createAccountModal")}
                           src={MenuIcon}
                           alt=''
                           height={500}
@@ -147,19 +191,29 @@ import { transform } from "lodash";
                </div>
                
                <div 
-                          style={{ color:'#fff' }}   onTouchStart={handleTouchStart}
+                          style={{ color:`'#fff` }}   onTouchStart={handleTouchStart}
                           onTouchEnd={handleTouchEnd}
+                          onClick={()=>navigate(slides[currentIndex].link_type,slides[currentIndex])}
                         className='backdropEffect'>
-                              <p className='font-[400] text-[18px]' >21st Nov - 8th Dec</p>
-                              <p className='font-[550] text-[22px] leading-[25px]'>Genuine Jersey - <br/> Simply Christmas Market</p>
+                              <p className={`font-[400] ${currentIndex==1?'text-black':'text-white'} text-[18px]`} >{slides[currentIndex].date}</p>
+                              <p className={`font-[550] ${currentIndex==1?'text-black':'text-white'} text-[22px] leading-[25px]`}>{slides[currentIndex].title.split(' ').map((item,index)=>{
+                                   
+                                    if(index==2 && currentIndex!=2)
+                                    {
+                                       return <span key={index}>{item+" "}<br/> </span>
+                                    }
+                                    else
+                                    {
+                                       return <Fragment key={index}>{item+" "}</Fragment>
+                                    }
+                              })}</p>
                               <div>
-                                    <p className='text-[16px] font-[500]'>View Details</p>
+                                    <p className={`text-[16px] ${currentIndex==1?'text-black':'text-white'} font-[500]`}>View Details</p>
                               </div>
                               <div className='flex flex-row gap-[5px] p-[4px] w-[100px]'>
-                                {[1,2,3].map((_,index)=>{
-                                    return <>
-                                         <div className={`${index === currentIndex ? 'bg-white':'bg-gray-500 '} w-full h-[3px] rounded-[100px]`}></div>
-                                    </>
+                                {slides.map((_,index)=>{
+                                    return  <div key={index} className={`${index === currentIndex ? 'bg-white':'bg-gray-500 '} w-full h-[3px] rounded-[100px]`}></div>
+                                    
                                 })}
                                     {/* <div className='bg-white w-full h-[3px] rounded-[100px]'></div>
                                     <div className='bg-gray-500 w-full h-[3px] rounded-[100px]'></div>

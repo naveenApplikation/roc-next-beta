@@ -1,0 +1,67 @@
+import InfoServerModel from "@/components/AllModalScreen/InfoServerModel";
+import { topSideMenu } from "../../../../utils/data";
+import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
+import XmasIframeModel from "@/app/xmas/XmasComponents/XmasIframeModel";
+ 
+ 
+  
+export default async function Page({params}:{params:{app:string,id:string}}){
+ 
+ 
+  console.log("title",params)
+  
+   try
+   {
+    
+  const result = await fetch(`${process.env.NEXT_API_URL}/${params.app}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "force-cache",
+  });
+    const response = await result.json();
+    const filter=response.filter((item)=>{
+      return item._id==params.id
+})
+
+  console.log(filter,"filter")
+    return <>
+         
+ 
+         <XmasIframeModel
+        name="infoApp"
+        title={""}
+      >
+       
+          <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
+            <iframe
+              style={{ border: "none", height: "100%", overflow: "hidden" }}
+              src={filter[0].iframe_url}
+              height="500px"
+              width="100%"
+              title={""}
+              className="iframe_body"
+              loading="lazy"
+            ></iframe>
+          </div>
+     
+      </XmasIframeModel>
+      <DashBoardModalScreen></DashBoardModalScreen>
+
+     
+    </>
+}
+catch(error)
+{ 
+    return <>something went wrong!</>
+}
+  
+}
+
+
+export async function generateStaticParams()
+{
+    
+    return []
+   
+}

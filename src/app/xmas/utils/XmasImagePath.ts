@@ -1,5 +1,5 @@
 
-import XmasImage from '../../../../assets/xmasAssets/bgImage.webp'
+import XmasImage from '../../../../assets/xmasAssets/highlightImages/bgImage.jpg'
 import Calendar from '../../../../assets/xmasAssets/icons/calendar.svg'
 import Utensils from '../../../../assets/xmasAssets/icons/utensils.svg'
 import Shopping from  '../../../../assets/xmasAssets/icons/bag-shopping.svg'

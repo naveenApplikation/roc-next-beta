@@ -3,7 +3,7 @@ import Link from "next/link"
 const HighLightButton=({title,icon}:{title:string,icon:any})=>{
     return <>
        
-       <Link href={`#${title.toLowerCase()}`} className="px-[12px] py-[8px] w-full text-white rounded-[16px] bg-[#F40035] flex flex-col items-center justify-center gap-[4px]"  >
+       <Link href={`#${title.toLowerCase()}`} className="px-[12px] py-[8px] cursor-pointer w-full rounded-[16px] bg-[#F40035] flex flex-col items-center justify-center gap-[4px]"  >
               <Image
               src={icon}
               alt=""
@@ -16,7 +16,7 @@ const HighLightButton=({title,icon}:{title:string,icon:any})=>{
 
 
               </Image>
-              <p className="capitalize text-[13px] font-[500]">{title}</p>
+              <p className="capitalize text-[13px] text-white font-[500]">{title}</p>
        </Link>
 
  

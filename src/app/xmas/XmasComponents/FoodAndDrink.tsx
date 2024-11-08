@@ -1,10 +1,23 @@
+import { Fragment } from "react";
 import { BarIcon, BasketIcon, CookieIcon, CupIcon, dining, WIneIcon, winterDomes } from "../utils/XmasImagePath";
+import { getFoodandDrinks } from "../XmasAction";
 import ImageLayout from "./ImageLayout";
 import ListingItems from "./ListingItems";
 import Places from "./Places";
 
-export default function FoodAndDrink()
+export default async function FoodAndDrink({ads}:{ads:any})
 {
+
+    const foodAndDrinkData=await getFoodandDrinks('main')
+     const foodAndDrinkCategory=await getFoodandDrinks('secondary')
+     const FoodAndDrinkItems=()=>{
+          return foodAndDrinkData.map((data,index)=>{
+          return  <Fragment key={index}>
+<Places  nav={`/screens/${data.category.listName}?categoryID=${data.category._id}`} data={data.category.GoogleFoodAndDrinksList} title={data.title} ></Places>
+
+          </Fragment>
+          })
+     }
     return <>
         <div id="food & drink" className="grid grid-cols-1  px-[20px] py-[24px] gap-[16px]">
                 <div className="">
@@ -13,15 +26,12 @@ export default function FoodAndDrink()
                 <div>
                     <p className="text-[16px]  leading-[20px] text-gray-400 font-[500] overflow-hidden  text-ellipsis line-clamp-2">St Helier late night shopping until 9pm on Thursdays through to 23 December.</p>
                 </div>
-                <ImageLayout image={winterDomes}>
-                Winter Domes at Grand jersey
+                <ImageLayout data={ads}>
+                    {ads?.title}
                 </ImageLayout>
-                <Places title="Open on Christmas Day"></Places>
-                <Places title="Gifts & Hampers"></Places>
-                <Places title="Turkey & Trimmings"></Places>
-                <Places title="Christmas Do"></Places>
-                <Places title="Shopping Lunch Break"></Places>
-                <ListingItems data={data}></ListingItems>
+              <FoodAndDrinkItems></FoodAndDrinkItems>
+            
+                <ListingItems title="food" data={foodAndDrinkCategory}></ListingItems>
          </div>
     </>
 }

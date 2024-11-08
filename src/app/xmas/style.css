@@ -29,7 +29,7 @@ filter: blur(35px);
 }
 
 .backdropEffect{
-    backdrop-filter: blur(15px);
+    /* backdrop-filter: blur(15px); */
     position: absolute;
     height: 230px;
     width: 100%;
