@@ -19,7 +19,7 @@ import { shopping } from "@/app/utils/ImagePath";
     useEffect(() => {
       if (ref.current) {
         // When opening the bottom sheet
-        disableBodyScroll(ref.current);
+        // disableBodyScroll(ref.current);
     
         return () => {
           // When closing the bottom sheet
