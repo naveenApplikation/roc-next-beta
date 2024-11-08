@@ -2,6 +2,7 @@ import InfoServerModel from "@/components/AllModalScreen/InfoServerModel";
 import { topSideMenu } from "../../../../utils/data";
 import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import XmasIframeModel from "@/app/xmas/XmasComponents/XmasIframeModel";
+import { getAds, getCarouselData, getHighlights } from "@/app/xmas/XmasAction";
  
  
   
@@ -61,7 +62,27 @@ catch(error)
 
 export async function generateStaticParams()
 {
-    
-    return []
+
+    const add=(element:any,type:string)=>{
+      if(element.link_type=='iframe')
+        {
+             staticGeneration.push({app:type,id:element._id})
+        }
+    }
+    const staticGeneration:any=[]
+    const carousel=await getCarouselData() as any[]
+    carousel.forEach(element => {
+          add(element,'carousel')
+    });
+    const ads=await getAds() as any[]
+    ads.forEach(element => {
+      add(element,'advertisement')
+});
+    const highlight=await getHighlights() as any[]
+    highlight.forEach(element => {
+      add(element,'highlight')
+});
+     console.log(staticGeneration)
+    return staticGeneration
    
 }
