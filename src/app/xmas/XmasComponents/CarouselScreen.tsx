@@ -201,7 +201,7 @@ const Carousel = ({ slides }) => {
             {slides[currentIndex].title.split(" ").map((item, index) => {
               if (index == 2 && currentIndex != 2) {
                 return (
-                  <span key={index}>
+                  <span className="text-white" key={index}>
                     {item + " "}
                     <br />{" "}
                   </span>
