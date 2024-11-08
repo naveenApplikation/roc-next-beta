@@ -8,7 +8,7 @@ import Places from "./Places";
 export default async function NewYearEvening({ads}:{ads:any})
 {
 
-    const xmasEvents:any[]=await getXmasEvents() as any
+    const xmasEvents:any[]=await getXmasEvents("x-mas-events?limit=true") as any
     const foodAndDrinkCategory=await getFoodandDrinks('main')
   
     return <>
@@ -22,7 +22,7 @@ export default async function NewYearEvening({ads}:{ads:any})
                 <ImageLayout data={ads}>
                        {ads.title}
                 </ImageLayout>
-                <XmasEvent nav={""} data={xmasEvents.slice(0,10)} title="Events"></XmasEvent>
+                <XmasEvent nav={"/eventCategory/xmas-events"} data={xmasEvents.slice(0,10)} title="Events"></XmasEvent>
                 <Places nav="screens/Pubs?categoryID=663f68c30c44bd6c026b0fc2"   data={foodAndDrinkCategory[0].category.GoogleFoodAndDrinksList} title="Bars & Nightlife"></Places>
                  
          </div>

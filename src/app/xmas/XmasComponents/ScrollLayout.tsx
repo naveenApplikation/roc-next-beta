@@ -16,17 +16,17 @@ import { shopping } from "@/app/utils/ImagePath";
     const ref=useRef<HTMLDivElement>(null)
    
     const [resize,setResize]=useState(0)
-    // useEffect(() => {
-    //   if (ref.current) {
-    //     // When opening the bottom sheet
-    //     // disableBodyScroll(ref.current);
+    useEffect(() => {
+      if (ref.current) {
+        // When opening the bottom sheet
+        disableBodyScroll(ref.current);
     
-    //     return () => {
-    //       // When closing the bottom sheet
-    //       enableBodyScroll(ref.current);
-    //     };
-    //   }
-    // }, [resize]);
+        return () => {
+          // When closing the bottom sheet
+          enableBodyScroll(ref.current);
+        };
+      }
+    }, [resize]);
     useEffect(() => {
       const scrollTop = sessionStorage.getItem("xmasScroll");
       console.log(window.innerWidth);

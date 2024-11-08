@@ -80,11 +80,11 @@ export async function getAds()
 }
 
 
-export async function getXmasEvents()
+export async function getXmasEvents(params:string)
 {
      try
      {
-         let response=await fetch(`${process.env.NEXT_API_URL}/x-mas-events?limit=true`)
+         let response=await fetch(`${process.env.NEXT_API_URL}/${params}`)
          response=await response.json()
          return response
      }
