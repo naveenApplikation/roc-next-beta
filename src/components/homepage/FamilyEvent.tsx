@@ -89,10 +89,10 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                     />
                     <div className="absolute bottom-[4px] left-[4px] text-center bg-white rounded-[4px]">
                       <p className="text-[17px] font-extrabold leading-normal w-[30px]">
-                        {formatDate(item.acf.event_dates[0].date)}
+                      {formatDate(item.acf?.event_date)}
                       </p>
                       <p className="text-[10px] font-bold leading-normal uppercase bg-[#ba2b2b] text-white w-[30px] rounded-b-[4px]">
-                        {formatMonth(item.acf.event_dates[0].date)}
+                      {formatMonth(item.acf?.event_date)}
                       </p>
                     </div>
                   </div>
