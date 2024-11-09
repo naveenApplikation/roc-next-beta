@@ -1,7 +1,7 @@
-'use client'
+"use client";
 import { useEffect, useRef, useState } from "react";
 import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
-import { enableBodyScroll } from 'body-scroll-lock';
+import { enableBodyScroll } from "body-scroll-lock";
 import { usePathname } from "next/navigation";
 
  const ScrollLayout=({children}:{children:any})=>{
@@ -158,13 +158,10 @@ import { usePathname } from "next/navigation";
     <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-[800px]:w-[480px] max-[800px]:rounded-t-[24px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[2] no-scrollbar'>
          
         {children}
-     
-       </div>
-       <PageLayoutClient></PageLayoutClient>
-       </div>
-}
+      </div>
+      <PageLayoutClient></PageLayoutClient>
+    </div>
+   
+};
 
-
-
-export default ScrollLayout
-
+export default ScrollLayout;

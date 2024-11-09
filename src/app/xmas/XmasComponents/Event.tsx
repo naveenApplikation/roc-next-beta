@@ -1,7 +1,14 @@
-'use client'
-import Image from "next/image"
-import { dining, drinks,EventImage,hearts, smily, XmasBgImage } from "../utils/XmasImagePath"
-import XmasMenu from "./XmasMenu"
+"use client";
+import Image from "next/image";
+import {
+  dining,
+  drinks,
+  EventImage,
+  hearts,
+  smily,
+  XmasBgImage,
+} from "../utils/XmasImagePath";
+import XmasMenu from "./XmasMenu";
 import fallback from "../../../../assets/images/fallbackimage.png";
 import { convertGCSUrl } from "@/app/utils/commanFun";
 import { formatMonth, formatDate } from "@/app/utils/date";
@@ -18,63 +25,76 @@ const filterUrls = (ImageUrlData: any) => {
         if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
           imageUrls.push(convertGCSUrl(url));
         } else {
-          imageUrls.push(
-            fallback.src
-          ); // Push default image URL if URL is not valid
+          imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        imageUrls.push(
-          fallback.src          ); // Push default image URL if JSON parsing fails
+        imageUrls.push(fallback.src); // Push default image URL if JSON parsing fails
       }
     } else {
-      imageUrls.push(
-        fallback.src        ); // Push default image URL if item is undefined
+      imageUrls.push(fallback.src); // Push default image URL if item is undefined
     }
   });
   return imageUrls;
 };
-export default function XmasEvent({title,data,nav}:{title:string,data:any,nav:string})
-{
-  
-
+export default function XmasEvent({
+  title,
+  data,
+  nav,
+}: {
+  title: string;
+  data: any;
+  nav: string;
+}) {
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
-   
+
   const filteredUrls = filterUrls(ImageUrlData);
-  
-   
-   const {modalClick}=useMyContext()
-    return <>
-           <XmasMenu link={nav} >{title}</XmasMenu>
-           <div className="flex gap-[8px] min-h-max overflow-y-hidden no-scrollbar">
-  {(data || []).map((item,index) => {
-    return (
-      <div onClick={()=>{
-        modalClick(
-          "eventListing",
-          item,
-          filteredUrls[index] ? filteredUrls[index] : fallback
-        )
-     }} key={index} className="flex flex-col  cursor-pointer w-[80px] gap-[8px]">
-        <div className="relative w-[80px]   rounded-[8px]">
-          <Image height={500} width={500} alt="" objectFit="fill"  src={filteredUrls[index] ? filteredUrls[index] : fallback} className="h-[83px] w-full rounded-[8px]" />
-          <div className="absolute bottom-[4px] left-[4px] w-[30px] text-center bg-white rounded-[4px]">
-            <p className="text-[17px] font-extrabold leading-[1.0]"> {formatDate(item.acf?.event_date)}</p>
-            <p className="text-[10px] font-bold leading-normal uppercase bg-[#ba2b2b] text-white rounded-b-[4px]">
-            {formatMonth(item.acf?.event_date)}
-            </p>
-          </div>
-        </div>
-        <p className="text-[12px] font-normal  leading-normal overflow-hidden  text-ellipsis line-clamp-2">
-        {item.acf?.title}
-        </p>
+  console.log("hey", data);
+
+  const { modalClick } = useMyContext();
+  return (
+    <>
+      <XmasMenu link={nav}>{title}</XmasMenu>
+      <div className="flex gap-[8px] min-h-max overflow-y-hidden no-scrollbar">
+        {(data || []).map((item, index) => {
+          return (
+            <div
+              onClick={() => {
+                modalClick(
+                  "eventListing",
+                  item,
+                  filteredUrls[index] ? filteredUrls[index] : fallback
+                );
+              }}
+              key={index}
+              className="flex flex-col  cursor-pointer w-[80px] gap-[8px]"
+            >
+              <div className="relative w-[80px]   rounded-[8px]">
+                <Image
+                  height={500}
+                  width={500}
+                  alt=""
+                  objectFit="fill"
+                  src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                  className="h-[83px] w-full rounded-[8px]"
+                />
+                <div className="absolute bottom-[4px] left-[4px] w-[30px] text-center bg-white rounded-[4px]">
+                  <p className="text-[17px] font-extrabold leading-[1.0]">
+                    {" "}
+                    {formatDate(item.acf?.event_dates[0].date)}
+                  </p>
+                  <p className="text-[10px] font-bold leading-normal uppercase bg-[#ba2b2b] text-white rounded-b-[4px]">
+                    {formatMonth(item.acf?.event_dates[0].date)}
+                  </p>
+                </div>
+              </div>
+              <p className="text-[12px] font-normal  leading-normal overflow-hidden  text-ellipsis line-clamp-2">
+                {item.acf?.title}
+              </p>
+            </div>
+          );
+        })}
       </div>
-    );
-  })}
-</div>
-
     </>
+  );
 }
-
-
-
