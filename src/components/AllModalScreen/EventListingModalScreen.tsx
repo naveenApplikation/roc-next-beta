@@ -29,27 +29,21 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
   } = useMyContext();
   const path = usePathname();
   const router = useRouter();
-  console.log(params);
-  const handleClose = () => {
-    console.log(params);
-   closeModal("eventListing");
-    switch(true)
-    {
-       case params.event?true:false:
-            if(path?.includes('eventCategory'))
-            {
-            router.replace(`/eventCategory/${params?.event}`)
-            }
-            else if(path?.includes('eventByDate')){
-                  router.replace(`/eventByDate/${params?.event}`)
-            }
-            break;
-       
-       default:
-            router.replace(``);
 
+  const handleClose = () => {
+    closeModal("eventListing");
+    switch (true) {
+      case params.event ? true : false:
+        if (path?.includes("eventCategory")) {
+          router.replace(`/eventCategory/${params?.event}`);
+        } else if (path?.includes("eventByDate")) {
+          router.replace(`/eventByDate/${params?.event}`);
+        }
+        break;
+
+      default:
+        router.replace(``);
     }
-    
   };
 
   return (
