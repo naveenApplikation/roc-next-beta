@@ -11,7 +11,12 @@ import {
 import XmasMenu from "./XmasMenu";
 import fallback from "../../../../assets/images/fallbackimage.png";
 import { convertGCSUrl } from "@/app/utils/commanFun";
-import { formatMonth, formatDate } from "@/app/utils/date";
+import {
+  formatMonth,
+  formatDate,
+  getNextEvent,
+  getEvent,
+} from "@/app/utils/date";
 import { useMyContext } from "@/app/Context/MyContext";
 
 const filterUrls = (ImageUrlData: any) => {
@@ -49,7 +54,6 @@ export default function XmasEvent({
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
-  console.log("hey", data);
 
   const { modalClick } = useMyContext();
   return (
@@ -57,6 +61,13 @@ export default function XmasEvent({
       <XmasMenu link={nav}>{title}</XmasMenu>
       <div className="flex gap-[8px] min-h-max overflow-y-hidden no-scrollbar">
         {(data || []).map((item, index) => {
+          let nextEvent;
+          if (item?.acf?.event_date) {
+            nextEvent = getEvent(item.acf?.event_date);
+          } else {
+            nextEvent = getNextEvent(item.acf?.event_dates);
+          }
+
           return (
             <div
               onClick={() => {
@@ -81,10 +92,10 @@ export default function XmasEvent({
                 <div className="absolute bottom-[4px] left-[4px] w-[30px] text-center bg-white rounded-[4px]">
                   <p className="text-[17px] font-extrabold leading-[1.0]">
                     {" "}
-                    {formatDate(item.acf?.event_dates[0].date)}
+                    {nextEvent?.date}
                   </p>
                   <p className="text-[10px] font-bold leading-normal uppercase bg-[#ba2b2b] text-white rounded-b-[4px]">
-                    {formatMonth(item.acf?.event_dates[0].date)}
+                    {nextEvent?.month}
                   </p>
                 </div>
               </div>
