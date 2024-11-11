@@ -42,6 +42,8 @@ import RocLogo from '../../../../assets/xmasAssets/icons/rocLogo.svg'
 import Event from  '../../../../assets/xmasAssets/eventImage.jpg'
 import KidsClothing from '../../../../assets/xmasAssets/icons/kids clothing.svg'
 import Logo from '../../../../assets/xmasAssets/icons/logo.svg'
+import MetaImg from '../../../../assets/xmasAssets/xmas-meta.png'
+export const MetaImage=MetaImg
 export const LogoIcon=Logo
 export const kidsClothingIcon=KidsClothing
 export const EventImage=Event

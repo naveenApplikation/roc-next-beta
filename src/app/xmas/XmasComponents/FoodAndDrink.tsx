@@ -23,9 +23,9 @@ export default async function FoodAndDrink({ads}:{ads:any})
                 <div className="">
                     <h1 className="text-[#F40035] text-[32px] font-[900] ">Food & Drink</h1>
                 </div>
-                <div>
+                {/* <div>
                     <p className="text-[16px]  leading-[20px] text-gray-400 font-[500] overflow-hidden  text-ellipsis line-clamp-2">St Helier late night shopping until 9pm on Thursdays through to 23 December.</p>
-                </div>
+                </div> */}
                 <ImageLayout data={ads}>
                     {ads?.title}
                 </ImageLayout>

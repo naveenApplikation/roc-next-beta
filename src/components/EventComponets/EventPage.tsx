@@ -325,20 +325,22 @@ const EventPage: React.FC<EventBoxProps> = ({
                         style={{
                           ...style,
                           width: "80%",
-                          height: "80px",
+                          height: "500px",
                           //  display: 'flex',
                           //  justifyContent:"center",
                           //  alignItems:"center",
                         }}>
                         {!loading && (
-                          <AddListButton
-                            onClick={() => {
+                          <AddListButton 
+                            >
+                            <CommonButton isOpen={() => {
                               modalClick("filterOption");
                               handleFilterOption("dates");
-                            }}>
-                            <CommonButton text="For more Events" />
+                            }} text="More Dates" />
+                             <CommonButton  text="Submit an Event" />
                           </AddListButton>
                         )}
+                         
                       </div>
                     )}
                   </>
@@ -503,7 +505,9 @@ const TitleText = styled.p`
 const AddListButton = styled.div`
   padding-top: 40px;
   padding-left: 30px;
-  height: 500px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
   width: 100%;
 `;
 

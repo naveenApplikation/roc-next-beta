@@ -20,8 +20,8 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { addAndRomoveToken } from "@/app/action";
 import { usePathname } from "next/navigation";
 import { information } from "@/app/utils/ImagePath";
- 
- 
+import { FaRegCalendar } from "react-icons/fa6";
+import { FaRegBuilding } from "react-icons/fa6";
 interface ModalProps {
   isOpen?: any;
   nextModal?: any;
@@ -104,6 +104,24 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
             forwardNavigateImg={navigateImg}
           />
         </div>
+        <div style={{ cursor: "pointer" }} >
+        <MenuOptionList
+          optionListText
+          title1="Submit an event"
+          menuOptionImg={{icon:<FaRegCalendar size={16}></FaRegCalendar>}}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Submit an business"
+          menuOptionImg={{icon:<FaRegBuilding size={16} color="black"></FaRegBuilding>}}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
         <div style={{ cursor: "pointer" }} onClick={isOpen}>
           <MenuOptionList
             optionListText
@@ -122,7 +140,7 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
             forwardNavigateImg={navigateImg}
           />
         </div>
-        <div style={{ cursor: "pointer" }} onClick={myListOpen}>
+        {/* <div style={{ cursor: "pointer" }} onClick={myListOpen}>
           <MenuOptionList
             optionListText
             title1="Terms & Conditions"
@@ -130,7 +148,7 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
             navigaetImg
             forwardNavigateImg={navigateImg}
           />
-        </div>
+        </div> */}
         <div onClick={isPrivacyPolicy} style={{ cursor: "pointer" }}>
           <MenuOptionList
             optionListText
@@ -141,9 +159,9 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
           />
         </div>
         <SocialMedia />
-        <UserTermsText1>
+        {/* <UserTermsText1>
           <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
-        </UserTermsText1>
+        </UserTermsText1> */}
       </MenuModalContent>
     );
 };

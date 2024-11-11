@@ -11,7 +11,8 @@ import navigateImg from "../../../assets/images/menuModalsImage/forwardNavigate.
 import { information } from "@/app/utils/ImagePath";
 import listStar from "../../../assets/images/listStar.svg";
 import { Logout, blank, user } from "@/app/utils/ImagePath";
-
+import { FaRegCalendar } from "react-icons/fa6";
+import { FaRegBuilding } from "react-icons/fa6";
 interface ModalProps {
   isOpen?: any;
   isOpenContact?: any;
@@ -40,6 +41,24 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           optionListText
           title1="Create a list"
           menuOptionImg={createListImg}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }} >
+        <MenuOptionList
+          optionListText
+          title1="Submit an event"
+          menuOptionImg={{icon:<FaRegCalendar size={16}></FaRegCalendar>}}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Submit an business"
+          menuOptionImg={{icon:<FaRegBuilding size={16} color="black"></FaRegBuilding>}}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />

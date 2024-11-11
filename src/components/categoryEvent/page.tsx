@@ -80,6 +80,26 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
   useEffect(() => {
     setBookmark(bookMark);
   }, [bookMark]);
+
+  useEffect(()=>{
+         const scrollContainer=scrollContainerRef.current
+          console.log(scrollContainer)
+         const handleScroll=()=>{
+              console.log(scrollContainer.scrollTop,scrollContainer.pageYOffset)
+         }
+         if(scrollContainer)
+         {
+          console.log("event")
+           scrollContainer.addEventListener('scroll',handleScroll)
+         }
+
+         return ()=>{
+          if(scrollContainer)
+            {
+              scrollContainer.reomveEventListener('scroll',handleScroll)
+            } 
+         }
+  },[])
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   // const handleScroll = () => {
@@ -465,6 +485,7 @@ const FamilyEventWrapper = styled.div`
   flex-direction: column;
   position: relative;
   width: 80px;
+  min-width:80px;
   .date {
     font-size: 17px;
     font-style: normal;

@@ -101,13 +101,13 @@ const Greetings: React.FC<GreetingsProps> = ({
 }) => {
   return (
     <GreetingsScreen>
-      <GreetingTitle>Pending</GreetingTitle>
+      <GreetingTitle>In Progress</GreetingTitle>
       <GreetingQuotes>
-      Thank you for contributing. Your list will be available once approved. Thank you 🤩
+      Thank you for contributing! Community is at the heart of ROC, and your input helps make it even better for islanders and visitors alike 😊. Please note that updates can take up to 4 hours to appear. 
       </GreetingQuotes>
       <GreetingBtnBox>
-        <ViewListBtn onClick={homePage}>View community lists</ViewListBtn>
-        <AnotherListBtn onClick={preScreen}>Create Another List...</AnotherListBtn>
+        <ViewListBtn onClick={homePage}>View My List</ViewListBtn>
+        {/* <AnotherListBtn onClick={preScreen}>Create Another List...</AnotherListBtn> */}
         {/* <BottomText>...become a #ROCgod</BottomText> */}
       </GreetingBtnBox>
     </GreetingsScreen>

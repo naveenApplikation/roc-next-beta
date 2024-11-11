@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-
 interface InputProps {
     title1?: string;
     title2?: string;
@@ -90,11 +89,17 @@ const MenuOptionList: React.FC<InputProps> = ({
 }) => {
     return (
         <OptionList>
+            {!title1?.includes('Submit')?
             <Image
                 style={{ width: "16px", height: "16px" }}
                 src={menuOptionImg}
                 alt="MenuOptionListIcon"
             />
+           : <>
+               {menuOptionImg.icon}
+           </>
+        }
+           
             {optionListText &&
                 (<OptionListText>{title1}</OptionListText>
             )}

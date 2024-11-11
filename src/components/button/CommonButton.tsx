@@ -61,7 +61,7 @@ const CommonButton: React.FC<ButtonProps> = ({
         />
       )}
       {text === "Call" ? (
-        <div style={{ color: "white", fontSize: "16px", fontWeight: "500" }}>
+        <div style={{ color: "white", fontSize: "16px", fontWeight: "500",letterSpacing:"1px" }}>
           {text}
         </div>
       ) : (

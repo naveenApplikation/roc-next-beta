@@ -12,6 +12,7 @@ import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import Skeleton from "react-loading-skeleton";
 import ImageCom from "../addList/imageCom";
 import fallbackimage from '../../../assets/images/fallbackimage.png'
+import CommonButton from "../button/CommonButton";
 
 interface CreateListingsProps {
   ScreenSwitch?: Function;
@@ -183,7 +184,11 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                 );
               }))}
         </CreateListingsContent>
+        <div style={{padding:"20px 24px"}}>
+        <CommonButton text="Cant't find? Submit a Business"></CommonButton>
+        </div>
       </CreateListItemScrollBox>
+    
       <CreateListingsFooter
         continueBtn
         ScreenSwitch={ScreenSwitch}
