@@ -7,27 +7,28 @@ import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import ProgressBarProvider from "@/components/ProgressBar";
+import { MetaImage } from "./xmas/utils/XmasImagePath";
 
 const inter = Inter({ subsets: ["latin"] });
 
+ 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "ROC - Latest from ROC",
-  description: "Your one-stop-shop for  Latest from ROC.",
+  title: "Jersey Christmas Guide 2024 | Discover Festive Events, Shopping, Dining withROC",
+  description: "Explore Jersey's ultimate Christmas guide with ROC! Find the best festive shopping spots, dining experiences, events, and New Year’s celebrations. Dive into the season’s magic and make memories with ROC’s complete guide to Christmas in Jersey, Channel Islands.",
   icons:
-    "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+    MetaImage.src,
   twitter: {
     card: "summary_large_image",
-    title: "ROC - What's #OnTheROC",
-    description: "Your one-stop-shop for  Latest from ROC.",
-    images:
-      "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+    title: "Jersey Christmas Guide 2024 | Discover Festive Events, Shopping, Dining withROC",
+    description: "Explore Jersey's ultimate Christmas guide with ROC! Find the best festive shopping spots, dining experiences, events, and New Year’s celebrations. Dive into the season’s magic and make memories with ROC’s complete guide to Christmas in Jersey, Channel Islands.",
+    images:MetaImage.src
   },
   openGraph: {
-    images:
-      "https://uploads-ssl.webflow.com/663f3f9d972cd11c025ff9da/6645d3c7372c8c830122d3d5_meta%20image.png",
+    images:MetaImage.src
   },
 };
+
 
 export default function RootLayout({
   children,
