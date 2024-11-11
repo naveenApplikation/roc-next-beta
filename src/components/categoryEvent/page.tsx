@@ -96,7 +96,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
          return ()=>{
           if(scrollContainer)
             {
-              scrollContainer.reomveEventListener('scroll',handleScroll)
+              scrollContainer.removeEventListener('scroll',handleScroll)
             } 
          }
   },[])
