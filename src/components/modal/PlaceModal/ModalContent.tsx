@@ -174,7 +174,7 @@ const ModalContent: React.FC<ModalProps> = ({
     }
   };
 
-  const strippedContent = data?.acf?.short_description
+  const strippedContent = showApiData?.editorial_summary?.overview
     .replace(/<p[^>]*>/g, "")
     .replace(/<\/p>/g, "");
 
@@ -269,6 +269,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <ViewDirection onClick={() => reservationModal("DirectionModal")}>
               View Directions
             </ViewDirection>
+
             {relatedTypesFun(showApiData?.types).length ? (
               <>
                 {showApiData?.delivery === undefined &&

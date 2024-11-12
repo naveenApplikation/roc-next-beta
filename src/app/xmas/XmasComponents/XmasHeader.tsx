@@ -21,7 +21,7 @@ const Header = () => {
   const router = useRouter();
 
   const navigateClick = () => {
-    router.push("/xmas");
+    router.push("/");
   };
 
   useEffect(() => {
