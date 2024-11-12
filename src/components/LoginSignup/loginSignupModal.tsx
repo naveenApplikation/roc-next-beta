@@ -31,84 +31,75 @@ interface ModalProps {
   isPrivacyPolicy?: any;
 }
 
+const LoginSignupModal: React.FC<ModalProps> = ({
+  isOpen,
+  nextModal,
+  onClick,
+  myListOpen,
+  isOpenAboutUs,
+  isPrivacyPolicy,
+}) => {
+  const [loader, setloader] = useState(false);
+  const { modalClick } = useMyContext();
+  const pathname = usePathname();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email format").required("Required!"),
+      password: Yup.string()
+        .min(8, "Minimum 8 characters")
+        .required("Required!"),
+    }),
+    onSubmit: async (values) => {
+      setloader(true);
+      try {
+        const loginData = await Instance.post("sign-up", {
+          email: values.email,
+          password: values.password,
+        });
+        await addAndRomoveToken(loginData.data.token);
+        localStorage.setItem("loginToken", loginData.data.token);
+        console.log(pathname);
+        if (pathname?.includes("screens")) {
+          window.location.reload();
+        } else {
+          nextModal();
+        }
+      } catch (error: any) {
+        console.log(error.message);
+        showToast(error.message, "error");
+        setloader(false);
+      } finally {
+        setloader(false);
+      }
+    },
+  });
 
-
-const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, myListOpen, isOpenAboutUs,isPrivacyPolicy }) => {
-    const [loader, setloader] = useState(false);
-    const { modalClick } = useMyContext();
-      const pathname = usePathname();
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-        },
-        validationSchema: Yup.object({
-            email: Yup.string().email("Invalid email format").required("Required!"),
-            password: Yup.string()
-                .min(8, "Minimum 8 characters")
-                .required("Required!"),
-        }),
-        onSubmit: async (values) => {
-            setloader(true);
-            try {
-                const loginData = await Instance.post("sign-up", {
-                    email: values.email,
-                    password: values.password,
-                });
-               await addAndRomoveToken(loginData.data.token) 
-                localStorage.setItem("loginToken",loginData.data.token);
-                console.log(pathname)
-                  if (pathname?.includes("screens")) {
-                    window.location.reload();
-                  }
-                  else
-                  {
-                nextModal();
-                  }
-                
-           
-                
-            } catch (error: any) {
-                console.log(error.message);
-                showToast(error.message, "error");
-                setloader(false);
-            } finally {
-                setloader(false);
-            }
-        },
-    });
-
-    return (
-      <MenuModalContent>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <CommonButton
-            bcColor="#2F80ED"
-            text={loader ? "Loading..." : "Create Account"}
-            isOpen={() => modalClick("createAccountModal")}
-          />
-          <CommonButton
-            bcColor="#2F80ED"
-            text={loader ? "Loading..." : "Login"}
-            isOpen={() => modalClick("LoginAccountModal")}
-          />
-        </div>
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => modalClick("LeaveFeedback")}
-        >
-          <MenuOptionList
-            optionListText
-            title1="Leave feedback"
-            menuOptionImg={contactUsImg}
-            navigaetImg
-            forwardNavigateImg={navigateImg}
-          />
-        </div>
-        <div style={{ cursor: "pointer" }} >
+  return (
+    <MenuModalContent>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <CommonButton
+          bcColor="#2F80ED"
+          text={loader ? "Loading..." : "Create Account"}
+          isOpen={() => modalClick("createAccountModal")}
+        />
+        <CommonButton
+          bcColor="#2F80ED"
+          text={loader ? "Loading..." : "Login"}
+          isOpen={() => modalClick("LoginAccountModal")}
+        />
+      </div>
+      <div
+        style={{ cursor: "pointer" }}
+        onClick={() => modalClick("LeaveFeedback")}
+      >
         <MenuOptionList
           optionListText
-          title1="Submit an event"
-          menuOptionImg={{icon:<FaRegCalendar size={16}></FaRegCalendar>}}
+          title1="Leave feedback"
+          menuOptionImg={contactUsImg}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
@@ -116,31 +107,42 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
       <div style={{ cursor: "pointer" }}>
         <MenuOptionList
           optionListText
-          title1="Submit an business"
-          menuOptionImg={{icon:<FaRegBuilding size={16} color="black"></FaRegBuilding>}}
+          title1="Submit an event"
+          menuOptionImg={{ icon: <FaRegCalendar size={16}></FaRegCalendar> }}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
       </div>
-        <div style={{ cursor: "pointer" }} onClick={isOpen}>
-          <MenuOptionList
-            optionListText
-            title1="Contact us"
-            menuOptionImg={emails}
-            navigaetImg
-            forwardNavigateImg={navigateImg}
-          />
-        </div>
-        <div style={{ cursor: "pointer" }} onClick={isOpenAboutUs}>
-          <MenuOptionList
-            optionListText
-            title1="About us"
-            menuOptionImg={user}
-            navigaetImg
-            forwardNavigateImg={navigateImg}
-          />
-        </div>
-        {/* <div style={{ cursor: "pointer" }} onClick={myListOpen}>
+      <div style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Submit a business"
+          menuOptionImg={{
+            icon: <FaRegBuilding size={16} color="black"></FaRegBuilding>,
+          }}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }} onClick={isOpen}>
+        <MenuOptionList
+          optionListText
+          title1="Contact us"
+          menuOptionImg={emails}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <div style={{ cursor: "pointer" }} onClick={isOpenAboutUs}>
+        <MenuOptionList
+          optionListText
+          title1="About us"
+          menuOptionImg={user}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      {/* <div style={{ cursor: "pointer" }} onClick={myListOpen}>
           <MenuOptionList
             optionListText
             title1="Terms & Conditions"
@@ -149,25 +151,24 @@ const LoginSignupModal: React.FC<ModalProps> = ({ isOpen, nextModal, onClick, my
             forwardNavigateImg={navigateImg}
           />
         </div> */}
-        <div onClick={isPrivacyPolicy} style={{ cursor: "pointer" }}>
-          <MenuOptionList
-            optionListText
-            title1="Privacy Policy"
-            menuOptionImg={information}
-            navigaetImg
-            forwardNavigateImg={navigateImg}
-          />
-        </div>
-        <SocialMedia />
-        {/* <UserTermsText1>
+      <div onClick={isPrivacyPolicy} style={{ cursor: "pointer" }}>
+        <MenuOptionList
+          optionListText
+          title1="Privacy Policy"
+          menuOptionImg={information}
+          navigaetImg
+          forwardNavigateImg={navigateImg}
+        />
+      </div>
+      <SocialMedia />
+      {/* <UserTermsText1>
           <UserTermsText2>Background Photo: Luke Moss</UserTermsText2>
         </UserTermsText1> */}
-      </MenuModalContent>
-    );
+    </MenuModalContent>
+  );
 };
 
 export default LoginSignupModal;
-
 
 const MenuModalContent = styled.div`
   display: flex;

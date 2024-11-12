@@ -21,7 +21,7 @@ interface ModalProps {
   logoutClick: () => void;
   onClick: (name: string) => void;
   isOpenAboutUs: any;
-  isPrivacyPolicy:any
+  isPrivacyPolicy: any;
 }
 
 const MenuModalContent = styled.div`
@@ -30,10 +30,16 @@ const MenuModalContent = styled.div`
   padding: 16px 24px;
 `;
 
-const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myListOpen, logoutClick, onClick, isOpenAboutUs,myBookmarkOpen,isPrivacyPolicy }) => {
- 
-   
-
+const WelcomebackContent: React.FC<ModalProps> = ({
+  isOpen,
+  isOpenContact,
+  myListOpen,
+  logoutClick,
+  onClick,
+  isOpenAboutUs,
+  myBookmarkOpen,
+  isPrivacyPolicy,
+}) => {
   return (
     <MenuModalContent>
       <div style={{ cursor: "pointer" }} onClick={() => onClick("AddToCreate")}>
@@ -45,11 +51,11 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div style={{ cursor: "pointer" }} >
+      <div style={{ cursor: "pointer" }}>
         <MenuOptionList
           optionListText
           title1="Submit an event"
-          menuOptionImg={{icon:<FaRegCalendar size={16}></FaRegCalendar>}}
+          menuOptionImg={{ icon: <FaRegCalendar size={16}></FaRegCalendar> }}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
@@ -57,8 +63,10 @@ const WelcomebackContent: React.FC<ModalProps> = ({ isOpen, isOpenContact, myLis
       <div style={{ cursor: "pointer" }}>
         <MenuOptionList
           optionListText
-          title1="Submit an business"
-          menuOptionImg={{icon:<FaRegBuilding size={16} color="black"></FaRegBuilding>}}
+          title1="Submit a business"
+          menuOptionImg={{
+            icon: <FaRegBuilding size={16} color="black"></FaRegBuilding>,
+          }}
           navigaetImg
           forwardNavigateImg={navigateImg}
         />
