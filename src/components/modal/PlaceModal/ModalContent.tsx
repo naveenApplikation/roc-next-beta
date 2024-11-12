@@ -250,6 +250,11 @@ const ModalContent: React.FC<ModalProps> = ({
               />
             )}
           </ItemImageContainer>
+          <div style={{ padding: "0px 24px" }}>
+            <hr />
+            <RestDetailText>{strippedContent}</RestDetailText>
+            <hr />
+          </div>
           <ResturantDetailsContainer>
             {ResturantDetailData.map((item, index) => {
               return (
@@ -384,7 +389,7 @@ const ModalContent: React.FC<ModalProps> = ({
               ""
             )}
           </ResturantDetailsContainer>
-          <RestDetailText>{strippedContent}</RestDetailText>
+
           {reviewData.length >= 1 && (
             <ReviewContainer>
               <ReviewWraaper>
@@ -628,11 +633,11 @@ const ReviewWraaper = styled.div`
 
 const RestDetailText = styled.p`
   color: #000;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
-  padding: 0px 24px;
+  padding: 12px 0px;
 `;
 
 const ItemImageContainer = styled.div`
