@@ -3,17 +3,25 @@ import { topSideMenu } from "../../../../utils/data";
 import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import XmasIframeModel from "@/app/xmas/XmasComponents/XmasIframeModel";
 import { getAds, getCarouselData, getHighlights } from "@/app/xmas/XmasAction";
- 
- 
-  
+
+const data=[{
+  name:"event",
+  iframe_url:"https://hub.roc.je/app/submit-your-event"
+ },
+ {
+ name:"business",
+ iframe_url:"https://hub.roc.je/app/submit-your-business"
+ }
+ ] 
 export default async function Page({params}:{params:{app:string,id:string}}){
  
  
   console.log("title",params)
-  
+  let filter:any
    try
    {
-    
+    if(params.app!="profile")
+    {
   const result = await fetch(`${process.env.NEXT_API_URL}/${params.app}`, {
     headers: {
       "Content-Type": "application/json",
@@ -21,11 +29,19 @@ export default async function Page({params}:{params:{app:string,id:string}}){
     cache: "force-cache",
   });
     const response = await result.json();
-    const filter=response.filter((item)=>{
+    filter=response.filter((item)=>{
       return item._id==params.id
 })
+    
 
-  console.log(filter,"filter")
+}
+else
+{
+  filter=data.filter((item)=>{
+    return params.id==item.name
+ })
+ console.log(filter,"filter")
+}
     return <>
          
  
@@ -48,7 +64,7 @@ export default async function Page({params}:{params:{app:string,id:string}}){
      
       </XmasIframeModel>
       <DashBoardModalScreen></DashBoardModalScreen>
-
+    
      
     </>
 }
@@ -82,6 +98,8 @@ export async function generateStaticParams()
     highlight.forEach(element => {
       add(element,'highlight')
 });
+     console.log(staticGeneration)
+     staticGeneration.push({app:"profile",id:"event"},{app:"profile",id:"business"})
      console.log(staticGeneration)
     return staticGeneration
    

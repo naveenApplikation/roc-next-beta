@@ -92,7 +92,8 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
-            target="_blank">
+            target="_blank"
+          >
             {showApiData?.website}
           </WebsiteLink>
         ) : (
@@ -114,7 +115,8 @@ const ModalContent: React.FC<ModalProps> = ({
               <span
                 onClick={() =>
                   copylink(showApiData?.international_phone_number)
-                }>
+                }
+              >
                 <Link href={`tel:${showApiData?.international_phone_number}`}>
                   {showApiData?.international_phone_number}
                 </Link>
@@ -123,7 +125,8 @@ const ModalContent: React.FC<ModalProps> = ({
           ) : (
             <Tooltip title={"Copy contact number"}>
               <span
-                onClick={() => copylink(showApiData?.formatted_phone_number)}>
+                onClick={() => copylink(showApiData?.formatted_phone_number)}
+              >
                 {showApiData?.formatted_phone_number}
               </span>
             </Tooltip>
@@ -174,7 +177,7 @@ const ModalContent: React.FC<ModalProps> = ({
     }
   };
 
-  const strippedContent = data?.acf?.short_description
+  const strippedContent = showApiData?.editorial_summary?.overview
     .replace(/<p[^>]*>/g, "")
     .replace(/<\/p>/g, "");
 
@@ -201,7 +204,8 @@ const ModalContent: React.FC<ModalProps> = ({
             alignItems: "center",
             width: "100%",
             height: "500px",
-          }}>
+          }}
+        >
           <Spin tip="Loading" size="large" />
         </div>
       ) : (
@@ -213,7 +217,8 @@ const ModalContent: React.FC<ModalProps> = ({
               paddingLeft: "24px",
               paddingRight: "24px",
               fontWeight: "700",
-            }}>
+            }}
+          >
             {" "}
             {formattedValues()}{" "}
           </p>
@@ -223,7 +228,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 {isOpenHead(showApiData?.current_opening_hours)}
               </ResturatWrapper>
             )}
-            <Ratings defaultValue={data?.rating} ratingvalue={data?.rating} />
+
+            <Ratings ratingvalue={showApiData?.rating} />
           </ResturatContainer>
           <ItemImageContainer>
             {showApiData?.photos ? (
@@ -269,6 +275,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <ViewDirection onClick={() => reservationModal("DirectionModal")}>
               View Directions
             </ViewDirection>
+
             {relatedTypesFun(showApiData?.types).length ? (
               <>
                 {showApiData?.delivery === undefined &&
@@ -392,7 +399,8 @@ const ModalContent: React.FC<ModalProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     gap: "10px",
-                  }}>
+                  }}
+                >
                   <div style={{ display: "flex", gap: "10px" }}>
                     <div>
                       {item.profile_photo_url ? (
@@ -452,7 +460,8 @@ const ModalContent: React.FC<ModalProps> = ({
                       style={{
                         display: "flex",
                         justifyContent: "space-around",
-                      }}>
+                      }}
+                    >
                       <p>{item?.day}</p>
                       <p>{item?.time}</p>
                     </p>
@@ -590,7 +599,7 @@ const RestDetailTitle = styled.p`
 `;
 
 const RestDetailTitleWebsite = styled.a`
-  color: var(--BODY, #000);
+  color: #2f80ed;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -601,6 +610,7 @@ const RestDetailTitleWebsite = styled.a`
   white-space: nowrap; /* Prevents wrapping of the link text */
   overflow: hidden; /* Hides any overflowing content */
   text-overflow: ellipsis;
+  text-transform: capitalize;
 `;
 
 const ReviewContainer = styled.div`

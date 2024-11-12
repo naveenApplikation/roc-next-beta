@@ -13,6 +13,8 @@ import listStar from "../../../assets/images/listStar.svg";
 import { Logout, blank, user } from "@/app/utils/ImagePath";
 import { FaRegCalendar } from "react-icons/fa6";
 import { FaRegBuilding } from "react-icons/fa6";
+import { useRouter } from "next-nprogress-bar";
+import { usePathname } from "next/navigation";
 interface ModalProps {
   isOpen?: any;
   isOpenContact?: any;
@@ -40,6 +42,16 @@ const WelcomebackContent: React.FC<ModalProps> = ({
   myBookmarkOpen,
   isPrivacyPolicy,
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const navigate = (name: string) => {
+    if (pathname?.includes("xmas")) {
+      router.push("/xmas/iframe/profile/" + name);
+    } else {
+      router.push("/info/" + name);
+    }
+  };
+
   return (
     <MenuModalContent>
       <div style={{ cursor: "pointer" }} onClick={() => onClick("AddToCreate")}>
@@ -51,7 +63,7 @@ const WelcomebackContent: React.FC<ModalProps> = ({
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div style={{ cursor: "pointer" }}>
+      <div style={{ cursor: "pointer" }} onClick={() => navigate("event")}>
         <MenuOptionList
           optionListText
           title1="Submit an event"
@@ -60,7 +72,7 @@ const WelcomebackContent: React.FC<ModalProps> = ({
           forwardNavigateImg={navigateImg}
         />
       </div>
-      <div style={{ cursor: "pointer" }}>
+      <div style={{ cursor: "pointer" }} onClick={() => navigate("business")}>
         <MenuOptionList
           optionListText
           title1="Submit a business"

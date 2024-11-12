@@ -12,6 +12,15 @@ import DirectionModalLayout from "@/components//modal/Modal";
   // and then join them with spaces
   return name.replace(/([A-Z])/g, ' $1').trim();
 };
+const data=[{
+  name:"event",
+  iframe_url:"https://hub.roc.je/app/submit-your-event"
+ },
+ {
+ name:"business",
+ iframe_url:"https://hub.roc.je/app/submit-your-business"
+ }
+ ] 
 export default async function Page({params}:props){
  
    try
@@ -24,7 +33,10 @@ export default async function Page({params}:props){
     cache: "force-cache",
   });
     const response = await result.json();
-     
+    const filter=data.filter((item)=>{
+      return params.app==item.name
+   })
+   console.log(filter)
     return <>
          
  
@@ -36,7 +48,7 @@ export default async function Page({params}:props){
           <div style={{ height: "84vh", width: "100%", overflow: 'hidden' }}>
             <iframe
               style={{ border: "none", height: "100%", overflow: "hidden" }}
-              src={response.data[0][params.app]}
+              src={response.data[0][params.app]?response.data[0][params.app]:filter[0].iframe_url}
               height="500px"
               width="100%"
               title={params.app}
@@ -61,10 +73,12 @@ catch(error)
 export async function generateStaticParams()
 {
     
-    return  topSideMenu.map((item)=>{
+    const staticGeneration=topSideMenu.map((item)=>{
          return {
              app:item.name
          }
      })
-   
+
+     staticGeneration.push({app:"event"},{app:"business"})
+    return staticGeneration
 }

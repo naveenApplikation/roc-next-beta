@@ -4,22 +4,23 @@ import styled from "styled-components";
 
 interface RatingsProps {
   // Define your props here
-  defaultValue: number;
-  giveRating?:any
-  ratingvalue?:any
+  defaultValue?: number;
+  giveRating?: any;
+  ratingvalue?: any;
 }
 
 const Container = styled.div`
   :where(.css-dev-only-do-not-override-1k979oh).ant-rate {
     font-size: 16px;
     @media screen and (max-width: 350px) {
-    font-size: 1.6rem;
+      font-size: 1.6rem;
     }
   }
 
-  :where(.css-dev-only-do-not-override-1k979oh).ant-rate .ant-rate-star:not(:last-child) {
+  :where(.css-dev-only-do-not-override-1k979oh).ant-rate
+    .ant-rate-star:not(:last-child) {
     margin-inline-end: 5px;
-}
+  }
 `;
 
 const RatingValue = styled.span`
@@ -33,19 +34,17 @@ const RatingValue = styled.span`
 
   @media screen and (max-width: 350px) {
     font-size: 1.3rem;
-    }
+  }
 `;
 
-const Ratings: React.FC<RatingsProps> = ({ defaultValue,giveRating,ratingvalue }) => {
-
+const Ratings: React.FC<RatingsProps> = ({
+  defaultValue,
+  giveRating,
+  ratingvalue,
+}) => {
   return (
     <Container>
-      <Rate
-        allowHalf
-        defaultValue={defaultValue}
-        value={ratingvalue}
-        onChange={(value) => giveRating(value)}
-      />
+      <Rate allowHalf disabled value={ratingvalue} />
       <RatingValue>{ratingvalue}</RatingValue>
     </Container>
   );
