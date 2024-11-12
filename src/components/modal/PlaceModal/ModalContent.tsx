@@ -250,11 +250,13 @@ const ModalContent: React.FC<ModalProps> = ({
               />
             )}
           </ItemImageContainer>
-          <div style={{ padding: "0px 24px" }}>
-            <hr />
-            <RestDetailText>{strippedContent}</RestDetailText>
-            <hr />
-          </div>
+          {strippedContent ? (
+            <div style={{ padding: "0px 24px" }}>
+              <hr />
+              <RestDetailText>{strippedContent}</RestDetailText>
+              <hr />
+            </div>
+          ) : null}
           <ResturantDetailsContainer>
             {ResturantDetailData.map((item, index) => {
               return (
@@ -615,7 +617,10 @@ const RestDetailTitleWebsite = styled.a`
   white-space: nowrap; /* Prevents wrapping of the link text */
   overflow: hidden; /* Hides any overflowing content */
   text-overflow: ellipsis;
-  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 const ReviewContainer = styled.div`
