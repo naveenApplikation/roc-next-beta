@@ -79,7 +79,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
   const pathName = usePathname();
-
+  const router=useRouter()
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
@@ -121,6 +121,10 @@ const EventPage: React.FC<EventBoxProps> = ({
       setLoading(false);
     }
   };
+
+  const navigate=()=>{
+    router.push('/info/event')
+}
 
   useEffect(() => {
     //only this initiate whenever the date change
@@ -337,7 +341,7 @@ const EventPage: React.FC<EventBoxProps> = ({
                               modalClick("filterOption");
                               handleFilterOption("dates");
                             }} text="More Dates" />
-                             <CommonButton  text="Submit an Event" />
+                             <CommonButton isOpen={navigate} text="Submit an Event" />
                           </AddListButton>
                         )}
                          
