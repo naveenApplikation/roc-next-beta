@@ -221,7 +221,7 @@ const CreateListingsScreen = styled.div`
 const CreateListingsContent = styled.div`
   width: 100%;
   height: auto;
-  padding: 24px 0px 0px 24px;
+  padding: 24px 0px 100px 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;

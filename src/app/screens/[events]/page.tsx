@@ -36,7 +36,7 @@ async function Page({ params, searchParams }: Props) {
   return (
     <>
       <EventList data={data} bookmarkValue={bookmark}></EventList>
-      <AdsBanner />
+     
       {/* <BannerModal /> */}
     </>
   );

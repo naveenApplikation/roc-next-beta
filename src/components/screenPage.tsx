@@ -253,6 +253,8 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       );
     } else if (screenName === "categoryList") {
       return (
+        <>
+        <HeaderScreen></HeaderScreen>
         <CategoryEvent
           isShare={socialShare}
           categoryId={event}
@@ -267,13 +269,17 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           handleLike={handleLike}
           totalVote={totalVote}
         />
+        </>
       );
     } else if (screenName === "Greetings") {
       return (
+        <>
+        <HeaderScreen></HeaderScreen>
         <GreetingList
           homePage={navigateClick}
           preScreen={() => handleCreateNewList("categoryList")}
         />
+        </>
       );
     }
   };
@@ -289,8 +295,10 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       {uiRenderLoader ? null : (
         <>
           <PageLayout>
-            <HeaderScreen></HeaderScreen>
-            <CategoryBody>{ScreenShowHandle()}</CategoryBody>
+         
+            <CategoryBody>
+                
+              {ScreenShowHandle()}</CategoryBody>
           </PageLayout>
           <CreateAccountModalLayout
             isOpen={modalName === "LoginSignupModal" ? true : false}

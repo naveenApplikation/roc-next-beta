@@ -105,8 +105,8 @@ const CreateListingFooter = styled.div<{ $loading: boolean }>`
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
   pointer-events: ${({ $loading }) => ($loading ? "none" : "")};
-  @media screen and (max-width: 400px) {
-    padding: 12px 10px 32px 10px;
+  @media screen and (max-width: 480px) {
+    padding: 12px 10px 100px 10px;
   }
 `;
 

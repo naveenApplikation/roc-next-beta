@@ -191,7 +191,7 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                 );
               }))}
         </CreateListingsContent>
-        <div style={{padding:"20px 24px"}}>
+        <div style={{padding:"20px 24px",paddingBottom:"100px"}}>
         <CommonButton   isOpen={navigate} text="Cant't find? Submit a Business"></CommonButton>
         </div>
       </CreateListItemScrollBox>

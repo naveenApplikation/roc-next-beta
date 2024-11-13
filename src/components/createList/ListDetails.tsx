@@ -29,7 +29,7 @@ const ListDetailsScreen = styled.div`
   background-blend-mode: normal, luminosity;
   box-shadow: 0px -8px 40px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(22px);
-
+  height:100vh;
   @media screen and (max-width: 800px) {
     width: 100%;
   }
@@ -38,7 +38,7 @@ const ListDetailsScreen = styled.div`
 const ListDetailsContent = styled.div`
   width: 100%;
   height: auto;
-  padding: 40px 24px 0px 24px;
+  
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -98,7 +98,7 @@ const IconsListScrollBox = styled.div`
   align-items: center;
   /* padding: 8px 8px; */
   gap: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 158px;
 `;
 
 const IconImage = styled.div<{ selected: boolean }>`
@@ -189,8 +189,10 @@ const ListDetails: React.FC<ListDetailsProps> = ({
   return (
     <ListDetailsScreen>
       <ListItemScrollBox>
-        <CreateListingsHeader homePage={homePage} />
+       
         <ListDetailsContent>
+        <CreateListingsHeader homePage={homePage} />
+        <div style={{padding: "0px 24px 0px 24px",display:"flex",flexDirection:"column",gap:"24px"}}>
           <ListDetailsTitle>List Details</ListDetailsTitle>
           <ListInputField>
             <ListInputText
@@ -226,7 +228,9 @@ const ListDetails: React.FC<ListDetailsProps> = ({
               );
             })}
           </IconsListScrollBox>
+          </div>
         </ListDetailsContent>
+      
       </ListItemScrollBox>
       <CreateListingsFooter
         footerBtns
