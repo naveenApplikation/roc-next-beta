@@ -79,7 +79,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const params = useParams();
   const pathName = usePathname();
-  const router=useRouter()
+  const router = useRouter();
   const handleShare = () => {
     if (!socialShare) {
       handleSocialShare();
@@ -122,9 +122,9 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
 
-  const navigate=()=>{
-    router.push('/info/event')
-}
+  const navigate = () => {
+    router.push("/info/event");
+  };
 
   useEffect(() => {
     //only this initiate whenever the date change
@@ -286,99 +286,112 @@ const EventPage: React.FC<EventBoxProps> = ({
 
   const Event = (
     <>
-      <AutoSizer style={{ height: "inherit", width: "inherit" }}>
+      <AutoSizer style={{ height: "90vh", width: "inherit" }}>
         {({ height, width }) => (
           <>
             <SearchedListContainer ref={containerRef}>
-              <Header className="">
-                <TitleText>{urlTitle}</TitleText>
+              <div style={{ padding: "0px 24px", overflow: "hidden" }}>
+                <Header className="">
+                  <TitleText>{urlTitle}</TitleText>
+                  <div
+                    style={{
+                      padding: "10px 0px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <ImageContainer selected={false} onClick={handleShare}>
+                      <Image src={share} alt="Logo Outline" />
+                    </ImageContainer>
+                  </div>
+                </Header>
                 <div
                   style={{
                     padding: "10px 0px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    gap: 8,
-                  }}>
-                  <ImageContainer selected={false} onClick={handleShare}>
-                    <Image src={share} alt="Logo Outline" />
-                  </ImageContainer>
+                  }}
+                >
+                  <FilterSection pageTitle="categoryEvent" />
                 </div>
-              </Header>
-              <div
-                style={{
-                  padding: "10px 0px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}>
-                <FilterSection pageTitle="categoryEvent" />
-              </div>
 
-              <List
-                height={600}
-                itemCount={displayedItems.length + 1}
-                itemSize={100}
-                width={width}>
-                {({ index, style }) => (
-                  <>
-                    {index < displayedItems.length ? (
-                      <Row index={index} style={{ ...style, width: "95%" }} />
-                    ) : (
-                      <div
-                        style={{
-                          ...style,
-                          width: "80%",
-                          height: "500px",
-                          //  display: 'flex',
-                          //  justifyContent:"center",
-                          //  alignItems:"center",
-                        }}>
-                        {!loading && (
-                          <AddListButton 
-                            >
-                            <CommonButton isOpen={() => {
-                              modalClick("filterOption");
-                              handleFilterOption("dates");
-                            }} text="More Dates" />
-                             <CommonButton isOpen={navigate} text="Submit an Event" />
-                          </AddListButton>
-                        )}
-                         
-                      </div>
-                    )}
-                  </>
-                )}
-              </List>
+                <List
+                  height={600}
+                  itemCount={displayedItems.length + 1}
+                  itemSize={100}
+                  width={width}
+                >
+                  {({ index, style }) => (
+                    <>
+                      {index < displayedItems.length ? (
+                        <Row index={index} style={{ ...style, width: "95%" }} />
+                      ) : (
+                        <div
+                          style={{
+                            ...style,
+                            width: "80%",
+                            height: "500px",
+                            //  display: 'flex',
+                            //  justifyContent:"center",
+                            //  alignItems:"center",
+                          }}
+                        >
+                          {!loading && (
+                            <AddListButton>
+                              <CommonButton
+                                isOpen={() => {
+                                  modalClick("filterOption");
+                                  handleFilterOption("dates");
+                                }}
+                                text="More Dates"
+                              />
+                              <CommonButton
+                                isOpen={navigate}
+                                text="Submit an Event"
+                              />
+                            </AddListButton>
+                          )}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </List>
 
-              {loading && (
-                <Loader
-                  style={{
-                    position: "absolute",
-                    background: "black",
-                    inset: "0",
-                    opacity: "0.7",
-                  }}>
+                {loading && (
                   <Loader
                     style={{
                       position: "absolute",
+                      background: "black",
                       inset: "0",
-                      display: "flex",
-                      justifyContent: "center",
-                      top: "30%",
-                    }}>
-                    {" "}
-                    <CustomSpin tip="Loading" size="large"></CustomSpin>
+                      opacity: "0.7",
+                    }}
+                  >
+                    <Loader
+                      style={{
+                        position: "absolute",
+                        inset: "0",
+                        display: "flex",
+                        justifyContent: "center",
+                        top: "30%",
+                      }}
+                    >
+                      {" "}
+                      <CustomSpin tip="Loading" size="large"></CustomSpin>
+                    </Loader>
                   </Loader>
-                </Loader>
-              )}
+                )}
+              </div>
+              <AdsBanner className="75px" />
+              <ScrollList
+                params={"event-category-list"}
+                background={"#EB5757"}
+                bottom="30px"
+                data={filteredData}
+              ></ScrollList>
             </SearchedListContainer>
-            <AdsBanner className="75px" />
-            <ScrollList
-              params={"event-category-list"}
-              background={"#EB5757"}
-              bottom="30px"
-              data={filteredData}></ScrollList>
           </>
         )}
       </AutoSizer>
@@ -410,7 +423,7 @@ const Header = styled.div`
 `;
 
 const SearchedListContainer = styled.div`
-  padding: 25px;
+  padding: 0px;
   background-color: #fff;
   min-height: 100vh;
   padding-bottom: 500px;
@@ -509,9 +522,9 @@ const TitleText = styled.p`
 const AddListButton = styled.div`
   padding-top: 40px;
   padding-left: 30px;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   width: 100%;
 `;
 

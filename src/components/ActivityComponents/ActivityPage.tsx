@@ -31,6 +31,9 @@ import { filterEvents } from "@/components/AllModalScreen/FilterModalScreenForEv
 import ActivityFilterSection from "../AllModalScreen/FilterModalScreenForEvents/ActivityFIlterSection";
 import { useParams } from "next/navigation";
 import AdsBanner from "../adsBanner/page";
+import AutoSizer from "react-virtualized-auto-sizer";
+import Link from "next/link";
+import { FixedSizeList as List } from "react-window";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -139,10 +142,9 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   }, [urlData]);
 
   useEffect(() => {
-     if(params?.activity)
-     {
-        resetFilters();
-     }
+    if (params?.activity) {
+      resetFilters();
+    }
   }, [params?.activity]);
 
   useEffect(() => {
@@ -167,28 +169,86 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
 
   // filterData = filterEvents(filterData, eventFilters);
   // console.log(filterData, "filtered data");
+  const Row = ({
+    index,
+    style,
+  }: {
+    index: number;
+    style: React.CSSProperties;
+  }) => {
+    const item = displayedItems[index];
+    return (
+      <SearchedData
+        style={{ ...style }}
+        key={index}
+        onClick={() => {
+          handlemodalView(item);
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            flex: 1,
+            cursor: "pointer",
+          }}
+        >
+          <Image
+            src={filteredUrls[index] ? filteredUrls[index] : fallback}
+            width={500}
+            height={80}
+            unoptimized
+            style={{
+              borderRadius: 4,
+              width: "80px",
+              height: "80px",
+              objectFit: "cover",
+            }}
+            alt=""
+          />
+          <div className="restroRating">
+            <p className="shopName">{item.acf?.title}</p>
 
+            <PriceAndLabelText>
+              {item.acf?.parish.label} ⋅ Activity
+            </PriceAndLabelText>
+            <PriceAndLabelText>
+              {item.acf.price_to || item.acf.price_from ? "£" : ""}
+              {(item.acf.price_from ? item.acf.price_from : "") +
+                (item.acf.price_to && item.acf.price_from ? "-" : "") +
+                (item.acf.price_to ? item.acf.price_to : "")}
+            </PriceAndLabelText>
+          </div>
+        </div>
+      </SearchedData>
+    );
+  };
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
-      <SearchedListContainer>
-        <Header className="">
-          <TitleText>{urlTitle}</TitleText>
-          {/* <Image
+      <AutoSizer style={{ height: "90vh", width: "inherit" }}>
+        {({ height, width }) => (
+          <SearchedListContainer>
+            <div style={{ padding: "0px 24px" }}>
+              <Header className="">
+                <TitleText>{urlTitle}</TitleText>
+                {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
             src={CloseModal}
             alt="Logo Outline"
             onClick={() => handleBack()}
           /> */}
-          <div
-            style={{
-              padding: "10px 0px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 8,
-            }}>
-            {/* <ImageContainer
+                <div
+                  style={{
+                    padding: "10px 0px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  {/* <ImageContainer
               selected={isBookmark}
               onClick={() => {
                 // handleBookMark();
@@ -205,79 +265,66 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                 <Image src={bookmark} alt="Logo Outline" />
               )}
             </ImageContainer> */}
-            <ImageContainer selected={false} onClick={handleShare}>
-              <Image src={share} alt="Logo Outline" />
-            </ImageContainer>
-          </div>
-        </Header>
+                  <ImageContainer selected={false} onClick={handleShare}>
+                    <Image src={share} alt="Logo Outline" />
+                  </ImageContainer>
+                </div>
+              </Header>
 
-        <div
-          style={{
-            padding: "10px 0px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}>
-          <ActivityFilterSection pageTitle="categoryEvent" />
-        </div>
-        {displayedItems?.map((item: any, index: any) => {
-          return (
-            <SearchedData
-              key={index}
-              onClick={() => {
-                handlemodalView(item);
-              }}>
               <div
                 style={{
+                  padding: "10px 0px",
                   display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 16,
-                  flex: 1,
-                  cursor: "pointer",
-                }}>
-                <Image
-                  src={filteredUrls[index] ? filteredUrls[index] : fallback}
-                  width={500}
-                  height={80}
-                  unoptimized
-                  style={{
-                    borderRadius: 4,
-                    width: "80px",
-                    height: "80px",
-                    objectFit: "cover",
-                  }}
-                  alt=""
-                />
-                <div className="restroRating">
-                  <p className="shopName">{item.acf?.title}</p>
-
-                  <PriceAndLabelText>
-                    {item.acf?.parish.label} ⋅ Activity
-                  </PriceAndLabelText>
-                  <PriceAndLabelText>
-                    {item.acf.price_to || item.acf.price_from ? "£" : ""}
-                    {(item.acf.price_from ? item.acf.price_from : "") +
-                      (item.acf.price_to && item.acf.price_from ? "-" : "") +
-                      (item.acf.price_to ? item.acf.price_to : "")}
-                  </PriceAndLabelText>
-                </div>
+                }}
+              >
+                <ActivityFilterSection pageTitle="categoryEvent" />
               </div>
-            </SearchedData>
-          );
-        })}
 
-        <AddListButton onClick={() => modalClick("ContactUsModal")}>
-          <CommonButton text="Suggest an Event" />
-        </AddListButton>
-      </SearchedListContainer>
-      <AdsBanner className="75px" />
-      <ScrollList
-        data={filteredData}
-        bottom={"30px"}
-        params={"activity-list"}
-        background={"#F2994A"}>
+              <List
+                height={600}
+                itemCount={displayedItems.length + 1}
+                itemSize={100}
+                width={width}
+              >
+                {({ index, style }) => (
+                  <>
+                    {index < displayedItems.length ? (
+                      <Row index={index} style={{ ...style, width: "95%" }} />
+                    ) : (
+                      <div
+                        style={{
+                          ...style,
+                          width: "90%",
+                          height: "500px",
+                          //  display: 'flex',
+                          //  justifyContent:"center",
+                          //  alignItems:"center",
+                        }}
+                      >
+                        <AddListButton
+                          onClick={() => modalClick("ContactUsModal")}
+                        >
+                          <CommonButton text="Suggest an Activity" />
+                        </AddListButton>
+                      </div>
+                    )}
+                  </>
+                )}
+              </List>
+            </div>
+            <AdsBanner className="75px" />
+            <ScrollList
+              data={filteredData}
+              bottom={"30px"}
+              params={"activity-list"}
+              background={"#F2994A"}
+            ></ScrollList>
+          </SearchedListContainer>
+        )}
+      </AutoSizer>
 
-        </ScrollList>
       {/* <CustomBanner /> */}
     </>
   );
@@ -303,10 +350,10 @@ const Header = styled.div`
 `;
 
 const SearchedListContainer = styled.div`
-  padding: 25px;
+  padding: 0px;
   background-color: #fff;
   min-height: 100vh;
-  padding-bottom: 500px;
+  /* padding-bottom: 500px; */
 `;
 
 const SearchedData = styled.div`
@@ -444,18 +491,14 @@ const filterUrlsForActivity: any = (ImageUrlData: any) => {
         ) {
           imageUrls.push(url);
         } else {
-          imageUrls.push(
-            fallBack.src
-          ); // Push default image URL if URL is not valid
+          imageUrls.push(fallBack.src); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        imageUrls.push(
-          fallBack.src        ); // Push default image URL if JSON parsing fails
+        imageUrls.push(fallBack.src); // Push default image URL if JSON parsing fails
       }
     } else {
-      imageUrls.push(
-        fallBack.src      ); // Push default image URL if item is undefined
+      imageUrls.push(fallBack.src); // Push default image URL if item is undefined
     }
   });
   return imageUrls;
