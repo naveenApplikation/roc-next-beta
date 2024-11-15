@@ -19,7 +19,6 @@ const HeadMenu = styled.div`
   justify-content: space-between;
   padding: 0px 40px;
   padding-top: 64px;
-  padding-bottom: 6px;
 
   background-color: transparent;
 
