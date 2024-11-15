@@ -61,9 +61,10 @@ const Container = styled.div<{
   z-index: 199399999;
   z-index: 1;
   max-width: 100%;
-  max-width: 470px;
+ 
   @media screen and (min-width: 800px) {
     max-width: 470px;
+    bottom:9px;
   }
 
   p {

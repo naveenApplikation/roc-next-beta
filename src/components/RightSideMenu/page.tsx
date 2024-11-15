@@ -13,6 +13,8 @@ import {
 import { useMyContext } from "@/app/Context/MyContext";
 import { rightSideMenu, rightSideMenuMobile } from "@/app/utils/data";
 import { useRouter } from "next-nprogress-bar";
+import { FrontArrow, XmasBgImage } from "@/app/xmas/utils/XmasImagePath";
+import Link from "next/link";
 
 const RightSideMenuContainer = styled.div`
   display: flex;
@@ -192,7 +194,7 @@ const RightSide = () => {
         className="background-image-wrapper"
         style={{ position: "absolute", inset: 0, zIndex: -1 }}>
         <Image
-          src={backgroundImg.src}
+          src={XmasBgImage.src}
           layout="fill"
           objectFit="cover"
           alt="Background"
@@ -272,7 +274,26 @@ const RightSide = () => {
           );
         })}
       </RightSideMenuContainer>
+      <XmasNav href={'/xmas'}>
+        {/* <button
+          style={{ cursor: "pointer" }}
+          onClick={() => menuClick("Community", true, "category-item")}>
+          All Categories
+        </button> */}
+        
+            <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>Jersey Christmas Guide</p>
+            <div style={{display:"flex",gap:"8px"}}>
+               <p style={{fontWeight:"400",fontSize:"14px",color:"white"}}>Open</p>
+               <Image
+                width={9}
+                height={14}
+                src={FrontArrow}
+                alt=""
+               />
 
+            </div>
+        
+      </XmasNav>
       <MobileViewRightSideMenu>
         {rightSideMenuMobile.map((item, index) => {
           return (
@@ -306,15 +327,27 @@ const RightSide = () => {
           );
         })}
       </MobileViewRightSideMenu>
-      <AllCategories>
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={() => menuClick("Community", true, "category-item")}>
-          All Categories
-        </button>
-      </AllCategories>
+     
     </RightMenu>
   );
 };
 
 export default RightSide;
+
+
+
+const XmasNav=styled(Link)`
+
+   display: none;
+
+  @media screen and (max-width: 800px) {
+   display:flex;
+   width:100%;
+   background:#F40035;
+   padding:12px 16px;
+   justify-content:space-between;
+   align-items:center;
+   border-radius:8px;
+   margin-bottom:8px;
+  }
+`
