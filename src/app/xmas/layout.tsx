@@ -9,6 +9,7 @@ import Carousel from './XmasComponents/CarouselScreen';
 import { getCarouselData } from './XmasAction';
 import XmasDashboard from './XmasComponents/XmasDashBoard';
 import DashBoardModalScreen from '@/components/dashboard/DashBoardModalScreen';
+import AdsBanner from '@/components/adsBanner/page';
 
 export const maxDuration = 300;
 export default async function Layout({children}:{children:any}){
@@ -34,14 +35,19 @@ export default async function Layout({children}:{children:any}){
 
                <Carousel slides={data}></Carousel>
             
-                 
-                <ScrollLayout>
+                   <ScrollLayout>
                   <XmasDashboard></XmasDashboard>
+                  
                   </ScrollLayout>
-
-                  {children}    
-                  <DashBoardModalScreen></DashBoardModalScreen>    
+               
+                  <AdsBanner></AdsBanner>
+              
+                  {children}
+                
+                  <DashBoardModalScreen></DashBoardModalScreen>  
+                
       </>
+      
 }
 
 

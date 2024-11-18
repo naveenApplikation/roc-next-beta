@@ -112,6 +112,13 @@ interface AdsBannerProps {
 // Ad Data
 const adsData = [
   {
+    type:"existing",
+    image:"https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
+    url:"https://hub.roc.je/app/featured/de-gruchy",
+    heading:"Find Your Ideal Christmas Hamper at de Gruchy",
+    text:"The Perfect Christmas Gift!"
+  },
+  {
     type: "existing",
     image: BannerDemo2,
     url: "https://hub.roc.je/featured/cafe-at-jersey-war-tunnels",
