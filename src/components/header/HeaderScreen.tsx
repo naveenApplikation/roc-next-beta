@@ -29,13 +29,13 @@ const HeadMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   // padding: 0px 40px;
-  padding-top: 64px;
+  padding-top: 30px;
   padding-bottom: 10px;
   background-color: #fdfdfd;
   width: ${sideWidth};
   @media screen and (max-width: 800px) {
     // padding: 0px 16px;
-    padding-top: 40px;
+    padding-top: 30px;
     padding-bottom: 16px;
     width: 100%;
     /* display: none; */

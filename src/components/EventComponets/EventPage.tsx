@@ -46,6 +46,7 @@ import BannerModal from "../bannerModal/page";
 import Instance from "@/app/utils/Instance";
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
+import HeaderScreen from "../header/HeaderScreen";
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
@@ -224,6 +225,18 @@ const EventPage: React.FC<EventBoxProps> = ({
   const filteredData = events.filter((item: any) => {
     return handleEventEncoding("encode", item.slug) !== slug;
   });
+   const [isForwarding,setIsForwarding]=useState(false)
+  const handleScroll=(event)=>{
+    console.log(event)
+        if(event.scrollDirection=="forward" && event.scrollOffset!=0)
+        {
+            setIsForwarding(true)
+        }
+        else
+        {
+          setIsForwarding(false)
+        }
+  }
 
   const Row = ({
     index,
@@ -284,14 +297,18 @@ const EventPage: React.FC<EventBoxProps> = ({
     );
   };
 
+
   const Event = (
     <>
+     <HeaderScreen title={"Events"} />
       <AutoSizer style={{ height: "90vh", width: "inherit" }}>
         {({ height, width }) => (
           <>
+                
             <SearchedListContainer ref={containerRef}>
+           
               <div style={{ padding: "0px 24px", overflow: "hidden" }}>
-                <Header className="">
+                <Header className="" style={{marginTop:`${isForwarding?'-110px':"0px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
                   <TitleText>{urlTitle}</TitleText>
                   <div
                     style={{
@@ -319,10 +336,11 @@ const EventPage: React.FC<EventBoxProps> = ({
                 </div>
 
                 <List
-                  height={600}
+                  height={isForwarding?height:600}
                   itemCount={displayedItems.length + 1}
                   itemSize={100}
                   width={width}
+                  onScroll={handleScroll}
                 >
                   {({ index, style }) => (
                     <>
@@ -384,12 +402,16 @@ const EventPage: React.FC<EventBoxProps> = ({
                   </Loader>
                 )}
               </div>
-              <AdsBanner className="75px" />
+              <AdsBanner
+                 style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}}
+
+              className="75px" />
               <ScrollList
                 params={"event-category-list"}
                 background={"#EB5757"}
                 bottom="30px"
                 data={filteredData}
+                style={{bottom:`${isForwarding?'-60px':'9px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
               ></ScrollList>
             </SearchedListContainer>
           </>
@@ -426,7 +448,7 @@ const SearchedListContainer = styled.div`
   padding: 0px;
   background-color: #fff;
   min-height: 100vh;
-  padding-bottom: 500px;
+  // padding-bottom: 500px;
   -webkit-overflow-scrolling: touch;
   overflow: hidden;
   height: 110vh;

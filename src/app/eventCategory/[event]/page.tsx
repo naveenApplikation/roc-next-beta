@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: { event: string } }) {
   // Render the event page component with the fetched data
   return (
     <>
-      <HeaderScreen title={"Events"} />
+     
       <EventPage
         urlData={data}
         urlTitle={title}

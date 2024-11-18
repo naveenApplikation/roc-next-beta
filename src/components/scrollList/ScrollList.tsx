@@ -4,7 +4,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { useRouter } from "next-nprogress-bar";
 import { useParams, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { CSSProperties } from "react";
 import styled from "styled-components";
 
 interface ScrollListPage {
@@ -12,13 +12,14 @@ interface ScrollListPage {
   background?: any;
   params?: any;
   bottom?: any;
+  style:CSSProperties
 }
 
-const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom }) => {
+const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom,style }) => {
   const router = useRouter();
   const {resetFilters}=useMyContext()
   return (
-    <Container bottom = {bottom}>
+    <Container style={{...style}} bottom = {bottom}>
       <MainWrapper>
         {data.map((item: any) => {
           return (

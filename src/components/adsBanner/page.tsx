@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import {
@@ -107,6 +107,7 @@ const AdText = styled.div`
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
+  style:CSSProperties
 }
 
 // Ad Data
@@ -130,6 +131,7 @@ const adsData = [
 const AdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
+  style
 }) => {
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
@@ -148,6 +150,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
     <>
       {currentAd.type === "existing" ? (
         <AdContainer
+          style={{...style}}
           $className={className}
           $maxWidth={maxWidth}
           onClick={() => {

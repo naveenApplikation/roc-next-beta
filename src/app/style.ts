@@ -31,6 +31,7 @@ export const CategoryBody = styled.div`
   position: relative;
   z-index: 1;
   max-width: 480px;
+  overflow:hidden;
 `;
 
 export const MainContainer = styled.div`
