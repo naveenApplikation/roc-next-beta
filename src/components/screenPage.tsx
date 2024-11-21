@@ -28,10 +28,12 @@ import { bookmark } from "@/app/utils/ImagePath";
 import HeaderScreen from "./header/HeaderScreen";
 import BannerModal from "./bannerModal/page";
 import Categories from "@/components/CategoriesPage/Categories";
+import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
 
 interface ScreenPageProps {
   data: any;
   bookmarkValue?: any;
+  adsData?:any
 }
 const EventList: React.FC<ScreenPageProps> = (props) => {
   const {
@@ -269,6 +271,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
           handleLike={handleLike}
           totalVote={totalVote}
         />
+        <ScreenAdsBanner adsData={props.adsData}></ScreenAdsBanner>
         </>
       );
     } else if (screenName === "Greetings") {

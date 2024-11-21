@@ -238,4 +238,34 @@ export async function getBookMark(params: string) {
   }
 }
 
+
+export async function getAdsOnScreens()
+{
+    try
+    {
+      const response=await fetch("https://v1.nocodeapi.com/cfroc/google_sheets/GGLEMFRVjirqychR?tabId=ads",{
+        next:{revalidate:14400 }
+     })
+      return await response.json()
+    }
+    catch(error)
+    {
+       return []
+    } 
+}
+
+export async function getAdsByCategory()
+{
+  try
+  {
+    const response=await fetch("https://v1.nocodeapi.com/cfroc/google_sheets/GGLEMFRVjirqychR?tabId=ad_categories",{
+      next:{revalidate:14400 }
+   })
+    return await response.json()
+  }
+  catch(error)
+  {
+     return []
+  } 
+}
  
