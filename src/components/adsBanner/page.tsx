@@ -107,7 +107,7 @@ const AdText = styled.div`
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
-  style:CSSProperties
+  style?:CSSProperties
 }
 
 // Ad Data

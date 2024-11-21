@@ -12,7 +12,7 @@ interface ScrollListPage {
   background?: any;
   params?: any;
   bottom?: any;
-  style:CSSProperties
+  style?:CSSProperties
 }
 
 const ScrollList: React.FC<ScrollListPage> = ({ background, data, params, bottom,style }) => {

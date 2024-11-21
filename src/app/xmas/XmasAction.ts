@@ -6,7 +6,7 @@ export async function getCarouselData()
     try
     {
          let response=await fetch(`${process.env.NEXT_API_URL}/carousel`,{
-            next:{revalidate:14400}
+            next:{revalidate:14400,tags:["highlight"]}
          })
          response=await response.json() 
          return response
@@ -107,3 +107,4 @@ export async function getXmasEvents(params:string)
          return []
      }
 }
+ 
