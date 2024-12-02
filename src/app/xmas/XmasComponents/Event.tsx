@@ -56,18 +56,37 @@ export default function XmasEvent({
   const filteredUrls = filterUrls(ImageUrlData);
 
   const { modalClick } = useMyContext();
+  const sortEventsByDate = (data = []) => {
+    return data
+      .map((item: any) => {
+        let nextEvent;
+        if (item?.acf?.event_date) {
+          nextEvent = getEvent(item.acf.event_date);
+        } else {
+          nextEvent = getNextEvent(item.acf?.event_dates);
+        }
+
+        // Add `nextEvent` to the item for sorting purposes
+        return { ...item, nextEvent };
+      })
+      .filter((item) => item.nextEvent) // Filter out items without `nextEvent`
+      .sort((a, b) => {
+        const dateA = parseInt(a.nextEvent.date, 10); // Convert `date` to a number
+        const dateB = parseInt(b.nextEvent.date, 10);
+        return dateA - dateB; // Sort in ascending order
+      });
+  };
+  const sortedData = sortEventsByDate(data);
   return (
     <>
       <XmasMenu link={nav}>{title}</XmasMenu>
       <div className="flex gap-[8px] min-h-max overflow-y-hidden no-scrollbar">
-        {(data || []).map((item, index) => {
-          let nextEvent;
-          if (item?.acf?.event_date) {
-            nextEvent = getEvent(item.acf?.event_date);
-          } else {
-            nextEvent = getNextEvent(item.acf?.event_dates);
-          }
+        {(sortedData || []).map((item, index) => {
+          const nextEvent = item.nextEvent;
 
+          if (!nextEvent) {
+            return null;
+          }
           return (
             <div
               onClick={() => {
