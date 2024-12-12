@@ -22,8 +22,8 @@ const BottomSheetContainer = styled(animated.div)`
   padding:0px;
   overscroll-behavior: none;
   overflow: hidden;
-  touch-action:  auto;
-  will-change: transform;
+  touch-action: none;
+  
     @media screen and (min-width: 800px) {
     display:none;
 }
@@ -71,7 +71,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const fullHeight = 70;
   const mainRef= useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { tension: 170, friction: 26,precision: 0.01 },onRest: {
+  const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { tension: 170, friction: 26,precision: 0.01,duration:500 },onRest: {
     y: (e) =>{
        
         if(e.value<100)
@@ -266,20 +266,32 @@ if(scrollableDiv){
       <SheetHeader>
         <div style={{ width: 40, height: 5, background: "#ccc", borderRadius: 5 }} />
       </SheetHeader>
-      <SheetContent
-        
-         onTouchMove={(e)=>e.preventDefault()}
-           onTouchStart={handleTouchStart}
-           onTouchEnd={handleTouchEnd}
-        ref={contentRef}
-        isScrollable={isScrollable}
-        onScroll={handleScroll}
-        tabIndex={-1} // Make content focusable
-      >
-        {children}
-      </SheetContent>
+     <AnimatedSheetContent
+    
+    onTouchMove={(e) => e.preventDefault()}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd}
+    ref={contentRef}
+    isScrollable={isScrollable}
+    onScroll={handleScroll}
+    tabIndex={-1} // Make content focusable
+  >
+    {children}
+  </AnimatedSheetContent>
     </BottomSheetContainer>
   );
 };
+
+
+const AnimatedSheetContent = styled(animated.div)<{ isScrollable: boolean }>`
+  overflow-y: ${(props) => (props.isScrollable ? "auto" : "hidden")};
+  flex: 1;
+  padding: 0px;
+  overscroll-behavior: contain;
+  will-change: transform;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export default BottomSheet;
