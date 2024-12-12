@@ -22,7 +22,7 @@ const BottomSheetContainer = styled(animated.div)`
   padding:0px;
   overscroll-behavior: none;
   overflow: hidden;
-  touch-action: none;
+  touch-action:  auto;
   will-change: transform;
     @media screen and (min-width: 800px) {
     display:none;
@@ -44,6 +44,8 @@ const SheetContent = styled.div<{ isScrollable: boolean }>`
   touch-action:auto;
   flex: 1;
   padding:0px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -69,7 +71,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const fullHeight = 70;
   const mainRef= useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { tension: 170, friction: 26 },onRest: {
+  const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { tension: 170, friction: 26,precision: 0.01 },onRest: {
     y: (e) =>{
        
         if(e.value<100)
@@ -252,9 +254,9 @@ if(scrollableDiv){
     {
       
       bounds: { top: fullHeight, bottom: halfHeight },
-      rubberband: true,
+      rubberband: false,
       preventDefault:true,
-      filterTaps:true
+      
     
     }
   );
