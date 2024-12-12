@@ -77,7 +77,7 @@ async function Page({ params, searchParams }: Props) {
       });
     }
   }
-
+ console.log(params)
   return (
     <>
       <CategoriesPage

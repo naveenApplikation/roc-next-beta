@@ -1,30 +1,27 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import PageLayoutClient from "@/components/dashboard/PageLayoutClient";
-import { enableBodyScroll } from "body-scroll-lock";
+import { enableBodyScroll,disableBodyScroll,clearAllBodyScrollLocks} from "body-scroll-lock";
 import { usePathname } from "next/navigation";
+import BottomSheet from "./BottomSheet";
+import AdsBanner from "@/components/adsBanner/page";
+import Spin from "antd/es/spin";
+import { rocSpin } from "../utils/XmasImagePath";
+import Image from "next/image";
 
  const ScrollLayout=({children}:{children:any})=>{
 
     
   
-
-
-    const ref=useRef<HTMLDivElement>(null)
-    const pathName=usePathname()
-    const [resize,setResize]=useState(0)
-    const [scroll,setScroll]=useState<any>(0)
-    useEffect(() => {
-      if (ref.current) {
-        // When opening the bottom sheet
-        // disableBodyScroll(ref.current);
     
-        return () => {
-          // When closing the bottom sheet
-          enableBodyScroll(ref.current);
-        };
-      }
-    }, [resize]);
+    const [loading,setLoading]=useState(true);
+    const ref=useRef<HTMLDivElement>(null)
+    const mainRef=useRef<HTMLDivElement>(null)
+    const parentRef=useRef<HTMLDivElement>(null)
+    const pathName=usePathname()
+    const [resize,setResize]=useState(typeof window!=="undefined"?window.innerWidth:770)
+    const [scroll,setScroll]=useState<any>(0)
+    
     useEffect(() => {
       const scrollTop = sessionStorage.getItem("xmasScroll");
       console.log(window.innerWidth);
@@ -42,6 +39,7 @@ import { usePathname } from "next/navigation";
         
         ref.current.scrollTop = parseInt(scrollTop);
       }
+       setLoading(false)
     }, []);
     useEffect(()=>{
         const handleResize=()=>{
@@ -53,24 +51,10 @@ import { usePathname } from "next/navigation";
           }
     },[])
     useEffect(() => {
-        // const scrollableDiv = ref.current;
-        // const threshold = 50; 
-        // console.log(ref.current?.getBoundingClientRect().top)
-        // if(scrollableDiv&& Math.round(scrollableDiv?.getBoundingClientRect().top)<=threshold)
-        // {
-        //     console.log("yes")
-         
-        //     // scrollableDiv.style.overflowY = 'scroll';  
-        //     scrollableDiv.style.borderTopRightRadius="0px"
-        //     scrollableDiv.style.borderTopLeftRadius="0px"
-
-        // }
-        // else if(scrollableDiv)
-        // {
-        //     // scrollableDiv.style.overflowY = 'hidden';  
-        //     scrollableDiv.style.borderTopRightRadius="24px"
-        //     scrollableDiv.style.borderTopLeftRadius="24px"
-        // }
+        const scrollableDiv = ref.current;
+        const threshold = 50; 
+        console.log(ref.current?.getBoundingClientRect().top)
+    
        
         const handleScroll = () => {
         
@@ -86,23 +70,28 @@ import { usePathname } from "next/navigation";
             //  }
           
            
-        //   if(scrollableDiv)
-        //   {
+          if(scrollableDiv)
+          {
         
-        //   const topOffset = scrollableDiv.getBoundingClientRect().top;
-    
-        //   console.log(topOffset,threshold)
+          const topOffset = scrollableDiv.getBoundingClientRect().top;
+           
+          console.log(topOffset,threshold)
          
-        //   if (parseInt(topOffset.toString())<= threshold) {
-        //     scrollableDiv.style.overflowY = 'scroll';  
-        //     scrollableDiv.style.borderTopRightRadius="0px"
-        //     scrollableDiv.style.borderTopLeftRadius="0px"
-        //   } else {
-        //     scrollableDiv.style.overflowY = 'hidden';  
-        //     scrollableDiv.style.borderTopRightRadius="24px"
-        //     scrollableDiv.style.borderTopLeftRadius="24px"
-        //   }
-        // };
+          if (parseInt(topOffset.toString())<= threshold) {
+            scrollableDiv.style.overflowY = 'scroll';  
+            scrollableDiv.style.borderTopRightRadius="0px"
+            scrollableDiv.style.borderTopLeftRadius="0px"
+       
+       
+            enableBodyScroll(parentRef.current)
+          } else {
+            scrollableDiv.style.overflowY = 'hidden';  
+            scrollableDiv.style.borderTopRightRadius="24px"
+            scrollableDiv.style.borderTopLeftRadius="24px"
+          
+            clearAllBodyScrollLocks();
+          }
+        };
     
        
     }
@@ -153,14 +142,25 @@ import { usePathname } from "next/navigation";
 
    },[])
 
-    return   <div className="overflow-hidden min-[800px]:h-screen flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
+    return <>  
+  
+   <div className="overflow-hidden min-[800px]:h-screen flex justify-between max-[800px]:flex-col-reverse" body-scroll-lock-ignore>
+     {loading && <><div className="hidden max-[800px]:block  absolute inset-0 z-[3] bg-white"></div>
+       <div  className="hidden max-[800px]:flex absolute inset-0 z-[4]  justify-center items-center"><Image alt=""  className="animate-spin" src={rocSpin} height={70} width={70} ></Image></div>
+      </>
+     }
+        <BottomSheet>{children}</BottomSheet> 
+      
+   <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore   className='max-[800px]:hidden min-[800px]:w-[480px] max-[800px]:rounded-t-[24px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[2]   no-scrollbar'>
+        
+       {children}
     
-    <div style={{WebkitOverflowScrolling:"touch",scrollBehavior:"smooth"}} body-scroll-lock-ignore ref={ref} className='min-[800px]:w-[480px] max-[800px]:rounded-t-[24px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[2] no-scrollbar'>
-         
-        {children}
-      </div>
-      <PageLayoutClient></PageLayoutClient>
-    </div>
+     </div> 
+     <AdsBanner maxWidth="auto" /> 
+     <PageLayoutClient></PageLayoutClient>
+   </div>
+  
+    </>
    
 };
 

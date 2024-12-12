@@ -154,7 +154,7 @@ const DashBoard = async () => {
       <ScreenPageComps data={topAttractionsdata} title="Top Attractions" />
       {post?.length != 0 && <Blog data={post} title={"Jersey Feed"}></Blog>}
       <LeaveFeedbackButton />
-      <AdsBanner maxWidth="auto" />
+      
       {/* <BannerModal /> */}
     </>
   );

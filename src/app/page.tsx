@@ -8,23 +8,24 @@ import { Container, DashboardMenu, MainContainer } from "@/app/style";
 import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
 import "./globals.css";
+import '@/app/tailwind.css'
 import AdsBanner from "@/components/adsBanner/page";
-export default function Home() {
+import BottomSheet from "./xmas/XmasComponents/BottomSheet";
+import ScrollLayout from "./xmas/XmasComponents/ScrollLayout";
+export default async function Home() {
+   
+   
   return (
     <>
-      <Container>
-        <MainContainer>
-          <PageLayout>
-            <ScrollSet>
-              <DashboardMenu>
-                <Header />
-                <Dashboard />
-              </DashboardMenu>
-            </ScrollSet>
-          </PageLayout>
-        </MainContainer>
+     <div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-white w-full'></div>
+         <ScrollLayout>
+          <DashboardMenu>
+            <Header></Header>
+                   <Dashboard></Dashboard>
+                   </DashboardMenu>
+                  </ScrollLayout>
         <RightSideMenu />
-      </Container>
+      
       <DashBoardModalScreen />
     </>
   );

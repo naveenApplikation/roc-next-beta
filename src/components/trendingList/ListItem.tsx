@@ -120,10 +120,6 @@ export const ListItem: React.FC<Props> = (props) => {
           </div>
         </CategoryBody>
       </PageLayout>
-      <CalenderBookDatesModalScreen showMap={showMap} />
-      <FilterModalScreen showMap={showMap} />
-      <EventListingModalScreen showMap={showMap} />
-      <ViewDirectionModalScreen showMap={showMap} />
       <Categories></Categories>
     </>
   );

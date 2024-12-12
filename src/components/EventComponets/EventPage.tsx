@@ -301,7 +301,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   const Event = (
     <>
      <HeaderScreen title={"Events"} />
-      <AutoSizer style={{ height: "90vh", width: "inherit" }}>
+      <AutoSizer style={{ height: "91vh", width: "inherit" }}>
         {({ height, width }) => (
           <>
                 

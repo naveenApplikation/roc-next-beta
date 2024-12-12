@@ -18,7 +18,9 @@ export async function generateStaticParams() {
   });
 
   staticGeneration.push({
-    activity: "all-activities",
+    activity: "activity",  
+  },{
+    actvity:"Enjoy the sunshine",
   });
 
   return staticGeneration;
@@ -33,10 +35,13 @@ export default async function Page({
   let title = null;
 
   // Fetch event categories
+  let others=[{name:"Enjoy the sunshine",param:"sun-shine"},{name:"All Activities",param:"activity"}].find((elem)=>{
+      return params.activity.toLowerCase().replaceAll("%20", " ")==elem.name.toLowerCase()
+  })
 
-  if (params.activity == "all-activities") {
-    response = await getCategory("activity");
-    title = "All Activities";
+  if (others) {
+    response = await getCategory(others.param);
+    title =others.name;
   } else {
     const category = await getCategory("activity-list");
     const itemIndex = category.findIndex(
@@ -61,7 +66,7 @@ export default async function Page({
   // Render the event page component with the fetched data
   return (
     <>
-      <HeaderScreen title={"Activity"} />
+      {/* <HeaderScreen title={"Activity"} /> */}
       <ActivityPage
         urlData={data}
         urlTitle={title}

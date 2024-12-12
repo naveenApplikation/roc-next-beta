@@ -43,7 +43,7 @@ const RightSideHeadMenu = styled.div`
   display: none;
 
   @media screen and (max-width: 800px) {
-    padding-top: 24px;
+    padding-top:5px;
     display: flex;
     justify-content: space-between;
     flex: 1;
@@ -106,11 +106,12 @@ const RightMenu = styled.div`
   position: fixed;
   right: 24px;
 
+
   @media screen and (max-width: 800px) {
     position: fixed;
     display: flex;
     flex-direction: column;
-    height: 510px;
+    height: 480px;
     padding: 16px;
     padding-bottom: 60px;
     top: 0;
@@ -118,6 +119,7 @@ const RightMenu = styled.div`
     right: 0;
     background-position: 50% 50%; /* Removing background-image property */
     background-size: cover;
+    
   }
 `;
 
@@ -248,7 +250,7 @@ const RightSide = () => {
                 if (item.url == "upcoming") {
                   router.push("/eventCategory/upcoming");
                 } else if (item.url == "activity") {
-                  router.push("/activityCategory/all-activities");
+                  router.push("/activityCategory/all activities");
                 } else {
                   menuClick(
                     index == 3 || index == 6 ? item.id : item.url,

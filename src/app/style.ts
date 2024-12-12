@@ -70,6 +70,7 @@ export const DashboardMenu = styled.div`
   @media screen and (max-width: 800px) {
     width: 100%;
     min-height: calc(100vh - 500px);
+    padding-bottom:100px;
   }
 `;
 

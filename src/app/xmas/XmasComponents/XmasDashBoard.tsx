@@ -19,7 +19,7 @@ export default async function XmasDashboard()
  
     return <>
          <Header></Header>
-         <div className="grid grid-cols-1 py-[24px] gap-[16px]">
+         <div className="grid grid-cols-1 py-[24px] gap-[16px] pb-[200px]">
           
           <Highlights></Highlights>
           <StarLogo></StarLogo>

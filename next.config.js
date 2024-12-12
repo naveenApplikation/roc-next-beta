@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 import { default as withPWA } from "@ducanh2912/next-pwa";
+import { type } from "os";
 
 const redirects = async () => [
   {
@@ -26,13 +27,28 @@ const redirects = async () => [
         value: "(?<modal>.*)", // Captures the modal value
       },
     ],
-    destination: "/activityCategory/all-activities?modal=:modal", // Redirect to the new path with the captured modal value
+    destination: "/activityCategory/all activities?modal=:modal", // Redirect to the new path with the captured modal value
     permanent: true, // Set to true for a 308 Permanent Redirect
   },
+  {
+     source:"/activityCategory/all-activities",
+     destination:"/activityCategory/all activities",
+     permanent:true
+  }
+  
+  
+ 
+ 
 ];
+ 
 
 // Combined Next.js configuration
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '3mb',
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -46,6 +62,51 @@ const nextConfig = {
   reactStrictMode: false,
   staticPageGenerationTimeout: 1000,
   redirects,
+  async rewrites() {
+    return [
+      {
+        source:"/screens/:events",
+        has:[{
+            type:"query",
+            key:"categoryID"
+        }],
+        destination:"/Places/:events/:categoryID",
+        
+      },
+      {
+         source:"/categories/:eventName",
+         has:[
+          {
+             type:"query",
+             key:"search",
+             value:"Directory",
+          }
+         ],
+         destination:"/Places/directory/:eventName"
+      },
+      {
+        source:"/categories/:eventName",
+        has:[
+         {
+            type:"query",
+            key:"search",
+            value:"sun-shine",
+         }
+        ],
+        destination:"/activityCategory/:eventName"
+      },
+      {
+        source:"/categories/:eventName",
+        has:[
+         {
+            type:"query",
+            key:"search"
+         }
+        ],
+        destination:"/Places/:eventName"
+     }
+    ]
+  },
 };
 
 // PWA configuration

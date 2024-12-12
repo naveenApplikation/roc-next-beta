@@ -151,7 +151,7 @@ const Carousel = ({ slides }) => {
 
   return (
     <>
-      <div className="min-[800px]:hidden fixed  top-0 h-[550px] w-full z-[1]">
+      <div className="min-[800px]:hidden fixed  top-0 h-[530px] w-full z-[1]">
         <RenderImage></RenderImage>
         {/* <button onClick={goToPrevious} className="absolute  left-0 top-[45%] transform -translate-y-1/2 bg-black/30 text-white p-2">
         ‹

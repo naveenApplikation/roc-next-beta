@@ -34,6 +34,7 @@ import AdsBanner from "../adsBanner/page";
 import AutoSizer from "react-virtualized-auto-sizer";
 import Link from "next/link";
 import { FixedSizeList as List } from "react-window";
+import HeaderScreen from "../header/HeaderScreen";
 interface ActivityBoxProps {
   isShare?: any;
   urlData?: any;
@@ -224,14 +225,27 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
       </SearchedData>
     );
   };
+  const [isForwarding,setIsForwarding]=useState(false)
+  const handleScroll=(event)=>{
+    console.log(event)
+        if(event.scrollDirection=="forward" && event.scrollOffset!=0)
+        {
+            setIsForwarding(true)
+        }
+        else
+        {
+          setIsForwarding(false)
+        }
+  }
   return (
     <>
       {/* {isShare && <Backdrop></Backdrop>} */}
-      <AutoSizer style={{ height: "90vh", width: "inherit" }}>
+      <HeaderScreen title={"Activity"} />
+      <AutoSizer style={{ height: "91vh", width: "inherit", }}>
         {({ height, width }) => (
           <SearchedListContainer>
-            <div style={{ padding: "0px 24px" }}>
-              <Header className="">
+            <div style={{ padding: "0px 24px" ,overflow:"hidden"}}>
+              <Header  className="" style={{marginTop:`${isForwarding?'-110px':"0px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
                 <TitleText>{urlTitle}</TitleText>
                 {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -283,10 +297,11 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
               </div>
 
               <List
-                height={600}
+                height={isForwarding?height:600}
                 itemCount={displayedItems.length + 1}
                 itemSize={100}
                 width={width}
+                onScroll={handleScroll}
               >
                 {({ index, style }) => (
                   <>
@@ -314,12 +329,14 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                 )}
               </List>
             </div>
-            <AdsBanner className="75px" />
+            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} className="75px" />
             <ScrollList
               data={filteredData}
               bottom={"30px"}
               params={"activity-list"}
               background={"#F2994A"}
+              style={{bottom:`${isForwarding?'-60px':'9px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
+
             ></ScrollList>
           </SearchedListContainer>
         )}
@@ -353,7 +370,11 @@ const SearchedListContainer = styled.div`
   padding: 0px;
   background-color: #fff;
   min-height: 100vh;
-  /* padding-bottom: 500px; */
+  // padding-bottom: 500px;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+  height: 110vh;
+  scrollbar-color: transparent transparent;
 `;
 
 const SearchedData = styled.div`

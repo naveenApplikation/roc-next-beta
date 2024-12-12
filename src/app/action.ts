@@ -35,7 +35,7 @@ export async function getCategory(params: string) {
     const res = await fetchWithTimeout(
       url,
       {
-        next: { revalidate: 14400 }, // 4 hours cache duration
+        next: { revalidate: 14400 ,tags:["event","activity"]}, // 4 hours cache duration
       },
       150000
     ); // 10 seconds timeout for fetch
