@@ -40,8 +40,7 @@ const SheetHeader = styled.div`
 const SheetContent = styled.div<{ isScrollable: boolean }>`
   overflow-y: ${(props) => (props.isScrollable ? "auto" : "hidden")};
   scroll-behavior: smooth;
-  -webkit-transform: translateZ(0px);
-  scroll-behavior: smooth;
+  touch-action:auto;
   flex: 1;
   padding:0px;
   &::-webkit-scrollbar {
@@ -53,12 +52,17 @@ const SheetContent = styled.div<{ isScrollable: boolean }>`
 const BottomSheet = ({ children }: { children: React.ReactNode }) => {
 
   const screenHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-  let halfHeight=screenHeight-(screenHeight-490);
-  
-  if(screenHeight<750)
-  {
-    halfHeight =screenHeight/1.37;
-  }
+  let halfHeight=screenHeight*0.6;
+  if(screenHeight<700)
+    {
+      halfHeight =screenHeight*0.79;
+    } else if(screenHeight<750)
+      {
+        halfHeight =screenHeight*0.75;
+      }
+   
+    
+ 
 
  
   const fullHeight = 70;
@@ -261,7 +265,7 @@ if(scrollableDiv){
            onTouchStart={handleTouchStart}
            onTouchEnd={handleTouchEnd}
         ref={contentRef}
-        isScrollable={browser=="Safari"||isScrollable}
+        isScrollable={isScrollable}
         onScroll={handleScroll}
         tabIndex={-1} // Make content focusable
       >
