@@ -3,7 +3,7 @@ import { topSideMenu } from "../../../../utils/data";
 import DashBoardModalScreen from "@/components/dashboard/DashBoardModalScreen";
 import XmasIframeModel from "@/app/xmas/XmasComponents/XmasIframeModel";
 import { getAds, getCarouselData, getHighlights } from "@/app/xmas/XmasAction";
-
+export const maxDuration = 300;
 const data=[{
   name:"event",
   iframe_url:"https://hub.roc.je/app/submit-your-event"

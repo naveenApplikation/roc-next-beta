@@ -1,10 +1,8 @@
-import { getBookMark, getData } from "@/app/action";
+import { getAdsByCategory, getAdsOnScreens, getBookMark, getData } from "@/app/action";
 import EventList from "@/components/screenPage";
 import { Metadata, ResolvingMetadata } from "next";
 import { cookies } from "next/headers";
 import "@/app/globals.css";
-import BannerModal from "@/components/bannerModal/page";
-import AdsBanner from "@/components/adsBanner/page";
 interface Props {
   params: {
     events: string;
@@ -33,9 +31,34 @@ async function Page({ params, searchParams }: Props) {
     });
   }
 
+  const adsData=await getAdsOnScreens()
+  const adsDataByCategory=await getAdsByCategory() as {data:any}
+  const filterCategoryHaveAds=adsDataByCategory?.data?.filter((item)=>{
+      return item['Category ID']==searchParams.categoryID
+  })
+  const getFilteredAds=()=>{
+      if(filterCategoryHaveAds.length==0)
+      {
+         return [...adsData.data]
+      }
+      else
+      {
+        const arrangingAds:any[]=[]
+        filterCategoryHaveAds[0]?.ad_ids.split(',').forEach((rowId)=>{
+            adsData.data.forEach((item)=>{
+                  if(rowId==item.ad_id)
+                  {
+                     arrangingAds.push(item)
+                  }
+            })
+       })
+           return arrangingAds
+      }
+  }
+ const arrangingAds=getFilteredAds()
   return (
     <>
-      <EventList data={data} bookmarkValue={bookmark}></EventList>
+      <EventList  data={data} adsData={arrangingAds} bookmarkValue={bookmark}></EventList>
      
       {/* <BannerModal /> */}
     </>
@@ -77,3 +100,5 @@ export async function generateMetadata(
   };
 }
 export default Page;
+
+ 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import {
@@ -33,7 +33,7 @@ const AdContainer = styled.div<{
   @media screen and (max-width: 800px) {
     position: fixed;
     width: 100%;
-    max-width: ${({ $maxWidth }) => $maxWidth};
+    // max-width: ${({ $maxWidth }) => $maxWidth};
   }
   @media screen and (min-width: 390px) {
     position: fixed;
@@ -54,7 +54,7 @@ const AdBody = styled.div<{
   }
   @media screen and (max-width: 800px) {
     width: 97%;
-    max-width: ${({ $maxWidth }) => $maxWidth};
+    // max-width: ${({ $maxWidth }) => $maxWidth};
   }
 `;
 
@@ -107,18 +107,24 @@ const AdText = styled.div`
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
-  style?:CSSProperties
+  adsData?:any
 }
 
 // Ad Data
-const adsData = [
+const adsDatas = [
+  {
+    type:"existing",
+    image:"https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
+    url:"https://hub.roc.je/app/featured/de-gruchy",
+    heading:"Find Your Ideal Christmas Hamper at de Gruchy",
+    text:"The Perfect Christmas Gift!"
+  },
   {
     type: "existing",
-    image:
-      "https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
-    url: "https://hub.roc.je/app/featured/de-gruchy",
-    heading: "Find Your Ideal Christmas Hamper at de Gruchy",
-    text: "The Perfect Christmas Gift!",
+    image: BannerDemo2,
+    url: "https://hub.roc.je/featured/cafe-at-jersey-war-tunnels",
+    heading: "Cafe @ Jersey War Tunnels",
+    text: "Open daily 10am to 5pm",
   },
   {
     type: "existing",
@@ -129,14 +135,14 @@ const adsData = [
   },
 ];
 
-const AdsBanner: React.FC<AdsBannerProps> = ({
+const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
-  style
+  adsData
 }) => {
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
-
+  console.log(adsData)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
@@ -149,16 +155,15 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
 
   return (
     <>
-      {currentAd.type === "existing" ? (
+        {adsData && adsData.length>0 &&
         <AdContainer
-          style={{...style}}
           $className={className}
           $maxWidth={maxWidth}
           onClick={() => {
             setcurrentAdsDetail({
-              url: adsData[currentAdIndex].url,
-              heading: adsData[currentAdIndex].heading,
-              title: adsData[currentAdIndex].text,
+              url: adsData[currentAdIndex].link,
+              heading: adsData[currentAdIndex].title,
+              title: adsData[currentAdIndex].subtitle,
             });
             modalClick("adsBanner", "adsBanner");
           }}
@@ -172,14 +177,14 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
             />
             <AdContent>
               <AdText>
-                <p className="banner_heading">{currentAd.heading}</p>
-                <p className="banner_text">{currentAd.text}</p>
+                <p className="banner_heading">{currentAd.title}</p>
+                <p className="banner_text">{currentAd.subtitle}</p>
               </AdText>
               <Image src={RightArow} alt="icon" height={20} />
             </AdContent>
           </AdBody>
-        </AdContainer>
-      ) : (
+        </AdContainer>}
+      {/* ) : (
         <AdContainer
           $className={className} // Set default className
           $maxWidth={maxWidth} // Set default maxWidth
@@ -189,9 +194,9 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
             <Image src={currentAd.image} alt="Full Ad" height={70} />
           </FullAdBody>
         </AdContainer>
-      )}
+      )} */}
     </>
   );
 };
 
-export default AdsBanner;
+export default ScreenAdsBanner;
