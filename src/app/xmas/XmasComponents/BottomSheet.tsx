@@ -23,6 +23,7 @@ const BottomSheetContainer = styled(animated.div)`
   overscroll-behavior: none;
   overflow: hidden;
   touch-action: none;
+  will-change: transform;
     @media screen and (min-width: 800px) {
     display:none;
 }
@@ -68,7 +69,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const fullHeight = 70;
   const mainRef= useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [{ y }, api] = useSpring(() => ({ y: halfHeight,onRest: {
+  const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { tension: 170, friction: 26 },onRest: {
     y: (e) =>{
        
         if(e.value<100)
@@ -109,7 +110,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
          {
          if(contentRef)
          {
-            api.start({y:parseInt(snapPosition),immediate:true})
+            api.start({y:parseInt(snapPosition),})
              contentRef.current?.scrollTo({
                  top:parseInt(scrollTop)
              })
@@ -145,7 +146,7 @@ const handleTouchStart = (e) => {
  
     if (touchStartX - touchEndX < -50 && contentRef.current && contentRef.current?.scrollTop<0) {
           
-         api.start({y:halfHeight,immediate:true})
+         api.start({y:halfHeight,})
          sessionStorage.setItem("snapPosition",halfHeight.toString());
          setIsScrollable(false);
 
@@ -203,7 +204,7 @@ if(scrollableDiv){
       event,
     }) => {
 
-     
+      requestAnimationFrame(() => {
       const scrollTop = contentRef.current?.scrollTop || 0;
       // Allow normal scrolling if content is not at the top
       if (dy > 0 && scrollTop > 0) {
@@ -222,7 +223,7 @@ if(scrollableDiv){
         
           setIsScrollable(false);
          
-          api.start({ y: halfHeight,immediate:true });
+          api.start({ y: halfHeight, });
         } else if (dy < 0 && my < halfHeight / 2) {
           // Dragging up to full height
           sessionStorage.setItem("snapPosition", fullHeight.toString());
@@ -230,7 +231,7 @@ if(scrollableDiv){
          
           api.start({
             y: fullHeight,
-            immediate:true
+            
              
           });
         }
@@ -238,14 +239,15 @@ if(scrollableDiv){
             {
                 setIsScrollable(false);
                 sessionStorage.setItem("snapPosition",halfHeight.toString());
-                  api.start({y:halfHeight,immediate:true})
+                  api.start({y:halfHeight})
             }
       } else {
         // Restrict movement within bounds
         // alert("yes")
-        api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)),immediate:true });
+        api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)), });
         // sessionStorage.setItem("snapPosition", y.get().toString());
       }
+       })
     },
     {
       
@@ -258,7 +260,7 @@ if(scrollableDiv){
   );
 
   return (
-    <BottomSheetContainer body-scroll-lock-ignore ref={mainRef} style={{ y }}  {...bind()}>
+    <BottomSheetContainer  style={{ transform: y.to((val) => `translate3d(0, ${val}px, 0)`) }} body-scroll-lock-ignore ref={mainRef}  {...bind()}>
       <SheetHeader>
         <div style={{ width: 40, height: 5, background: "#ccc", borderRadius: 5 }} />
       </SheetHeader>
