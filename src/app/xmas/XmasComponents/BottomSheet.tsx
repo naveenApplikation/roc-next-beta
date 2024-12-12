@@ -109,7 +109,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
          {
          if(contentRef)
          {
-            api.start({y:parseInt(snapPosition)})
+            api.start({y:parseInt(snapPosition),immediate:true})
              contentRef.current?.scrollTo({
                  top:parseInt(scrollTop)
              })
@@ -145,7 +145,7 @@ const handleTouchStart = (e) => {
  
     if (touchStartX - touchEndX < -50 && contentRef.current && contentRef.current?.scrollTop<0) {
           
-         api.start({y:halfHeight})
+         api.start({y:halfHeight,immediate:true})
          sessionStorage.setItem("snapPosition",halfHeight.toString());
          setIsScrollable(false);
 
@@ -222,7 +222,7 @@ if(scrollableDiv){
         
           setIsScrollable(false);
          
-          api.start({ y: halfHeight });
+          api.start({ y: halfHeight,immediate:true });
         } else if (dy < 0 && my < halfHeight / 2) {
           // Dragging up to full height
           sessionStorage.setItem("snapPosition", fullHeight.toString());
@@ -230,6 +230,7 @@ if(scrollableDiv){
          
           api.start({
             y: fullHeight,
+            immediate:true
              
           });
         }
@@ -237,12 +238,12 @@ if(scrollableDiv){
             {
                 setIsScrollable(false);
                 sessionStorage.setItem("snapPosition",halfHeight.toString());
-                  api.start({y:halfHeight})
+                  api.start({y:halfHeight,immediate:true})
             }
       } else {
         // Restrict movement within bounds
         // alert("yes")
-        // api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)) });
+        api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)),immediate:true });
         // sessionStorage.setItem("snapPosition", y.get().toString());
       }
     },
@@ -250,6 +251,8 @@ if(scrollableDiv){
       
       bounds: { top: fullHeight, bottom: halfHeight },
       rubberband: true,
+      preventDefault:true,
+      filterTaps:true
     
     }
   );
