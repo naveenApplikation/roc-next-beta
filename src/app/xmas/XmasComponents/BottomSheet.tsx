@@ -41,11 +41,11 @@ const SheetHeader = styled.div`
 const SheetContent = styled.div<{ isScrollable: boolean }>`
   overflow-y: ${(props) => (props.isScrollable ? "auto" : "hidden")};
   scroll-behavior: smooth;
- 
+   
   flex: 1;
   padding:0px;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overscroll-behavior: auto;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -72,7 +72,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const mainRef= useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [{ y }, api] = useSpring(() => ({ y: halfHeight,config: { 
-    tension: 120, friction: 14,precision: 0.01,duration:400, easing: easings.steps(5),damping:true },
+    tension: 120, friction: 14,precision: 0.01,duration:0, easing: easings.steps(5),damping:true },
     
     onRest: {
     y: (e) =>{
@@ -115,7 +115,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
          {
          if(contentRef)
          {
-            api.start({y:parseInt(snapPosition),})
+            api.start({y:parseInt(snapPosition),immediate:true})
              contentRef.current?.scrollTo({
                  top:parseInt(scrollTop)
              })
@@ -176,10 +176,10 @@ useEffect(()=>{
       };
     }
     if(scrollableDiv)
-    { scrollableDiv.addEventListener('scroll', handleScroll);
-    scrollableDiv.addEventListener('touchstart', handleScroll);
-    scrollableDiv.removeEventListener('touchstart', handleScroll);
-    scrollableDiv.addEventListener('touchstart', handleTouch);
+    { scrollableDiv.addEventListener('scroll', handleScroll,false);
+    scrollableDiv.addEventListener('touchstart', handleScroll,false);
+    scrollableDiv.removeEventListener('touchstart', handleScroll,false);
+    scrollableDiv.addEventListener('touchstart', handleTouch,false);
     }
     
         return () => {
@@ -193,10 +193,11 @@ if(scrollableDiv){
   
 },[])
 
-  const handleScroll = () => {
+  const handleScroll = (e) => {
     if (contentRef.current) {
       const scrollTop = contentRef.current.scrollTop;
       setIsAtTop(scrollTop === 0);
+      e.preventDefault()
     }
   };
 
@@ -233,7 +234,7 @@ if(scrollableDiv){
           // Dragging up to full height
           sessionStorage.setItem("snapPosition", fullHeight.toString());
           setIsScrollable(true);
-         
+          
           api.start({
             y: fullHeight,
             
@@ -249,7 +250,7 @@ if(scrollableDiv){
       } else {
         // Restrict movement within bounds
         // alert("yes")
-        api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)), });
+        api.start({ y: Math.max(fullHeight, Math.min(my, halfHeight)),immediate:true});
         // sessionStorage.setItem("snapPosition", y.get().toString());
       }
        })
@@ -265,15 +266,16 @@ if(scrollableDiv){
   );
 
   return (
-    <BottomSheetContainer  style={{ transform: y.to((val) => `translate3d(0, ${val}px, 0)`) }} body-scroll-lock-ignore ref={mainRef}  {...bind()}>
+    <BottomSheetContainer  style={{ transform: y.to((val) => `translate3d(0, ${val}px, 0)`),willChange:"transform",transitionDuration:"1s",marginTop:"480px"}} body-scroll-lock-ignore ref={mainRef}  {...bind()}>
       <SheetHeader>
         <div style={{ width: 40, height: 5, background: "#ccc", borderRadius: 5 }} />
       </SheetHeader>
       <SheetContent
         
-         onTouchMove={(e)=>e.preventDefault()}
+         
            onTouchStart={handleTouchStart}
            onTouchEnd={handleTouchEnd}
+        
         ref={contentRef}
         isScrollable={isScrollable}
         onScroll={handleScroll}

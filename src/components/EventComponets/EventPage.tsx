@@ -336,7 +336,7 @@ const EventPage: React.FC<EventBoxProps> = ({
                 </div>
 
                 <List
-                  height={isForwarding?height:600}
+                  height={height}
                   itemCount={displayedItems.length + 1}
                   itemSize={100}
                   width={width}
