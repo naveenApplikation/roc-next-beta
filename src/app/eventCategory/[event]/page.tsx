@@ -33,13 +33,10 @@ export default async function Page({ params }: { params: { event: string } }) {
     // Fetch upcoming events
     response = await getCategory("upcomming-events?type=limit");
     title = "Upcoming Events";
-  } 
-   else if(params.event === "xmas-events") 
-     {
-        response=await getXmasEvents('/x-mas-events')
-       title="Xmas Events" 
-    }
-    else{
+  } else if (params.event === "xmas-events") {
+    response = await getXmasEvents("x-mas-events");
+    title = "Xmas Events";
+  } else {
     // Fetch event categories
     const category = await getCategory("event-list");
     const itemIndex = category.findIndex(
@@ -56,7 +53,7 @@ export default async function Page({ params }: { params: { event: string } }) {
   }
 
   // Extract the event data if available
-  const data = response.data?response.data:response;
+  const data = response.data ? response.data : response;
 
   if (!data) {
     return <p>No events found or failed to load event data.</p>;
