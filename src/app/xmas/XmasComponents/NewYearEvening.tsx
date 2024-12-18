@@ -7,7 +7,7 @@ import Places from "./Places";
 
 export default async function NewYearEvening({ ads }: { ads: any }) {
   const xmasEvents: any[] = (await getXmasEvents(
-    "/x-mas-events?limit=true"
+    "x-mas-events?limit=true"
   )) as any;
   let bardata = await getDataForHome("Pubs", "663f68c30c44bd6c026b0fc2");
   bardata = {

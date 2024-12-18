@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     response = await getCategory("upcomming-events?type=limit");
     title = "Upcoming Events";
   } else if (params.event === "xmas-events") {
-    response = await getXmasEvents("/x-mas-events");
+    response = await getXmasEvents("x-mas-events");
     title = "Xmas Events";
   } else {
     // Fetch event categories
