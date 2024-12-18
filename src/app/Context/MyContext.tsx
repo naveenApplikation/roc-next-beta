@@ -71,6 +71,8 @@ interface ContextProps {
   currentEventPath?: any;
   setcurrentAdsDetail?: any;
   currentAdsDetail?: any;
+  modalClickRocPlaces?:any,
+  rocPlaces?:any
 }
 
 // Create a context
@@ -121,6 +123,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     AboutUs: false,
     filterOption: false,
     adsBanner: false,
+    rocPlaces:false
   });
   const options = {
     dates: false,
@@ -332,6 +335,15 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const mapButtonClick = () => {
     setShowMap(false);
   };
+  const [rocPlaces,setRocPLaces]=useState({})
+  const modalClickRocPlaces=(name:string,item:any,urlImage:string)=>{
+    closeModal("ModalContent")
+    setModalType((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+      setRocPLaces({...item,urlImage,name})
+  }
   const modalClick = (
     name: string,
     item?: any,
@@ -420,7 +432,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           const jsonData = JSON.parse(item);
           const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-          if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+          if (url && (url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".jpeg"))) {
             imageUrls.push(convertGCSUrl(url));
           } else {
             imageUrls.push(fallback.src); // Push default image URL if URL is not valid
@@ -480,6 +492,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     currentEventPath,
     setcurrentAdsDetail,
     currentAdsDetail,
+    modalClickRocPlaces,
+    rocPlaces
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;
