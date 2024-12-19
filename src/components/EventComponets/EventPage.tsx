@@ -247,6 +247,7 @@ const EventPage: React.FC<EventBoxProps> = ({
                   objectFit: "cover",
                   width: "80px",
                   height: "80px",
+                  minWidth: 80,
                 }}
               />
               <FamilyEventWrapperInside>
