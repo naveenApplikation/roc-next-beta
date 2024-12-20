@@ -85,18 +85,18 @@ const EventPage: React.FC<EventBoxProps> = ({
       handleSocialShare();
     }
   };
-  // useEffect(() => {
-  //   // document.addEventListener(
-  //   //   "touchmove",
-  //   //   function (event) {
-  //   //     event.preventDefault();
-  //   //   },
-  //   //   { passive: true }
-  //   // );
-  //   if (params?.event) {
-  //     resetFilters();
-  //   }
-  // }, [params?.event]);
+  useEffect(() => {
+    // document.addEventListener(
+    //   "touchmove",
+    //   function (event) {
+    //     event.preventDefault();
+    //   },
+    //   { passive: true }
+    // );
+    if (params?.event) {
+      resetFilters();
+    }
+  }, [params?.event]);
 
   const [isDate, setDate] = useState(false);
   const dateWiseUpdate = async (range: string) => {
@@ -126,38 +126,36 @@ const EventPage: React.FC<EventBoxProps> = ({
     router.push("/info/event");
   };
 
-  // useEffect(() => {
-  //   //only this initiate whenever the date change
+  useEffect(() => {
+    //only this initiate whenever the date change
 
-  //   if (eventFilters.date && pathName?.includes("upcoming")) {
-  //     // only if in upcoming events
-  //     const { startDate, endDate } = parseStateDateRange(eventFilters.date);
-  //     const lastDate = urlData[urlData.length - 1].acf?.event_date;
-  //     console.log(
-  //       startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
-  //     );
-  //     if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
-  //       const format = parseDateRange(eventFilters.date);
-  //       dateWiseUpdate(format);
-  //     } else {
-  //       setDate(false);
-  //     }
-  //   } else {
-  //     setDate(false);
-  //   }
-  // }, [eventFilters.date]);
+    if (eventFilters.date && pathName?.includes("upcoming")) {
+      // only if in upcoming events
+      const { startDate, endDate } = parseStateDateRange(eventFilters.date);
+      const lastDate = urlData[urlData.length - 1].acf?.event_date;
+      console.log(
+        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+      );
+      if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
+        const format = parseDateRange(eventFilters.date);
+        dateWiseUpdate(format);
+      } else {
+        setDate(false);
+      }
+    } else {
+      setDate(false);
+    }
+  }, [eventFilters.date]);
 
   useEffect(() => {
-    // const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    const ImageUrlData = urlData?.map(
+    const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
+    const ImageUrlData = filEve?.map(
       (item: any) => item?.acf?.header_image_data
     );
-
     setFilteredUrls(filterUrls(ImageUrlData));
-    setDisplayedItems(urlData);
-    console.log("event", urlData, eventFilters, isDate, currentData);
-  }, [eventFilters, isDate, currentData, urlData]);
-  console.log(filteredUrls);
+    setDisplayedItems(filEve);
+  }, [eventFilters, isDate, currentData]);
+
   function getFirstImageUrl(jsonString: string): string | boolean {
     try {
       // Parse the JSON string
@@ -179,39 +177,39 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   }
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     const modalId = urlParams.get("modal");
-  //     const date = urlParams.get("date");
-  //     if (modalId && date) {
-  //       let temp: any,
-  //         index = 0;
-  //       displayedItems.every((element: any, position: any) => {
-  //         if (
-  //           date &&
-  //           element._id === modalId.replace("$", "") &&
-  //           element.acf.event_date === date
-  //         ) {
-  //           index = position;
-  //           temp = element;
-  //           return false;
-  //         }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const modalId = urlParams.get("modal");
+      const date = urlParams.get("date");
+      if (modalId && date) {
+        let temp: any,
+          index = 0;
+        displayedItems.every((element: any, position: any) => {
+          if (
+            date &&
+            element._id === modalId.replace("$", "") &&
+            element.acf.event_date === date
+          ) {
+            index = position;
+            temp = element;
+            return false;
+          }
 
-  //         return true;
-  //       });
-  //       if (temp) {
-  //         const image = getFirstImageUrl(temp?.acf?.header_image_data);
-  //         modalClick(
-  //           "eventListing",
-  //           temp,
+          return true;
+        });
+        if (temp) {
+          const image = getFirstImageUrl(temp?.acf?.header_image_data);
+          modalClick(
+            "eventListing",
+            temp,
 
-  //           image ? image : fallback
-  //         );
-  //       }
-  //     }
-  //   }
-  // }, [urlData]);
+            image ? image : fallback
+          );
+        }
+      }
+    }
+  }, [urlData]);
 
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
@@ -243,12 +241,13 @@ const EventPage: React.FC<EventBoxProps> = ({
               <Image
                 src={filteredUrls[index]}
                 alt="image"
-                width={500}
+                width={80}
                 height={80}
                 style={{
                   objectFit: "cover",
                   width: "80px",
                   height: "80px",
+                  minWidth: 80,
                 }}
               />
               <FamilyEventWrapperInside>
@@ -566,7 +565,12 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          imageUrls.push(convertGCSUrl(url));
+          if (convertGCSUrl(url).includes("cdn")) {
+            console.log(url);
+            imageUrls.push(fallback.src);
+          } else {
+            imageUrls.push(convertGCSUrl(url));
+          }
         } else {
           imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }
