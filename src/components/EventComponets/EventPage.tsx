@@ -86,18 +86,18 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
   useEffect(() => {
-    document.addEventListener(
-      "touchmove",
-      function (event) {
-        event.preventDefault();
-      },
-      { passive: true }
-    );
+    // document.addEventListener(
+    //   "touchmove",
+    //   function (event) {
+    //     event.preventDefault();
+    //   },
+    //   { passive: true }
+    // );
     if (params?.event) {
       resetFilters();
     }
   }, [params?.event]);
-  console.log(eventFilters);
+
   const [isDate, setDate] = useState(false);
   const dateWiseUpdate = async (range: string) => {
     try {
