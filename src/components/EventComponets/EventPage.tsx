@@ -85,18 +85,18 @@ const EventPage: React.FC<EventBoxProps> = ({
       handleSocialShare();
     }
   };
-  useEffect(() => {
-    // document.addEventListener(
-    //   "touchmove",
-    //   function (event) {
-    //     event.preventDefault();
-    //   },
-    //   { passive: true }
-    // );
-    if (params?.event) {
-      resetFilters();
-    }
-  }, [params?.event]);
+  // useEffect(() => {
+  //   // document.addEventListener(
+  //   //   "touchmove",
+  //   //   function (event) {
+  //   //     event.preventDefault();
+  //   //   },
+  //   //   { passive: true }
+  //   // );
+  //   if (params?.event) {
+  //     resetFilters();
+  //   }
+  // }, [params?.event]);
 
   const [isDate, setDate] = useState(false);
   const dateWiseUpdate = async (range: string) => {
@@ -126,90 +126,90 @@ const EventPage: React.FC<EventBoxProps> = ({
     router.push("/info/event");
   };
 
-  useEffect(() => {
-    //only this initiate whenever the date change
+  // useEffect(() => {
+  //   //only this initiate whenever the date change
 
-    if (eventFilters.date && pathName?.includes("upcoming")) {
-      // only if in upcoming events
-      const { startDate, endDate } = parseStateDateRange(eventFilters.date);
-      const lastDate = urlData[urlData.length - 1].acf?.event_date;
-      console.log(
-        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
-      );
-      if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
-        const format = parseDateRange(eventFilters.date);
-        dateWiseUpdate(format);
-      } else {
-        setDate(false);
-      }
-    } else {
-      setDate(false);
-    }
-  }, [eventFilters.date]);
+  //   if (eventFilters.date && pathName?.includes("upcoming")) {
+  //     // only if in upcoming events
+  //     const { startDate, endDate } = parseStateDateRange(eventFilters.date);
+  //     const lastDate = urlData[urlData.length - 1].acf?.event_date;
+  //     console.log(
+  //       startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+  //     );
+  //     if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
+  //       const format = parseDateRange(eventFilters.date);
+  //       dateWiseUpdate(format);
+  //     } else {
+  //       setDate(false);
+  //     }
+  //   } else {
+  //     setDate(false);
+  //   }
+  // }, [eventFilters.date]);
 
-  useEffect(() => {
-    const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    const ImageUrlData = filEve?.map(
-      (item: any) => item?.acf?.header_image_data
-    );
-    setFilteredUrls(filterUrls(ImageUrlData));
-    setDisplayedItems(filEve);
-  }, [eventFilters, isDate, currentData]);
+  // useEffect(() => {
+  //   const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
+  //   const ImageUrlData = filEve?.map(
+  //     (item: any) => item?.acf?.header_image_data
+  //   );
+  //   setFilteredUrls(filterUrls(ImageUrlData));
+  //   setDisplayedItems(filEve);
+  // }, [eventFilters, isDate, currentData]);
 
-  function getFirstImageUrl(jsonString: string): string | boolean {
-    try {
-      // Parse the JSON string
-      const parsedArray = JSON.parse(jsonString);
+  // function getFirstImageUrl(jsonString: string): string | boolean {
+  //   try {
+  //     // Parse the JSON string
+  //     const parsedArray = JSON.parse(jsonString);
 
-      // Check if the parsed array has at least one item and if it has a "url" property
-      if (
-        Array.isArray(parsedArray) &&
-        parsedArray.length > 0 &&
-        parsedArray[0].url
-      ) {
-        return parsedArray[0].url; // Return the URL of the first image
-      } else {
-        return false; // Return false if no valid URL found
-      }
-    } catch (error) {
-      console.error("Invalid JSON string", error);
-      return false; // Return false if JSON parsing fails
-    }
-  }
+  //     // Check if the parsed array has at least one item and if it has a "url" property
+  //     if (
+  //       Array.isArray(parsedArray) &&
+  //       parsedArray.length > 0 &&
+  //       parsedArray[0].url
+  //     ) {
+  //       return parsedArray[0].url; // Return the URL of the first image
+  //     } else {
+  //       return false; // Return false if no valid URL found
+  //     }
+  //   } catch (error) {
+  //     console.error("Invalid JSON string", error);
+  //     return false; // Return false if JSON parsing fails
+  //   }
+  // }
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      const modalId = urlParams.get("modal");
-      const date = urlParams.get("date");
-      if (modalId && date) {
-        let temp: any,
-          index = 0;
-        displayedItems.every((element: any, position: any) => {
-          if (
-            date &&
-            element._id === modalId.replace("$", "") &&
-            element.acf.event_date === date
-          ) {
-            index = position;
-            temp = element;
-            return false;
-          }
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const urlParams = new URLSearchParams(window.location.search);
+  //     const modalId = urlParams.get("modal");
+  //     const date = urlParams.get("date");
+  //     if (modalId && date) {
+  //       let temp: any,
+  //         index = 0;
+  //       displayedItems.every((element: any, position: any) => {
+  //         if (
+  //           date &&
+  //           element._id === modalId.replace("$", "") &&
+  //           element.acf.event_date === date
+  //         ) {
+  //           index = position;
+  //           temp = element;
+  //           return false;
+  //         }
 
-          return true;
-        });
-        if (temp) {
-          const image = getFirstImageUrl(temp?.acf?.header_image_data);
-          modalClick(
-            "eventListing",
-            temp,
+  //         return true;
+  //       });
+  //       if (temp) {
+  //         const image = getFirstImageUrl(temp?.acf?.header_image_data);
+  //         modalClick(
+  //           "eventListing",
+  //           temp,
 
-            image ? image : fallback
-          );
-        }
-      }
-    }
-  }, [urlData]);
+  //           image ? image : fallback
+  //         );
+  //       }
+  //     }
+  //   }
+  // }, [urlData]);
 
   const returnEventItems = (item: any) => {
     if (type == "eventByDate") {
@@ -232,7 +232,7 @@ const EventPage: React.FC<EventBoxProps> = ({
     index: number;
     style: React.CSSProperties;
   }) => {
-    const item = displayedItems[index];
+    const item = urlData[index];
     return (
       <Link key={index} href={returnEventItems(item)} prefetch={true}>
         <SearchedData style={style}>
@@ -321,7 +321,7 @@ const EventPage: React.FC<EventBoxProps> = ({
 
                 <List
                   height={600}
-                  itemCount={displayedItems.length + 1}
+                  itemCount={urlData.length + 1}
                   itemSize={100}
                   width={width}
                 >
