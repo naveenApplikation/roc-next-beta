@@ -154,6 +154,7 @@ const EventPage: React.FC<EventBoxProps> = ({
     );
     setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
+    console.log(filEve, eventFilters, isDate, currentData, ImageUrlData);
   }, [eventFilters, isDate, currentData]);
 
   function getFirstImageUrl(jsonString: string): string | boolean {
