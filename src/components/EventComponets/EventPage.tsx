@@ -149,14 +149,15 @@ const EventPage: React.FC<EventBoxProps> = ({
 
   useEffect(() => {
     // const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    // const ImageUrlData = urlData?.map(
-    //   (item: any) => item?.acf?.header_image_data
-    // );
-    // setFilteredUrls(filterUrls(ImageUrlData));
+    const ImageUrlData = urlData?.map(
+      (item: any) => item?.acf?.header_image_data
+    );
+
+    setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(urlData);
     console.log("event", urlData, eventFilters, isDate, currentData);
   }, [eventFilters, isDate, currentData, urlData]);
-
+  console.log(filteredUrls);
   function getFirstImageUrl(jsonString: string): string | boolean {
     try {
       // Parse the JSON string
@@ -248,7 +249,6 @@ const EventPage: React.FC<EventBoxProps> = ({
                   objectFit: "cover",
                   width: "80px",
                   height: "80px",
-                  minWidth: 80,
                 }}
               />
               <FamilyEventWrapperInside>
@@ -566,7 +566,11 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          imageUrls.push(convertGCSUrl(url));
+          if (convertGCSUrl(url).includes("cdn")) {
+            imageUrls.push(fallback.src);
+          } else {
+            imageUrls.push(convertGCSUrl(url));
+          }
         } else {
           imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }
