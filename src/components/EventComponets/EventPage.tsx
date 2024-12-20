@@ -566,11 +566,7 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          if (convertGCSUrl(url).includes("cdn")) {
-            imageUrls.push(fallback.src);
-          } else {
-            imageUrls.push(convertGCSUrl(url));
-          }
+          imageUrls.push(convertGCSUrl(url));
         } else {
           imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }
