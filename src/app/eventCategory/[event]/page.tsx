@@ -10,20 +10,20 @@ import Modal from "@/components/modal/Modal";
 import React from "react";
 export const maxDuration = 300;
 // Generate static paths for dynamic routes
-export async function generateStaticParams() {
-  const category = await getCategory("event-list");
-  const staticGeneration = [];
-  // const staticGeneration = category.map((item: any) => {
-  //   return {
-  //     event: handleEventEncoding("encode", item.listName),
-  //   };
-  // });
+// export async function generateStaticParams() {
+//   const category = await getCategory("event-list");
+//   const staticGeneration = [];
+//   // const staticGeneration = category.map((item: any) => {
+//   //   return {
+//   //     event: handleEventEncoding("encode", item.listName),
+//   //   };
+//   // });
 
-  // Add "upcoming" as a static path
-  staticGeneration.push({ event: "upcoming" });
+//   // Add "upcoming" as a static path
+//   staticGeneration.push({ event: "upcoming" });
 
-  return staticGeneration;
-}
+//   return staticGeneration;
+// }
 
 export default async function Page({ params }: { params: { event: string } }) {
   let response = null;
