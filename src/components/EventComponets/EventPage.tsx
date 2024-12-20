@@ -147,35 +147,35 @@ const EventPage: React.FC<EventBoxProps> = ({
   //   }
   // }, [eventFilters.date]);
 
-  // useEffect(() => {
-  //   const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-  //   const ImageUrlData = filEve?.map(
-  //     (item: any) => item?.acf?.header_image_data
-  //   );
-  //   setFilteredUrls(filterUrls(ImageUrlData));
-  //   setDisplayedItems(filEve);
-  // }, [eventFilters, isDate, currentData]);
+  useEffect(() => {
+    const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
+    const ImageUrlData = filEve?.map(
+      (item: any) => item?.acf?.header_image_data
+    );
+    setFilteredUrls(filterUrls(ImageUrlData));
+    setDisplayedItems(filEve);
+  }, [eventFilters, isDate, currentData]);
 
-  // function getFirstImageUrl(jsonString: string): string | boolean {
-  //   try {
-  //     // Parse the JSON string
-  //     const parsedArray = JSON.parse(jsonString);
+  function getFirstImageUrl(jsonString: string): string | boolean {
+    try {
+      // Parse the JSON string
+      const parsedArray = JSON.parse(jsonString);
 
-  //     // Check if the parsed array has at least one item and if it has a "url" property
-  //     if (
-  //       Array.isArray(parsedArray) &&
-  //       parsedArray.length > 0 &&
-  //       parsedArray[0].url
-  //     ) {
-  //       return parsedArray[0].url; // Return the URL of the first image
-  //     } else {
-  //       return false; // Return false if no valid URL found
-  //     }
-  //   } catch (error) {
-  //     console.error("Invalid JSON string", error);
-  //     return false; // Return false if JSON parsing fails
-  //   }
-  // }
+      // Check if the parsed array has at least one item and if it has a "url" property
+      if (
+        Array.isArray(parsedArray) &&
+        parsedArray.length > 0 &&
+        parsedArray[0].url
+      ) {
+        return parsedArray[0].url; // Return the URL of the first image
+      } else {
+        return false; // Return false if no valid URL found
+      }
+    } catch (error) {
+      console.error("Invalid JSON string", error);
+      return false; // Return false if JSON parsing fails
+    }
+  }
 
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -232,7 +232,7 @@ const EventPage: React.FC<EventBoxProps> = ({
     index: number;
     style: React.CSSProperties;
   }) => {
-    const item = urlData[index];
+    const item = displayedItems[index];
     return (
       <Link key={index} href={returnEventItems(item)} prefetch={true}>
         <SearchedData style={style}>
@@ -321,7 +321,7 @@ const EventPage: React.FC<EventBoxProps> = ({
 
                 <List
                   height={600}
-                  itemCount={urlData.length + 1}
+                  itemCount={displayedItems.length + 1}
                   itemSize={100}
                   width={width}
                 >

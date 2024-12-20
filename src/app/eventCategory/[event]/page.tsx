@@ -10,20 +10,20 @@ import Modal from "@/components/modal/Modal";
 import React from "react";
 export const maxDuration = 300;
 // Generate static paths for dynamic routes
-// export async function generateStaticParams() {
-//   const category = await getCategory("event-list");
-//   const staticGeneration = [];
-//   // const staticGeneration = category.map((item: any) => {
-//   //   return {
-//   //     event: handleEventEncoding("encode", item.listName),
-//   //   };
-//   // });
+export async function generateStaticParams() {
+  const category = await getCategory("event-list");
 
-//   // Add "upcoming" as a static path
-//   staticGeneration.push({ event: "upcoming" });
+  const staticGeneration = category.map((item: any) => {
+    return {
+      event: handleEventEncoding("encode", item.listName),
+    };
+  });
 
-//   return staticGeneration;
-// }
+  // Add "upcoming" as a static path
+  staticGeneration.push({ event: "upcoming" });
+
+  return staticGeneration;
+}
 
 export default async function Page({ params }: { params: { event: string } }) {
   let response = null;
@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     <>
       <HeaderScreen title={"Events"} />
       <EventPage
-        urlData={data.slice(0, 10)}
+        urlData={data}
         urlTitle={title}
         type="eventCategory"
         slug={params.event}
