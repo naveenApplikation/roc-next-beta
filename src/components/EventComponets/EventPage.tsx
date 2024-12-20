@@ -148,15 +148,15 @@ const EventPage: React.FC<EventBoxProps> = ({
   // }, [eventFilters.date]);
 
   useEffect(() => {
-    const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    const ImageUrlData = filEve?.map(
+    // const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
+    const ImageUrlData = urlData?.map(
       (item: any) => item?.acf?.header_image_data
     );
     setFilteredUrls(filterUrls(ImageUrlData));
-    setDisplayedItems(filEve);
+    setDisplayedItems(urlData);
     console.log(
       "event",
-      filEve,
+      urlData,
       eventFilters,
       isDate,
       currentData,
