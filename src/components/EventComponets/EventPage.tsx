@@ -162,7 +162,7 @@ const EventPage: React.FC<EventBoxProps> = ({
       currentData,
       ImageUrlData
     );
-  }, [eventFilters, isDate, currentData]);
+  }, [eventFilters, isDate, currentData, urlData]);
 
   function getFirstImageUrl(jsonString: string): string | boolean {
     try {
