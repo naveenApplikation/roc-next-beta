@@ -149,19 +149,12 @@ const EventPage: React.FC<EventBoxProps> = ({
 
   useEffect(() => {
     // const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    const ImageUrlData = urlData?.map(
-      (item: any) => item?.acf?.header_image_data
-    );
-    setFilteredUrls(filterUrls(ImageUrlData));
+    // const ImageUrlData = urlData?.map(
+    //   (item: any) => item?.acf?.header_image_data
+    // );
+    // setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(urlData);
-    console.log(
-      "event",
-      urlData,
-      eventFilters,
-      isDate,
-      currentData,
-      ImageUrlData
-    );
+    console.log("event", urlData, eventFilters, isDate, currentData);
   }, [eventFilters, isDate, currentData, urlData]);
 
   function getFirstImageUrl(jsonString: string): string | boolean {
