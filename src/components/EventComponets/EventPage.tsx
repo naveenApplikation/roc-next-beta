@@ -199,7 +199,10 @@ const EventPage: React.FC<EventBoxProps> = ({
           return true;
         });
         if (temp) {
-          const image = getFirstImageUrl(temp?.acf?.header_image_data);
+          let image = getFirstImageUrl(temp?.acf?.header_image_data);
+          if (image.toString().includes("4396371906_dscf0067")) {
+            image = fallback.src;
+          }
           modalClick(
             "eventListing",
             temp,
@@ -565,7 +568,7 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          if (convertGCSUrl(url).includes("cdn")) {
+          if (convertGCSUrl(url).includes("4396371906_dscf0067")) {
             console.log(url);
             imageUrls.push(fallback.src);
           } else {
