@@ -15,9 +15,11 @@ import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import toast from "react-hot-toast";
 import { debounce } from "@/app/utils/debounce";
+import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
+
 
 const Page = () => {
-  const { showMap } = useMyContext();
+  const { showMap ,modalClick} = useMyContext();
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -233,6 +235,7 @@ const Page = () => {
   return (
     <PageLayout>
       <div>{ScreenShowHandle()}</div>
+      <ProfileAccountModalScreen showMap={showMap} />
     </PageLayout>
   );
 };

@@ -18,11 +18,12 @@ export default function Places({title,data,nav}:{title:string,data:any,nav:strin
         modalClick(
           "eventListing",
           item,
-          item?.data_type === "google" ? item?.photoUrl : fallback
+          item?.data_type === "google" || item?.data_type=="roc_places"&& item?.photoUrl &&
+          typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
         )
       } key={index} className="flex flex-col cursor-pointer  w-[120px] gap-[8px]">
         <div className="w-[120px]  rounded-[8px]">
-          <Image height={500} width={500} alt="" objectFit="cover" src={item?.photoUrl} className="h-[70px] w-[120px] object-cover w- rounded-[8px]" />
+          <Image height={500} width={500} alt="" objectFit="cover" src={typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback} className="h-[70px] w-[120px] object-cover w- rounded-[8px]" />
         </div>
         <p className="text-[12px] font-normal  leading-normal overflow-hidden  text-ellipsis line-clamp-1">
           {item?.name}

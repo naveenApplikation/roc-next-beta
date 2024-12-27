@@ -32,14 +32,24 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       const placeId = urlParams.get("search");
-
+      const rocPlaceId=urlParams.get("rocPlace")
+      let temp:{data_type:string,place_id?:string,search?:string,_id?:string}
       if (placeId) {
-        const temp = {
+         temp = {
           data_type: "google",
           place_id: placeId,
         };
 
         modalClick("ModalContent", temp, fallback);
+      }
+      else if(rocPlaceId)
+      {
+          temp={
+          data_type: "roc_places",
+          search:"global",
+          _id:rocPlaceId
+         }
+         modalClick("ModalContent", temp, fallback);
       }
     }
   }, [data]);

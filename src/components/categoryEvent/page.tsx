@@ -147,7 +147,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       handleSocialShare();
     }
   };
-
+    
   const filterDate = handleFilter(urlData, selectFilter);
   const [bookmarkLoader, setBookmarkLoader] = useState(false);
   const [isBookmark, setBookmark] = useState(false);
@@ -166,6 +166,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       modalClick("LoginSignupModal");
     }
   };
+ 
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -271,13 +272,13 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       modalClick(
                         "eventListing",
                         item,
-                        item?.data_type === "google" ? item?.photoUrl : fallback
+                        item?.photoUrl??fallback
                       )
                     }>
                     <FamilyEventWrapper>
-                      {item?.data_type === "google" ? (
-                        item.photoUrl ? (
-                          <ImageTag src={item.photoUrl} alt="Image" />
+                    {
+                        item?.photoUrl || Array.isArray(item.photoUrl)? (
+                          <ImageTag src={typeof item.photoUrl=="string"?item.photoUrl:item.photoUrl[0]} alt="Image" />
                         ) : (
                           <Image
                             // style={{ background: "white" }}
@@ -293,27 +294,11 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                             alt=""
                           />
                         )
-                      ) : (
-                        <Image
-                          // style={{ background: "white" }}
-                          src={fallback}
-                          width={500}
-                          height={80}
-                          style={{
-                            borderRadius: 4,
-                            width: "80px",
-                            objectFit: "cover",
-                            cursor: "pointer",
-                          }}
-                          alt=""
-                        />
-                      )}
+                     }
                     </FamilyEventWrapper>
                     <div className="restroRating">
                       <p className="shopName">
-                        {item?.data_type === "google"
-                          ? item?.name
-                          : item?.acf?.title}
+                        {item?.name}
                       </p>
                       <DetailContainer>
                         <p style={{ color: "gray" }}>{item?.rating} &nbsp;</p>

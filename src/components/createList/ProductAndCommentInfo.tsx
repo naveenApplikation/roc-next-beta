@@ -14,6 +14,7 @@ import CreateListItems from "./CreateList Components/CreateListItems";
 import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import { categoryCreationDate, sideWidth } from "../..//app/utils/date";
 import fallbackimage from '../../../assets/images/fallbackimage.png'
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
@@ -208,6 +209,8 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
   selectedIcon,
   screenName,
 }) => {
+
+  const {filterUrls}=useMyContext()
   return (
     <ListDetailsScreen>
       <CreateListItemScrollBox>
@@ -256,15 +259,16 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
 
             {selectedData.length &&
               selectedData.map((item: any, index: any) => {
-                const image = item.photoUrl ? item.photoUrl : fallbackimage;
+                const image =typeof item.photoUrl==="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallbackimage
+                        
                 return (
-                  <ListDataWrraper key={item.place_id}>
+                  <ListDataWrraper key={index}>
                     <div style={{ width: 80, height: 80 }}>
                       <Image
                         src={image}
                         width={80}
                         height={80}
-                        style={{ borderRadius: 4 }}
+                        style={{ borderRadius: 4,  maxHeight:"80px" }}
                         alt="infoCirlce"
                       />
                     </div>
@@ -275,7 +279,7 @@ const ProductAndCommentInfo: React.FC<ListDetailsProps> = ({
                         flexDirection: "column",
                       }}
                     >
-                      <ListDataTittleText>{item?.name}</ListDataTittleText>
+                      <ListDataTittleText>    {item?.name}</ListDataTittleText>
                       <div
                         style={{
                           display: "flex",

@@ -33,7 +33,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
       : null;
 
   const { data, error, trigger, isMutating } = useSWRMutation(
-    "api/bookmarkAndList?type=bookmark",
+    "/api/bookmarkAndList?type=bookmark",
     fetcher
   );
 

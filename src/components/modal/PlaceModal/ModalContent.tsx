@@ -8,7 +8,24 @@ import { IoMdCheckmark } from "react-icons/io";
 import fallback from "../../../../assets/images/fallbackimage.png";
 import useSWR from "swr";
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (data: any) =>{ 
+  console.log(data)
+  let url:string=""
+  if(data.data_type=="google")
+  {
+     url=`/api/event?placeId=${data?.place_id}`
+  }
+  else if(data?.data_type=="roc_places")
+  {
+     if(data.search)
+     {
+      url=`${process.env.NEXT_PUBLIC_API_URL}/manual-place/${data._id}?type=global`
+     }
+     else
+         url=`/api/rocPlaces?id=${data._id}`
+  }
+  return fetch(url).then((res) => res.json())
+};
 import {
   comment,
   calenderWhiteImg,
@@ -45,11 +62,14 @@ const ModalContent: React.FC<ModalProps> = ({
   data,
   reservationMenu = true,
 }) => {
+ 
+
   const { setTitleNameForModel } = useMyContext();
   const [showApiData, setShowApiData] = useState<any>({});
   const [reviewData, setReviewData] = useState([]);
-
-  const res = useSWR(`/api/event?placeId=${data?.place_id}`, fetcher);
+ 
+  
+  const res = useSWR(data, fetcher);
 
   useEffect(() => {
     if (Object.keys(data).length) {
@@ -75,7 +95,7 @@ const ModalContent: React.FC<ModalProps> = ({
   const ResturantDetailData = [
     {
       name:
-        data?.data_type === "google"
+        data?.data_type === "google" || data?.data_type=="roc_places" 
           ? getVenueStatus(
               showApiData?.current_opening_hours,
               showApiData?.name
@@ -83,13 +103,13 @@ const ModalContent: React.FC<ModalProps> = ({
           : "",
       image: clock,
       nameValue:
-        data?.data_type === "google"
+        data?.data_type === "google" || data?.data_type=="roc_places" 
           ? showApiData?.current_opening_hours?.periods
           : "",
     },
     {
       name:
-        data?.data_type === "google" ? (
+        data?.data_type === "google" || data?.data_type=="roc_places" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
             target="_blank"
@@ -103,13 +123,13 @@ const ModalContent: React.FC<ModalProps> = ({
         ),
       image: globes,
       nameValue:
-        data?.data_type === "google"
+        data?.data_type === "google" || data?.data_type=="roc_places"
           ? showApiData?.website
           : data?.acf?.website,
     },
     {
       name:
-        data?.data_type === "google" ? (
+        data?.data_type === "google" || data?.data_type=="roc_places"? (
           showApiData?.international_phone_number ? (
             <Tooltip title={"Copy international number"}>
               <span
@@ -136,7 +156,7 @@ const ModalContent: React.FC<ModalProps> = ({
         ),
       image: phoneBlack,
       nameValue:
-        data?.data_type === "google"
+        data?.data_type === "google" || data?.data_type=="roc_places"
           ? showApiData?.international_phone_number
             ? showApiData?.international_phone_number
             : showApiData?.formatted_phone_number
@@ -144,7 +164,7 @@ const ModalContent: React.FC<ModalProps> = ({
     },
     {
       name:
-        data?.data_type === "google" ? (
+        data?.data_type === "google" || data?.data_type=="roc_places" ? (
           <Tooltip title={"Copy address"}>
             <span onClick={() => copylink(showApiData?.formatted_address)}>
               {showApiData?.formatted_address}
@@ -155,7 +175,7 @@ const ModalContent: React.FC<ModalProps> = ({
         ),
       image: locationDot,
       nameValue:
-        data?.data_type === "google"
+        data?.data_type === "google" || data?.data_type=="roc_places"
           ? showApiData?.formatted_address
           : `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`,
     },
@@ -163,15 +183,15 @@ const ModalContent: React.FC<ModalProps> = ({
 
   const formattedValues = () => {
     const typeData =
-      data?.data_type === "google" ? showApiData?.types : data?.acf?.type;
+      data?.data_type === "google" || data?.data_type=="roc_places"? showApiData?.types : data?.acf?.type;
     if (Array.isArray(typeData)) {
-      return data?.data_type === "google"
+      return data?.data_type === "google" || data?.data_type=="roc_places" 
         ? showApiData?.types
             .map((item: any) => item.replaceAll("_", " "))
             .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
-      return data?.data_type === "google"
+      return data?.data_type === "google" || data?.data_type=="roc_places" 
         ? showApiData?.types
         : data?.acf?.type?.label;
     }
@@ -232,7 +252,7 @@ const ModalContent: React.FC<ModalProps> = ({
             <Ratings ratingvalue={showApiData?.rating} />
           </ResturatContainer>
           <ItemImageContainer>
-            {showApiData?.photos ? (
+            {showApiData?.photos || showApiData?.photoUrl ? (
               <ImageCarousel
                 imageArr={showApiData?.photoUrl}
                 imageUrl={dataImage}
@@ -456,7 +476,7 @@ const ModalContent: React.FC<ModalProps> = ({
           )}
           <DatesContainer>
             <OpeningTitle>Opening</OpeningTitle>
-            {data?.data_type === "google" ? (
+            {data?.data_type === "google" || data?.data_type=="roc_places" || data?.data_type=="roc_places" ? (
               <DatesWrapperTextGoogle>
                 {showApiData?.current_opening_hours?.weekday_text &&
                   opningDate(
@@ -486,16 +506,16 @@ const ModalContent: React.FC<ModalProps> = ({
               </DatesWrapperText>
             )}
 
-            {data?.data_type === "google" ? (
+            {data?.data_type === "google" || data?.data_type=="roc_places" || data?.data_type=="roc_places" ? (
               <WeekTimeArrange>
                 <p>Time:</p>
                 <p>
                   {convertTo12HourTime(
-                    showApiData?.current_opening_hours?.periods[0].open?.time
+                    showApiData?.current_opening_hours?.periods[0]?.open?.time
                   )}{" "}
                   -{" "}
                   {convertTo12HourTime(
-                    showApiData?.current_opening_hours?.periods[0].close?.time
+                    showApiData?.current_opening_hours?.periods[0]?.close?.time
                   )}
                 </p>
               </WeekTimeArrange>
@@ -504,8 +524,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 <WeekTimeArrange key={index}>
                   <p>{item}:</p>
                   <p>
-                    {daysOfWeekTiming[index].opens} -{" "}
-                    {daysOfWeekTiming[index].closes}
+                    {daysOfWeekTiming[index]?.opens} -{" "}
+                    {daysOfWeekTiming[index]?.closes}
                   </p>
                 </WeekTimeArrange>
               ))

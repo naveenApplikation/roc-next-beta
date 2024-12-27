@@ -156,11 +156,12 @@ const DragInOrder: React.FC<DragInOrderProps> = ({
                   >
                     {items.length
                       ? items.map((item: any, index: any) => {
-                          const image = item.photoUrl ? item.photoUrl : fallbackimage;
+                           const image =typeof item.photoUrl==="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallbackimage
+                        
                           return (
                             <Draggable
-                              key={item.place_id}
-                              draggableId={item.place_id}
+                              key={index}
+                              draggableId={item.place_id || item._id}
                               index={index}
                             >
                               {(provided, snapshot) => {
@@ -247,6 +248,7 @@ const DragInOrder: React.FC<DragInOrderProps> = ({
                                                 maxWidth: "100%",
                                                 objectFit: "cover",
                                                 minWidth: "80px",
+                                                maxHeight:"80px"
                                               }}
                                               alt="infoCirlce"
                                             />

@@ -48,18 +48,18 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
 
   return (
     <>
-      <EventListingModalLayout
+     {dataDetails && <EventListingModalLayout
         isOpen={modalType.eventListing}
         onClose={handleClose}
         name="eventListing"
         {...{ showMap }}
         title={
-          dataDetails?.data_type === "google"
+          dataDetails?.data_type === "google"|| dataDetails?.data_type=="roc_places"
             ? dataDetails?.name
             : dataDetails?.acf?.title
         }
       >
-        {dataDetails?.data_type === "google" ? (
+        {dataDetails?.data_type === "google"|| dataDetails?.data_type=="roc_places" ? (
           <ModalContent
             onClose={() => closeModal("ModalContent")}
             reservationModal={modalClick}
@@ -74,7 +74,7 @@ const EventListingModalScreen: React.FC<DashboardSearchContainerProps> = ({
             data={dataDetails}
           />
         )}
-      </EventListingModalLayout>
+      </EventListingModalLayout>}
     </>
   );
 };

@@ -18,7 +18,7 @@ const CreateListingsFooter = dynamic(() => import("../createList/CreateList Comp
 import ImageCom from "./imageCom";
 
 import fallback from '../../../assets/images/fallbackimage.png'
-
+ 
 interface AddListingsProps {
   ScreenSwitch?: Function;
   homePage: any;
@@ -65,8 +65,7 @@ const AddListings: React.FC<AddListingsProps> = ({
 
   const [skeletonData] = useState(new Array(10).fill(null))
   const inputRef = useRef<HTMLInputElement>(null);
-
-
+ 
   const handleClearText = () => {
     setSearchQuery('')
     if (inputRef.current) {
@@ -124,14 +123,24 @@ const AddListings: React.FC<AddListingsProps> = ({
                         width: '85%',
                       }}>
                       <div style={{ width: 80, height: 80 }}>
-                        {/* <Image
-                               src={""}
-                               width={500}
-                               height={80}
-                               style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
-                               alt="infoCirlce"
-                             /> */}
-                        <ImageCom imageArr={item?.photos == undefined ? fallback : item?.photos} />
+                      {
+                            item?.photos?
+                              <ImageCom imageArr={item?.photos} />
+                              :item?.photoUrl?<Image
+                              src={item?.photoUrl[0]??fallback}
+                              width={500}
+                              height={80}
+                              style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover",maxHeight:"80px"}}
+                              alt="infoCirlce"
+                            />:
+                              <Image
+                                src={fallback}
+                                width={500}
+                                height={80}
+                                style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover" }}
+                                alt="infoCirlce"
+                              />
+                          }
                       </div>
                       <div style={{
                         display: "flex",
@@ -140,7 +149,7 @@ const AddListings: React.FC<AddListingsProps> = ({
                         maxWidth: 'calc(100% - 30%)'
                       }}>
                         <ListDataTittleText>
-                          {item?.name}
+                        {item?.name}
                         </ListDataTittleText>
                         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                           <ListDataInfoText>
@@ -164,8 +173,8 @@ const AddListings: React.FC<AddListingsProps> = ({
                         </div>
                       </div>
                     </div>
-                    <div onClick={() => toggleSelected(item.place_id, item)}>
-                      {selectedItemIds.includes(item.place_id) ? (
+                    <div onClick={() => toggleSelected(item.place_id || item._id, item)}>
+                      {selectedItemIds.includes(item.place_id || item._id) ? (
                         <UnselectedBtn>
                           <Image
                             style={{ width: "15px", height: "10px" }}

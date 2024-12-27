@@ -127,14 +127,14 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
       location
     );
     setSelectedLat(
-      dataDetails?.data_type === "google"
+      dataDetails?.data_type === "google" || dataDetails?.data_type=="roc_places"
         ? dataDetails?.geometry?.location?.lat
         : dataDetails?.acf?.map_location.lat
         ? +dataDetails?.acf?.map_location.lat
         : 49.1811261
     );
     setSelectedLong(
-      dataDetails?.data_type === "google"
+      dataDetails?.data_type === "google" || dataDetails?.data_type=="roc_places"
         ? dataDetails?.geometry?.location?.lng
         : dataDetails?.acf?.map_location?.lng
         ? +dataDetails?.acf?.map_location?.lng

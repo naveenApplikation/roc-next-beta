@@ -233,7 +233,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const router = useRouter();
 
-  const fetchDataAsync = async (value: string, filterValues: any) => {
+  const fetchDataAsync = async (value: string, filterValues: any,filter:any) => {
     if (value) {
       try {
         setPlaceLoader(true);
@@ -244,6 +244,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
               filterValues.distance == "Any" ? "" : filterValues.distance,
             rating: filterValues.rating == "Any" ? "" : filterValues.rating,
             openingHours: filterValues.openingHours,
+            parish:selectFilter
           },
           location
         );

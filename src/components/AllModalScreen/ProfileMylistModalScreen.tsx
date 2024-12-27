@@ -31,7 +31,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
   const { data, error, trigger, isMutating } = useSWRMutation(
-    "api/bookmarkAndList?type=my-list",
+    "/api/bookmarkAndList?type=my-list",
     fetcher
   );
   console.log(error, "bookmark", isMutating, data?.bookmarks);

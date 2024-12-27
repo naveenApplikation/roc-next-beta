@@ -69,7 +69,27 @@ const PlacePage: React.FC<listSearchProps> = ({
     const Timer = setTimeout(() => setPageLoading(false), 2000);
     return () => clearTimeout(Timer);
   }, [searchQuery, selectFilter]);
-
+  
+  const handleClick=(item:any)=>{
+    {
+    
+      if(item?.data_type=="roc_places")
+        {
+            item.search="global"
+            router.push(`/?rocPlace=${item.place_id || item._id}`);
+        }
+        else
+        {
+          router.push(`/?search=${item.place_id || item._id}`);
+        }
+       
+      modalClick(
+        "ModalContent",
+        item,
+        item?.photoUrl ? item?.photoUrl:fallback
+      );
+    }
+  }
   return (
     <>
       {placeloader || isLoading ? (
@@ -122,9 +142,10 @@ const PlacePage: React.FC<listSearchProps> = ({
                       ))
                     : placeData.length
                     ? filterData.map((item: any, index: any) => {
-                        if (!item.place_id) {
+                        if (!item.place_id && !item?._id) {
                           return null;
                         }
+                        
                         return (
                           <div
                             style={{
@@ -137,15 +158,7 @@ const PlacePage: React.FC<listSearchProps> = ({
                             title={item?.data_type ? "" : "No data available"}
                             key={index}>
                             <ListDataWrraper
-                              onClick={() => {
-                                router.push(`/?search=${item.place_id}`);
-
-                                modalClick(
-                                  "ModalContent",
-                                  item,
-                                  item?.photoUrl ? item?.photoUrl : fallback
-                                );
-                              }}
+                              onClick={() =>handleClick(item)}
                               selected={item?.data_type ? true : false}>
                               <div
                                 style={{
@@ -157,7 +170,20 @@ const PlacePage: React.FC<listSearchProps> = ({
                                 <div style={{ width: 80, height: 80 }}>
                                   {item?.photos ? (
                                     <ImageCom imageArr={item?.photos} />
-                                  ) : (
+                                  ) :item?.data_type=="roc_places" && item?.photoUrl && 
+                                  <Image
+                                      src={item?.photoUrl}
+                                      width={500}
+                                      height={80}
+                                      style={{
+                                        borderRadius: 4,
+                                        maxWidth: "100%",
+                                        objectFit: "cover",
+                                        maxHeight:"80px",
+                                      }}
+                                      alt="infoCirlce"
+                                    />||
+                                  (
                                     <Image
                                       src={fallback}
                                       width={500}
@@ -268,6 +294,7 @@ const PlacePage: React.FC<listSearchProps> = ({
                         if (!item.place_id) {
                           return null;
                         }
+                      
                         return (
                           <div
                             style={{
@@ -280,14 +307,7 @@ const PlacePage: React.FC<listSearchProps> = ({
                             title={item?.data_type ? "" : "No data available"}
                             key={index}>
                             <ListDataWrraper
-                              onClick={() => {
-                                router.push(`/?search=${item.place_id}`);
-                                modalClick(
-                                  "ModalContent",
-                                  item,
-                                  item?.photoUrl ? item?.photoUrl : fallback
-                                );
-                              }}
+                              onClick={() => handleClick(item)}
                               selected={item?.data_type ? true : false}>
                               <div
                                 style={{
@@ -299,7 +319,19 @@ const PlacePage: React.FC<listSearchProps> = ({
                                 <div style={{ width: 80, height: 80 }}>
                                   {item?.photos ? (
                                     <ImageCom imageArr={item?.photos} />
-                                  ) : (
+                                  ) :item?.data_type=="roc_places" && item?.photoUrl && 
+                                  <Image
+                                      src={item?.photoUrl}
+                                      width={500}
+                                      height={80}
+                                      style={{
+                                        borderRadius: 4,
+                                        maxWidth: "100%",
+                                        objectFit: "cover",
+                                        maxHeight:"80px",
+                                      }}
+                                      alt="infoCirlce"
+                                    />|| (
                                     <Image
                                       src={fallback}
                                       width={500}
@@ -379,28 +411,15 @@ const PlacePage: React.FC<listSearchProps> = ({
                       />
                     </div>
                   ))
-                : topPlace?.slice(0, 10).map((item: any, index: any) => {
+                : topPlace?.slice(0, 10).map((item: any, index: any) => { 
+                   
                     return (
                       <TopAttractionContainer
                         key={index}
                         style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          if (item?.data_type === "google") {
-                            router.push(`/?search=${item.place_id}`);
-                          }
-
-                          modalClick(
-                            "ModalContent",
-                            item,
-                            item?.data_type === "google"
-                              ? item?.photoUrl
-                              : item?.photoUrl
-                              ? item?.photoUrl
-                              : fallback
-                          );
-                        }}>
+                        onClick={() => handleClick(item)}>
                         <TopAttractionprofile>
-                          {item?.data_type === "google" ? (
+                          {item?.data_type === "google" || item?.data_type=="roc_places" ? (
                             item.photoUrl == undefined ? (
                               <Image
                                 src={fallback}

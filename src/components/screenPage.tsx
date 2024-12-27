@@ -108,7 +108,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     if (screenName === "Greetings") {
       setScreenName("categoryList");
     } else {
-      router.push(`/`);
+      setScreenName("categoryList");
     }
   };
 
@@ -210,11 +210,13 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       setloader(true);
       const result = await Instance.put(`/category/${event}`, param);
       setloader(false);
+      
       toast.success(result?.data?.message);
       setScreenName(name);
     } catch (error: any) {
       setloader(false);
-      toast.error(error?.response?.data?.message);
+      
+      toast.error(error?.response?.data);
     } finally {
       setloader(false);
     }
