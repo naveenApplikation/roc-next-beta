@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useMyContext } from "@/app/Context/MyContext";
 import { filterSearch } from "@/app/utils/ImagePath";
 import { usePathname, useRouter } from "next/navigation";
-import caret from '../../assets/images/caret-down.svg'
+import caret from "../../assets/images/caret-down.svg";
 
 interface FilterSectionProps {
   // Define your props here
@@ -30,7 +30,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
     }
   };
 
-  // console.log("pathNamepathName", pathName)
+  // // console.log("pathNamepathName", pathName)
   useEffect(() => {
     setSelectFilter("Any");
   }, [pathName, tabValue]);
@@ -50,10 +50,15 @@ const FilterSection: React.FC<FilterSectionProps> = ({
         {/* <DropDwons items={SoryByItem} name="Sort by" /> */}
         <DropdownButton
           onClick={toggleDropdown}
-          className={modalType.modalFilterList ? "active" : ""}>
+          className={modalType.modalFilterList ? "active" : ""}
+        >
           {selectFilter === "Any" ? "Parish" : selectFilter}
           <Caret className={modalType.modalFilterList ? "active" : ""}>
-            {modalType.modalFilterList ? <Image src={caret} alt="infoCirlce" /> :  <Image src={caret} alt="infoCirlce" />}
+            {modalType.modalFilterList ? (
+              <Image src={caret} alt="infoCirlce" />
+            ) : (
+              <Image src={caret} alt="infoCirlce" />
+            )}
           </Caret>
         </DropdownButton>
         {/* <FilterButton onClick={toggleDropdown}> Kids </FilterButton>

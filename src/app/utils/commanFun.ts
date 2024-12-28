@@ -44,7 +44,7 @@ export const relatedTypesFun = (types: any[]) => {
     return [];
   }
 
-  // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
+  // // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
 };
 export const reservationTypesFun = (types: any[]) => {
   if (types) {
@@ -53,7 +53,7 @@ export const reservationTypesFun = (types: any[]) => {
     return [];
   }
 
-  // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
+  // // console.log("Elements in relatedTypes but not in types:", elementsInRelatedTypesOnly);
 };
 
 type EventType = "encode" | "decode";
@@ -100,7 +100,7 @@ export const handleCall = (linkNum: string) => {
   window.location.href = `tel:${formatPhoneNumberForIOS(linkNum)}`;
 };
 
-export function convertGCSUrl(gcsUrl:string) {
+export function convertGCSUrl(gcsUrl: string) {
   // Check if the input URL is valid and in the expected format
   const regex = /^https:\/\/storage\.cloud\.google\.com\/(.+)\/(.+)$/;
   const match = gcsUrl.match(regex);

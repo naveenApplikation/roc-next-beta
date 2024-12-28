@@ -27,7 +27,7 @@ export default async function NewYearEvening({ ads }: { ads: any }) {
     id: bardata?._id,
     listData: bardata?.categoryList.slice(0, 10),
   };
-  console.log(bardata.listData);
+  // // console.log(bardata.listData);
 
   return (
     <>

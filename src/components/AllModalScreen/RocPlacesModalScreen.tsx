@@ -21,19 +21,17 @@ const RocPlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({
     dataDetails,
     modalType,
     dataUrlImage,
-    rocPlaces
+    rocPlaces,
   } = useMyContext();
   const params = useParams();
- console.log(dataDetails)
+  // console.log(dataDetails)
   const router = useRouter();
 
   const handleClose = () => {
-   
-      closeModal("rocPlaces");
-    
+    closeModal("rocPlaces");
   };
 
-  console.log("modaltype",modalType.rocPlaces,rocPlaces)
+  // console.log("modaltype",modalType.rocPlaces,rocPlaces)
 
   return (
     <>
@@ -42,9 +40,8 @@ const RocPlacesModalScreen: React.FC<DashboardSearchContainerProps> = ({
         onClose={handleClose}
         name="rocPlaces"
         {...{ showMap }}
-        title={
-         rocPlaces?.acf?.title
-        }>
+        title={rocPlaces?.acf?.title}
+      >
         <RocPlacesModal
           dataImage={rocPlaces.urlImage}
           reservationModal={modalClick}

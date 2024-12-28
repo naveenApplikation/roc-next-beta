@@ -10,19 +10,19 @@ const ScrollSet: React.FC<Props> = (props) => {
 
   const handleScroll = () => {
     setScrollHeight(scrollContainerRef.current?.scrollTop);
-    console.log(scrollContainerRef.current?.scrollTop);
-    console.log(window.scrollY);
+    // console.log(scrollContainerRef.current?.scrollTop);
+    // console.log(window.scrollY);
   };
   //for mobile
   const handleTouchMove = () => {
-    console.log(scrollHeight);
+    // console.log(scrollHeight);
     sessionStorage.setItem("scrollMobile", window.scrollY.toString());
   };
   useEffect(() => {
     const scrollTop = sessionStorage.getItem("scroll");
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     if (window.innerWidth <= 768) {
-      console.log("mobile scroll", scrollTop);
+      // console.log("mobile scroll", scrollTop);
       // mobile
       const scrollMobile = sessionStorage.getItem("scrollMobile");
       window.scrollTo({
@@ -47,7 +47,7 @@ const ScrollSet: React.FC<Props> = (props) => {
     }
 
     if (scrollHeight != 0) {
-      console.log(scrollHeight);
+      // console.log(scrollHeight);
       sessionStorage.setItem("scroll", scrollHeight.toString());
     }
     return () => {

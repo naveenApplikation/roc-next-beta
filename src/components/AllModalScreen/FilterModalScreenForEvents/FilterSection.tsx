@@ -31,7 +31,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   const pathName = usePathname();
   const params = useParams();
 
-  // console.log("pathNamepathName", pathName)
+  // // console.log("pathNamepathName", pathName)
   useEffect(() => {
     setSelectFilter("Any");
   }, [pathName, tabValue]);
@@ -71,16 +71,17 @@ const FilterSection: React.FC<FilterSectionProps> = ({
           modalClick("filterOption");
           handleFilterOption(name);
         }}
-        className={eventFilters[name].length > 0 ? "active" : ""}>
+        className={eventFilters[name].length > 0 ? "active" : ""}
+      >
         {eventFilters[name].length > 0 && (
           <Tick>
-            <Image src={tick}  alt="tick"></Image>{" "}
+            <Image src={tick} alt="tick"></Image>{" "}
           </Tick>
         )}
 
         {item}
         <Caret className={filterOptions[name] ? "active" : ""}>
-          {filterOptions[name]? (
+          {filterOptions[name] ? (
             <Image src={caret} alt="infoCirlce" />
           ) : (
             <Image src={caret} alt="infoCirlce" />
@@ -111,7 +112,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 modalClick("filterOption");
                 handleFilterOption("location");
               }}
-              className={eventFilters["location"].length > 0 ? "active" : ""}>
+              className={eventFilters["location"].length > 0 ? "active" : ""}
+            >
               {eventFilters["location"] && (
                 <Tick>
                   <Image src={tick} alt="tick"></Image>{" "}
@@ -130,7 +132,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
               className={eventFilters["today"] ? "active" : ""}
               onClick={() => {
                 filterSelection("today", !eventFilters["today"]);
-              }}>
+              }}
+            >
               Today
             </FilterButton>
             <DropdownButton
@@ -138,7 +141,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 modalClick("filterOption");
                 handleFilterOption("dates");
               }}
-              className={eventFilters["date"] ? "active" : ""}>
+              className={eventFilters["date"] ? "active" : ""}
+            >
               {eventFilters["date"] && (
                 <Tick>
                   <Image src={tick} alt="tick"></Image>{" "}
@@ -164,7 +168,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                     modalClick("filterOption");
                     handleFilterOption(name);
                   }}
-                  className={eventFilters[name]?.length > 0 ? "active" : ""}>
+                  className={eventFilters[name]?.length > 0 ? "active" : ""}
+                >
                   {eventFilters[name].length > 0 && (
                     <Tick>
                       <Image src={tick} alt="tick"></Image>{" "}
@@ -192,7 +197,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
               className={eventFilters[name] ? "active" : ""}
               onClick={() => {
                 filterSelection(name, !eventFilters[name]);
-              }}>
+              }}
+            >
               {item.replace("_", " ")}
             </FilterButton>
           );

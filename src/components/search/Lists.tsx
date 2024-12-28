@@ -55,7 +55,7 @@ const Lists: React.FC<listSearchProps> = ({
       trigger();
     }
 
-    console.log("list data search container", modalType.search);
+    // console.log("list data search container", modalType.search);
   }, [modalType]);
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {

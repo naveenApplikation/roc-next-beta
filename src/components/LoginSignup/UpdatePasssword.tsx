@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -36,20 +36,19 @@ export const ErrorMessage = styled.p`
 `;
 
 const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
-
   const [loader, setloader] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       password: "",
-      confirmpassword:"",
+      confirmpassword: "",
     },
     validationSchema: Yup.object({
       password: Yup.string()
         .min(8, "Minimum 8 characters")
         .required("Required!"),
-      confirmpassword: Yup
-        .string().required("Required!")
+      confirmpassword: Yup.string()
+        .required("Required!")
         .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
     onSubmit: async (values) => {
@@ -60,7 +59,7 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         });
         isOpen();
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         // showToast(error.message, "error");
         setloader(false);
       } finally {
@@ -91,12 +90,12 @@ const UpdatePasssword: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       {formik.errors.confirmpassword && formik.touched.confirmpassword && (
         <ErrorMessage>{formik.errors.confirmpassword}</ErrorMessage>
       )}
-        <CommonButton
-          bcColor="#2F80ED"
-          text={loader ? "Loading..." : "Update my password"}
-          imageStyle={0}
-          isOpen={formik.handleSubmit}
-        />
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Update my password"}
+        imageStyle={0}
+        isOpen={formik.handleSubmit}
+      />
       <BackAccount onClick={previousModal}>Back to my account</BackAccount>
     </MenuModalContent>
   );

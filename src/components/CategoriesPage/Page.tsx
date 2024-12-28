@@ -57,19 +57,16 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
 
   useEffect(() => {
     resetFilters();
-
   }, [props.searchParams]);
   useEffect(() => {
-    router.prefetch(
-      `categories/${props.params}?search=${props.searchParams}`
-    );
-  }, [props.params, props.searchParams, router])
+    router.prefetch(`categories/${props.params}?search=${props.searchParams}`);
+  }, [props.params, props.searchParams, router]);
   data = filterEvents(data, eventFilters);
   const ImageUrlData = data?.map((item: any) => item?.acf?.header_image_data);
 
   const filteredUrls = filterUrls(ImageUrlData);
 
-  // console.log(props.params, 42, props.params == "activity-list");
+  // // console.log(props.params, 42, props.params == "activity-list");
   const categories = () => {
     if (
       props.params === "event-category-list" ||
@@ -140,8 +137,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = (props) => {
       <Categories></Categories>
       <FilterListModalScreen />
       <FilterModalScreenEvents></FilterModalScreenEvents>
-      <SocialShareModal
-      ></SocialShareModal>
+      <SocialShareModal></SocialShareModal>
       <BannerModal />
     </>
   );
@@ -162,17 +158,14 @@ const filterUrls = (ImageUrlData: any) => {
         ) {
           imageUrls.push(url);
         } else {
-          imageUrls.push(
-            fallBack.src          ); // Push default image URL if URL is not valid
+          imageUrls.push(fallBack.src); // Push default image URL if URL is not valid
         }
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        imageUrls.push(
-          fallBack.src        ); // Push default image URL if JSON parsing fails
+        imageUrls.push(fallBack.src); // Push default image URL if JSON parsing fails
       }
     } else {
-      imageUrls.push(
-        fallBack.src      ); // Push default image URL if item is undefined
+      imageUrls.push(fallBack.src); // Push default image URL if item is undefined
     }
   });
   return imageUrls;

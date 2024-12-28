@@ -79,7 +79,7 @@
 // //     };
 
 // //     const markerClick = (e: any) => {
-// //         // console.log("data of map", e)
+// //         // // console.log("data of map", e)
 
 // //     };
 // //     const handleClick = async (e: any) => {
@@ -247,7 +247,7 @@
 
 //         Promise.all(travelTimePromises)
 //         .then((results) => {
-//                 console.log("kflskfldsfs", results)
+//                 // console.log("kflskfldsfs", results)
 //                 setDirections(results[0].result); // Display the first route (DRIVING) by default
 //             })
 //             .catch((error) => console.error('Error fetching directions:', error));
@@ -270,7 +270,7 @@
 //                 const duration = leg.duration.text;
 //                 travelTimesObj[travelMode] = duration;
 //             });
-//             console.log("traveling time", travelTimesObj, directionsRenderer, directions)
+//             // console.log("traveling time", travelTimesObj, directionsRenderer, directions)
 //             setTravelTimes(travelTimesObj);
 //         }
 //     }, [directions]);
@@ -453,7 +453,7 @@
 //                 } else {
 //                     console.error('No valid routes found.');
 //                 }
-//                 console.log(results);
+//                 // console.log(results);
 //             })
 //             .catch((error) => console.error('Error fetching directions:', error));
 //     };
@@ -610,7 +610,7 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
 
   //                 // setUserLocation(userLoc);
   //                 const insideJersey = checkIfInsideJersey(userLoc);
-  //                 console.log('User is inside Jersey:', insideJersey);
+  //                 // console.log('User is inside Jersey:', insideJersey);
   //                 if (insideJersey) {
   //                     setUserLocation(userLoc);
   //                     setMarkerLocation(destination);
@@ -629,7 +629,7 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
   // }, []);
 
   // const handleMapLoad = useCallback((map: any) => {
-  //     console.log("kfldsfjslfls", map)
+  //     // console.log("kfldsfjslfls", map)
 
   //     // Define Jersey Island boundaries
   //     const jerseyBounds = new window.google.maps.LatLngBounds(
@@ -819,7 +819,8 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
             <Box
               $isSelected={selectedBox === mode}
               key={mode}
-              onClick={() => handleTravelModeClick(mode)}>
+              onClick={() => handleTravelModeClick(mode)}
+            >
               {mode === "DRIVING" && (
                 <CarIcon color={selectedBox === mode ? "white" : "black"} />
               )}
@@ -849,7 +850,8 @@ const DirectionMapUi: React.FC<GoogleMapCompProps> = ({
             mapTypeControl: false,
             zoomControl: window.innerWidth >= 800 ? true : false,
             fullscreenControl: window.innerWidth >= 800 ? true : false,
-          }}>
+          }}
+        >
           {userLocation && (
             <Marker
               position={userLocation}

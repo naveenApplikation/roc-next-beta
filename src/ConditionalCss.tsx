@@ -7,7 +7,7 @@ export default function ConditionalCSS() {
 
   // Disable global CSS for the '/studio' route
   const isStudioRoute = pathname?.startsWith("/studio");
-  console.log(isStudioRoute)
+  // // console.log(isStudioRoute)
   if (isStudioRoute) {
     return null; // Do not render global CSS if it's the studio route
   }

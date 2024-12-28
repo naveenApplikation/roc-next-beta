@@ -14,7 +14,17 @@ import { convertTo12HourTime } from "@/app/utils/commanFun";
 import { Tooltip } from "antd";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { blackEmail, currency, dateIcon, fallBack, globeIcon, locationIcon, mailIcon, share, timeIcon } from "@/app/utils/ImagePath";
+import {
+  blackEmail,
+  currency,
+  dateIcon,
+  fallBack,
+  globeIcon,
+  locationIcon,
+  mailIcon,
+  share,
+  timeIcon,
+} from "@/app/utils/ImagePath";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -137,13 +147,15 @@ const ModalContent: React.FC<ModalProps> = ({
         data?.data_type === "google" ? (
           <WebsiteLink
             href={showApiData?.website ? showApiData?.website : ""}
-            target="_blank">
+            target="_blank"
+          >
             {showApiData?.website}
           </WebsiteLink>
         ) : (
           <WebsiteLink
             href={data?.acf?.website ? data?.acf?.website : ""}
-            target="_blank">
+            target="_blank"
+          >
             {data?.acf?.website}
           </WebsiteLink>
         ),
@@ -165,7 +177,8 @@ const ModalContent: React.FC<ModalProps> = ({
                 copylink(
                   `${data?.acf?.address?.place_name}, ${data?.acf?.address?.address_line_1}, ${data?.acf?.address?.address_line_2}`
                 )
-              }>
+              }
+            >
               {data?.acf?.address.place_name},{" "}
               {data?.acf?.address.address_line_1},{" "}
               {data?.acf?.address?.address_line_2},
@@ -179,8 +192,8 @@ const ModalContent: React.FC<ModalProps> = ({
       height: 24,
       nameValue:
         data.acf?.address.place_name ||
-          data.acf?.address.address_line_1 ||
-          data.acf?.address.address_line_2
+        data.acf?.address.address_line_1 ||
+        data.acf?.address.address_line_2
           ? true
           : false,
     },
@@ -198,8 +211,8 @@ const ModalContent: React.FC<ModalProps> = ({
     if (Array.isArray(typeData)) {
       return data?.data_type === "google"
         ? showApiData?.types
-          .map((item: any) => item.replaceAll("_", " "))
-          .join(" | ")
+            .map((item: any) => item.replaceAll("_", " "))
+            .join(" | ")
         : data?.acf?.type.map((item: any) => item?.label).join(" | ");
     } else {
       return data?.data_type === "google"
@@ -220,7 +233,7 @@ const ModalContent: React.FC<ModalProps> = ({
       .replace(/(\()/, "")
       .replace(/\)/, "");
   };
-  console.log(dataImage);
+  // console.log(dataImage);
 
   const handleShare = () => {
     if (!socialShare) {
@@ -245,12 +258,7 @@ const ModalContent: React.FC<ModalProps> = ({
           </EventShare>
         )}
         <Image
-       
-          src={
-            dataImage
-              ? dataImage
-              :  fallBack.src
-          }
+          src={dataImage ? dataImage : fallBack.src}
           alt="logo"
           width={500}
           height={180}
@@ -356,7 +364,7 @@ const ModalContent: React.FC<ModalProps> = ({
                       {index !==
                         showApiData?.current_opening_hours?.weekday_text
                           .length -
-                        1 && ","}{" "}
+                          1 && ","}{" "}
                     </p>
                   )
                 )}

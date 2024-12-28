@@ -19,7 +19,7 @@ const PrivacyPolicy: React.FC<DashboardSearchContainerProps> = ({
   showMap,
 }) => {
   const { closeModal, modalType } = useMyContext();
-  console.log(modalType.privacyPolicy, 14);
+  // console.log(modalType.privacyPolicy, 14);
   return (
     <>
       <MyListModalLayout
@@ -27,7 +27,8 @@ const PrivacyPolicy: React.FC<DashboardSearchContainerProps> = ({
         onClose={() => closeModal("privacyPolicy")}
         {...{ showMap }}
         title="Privacy Policy"
-        name="privacyPolicy">
+        name="privacyPolicy"
+      >
         <SearchedContainer>
           <div style={{ fontSize: "16px", lineHeight: "20px" }}>
             <Title>Introduction</Title>
