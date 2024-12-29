@@ -32,8 +32,8 @@ const FilterModalContent: React.FC = () => {
   ];
 
   let option: number = 0;
-  console.log(filterOptions);
-  console.log(Object.keys(filterOptions));
+  // console.log(filterOptions);
+  // console.log(Object.keys(filterOptions));
   Object.keys(filterOptions).forEach((elem: string, index) => {
     if (filterOptions[elem] == true) {
       option = index - 1;
@@ -47,23 +47,15 @@ const FilterModalContent: React.FC = () => {
       Array.isArray(eventFilters[filterOptions.title])
     ) {
       setOption([...eventFilters[filterOptions.title]]);
-      console.log(eventFilters[filterOptions.title]);
+      // console.log(eventFilters[filterOptions.title]);
     }
   }, [eventFilters, filterOptions.title]);
   useEffect(() => {
-     
-       if (
-         filterOptions.title == "location" &&
-         options.length == 0 
-       ) {
-         
-           setOption(["Any"])
-         
-       }
- 
-   
+    if (filterOptions.title == "location" && options.length == 0) {
+      setOption(["Any"]);
+    }
   }, [options]);
-  console.log(options);
+  // console.log(options);
   const handleFilters = (name: any, value: any) => {
     if (filterOptions.title == "location") {
       if (value != "Any" && options.includes("Any")) {
@@ -75,27 +67,27 @@ const FilterModalContent: React.FC = () => {
       }
     }
 
-    console.log(name, value, options);
+    // console.log(name, value, options);
     if (options.includes(value)) {
       const filter = options.filter((item: any) => {
         return value != item;
       });
 
-      console.log(filter);
+      // console.log(filter);
       setOption([...filter]);
     } else {
       const filter = [...options, value];
       setOption([...filter]);
     }
   };
-  console.log(
-    filterOptions.title == "location" && eventFilters.location.includes("Any")
-  );
+  // console.log(
+  //   filterOptions.title == "location" && eventFilters.location.includes("Any")
+  // );
   const handleSave = () => {
     filterSelection(filterOptions.title, "", options);
     closeModal("filterOption");
   };
-  console.log(options.includes("Any"));
+  // console.log(options.includes("Any"));
   return (
     <>
       <Container>

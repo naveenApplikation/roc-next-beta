@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -40,7 +40,7 @@ const TextAreaContainer = styled.textarea`
   height: 160px;
   border-radius: 8px;
   padding: 8px 16px;
-  color: black; 
+  color: black;
   resize: none;
   &::placeholder {
     color: black; /* Change the color to your desired color */
@@ -97,7 +97,6 @@ export const ErrorMessage = styled.p`
 `;
 
 const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
-
   const [loader, setloader] = useState(false);
 
   const formik = useFormik({
@@ -111,7 +110,10 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       email: Yup.string().email("Invalid email format").required("Required!"),
       name: Yup.string().required("Required!"),
       comment: Yup.string().required("Required!"),
-      prefrence: Yup.boolean().oneOf([true], 'You must accept or back to your account'),
+      prefrence: Yup.boolean().oneOf(
+        [true],
+        "You must accept or back to your account"
+      ),
     }),
     onSubmit: async (values) => {
       setloader(true);
@@ -124,7 +126,7 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
         });
         isOpen();
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         // showToast(error.message, "error");
         setloader(false);
       } finally {
@@ -184,7 +186,12 @@ const ContactUs: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       {formik.errors.prefrence && formik.touched.prefrence && (
         <ErrorMessage>{formik.errors.prefrence}</ErrorMessage>
       )}
-        <CommonButton bcColor="#2F80ED"  text={loader ? "Loading..." : "Submit"} imageStyle={0} isOpen={formik.handleSubmit} />
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Submit"}
+        imageStyle={0}
+        isOpen={formik.handleSubmit}
+      />
     </MenuModalContent>
   );
 };

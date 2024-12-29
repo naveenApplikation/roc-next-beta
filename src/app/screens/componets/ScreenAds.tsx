@@ -107,17 +107,18 @@ const AdText = styled.div`
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
-  adsData?:any
+  adsData?: any;
 }
 
 // Ad Data
 const adsDatas = [
   {
-    type:"existing",
-    image:"https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
-    url:"https://hub.roc.je/app/featured/de-gruchy",
-    heading:"Find Your Ideal Christmas Hamper at de Gruchy",
-    text:"The Perfect Christmas Gift!"
+    type: "existing",
+    image:
+      "https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
+    url: "https://hub.roc.je/app/featured/de-gruchy",
+    heading: "Find Your Ideal Christmas Hamper at de Gruchy",
+    text: "The Perfect Christmas Gift!",
   },
   {
     type: "existing",
@@ -138,11 +139,11 @@ const adsDatas = [
 const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
-  adsData
+  adsData,
 }) => {
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
-  console.log(adsData)
+  // // console.log(adsData)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
@@ -155,7 +156,7 @@ const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
 
   return (
     <>
-        {adsData && adsData.length>0 &&
+      {adsData && adsData.length > 0 && (
         <AdContainer
           $className={className}
           $maxWidth={maxWidth}
@@ -183,7 +184,8 @@ const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
               <Image src={RightArow} alt="icon" height={20} />
             </AdContent>
           </AdBody>
-        </AdContainer>}
+        </AdContainer>
+      )}
       {/* ) : (
         <AdContainer
           $className={className} // Set default className

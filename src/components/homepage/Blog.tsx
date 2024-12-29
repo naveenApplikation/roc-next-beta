@@ -33,86 +33,72 @@ const ScrollingMenu = styled.div`
 `;
 
 const Blog: React.FC<DashboardProps> = ({ data, title }) => {
-  
-     const router=useRouter()
-    const menuClick=()=>{
-          router.push('/blog') 
-    }
-   console.log(data);
+  const router = useRouter();
+  const menuClick = () => {
+    router.push("/blog");
+  };
+  // console.log(data);
   return (
     <>
-      <MenuDetails
-        isOpen={() => menuClick()}
-        title={title}
-      />
+      <MenuDetails isOpen={() => menuClick()} title={title} />
       <ScrollingMenu>
         {!data
           ? skeletonItems.map((item, index) => (
               <div key={index}>
-               
-                  <ShopBrachSkeleton />
-                 
+                <ShopBrachSkeleton />
               </div>
-        
-          ))
-           :data?.slice(0, 10).map(
-                (item: any, index: any) => {
-                  return (
-                    <div key={index}>
-                      <ScrollingMenuDishes onClick={()=>{
-                        router.push(`/blog/posts/${item.slug}`);
-                      }}>
-                        
-                          <>
-                            <UtensilsDishesImage>
-                              <Image
-                                className="ratingImage"
-                                src={
-                                  urlForImage(item?.coverImage)
-                                    .height(1000)
-                                    .width(2000)
-                                    .url()
-                                    ? urlForImage(item?.coverImage)
-                                        .height(1000)
-                                        .width(2000)
-                                        .url()
-                                    : fallback
-                                }
-                                alt="my image"
-                                width={500}
-                                height={80}
-                                style={{
-                                  borderRadius: 4,
-                                  maxWidth: "100%",
-                                  objectFit: "cover",
-                                }}
-                              />
-                            </UtensilsDishesImage>
-                            {/* {title && (
+            ))
+          : data?.slice(0, 10).map((item: any, index: any) => {
+              return (
+                <div key={index}>
+                  <ScrollingMenuDishes
+                    onClick={() => {
+                      router.push(`/blog/posts/${item.slug}`);
+                    }}
+                  >
+                    <>
+                      <UtensilsDishesImage>
+                        <Image
+                          className="ratingImage"
+                          src={
+                            urlForImage(item?.coverImage)
+                              .height(1000)
+                              .width(2000)
+                              .url()
+                              ? urlForImage(item?.coverImage)
+                                  .height(1000)
+                                  .width(2000)
+                                  .url()
+                              : fallback
+                          }
+                          alt="my image"
+                          width={500}
+                          height={80}
+                          style={{
+                            borderRadius: 4,
+                            maxWidth: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </UtensilsDishesImage>
+                      {/* {title && (
                               <MenuIconContainer>
                                 
                                 <Title>{title}</Title>
                               </MenuIconContainer>
                             )} */}
-                            <Menutitle> {item? item?.title : ""}</Menutitle>
-                          </>
-                       
-                      </ScrollingMenuDishes>
-                    </div>
-                  );
-                }
-              )
-             
-            }       
-                
+                      <Menutitle> {item ? item?.title : ""}</Menutitle>
+                    </>
+                  </ScrollingMenuDishes>
+                </div>
+              );
+            })}
       </ScrollingMenu>
     </>
   );
 };
 
 export default Blog;
- 
-
 
 const ScrollingMenuDishes = styled.div`
   display: flex;

@@ -16,7 +16,7 @@ import {
   instaGram,
   linkedIn,
 } from "@/app/utils/ImagePath";
-import {  useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next-nprogress-bar";
 import {
   facebookURL,
@@ -31,7 +31,6 @@ interface ShadowWrapperProps {
   setShowContent: any;
 }
 
-
 const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
   children,
   showContent,
@@ -39,26 +38,25 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
 }) => {
   // const [showContent, setShowContent] = useState(false);
   const [inputValue, setInputValue] = useState<any>("");
-  const { handleApiResponse , modalClick ,setModalNames} = useMyContext();
+  const { handleApiResponse, modalClick, setModalNames } = useMyContext();
   const [loader, setloader] = useState(false);
 
   const searchParams = useSearchParams();
   const query = searchParams?.get("code");
-  const router = useRouter()
-
+  const router = useRouter();
 
   const fetchDataAsync = async () => {
     setloader(true);
     try {
       const result = await Instance.post("/verifyCode", { code: inputValue });
-      router.push("/")
+      router.push("/");
       localStorage.setItem("hideUI", inputValue.trim());
       localStorage.setItem("Token", result.data.data);
-      setModalNames("betaExploreModal")
+      setModalNames("betaExploreModal");
       setShowContent(false);
       handleApiResponse(true);
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
       setloader(false);
     } finally {
       setloader(false);
@@ -132,7 +130,8 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
                 /> */}
               {/* </div> */}
               <ContentInfo>
-              Enter the private invite code or follow us on social to join the waiting list
+                Enter the private invite code or follow us on social to join the
+                waiting list
               </ContentInfo>
               <div>
                 <MenuInputField>
@@ -152,7 +151,8 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
                   display: "flex",
                   gap: "25px",
                   justifyContent: "center",
-                }}>
+                }}
+              >
                 <Image
                   style={{ cursor: "pointer" }}
                   onClick={() => navigateClick(facebookURL)}
@@ -209,14 +209,16 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
         isOpen={modalType.ModalContent}
         onClose={() => closeModal("ModalContent")}
         name="ModalContent"
-        title="Join the waiting list">
+        title="Join the waiting list"
+      >
         <JoinList />
       </BetaUIModal>
       <AboutRocModal
         isOpen={modalType.AboutRoc}
         onClose={() => closeModal("AboutRoc")}
         name="AboutRoc"
-        title="About ROC">
+        title="About ROC"
+      >
         <p style={{ textAlign: "center", fontSize: 16 }}>to do...</p>
       </AboutRocModal>
     </>
@@ -224,7 +226,6 @@ const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
 };
 
 export default ShadowWrapper;
-
 
 const StyledShadowWrapper = styled.div`
   position: relative;

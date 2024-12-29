@@ -106,7 +106,7 @@ const EventPage: React.FC<EventBoxProps> = ({
       const result = await Instance.get(
         `/upcomming-events?type=range&date=${range}`
       );
-      console.log(result.data);
+      // console.log(result.data);
       //  const filEve = filterEvents(result.data.data, eventFilters);
       //     const ImageUrlData = result.data.data?.map(
       //   (item: any) => item?.acf?.header_image_data
@@ -133,9 +133,9 @@ const EventPage: React.FC<EventBoxProps> = ({
       // only if in upcoming events
       const { startDate, endDate } = parseStateDateRange(eventFilters.date);
       const lastDate = urlData[urlData.length - 1].acf?.event_date;
-      console.log(
-        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
-      );
+      // console.log(
+      //   startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+      // );
       if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
         const format = parseDateRange(eventFilters.date);
         dateWiseUpdate(format);
@@ -569,7 +569,7 @@ const filterUrls: any = (ImageUrlData: any) => {
           url.endsWith(".jpeg")
         ) {
           if (convertGCSUrl(url).includes("4396371906_dscf0067")) {
-            console.log(url);
+            // console.log(url);
             imageUrls.push(fallback.src);
           } else {
             imageUrls.push(convertGCSUrl(url));

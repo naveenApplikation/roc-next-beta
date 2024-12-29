@@ -125,7 +125,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   }, [modal]);
 
   const handlemodalView = (item: any, pos: any) => {
-    console.log(item._id);
+    // console.log(item._id);
     router.replace(
       `/categories/activity-list?search=${categoryId}&modal=${item._id}`
     );
@@ -138,7 +138,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
   });
 
   // filterData = filterEvents(filterData, eventFilters);
-  // console.log(filterData, "filtered data");
+  // // console.log(filterData, "filtered data");
 
   return (
     <>
@@ -159,12 +159,14 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}>
+            }}
+          >
             <ImageContainer
               selected={isBookmark}
               onClick={() => {
                 handleBookMark();
-              }}>
+              }}
+            >
               {bookmarkLoader ? (
                 <Spin tip="Loading" size="small" />
               ) : isBookmark ? (
@@ -189,7 +191,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
+          }}
+        >
           <FilterSection pageTitle="categoryEvent" />
         </div>
         {loader
@@ -223,12 +226,13 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
             ))
           : filterData?.map((item: any, index: any) => {
               {
-                console.log(index);
+                // console.log(index);
               }
               return (
                 <SearchedData
                   key={index}
-                  onClick={() => handlemodalView(item, index)}>
+                  onClick={() => handlemodalView(item, index)}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -236,7 +240,8 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}>
+                    }}
+                  >
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}

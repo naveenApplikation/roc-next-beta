@@ -30,7 +30,7 @@ const ActivityFilterSection: React.FC<FilterSectionProps> = ({
   // const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
 
-  // console.log("pathNamepathName", pathName)
+  // // console.log("pathNamepathName", pathName)
   useEffect(() => {
     setSelectFilter("Any");
   }, [pathName, tabValue]);
@@ -61,7 +61,8 @@ const ActivityFilterSection: React.FC<FilterSectionProps> = ({
           modalClick("filterOption");
           handleFilterOption(name);
         }}
-        className={eventFilters[name].length > 0 ? "active" : ""}>
+        className={eventFilters[name].length > 0 ? "active" : ""}
+      >
         {eventFilters[name].length > 0 && (
           <Tick>
             <Image src={tick} alt="tick"></Image>{" "}
@@ -101,7 +102,8 @@ const ActivityFilterSection: React.FC<FilterSectionProps> = ({
               className={eventFilters[name] ? "active" : ""}
               onClick={() => {
                 filterSelection(name, !eventFilters[name]);
-              }}>
+              }}
+            >
               {item.replace("_", " ")}
             </FilterButton>
           );

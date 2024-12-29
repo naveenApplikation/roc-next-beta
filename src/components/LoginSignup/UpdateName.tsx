@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -36,7 +36,6 @@ export const ErrorMessage = styled.p`
 `;
 
 const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
-
   const [loader, setloader] = useState(false);
 
   const formik = useFormik({
@@ -47,14 +46,14 @@ const UpdateName: React.FC<ModalProps> = ({ isOpen, previousModal }) => {
       name: Yup.string().required("Required!"),
     }),
     onSubmit: async (values) => {
-        setloader(true);
+      setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
-        userName: values.name,
+          userName: values.name,
         });
         isOpen();
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         // showToast(error.message, "error");
         setloader(false);
       } finally {

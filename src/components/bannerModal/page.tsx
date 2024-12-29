@@ -9,7 +9,7 @@ interface BannerModalProps {
 
 const BannerModal: React.FC<BannerModalProps> = () => {
   const { showMap, modalType, closeModal, currentAdsDetail } = useMyContext();
-  console.log("updatedState", modalType.adsBanner);
+  // console.log("updatedState", modalType.adsBanner);
   return (
     <Modal
       isOpen={modalType.adsBanner}

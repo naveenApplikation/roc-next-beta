@@ -20,7 +20,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   // const getCreatedList = async()=>{
   //   try {
   //       const res = await Instance.get(`my-list`)
-  //       console.log("response of created list", res)
+  //       // console.log("response of created list", res)
   //   } catch (error) {
 
   //   }
@@ -70,7 +70,8 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
                 key={index}
                 onClick={() => {
                   handleNavigate(item?.listName, item?._id);
-                }}>
+                }}
+              >
                 <ImageTitleContainer>
                   <Imagecontainer style={{ background: item?.bgColor }}>
                     {item ? item.image : ""}

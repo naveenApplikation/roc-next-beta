@@ -16,12 +16,12 @@ interface DashboardProps {
 }
 
 const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
-  const { filterUrls,modalClick, menuClick,modalClickRocPlaces } = useMyContext();
- 
-  console.log(data.listData)
- 
+  const { filterUrls, modalClick, menuClick, modalClickRocPlaces } =
+    useMyContext();
+
+  // console.log(data.listData)
+
   return (
-    
     <>
       <MenuDetails
         isOpen={() => menuClick(data?.name, false, data?.id)}
@@ -53,8 +53,6 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
             ))
           : title.includes("Beach life")
             ? data.listData?.slice(0, 10).map((item: any, index: any) => {
-             
-                
                 return (
                   <div
                     key={index}
@@ -63,21 +61,32 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                       modalClick(
                         "ModalContent",
                         item,
-                        item?.data_type === "google" || item?.data_type=="roc_places"&& item?.photoUrl &&
-                        typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
-                        
+                        item?.data_type === "google" ||
+                          (item?.data_type == "roc_places" &&
+                            item?.photoUrl &&
+                            typeof item.photoUrl == "string")
+                          ? item?.photoUrl
+                          : Array.isArray(item.photoUrl)
+                            ? item.photoUrl[0]
+                            : fallback
                       )
-                    }>
-                    {item?.data_type === "google" || data?.data_type=="roc_places" ? (
+                    }
+                  >
+                    {item?.data_type === "google" ||
+                    data?.data_type == "roc_places" ? (
                       <Image
                         className="w-full h-full rounded-[4px] object-cover cursor-pointer"
                         width={500}
                         height={80}
-                        src={typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
+                        src={
+                          typeof item.photoUrl == "string"
+                            ? item?.photoUrl
+                            : Array.isArray(item.photoUrl)
+                              ? item.photoUrl[0]
+                              : fallback
                         }
                         alt="Image"
                         loading="lazy"
-                        
                       />
                     ) : (
                       <Image
@@ -87,7 +96,6 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                         height={80}
                         className="rounded-[4px] w-full h-full object-cover cursor-pointer"
                         loading="lazy"
-                        
                       />
                     )}
                     <Image
@@ -97,7 +105,6 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                       height={64}
                       className="absolute bottom-0 h-[50px]"
                       loading="lazy"
-                      
                     />
                     <p className="text-white text-[14px] font-normal overflow-hidden text-ellipsis line-clamp-3 absolute bottom-[8px] left-[12px]">
                       {item?.name}
@@ -107,8 +114,6 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
               })
             : title.includes("Top Attractions")
               ? data.listData?.slice(0, 10).map((item: any, index: any) => {
-               
-                 
                   return (
                     <div
                       key={index}
@@ -117,13 +122,20 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                         modalClick(
                           "ModalContent",
                           item,
-                          item?.data_type === "google" || item?.data_type=="roc_places"&& item?.photoUrl &&
-                        typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
-                        
+                          item?.data_type === "google" ||
+                            (item?.data_type == "roc_places" &&
+                              item?.photoUrl &&
+                              typeof item.photoUrl == "string")
+                            ? item?.photoUrl
+                            : Array.isArray(item.photoUrl)
+                              ? item.photoUrl[0]
+                              : fallback
                         )
-                      }>
+                      }
+                    >
                       <div className="w-[80px] h-[80px] rounded-full bg-black/[0.08] border border-black/[0.08] bg-contain">
-                        {item?.data_type === "google" || data?.data_type=="roc_places" ? (
+                        {item?.data_type === "google" ||
+                        data?.data_type == "roc_places" ? (
                           item.photoUrl == undefined ? (
                             <Image
                               src={fallback}
@@ -132,18 +144,21 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                               height={80}
                               className="rounded-full w-full h-full object-cover"
                               loading="lazy"
-                              
                             />
                           ) : (
                             <Image
                               className="w-full h-full rounded-full object-cover cursor-pointer"
                               width={500}
                               height={80}
-                              src={typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
+                              src={
+                                typeof item.photoUrl == "string"
+                                  ? item?.photoUrl
+                                  : Array.isArray(item.photoUrl)
+                                    ? item.photoUrl[0]
+                                    : fallback
                               }
                               alt="Image"
                               loading="lazy"
-                              
                             />
                           )
                         ) : (
@@ -154,7 +169,6 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                             height={80}
                             className="rounded-full w-full h-full object-cover"
                             loading="lazy"
-                            
                           />
                         )}
                       </div>
@@ -165,23 +179,37 @@ const ScreenPageComps: React.FC<DashboardProps> = ({ data, title }) => {
                   );
                 })
               : data.listData?.slice(0, 10).map((item: any, index: any) => {
-               
-                 return <div key={index}>
-                    <RatingMenu
-                      headerImage={typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
-                      }
-                      containerImageUrl={true}
-                      MenutitleDetail={item.name}
-                      isOpen={() =>
-                        modalClick("ModalContent", item,  item?.data_type === "google" || item?.data_type=="roc_places"&& item?.photoUrl &&
-                          typeof item.photoUrl=="string"?item?.photoUrl:Array.isArray(item.photoUrl)?item.photoUrl[0]:fallback
-                          , true)
-                      }
-                    />
-                  </div>
-                  }
-            
-                )}
+                  return (
+                    <div key={index}>
+                      <RatingMenu
+                        headerImage={
+                          typeof item.photoUrl == "string"
+                            ? item?.photoUrl
+                            : Array.isArray(item.photoUrl)
+                              ? item.photoUrl[0]
+                              : fallback
+                        }
+                        containerImageUrl={true}
+                        MenutitleDetail={item.name}
+                        isOpen={() =>
+                          modalClick(
+                            "ModalContent",
+                            item,
+                            item?.data_type === "google" ||
+                              (item?.data_type == "roc_places" &&
+                                item?.photoUrl &&
+                                typeof item.photoUrl == "string")
+                              ? item?.photoUrl
+                              : Array.isArray(item.photoUrl)
+                                ? item.photoUrl[0]
+                                : fallback,
+                            true
+                          )
+                        }
+                      />
+                    </div>
+                  );
+                })}
       </div>
     </>
   );

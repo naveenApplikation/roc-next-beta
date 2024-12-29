@@ -157,14 +157,14 @@ const CreateAccountContent: React.FC<ModalProps> = ({
         });
         localStorage.setItem("loginToken", loginData.data.token);
         await addAndRomoveToken(loginData.data.token);
-        console.log(pathname);
+        // console.log(pathname);
         if (pathname?.includes("screens")) {
           window.location.reload();
         } else {
           nextModal();
         }
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         showToast(error.message, "error");
         setloader(false);
       } finally {

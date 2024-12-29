@@ -1,23 +1,21 @@
 import { styled } from "styled-components";
-import type { CSSProperties } from 'react';
-import { Collapse, Pagination, TimePicker, theme } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
-import type { CollapseProps } from 'antd';
-import React, { useState, useEffect } from 'react';
+import type { CSSProperties } from "react";
+import { Collapse, Pagination, TimePicker, theme } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
+import type { CollapseProps } from "antd";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
-import './index.css'
-import dayjs from 'dayjs';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import "react-calendar/dist/Calendar.css";
+import "./index.css";
+import dayjs from "dayjs";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import PartySize from "@/components/partySize";
 import Image from "next/image";
 import { calender } from "@/app/utils/ImagePath";
 
-
 interface ModalProps {
-    onClose: (name: string) => void;
+  onClose: (name: string) => void;
 }
-
 
 const Container = styled.div`
   display: flex;
@@ -26,174 +24,182 @@ const Container = styled.div`
   padding: 0px 24px;
 `;
 
-
 const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,
   it can be found as a welcome guest in many households across the world.
 `;
 const CalenderModalContainer = styled.div`
-.ant-collapse-header{
-    background-color:#ffffff;
-    border-radius : 8px;
-    margin-bottom:8px;
-}
-.ant-collapse , .ant-collapse-item{
-    background-color:transparent !important;
-}
-.ant-collapse-item{
-    margin-bottom:8px !important;
-    background-color:transparent !important;
-}
-.ant-collapse-content-box{
-    background-color:#ffffff;
-}
-`
+  .ant-collapse-header {
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .ant-collapse,
+  .ant-collapse-item {
+    background-color: transparent !important;
+  }
+  .ant-collapse-item {
+    margin-bottom: 8px !important;
+    background-color: transparent !important;
+  }
+  .ant-collapse-content-box {
+    background-color: #ffffff;
+  }
+`;
 const CalenderContainer = styled.div`
-
-.react-calendar, .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+  .react-calendar,
+  .react-calendar *,
+  .react-calendar *:before,
+  .react-calendar *:after {
     box-sizing: border-box;
     text-decoration: none;
-}
+  }
 
-.react-calendar button {
+  .react-calendar button {
     height: 39px;
     padding: 0;
-    display:flex;
-    justify-content:center;
-}
+    display: flex;
+    justify-content: center;
+  }
 
-.react-calendar__tile--active {
+  .react-calendar__tile--active {
     background: transparent;
-}
+  }
 
-.react-calendar__tile--active abbr {
-    background-color: #EDAC2F !important;
+  .react-calendar__tile--active abbr {
+    background-color: #edac2f !important;
+  }
 
-}
-
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile {
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile {
     background-color: transparent !important;
-}
-.react-calendar{
-    border:none;
-    width:100%;
-}
-.react-calendar__tile abbr {
+  }
+  .react-calendar {
+    border: none;
+    width: 100%;
+  }
+  .react-calendar__tile abbr {
     display: flex;
     height: 36px;
     width: 36px;
-    background: #2F80ED;
+    background: #2f80ed;
     border-radius: 6px;
     justify-content: center;
     align-items: center;
     color: white;
-}
-.sunday abbr{
+  }
+  .sunday abbr {
     color: black;
-    background-color: #0000000A;
+    background-color: #0000000a;
     text-decoration: line-through;
-}
-@media(max-width:360px){
-    .react-calendar__tile abbr{
-        height:30px;
-        width:30px;
+  }
+  @media (max-width: 360px) {
+    .react-calendar__tile abbr {
+      height: 30px;
+      width: 30px;
     }
-    .react-calendar button{
-        height:33px;
+    .react-calendar button {
+      height: 33px;
     }
-}
-
-`
+  }
+`;
 
 const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
-    const format = 'HH:mm';
-    const [value, setValue] = useState(new Date());
-    const [timeVal, setTimeVal] = useState(dayjs('12:08', format))
-    const [partySize, setPartySize] = useState<number>(1)
+  const format = "HH:mm";
+  const [value, setValue] = useState(new Date());
+  const [timeVal, setTimeVal] = useState(dayjs("12:08", format));
+  const [partySize, setPartySize] = useState<number>(1);
 
-    const { token } = theme.useToken();
-    const panelStyle: React.CSSProperties = {
-        marginBottom: 24,
-        background: token.colorFillAlter,
-        borderRadius: token.borderRadiusLG,
-        border: 'none',
-    };
-    const tileClassName = (date: any) => {
-        return date.date.getDay() === 0 ? 'sunday' : null;
-    };
+  const { token } = theme.useToken();
+  const panelStyle: React.CSSProperties = {
+    marginBottom: 24,
+    background: token.colorFillAlter,
+    borderRadius: token.borderRadiusLG,
+    border: "none",
+  };
+  const tileClassName = (date: any) => {
+    return date.date.getDay() === 0 ? "sunday" : null;
+  };
 
-    const handleDate = (value: any, event: any) => {
-        const originalDate = new Date(value);
+  const handleDate = (value: any, event: any) => {
+    const originalDate = new Date(value);
 
-        // Convert the date to UTC format
-        const utcDate = originalDate.toISOString();
-        setValue(value)
-    }
+    // Convert the date to UTC format
+    const utcDate = originalDate.toISOString();
+    setValue(value);
+  };
 
+  const handleTime = (time: any, timeString: any) => {
+    // console.log("time", time.$d.toISOString(), timeString)
+    setTimeVal(time);
+  };
 
+  const handlePage = (page: number) => {
+    // console.log("page, pageSize", page)
+    setPartySize(page);
+  };
 
-    const handleTime = (time: any, timeString: any) => {
-        console.log("time", time.$d.toISOString(), timeString)
-        setTimeVal(time)
-    }
-
-    const handlePage = (page: number) => {
-        console.log("page, pageSize", page)
-        setPartySize(page)
-    }
-
-    const CalenderData = () => {
-        return (
-            <CalenderContainer>
-                <Calendar
-                    className="react-cal"
-                    next2Label={null}
-                    prev2Label={null}
-                    prevLabel={<LeftOutlined />}
-                    nextLabel={<RightOutlined />}
-                    defaultView="month"
-                    value={value}
-                    onChange={(value, event) => handleDate(value, event)}
-                    calendarType="gregory"
-                    tileClassName={tileClassName} />
-            </CalenderContainer>
-        )
-    }
-
-    const items: CollapseProps['items'] = [
-        {
-            key: '1',
-            label: 'Party Size',
-            children: <PartySize totalItems={200} itemsPerPage={10} onPageChange={handlePage} />,
-            // children: <Pagination 
-            // onChange={(page, pageSize)=>handlePage(page, pageSize)}
-            // current={partySize} 
-            // total={200} 
-            // />,
-            style: panelStyle,
-        },
-        {
-            key: '2',
-            label: 'Calender',
-            children: <CalenderData />,
-            style: panelStyle,
-        },
-        {
-            key: '3',
-            label: 'Time',
-            children: <TimePicker
-                style={{ width: '100%' }}
-                onChange={(time, timeString) => handleTime(time, timeString)}
-                value={timeVal}
-                format={format} />,
-            style: panelStyle,
-        },
-    ];
+  const CalenderData = () => {
     return (
-        <Container>
-            {/* <CalenderModalContainer>
+      <CalenderContainer>
+        <Calendar
+          className="react-cal"
+          next2Label={null}
+          prev2Label={null}
+          prevLabel={<LeftOutlined />}
+          nextLabel={<RightOutlined />}
+          defaultView="month"
+          value={value}
+          onChange={(value, event) => handleDate(value, event)}
+          calendarType="gregory"
+          tileClassName={tileClassName}
+        />
+      </CalenderContainer>
+    );
+  };
+
+  const items: CollapseProps["items"] = [
+    {
+      key: "1",
+      label: "Party Size",
+      children: (
+        <PartySize
+          totalItems={200}
+          itemsPerPage={10}
+          onPageChange={handlePage}
+        />
+      ),
+      // children: <Pagination
+      // onChange={(page, pageSize)=>handlePage(page, pageSize)}
+      // current={partySize}
+      // total={200}
+      // />,
+      style: panelStyle,
+    },
+    {
+      key: "2",
+      label: "Calender",
+      children: <CalenderData />,
+      style: panelStyle,
+    },
+    {
+      key: "3",
+      label: "Time",
+      children: (
+        <TimePicker
+          style={{ width: "100%" }}
+          onChange={(time, timeString) => handleTime(time, timeString)}
+          value={timeVal}
+          format={format}
+        />
+      ),
+      style: panelStyle,
+    },
+  ];
+  return (
+    <Container>
+      {/* <CalenderModalContainer>
                 <Collapse
                     bordered={false}
                     defaultActiveKey={['2']}
@@ -203,7 +209,7 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
                     expandIconPosition="end"
                 />
             </CalenderModalContainer> */}
-            {/* <CalenderModalContainer>
+      {/* <CalenderModalContainer>
                 <TimePicker
                     // style={{ width: '100%' }}
                     style={{ width:'100%', background: token.colorFillAlter,}}
@@ -211,11 +217,9 @@ const CalenderModal: React.FC<ModalProps> = ({ onClose }) => {
                     value={timeVal}
                     format={format} />
             </CalenderModalContainer> */}
-            <Image src={calender} alt="calender" />
-
-
-        </Container>
-    )
-}
+      <Image src={calender} alt="calender" />
+    </Container>
+  );
+};
 
 export default CalenderModal;

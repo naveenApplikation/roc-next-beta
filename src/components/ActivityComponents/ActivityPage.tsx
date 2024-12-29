@@ -122,7 +122,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
         temp = element;
       }
     });
-    console.log("");
+    // // console.log("");
     modalClick(
       "activities",
       temp,
@@ -168,7 +168,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   });
 
   // filterData = filterEvents(filterData, eventFilters);
-  // console.log(filterData, "filtered data");
+  // // console.log(filterData, "filtered data");
   const Row = ({
     index,
     style,
