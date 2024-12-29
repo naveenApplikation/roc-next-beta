@@ -43,7 +43,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         inputRef.current.focus();
       }
     }
-  }, [modalType]);
+  }, [modalType.search]);
 
   return (
     <InputContainer>

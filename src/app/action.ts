@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cache } from "react";
 
 // Utility function to add timeout to fetch
@@ -268,4 +268,8 @@ export async function getAdsByCategory()
      return []
   } 
 }
- 
+ export async function revalidatePlaces(categoryName:string)
+ {
+      revalidateTag(categoryName)
+      revalidatePath('/','page')
+ }

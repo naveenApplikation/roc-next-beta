@@ -19,7 +19,7 @@ import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
-import { updateLike } from "@/app/action";
+import { revalidatePlaces, updateLike } from "@/app/action";
 import { debounce } from "@/app/utils/debounce";
 import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
 import ShareFeature from "./ShareFeature";
@@ -29,7 +29,7 @@ import HeaderScreen from "./header/HeaderScreen";
 import BannerModal from "./bannerModal/page";
 import Categories from "@/components/CategoriesPage/Categories";
 import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
-
+ 
 interface ScreenPageProps {
   data: any;
   bookmarkValue?: any;
@@ -210,8 +210,10 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       setloader(true);
       const result = await Instance.put(`/category/${event}`, param);
       setloader(false);
-      
+   
+    
       toast.success(result?.data?.message);
+      revalidatePlaces(eventTitle)
       setScreenName(name);
     } catch (error: any) {
       setloader(false);
