@@ -109,13 +109,13 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                         modalClick(
                           "ModalContent",
                           item,
-                          item?.data_type === "google"
+                          item?.data_type === "google" || item?.data_type=="roc_places"
                             ? item?.photoUrl
                             : fallback
                         )
                       }>
                       <div style={{ position: "relative" }}>
-                        {item?.data_type === "google" ? (
+                        {item?.data_type === "google" || item?.data_type=="roc_places" ? (
                           <ImageTag
                             src={item.photoUrl ? item.photoUrl : fallback}
                             alt="Image"
@@ -157,7 +157,7 @@ const AttractionBox: React.FC<AttractionBoxProps> = ({
                       </div>
                       <div className="restroRating">
                         <p className="shopName">
-                          {item?.data_type === "google"
+                          {item?.data_type === "google" || item?.data_type=="roc_places"
                             ? item?.name
                             : item?.acf?.title}
                         </p>

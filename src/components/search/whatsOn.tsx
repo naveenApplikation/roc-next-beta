@@ -14,7 +14,7 @@ interface listSearchProps {
 const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
   const [skeletonData] = useState(new Array(10).fill(null));
   const { modalClick } = useMyContext();
-  console.log("whats on",filterData)
+  // console.log("whats on",filterData)
   return (
     <>
       {loader ? (
@@ -32,46 +32,57 @@ const WhatsOn: React.FC<listSearchProps> = ({ filterData, loader }) => {
         ))
       ) : (
         <ScrollingMenu>
+          {filterData.length == 0 ? (
+            <p
+              style={{ fontSize: "20px", color: "black", textAlign: "center" }}
+            >
+              Results Not Found
+            </p>
+          ) : (
+            filterData?.map((item: any, index: any) => {
+              return (
+                <TopAttractionContainer
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    modalClick("ModalContent", item?.item, item?.image)
+                  }
+                >
+                  <TopAttractionprofile>
+                    {typeof item?.image === "string" ? (
+                      <ImageTag src={item?.image} alt="Image" />
+                    ) : (
+                      <Image
+                        src={fallback}
+                        alt=""
+                        width={500}
+                        height={80}
+                        style={{
+                          maxWidth: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    )}
+                  </TopAttractionprofile>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 10,
+                      flexDirection: "column",
+                      maxWidth: "calc(100% - 30%)",
+                    }}
+                  >
+                    <ListDataTittleText>
+                      {item?.item.acf?.title}
+                    </ListDataTittleText>
 
-          {filterData.length==0?<p style={{fontSize:"20px",color:"black",textAlign:"center"}}>Results Not Found</p>:filterData?.map((item: any, index: any) => {
-            return (
-              <TopAttractionContainer
-                key={index}
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  modalClick("ModalContent", item?.item, item?.image)
-                }>
-                <TopAttractionprofile>
-                  {typeof item?.image === "string" ? (
-                    <ImageTag src={item?.image} alt="Image" />
-                  ) : (
-                    <Image
-                      src={fallback}
-                      alt=""
-                      width={500}
-                      height={80}
-                      style={{
-                        maxWidth: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
-                </TopAttractionprofile>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                    flexDirection: "column",
-                    maxWidth: "calc(100% - 30%)",
-                  }}>
-                  <ListDataTittleText>{item?.item.acf?.title}</ListDataTittleText>
-
-                  <ListDataInfoText>{item?.type}</ListDataInfoText>
-                  <ListDataInfoText>{item?.date}</ListDataInfoText>
-                </div>
-              </TopAttractionContainer>
-            );
-          })}
+                    <ListDataInfoText>{item?.type}</ListDataInfoText>
+                    <ListDataInfoText>{item?.date}</ListDataInfoText>
+                  </div>
+                </TopAttractionContainer>
+              );
+            })
+          )}
         </ScrollingMenu>
       )}
     </>
@@ -98,8 +109,7 @@ const ListDataInfoText = styled.p`
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.12px;
-  text-transform:capitalize;
-
+  text-transform: capitalize;
 `;
 
 const SearchedData = styled.div`

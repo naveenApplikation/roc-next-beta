@@ -31,7 +31,6 @@ type mylisttabs = "Created" | "Contributed";
 type myBookmarktabs = "Lists" | "Events";
 const width = "580";
 
-
 const Directorylist = () => {
   const { showMap, modalType, closeModal } = useMyContext();
 
@@ -53,7 +52,7 @@ const Directorylist = () => {
   };
 
   const router = useRouter();
-  console.log("route", router)
+  // // console.log("route", router)
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -88,15 +87,12 @@ const Directorylist = () => {
     setMyListTabValue(value);
   };
 
-
-
   const handleBack = () => {
     router.back();
     if (modalType.modalFilterList) {
-      closeModal("modalFilterList")
+      closeModal("modalFilterList");
     }
   };
-
 
   return (
     <PageLayout>
@@ -114,8 +110,8 @@ const Directorylist = () => {
             />
           </Header> */}
 
-          <DirectoryWrapper1 >
-            <FirstMainWraaper >
+          <DirectoryWrapper1>
+            <FirstMainWraaper>
               <TitltCategory> All Categories</TitltCategory>
             </FirstMainWraaper>
             <MainWrapper1>
@@ -130,17 +126,17 @@ const Directorylist = () => {
 
           {DirectoryItem.map((item: any, index: any) => (
             <DirectoryWrapper key={index}>
-              <FirstMainWraaper onClick={() => menuClick(item.data[0].url, true, "Directory")}>
+              <FirstMainWraaper
+                onClick={() => menuClick(item.data[0].url, true, "Directory")}
+              >
                 {item.data[0].image}
-                <DirectoryMenuTitle>
-                  {item.data[0].title}
-                </DirectoryMenuTitle>
+                <DirectoryMenuTitle>{item.data[0].title}</DirectoryMenuTitle>
               </FirstMainWraaper>
-              <MainWrapper onClick={() => menuClick(item.data[1]?.url, true, "Directory")}>
+              <MainWrapper
+                onClick={() => menuClick(item.data[1]?.url, true, "Directory")}
+              >
                 {item.data[1]?.image}
-                <DirectoryMenuTitle>
-                  {item.data[1]?.title}
-                </DirectoryMenuTitle>
+                <DirectoryMenuTitle>{item.data[1]?.title}</DirectoryMenuTitle>
               </MainWrapper>
             </DirectoryWrapper>
           ))}
@@ -154,7 +150,12 @@ const Directorylist = () => {
         {...{ myListtabChange, mylistoptions, myListtabValue, showMap }}
       />
       <MyBookMarkModal
-        {...{ myBookmarktabChange, myBookmarkoptions, myBookMarkState, showMap }}
+        {...{
+          myBookmarktabChange,
+          myBookmarkoptions,
+          myBookMarkState,
+          showMap,
+        }}
       />
       <PrivacyPolicy {...{ showMap }}></PrivacyPolicy>
       <PlacesModalScreen showMap={showMap} />
@@ -172,7 +173,6 @@ const Directorylist = () => {
 };
 
 export default Directorylist;
-
 
 const CategoryBody = styled.div`
   position: relative;

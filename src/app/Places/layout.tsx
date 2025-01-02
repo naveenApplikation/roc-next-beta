@@ -8,7 +8,7 @@ import BannerModal from "@/components/bannerModal/page";
 import Categories from "@/components/CategoriesPage/Categories";
 import LoginSignupModal from "@/components/LoginSignup/loginSignupModal";
 import SocialShareModal from "@/components/modal/SocialShareModal";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import "@/app/globals.css";
 import CreateAccountModalLayout from "@/components//modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
@@ -23,6 +23,9 @@ export default function Layout({children}:{children:ReactNode})
     };
   
    const {modalClick,modalName,closeModal,showMap}=useMyContext()
+    useEffect(()=>{
+        closeModal("WelcomeBackModal")
+    },[])
      return <>
        
         {children}
@@ -41,10 +44,7 @@ export default function Layout({children}:{children:ReactNode})
               isPrivacyPolicy={() => modalClick("privacyPolicy")}
             />
           </CreateAccountModalLayout>
-          <EventListingModalScreen showMap={showMap} />
-          <ProfileAccountModalScreen showMap={showMap} />
           <ReservationCalenderModal showMap={showMap} />
-          <ViewDirectionModalScreen showMap={showMap} />
           <FilterListModalScreen/>
         <Categories></Categories>
           <BannerModal />

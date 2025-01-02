@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CommonButton from "@/components/button/CommonButton";
 import Instance from "@/app/utils/Instance";
@@ -79,7 +79,6 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
   previousModal,
   isOpen,
 }) => {
-
   const [loader, setloader] = useState(false);
 
   const formik = useFormik({
@@ -87,25 +86,27 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
       prefrence: false,
     },
     validationSchema: Yup.object({
-        prefrence: Yup.boolean().oneOf([true], 'You must accept or back to your account'),
-      }),
+      prefrence: Yup.boolean().oneOf(
+        [true],
+        "You must accept or back to your account"
+      ),
+    }),
     onSubmit: async (values) => {
       setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
           prefrence: values.prefrence,
         });
-        if(loginData.status === 200){
-          toast.success(loginData?.data?.message)
+        if (loginData.status === 200) {
+          toast.success(loginData?.data?.message);
           setloader(false);
         } else {
-          
-          toast.error(loginData?.data?.message)
+          toast.error(loginData?.data?.message);
           setloader(false);
         }
         isOpen();
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         setloader(false);
       } finally {
         setloader(false);
@@ -133,12 +134,12 @@ const UpdateMyPreferencesContent: React.FC<ModalProps> = ({
       {formik.errors.prefrence && formik.touched.prefrence && (
         <ErrorMessage>{formik.errors.prefrence}</ErrorMessage>
       )}
-        <CommonButton
-          bcColor="#2F80ED"
-          text={loader ? "Loading..." : "Update my preferences"}
-          imageStyle={0}
-          isOpen={formik.handleSubmit}
-        />
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Update my preferences"}
+        imageStyle={0}
+        isOpen={formik.handleSubmit}
+      />
       <BackAccount onClick={previousModal}>Back to my account</BackAccount>
     </MenuModalContent>
   );

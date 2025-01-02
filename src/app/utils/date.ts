@@ -1,8 +1,10 @@
 import moment from "moment";
 
+// Formatting functions
 export function formatDate(timestamp: Date): string {
   return moment(timestamp).format("DD");
 }
+
 export function formatFullDate(timestamp: Date): string {
   return moment(timestamp).format("Do MMMM YYYY");
 }
@@ -23,9 +25,7 @@ export function formatTime(timestamp: Date): string {
   return moment(timestamp).format("LT");
 }
 
-export const skeletonItems = new Array(10).fill(null);
-
-export const sideWidth = "480px";
+// Helper to get the formatted category creation date
 
 export const categoryCreationDate = () => {
   const date = new Date();
@@ -51,6 +51,11 @@ export const categoryCreationDate = () => {
   return formattedDate;
 };
 
+// Skeleton items and side width constants
+export const skeletonItems = new Array(10).fill(null);
+export const sideWidth = "480px";
+
+// Event type and Result type
 type Event = {
   date: string; // Date in YYYYMMDD format
   start_time: string; // Start time
@@ -60,8 +65,10 @@ type Event = {
 type Result = {
   date: string; // Formatted date (DD)
   month: string; // Formatted month (MMM)
+  year: string; // Formatted year (YYYY)
 };
 
+// Function to get the next event
 export function getNextEvent(events: Event[]): Result | null {
   const currentDate = moment();
 
@@ -88,12 +95,15 @@ export function getNextEvent(events: Event[]): Result | null {
   return {
     date: chosenEvent.momentDate.format("DD"),
     month: chosenEvent.momentDate.format("MMM"),
+    year: chosenEvent.momentDate.format("YYYY"), // Include year
   };
 }
 
+// Function to get formatted result from a timestamp
 export function getEvent(timestamp: Date): Result | null {
   return {
     date: formatDate(timestamp),
     month: formatMonth(timestamp),
+    year: moment(timestamp).format("YYYY"), // Include year
   };
 }

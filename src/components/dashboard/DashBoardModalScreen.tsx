@@ -22,6 +22,7 @@ import BetaExploreModal from "@/components/modal/BetaExploreModal";
 import PrivacyPolicy from "../homepage/PrivacyAndPolicyModal/page";
 import DirectionModalLayout from "../modal/Modal"
 import BannerModal from "../bannerModal/page";
+import RocPlacesModalScreen from "../AllModalScreen/RocPlacesModalScreen";
 
 
 type mylisttabs = "Created" | "Contributed";
@@ -71,6 +72,7 @@ const DashBoardModalScreen = () => {
       <WalksModal />
       <BetaExploreModal />
       <InfoAppScreen {...{ showMap }} />
+      <RocPlacesModalScreen {...{ showMap }} ></RocPlacesModalScreen>
       <BannerModal />
     </>
   );

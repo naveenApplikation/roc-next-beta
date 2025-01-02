@@ -1,7 +1,8 @@
 interface FilterValues {
     openingHours?: boolean;
     rating?: string;
-    distance?: string;
+    distance?: string,
+    parish?:string
   }
   interface Location {
     latitude?: string;
@@ -12,7 +13,7 @@ interface FilterValues {
     filterValues: FilterValues,
     location: Location
   ): string {
-    const { openingHours, rating, distance } = filterValues;
+    const { openingHours, rating, distance,parish } = filterValues;
     let url = `/filter/places?place=${place}`;
     if (openingHours) {
       url += `&openNow=${openingHours}`;
@@ -31,6 +32,10 @@ interface FilterValues {
       url += `&distance=${distance}`;
       url += `&latitude=${location.latitude}`;
       url += `&longitude=${location.longitude}`;
+    }
+    if(parish)
+    {
+        url+=`&parish=${parish}`
     }
     return url;
   }

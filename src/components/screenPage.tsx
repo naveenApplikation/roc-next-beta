@@ -19,7 +19,7 @@ import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
-import { updateLike } from "@/app/action";
+import { revalidatePlaces, updateLike } from "@/app/action";
 import { debounce } from "@/app/utils/debounce";
 import FilterListModalScreen from "./AllModalScreen/FilterListModalScreen";
 import ShareFeature from "./ShareFeature";
@@ -29,7 +29,7 @@ import HeaderScreen from "./header/HeaderScreen";
 import BannerModal from "./bannerModal/page";
 import Categories from "@/components/CategoriesPage/Categories";
 import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
-
+ 
 interface ScreenPageProps {
   data: any;
   bookmarkValue?: any;
@@ -70,6 +70,7 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
     closeModal("createAccountModal");
     closeModal("myList");
     closeModal("myBookmark");
+
   }, []);
 
   const fetchEventDataById = () => {
@@ -105,11 +106,9 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   const navigateClick = () => {
-    if (screenName === "Greetings") {
+     
       setScreenName("categoryList");
-    } else {
-      router.push(`/`);
-    }
+   
   };
 
   const toggleSelected = (itemId: number, item: any): void => {
@@ -210,11 +209,15 @@ const EventList: React.FC<ScreenPageProps> = (props) => {
       setloader(true);
       const result = await Instance.put(`/category/${event}`, param);
       setloader(false);
+   
+    
       toast.success(result?.data?.message);
+      revalidatePlaces(eventTitle)
       setScreenName(name);
     } catch (error: any) {
       setloader(false);
-      toast.error(error?.response?.data?.message);
+      
+      toast.error(error?.response?.data);
     } finally {
       setloader(false);
     }

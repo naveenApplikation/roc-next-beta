@@ -71,6 +71,8 @@ interface ContextProps {
   currentEventPath?: any;
   setcurrentAdsDetail?: any;
   currentAdsDetail?: any;
+  modalClickRocPlaces?: any;
+  rocPlaces?: any;
 }
 
 // Create a context
@@ -121,6 +123,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     AboutUs: false,
     filterOption: false,
     adsBanner: false,
+    rocPlaces: false,
   });
   const options = {
     dates: false,
@@ -230,7 +233,11 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const router = useRouter();
 
-  const fetchDataAsync = async (value: string, filterValues: any) => {
+  const fetchDataAsync = async (
+    value: string,
+    filterValues: any,
+    filter: any
+  ) => {
     if (value) {
       try {
         setPlaceLoader(true);
@@ -241,13 +248,14 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
               filterValues.distance == "Any" ? "" : filterValues.distance,
             rating: filterValues.rating == "Any" ? "" : filterValues.rating,
             openingHours: filterValues.openingHours,
+            parish: selectFilter,
           },
           location
         );
         const result = await Instance.get(url);
         setPlaceData(result?.data.searchResults);
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         setPlaceLoader(false);
       } finally {
         setPlaceLoader(false);
@@ -260,7 +268,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         );
         setPlaceData(result?.data?.searchResults);
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         setPlaceLoader(false);
       } finally {
         setPlaceLoader(false);
@@ -332,6 +340,15 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const mapButtonClick = () => {
     setShowMap(false);
   };
+  const [rocPlaces, setRocPLaces] = useState({});
+  const modalClickRocPlaces = (name: string, item: any, urlImage: string) => {
+    closeModal("ModalContent");
+    setModalType((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+    setRocPLaces({ ...item, urlImage, name });
+  };
   const modalClick = (
     name: string,
     item?: any,
@@ -343,7 +360,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       name === "modalFilterList" ||
       name == "filterOption"
     ) {
-      console.log(name);
+      // // console.log(name);
       setModalType((prev) => ({
         ...prev,
         [name]: true,
@@ -364,7 +381,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             {} as { [key: string]: boolean }
           );
 
-          // console.log(updatedState);
+          // // console.log(updatedState);
           return updatedState as typeof prev;
         });
       }
@@ -404,9 +421,9 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const [socialShare, setSocialShare] = useState(false);
   const handleSocialShare = (value?: any) => {
-    console.log(socialShare);
+    // console.log(socialShare);
     if (value) {
-      console.log("assadas", 291);
+      // console.log("assadas", 291);
       setSocialShare(false);
     } else {
       setSocialShare(!socialShare);
@@ -420,7 +437,12 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           const jsonData = JSON.parse(item);
           const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-          if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+          if (
+            url &&
+            (url.endsWith(".jpg") ||
+              url.endsWith(".png") ||
+              url.endsWith(".jpeg"))
+          ) {
             imageUrls.push(convertGCSUrl(url));
           } else {
             imageUrls.push(fallback.src); // Push default image URL if URL is not valid
@@ -480,6 +502,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     currentEventPath,
     setcurrentAdsDetail,
     currentAdsDetail,
+    modalClickRocPlaces,
+    rocPlaces,
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

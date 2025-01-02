@@ -123,7 +123,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
         temp = element;
       }
     });
-    console.log("");
+    // // console.log("");
     modalClick(
       "activities",
       temp,
@@ -169,7 +169,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   });
 
   // filterData = filterEvents(filterData, eventFilters);
-  // console.log(filterData, "filtered data");
+  // // console.log(filterData, "filtered data");
   const Row = ({
     index,
     style,
@@ -245,7 +245,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
         {({ height, width }) => (
           <SearchedListContainer>
             <div style={{ padding: "0px 24px" ,overflow:"hidden"}}>
-              <Header  className="" style={{marginTop:`${isForwarding?'-110px':"0px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
+              <Header  className="" style={{marginTop:`${isForwarding?'-110px':"10px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
                 <TitleText>{urlTitle}</TitleText>
                 {/* <Image
             style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -329,7 +329,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                 )}
               </List>
             </div>
-            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} className="75px" />
+            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} bottom="-23px"  className="75px" />
             <ScrollList
               data={filteredData}
               bottom={"30px"}

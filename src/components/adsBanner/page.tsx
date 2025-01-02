@@ -15,6 +15,7 @@ import { useMyContext } from "@/app/Context/MyContext";
 const AdContainer = styled.div<{
   $className: string;
   $maxWidth: string;
+  $bottom?:string
 }>`
   width: 480px;
   position: sticky;
@@ -33,6 +34,7 @@ const AdContainer = styled.div<{
   @media screen and (max-width: 800px) {
     position: fixed;
     width: 100%;
+    bottom:${({$bottom})=>$bottom};
     max-width: ${({ $maxWidth }) => $maxWidth};
   }
   @media screen and (min-width: 390px) {
@@ -107,7 +109,8 @@ const AdText = styled.div`
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
-  style?:CSSProperties
+  style?:CSSProperties,
+  bottom?:string
 }
 
 // Ad Data
@@ -132,7 +135,8 @@ const adsData = [
 const AdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
-  style
+  style,
+  bottom
 }) => {
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
@@ -151,6 +155,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
     <>
       {currentAd.type === "existing" ? (
         <AdContainer
+        $bottom={bottom}
           style={{...style}}
           $className={className}
           $maxWidth={maxWidth}

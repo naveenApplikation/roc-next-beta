@@ -46,7 +46,7 @@ export const MainContainer = styled.div`
     border-radius: 24px 24px 0px 0px !important;
     height: auto;
     overflow: hidden;
-    margin-top: 470px;
+    margin-top: 430px;
     z-index: 1;
     background-color: white !important;
   }

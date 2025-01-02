@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cache } from "react";
 
 // Utility function to add timeout to fetch
@@ -65,10 +65,12 @@ export async function getData(slug: string, params: string) {
   try {
     const loginToken = cookies().get("loginToken")?.value;
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
-
+    slug=slug
+    .replaceAll("%20", " ")
+    .replaceAll("%26", " ")
     const options: any = {
       headers: loginToken ? { "x-login-token": loginToken } : undefined,
-      next: { tags: [slug], revalidate: 3600 }, // 1 hour cache duration
+      next: { tags: [slug,"updatePlaces"], revalidate: 3600 }, // 1 hour cache duration
     };
 
     const res = await fetchWithTimeout(url, options, 100000); // 10 seconds timeout
@@ -268,4 +270,8 @@ export async function getAdsByCategory()
      return []
   } 
 }
- 
+ export async function revalidatePlaces(categoryName:string)
+ {
+      revalidateTag(categoryName)
+      revalidatePath('/','page')
+ }

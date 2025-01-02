@@ -9,34 +9,33 @@ import { addAndRomoveToken } from "@/app/action";
 import { usePathname } from "next/navigation";
 
 interface ModalProps {
-  previousModal?: any,
-  nextModal?: any,
-
+  previousModal?: any;
+  nextModal?: any;
 }
 
 const MenuModalContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 16px 24px;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  gap: 16px;
 `;
 
 const ForgotPasswordText = styled.div`
-    color: var(--MAIN, #2F80ED);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  color: var(--MAIN, #2f80ed);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 const CreateAccountText = styled.div`
-    color: var(--MAIN, #2F80ED);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-align: center;
-    cursor: pointer;
+  color: var(--MAIN, #2f80ed);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  cursor: pointer;
 `;
 
 export const ErrorMessage = styled.p`
@@ -47,9 +46,8 @@ export const ErrorMessage = styled.p`
 `;
 
 const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
-
   const [loader, setloader] = useState(false);
-   const pathname = usePathname();
+  const pathname = usePathname();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -62,35 +60,33 @@ const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
         .required("Required!"),
     }),
     onSubmit: async (values) => {
-      setloader(true)
+      setloader(true);
       try {
         const loginData = await Instance.post("sign-in", {
           email: values.email,
           password: values.password,
         });
-         localStorage.setItem("loginToken", loginData.data.token);
-         setloader(false)
-         console.log(pathname);
-         await addAndRomoveToken(loginData.data.token); 
+        localStorage.setItem("loginToken", loginData.data.token);
+        setloader(false);
+        // console.log(pathname);
+        await addAndRomoveToken(loginData.data.token);
         if (pathname?.includes("screens")) {
           window.location.reload();
-        }
-        else{
-          nextModal()
+        } else {
+          nextModal();
         }
       } catch (error: any) {
-        console.log(error.message);
-        setloader(false)
+        // console.log(error.message);
+        setloader(false);
         // showToast(error.message, "error");
       } finally {
-        setloader(false)
+        setloader(false);
       }
     },
   });
 
   return (
     <MenuModalContent>
-      
       <MenuAccountInput
         title="Email"
         type="text"
@@ -112,8 +108,15 @@ const LoginContent: React.FC<ModalProps> = ({ previousModal, nextModal }) => {
         <ErrorMessage>{formik.errors.password}</ErrorMessage>
       )}
       <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
-      <CommonButton bcColor="#2F80ED" text={loader ? "Loading..." : "Login"} imageStyle={0} isOpen={formik.handleSubmit} />
-      <CreateAccountText onClick={previousModal}>Create an account</CreateAccountText>
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Login"}
+        imageStyle={0}
+        isOpen={formik.handleSubmit}
+      />
+      <CreateAccountText onClick={previousModal}>
+        Create an account
+      </CreateAccountText>
     </MenuModalContent>
   );
 };

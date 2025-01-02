@@ -81,25 +81,23 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
     setBookmark(bookMark);
   }, [bookMark]);
 
-  useEffect(()=>{
-         const scrollContainer=scrollContainerRef.current
-          console.log(scrollContainer)
-         const handleScroll=()=>{
-              console.log(scrollContainer.scrollTop,scrollContainer.pageYOffset)
-         }
-         if(scrollContainer)
-         {
-          console.log("event")
-           scrollContainer.addEventListener('scroll',handleScroll)
-         }
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    // console.log(scrollContainer)
+    const handleScroll = () => {
+      // console.log(scrollContainer.scrollTop,scrollContainer.pageYOffset)
+    };
+    if (scrollContainer) {
+      // console.log("event")
+      scrollContainer.addEventListener("scroll", handleScroll);
+    }
 
-         return ()=>{
-          if(scrollContainer)
-            {
-              scrollContainer.removeEventListener('scroll',handleScroll)
-            } 
-         }
-  },[])
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
   // const [scrollHeight, setScrollHeight] = useState<number>(0);
 
   // const handleScroll = () => {
@@ -166,6 +164,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
       modalClick("LoginSignupModal");
     }
   };
+
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -176,7 +175,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}>
+            }}
+          >
             <TitleText>{urlTitle}</TitleText>
             {/* <Image
               style={{ width: 40, height: 40, cursor: "pointer" }}
@@ -192,7 +192,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: 8,
-              }}>
+              }}
+            >
               <ImageContainer selected={isBookmark} onClick={handleBookMark}>
                 {bookmarkLoader ? (
                   <Spin tip="Loading" size="small" />
@@ -224,7 +225,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-            }}>
+            }}
+          >
             <FilterSection pageTitle="categoryEvent" />
           </div>
         </div>
@@ -271,28 +273,20 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       modalClick(
                         "eventListing",
                         item,
-                        item?.data_type === "google" ? item?.photoUrl : fallback
+                        item?.photoUrl ?? fallback
                       )
-                    }>
+                    }
+                  >
                     <FamilyEventWrapper>
-                      {item?.data_type === "google" ? (
-                        item.photoUrl ? (
-                          <ImageTag src={item.photoUrl} alt="Image" />
-                        ) : (
-                          <Image
-                            // style={{ background: "white" }}
-                            src={fallback}
-                            width={500}
-                            height={80}
-                            style={{
-                              borderRadius: 4,
-                              width: "80px",
-                              objectFit: "cover",
-                              cursor: "pointer",
-                            }}
-                            alt=""
-                          />
-                        )
+                      {item?.photoUrl || Array.isArray(item.photoUrl) ? (
+                        <ImageTag
+                          src={
+                            typeof item.photoUrl == "string"
+                              ? item.photoUrl
+                              : item.photoUrl[0]
+                          }
+                          alt="Image"
+                        />
                       ) : (
                         <Image
                           // style={{ background: "white" }}
@@ -310,11 +304,7 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       )}
                     </FamilyEventWrapper>
                     <div className="restroRating">
-                      <p className="shopName">
-                        {item?.data_type === "google"
-                          ? item?.name
-                          : item?.acf?.title}
-                      </p>
+                      <p className="shopName">{item?.name}</p>
                       <DetailContainer>
                         <p style={{ color: "gray" }}>{item?.rating} &nbsp;</p>
                         <Image
@@ -346,7 +336,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                       if (!likeLoader) {
                         handleLike(item?._id, item?.userVoted);
                       }
-                    }}>
+                    }}
+                  >
                     {likeLoader == item?._id ? (
                       <Spin tip="Loading" size="small" />
                     ) : (
@@ -356,8 +347,8 @@ const CategoryEvent: React.FC<EventBoxProps> = ({
                             likeLoader && likeLoader != item?.id
                               ? "gray"
                               : item?.userVoted
-                              ? "#3b86ed"
-                              : "#000000"
+                                ? "#3b86ed"
+                                : "#000000"
                           }
                         />
                         <p>{item?.itemVotes ? item.itemVotes : 0}</p>
@@ -486,7 +477,7 @@ const FamilyEventWrapper = styled.div`
   flex-direction: column;
   position: relative;
   width: 80px;
-  min-width:80px;
+  min-width: 80px;
   .date {
     font-size: 17px;
     font-style: normal;

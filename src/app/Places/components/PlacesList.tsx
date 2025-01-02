@@ -19,15 +19,18 @@ import styled from "styled-components";
 import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 import ReservationCalenderModal from "@/components/AllModalScreen/reservationCalenderModal";
 import ViewDirectionModalScreen from "@/components/AllModalScreen/ViewDirectionModalScreen";
-import { updateLike } from "@/app/action";
+import { revalidatePlaces, updateLike } from "@/app/action";
 import { debounce } from "@/app/utils/debounce";
  
 import Categories from "@/components/CategoriesPage/Categories";
 import HeaderScreen from "@/components/header/HeaderScreen";
+import AdsBanner from "@/components/adsBanner/page";
+import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
 
 interface ScreenPageProps {
   data: any;
   bookmarkValue?: any;
+  adsData?:any
 }
 const PlaceList: React.FC<ScreenPageProps> = (props) => {
   const {
@@ -58,13 +61,13 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
   const [loader, setloader] = useState(false);
   const [likeLoader, setLikeLoader] = useState<string>("");
   const [uiRenderLoader, setUiRenderLoader] = useState(true);
-
+ 
   useEffect(() => {
     closeModal("createAccountModal");
     closeModal("myList");
-    closeModal("myBookmark");
+    closeModal("myBookmark")
   }, []);
-
+  console.log(modalName)
   const fetchEventDataById = () => {
     try {
       setloader(true);
@@ -98,12 +101,10 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
   const filteredUrls = filterUrls(ImageUrlData);
 
   const navigateClick = () => {
-    if (screenName === "Greetings") {
-      setScreenName("categoryList");
-    } else {
-      router.push(`/`);
-    }
-  };
+     
+    setScreenName("categoryList");
+ 
+};
 
   const toggleSelected = (itemId: number, item: any): void => {
     const selectedIndex: number = selectedItemIds.indexOf(itemId);
@@ -201,13 +202,15 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
     };
     try {
       setloader(true);
-      const result = await Instance.put(`/category/${listName}`, param);
+      const result = await Instance.put(`/category/${categoryId}`, param);
       setloader(false);
       toast.success(result?.data?.message);
+      revalidatePlaces(eventTitle)
       setScreenName(name);
     } catch (error: any) {
       setloader(false);
-      toast.error(error?.response?.data?.message);
+    
+      toast.error(error?.response?.data);
     } finally {
       setloader(false);
     }
@@ -264,6 +267,7 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
           handleLike={handleLike}
           totalVote={totalVote}
         />
+         <ScreenAdsBanner adsData={props.adsData}></ScreenAdsBanner>
         </>
       );
     } else if (screenName === "Greetings") {
@@ -295,7 +299,23 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
                 
               {ScreenShowHandle()}</CategoryBody>
           </PageLayout>
-          
+               
+               <CreateAccountModalLayout
+            isOpen={modalName === "LoginSignupModal" ? true : false}
+            onClose={() => closeModal("createAccountModal")}
+            {...{ showMap }}
+            name=""
+            title={modalName === "LoginAccountModal" && "Login"}
+          >
+            <LoginSignupModal
+              isOpen={() => modalClick("ContactUsModal")}
+              nextModal={() => modalClick("WelcomeBackModal")}
+              {...{ onClick }}
+              myListOpen={() => modalClick("TermsAndConditionModal")}
+              isPrivacyPolicy={() => modalClick("privacyPolicy")}
+            />
+          </CreateAccountModalLayout>
+          <ProfileAccountModalScreen showMap={showMap} />
           {/* <FilterModalScreen showMap={showMap} /> */}
         </>
       )}

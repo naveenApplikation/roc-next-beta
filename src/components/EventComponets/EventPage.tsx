@@ -87,18 +87,18 @@ const EventPage: React.FC<EventBoxProps> = ({
     }
   };
   useEffect(() => {
-    document.addEventListener(
-      "touchmove",
-      function (event) {
-        event.preventDefault();
-      },
-      { passive: true }
-    );
+    // document.addEventListener(
+    //   "touchmove",
+    //   function (event) {
+    //     event.preventDefault();
+    //   },
+    //   { passive: true }
+    // );
     if (params?.event) {
       resetFilters();
     }
   }, [params?.event]);
-  console.log(eventFilters);
+
   const [isDate, setDate] = useState(false);
   const dateWiseUpdate = async (range: string) => {
     try {
@@ -107,7 +107,7 @@ const EventPage: React.FC<EventBoxProps> = ({
       const result = await Instance.get(
         `/upcomming-events?type=range&date=${range}`
       );
-      console.log(result.data);
+      // console.log(result.data);
       //  const filEve = filterEvents(result.data.data, eventFilters);
       //     const ImageUrlData = result.data.data?.map(
       //   (item: any) => item?.acf?.header_image_data
@@ -134,9 +134,9 @@ const EventPage: React.FC<EventBoxProps> = ({
       // only if in upcoming events
       const { startDate, endDate } = parseStateDateRange(eventFilters.date);
       const lastDate = urlData[urlData.length - 1].acf?.event_date;
-      console.log(
-        startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
-      );
+      // console.log(
+      //   startDate > parseDate(lastDate) || endDate > parseDate(lastDate)
+      // );
       if (startDate > parseDate(lastDate) || endDate > parseDate(lastDate)) {
         const format = parseDateRange(eventFilters.date);
         dateWiseUpdate(format);
@@ -200,7 +200,10 @@ const EventPage: React.FC<EventBoxProps> = ({
           return true;
         });
         if (temp) {
-          const image = getFirstImageUrl(temp?.acf?.header_image_data);
+          let image = getFirstImageUrl(temp?.acf?.header_image_data);
+          if (image.toString().includes("4396371906_dscf0067")) {
+            image = fallback.src;
+          }
           modalClick(
             "eventListing",
             temp,
@@ -254,12 +257,13 @@ const EventPage: React.FC<EventBoxProps> = ({
               <Image
                 src={filteredUrls[index]}
                 alt="image"
-                width={500}
+                width={80}
                 height={80}
                 style={{
                   objectFit: "cover",
                   width: "80px",
                   height: "80px",
+                  minWidth: 80,
                 }}
               />
               <FamilyEventWrapperInside>
@@ -308,7 +312,7 @@ const EventPage: React.FC<EventBoxProps> = ({
             <SearchedListContainer ref={containerRef}>
            
               <div style={{ padding: "0px 24px", overflow: "hidden" }}>
-                <Header className="" style={{marginTop:`${isForwarding?'-110px':"0px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
+                <Header className="" style={{marginTop:`${isForwarding?'-110px':"10px"}`,transitionTimingFunction:"linear",transitionDuration:"600ms"}}>
                   <TitleText>{urlTitle}</TitleText>
                   <div
                     style={{
@@ -404,8 +408,7 @@ const EventPage: React.FC<EventBoxProps> = ({
               </div>
               <AdsBanner
                  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}}
-
-              className="75px" />
+              className="75px" bottom="-23px" />
               <ScrollList
                 params={"event-category-list"}
                 background={"#EB5757"}
@@ -586,7 +589,12 @@ const filterUrls: any = (ImageUrlData: any) => {
           (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
           url.endsWith(".jpeg")
         ) {
-          imageUrls.push(convertGCSUrl(url));
+          if (convertGCSUrl(url).includes("4396371906_dscf0067")) {
+            // console.log(url);
+            imageUrls.push(fallback.src);
+          } else {
+            imageUrls.push(convertGCSUrl(url));
+          }
         } else {
           imageUrls.push(fallback.src); // Push default image URL if URL is not valid
         }

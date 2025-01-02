@@ -31,7 +31,7 @@ const StyledModal = styled.div<{
   background-color: white;
   margin: 16px auto;
   transition: left 0.8s ease-in-out;
-  z-index: 0;
+  z-index: 4;
 
   overflow: auto;
 
@@ -59,7 +59,7 @@ const StyledModal = styled.div<{
     left: ${({ $isopen }) => ($isopen ? "0%" : "-100%")};
     transform: none;
     background-color: "red";
-    z-index: 1;
+    z-index: 4;
     max-height: 30vh;
     margin: 0px; /* Center the modal horizontally */
     border-radius: 0px;

@@ -93,7 +93,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
         const userLoc: any = { lat: latitude, lng: longitude };
         // setUserLocation(userLoc);
         const insideJersey = checkIfInsideJersey(userLoc);
-        console.log("User is inside Jersey:", insideJersey);
+        // console.log("User is inside Jersey:", insideJersey);
         if (insideJersey) {
           setUserLocation(userLoc);
         } else {
@@ -105,7 +105,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
             const userLoc: any = { lat: latitude, lng: longitude };
             // setUserLocation(userLoc);
             const insideJersey = checkIfInsideJersey(userLoc);
-            console.log("User is inside Jersey:", insideJersey);
+            // console.log("User is inside Jersey:", insideJersey);
             if (insideJersey) {
               setUserLocation(userLoc);
             } else {
@@ -121,24 +121,26 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
 
   useEffect(() => {
     // if (window.location.pathname.includes("categories")) {
-    console.log(
-      "googlegooglegooglegooglegoogle",
-      dataDetails?.geometry,
-      location
-    );
+    // console.log(
+    //   "googlegooglegooglegooglegoogle",
+    //   dataDetails?.geometry,
+    //   location
+    // );
     setSelectedLat(
-      dataDetails?.data_type === "google"
+      dataDetails?.data_type === "google" ||
+        dataDetails?.data_type == "roc_places"
         ? dataDetails?.geometry?.location?.lat
         : dataDetails?.acf?.map_location.lat
-        ? +dataDetails?.acf?.map_location.lat
-        : 49.1811261
+          ? +dataDetails?.acf?.map_location.lat
+          : 49.1811261
     );
     setSelectedLong(
-      dataDetails?.data_type === "google"
+      dataDetails?.data_type === "google" ||
+        dataDetails?.data_type == "roc_places"
         ? dataDetails?.geometry?.location?.lng
         : dataDetails?.acf?.map_location?.lng
-        ? +dataDetails?.acf?.map_location?.lng
-        : -2.1051429
+          ? +dataDetails?.acf?.map_location?.lng
+          : -2.1051429
     );
     // }
   }, [
@@ -179,7 +181,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
   };
 
   const markerClick = (e: any) => {
-    // console.log("data of map", e)
+    // // console.log("data of map", e)
   };
   const handleClick = async (e: any) => {
     const data = {
@@ -200,7 +202,7 @@ const GoogleMapComp: React.FC<GoogleMapCompProps> = (props) => {
         throw new Error("Network response was not ok");
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
     }
   };
   const mapLocation = {

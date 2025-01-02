@@ -1,4 +1,4 @@
-import { getData, getBookMark } from "@/app/action";
+import { getData, getBookMark, getAdsOnScreens, getAdsByCategory } from "@/app/action";
 import EventList from "@/components/screenPage";
 import { cookies } from "next/headers";
 import "@/app/globals.css";
@@ -27,10 +27,36 @@ export default async function Page({ params}: Props) {
       }
     });
   }
+  
+    const adsData=await getAdsOnScreens()
+    const adsDataByCategory=await getAdsByCategory() as {data:any}
+    const filterCategoryHaveAds=adsDataByCategory?.data?.filter((item)=>{
+        return item['Category ID']==params.categoryId
+    })
+    const getFilteredAds=()=>{
+        if(filterCategoryHaveAds.length==0)
+        {
+           return [...adsData.data]
+        }
+        else
+        {
+          const arrangingAds:any[]=[]
+          filterCategoryHaveAds[0]?.ad_ids.split(',').forEach((rowId)=>{
+              adsData.data.forEach((item)=>{
+                    if(rowId==item.ad_id)
+                    {
+                       arrangingAds.push(item)
+                    }
+              })
+         })
+             return arrangingAds
+        }
+    }
+   const arrangingAds=getFilteredAds()
 
   return (
     <>
-      <PlaceList data={data} bookmarkValue={bookmark}></PlaceList>
+      <PlaceList data={data} adsData={arrangingAds}  bookmarkValue={bookmark}></PlaceList>
      
       {/* <BannerModal /> */}
     </>

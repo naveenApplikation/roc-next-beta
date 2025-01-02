@@ -33,7 +33,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
       : null;
 
   const { data, error, trigger, isMutating } = useSWRMutation(
-    "api/bookmarkAndList?type=bookmark",
+    "/api/bookmarkAndList?type=bookmark",
     fetcher
   );
 
@@ -51,7 +51,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
   }
 
   listData = data?.bookmarks;
-  console.log(listData, "bookmarkdata");
+  // console.log(listData, "bookmarkdata");
   const fetchDataAsync = async () => {
     if (loginToken) {
       setloader(true);
@@ -135,7 +135,7 @@ const MyBookMarkModal: React.FC<DashboardSearchContainerProps> = ({
 
   useEffect(() => {
     if (modalType.myBookmark && myBookMarkState == "Lists" && loginToken) {
-      console.log("mybookmark");
+      // console.log("mybookmark");
       trigger();
     } else if (modalType.myBookmark) {
       fetchDataAsync();

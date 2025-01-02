@@ -60,7 +60,7 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false,
-  staticPageGenerationTimeout: 1000,
+  staticPageGenerationTimeout: 5000,
   redirects,
   async rewrites() {
     return [

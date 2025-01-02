@@ -32,7 +32,7 @@ export default async function XmasDashboard()
           <NewYearEvening ads={ads[3]}></NewYearEvening>
           <StarLogo></StarLogo>
           <BottomButtonList></BottomButtonList>
-          <div className="flex px-[20px] w-full justify-center w-full py-[8px]">
+          <div className="flex px-[20px] justify-center w-full py-[8px]">
               <Image
               src={LogoIcon}
               alt=""

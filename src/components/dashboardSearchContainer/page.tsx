@@ -156,7 +156,7 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   useEffect(() => {
     if (searchQuery) {
       if (debouncedValue) {
-        console.log("Debounced Value after 5ms:", debouncedValue);
+        // console.log("Debounced Value after 5ms:", debouncedValue);
         if (tabValue === "Lists") {
           fetchDataListAsync(debouncedValue);
         } else if (tabValue === "Places") {
@@ -215,13 +215,15 @@ const DashboardSearchContainer: React.FC<DashboardSearchContainerProps> = ({
   useEffect(() => {
     if (tabValue === "Places") {
       if (searchQuery) {
-        const newData = placeData.filter((val: any) => {
-          if (val?.parishName === selectFilter) return val;
-        });
-        setFilterData(selectFilter === "Any" ? placeData : newData);
-      } else {
+        // const newData = placeData.filter((val: any) => {
+        //   if (val?.parishName === selectFilter) return val;
+        // });
+
         fetchDataAsync(searchQuery, filterValues, selectFilter);
-        // setFilterData(placeData)
+        // setFilterData(selectFilter === "Any" ? placeData : newData);
+        // } else {
+        //   fetchDataAsync(searchQuery, filterValues, selectFilter);
+        //   // setFilterData(placeData)
       }
     }
   }, [selectFilter]);

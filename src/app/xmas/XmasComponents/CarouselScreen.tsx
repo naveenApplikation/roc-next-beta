@@ -40,11 +40,11 @@ const Carousel = ({ slides }) => {
   const { modalClick } = useMyContext();
 
   const navigate = (type: string, item: any) => {
-    console.log(item);
+    // // console.log(item);
     switch (type) {
       case "event":
         const filteredUrls = filterUrls([item.event_id.acf.header_image_data]);
-        console.log(filteredUrls);
+        // // console.log(filteredUrls);
         modalClick(
           "eventListing",
           {
@@ -57,7 +57,9 @@ const Carousel = ({ slides }) => {
         router.push(`/xmas/iframe/carousel/${item?._id}`);
         break;
       case "eventCategory":
-        router.push(`/eventCategory/`+handleEventEncoding("encode", item.list_name))
+        router.push(
+          `/eventCategory/` + handleEventEncoding("encode", item.list_name)
+        );
 
         break;
       case "place":
@@ -98,7 +100,7 @@ const Carousel = ({ slides }) => {
   };
 
   const handleTouchStart = (e) => {
-    console.log(e);
+    // // console.log(e);
     touchStartX = e.changedTouches[0].clientX;
   };
 

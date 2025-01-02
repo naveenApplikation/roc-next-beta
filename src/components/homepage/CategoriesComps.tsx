@@ -42,9 +42,9 @@ const CategoriesComps: React.FC<DashboardProps> = ({
       <MenuDetails
         isOpen={() => {
           if (type === "event-category-list") {
-            router.push("eventCategory");
+            router.push("/eventCategory");
           } else {
-            router.push("activityCategory");
+            router.push("/activityCategory");
           }
         }}
         title={title}

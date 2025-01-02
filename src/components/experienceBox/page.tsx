@@ -64,7 +64,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   // const handleBookMark = async () => {
 
   //   if (token) {
-  //     console.log("yes");
+  //     // console.log("yes");
   //     const res = await addAndRemoveBookmark("scs");
   //     if (res) {
   //       setBookmark(true);
@@ -102,7 +102,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
     }
   }, [modal]);
   const handlemodalView = (item: any, pos: any) => {
-    console.log(item._id);
+    // console.log(item._id);
     router.replace(
       `/categories/${params?.eventName}?search=${search?.get("search")}&modal=${
         item._id
@@ -111,7 +111,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   };
 
   // filterData = filterEvents(filterData, eventFilters);
-  console.log(filterData);
+  // console.log(filterData);
   return (
     <>
       {isShare && <Backdrop></Backdrop>}
@@ -131,7 +131,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               justifyContent: "space-between",
               alignItems: "center",
               gap: 8,
-            }}>
+            }}
+          >
             {/* <ImageContainer>
             <Image
               src={bookmark}
@@ -149,7 +150,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-          }}>
+          }}
+        >
           <ActivityFilterSection pageTitle="categoryEvent" />
         </div>
 
@@ -186,7 +188,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
               return (
                 <SearchedData
                   key={index}
-                  onClick={() => handlemodalView(item, index)}>
+                  onClick={() => handlemodalView(item, index)}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -194,7 +197,8 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
                       gap: 16,
                       flex: 1,
                       cursor: "pointer",
-                    }}>
+                    }}
+                  >
                     <Image
                       src={filteredUrls[index] ? filteredUrls[index] : fallback}
                       width={500}

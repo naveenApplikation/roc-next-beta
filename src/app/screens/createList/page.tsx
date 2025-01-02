@@ -15,9 +15,10 @@ import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import toast from "react-hot-toast";
 import { debounce } from "@/app/utils/debounce";
+import ProfileAccountModalScreen from "@/components/AllModalScreen/ProfileAccountModalScreen";
 
 const Page = () => {
-  const { showMap } = useMyContext();
+  const { showMap, modalClick } = useMyContext();
 
   const [selectedItemIds, setSelectedItemIds] = useState<number[]>([]);
   const [selectedData, setSelectedData] = useState<string[]>([]);
@@ -104,7 +105,7 @@ const Page = () => {
         setLoading(false);
       }
     } catch (error: any) {
-      console.log(error.response);
+      // console.log(error.response);
       setLoading(false);
       toast.error(error.response.data);
     } finally {
@@ -131,7 +132,7 @@ const Page = () => {
 
       setData(result.data?.searchResults);
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
       setloader(false);
     } finally {
       setloader(false);
@@ -156,7 +157,7 @@ const Page = () => {
     debouncedSearch(searchQuery);
   }, [searchQuery, debouncedSearch]);
 
-  console.log("data of create list", data);
+  // // console.log("data of create list", data);
 
   const ScreenShowHandle = () => {
     if (screenName === "create") {
@@ -233,6 +234,7 @@ const Page = () => {
   return (
     <PageLayout>
       <div>{ScreenShowHandle()}</div>
+      <ProfileAccountModalScreen showMap={showMap} />
     </PageLayout>
   );
 };

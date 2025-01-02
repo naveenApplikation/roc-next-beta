@@ -116,9 +116,16 @@ const CreateListings: React.FC<CreateListingsProps> = ({
                         }}>
                         <div style={{ width: 80, height: 80 }}>
                           {
-                            item?.photos ?
+                            
+                         item?.photos?
                               <ImageCom imageArr={item?.photos} />
-                              :
+                              :item?.photoUrl?<Image
+                              src={item?.photoUrl[0]??fallbackimage}
+                              width={500}
+                              height={80}
+                              style={{ borderRadius: 4, maxWidth: "100%", objectFit: "cover",maxHeight:"80px"}}
+                              alt="infoCirlce"
+                            />:
                               <Image
                                 src={fallbackimage}
                                 width={500}
@@ -166,8 +173,8 @@ const CreateListings: React.FC<CreateListingsProps> = ({
 
                         </div>
                       </div>
-                      <div onClick={() => toggleSelected(item.place_id, item)}>
-                        {selectedItemIds.includes(item.place_id) ? (
+                      <div onClick={() => toggleSelected(item.place_id || item._id, item)}>
+                        {selectedItemIds.includes(item.place_id || item._id) ? (
                           <UnselectedBtn>
                             <Image
                               style={{ width: "15px", height: "10px" }}

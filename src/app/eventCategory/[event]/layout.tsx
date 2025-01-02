@@ -7,6 +7,7 @@ import SocialShareModal from "@/components/modal/SocialShareModal";
 import { ReactNode } from "react";
 import "@/app/globals.css";
 import BannerModal from "@/components/bannerModal/page";
+export const maxDuration = 300;
 export default async function layout({ children }: { children: ReactNode }) {
   return (
     <>

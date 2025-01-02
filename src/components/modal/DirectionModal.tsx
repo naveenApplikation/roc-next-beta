@@ -51,7 +51,10 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
     let latitude: any;
     let longitude: any;
     let place_id: any;
-    if (dataDetails.data_type === "google") {
+    if (
+      dataDetails.data_type === "google" ||
+      dataDetails?.data_type == "roc_places"
+    ) {
       latitude = dataDetails?.geometry?.location?.lat;
       longitude = dataDetails?.geometry?.location?.lng;
       place_id = dataDetails?.place_id;
@@ -66,7 +69,10 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
   };
 
   useEffect(() => {
-    if (dataDetails.data_type === "google") {
+    if (
+      dataDetails.data_type === "google" ||
+      dataDetails?.data_type == "roc_places"
+    ) {
       setLatitude(
         dataDetails?.lat
           ? dataDetails?.lat
@@ -78,10 +84,10 @@ const DirectionModal: React.FC<DirectionModalProps> = ({ dataDetails }) => {
           : dataDetails?.geometry?.location?.lng
       );
     } else {
-      console.log("EventId :");
-      console.log(dataDetails?._id);
-      console.log("Event Name : ");
-      console.log(dataDetails?.acf?.title);
+      // console.log("EventId :");
+      // console.log(dataDetails?._id);
+      // console.log("Event Name : ");
+      // console.log(dataDetails?.acf?.title);
       setLatitude(dataDetails?.acf?.map_location?.lat);
       setLongitude(dataDetails?.acf?.map_location?.lng);
     }

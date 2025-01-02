@@ -6,13 +6,12 @@ import { ApiResponse } from "@/app/utils/types";
 import { useMyContext } from "@/app/Context/MyContext";
 import Instance from "@/app/utils/Instance";
 import CommonSkeletonLoader from "@/components/skeleton Loader/CommonSkeletonLoader";
-import { skeletonItems } from '@/app/utils/date'
+import { skeletonItems } from "@/app/utils/date";
 
 interface DashboardProps {
   modalClick?: any;
   menuClick?: any;
 }
-
 
 const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
   const { filterUrls, showContent } = useMyContext();
@@ -25,7 +24,7 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
     setloader(true);
     try {
       const result = await Instance.get("/ww-2");
-      if(result?.data?.activity1){
+      if (result?.data?.activity1) {
         const combinedArray = [
           ...result.data.activity1,
           ...result.data.activity2,
@@ -33,10 +32,9 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
         setData(combinedArray);
       } else {
         setData(result?.data);
-
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
       setloader(false);
     } finally {
       setloader(false);
@@ -57,60 +55,70 @@ const WW2: React.FC<DashboardProps> = ({ modalClick, menuClick }) => {
       <ScrollingMenu>
         {loader
           ? skeletonItems.map((item, index) => (
-            <div key={index}>
-              <CommonSkeletonLoader />
-            </div>
-          ))
+              <div key={index}>
+                <CommonSkeletonLoader />
+              </div>
+            ))
           : data?.slice(0, 10).map((item, index) => {
-            return (
-              <StarContainer
-                key={index}
-                style={{ cursor: "pointer" }}
-                onClick={() =>
-                  modalClick("ModalContent", item, item?.data_type === "google" ? item?.photoUrl : filteredUrls[index])
-                }
-              >
-                <StarWrapper>
-                  {
-                    item?.data_type === "google" ?
+              return (
+                <StarContainer
+                  key={index}
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    modalClick(
+                      "ModalContent",
+                      item,
+                      item?.data_type === "google"
+                        ? item?.photoUrl
+                        : filteredUrls[index]
+                    )
+                  }
+                >
+                  <StarWrapper>
+                    {item?.data_type === "google" ? (
                       <ImageTag src={item.photoUrl} alt="Image" />
-                      :
+                    ) : (
                       <Image
                         src={filteredUrls[index]}
                         alt=""
                         width={500}
                         height={80}
-                        style={{ borderRadius: "4px", maxWidth: "100%", objectFit: 'cover' }}
-                      // alt=""
+                        style={{
+                          borderRadius: "4px",
+                          maxWidth: "100%",
+                          objectFit: "cover",
+                        }}
+                        // alt=""
                       />
-
-                  }
-                </StarWrapper>
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 4,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      src={
-                        "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
-                      }
-                      width={69}
-                      height={12}
-                      alt="right icon"
-                    />{" "}
-                    <p>{item?.rating}</p>
+                    )}
+                  </StarWrapper>
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 4,
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        src={
+                          "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FFrame%201535.png?alt=media&token=01590f0a-22c4-4d1d-9a68-4ea8f84c54c3"
+                        }
+                        width={69}
+                        height={12}
+                        alt="right icon"
+                      />{" "}
+                      <p>{item?.rating}</p>
+                    </div>
+                    <MainTitle>
+                      {item?.data_type === "google"
+                        ? item?.name
+                        : item?.acf?.title}
+                    </MainTitle>
                   </div>
-                  <MainTitle>
-                    {item?.data_type === "google" ? item?.name : item?.acf?.title}
-                  </MainTitle>
-                </div>
-              </StarContainer>
-            );
-          })}
+                </StarContainer>
+              );
+            })}
       </ScrollingMenu>
     </>
   );
@@ -169,19 +177,18 @@ const StarWrapper = styled.div`
   }
 `;
 const ImageTag = styled.img`
-width:100%;
-border-radius:4px;
-object-fit:cover;
-height:100%;
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  height: 100%;
 `;
 
 const MainTitle = styled.p`
- overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-size: 14px;
-    margin-top: 8px;
+  margin-top: 8px;
 `;
-

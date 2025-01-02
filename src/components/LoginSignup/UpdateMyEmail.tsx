@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MenuAccountInput from "@/components/menuAccountInput/MenuAccountInput";
 import CommonButton from "@/components/button/CommonButton";
@@ -39,7 +39,6 @@ const UpdateMyEmailContent: React.FC<ModalProps> = ({
   isOpen,
   previousModal,
 }) => {
-
   const [loader, setloader] = useState(false);
 
   const formik = useFormik({
@@ -50,14 +49,14 @@ const UpdateMyEmailContent: React.FC<ModalProps> = ({
       email: Yup.string().email("Invalid email format").required("Required!"),
     }),
     onSubmit: async (values) => {
-        setloader(true);
+      setloader(true);
       try {
         const loginData = await Instance.put("update-profile", {
           email: values.email,
         });
         isOpen();
       } catch (error: any) {
-        console.log(error.message);
+        // console.log(error.message);
         // showToast(error.message, "error");
         setloader(false);
       } finally {
@@ -78,12 +77,12 @@ const UpdateMyEmailContent: React.FC<ModalProps> = ({
       {formik.errors.email && formik.touched.email && (
         <ErrorMessage>{formik.errors.email}</ErrorMessage>
       )}
-        <CommonButton
-          bcColor="#2F80ED"
-          text={loader ? "Loading..." : "Save new email address"}
-          imageStyle={0}
-          isOpen={formik.handleSubmit}
-        />
+      <CommonButton
+        bcColor="#2F80ED"
+        text={loader ? "Loading..." : "Save new email address"}
+        imageStyle={0}
+        isOpen={formik.handleSubmit}
+      />
       <BackAccount onClick={previousModal}>Back to my account</BackAccount>
     </MenuModalContent>
   );

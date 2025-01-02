@@ -7,6 +7,7 @@ import Instance from "@/app/utils/Instance";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next-nprogress-bar";
 import { useMyContext } from "@/app/Context/MyContext";
+import { handleEventEncoding } from "@/app/utils/commanFun";
 interface ListProps {
   listData?: any;
   loader?: any;
@@ -20,7 +21,7 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   // const getCreatedList = async()=>{
   //   try {
   //       const res = await Instance.get(`my-list`)
-  //       console.log("response of created list", res)
+  //       // console.log("response of created list", res)
   //   } catch (error) {
 
   //   }
@@ -31,12 +32,16 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
   // },[])
 
   const handleNavigate = (category: string, id: string) => {
+
+    const encodedName = handleEventEncoding("encode", category);
     if (currentState == "Events") {
-      menuClick("event-category-list", true, id);
+      
+       router.push(`/eventCategory/${encodedName}`)
     } else if (currentState == "Lists") {
       menuClick(category, false, id);
     } else {
-      menuClick("activity-list", true, id);
+     
+        router.push(`/activityCategory/${encodedName}`)
     }
   };
   return (
@@ -70,7 +75,8 @@ const Lists: React.FC<ListProps> = ({ listData, loader, currentState }) => {
                 key={index}
                 onClick={() => {
                   handleNavigate(item?.listName, item?._id);
-                }}>
+                }}
+              >
                 <ImageTitleContainer>
                   <Imagecontainer style={{ background: item?.bgColor }}>
                     {item ? item.image : ""}

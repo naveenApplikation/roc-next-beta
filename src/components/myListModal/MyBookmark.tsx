@@ -41,7 +41,7 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
       />
       {myBookMarkState == "Lists" ? (
         <>
-          <Lists  {...{ listData, loader }} />
+          <Lists  {...{ listData, loader }} currentState={myBookMarkState} />
           {/* <h1>lists</h1> */}
           {/* <Lists {...{ listData, loader }} /> */}
           {/* <div>
@@ -131,7 +131,7 @@ const MyBookmark: React.FC<DashboardSearchContainerProps> = ({
         </>
       ) : (
         <>
-          <Lists {...{ loader }} listData={activityData} />
+          <Lists {...{ loader }} listData={activityData} currentState={myBookMarkState} />
         </>
       )}
     </>

@@ -31,10 +31,10 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       ? window.localStorage.getItem("loginToken")
       : null;
   const { data, error, trigger, isMutating } = useSWRMutation(
-    "api/bookmarkAndList?type=my-list",
+    "/api/bookmarkAndList?type=my-list",
     fetcher
   );
-  console.log(error, "bookmark", isMutating, data?.bookmarks);
+  // console.log(error, "bookmark", isMutating, data?.bookmarks);
   let listData = data ? [...data] : ([] as any[]);
   listData?.forEach((list: any) => {
     const matchedIcon = icons.find((icon) => icon.name === list.iconName);
@@ -54,7 +54,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       //     // const list = [...response.data];
       //     const response={status:3002}
       //     const list=[] as any
-      //     console.log(response);
+      //     // console.log(response);
       //     if (response.status === 200) {
       //       list.forEach((list: any) => {
       //         const matchedIcon = icons.find(
@@ -112,7 +112,7 @@ const ProfileMylistModalScreen: React.FC<DashboardSearchContainerProps> = ({
       }
     }
   }, [modalType, myListtabValue]);
-  console.log(listData, "list data", modalType.myList);
+  // console.log(listData, "list data", modalType.myList);
   return (
     <>
       <MyListModalLayout

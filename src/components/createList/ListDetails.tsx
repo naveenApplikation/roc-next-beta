@@ -8,6 +8,8 @@ import CreateListingsFooter from "./CreateList Components/CreateListsFooter";
 import Image from "next/image";
 import { sideWidth } from "@/app/utils/date";
 import { icons } from "@/app/utils/iconList";
+import toast from "react-hot-toast";
+import { useMyContext } from "@/app/Context/MyContext";
 
 interface ListDetailsProps {
   ScreenSwitch?: Function;
@@ -185,7 +187,32 @@ const ListDetails: React.FC<ListDetailsProps> = ({
   const handleListName = (e: any) => {
     setListName(e.target.value);
   };
-
+  const {modalClick}=useMyContext()
+   const handleSwitch=()=>{
+   
+       if(listName=="")
+       {
+           toast.error("enter the listname")
+           
+       }
+       else if(ScreenSwitch)
+       {
+         const loginToken =
+            typeof window !== "undefined"
+              ? window.localStorage.getItem("loginToken")
+              : null;
+            
+            if(!loginToken)
+            {
+              toast.error("login and continue") 
+              modalClick("LoginSignupModal");
+            }
+            else{
+              ScreenSwitch()
+            }
+       }
+       
+   }
   return (
     <ListDetailsScreen>
       <ListItemScrollBox>
@@ -235,7 +262,7 @@ const ListDetails: React.FC<ListDetailsProps> = ({
       <CreateListingsFooter
         footerBtns
         firstBtnText="Go Back"
-        ScreenSwitch={ScreenSwitch}
+        ScreenSwitch={handleSwitch}
         preScreen={preScreen}
         secondText={"Continue"}
       />

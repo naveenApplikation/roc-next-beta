@@ -45,6 +45,9 @@ export function getVenueStatus(
   schedule: Schedule,
   Venue?: string
 ): JSX.Element {
+
+  try
+  {
   if (Venue && Venue == "Grosnez Castle") {
     return (
       <div style={{ display: "flex", gap: "5px" }}>
@@ -104,6 +107,7 @@ export function getVenueStatus(
     }
   }
 
+
   // Finding the next period assuming periods are sorted by time
   const nextPeriod =
     todayPeriods.find((period) => currentTime < parseInt(period.open.time)) ||
@@ -123,6 +127,11 @@ export function getVenueStatus(
       <p style={{ color: "red" }}>Closed</p> : <p>No more openings today</p>
     </div>
   );
+}
+catch (error){
+    return <></>
+}
+
 }
 
 export function isOpen(periods: any[]) {
