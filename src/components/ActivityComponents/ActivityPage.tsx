@@ -297,7 +297,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
               </div>
 
               <List
-                height={isForwarding?height:600}
+                height={height}
                 itemCount={displayedItems.length + 1}
                 itemSize={100}
                 width={width}
@@ -335,7 +335,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
               bottom={"30px"}
               params={"activity-list"}
               background={"#F2994A"}
-              style={{bottom:`${isForwarding?'-60px':'9px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
+              style={{bottom:`${isForwarding?'-60px':'0px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
 
             ></ScrollList>
           </SearchedListContainer>

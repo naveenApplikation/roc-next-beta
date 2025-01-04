@@ -414,7 +414,7 @@ const EventPage: React.FC<EventBoxProps> = ({
                 background={"#EB5757"}
                 bottom="30px"
                 data={filteredData}
-                style={{bottom:`${isForwarding?'-60px':'9px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
+                style={{bottom:`${isForwarding?'-60px':'0px'}`,transitionDuration:"600ms",transitionTimingFunction:"linear"}}
               ></ScrollList>
             </SearchedListContainer>
           </>

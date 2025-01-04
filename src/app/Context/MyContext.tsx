@@ -429,21 +429,24 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       setSocialShare(!socialShare);
     }
   };
-  const filterUrls = (ImageUrlData: any) => {
+  const filterUrls: any = (ImageUrlData: any) => {
     const imageUrls: string[] = [];
     ImageUrlData?.forEach((item: any) => {
       if (item) {
         try {
           const jsonData = JSON.parse(item);
           const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
-
+  
           if (
-            url &&
-            (url.endsWith(".jpg") ||
-              url.endsWith(".png") ||
-              url.endsWith(".jpeg"))
+            (url && (url.endsWith(".jpg") || url.endsWith(".png"))) ||
+            url.endsWith(".jpeg")
           ) {
-            imageUrls.push(convertGCSUrl(url));
+            if (convertGCSUrl(url).includes("4396371906_dscf0067")) {
+              // console.log(url);
+              imageUrls.push(fallback.src);
+            } else {
+              imageUrls.push(convertGCSUrl(url));
+            }
           } else {
             imageUrls.push(fallback.src); // Push default image URL if URL is not valid
           }
@@ -457,6 +460,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     });
     return imageUrls;
   };
+  
 
   const value: ContextProps = {
     modalType,

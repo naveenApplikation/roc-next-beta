@@ -14,14 +14,16 @@ const SearchNFilter = () => {
   return (
     <>
       <div className="max-[800px]:mt-[20px]  flex flex-col gap-[25px] px-[16px] md:px-[40px] md:pt-[16px]">
-      <Link href={'/xmas'} className="flex justify-between max-[800px]:hidden items-center rounded-[8px] px-[16px] py-[12px] bg-[#F40035]">
+      <Link href={'/Places/Community'} className="flex justify-between max-[800px]:hidden items-center rounded-[8px] px-[16px] py-[12px] bg-[#F40035]">
         {/* <button
           style={{ cursor: "pointer" }}
           onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button> */}
         
-            <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>Jersey Christmas Guide</p>
+{/*         
+            <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>Jersey Christmas Guide</p> */}
+              <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>All Categories</p> 
             <div style={{display:"flex",gap:"8px"}}>
                <p style={{fontWeight:"400",fontSize:"14px",color:"white"}}>Open</p>
                <Image

@@ -276,14 +276,14 @@ const RightSide = () => {
           );
         })}
       </RightSideMenuContainer>
-      <XmasNav href={'/xmas'}>
+      <XmasNav href={'/Places/Community'}>
         {/* <button
           style={{ cursor: "pointer" }}
           onClick={() => menuClick("Community", true, "category-item")}>
           All Categories
         </button> */}
-        
-            <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>Jersey Christmas Guide</p>
+              <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>All Categories</p> 
+            {/* {/* <p style={{fontWeight:"700",fontSize:"14px",color:"white"}}>Jersey Christmas Guide</p> */}
             <div style={{display:"flex",gap:"8px"}}>
                <p style={{fontWeight:"400",fontSize:"14px",color:"white"}}>Open</p>
                <Image
@@ -292,8 +292,7 @@ const RightSide = () => {
                 src={FrontArrow}
                 alt=""
                />
-
-            </div>
+            </div> 
         
       </XmasNav>
       <MobileViewRightSideMenu>

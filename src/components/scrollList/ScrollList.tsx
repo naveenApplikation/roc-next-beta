@@ -62,10 +62,15 @@ const Container = styled.div<{
   z-index: 199399999;
   z-index: 1;
   max-width: 100%;
+  background-color: #ffffff1c;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding-bottom:13px;
  
   @media screen and (min-width: 800px) {
     max-width: 470px;
-    bottom:9px;
+    bottom:0px;
+    padding-bottom:0px;
   }
 
   p {

@@ -114,22 +114,22 @@ interface AdsBannerProps {
 }
 
 // Ad Data
-const adsData = [
-  {
-    type: "existing",
-    image:
-      "https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
-    url: "https://hub.roc.je/app/featured/de-gruchy",
-    heading: "Find Your Ideal Christmas Hamper at de Gruchy",
-    text: "The Perfect Christmas Gift!",
-  },
-  {
-    type: "existing",
-    image: BannerDemo3, // Path to the new ad image
-    url: "https://hub.roc.je/featured/art-in-the-frame-christmas-events", // URL for the new ad
-    heading: "Sip, Savour, and Make Memories: Christmas Tasting & Craft Events",
-    text: "",
-  },
+const adsData:any = [
+  // {
+  //   type: "existing",
+  //   image:
+  //     "https://ucarecdn.com/24e65b1d-aac3-4eba-a4b3-0c7f11e2abe6/-/preview/384x280/",
+  //   url: "https://hub.roc.je/app/featured/de-gruchy",
+  //   heading: "Find Your Ideal Christmas Hamper at de Gruchy",
+  //   text: "The Perfect Christmas Gift!",
+  // },
+  // {
+  //   type: "existing",
+  //   image: BannerDemo3, // Path to the new ad image
+  //   url: "https://hub.roc.je/featured/art-in-the-frame-christmas-events", // URL for the new ad
+  //   heading: "Sip, Savour, and Make Memories: Christmas Tasting & Craft Events",
+  //   text: "",
+  // },
 ];
 
 const AdsBanner: React.FC<AdsBannerProps> = ({
@@ -138,9 +138,11 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
   style,
   bottom
 }) => {
+
+  
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adsData.length);
@@ -149,10 +151,16 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+
+  if(adsData.length==0)
+    {
+       return <></>
+    }
   const currentAd = adsData[currentAdIndex];
 
   return (
     <>
+      
       {currentAd.type === "existing" ? (
         <AdContainer
         $bottom={bottom}
