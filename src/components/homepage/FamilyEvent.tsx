@@ -6,6 +6,9 @@ import { formatMonth, formatDate } from "@/app/utils/date";
 import fallback from "../../../assets/images/fallbackimage.png";
 import { convertGCSUrl } from "@/app/utils/commanFun";
 import { OpenModal, UpcomingMenu } from "./Menu";
+import sharp from "sharp";
+import axios from "axios";
+import { getUrl } from "@/app/action";
 
 interface DashboardProps {
   data?: any;
@@ -13,26 +16,27 @@ interface DashboardProps {
 
  
  
- 
 
-const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
+
+const FamilyEvent: React.FC<DashboardProps> = async({ data }) => {
   
 
   const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
+
   const filteredUrls = filterUrls(ImageUrlData);
  
-  
-  
-  
    
+ const urls:any=await getUrl(filteredUrls)
+  
+   console.log(urls.image.length,"len")
   return (
     <>
       <UpcomingMenu {...{data}}></UpcomingMenu>
       <div className="flex overflow-auto gap-[8px] px-[40px] max-[800px]:px-[16px] no-scrollbar">
         { data.slice(0, 10).map((item: any, index: any) => {
               return (
-                <OpenModal key={index} url={filteredUrls[index]} {...{item}}>
+                <OpenModal key={index} url={urls.image[index]} {...{item}}>
                 <div
                   className="flex w-[80px] flex-col gap-[8px] "
                   key={index}
@@ -40,13 +44,12 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                 >
                   <div className="flex flex-col relative">
                     <Image
-                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                      src={urls.image[0] ? urls.image[index]: fallback}
                       alt=""
                       width={500}
                       height={80}
                       className="rounded-[4px] max-w-full h-[80px] object-cover"
-                    
-                      priority
+                   
                       
                     />
                     <div className="absolute bottom-[4px] left-[4px] text-center bg-white rounded-[4px]">
@@ -80,7 +83,7 @@ const filterUrls = (ImageUrlData: any) => {
         const jsonData = JSON.parse(item);
         const url = jsonData[0]?.url; // Use optional chaining to avoid errors if jsonData[0] is undefined
 
-        if (url && (url.endsWith(".jpg") || url.endsWith(".png"))) {
+        if (url && (url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png"))) {
           imageUrls.push(convertGCSUrl(url));
         } else {
           imageUrls.push(

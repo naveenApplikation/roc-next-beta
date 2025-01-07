@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
  
 import Image from "next/image";
 import {
@@ -42,7 +42,13 @@ const RightSide = ({children}:{children:any}) => {
   const { modalClick, iconClick } = useMyContext();
 
   const router = useRouter();
-
+  const positionRef=useRef<HTMLDivElement>(null)
+  useEffect(()=>{
+      if(positionRef.current)
+      {
+         alert(positionRef.current.getBoundingClientRect().y)
+      }
+  },[])
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -163,7 +169,7 @@ const RightSide = ({children}:{children:any}) => {
           );
         })}
       </div>
-      <div className="hidden max:[800px]:flex justify-center items-center mt-[8px] cursor-pointer backdrop-blur-[20px] max-[800px]:block max-[800px]:w-full">
+      <div ref={positionRef} className="hidden max:[800px]:flex justify-center items-center mt-[8px] cursor-pointer backdrop-blur-[20px] max-[800px]:block max-[800px]:w-full">
         <button
         className="text-[14px]  w-full bg-white/20 rounded-lg py-[12px] px-[8px] text-white font-medium border-none"
           style={{ cursor: "pointer" }}

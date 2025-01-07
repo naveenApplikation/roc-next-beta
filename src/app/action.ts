@@ -2,7 +2,10 @@
 import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
 import { cache } from "react";
-
+import sharp from "sharp";
+import axios from "axios";
+import { optimizeImage } from "next/dist/server/image-optimizer";
+import fallback from "../../assets/images/fallbackimage.png";
 // Utility function to add timeout to fetch
 async function fetchWithTimeout(
   resource: string,
@@ -238,4 +241,48 @@ export async function getBookMark(params: string) {
   }
 }
 
- 
+  export async function getUrl(imageUrlarr:string[])
+  {
+    console.log(imageUrlarr)
+    const imagearr:any[]=[]
+    try{
+       for(let imageUrl of  imageUrlarr)
+       {
+        if(!imageUrl.includes("http"))
+        {
+          imagearr.push(imageUrl)
+          continue;
+        }
+      const response = await axios({
+        url: imageUrl,
+        method: 'GET',
+        responseType: 'arraybuffer', // Get image as Buffer
+      });
+      console.log(response.status)
+      if(response.status!=200)
+      {
+         imagearr.push(imageUrl)
+         continue;
+      }
+      const originalImage = Buffer.from(response.data);
+      
+      // Step 3: Optimize the image using Sharp
+      const optimizedImage = await sharp(originalImage)
+        .resize({ width: 500 }) // Resize to max width of 1200px
+        .jpeg({ quality: 75 }) // Compress with 75% quality
+        .toBuffer();
+    
+      // Step 4: Serve the optimized image as .jpg
+      const base64Image = optimizedImage.toString('base64');
+      const dataUri = `data:image/jpeg;base64,${base64Image}`; // Convert to Data URI format
+      console.log(optimizedImage)
+          imagearr.push(dataUri)
+       }
+      
+      return {image:imagearr}
+    } catch (error) {
+      console.error('Error optimizing image:', error);
+      return []
+    }
+    
+  }
