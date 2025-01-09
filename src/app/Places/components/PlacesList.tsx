@@ -1,4 +1,4 @@
- 
+//@ts-nocheck
 "use client";
 
 import { useMyContext } from "@/app/Context/MyContext";
@@ -217,7 +217,11 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
   };
 
   const handleCreateNewList = async (name: string) => {
-    window.reload();
+    if(typeof window!==undefined)
+    {
+        window.reload()
+    
+    }
     setScreenName(name);
   };
 

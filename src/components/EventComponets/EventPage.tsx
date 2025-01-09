@@ -5,6 +5,7 @@ import {
   bookmark,
   share,
   bookmarkActive,
+  fallBack,
 } from "@/app/utils/ImagePath";
 import Image from "next/image";
 import React, {
@@ -72,7 +73,7 @@ const EventPage: React.FC<EventBoxProps> = ({
     handleFilterOption,
   } = useMyContext();
 
-  const [filteredUrls, setFilteredUrls] = useState([]);
+  // const [filteredUrls, setFilteredUrls] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(urlData); // Only show first 10 items initially
   const [currentData, setCurrentData] = useState(urlData); // for upcoming events only
   const [loading, setLoading] = useState(false);
@@ -150,10 +151,10 @@ const EventPage: React.FC<EventBoxProps> = ({
 
   useEffect(() => {
     const filEve = filterEvents(isDate ? currentData : urlData, eventFilters);
-    const ImageUrlData = filEve?.map(
-      (item: any) => item?.acf?.header_image_data
-    );
-    setFilteredUrls(filterUrls(ImageUrlData));
+    // const ImageUrlData = filEve?.map(
+    //   (item: any) => item?.acf?.header_image_data
+    // );
+    // setFilteredUrls(filterUrls(ImageUrlData));
     setDisplayedItems(filEve);
   }, [eventFilters, isDate, currentData]);
 
@@ -200,15 +201,15 @@ const EventPage: React.FC<EventBoxProps> = ({
           return true;
         });
         if (temp) {
-          let image = getFirstImageUrl(temp?.acf?.header_image_data);
-          if (image.toString().includes("4396371906_dscf0067")) {
-            image = fallback.src;
-          }
+          // let image = getFirstImageUrl(temp?.acf?.header_image_data);
+          // if (image.toString().includes("4396371906_dscf0067")) {
+          //   image = fallback.src;
+          // }
           modalClick(
             "eventListing",
             temp,
 
-            image ? image : fallback
+            temp?.acf?.header_image_data ? temp?.acf?.header_image_data: fallback
           );
         }
       }
@@ -255,7 +256,7 @@ const EventPage: React.FC<EventBoxProps> = ({
           <MainInsideWrapper>
             <FamilyEventWrapper>
               <Image
-                src={filteredUrls[index]}
+                src={item.acf.header_image_data?item.acf.header_image_data:fallBack}
                 alt="image"
                 width={80}
                 height={80}

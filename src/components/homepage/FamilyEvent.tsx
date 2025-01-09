@@ -22,9 +22,9 @@ interface DashboardProps {
 const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
   const { filterUrls, modalClick, menuClick } = useMyContext();
 
-  const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
+  // const ImageUrlData = data.map((item: any) => item.acf.header_image_data);
 
-  const filteredUrls = filterUrls(ImageUrlData);
+  // const filteredUrls = filterUrls(ImageUrlData);
   const router = useRouter();
   
   
@@ -82,14 +82,14 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                     modalClick(
                       "eventListing",
                       item,
-                      filteredUrls[index] ? filteredUrls[index] : fallback
+                      item.acf.header_image_data?item.acf.header_image_data : fallback
                     )
                   }
                   style={{ cursor: "pointer" }}
                 >
                   <div className="flex flex-col relative">
                     <Image
-                      src={filteredUrls[index] ? filteredUrls[index] : fallback}
+                      src={item.acf.header_image_data?item.acf.header_image_data.toString(): fallback}
                       alt=""
                       width={500}
                       height={80}

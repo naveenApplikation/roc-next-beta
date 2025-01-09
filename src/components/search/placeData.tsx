@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { commentstar } from "@/app/utils/ImagePath";
+import { commentstar, search } from "@/app/utils/ImagePath";
 import Skeleton from "react-loading-skeleton";
 import { useMyContext } from "@/app/Context/MyContext";
 import fallback from "../../../assets/images/fallbackimage.png";
 import ImageCom from "../addList/imageCom";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
+import { constant } from "lodash";
 
 interface listSearchProps {
   filterData?: any;
@@ -89,6 +90,77 @@ const PlacePage: React.FC<listSearchProps> = ({
         item?.photoUrl ? item?.photoUrl:fallback
       );
     }
+  }
+
+  let indexs=false
+  const isHalfMatch=(name:string, query:string,index:any)=> {
+    
+    const [nameLower, inputLower] = [name.toLowerCase(), query.toLowerCase()];
+    if(indexs)
+    {
+        return false
+    }
+    
+    
+    const halfLength = Math.ceil(nameLower.length / 2);
+  
+   
+    let matchingCount = 0;
+    for (let i = 0; i < nameLower.length; i++) {
+      if (nameLower[i] === inputLower[i]) {
+        matchingCount++;
+      }
+     
+      if (matchingCount >=halfLength) {
+        indexs=true
+        return name;
+      }
+    }
+    
+    return false;
+  }
+  const hightLight=(text,highlight)=>{
+    if (!highlight) return text;
+   
+    const halfInputLength = Math.ceil(highlight.length / 2);
+    console.log(indexs)
+    const regex = new RegExp(`(${highlight})`, "gi");
+ 
+    const parts = text.split(" ");
+
+    // const word:any[]=text.split(' ').map((part,index)=>{
+    //     return isHalfMatch(part,highlight,index)
+    // }).filter((item)=>item)
+    // console.log(word,word.length>0 && word[0].split(regex),parts)
+    // console.log(word[word.length-1].split(regex).filter((item)=> item))
+    indexs=false
+    console.log(indexs)
+    return (
+      <>
+        {parts.map((part:string, index) =>
+          isHalfMatch(part,highlight,index)? (
+           <>{part.split('').map((char,index)=>{
+               if(char.toLowerCase()==highlight.toLowerCase().charAt(index))
+               {
+                  return  <span key={index} style={{ backgroundColor: "yellow" }}>
+                  {char}
+                </span>
+               }
+               else
+               {
+                  return char
+               }
+           })}{" "}
+            {/* <span key={index} style={{ backgroundColor: "yellow" }}>
+              {+" "}
+            </span> */}
+            </>
+          ) : (
+            part+" "
+          )
+        )}
+      </>
+    );
   }
   return (
     <>
@@ -205,7 +277,7 @@ const PlacePage: React.FC<listSearchProps> = ({
                                     maxWidth: "calc(100% - 30%)",
                                   }}>
                                   <ListDataTittleText>
-                                    {item?.name}
+                                    {hightLight(item?.name,searchQuery)}
                                   </ListDataTittleText>
                                   <div
                                     style={{
