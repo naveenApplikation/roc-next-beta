@@ -7,11 +7,11 @@ import React from "react";
 export const maxDuration = 300;
 
 // This enables dynamic path generation using generateStaticParams
-export async function generateStaticParams() {
-  return eventsByDate.map((item: any) => ({
-    event: handleEventEncoding("encode", item.name),
-  }));
-}
+// export async function generateStaticParams() {
+//   return eventsByDate.map((item: any) => ({
+//     event: handleEventEncoding("encode", item.name),
+//   }));
+// }
 
 export default async function Page({ params }: { params: { event: string } }) {
   const decodedEvent = handleEventEncoding("decode", params.event);

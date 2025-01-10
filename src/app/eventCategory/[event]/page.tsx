@@ -12,12 +12,13 @@ export const maxDuration = 300;
 // Generate static paths for dynamic routes
 export async function generateStaticParams() {
   const category = await getCategory("event-list");
-
-  const staticGeneration = category.map((item: any) => {
-    return {
-      event: handleEventEncoding("encode", item.listName),
-    };
-  });
+  const staticGeneration=[]
+  // const staticGeneration = 
+  // category.map((item: any) => {
+  //   return {
+  //     event: handleEventEncoding("encode", item.listName),
+  //   };
+  // });
 
   // Add "upcoming" as a static path
   staticGeneration.push({ event: "upcoming" });
