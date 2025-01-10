@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getCategory } from "@/app/action";
+import { getCategory, imageOptimization } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { getXmasEvents } from "@/app/xmas/XmasAction";
 import AdsBanner from "@/components/adsBanner/page";
@@ -54,7 +54,7 @@ export default async function Page({ params }: { params: { event: string } }) {
 
   // Extract the event data if available
   const data = response.data ? response.data : response;
-
+  const responseData=await imageOptimization(data)
   if (!data) {
     return <p>No events found or failed to load event data.</p>;
   }
@@ -64,7 +64,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     <>
      
       <EventPage
-        urlData={data}
+        urlData={responseData}
         urlTitle={title}
         type="eventCategory"
         slug={params.event}

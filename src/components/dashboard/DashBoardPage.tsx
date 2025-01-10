@@ -18,6 +18,7 @@ import {
   getApiWithIcon,
   getApiShoppingWithIcon,
   getDataForHome,
+  imageOptimization,
 } from "@/app/action";
 import LeaveFeedbackButton from "@/components/homepage/LeaveFeedbackButton";
 import ScreenPageComps from "../homepage/ScreenPageComps";
@@ -51,6 +52,7 @@ const DashBoard = async () => {
   };
   let familyEventdata = await getCategory("upcomming-events?type=limit");
   familyEventdata = await familyEventdata.data.slice(0, 10);
+  familyEventdata=await imageOptimization(familyEventdata)
   let enjoyTheSunshinedata = await getCategory("sun-shine");
   enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
   let topAttractionsdata = await getCategory("google/top-attraction");

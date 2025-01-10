@@ -105,16 +105,15 @@ const EventPage: React.FC<EventBoxProps> = ({
     try {
       setLoading(true);
 
-      const result = await Instance.get(
-        `/upcomming-events?type=range&date=${range}`
-      );
+      const result = await fetch(`/api/upcomingEvents?range=${range}`)
       // console.log(result.data);
       //  const filEve = filterEvents(result.data.data, eventFilters);
       //     const ImageUrlData = result.data.data?.map(
       //   (item: any) => item?.acf?.header_image_data
       // );
       //    setFilteredUrls(filterUrls(ImageUrlData));
-      setCurrentData(result.data.data);
+      const response=await result.json()
+      setCurrentData(response);
       setDate(true);
     } catch (error) {
       setLoading(false);

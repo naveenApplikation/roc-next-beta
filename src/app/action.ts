@@ -2,7 +2,8 @@
 import { cookies } from "next/headers";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { cache } from "react";
-
+import axios from "axios";
+import sharp from "sharp"
 // Utility function to add timeout to fetch
 async function fetchWithTimeout(
   resource: string,
@@ -275,3 +276,74 @@ export async function getAdsByCategory()
       revalidateTag(categoryName)
       revalidatePath('/','page')
  }
+  
+ export async function imageOptimization(events:any)
+{
+   return await Promise.all(
+    events.map(async (item: any) => {
+      try {
+        const imageUrl = item.acf.header_image_data
+          ? JSON.parse(item.acf.header_image_data)[0]?.url
+          : "";
+          
+        if (
+          imageUrl &&
+          (imageUrl.endsWith(".jpg") ||
+            imageUrl.endsWith(".png") ||
+            imageUrl.endsWith(".jpeg"))
+        ) {
+          const validUrl = convertGCSUrl(imageUrl);
+          if(validUrl.includes("storgage"))
+          {
+            item.acf.header_image_data =validUrl;
+          }
+          const response = await axios({
+            url: validUrl,
+            method: "GET",
+            responseType: "arraybuffer",
+          });
+
+       
+
+          if (response.status === 200) {
+            const originalImage = Buffer.from(response.data);
+
+            const optimizedImage = await sharp(originalImage)
+              .resize({ width: 500 }) // Resize to max width of 500px
+              .jpeg({ quality: 75 }) // Compress with 75% quality
+              .toBuffer();
+
+            const base64Image = optimizedImage.toString("base64");
+            item.acf.header_image_data = `data:image/jpeg;base64,${base64Image}`;
+          }
+        }
+      } catch (error) {
+        // console.error("Error optimizing image for event:", item._id, error);
+     
+        item.acf.header_image_data ='';
+      }
+
+      return item;
+    })
+  );
+
+
+}
+
+
+function convertGCSUrl(gcsUrl: string) {
+  // Check if the input URL is valid and in the expected format
+  const regex = /^https:\/\/storage\.cloud\.google\.com\/(.+)\/(.+)$/;
+  const match = gcsUrl.match(regex);
+
+  if (match) {
+    // Extract the bucket name and the path to the image
+    const bucketName = match[1];
+    const imagePath = match[2];
+
+    // Construct the direct access URL
+    return `https://storage.googleapis.com/${bucketName}/${imagePath}`;
+  } else {
+    return gcsUrl;
+  }
+}

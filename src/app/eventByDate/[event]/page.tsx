@@ -1,4 +1,4 @@
-import { getCategory } from "@/app/action";
+import { getCategory, imageOptimization } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { eventsByDate } from "@/app/utils/homeIcon";
 import EventPage from "@/components/EventComponets/EventPage";
@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     (val: any) => val.name === decodedEvent
   );
 
-  let response = null;
+  let response:any = null;
   let title = "";
 
   if (itemIndex >= 0) {
@@ -28,6 +28,7 @@ export default async function Page({ params }: { params: { event: string } }) {
       response = await getCategory(
         `filter-events-day?query=${eventsByDate[itemIndex].name.toLowerCase()}`
       );
+      response=await imageOptimization(response)
       title = eventsByDate[itemIndex].name;
     } catch (error) {
       console.error("Failed to fetch category:", error);

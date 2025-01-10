@@ -18,11 +18,15 @@ import ImageLayout from "./ImageLayout";
 import { getCategory } from "../XmasAction";
 import { Fragment } from "react";
 import { handleEventEncoding } from "@/app/utils/commanFun";
+import { imageOptimization } from "@/app/action";
 
 export default async function EventAndActivities({ ads }: { ads: any }) {
   const events: any = await getCategory("main");
   const categoryList: any = await getCategory("secondary");
-
+  await events.map(async(data:any)=>{
+    const response=await imageOptimization(data.EventList)
+      return  {...data,EventList:response}
+  })
   const EventItems = () => {
     return events.map((data, index) => {
       return (

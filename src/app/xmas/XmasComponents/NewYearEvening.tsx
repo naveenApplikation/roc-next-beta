@@ -1,4 +1,4 @@
-import { getCategory, getDataForHome } from "@/app/action";
+import { getCategory, getDataForHome, imageOptimization } from "@/app/action";
 import { NewYearEveningImage } from "../utils/XmasImagePath";
 import { getFoodandDrinks, getXmasEvents } from "../XmasAction";
 import XmasEvent from "./Event";
@@ -17,10 +17,10 @@ export default async function NewYearEvening({ ads }: { ads: any }) {
       val.listName === handleEventEncoding("decode", "new-years-eve")
   );
 
-  const xmasEvents = await getCategory(
+  let xmasEvents = await getCategory(
     "event-category-list/" + category[itemIndex]._id
   );
-
+  xmasEvents=await imageOptimization(xmasEvents.data.slice(0, 10))
   let bardata = await getDataForHome("Pubs", "663f68c30c44bd6c026b0fc2");
   bardata = {
     name: bardata?.listName,
@@ -43,7 +43,7 @@ export default async function NewYearEvening({ ads }: { ads: any }) {
         <ImageLayout data={ads}>{ads.title}</ImageLayout>
         <XmasEvent
           nav={"/eventCategory/new-years-eve"}
-          data={xmasEvents.data.slice(0, 10)}
+          data={xmasEvents}
           title="Events"
         ></XmasEvent>
         <Places
