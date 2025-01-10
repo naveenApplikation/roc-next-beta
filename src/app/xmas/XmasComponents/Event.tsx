@@ -49,7 +49,7 @@ export default function XmasEvent({
           //   // Use default image if parsing fails
           // }
         }
-        console.log(imageUrl)
+
         // Add `nextEvent` and `imageUrl` to the item
         return { ...item, nextEvent, imageUrl };
       })
