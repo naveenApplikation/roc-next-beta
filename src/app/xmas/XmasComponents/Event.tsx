@@ -36,19 +36,20 @@ export default function XmasEvent({
         let imageUrl = fallback.src; // Default image
 
         if (headerImageData) {
-          try {
-            const jsonData = JSON.parse(headerImageData);
-            const url = jsonData[0]?.url;
+          imageUrl=item.acf?.header_image_data
+          // try {
+          //   const jsonData = JSON.parse(headerImageData);
+          //   const url = jsonData[0]?.url;
 
-            if (url) {
-              imageUrl = url;
-            }
-          } catch (error) {
-            console.error("Error parsing JSON:", error);
-            // Use default image if parsing fails
-          }
+          //   if (url) {
+          //     imageUrl = url;
+          //   }
+          // } catch (error) {
+          //   console.error("Error parsing JSON:", error);
+          //   // Use default image if parsing fails
+          // }
         }
-
+        console.log(imageUrl)
         // Add `nextEvent` and `imageUrl` to the item
         return { ...item, nextEvent, imageUrl };
       })

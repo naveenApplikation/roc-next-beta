@@ -293,9 +293,13 @@ export async function getAdsByCategory()
             imageUrl.endsWith(".jpeg"))
         ) {
           const validUrl = convertGCSUrl(imageUrl);
-          if(validUrl.includes("storgage"))
+         
+          if(validUrl.includes("storage"))
           {
+        
             item.acf.header_image_data =validUrl;
+            
+            return item;
           }
           const response = await axios({
             url: validUrl,

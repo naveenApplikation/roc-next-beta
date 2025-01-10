@@ -89,7 +89,7 @@ const FamilyEvent: React.FC<DashboardProps> = ({ data }) => {
                 >
                   <div className="flex flex-col relative">
                     <Image
-                      src={item.acf.header_image_data?item.acf.header_image_data.toString(): fallback}
+                      src={item.acf.header_image_data?item.acf.header_image_data: fallback}
                       alt=""
                       width={500}
                       height={80}

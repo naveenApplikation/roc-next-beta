@@ -23,12 +23,14 @@ import { imageOptimization } from "@/app/action";
 export default async function EventAndActivities({ ads }: { ads: any }) {
   const events: any = await getCategory("main");
   const categoryList: any = await getCategory("secondary");
-  await events.map(async(data:any)=>{
-    const response=await imageOptimization(data.EventList)
-      return  {...data,EventList:response}
-  })
+  const data = await Promise.all(
+    events.map(async (data: any) => {
+      const response = await imageOptimization(data.EventList);
+      return { ...data, EventList: response };
+    })
+  );
   const EventItems = () => {
-    return events.map((data, index) => {
+    return data.map((data, index) => {
       return (
         <Fragment key={index}>
           <XmasEvent

@@ -1,5 +1,5 @@
 import { imageOptimization } from "@/app/action";
-
+export const dynamic="force-dynamic"
 export async function GET(request: Request) {
     try
     {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
            headers: {
              "Content-Type": "application/json",
            },
-           cache:"no-cache"
+           cache:"no-store"
          }
        );
       const response=await result.json()
