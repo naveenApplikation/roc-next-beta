@@ -279,59 +279,78 @@ export async function getAdsByCategory()
   
  export async function imageOptimization(events:any)
 {
-   return await Promise.all(
-    events.map(async (item: any) => {
-      try {
-        const imageUrl = item.acf.header_image_data
-          ? JSON.parse(item.acf.header_image_data)[0]?.url
-          : "";
-          
-        if (
-          imageUrl &&
-          (imageUrl.endsWith(".jpg") ||
-            imageUrl.endsWith(".png") ||
-            imageUrl.endsWith(".jpeg"))
-        ) {
-          const validUrl = convertGCSUrl(imageUrl);
-         
-          if(validUrl.includes("storage"))
-          {
-        
-            item.acf.header_image_data =validUrl;
-            
-            return item;
-          }
-          const response = await axios({
-            url: validUrl,
-            method: "GET",
-            responseType: "arraybuffer",
-          });
-
-       
-
-          if (response.status === 200) {
-            const originalImage = Buffer.from(response.data);
-
-            const optimizedImage = await sharp(originalImage)
-              .resize({ width: 500 }) // Resize to max width of 500px
-              .jpeg({ quality: 75 }) // Compress with 75% quality
-              .toBuffer();
-
-            const base64Image = optimizedImage.toString("base64");
-            item.acf.header_image_data = `data:image/jpeg;base64,${base64Image}`;
-          }
+   const title:any[]=[]
+   const filterUnique:any[]=[]
+   events.forEach((item:any)=>{
+    let imageUrl = item.acf.header_image_data
+    ? JSON.parse(item.acf.header_image_data)[0]?.url
+    : "";
+    if (
+      imageUrl &&
+      (imageUrl.endsWith(".jpg") ||
+        imageUrl.endsWith(".png") ||
+        imageUrl.endsWith(".jpeg"))
+    ) {
+       imageUrl= convertGCSUrl(imageUrl);
+    
+        if(!title.includes(item.acf.title) && !item.imageProps.valid)
+        {
+            filterUnique.push({name:item.acf.title,image:imageUrl})
+            title.push(item.acf.title)
         }
-      } catch (error) {
-        // console.error("Error optimizing image for event:", item._id, error);
-     
-        item.acf.header_image_data ='';
+        else
+        {
+           item.acf.header_image_data=imageUrl
+        }
       }
+   })
+  
+  await Promise.all(filterUnique.map(async(item)=>{
+    try {
+      const imageUrl = item.image
+          
+      
+        const response = await axios({
+          url: imageUrl,
+          method: "GET",
+          responseType: "arraybuffer",
+        });
+   
+        if (response.status === 200) {
+          const originalImage = Buffer.from(response.data);
+          
+          const optimizedImage = await sharp(originalImage)
+            .resize({ width: 500 }) // Resize to max width of 500px
+            .jpeg({ quality: 75 }) // Compress with 75% quality
+            .toBuffer();
 
-      return item;
-    })
-  );
+          const base64Image = optimizedImage.toString("base64");
+          item.image = `data:image/jpeg;base64,${base64Image}`;
+        }
+      
+    } catch (error) {
+      console.error("Error optimizing image for event:", item._id, error);
+   
+      item.image='';
+    }
 
+    return item;
+   }))
 
+  
+   events.map((item)=>{
+          if(!item.imageProps.valid)
+          {
+              const findImage=filterUnique.find((elem)=>elem.name==item.acf.title)
+            
+              item.acf.header_image_data=findImage.image
+              return item;
+          }
+           
+   })
+
+   return events
+    
 }
 
 

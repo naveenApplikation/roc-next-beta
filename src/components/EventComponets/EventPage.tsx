@@ -257,7 +257,7 @@ const EventPage: React.FC<EventBoxProps> = ({
               <Image
                 src={item.acf.header_image_data?item.acf.header_image_data:fallBack}
                 alt="image"
-                width={80}
+                width={500}
                 height={80}
                 style={{
                   objectFit: "cover",
