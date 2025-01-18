@@ -9,9 +9,13 @@ import ScrollSet from "@/components/dashboard/ScrollSet";
 export const maxDuration = 300;
 import "./globals.css";
 import AdsBanner from "@/components/adsBanner/page";
+import BottomSheet from "@/components/dashboard/BottomSheetV2";
 export default function Home() {
   return (
     <>
+
+<div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-white w-full'></div>
+
       <Container>
         <MainContainer>
           <PageLayout>

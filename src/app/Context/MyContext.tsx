@@ -73,6 +73,8 @@ interface ContextProps {
   currentAdsDetail?: any;
   modalClickRocPlaces?: any;
   rocPlaces?: any;
+  position?:any;
+  setPosition?:any
 }
 
 // Create a context
@@ -135,7 +137,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     title: "",
   };
   const [filterOptions, setFilterOption] = useState(options);
-
+ 
   const [eventFilters, setEventFilters] = useState({
     location: ["Any"] as any,
     free: [] as any,
@@ -154,6 +156,7 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     parking: false,
     catering: false,
   });
+  const [position,setPosition]=useState(0)
   const resetFilters = () => {
     setEventFilters({
       location: ["Any"],
@@ -508,6 +511,8 @@ const MyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     currentAdsDetail,
     modalClickRocPlaces,
     rocPlaces,
+    position,
+    setPosition
   };
 
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>;

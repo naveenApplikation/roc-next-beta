@@ -1,6 +1,7 @@
 "use client";
 import { PagelayoutMainContainer } from "@/app/style";
 import React, { useEffect, useRef, useState } from "react";
+import BottomSheet from "./BottomSheetV2";
 interface Props {
   children: any;
 }
@@ -57,12 +58,18 @@ const ScrollSet: React.FC<Props> = (props) => {
       window.removeEventListener("touchstart", handleTouchMove);
     };
   }, [scrollHeight]);
-
-  return (
-    <PagelayoutMainContainer ref={scrollContainerRef}>
+  
+  return <>
+     <BottomSheet>
+   
+   <PagelayoutMainContainer>
       {props.children}
     </PagelayoutMainContainer>
-  );
+</BottomSheet>
+    <PagelayoutMainContainer className="max-[800px]:hidden" ref={scrollContainerRef}>
+      {props.children}
+    </PagelayoutMainContainer>
+  </>;
 };
 
 export default ScrollSet;

@@ -1,0 +1,31 @@
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 0px); /* Adjust height to accommodate minY */
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  touch-action: none; /* Prevent default touch actions */
+  overscroll-behavior: contain; /* Prevent pull-to-refresh */
+  @media screen and (min-width:800px){
+      display: none;
+  }
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 5px;
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow-y: hidden; /* Controlled via inline styles */
+  overscroll-behavior: contain; /* Prevent pull-to-refresh */
+}

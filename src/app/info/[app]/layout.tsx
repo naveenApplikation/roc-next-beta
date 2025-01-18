@@ -13,6 +13,7 @@ import PageLayout from "../../pageLayout";
 export default function layout({children}:{children:any}){
   return (
     <>
+    <div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-white w-full'></div>
       <Container>
         <MainContainer>
           <PageLayout>

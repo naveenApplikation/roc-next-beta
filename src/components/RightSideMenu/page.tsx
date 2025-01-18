@@ -1,6 +1,6 @@
 "use client";
 import backgroundImg from "../../../assets/bg040724.webp";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import {
@@ -172,10 +172,21 @@ const ImageContainer = styled.div`
 `;
 
 const RightSide = () => {
-  const { modalClick, iconClick } = useMyContext();
-
+  const { modalClick, iconClick,setPosition } = useMyContext();
+  const positionRef=useRef<HTMLDivElement>()
   const router = useRouter();
+  useEffect(()=>{
+      const handlePosition=()=>{
+        if(positionRef.current)
+        {
+           setPosition(positionRef.current.getBoundingClientRect().y)
+        }
+      }
 
+        window.addEventListener('resize',handlePosition)
+
+        handlePosition()
+  },[])
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
       router.push(`/categories/${item}?search=${id}`);
@@ -295,7 +306,7 @@ const RightSide = () => {
             </div> 
         
       </XmasNav>
-      <MobileViewRightSideMenu>
+      <MobileViewRightSideMenu ref={positionRef as any}>
         {rightSideMenuMobile.map((item, index) => {
           return (
             <RightSideMenu

@@ -77,8 +77,7 @@ const Header = () => {
           onClick={navigateClick}
         />
         <HeaderMapProfileContainer>
-          {pathname === "/"  || pathname?.includes('info')? (
-            <>
+          
               {/* <Image
                 src={iconbetablack}
                 width={48}
@@ -95,38 +94,7 @@ const Header = () => {
               <HamburgerDesktop
                 onClick={() => modalClick("LoginSignupModal")}
               />
-            </>
-          ) : (
-            <>
-              <Image
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2FSearch.png?alt=media&token=ab70ea3f-201d-4b55-b376-67cfd8fdea39"
-                }
-                width={24}
-                height={24}
-                alt="Logo Outline"
-                onClick={() => modalClick("search")}
-              />
-              <Image
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fuser.png?alt=media&token=5239ce4e-da6f-4159-ae01-90dce6bed1ad"
-                }
-                width={24}
-                height={24}
-                alt="Logo Outline"
-                onClick={() => modalClick("createAccountModal")}
-              />
-              <Image
-                src={
-                  "https://firebasestorage.googleapis.com/v0/b/roc-web-app.appspot.com/o/display%2FmobileDash%2Fhome.png?alt=media&token=6297f249-2900-4f3b-965a-43016b573bde"
-                }
-                width={24}
-                height={24}
-                alt="Logo Outline"
-                onClick={navigateClick}
-              />
-            </>
-          )}
+            
         </HeaderMapProfileContainer>
       </HeadMenu>
     </>
