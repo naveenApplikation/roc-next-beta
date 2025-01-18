@@ -60,12 +60,7 @@ const ScrollSet: React.FC<Props> = (props) => {
   }, [scrollHeight]);
   
   return <>
-     <BottomSheet>
    
-   <PagelayoutMainContainer>
-      {props.children}
-    </PagelayoutMainContainer>
-</BottomSheet>
     <PagelayoutMainContainer className="max-[800px]:hidden" ref={scrollContainerRef}>
       {props.children}
     </PagelayoutMainContainer>

@@ -212,7 +212,7 @@ if(scrollableDiv){
         ref={contentRef}
         style={{
           zIndex:"2",
-          overflowY:  y.to((py) => (py == minY ? "auto" : "hidden")),
+          overflowY:  y.to((py) => (py <= minY + 1 ? "auto" : "hidden")),
           borderRadius: y.to((py) => (py==minY?0:16)),
         }}
       >
