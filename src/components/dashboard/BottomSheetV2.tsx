@@ -42,6 +42,22 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ children }) => {
   const [{ y }, api] = useSpring(() => ({
       y: halfHeight,config: { 
       tension: 120, friction: 14,precision: 0.01,duration:0, easing: easings.steps(5),damping:true },
+      onRest: {
+        y: (e) =>{
+           
+            if(e.value<=minY+1 && contentRef.current)
+            {
+            
+                contentRef.current.style.overflow="scroll"
+                 
+            }
+            else if(contentRef.current)
+            {
+                contentRef.current.style.overflow="hidden"
+            }
+            
+        },
+      }
 }))
 useEffect(()=>{
    
