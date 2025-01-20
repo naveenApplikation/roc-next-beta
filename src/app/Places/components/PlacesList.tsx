@@ -271,7 +271,7 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
           handleLike={handleLike}
           totalVote={totalVote}
         />
-         <ScreenAdsBanner adsData={props.adsData}></ScreenAdsBanner>
+         {/* <ScreenAdsBanner adsData={props.adsData}></ScreenAdsBanner> */}
         </>
       );
     } else if (screenName === "Greetings") {
