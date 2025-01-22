@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{scrollbarWidth:"none"}}>
       <head>
         {/* <link
           rel="stylesheet"
@@ -63,7 +63,7 @@ export default function RootLayout({
         <link rel="preload" href="https://libertybus.je/" as="document" />
         <link rel="preload" href="https://www.channel103.com/radioplayer/" as="document" />
         <link rel="preload" href="https://hub.roc.je/cycle/cycle-routes" as="document" />
-      </head>
+        </head>
       <body className={inter.className}>
         {/* <Script
           rel="preload"
