@@ -18,7 +18,7 @@ const HeadMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 40px;
-  padding-top: 64px;
+  padding-top: 50px;
 
   background-color: transparent;
 
@@ -77,7 +77,7 @@ const Header = () => {
           onClick={navigateClick}
         />
         <HeaderMapProfileContainer>
-          {pathname === "/"  || pathname?.includes('info')? (
+          
             <>
               {/* <Image
                 src={iconbetablack}
@@ -96,7 +96,7 @@ const Header = () => {
                 onClick={() => modalClick("LoginSignupModal")}
               />
             </>
-          ) : (
+          {/* ) : (
             <>
               <Image
                 src={
@@ -126,7 +126,7 @@ const Header = () => {
                 onClick={navigateClick}
               />
             </>
-          )}
+          )} */}
         </HeaderMapProfileContainer>
       </HeadMenu>
     </>

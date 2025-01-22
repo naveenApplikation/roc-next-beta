@@ -35,7 +35,7 @@ export default async function Layout({children}:{children:any}){
 
                <Carousel slides={data}></Carousel>
             
-                   <ScrollLayout>
+                   <ScrollLayout className='mt-[480px]'>
                   <XmasDashboard></XmasDashboard>
                   
                   </ScrollLayout>

@@ -9,7 +9,7 @@ import Spin from "antd/es/spin";
 import { rocSpin } from "../utils/XmasImagePath";
 import Image from "next/image";
 
-const ScrollLayout = ({ children }: { children: any }) => {
+const ScrollLayout = ({ children,className }: { children: any,className?:string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const pathName = usePathname();
   const [resize, setResize] = useState(0);
@@ -157,7 +157,7 @@ const ScrollLayout = ({ children }: { children: any }) => {
         style={{ WebkitOverflowScrolling: "touch", scrollBehavior: "smooth" }}
         body-scroll-lock-ignore
         ref={ref}
-        className="min-[800px]:w-[480px] max-[800px]:rounded-t-[24px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white mt-[480px] z-[1] no-scrollbar"
+        className={"no-scrollbar min-[800px]:w-[480px] max-[800px]:rounded-t-[20px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white  z-[2] "+className}
       >
         {children}
       </div>
