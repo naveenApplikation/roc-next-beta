@@ -3,7 +3,7 @@ import Event from "./Event";
 import InfoApp from "@/components/homepage/InfoApp";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
 import Image from "next/image";
-import { cycleRouteData, shoppingImages } from "@/app/utils/data";
+import { cycleRouteData, EnjoyShineMenuItem, shoppingImages } from "@/app/utils/data";
 import CategoryList from "./CategoryList";
 import { iconsHome } from "@/app/utils/homeIcon";
 import { Home } from "../HomeActions";
@@ -20,6 +20,9 @@ import Blog from "./Blog";
 import Header from "@/components/header/page";
 import Walks from "@/components/homepage/Walks";
 import { LogoIcon } from "@/app/xmas/utils/XmasImagePath";
+import Sunshine from "./Sunshine";
+import CreateList from "./CreateList";
+import EventsByDate from "./EventsByDate";
 
 export default async function HomeDashBoard() {
 
@@ -91,29 +94,38 @@ export default async function HomeDashBoard() {
     const client = getClient();
     const post = await getAllPosts(client);
     const Walksdata = await getCategory("walks");
-    console.log(Walksdata)
+   
+    let enjoyTheSunshinedata = await getCategory("sun-shine");
+    enjoyTheSunshinedata = await enjoyTheSunshinedata.data;
     return <>
-        <div className="grid grid-cols-1 py-[24px] gap-[24px] pb-[200px]">
+        <div className="grid grid-cols-1  gap-[24px] pb-[200px]">
             <Header></Header>
             <SearchNFilter />
             <InfoApp></InfoApp>
-            <Event data={familyEventdata}></Event>
+            <Event nav="/eventCategory/upcoming" title="Upcoming Events" data={familyEventdata}></Event>
             <CategoryList title="Trending Lists" data={community} nav="/Places/Trending Lists"></CategoryList>
+            <CreateList></CreateList>
+            <Places title={localCusinedata.name} nav={`/Places/${localCusinedata.name}/${localCusinedata.id}`} data={localCusinedata.listData}></Places>
+
+            <Sunshine title="Enjoy the Sunshine" data={enjoyTheSunshinedata} nav=""></Sunshine>
+            <EventsByDate></EventsByDate>
+            <BeachLife data={beachLifedata.listData} nav={`/Places/${beachLifedata.name}/${beachLifedata.id}`} title={beachLifedata.name}></BeachLife>
+            <DirectoryList></DirectoryList>
+            <Places title={bardata.name} nav={`/Places/${bardata.name}/${bardata.id}`} data={bardata.listData}></Places>
+
             <CategoryList title="shopping" data={Shoppingdata} nav="/Places/Shopping"></CategoryList>
             <CategoryList title="Event Categories" data={eventsCategories} nav="/eventCategory"></CategoryList>
             <CategoryList title="Activity Categories" data={activities} nav="/activityCategory"></CategoryList>
             <CategoryList title="Community Latest" data={community} nav="/Places/Community"></CategoryList>
-            <CategoryList title="Wellbeing" data={Wellbeingdata} nav="/Places/Wellbeing"></CategoryList>
-            <CycleRoutes></CycleRoutes>
-            <DirectoryList></DirectoryList>
-            <Walks data={Walksdata} ></Walks>
-            <Places title={localCusinedata.name} nav={`/Places/${localCusinedata.name}/${localCusinedata.id}`} data={localCusinedata.listData}></Places>
-            <Places title={bardata.name} nav={`/Places/${bardata.name}/${bardata.id}`} data={bardata.listData}></Places>
-            <Places title={surfingdata.name} nav={`/Places/${surfingdata.name}/${surfingdata.id}`} data={surfingdata.listData}></Places>
-            <Places title={heritagedata.name} nav={`/Places/${heritagedata.name}/${heritagedata.id}`} data={heritagedata.listData}></Places>
-            <Places title={cocktaildata.name} nav={`/Places/${cocktaildata.name}/${cocktaildata.id}`} data={cocktaildata.listData}></Places>
             <Places title={sustainabilitydata.name} nav={`/Places/${sustainabilitydata.name}/${sustainabilitydata.id}`} data={sustainabilitydata.listData}></Places>
-            <BeachLife data={beachLifedata.listData} nav={`/Places/${beachLifedata.name}/${beachLifedata.id}`} title={beachLifedata.name}></BeachLife>
+            <Places title={heritagedata.name} nav={`/Places/${heritagedata.name}/${heritagedata.id}`} data={heritagedata.listData}></Places>
+            <Walks data={Walksdata} ></Walks>
+
+            <CategoryList title="Wellbeing" data={Wellbeingdata} nav="/Places/Wellbeing"></CategoryList>
+            <Places title={cocktaildata.name} nav={`/Places/${cocktaildata.name}/${cocktaildata.id}`} data={cocktaildata.listData}></Places>
+
+            <CycleRoutes></CycleRoutes>
+            <Places title={surfingdata.name} nav={`/Places/${surfingdata.name}/${surfingdata.id}`} data={surfingdata.listData}></Places>
             <TopAttraction data={topAttractionsdata.listData} nav={`/Places/${topAttractionsdata.name}/${topAttractionsdata.id}`} title={topAttractionsdata.name}></TopAttraction>
             <Blog title="Jersey Feed" data={post} nav="/blog"></Blog>
             <div className="flex px-[20px] justify-center w-full py-[8px] mt-[30px] ">
