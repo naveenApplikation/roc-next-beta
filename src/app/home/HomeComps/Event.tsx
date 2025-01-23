@@ -9,6 +9,7 @@ import moment from "moment";
 import { useEffect } from "react";
 import MenuDetails from "@/components/dashboard/MenuDetails";
 import { useRouter } from "next-nprogress-bar";
+import HomeMenu from "./HomeMenu";
 
  
 export default function XmasEvent({
@@ -16,9 +17,9 @@ export default function XmasEvent({
   data,
   nav,
 }: {
-  title?: string;
+  title: string;
   data: any;
-  nav?: string;
+  nav: string;
 }) {
   const { modalClick } = useMyContext();
   const sortEventsByDate = (data = []) => {
@@ -118,7 +119,8 @@ export default function XmasEvent({
 
   return (
     <>
-        <MenuDetails isOpen={() => navigate()} title="Upcoming Events" />
+        {/* <MenuDetails isOpen={() => navigate()} title="Upcoming Events" /> */}
+        <HomeMenu link={nav} isOpen={navigate}>{title}</HomeMenu>
       <div className="grid grid-flow-col gap-[8px] px-[40px] min-h-max max-[800px]:px-[16px] overflow-y-hidden no-scrollbar">
         {(sortedData || []).map((item, index) => {
           const nextEvent = item.nextEvent;

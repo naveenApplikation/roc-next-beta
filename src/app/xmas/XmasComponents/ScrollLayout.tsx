@@ -157,7 +157,7 @@ const ScrollLayout = ({ children,className }: { children: any,className?:string 
         style={{ WebkitOverflowScrolling: "touch", scrollBehavior: "smooth" }}
         body-scroll-lock-ignore
         ref={ref}
-        className={"no-scrollbar min-[800px]:w-[480px] max-[800px]:rounded-t-[20px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white  z-[2] "+className}
+        className={"no-scrollbar min-[800px]:w-[480px] max-[800px]:rounded-t-[24px] min-[800px]:mt-[0px] overflow-hidden  min-[800px]:overflow-scroll w-full will-change-transform bg-white  z-[2] "+className}
       >
         {children}
       </div>
