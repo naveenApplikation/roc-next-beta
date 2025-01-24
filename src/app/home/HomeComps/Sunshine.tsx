@@ -19,7 +19,7 @@ const Sunshine = ({
 
   const filteredUrls = filterUrls(ImageUrlData);
   return <>
-     <HomeMenu link=''>{title}</HomeMenu>
+     <HomeMenu link={nav}>{title}</HomeMenu>
       <div className="grid grid-flow-col gap-[8px] px-[40px] min-h-max max-[800px]:px-[16px] overflow-y-hidden no-scrollbar">
         {
             data?.slice(0, 10).map((item: any, index: any) => {

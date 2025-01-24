@@ -9,11 +9,12 @@ import Carousel from "../xmas/XmasComponents/CarouselScreen";
 import { getCarouselData } from "../xmas/XmasAction";
 import MobileBackground from "./HomeComps/MobileBackground";
 import DesktopRightSideMenu from "./HomeComps/DesktopRightSideMenu";
+export const maxDuration = 300;
 export default async function Layout({children}:{children:any})
 {
  const data:any=await getCarouselData()
      return <>
-            <div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-white w-full'></div>
+            <div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-black w-full'></div>
             <MobileBackground></MobileBackground>
             <DesktopRightSideMenu></DesktopRightSideMenu>
     <ScrollLayout className="mt-[440px]">

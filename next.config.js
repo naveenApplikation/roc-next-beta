@@ -3,6 +3,16 @@ import { default as withPWA } from "@ducanh2912/next-pwa";
 import { type } from "os";
 
 const redirects = async () => [
+  {   
+    source:"/",  
+    destination:"/home",
+    permanent:true
+  },
+  {
+    source:"/info/:app",
+    destination:"/home/:app",
+    permanent:true
+  },
   {
     source: "/summer", // The URL path to match
     destination: "https://hub.roc.je/jersey-summer-guide-2024", // The URL to redirect to
@@ -64,6 +74,10 @@ const nextConfig = {
   redirects,
   async rewrites() {
     return [
+      {   
+          source:"/",  
+          destination:"/home"
+      },
       {
         source:"/screens/:events",
         has:[{

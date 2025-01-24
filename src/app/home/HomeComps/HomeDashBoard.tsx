@@ -107,7 +107,7 @@ export default async function HomeDashBoard() {
             <CreateList></CreateList>
             <Places title={localCusinedata.name} nav={`/Places/${localCusinedata.name}/${localCusinedata.id}`} data={localCusinedata.listData}></Places>
 
-            <Sunshine title="Enjoy the Sunshine" data={enjoyTheSunshinedata} nav=""></Sunshine>
+            <Sunshine title="Enjoy the Sunshine" data={enjoyTheSunshinedata} nav={"/activityCategory/enjoy the sunshine"}></Sunshine>
             <EventsByDate></EventsByDate>
             <BeachLife data={beachLifedata.listData} nav={`/Places/${beachLifedata.name}/${beachLifedata.id}`} title={beachLifedata.name}></BeachLife>
             <DirectoryList></DirectoryList>
@@ -122,7 +122,7 @@ export default async function HomeDashBoard() {
             <Walks data={Walksdata} ></Walks>
 
             <CategoryList title="Wellbeing" data={Wellbeingdata} nav="/Places/Wellbeing"></CategoryList>
-            <Places title={cocktaildata.name} nav={`/Places/${cocktaildata.name}/${cocktaildata.id}`} data={cocktaildata.listData}></Places>
+            <Places title={"Out Out"} nav={`/Places/${cocktaildata.name}/${cocktaildata.id}`} data={cocktaildata.listData}></Places>
 
             <CycleRoutes></CycleRoutes>
             <Places title={surfingdata.name} nav={`/Places/${surfingdata.name}/${surfingdata.id}`} data={surfingdata.listData}></Places>

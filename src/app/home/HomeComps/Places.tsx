@@ -13,7 +13,6 @@ export default function Places({
   data: any;
   nav: string;
 }) {
-  console.log(data,"data")
   const { modalClick } = useMyContext();
   return (
     <>

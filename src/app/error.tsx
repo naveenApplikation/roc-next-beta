@@ -11,7 +11,7 @@ const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
 
   // Function to navigate or reload based on the current route
   const navigate = () => {
-    if (pathname === "/") {
+    if (pathname === "/home") {
       window.location.reload(); // Reload the page if it's the home page
     } else {
       router.push("/"); // Navigate to home page if not already on it
@@ -20,7 +20,7 @@ const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
 
   // Reload the page if the path is the home page and an error occurs
   useEffect(() => {
-    if (error && pathname === "/") {
+    if (error && pathname === "/home") {
       console.error("Error occurred on the home page, reloading...");
       window.location.reload();
     }

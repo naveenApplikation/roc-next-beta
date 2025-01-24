@@ -146,9 +146,9 @@ export default function XmasEvent({
                   height={500}
                   width={500}
                   alt=""
-                  objectFit="fill"
+                  objectFit="cover"
                   src={item.imageUrl ? item.imageUrl : fallback.src}
-                  className="h-[83px] w-full rounded-[8px]"
+                  className="h-[83px] w-full rounded-[8px] object-cover"
                 />
                 <div className="absolute bottom-[4px] left-[4px] w-[30px] text-center bg-white rounded-[4px]">
                   <p className="text-[17px] font-extrabold leading-[1.0]">

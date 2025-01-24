@@ -36,5 +36,12 @@ export default async function Page({params}:Props)
    </>   
 }
 
+export  function generateStaticParams()
+{
+    return paramsList.map((item)=>{
+        return {listName:item.listName}
+     })
+}
+
 
  
