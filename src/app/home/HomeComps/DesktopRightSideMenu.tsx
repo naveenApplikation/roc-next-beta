@@ -12,7 +12,7 @@ const DesktopRightSideMenu = () => {
     <div className='fixed grid grid-cols-1 z-[1] no-scrollbar overflow-y-scroll right-[30px] max-[800px]:hidden gap-[24px] top-[60px] h-screen'>
           {rightSideMenu.map((item, index) => {
               return <>
-                  <div key={index}style={{boxShadow:"rgba(0, 0, 0, 0.1) 0px 4px 12px"}} className='relative w-[129px] h-[64px] bg-white/80 flex justify-center gap-[8px] items-center rounded-[8px]'
+                  <div key={index}style={{boxShadow:"rgba(0, 0, 0, 0.1) 0px 4px 12px"}} className='relative w-[129px] cursor-pointer h-[64px] bg-white/80 flex justify-center gap-[8px] items-center rounded-[8px]'
                   onClick={() => {
                     if (item.url == "upcoming") {
                       router.push("/eventCategory/upcoming");
