@@ -17,10 +17,17 @@ const ReactIconsTOSvg= ({icon,height,width,classNames}:{icon:any,height?:string,
      return  <Image src={""}  alt="React Icon" className={classNames} width={500} height={80} />
 
   }
-  icon.props.style.padding="0px"
+  
 //  icon.props.viewBox="0 0  440"
 
-  const svgMarkup = ReactDOMServer.renderToStaticMarkup(icon);
+  const svgMarkup = ReactDOMServer.renderToStaticMarkup(React.cloneElement(icon,{
+     style:{
+      ...icon.props.style,
+      padding:"0px",
+      color:icon.props.style.color,
+     
+     }
+  }));
   const base64SVG = `data:image/svg+xml;base64,${Buffer.from(svgMarkup).toString("base64")}`;
 
   return (

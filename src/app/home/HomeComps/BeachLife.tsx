@@ -10,7 +10,7 @@ title,nav,data
 
    const {modalClick}=useMyContext()
   return <>
-     <HomeMenu link=''>{title}</HomeMenu>
+     <HomeMenu link={nav}>{title}</HomeMenu>
      <div className='grid grid-flow-col px-[40px] max-[800px]:px-[16px] gap-[8px] overflow-x-scroll no-scrollbar'>
            {(data||[]).map((item,index)=>{
                return <>
