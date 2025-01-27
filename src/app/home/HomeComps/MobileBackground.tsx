@@ -7,6 +7,7 @@ import { useMyContext } from '@/app/Context/MyContext'
 import Link from 'next/link'
 import { rightSideMenuMobile } from '@/app/utils/data'
 import { useRouter } from 'next-nprogress-bar'
+import bgImage from '../../../../assets/bgImage.jpg'
 const MobileBackground = () => {
 
     
@@ -32,9 +33,10 @@ const MobileBackground = () => {
     <div className='fixed top-0 h-[510px] px-[16px]  pt-[16px] pb-[60px] min-[800px]:hidden z-[1] w-full grid grid-cols-1'>
          <Image
         alt=""
-        src={XmasBgImage}
+        src={bgImage}
         objectFit='cover'
         layout='fill'
+        priority
         >
         </Image>
         <div className='relative flex row-span-12  justify-between w-full'>
@@ -67,23 +69,9 @@ const MobileBackground = () => {
                         </div>
         </div>
        
-
+    {/* Dont use blur effect here */}
         <div className='flex flex-col  gap-[10px]'>
-          <Link className='relative   flex w-full bg-[#F40035] box-border px-[16px] py-[12px] items-center justify-between rounded-[8px]' href={'/Places/Community'}>
-                  
-                        <p className='font-bold text-[14px] text-white'>All Categories</p> 
-                
-                      <div className='flex gap-[8px]'>
-                         <p className='font-normal text-[14px] text-white'>Open</p>
-                         <Image
-                          width={9}
-                          height={14}
-                          src={FrontArrow}
-                          alt=""
-                         />
-                      </div> 
-                  
-                </Link>
+         
 
                 <div className='relative flex gap-[8px]'>
                       {rightSideMenuMobile.map((item, index) => {
@@ -104,7 +92,7 @@ const MobileBackground = () => {
                                           }
                                         }
                                       }}
-                                    className=' flex flex-col items-between items-center gap-[8px]  py-[16px] rounded-[8px] cursor-pointer  bg-white/20  h-[70px] w-full '>
+                                    className=' flex flex-col items-between items-center gap-[8px]  py-[16px] rounded-[8px] cursor-pointer bg-white/10 backdrop-contrast-50  h-[70px] w-full '>
                                           <Image
                                                            src={item.image}
                                                            width={item.width}
@@ -118,6 +106,22 @@ const MobileBackground = () => {
                       }
                       )}
                 </div>
+                {/* Dont use blur effect here */}
+                <Link className='relative   flex w-full bg-white/10 backdrop-contrast-50  box-border px-[16px] py-[12px] items-center justify-center rounded-[8px]' href={'/Places/Community'}>
+                  
+                  <p className='font-bold text-[14px] text-white'>All Categories</p> 
+          
+                {/* <div className='flex gap-[8px]'>
+                   <p className='font-normal text-[14px] text-white'>Open</p>
+                   <Image
+                    width={9}
+                    height={14}
+                    src={FrontArrow}
+                    alt=""
+                   />
+                </div>  */}
+            
+          </Link>
             
         </div>
  

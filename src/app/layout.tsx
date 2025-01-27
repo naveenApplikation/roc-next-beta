@@ -7,25 +7,24 @@ import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Script from "next/script";
 import ProgressBarProvider from "@/components/ProgressBar";
-import { MetaImage } from "./xmas/utils/XmasImagePath";
-
+import metaImage from '../../assets/metaImage.png'
 const inter = Inter({ subsets: ["latin"] });
 
  
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "Jersey Christmas Guide 2024 | Discover Festive Events, Shopping, Dining withROC",
-  description: "Explore Jersey's ultimate Christmas guide with ROC! Find the best festive shopping spots, dining experiences, events, and New Year’s celebrations. Dive into the season’s magic and make memories with ROC’s complete guide to Christmas in Jersey, Channel Islands.",
+  title: "ROC: The Jersey App – Events, Activities & Local Businesses",
+  description: "Discover Jersey with ROC, the app that connects you to events, activities, and local businesses. Explore island life and find everything you need in one place.",
   icons:
-    MetaImage.src,
+    metaImage.src,
   twitter: {
     card: "summary_large_image",
-    title: "Jersey Christmas Guide 2024 | Discover Festive Events, Shopping, Dining withROC",
-    description: "Explore Jersey's ultimate Christmas guide with ROC! Find the best festive shopping spots, dining experiences, events, and New Year’s celebrations. Dive into the season’s magic and make memories with ROC’s complete guide to Christmas in Jersey, Channel Islands.",
-    images:MetaImage.src
+    title: "ROC: The Jersey App – Events, Activities & Local Businesses",
+    description: "Discover Jersey with ROC, the app that connects you to events, activities, and local businesses. Explore island life and find everything you need in one place.",
+    images:metaImage.src
   },
   openGraph: {
-    images:MetaImage.src
+    images:metaImage.src
   },
 };
 
