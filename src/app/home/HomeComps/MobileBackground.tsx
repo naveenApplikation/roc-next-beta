@@ -76,6 +76,7 @@ const MobileBackground = () => {
                 <div className='relative flex gap-[8px]'>
                       {rightSideMenuMobile.map((item, index) => {
                               return<>
+                              
                                     <div
                                      onClick={() => {
                                         if (index == 3) {
@@ -92,7 +93,8 @@ const MobileBackground = () => {
                                           }
                                         }
                                       }}
-                                    className=' flex flex-col items-between items-center gap-[8px]  pb-[16px] pt-[13px] rounded-[8px] cursor-pointer bg-gray-500/90  h-[70px] w-full '>
+                                  className='w-full  flex   items-center gap-[8px] rounded-[8px] cursor-pointer bg-gray-500/90  h-[70px]'>
+                                      <div   className=' w-full flex flex-col items-center gap-[8px]'>
                                           <Image
                                                            src={item.image}
                                                            width={item.width}
@@ -101,7 +103,9 @@ const MobileBackground = () => {
                                                           
                                                          />
                                                          <p className='text-white text-[14px] font-normal leading-4'>{item.name}</p>
+                                                         </div>
                                     </div>
+                                  
                               </>
                       }
                       )}
