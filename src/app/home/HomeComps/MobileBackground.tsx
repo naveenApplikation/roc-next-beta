@@ -69,8 +69,8 @@ const MobileBackground = () => {
                         </div>
         </div>
        
-    {/* Dont use blur effect here */}
-        <div className='flex flex-col  gap-[10px]'>
+     
+        {/* <div className='flex flex-col  gap-[10px]'>
          
 
                 <div className='relative flex justify-between gap-[8px]'>
@@ -111,7 +111,7 @@ const MobileBackground = () => {
                       }
                       )}
                 </div>
-                {/* Dont use blur effect here */}
+             
                 <Link className='relative   flex w-full  bg-gray-500/90 box-border px-[16px] py-[12px] items-center justify-center rounded-[8px]' href={'/Places/Community'}>
                   
                   <p className='font-bold text-[14px] text-white'>All Categories</p> 
@@ -124,11 +124,13 @@ const MobileBackground = () => {
                     src={FrontArrow}
                     alt=""
                    />
-                </div>  */}
+                </div>  
             
-          </Link>
+              </Link>
             
-        </div>
+        </div> 
+        
+        */}
  
     </div>
   )

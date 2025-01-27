@@ -17,7 +17,7 @@ export default async function Layout({children}:{children:any})
             <div className='min-[800px]:hidden fixed z-[0] top-0 h-screen bg-black w-full'></div>
             <MobileBackground></MobileBackground>
             <DesktopRightSideMenu></DesktopRightSideMenu>
-    <ScrollLayout className="mt-[440px]">
+    <ScrollLayout className="mt-[360px]">
          <HomeDashBoard></HomeDashBoard>
    </ScrollLayout>
 

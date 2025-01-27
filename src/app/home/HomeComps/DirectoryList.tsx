@@ -36,8 +36,10 @@ const DirectoryList = () => {
            </div>
          ))}
          <button
-           className="flex px-[16px] py-[12px] justify-center items-center gap-[8px] self-stretch rounded-[8px] bg-white border-none shadow-[0_0_40px_rgba(0,0,0,0.4)] mx-[16px] text-[#2f80ed] text-[14px] font-semibold cursor-pointer md:mx-[40px]"
+           className="flex px-[16px] py-[12px] justify-center items-center gap-[8px] self-stretch rounded-[8px] bg-white border-none  mx-[16px] text-[#2f80ed] text-[14px] font-semibold cursor-pointer md:mx-[40px]"
            onClick={() => modalClick("AddDirectoryModal")}
+           style={{boxShadow:"0px 0px 24px 0px rgba(0, 0, 0, 0.09), 0px 9px 21px 0px rgba(0, 0, 0, 0.10), 0px 0px 0px 0px rgba(0, 0, 0, 0.10)"}}
+
          >
            Add to Directory
          </button>

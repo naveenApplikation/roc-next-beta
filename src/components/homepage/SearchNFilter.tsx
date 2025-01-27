@@ -37,7 +37,8 @@ const SearchNFilter = () => {
         
       </Link>
         <button
-          className="px-[24px] py-[19px] shadow-[0_0_24px_rgba(82,41,0,0.5)] bg-white outline-none border-none w-full rounded-[8px] flex justify-between items-center text-[18px] font-medium"
+         style={{boxShadow:"0px 0px 24px 0px rgba(0, 0, 0, 0.09), 0px 9px 21px 0px rgba(0, 0, 0, 0.10), 0px 0px 0px 0px rgba(0, 0, 0, 0.10)"}}
+          className="px-[24px] py-[19px]   bg-white outline-none border-none w-full rounded-[8px] flex justify-between items-center text-[18px] font-medium"
           onClick={() => modalClick("search")}>
           <p>Search...</p>
           <Image
