@@ -92,7 +92,7 @@ const MobileBackground = () => {
                                           }
                                         }
                                       }}
-                                    className=' flex flex-col items-between items-center gap-[8px]  py-[16px] rounded-[8px] cursor-pointer bg-white/10 backdrop-contrast-50  h-[70px] w-full '>
+                                    className=' flex flex-col items-between items-center gap-[8px]  py-[16px] rounded-[8px] cursor-pointer bg-gray-500/90  h-[70px] w-full '>
                                           <Image
                                                            src={item.image}
                                                            width={item.width}
@@ -107,7 +107,7 @@ const MobileBackground = () => {
                       )}
                 </div>
                 {/* Dont use blur effect here */}
-                <Link className='relative   flex w-full bg-white/10 backdrop-contrast-50  box-border px-[16px] py-[12px] items-center justify-center rounded-[8px]' href={'/Places/Community'}>
+                <Link className='relative   flex w-full  bg-gray-500/90 box-border px-[16px] py-[12px] items-center justify-center rounded-[8px]' href={'/Places/Community'}>
                   
                   <p className='font-bold text-[14px] text-white'>All Categories</p> 
           
