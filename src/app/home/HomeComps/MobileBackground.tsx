@@ -92,7 +92,7 @@ const MobileBackground = () => {
                                           }
                                         }
                                       }}
-                                    className=' flex flex-col items-between items-center gap-[8px]  py-[16px] rounded-[8px] cursor-pointer bg-gray-500/90  h-[70px] w-full '>
+                                    className=' flex flex-col items-between items-center gap-[8px]  pb-[16px] pt-[13px] rounded-[8px] cursor-pointer bg-gray-500/90  h-[70px] w-full '>
                                           <Image
                                                            src={item.image}
                                                            width={item.width}
