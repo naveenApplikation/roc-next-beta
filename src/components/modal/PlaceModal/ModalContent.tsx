@@ -59,20 +59,28 @@ const ModalContent: React.FC<ModalProps> = ({
   const { setTitleNameForModel } = useMyContext();
   const [showApiData, setShowApiData] = useState<any>({});
   const [reviewData, setReviewData] = useState([]);
-
-  const res = useSWR(data, fetcher);
-
+  
+  let res = useSWR(data,!Object.keys(data).includes('placeData')?fetcher:null);
   useEffect(() => {
     if (Object.keys(data).length) {
       if (res?.data?.name) {
         setTitleNameForModel(res.data.name);
       }
-
-      setShowApiData(res.data);
-
+   
+      setShowApiData(res?.data);
       if (res?.data?.reviews) {
         setReviewData(res?.data?.reviews);
       }
+      if(Object.keys(data).includes("placeData"))
+        {
+          setTitleNameForModel(data.placeData.name);
+            
+            setShowApiData(data.placeData)
+          
+      if (data?.placeData?.reviews) {
+        setReviewData(data?.placeData?.reviews);
+      }
+        }
     } else {
       setShowApiData(data);
     }

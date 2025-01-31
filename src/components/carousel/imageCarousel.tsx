@@ -80,9 +80,11 @@ const ImageCarousel: React.FC<ImageCraouselPrope> = ({
       {imageArr.map((val: any, index: any) => {
         return (
           <div key={index} className="">
-            <img
+            <Image
               src={val}
               alt=""
+              width={500}
+              height={500}
               style={{
                 borderRadius: 4,
                 maxWidth: "100%",

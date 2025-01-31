@@ -61,9 +61,72 @@ export async function getCategory(params: string) {
     return null;
   }
 }
+async function fetchDataWithRetry(url:string,slug:string) {  // Added retry logic
+  const retries = 3, delay = 1000
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url,{cache:"force-cache",next:{tags:[slug,"updatePlaces"]} });  
 
+      if (!response.ok) {
+        console.log(response.status)
+        if (response.status === 429) { // Check for rate limiting
+            const retryAfter = response.headers.get('Retry-After');
+            const waitTime = retryAfter ? parseInt(retryAfter, 10) * 2000 : delay * 2**i; // Exponential backoff for rate limiting or other server errors
+            console.warn(`Rate limited. Retrying in ${waitTime/1000} seconds...`);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
+            continue; // Retry
+        } else {
+            throw new Error(`HTTP error ${response.status}`); // Throw error for non-2xx status
+        }
+      }
+
+      const jsonData = await response.json();
+      return jsonData; // Success!
+    } catch (error) {
+      console.error(`Fetch failed for ${url} (attempt ${i + 1}):`, );
+      if (i < retries - 1) {
+        await new Promise(resolve => setTimeout(resolve, delay * 2**i)); // Exponential backoff
+      }
+    }
+  }
+  throw new Error(`Fetch failed after ${retries} attempts for ${url}`); // Throw error after all retries fail
+}
+
+export async function getPlacesWithGoogleData(data:any)
+{
+     try
+     {
+        
+         await Promise.all(data.map(async(item,index)=>{
+          try
+          {
+              const urlString=item.data_type=="roc_places"?"manual-place/"+item._id:"google/place/"+item.place_id
+              const placeData = await fetchDataWithRetry("no slug",
+                "https://beta-dot-roc-app-425011.nw.r.appspot.com/" + urlString
+              );
+            
+             item.placeData=placeData
+            
+             return item
+            }catch(error)
+            {
+                console.log(item,"error")
+            }
+         }))
+         
+  
+         return data
+        
+     }
+     catch(error)
+     {
+          console.log("error",error)
+     }
+}
 export async function getData(slug: string, params: string) {
   try {
+
+      
     const loginToken = cookies().get("loginToken")?.value;
     const url = `${process.env.NEXT_API_URL}/category/${params}?type=${slug}`;
     slug=slug
@@ -74,20 +137,44 @@ export async function getData(slug: string, params: string) {
       next: { tags: [slug,"updatePlaces"], revalidate: 3600 }, // 1 hour cache duration
     };
 
-    const res = await fetchWithTimeout(url, options, 100000); // 10 seconds timeout
+    
+
+    const res:any = await fetchWithTimeout(url, options, 100000); // 10 seconds timeout
 
     if (!res.ok) {
       throw new Error(`Network response was not ok: ${res.statusText}`);
     }
-
+    //  res.categoryList.map((item)=>{
+    //         console.log(item?.placeId)
+    //  })
+ 
     const contentType = res.headers.get("content-type");
+    const data=await res.json()
+ 
     if (contentType && contentType.includes("application/json")) {
-      return await res.json();
+       
+      await Promise.all(data.categoryList.map(async(item,index)=>{
+        try
+        {
+            const urlString=item.data_type=="roc_places"?"manual-place/"+item._id:"google/place/"+item.place_id
+            const placeData = await fetchDataWithRetry(slug,
+              "https://beta-dot-roc-app-425011.nw.r.appspot.com/" + urlString
+            );
+          
+           item.placeData=placeData
+          
+           return item
+          }catch(error)
+          {
+              console.log(item.name,"error")
+          }
+       }))
+      return await data;
     } else {
       throw new Error("Received content is not JSON");
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching data:" );
     return null;
   }
 }
