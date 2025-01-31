@@ -1,4 +1,4 @@
-import { getApiShoppingWithIcon, getApiWithIcon, getCategory, getDataForHome, getPlacesWithGoogleData, imageOptimization } from "@/app/action";
+import { getApiShoppingWithIcon, getApiWithIcon, getCategory, getDataForHome, imageOptimization } from "@/app/action";
 import Event from "./Event";
 import InfoApp from "@/components/homepage/InfoApp";
 import SearchNFilter from "@/components/homepage/SearchNFilter";
@@ -45,52 +45,50 @@ export default async function HomeDashBoard() {
     localCusinedata = {
         name: localCusinedata?.listName,
         id: localCusinedata?._id,
-        listData: await getPlacesWithGoogleData(localCusinedata.GoogleHomeScreenList.slice(0, 10)),
+        listData: localCusinedata.GoogleHomeScreenList.slice(0, 10),
     };
-
-
     let bardata = await getDataForHome("Pubs", listData[0]?._id);
     bardata = {
         name: bardata?.listName,
         id: bardata?._id,
-        listData: await getPlacesWithGoogleData(bardata?.categoryList.slice(0, 10)),
+        listData: bardata?.categoryList.slice(0, 10),
     };
     let sustainabilitydata = await getCategory("google/sustainability");
     sustainabilitydata = {
         name: sustainabilitydata[0]?.listName,
         id: sustainabilitydata[0]?._id,
-        listData: await getPlacesWithGoogleData(sustainabilitydata[0].GoogleHomeScreenList?.slice(0, 10)),
+        listData: sustainabilitydata[0].GoogleHomeScreenList?.slice(0, 10),
     };
     let heritagedata = await getCategory("google/heritage");
     heritagedata = {
         name: heritagedata[0]?.listName,
         id: heritagedata[0]?._id,
-        listData: await getPlacesWithGoogleData(heritagedata[0]?.GoogleHomeScreenList?.slice(0, 10)),
+        listData: heritagedata[0]?.GoogleHomeScreenList?.slice(0, 10),
     };
     let cocktaildata = await getCategory("google/cocktail-bars");
     cocktaildata = {
         name: cocktaildata[0]?.listName,
         id: cocktaildata[0]?._id,
-        listData:await getPlacesWithGoogleData(cocktaildata[0]?.GoogleFoodAndDrinksList?.slice(0, 10)),
+        listData: cocktaildata[0]?.GoogleFoodAndDrinksList?.slice(0, 10),
     };
 
     let surfingdata = await getCategory("google/surfing");
     surfingdata = {
         name: surfingdata[0]?.listName,
         id: surfingdata[0]?._id,
-        listData: await getPlacesWithGoogleData(surfingdata[0]?.GoogleHomeScreenList?.slice(0, 10)),
+        listData: surfingdata[0]?.GoogleHomeScreenList?.slice(0, 10),
     };
     let beachLifedata = await getCategory("google/beach-life");
     beachLifedata = {
         name: beachLifedata[0]?.listName,
         id: beachLifedata[0]?._id,
-        listData:await getPlacesWithGoogleData(beachLifedata[0]?.GoogleHomeScreenList?.slice(0, 10)),
+        listData: beachLifedata[0]?.GoogleHomeScreenList?.slice(0, 10),
     };
     let topAttractionsdata = await getCategory("google/top-attraction");
     topAttractionsdata = {
         name: topAttractionsdata[0]?.listName,
         id: topAttractionsdata[0]?._id,
-        listData: await getPlacesWithGoogleData(topAttractionsdata[0]?.GoogleHomeScreenList?.slice(0, 10)),
+        listData: topAttractionsdata[0]?.GoogleHomeScreenList?.slice(0, 10),
     };
     const client = getClient();
     const post = await getAllPosts(client);
