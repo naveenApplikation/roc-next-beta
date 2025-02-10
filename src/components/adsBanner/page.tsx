@@ -7,10 +7,12 @@ import {
   BannerDemo,
   BannerDemo2,
   BannerDemo3,
+  BannerDemo4,
   RightArow,
 } from "@/app/utils/ImagePath";
 import DirectionModalLayout from "@/components/modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
+import { useRouter } from "next-nprogress-bar";
 
 const AdContainer = styled.div<{
   $className: string;
@@ -130,6 +132,13 @@ const adsData:any = [
   //   heading: "Sip, Savour, and Make Memories: Christmas Tasting & Craft Events",
   //   text: "",
   // },
+ {
+    type: "existing",
+    image: BannerDemo4, // Path to the new ad image
+    url: "https://www.roc.je/eventCategory/upcoming?modal=6798fda3b90c6b132af6eb26&date=20250218", // URL for the new ad
+    heading: "The influence of Japanese Woodcut on Western Art",
+    text: "Tuesday 18th February 2025",
+  },
 ];
 
 const AdsBanner: React.FC<AdsBannerProps> = ({
@@ -139,7 +148,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
   bottom
 }) => {
 
-  
+  const router=useRouter()
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
   
@@ -157,7 +166,23 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
        return <></>
     }
   const currentAd = adsData[currentAdIndex];
-
+  const executeUrl=()=>{
+      if(adsData[0].url.includes("roc.je"))
+      {
+          router.push(adsData[0].url)
+          return ;
+      }
+      else
+      {
+        setcurrentAdsDetail({
+          url: adsData[0].url,
+          heading: adsData[currentAdIndex].heading,
+          title: adsData[currentAdIndex].text,
+        });
+        console.log("yes")
+        modalClick("adsBanner", "adsBanner");
+      }
+  }
   return (
     <>
       
@@ -167,14 +192,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
           style={{...style}}
           $className={className}
           $maxWidth={maxWidth}
-          onClick={() => {
-            setcurrentAdsDetail({
-              url: adsData[currentAdIndex].url,
-              heading: adsData[currentAdIndex].heading,
-              title: adsData[currentAdIndex].text,
-            });
-            modalClick("adsBanner", "adsBanner");
-          }}
+          onClick={executeUrl}
         >
           <AdBody $maxWidth={maxWidth}>
             <Image

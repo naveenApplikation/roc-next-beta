@@ -9,6 +9,7 @@ import Carousel from "../xmas/XmasComponents/CarouselScreen";
 import { getCarouselData } from "../xmas/XmasAction";
 import MobileBackground from "./HomeComps/MobileBackground";
 import DesktopRightSideMenu from "./HomeComps/DesktopRightSideMenu";
+import AdsBanner from "@/components/adsBanner/page";
 export const maxDuration = 300;
 export default async function Layout({children}:{children:any})
 {
@@ -20,7 +21,7 @@ export default async function Layout({children}:{children:any})
     <ScrollLayout className="mt-[360px]">
          <HomeDashBoard></HomeDashBoard>
    </ScrollLayout>
-
+   <AdsBanner style={{zIndex:"2"}}></AdsBanner>
    {/* <RightSideMenu /> */}
  
            {children}

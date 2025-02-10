@@ -189,7 +189,7 @@ import MaskGroup from "../../../assets/images/MaskGroup.svg";
 import BannerImg1 from "../../../assets/images/demo.png";
 import BannerImg2 from "../../../assets/images/Ads/jwt-cafe-1.webp";
 import BannerImg3 from "../../../assets/images/Ads/xmas.png";
-
+import BannerImg4 from "../../../assets/images/Ads/asj.png"
 import RightArowImg from "../../../assets/images/rightArrow.png";
 import envelope from "../../../assets/images/modalImageSVG/envelope.svg";
 import globesimag from "../../../assets/images/modalImageSVG/globe.svg";
@@ -399,7 +399,7 @@ export const fallBack = fallback;
 export const BannerDemo = BannerImg1;
 export const BannerDemo2 = BannerImg2;
 export const BannerDemo3 = BannerImg3;
-
+export const BannerDemo4 = BannerImg4;
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
 // import hongueImg from "../../../assets/images/La Hougue Bie.svg"
