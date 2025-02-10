@@ -408,7 +408,7 @@ const EventPage: React.FC<EventBoxProps> = ({
               </div>
               <AdsBanner
                  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}}
-              className="75px" bottom="-23px" />
+              className="75px" bottom="-20px" />
               <ScrollList
                 params={"event-category-list"}
                 background={"#EB5757"}

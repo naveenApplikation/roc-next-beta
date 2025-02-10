@@ -48,6 +48,7 @@ const AdBody = styled.div<{
   $maxWidth: string;
 }>`
   width: 440px;
+  height:70px;
   display: flex;
   border-radius: 12px;
   background: white;
@@ -88,12 +89,14 @@ const AdText = styled.div`
   .banner_heading {
     font-size: 16px;
     font-weight: 700;
-    @media screen and (max-width: 367px) {
+    @media screen and (max-width: 400px) {
       font-size: 14px;
     }
     @media screen and (max-width: 333px) {
       font-size: 12px;
     }
+     
+     
   }
   .banner_text {
     font-size: 14px;
@@ -198,9 +201,11 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
             <Image
               src={currentAd.image}
               alt="Advertisement"
-              width={96}
-              height={66}
+              width={500}
+              height={300}
+              style={{width:"96px",height:"66px"}}
             />
+
             <AdContent>
               <AdText>
                 <p className="banner_heading">{currentAd.heading}</p>

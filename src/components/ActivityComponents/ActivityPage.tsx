@@ -329,7 +329,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                 )}
               </List>
             </div>
-            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} bottom="-23px"  className="75px" />
+            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} bottom="-20px"  className="75px" />
             <ScrollList
               data={filteredData}
               bottom={"30px"}
