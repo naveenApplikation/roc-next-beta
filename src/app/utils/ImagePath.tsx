@@ -197,7 +197,7 @@ import locationImgs from "../../../assets/images/modalImageSVG/location-dot.svg"
 import dateImgs from "../../../assets/images/modalImageSVG/calendar.svg";
 import timeImgs from "../../../assets/images/clocks.svg";
 import fallback from "../../../assets/images/fallbackimage.png";
-
+import photography from '../../../assets/images/Ads/asj-wbc.jpg'
 export const mailIcon = envelope;
 export const globeIcon = globesimag;
 export const locationIcon = locationImgs;
@@ -400,6 +400,7 @@ export const BannerDemo = BannerImg1;
 export const BannerDemo2 = BannerImg2;
 export const BannerDemo3 = BannerImg3;
 export const BannerDemo4 = BannerImg4;
+export const BannerImage5=photography;
 // import archirondelImg from "../../../assets/images/Archirondel.svg"
 // import goreyImg from "../../../assets/images/Gorey.svg"
 // import hongueImg from "../../../assets/images/La Hougue Bie.svg"

@@ -8,6 +8,7 @@ import {
   BannerDemo2,
   BannerDemo3,
   BannerDemo4,
+  BannerImage5,
   RightArow,
 } from "@/app/utils/ImagePath";
 import DirectionModalLayout from "@/components/modal/Modal";
@@ -141,6 +142,15 @@ const adsData:any = [
     url: "https://www.roc.je/eventCategory/upcoming?modal=6798fda3b90c6b132af6eb26&date=20250218", // URL for the new ad
     heading: "The influence of Japanese Woodcut on Western Art",
     text: "Tuesday 18th February 2025",
+    nav:"routes"
+  },
+  {
+    type: "existing",
+    image: BannerImage5, // Path to the new ad image
+    url: "https://hub.roc.je/app/featured/the-arts-society-jersey", // URL for the new ad
+    heading: "When Britain Clicked. Photography of the Swinging Sixties",
+    text: "The Arts Society Jersey – 18 March",
+    nav:"others"
   },
 ];
 
@@ -170,17 +180,17 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
     }
   const currentAd = adsData[currentAdIndex];
   const executeUrl=()=>{
-      if(adsData[0].url.includes("roc.je"))
+      if(currentAd.nav=="routes")
       {
-          router.push(adsData[0].url)
+          router.push(currentAd.url)
           return ;
       }
       else
       {
         setcurrentAdsDetail({
-          url: adsData[0].url,
-          heading: adsData[currentAdIndex].heading,
-          title: adsData[currentAdIndex].text,
+          url: currentAd.url,
+          heading: currentAd.heading,
+          title: currentAd.text,
         });
         console.log("yes")
         modalClick("adsBanner", "adsBanner");
@@ -208,7 +218,7 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
 
             <AdContent>
               <AdText>
-                <p className="banner_heading">{currentAd.heading}</p>
+                <p className="banner_heading overflow-hidden text-ellipsis line-clamp-1">{currentAd.heading}</p>
                 <p className="banner_text">{currentAd.text}</p>
               </AdText>
               <Image src={RightArow} alt="icon" height={20} />

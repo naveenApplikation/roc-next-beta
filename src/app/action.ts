@@ -304,20 +304,17 @@ export async function getAdsByCategory()
         }
       }
    })
-  
+
   await Promise.all(filterUnique.map(async(item)=>{
     try {
       const imageUrl = item.image
           
       
-        const response = await axios({
-          url: imageUrl,
-          method: "GET",
-          responseType: "arraybuffer",
-        });
+        const response = await fetch(imageUrl,{cache:"force-cache"});
+
    
         if (response.status === 200) {
-          const originalImage = Buffer.from(response.data);
+          const originalImage = Buffer.from(await response.arrayBuffer());
           
           const optimizedImage = await sharp(originalImage)
             .resize({ width: 500 }) // Resize to max width of 500px
@@ -348,7 +345,7 @@ export async function getAdsByCategory()
           }
            
    })
-
+   
    return events
     
 }
