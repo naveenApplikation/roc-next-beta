@@ -136,14 +136,14 @@ const adsData:any = [
   //   heading: "Sip, Savour, and Make Memories: Christmas Tasting & Craft Events",
   //   text: "",
   // },
- {
-    type: "existing",
-    image: BannerDemo4, // Path to the new ad image
-    url: "https://www.roc.je/eventCategory/upcoming?modal=6798fda3b90c6b132af6eb26&date=20250218", // URL for the new ad
-    heading: "The influence of Japanese Woodcut on Western Art",
-    text: "Tuesday 18th February 2025",
-    nav:"routes"
-  },
+//  {
+//     type: "existing",
+//     image: BannerDemo4, // Path to the new ad image
+//     url: "https://www.roc.je/eventCategory/upcoming?modal=6798fda3b90c6b132af6eb26&date=20250218", // URL for the new ad
+//     heading: "The influence of Japanese Woodcut on Western Art",
+//     text: "Tuesday 18th February 2025",
+//     nav:"routes"
+//   },
   {
     type: "existing",
     image: BannerImage5, // Path to the new ad image
