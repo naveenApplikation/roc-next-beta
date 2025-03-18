@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import {
@@ -11,10 +11,11 @@ import {
 } from "@/app/utils/ImagePath";
 import DirectionModalLayout from "@/components/modal/Modal";
 import { useMyContext } from "@/app/Context/MyContext";
-
+import { useRouter } from "next/navigation";
 const AdContainer = styled.div<{
   $className: string;
   $maxWidth: string;
+  $bottom?:string
 }>`
   width: 480px;
   position: sticky;
@@ -33,7 +34,8 @@ const AdContainer = styled.div<{
   @media screen and (max-width: 800px) {
     position: fixed;
     width: 100%;
-    // max-width: ${({ $maxWidth }) => $maxWidth};
+    bottom:${({$bottom})=>$bottom};
+    max-width: ${({ $maxWidth }) => $maxWidth};
   }
   @media screen and (min-width: 390px) {
     position: fixed;
@@ -44,6 +46,7 @@ const AdBody = styled.div<{
   $maxWidth: string;
 }>`
   width: 440px;
+  height:70px;
   display: flex;
   border-radius: 12px;
   background: white;
@@ -54,7 +57,7 @@ const AdBody = styled.div<{
   }
   @media screen and (max-width: 800px) {
     width: 97%;
-    // max-width: ${({ $maxWidth }) => $maxWidth};
+    max-width: ${({ $maxWidth }) => $maxWidth};
   }
 `;
 
@@ -84,12 +87,14 @@ const AdText = styled.div`
   .banner_heading {
     font-size: 16px;
     font-weight: 700;
-    @media screen and (max-width: 367px) {
+    @media screen and (max-width: 400px) {
       font-size: 14px;
     }
     @media screen and (max-width: 333px) {
       font-size: 12px;
     }
+     
+     
   }
   .banner_text {
     font-size: 14px;
@@ -104,10 +109,13 @@ const AdText = styled.div`
   }
 `;
 
+
 interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
   adsData?: any;
+  style?:CSSProperties,
+  bottom?:string
 }
 
 // Ad Data
@@ -140,6 +148,9 @@ const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
   adsData,
+  style,
+  bottom
+
 }) => {
   const { modalClick, setcurrentAdsDetail } = useMyContext();
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
@@ -153,21 +164,37 @@ const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
   }, []);
 
   const currentAd = adsData[currentAdIndex];
-
+  const router=useRouter()
+  const executeUrl=()=>{
+    if(currentAd.type=="event" || currentAd.type=="place" || currentAd.type=="activity")
+    {
+        router.push(currentAd.link)
+        return ;
+    }
+    else if(currentAd.type=="external")
+    {
+      window.open(currentAd.link, '_blank');
+    }
+    else
+    {
+      setcurrentAdsDetail({
+        url: currentAd.link,
+        heading: currentAd.title,
+        title: currentAd.subtitle,
+      });
+      console.log("yes")
+      modalClick("adsBanner", "adsBanner");
+    }
+}
   return (
     <>
       {adsData && adsData.length > 0 && (
         <AdContainer
+        $bottom={bottom}
           $className={className}
+          style={{...style}}
           $maxWidth={maxWidth}
-          onClick={() => {
-            setcurrentAdsDetail({
-              url: adsData[currentAdIndex].link,
-              heading: adsData[currentAdIndex].title,
-              title: adsData[currentAdIndex].subtitle,
-            });
-            modalClick("adsBanner", "adsBanner");
-          }}
+          onClick={executeUrl}
         >
           <AdBody $maxWidth={maxWidth}>
             <Image
@@ -178,7 +205,7 @@ const ScreenAdsBanner: React.FC<AdsBannerProps> = ({
             />
             <AdContent>
               <AdText>
-                <p className="banner_heading">{currentAd.title}</p>
+                <p className="banner_heading overflow-hidden text-ellipsis line-clamp-1">{currentAd.title}</p>
                 <p className="banner_text">{currentAd.subtitle}</p>
               </AdText>
               <Image src={RightArow} alt="icon" height={20} />

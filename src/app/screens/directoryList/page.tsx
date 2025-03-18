@@ -95,7 +95,7 @@ const Directorylist = () => {
   };
 
   return (
-    <PageLayout>
+   <>
       <CategoryBody>
         <HeaderScreen />
         <Container>
@@ -166,9 +166,9 @@ const Directorylist = () => {
       <DirectoryModalScreen showMap={showMap} />
       <ViewDirectionModalScreen showMap={showMap} />
       <ReservationCalenderModal showMap={showMap} />
-      <AdsBanner />
+     
       <BannerModal />
-    </PageLayout>
+      </>
   );
 };
 

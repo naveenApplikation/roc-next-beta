@@ -5,15 +5,16 @@ import BannerModal from "../bannerModal/page";
 interface TrendingListProps {
   urlData?: any;
   urlTitle?: string;
+  adsData?:any[]
 }
 
-const TrendingList = async ({ urlTitle, urlData }: TrendingListProps) => {
+const TrendingList = async ({ urlTitle, urlData,adsData }: TrendingListProps) => {
 
   const listData = await getCategory(urlData);
   return (
     <div>
       <ListItem data={listData} urlTitle={urlTitle}></ListItem>
-      <AdsBanner/>
+      <AdsBanner adsData={adsData}/>
       <BannerModal/>
     </div>
   );

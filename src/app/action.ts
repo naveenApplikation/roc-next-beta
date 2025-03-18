@@ -242,18 +242,20 @@ export async function getBookMark(params: string) {
 }
 
 
-export async function getAdsOnScreens()
+export async function getAds()
 {
     try
     {
       const response=await fetch("https://v1.nocodeapi.com/cfroc/google_sheets/GGLEMFRVjirqychR?tabId=ads",{
-        next:{revalidate:14400 }
+        next:{revalidate:14400,tags:["ads"]}
      })
-      return await response.json()
+      const data=await response.json()
+      
+      return {data:data.data.filter((item)=>item.enabled=="TRUE")}
     }
     catch(error)
     {
-       return []
+       return {data:[]}
     } 
 }
 
@@ -262,7 +264,7 @@ export async function getAdsByCategory()
   try
   {
     const response=await fetch("https://v1.nocodeapi.com/cfroc/google_sheets/GGLEMFRVjirqychR?tabId=ad_categories",{
-      next:{revalidate:14400 }
+      next:{revalidate:14400,tags:["ads"] }
    })
     return await response.json()
   }

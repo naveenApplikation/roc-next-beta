@@ -60,10 +60,12 @@ const Lists: React.FC<listSearchProps> = ({
 
   const menuClick = (item: any, condition?: boolean, id?: any) => {
     if (condition) {
+
       router.push(`/categories/${item}?search=${id}`);
     } else {
       router.push(`/screens/${item}?categoryID=${id}`);
     }
+    closeModal("search");
   };
 
   const skeletonItems = new Array(10).fill(null);

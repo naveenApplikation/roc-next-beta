@@ -28,7 +28,7 @@ import { bookmark } from "@/app/utils/ImagePath";
 import HeaderScreen from "./header/HeaderScreen";
 import BannerModal from "./bannerModal/page";
 import Categories from "@/components/CategoriesPage/Categories";
-import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
+import ScreenAdsBanner from "@/app/screens/components/ScreenAds";
  
 interface ScreenPageProps {
   data: any;

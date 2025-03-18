@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getCategory, imageOptimization } from "@/app/action";
+import { getAds, getAdsByCategory, getCategory, imageOptimization } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { getXmasEvents } from "@/app/xmas/XmasAction";
 import AdsBanner from "@/components/adsBanner/page";
@@ -7,8 +7,10 @@ import BannerModal from "@/components/bannerModal/page";
 import EventPage from "@/components/EventComponets/EventPage";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import Modal from "@/components/modal/Modal";
+ 
 import React from "react";
 export const maxDuration = 300;
+
 // Generate static paths for dynamic routes
 export async function generateStaticParams() {
   const category = await getCategory("event-list");
@@ -58,6 +60,35 @@ export default async function Page({ params }: { params: { event: string } }) {
   if (!data) {
     return <p>No events found or failed to load event data.</p>;
   }
+   
+      const adsData=await getAds()
+      const adsDataByCategory=await getAdsByCategory() as {data:any}
+    
+      const filterCategoryHaveAds=adsDataByCategory?.data?.find((item)=>{
+          return item?.Title==params.event.replace("%20","")
+      })
+   
+      const getFilteredAds=()=>{
+          if(!filterCategoryHaveAds)
+          {
+             return [...adsData.data]
+          }
+          else
+          {
+            const arrangingAds:any[]=[]
+            filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId)=>{
+                adsData.data.forEach((item)=>{
+                      if(rowId==item.ad_id)
+                      {
+                         arrangingAds.push(item)
+                      }
+                })
+           })
+               return arrangingAds
+          }
+      }
+     const arrangingAds=getFilteredAds()
+  
 
   // Render the event page component with the fetched data
   return (
@@ -68,6 +99,7 @@ export default async function Page({ params }: { params: { event: string } }) {
         urlTitle={title}
         type="eventCategory"
         slug={params.event}
+        adsData={arrangingAds}
       />
       {/* <AdsBanner className="75px" /> */}
       {/* <BannerModal /> */}

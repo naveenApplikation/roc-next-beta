@@ -1,5 +1,4 @@
 "use client";
-
 import React, { CSSProperties, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -90,6 +89,10 @@ const AdText = styled.div`
   .banner_heading {
     font-size: 16px;
     font-weight: 700;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
     @media screen and (max-width: 400px) {
       font-size: 14px;
     }
@@ -116,7 +119,8 @@ interface AdsBannerProps {
   className?: string;
   maxWidth?: string;
   style?:CSSProperties,
-  bottom?:string
+  bottom?:string,
+  adsData?:any[]
 }
 
 // Ad Data
@@ -158,7 +162,8 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
   className = "20px",
   maxWidth = "480px",
   style,
-  bottom
+  bottom,
+  adsData=[]
 }) => {
 
   const router=useRouter()
@@ -179,63 +184,68 @@ const AdsBanner: React.FC<AdsBannerProps> = ({
        return <></>
     }
   const currentAd = adsData[currentAdIndex];
+
   const executeUrl=()=>{
-      if(currentAd.nav=="routes")
+    if(currentAd.type=="event" || currentAd.type=="place" || currentAd.type=="activity")
       {
-          router.push(currentAd.url)
+          router.push(currentAd.link)
           return ;
+      }
+      else if(currentAd.type=="external")
+      {
+        window.open(currentAd.link, '_blank');
       }
       else
       {
         setcurrentAdsDetail({
-          url: currentAd.url,
-          heading: currentAd.heading,
-          title: currentAd.text,
+          url: currentAd.link,
+          heading: currentAd.title,
+          title: currentAd.subtitle,
         });
-        console.log("yes")
+       
         modalClick("adsBanner", "adsBanner");
       }
   }
   return (
     <>
       
-      {currentAd.type === "existing" ? (
-        <AdContainer
-        $bottom={bottom}
-          style={{...style}}
-          $className={className}
-          $maxWidth={maxWidth}
-          onClick={executeUrl}
-        >
-          <AdBody $maxWidth={maxWidth}>
-            <Image
-              src={currentAd.image}
-              alt="Advertisement"
-              width={500}
-              height={300}
-              style={{width:"96px",height:"66px"}}
-            />
-
-            <AdContent>
-              <AdText>
-                <p className="banner_heading overflow-hidden text-ellipsis line-clamp-1">{currentAd.heading}</p>
-                <p className="banner_text">{currentAd.text}</p>
-              </AdText>
-              <Image src={RightArow} alt="icon" height={20} />
-            </AdContent>
-          </AdBody>
-        </AdContainer>
-      ) : (
-        <AdContainer
-          $className={className} // Set default className
-          $maxWidth={maxWidth} // Set default maxWidth
-          onClick={() => window.open(currentAd.url, "_blank")}
-        >
-          <FullAdBody $maxWidth={maxWidth}>
-            <Image src={currentAd.image} alt="Full Ad" height={70} />
-          </FullAdBody>
-        </AdContainer>
-      )}
+    {adsData && adsData.length > 0 && (
+          <AdContainer
+          $bottom={bottom}
+            $className={className}
+            style={{...style}}
+            $maxWidth={maxWidth}
+            onClick={executeUrl}
+          >
+            <AdBody $maxWidth={maxWidth}>
+              <Image
+                src={currentAd.image}
+                alt="Advertisement"
+                width={500}
+                height={300}
+                style={{width:"96px",height:"66px"}}
+              />
+              <AdContent>
+                <AdText>
+                  <p className="banner_heading">{currentAd.title}</p>
+                  <p className="banner_text">{currentAd.subtitle}</p>
+                </AdText>
+                <Image src={RightArow} alt="icon" height={20} />
+              </AdContent>
+            </AdBody>
+          </AdContainer>
+        )}
+        {/* ) : (
+          <AdContainer
+            $className={className} // Set default className
+            $maxWidth={maxWidth} // Set default maxWidth
+            onClick={() => window.open(currentAd.url, "_blank")}
+          >
+            <FullAdBody $maxWidth={maxWidth}>
+              <Image src={currentAd.image} alt="Full Ad" height={70} />
+            </FullAdBody>
+          </AdContainer>
+        )} */}
     </>
   );
 };

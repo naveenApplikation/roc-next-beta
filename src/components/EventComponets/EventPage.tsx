@@ -48,11 +48,13 @@ import Instance from "@/app/utils/Instance";
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import HeaderScreen from "../header/HeaderScreen";
+import ScreenAdsBanner from "@/app/screens/components/ScreenAds";
 interface EventBoxProps {
   urlData?: any;
   urlTitle?: string;
   type: "upcoming" | "eventByDate" | "eventCategory";
   slug: string;
+  adsData?:any[]
 }
 
 const EventPage: React.FC<EventBoxProps> = ({
@@ -60,6 +62,7 @@ const EventPage: React.FC<EventBoxProps> = ({
   urlData,
   type,
   slug,
+  adsData
 }) => {
   const {
     modalClick,
@@ -407,9 +410,9 @@ const EventPage: React.FC<EventBoxProps> = ({
                 )}
               </div>
               <AdsBanner
-                 style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}}
+                adsData={adsData} style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}}
               className="75px" bottom="-20px" />
-              <ScrollList
+                <ScrollList
                 params={"event-category-list"}
                 background={"#EB5757"}
                 bottom="30px"

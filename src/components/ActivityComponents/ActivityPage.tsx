@@ -46,6 +46,7 @@ interface ActivityBoxProps {
   modal?: any;
   type: "activityCategory";
   slug: string;
+  adsData?:any[]
 }
 
 const ActivityPage: React.FC<ActivityBoxProps> = ({
@@ -58,6 +59,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
   modal,
   type,
   slug,
+  adsData
 }) => {
   const {
     modalClick,
@@ -329,7 +331,7 @@ const ActivityPage: React.FC<ActivityBoxProps> = ({
                 )}
               </List>
             </div>
-            <AdsBanner  style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} bottom="-20px"  className="75px" />
+            <AdsBanner  adsData={adsData} style={{left:`${isForwarding?'-500px':'0px'}`,transitionDuration:"700ms",transitionTimingFunction:"linear"}} bottom="-20px"  className="75px" />
             <ScrollList
               data={filteredData}
               bottom={"30px"}

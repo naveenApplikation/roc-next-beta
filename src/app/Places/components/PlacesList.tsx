@@ -25,7 +25,7 @@ import { debounce } from "@/app/utils/debounce";
 import Categories from "@/components/CategoriesPage/Categories";
 import HeaderScreen from "@/components/header/HeaderScreen";
 import AdsBanner from "@/components/adsBanner/page";
-import ScreenAdsBanner from "@/app/screens/componets/ScreenAds";
+import ScreenAdsBanner from "@/app/screens/components/ScreenAds";
 
 interface ScreenPageProps {
   data: any;
@@ -272,7 +272,7 @@ const PlaceList: React.FC<ScreenPageProps> = (props) => {
           totalVote={totalVote}
         />
          {/* <ScreenAdsBanner adsData={props.adsData}></ScreenAdsBanner> */}
-         <AdsBanner></AdsBanner>
+         <AdsBanner adsData={props.adsData}></AdsBanner>
         </>
       );
     } else if (screenName === "Greetings") {
