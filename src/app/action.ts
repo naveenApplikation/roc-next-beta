@@ -308,7 +308,7 @@ export async function getfilteredAdsByCategory(type:string)
       }
      
      const ads=getFilteredAds()
-     console.log(ads)
+    //  console.log(ads)
      return ads
      }
      catch(error)
