@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getAds, getAdsByCategory, getCategory } from "@/app/action";
+import { getAds, getAdsByCategory, getCategory ,getfilteredAdsByCategory} from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import ActivityPage from "@/components/ActivityComponents/ActivityPage";
 import AdsBanner from "@/components/adsBanner/page";
@@ -63,35 +63,8 @@ export default async function Page({
     return <p>No Activity found or failed to load event data.</p>;
   }
   
-        const adsData=await getAds()
-        const adsDataByCategory=await getAdsByCategory() as {data:any}
-      
-        const filterCategoryHaveAds=adsDataByCategory?.data?.find((item)=>{
-            return item?.Title==params.activity.replace("%20","")
-        })
-     
-        const getFilteredAds=()=>{
-            if(!filterCategoryHaveAds)
-            {
-               return [...adsData.data]
-            }
-            else
-            {
-              const arrangingAds:any[]=[]
-              filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId)=>{
-                  adsData.data.forEach((item)=>{
-                        if(rowId==item.ad_id)
-                        {
-                           arrangingAds.push(item)
-                        }
-                  })
-             })
-                 return arrangingAds
-            }
-        }
-       const arrangingAds=getFilteredAds()
-      
-
+ const arrangingAds:any=await getfilteredAdsByCategory("activityCategory")
+ 
   // Render the event page component with the fetched data
   return (
     <>

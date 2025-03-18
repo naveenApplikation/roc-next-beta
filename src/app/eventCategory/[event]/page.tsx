@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { getAds, getAdsByCategory, getCategory, imageOptimization } from "@/app/action";
+import { getAds, getAdsByCategory, getCategory, imageOptimization ,getfilteredAdsByCategory} from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { getXmasEvents } from "@/app/xmas/XmasAction";
 import AdsBanner from "@/components/adsBanner/page";
@@ -61,35 +61,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     return <p>No events found or failed to load event data.</p>;
   }
    
-      const adsData=await getAds()
-      const adsDataByCategory=await getAdsByCategory() as {data:any}
-    
-      const filterCategoryHaveAds=adsDataByCategory?.data?.find((item)=>{
-          return item?.Title==params.event.replace("%20","")
-      })
-   
-      const getFilteredAds=()=>{
-          if(!filterCategoryHaveAds)
-          {
-             return [...adsData.data]
-          }
-          else
-          {
-            const arrangingAds:any[]=[]
-            filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId)=>{
-                adsData.data.forEach((item)=>{
-                      if(rowId==item.ad_id)
-                      {
-                         arrangingAds.push(item)
-                      }
-                })
-           })
-               return arrangingAds
-          }
-      }
-     const arrangingAds=getFilteredAds()
-  
-
+   const arrangingAds =await getfilteredAdsByCategory("eventCategory")
   // Render the event page component with the fetched data
   return (
     <>

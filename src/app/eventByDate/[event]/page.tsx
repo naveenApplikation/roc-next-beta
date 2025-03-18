@@ -1,4 +1,4 @@
-import { getAds, getAdsByCategory, getCategory, imageOptimization } from "@/app/action";
+import { getAds, getAdsByCategory, getCategory, getfilteredAdsByCategory, imageOptimization } from "@/app/action";
 import { handleEventEncoding } from "@/app/utils/commanFun";
 import { eventsByDate } from "@/app/utils/homeIcon";
 import EventPage from "@/components/EventComponets/EventPage";
@@ -40,34 +40,7 @@ export default async function Page({ params }: { params: { event: string } }) {
     return <p>Event not found or failed to load event data.</p>;
   }
 
-    const adsData=await getAds()
-        const adsDataByCategory=await getAdsByCategory() as {data:any}
-      
-        const filterCategoryHaveAds=adsDataByCategory?.data?.find((item)=>{
-            return item?.Title==params.event.replace("%20","")
-        })
-        const getFilteredAds=()=>{
-            if(!filterCategoryHaveAds)
-            {
-               return [...adsData.data]
-            }
-            else
-            {
-              const arrangingAds:any[]=[]
-              filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId)=>{
-                  adsData.data.forEach((item)=>{
-                        if(rowId==item.ad_id)
-                        {
-                           arrangingAds.push(item)
-                        }
-                  })
-             })
-                 return arrangingAds
-            }
-        }
-       const arrangingAds=getFilteredAds()
-    
-
+    const arrangingAds:any =await getfilteredAdsByCategory("eventCategory")
   return (
     <div>
       

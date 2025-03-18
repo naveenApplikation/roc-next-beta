@@ -1,4 +1,4 @@
-import { getData, getBookMark, getAds, getAdsByCategory } from "@/app/action";
+import { getData, getBookMark, getAds, getAdsByCategory, getfilteredAdsByCategory } from "@/app/action";
 import EventList from "@/components/screenPage";
 import { cookies } from "next/headers";
 import "@/app/globals.css";
@@ -30,33 +30,8 @@ export default async function Page({ params }: Props) {
   }
 
 
-  const adsData = await getAds()
-
-  const adsDataByCategory = await getAdsByCategory() as { data: any }
-
-  const filterCategoryHaveAds = adsDataByCategory?.data?.find((item) => {
-    return item['Category ID'] == params.categoryId
-  })
- 
-  const getFilteredAds = () => {
-    if (!filterCategoryHaveAds) {
-      return [...adsData.data]
-    }
-    else {
-      const arrangingAds: any[] = []
-      filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId) => {
-        adsData.data.forEach((item) => {
-          if (rowId == item.ad_id) {
-            arrangingAds.push(item)
-          }
-        })
-      })
-      return arrangingAds
-    }
-  }
-  const arrangingAds = getFilteredAds()
- 
-
+  const arrangingAds =await getfilteredAdsByCategory("placeCategory")
+  
   return (
     <>
       <PlaceList data={data} adsData={arrangingAds} bookmarkValue={bookmark}></PlaceList>

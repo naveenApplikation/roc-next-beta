@@ -273,6 +273,50 @@ export async function getAdsByCategory()
      return []
   } 
 }
+
+export async function getfilteredAdsByCategory(type:string)
+{
+  try{
+  const adsData=await getAds();
+  const adsDataByCategory=await getAdsByCategory() as {data:any}
+    
+      const filterCategoryHaveAds=adsDataByCategory?.data?.find((item)=>{
+          return item?.Type==type
+      })
+      
+      const getFilteredAds=()=>{
+         if (!filterCategoryHaveAds) {
+             const adIdsToRemove = new Set(
+               adsDataByCategory.data.flatMap((element) => element.ad_ids.split(","))
+             );
+         
+             return adsData.data.filter((item) => !adIdsToRemove.has(item.ad_id));
+           }
+          else
+          {
+            const arrangingAds:any[]=[]
+            filterCategoryHaveAds?.ad_ids.split(',').forEach((rowId)=>{
+                adsData.data.forEach((item)=>{
+                      if(rowId==item.ad_id)
+                      {
+                         arrangingAds.push(item)
+                      }
+                })
+           })
+               return arrangingAds
+          }
+      }
+     
+     const ads=getFilteredAds()
+     console.log(ads)
+     return ads
+     }
+     catch(error)
+     {
+       return []
+     }
+     
+}
  export async function revalidatePlaces(categoryName:string)
  {
       revalidateTag(categoryName)
