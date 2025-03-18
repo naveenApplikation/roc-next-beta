@@ -167,7 +167,7 @@ const Directorylist = () => {
       <ViewDirectionModalScreen showMap={showMap} />
       <ReservationCalenderModal showMap={showMap} />
      
-      <BannerModal />
+    
       </>
   );
 };

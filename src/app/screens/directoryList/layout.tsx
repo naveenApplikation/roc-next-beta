@@ -1,6 +1,7 @@
 import { getAds, getAdsByCategory, getfilteredAdsByCategory } from "@/app/action";
 import PageLayout from "@/app/pageLayout";
 import AdsBanner from "@/components/adsBanner/page";
+import BannerModal from "@/components/bannerModal/page";
 
 export default async function Layout({children}:{children:any})
 {
@@ -12,7 +13,7 @@ export default async function Layout({children}:{children:any})
        {children}
        <AdsBanner adsData={arrangingAds} ></AdsBanner>
      </PageLayout>
-     
+     <BannerModal />
      
     </>
 
