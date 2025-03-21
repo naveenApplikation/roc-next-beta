@@ -92,7 +92,8 @@ const AdText = styled.div`
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
+    line-height: 120%;
     @media screen and (max-width: 400px) {
       font-size: 14px;
     }
